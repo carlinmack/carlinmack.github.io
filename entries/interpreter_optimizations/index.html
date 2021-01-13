@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Inline Caching and Unboxing Optimization for Interpreters - Archive of Formal Proofs</title><meta name="viewport" content="width=device-width, initial-scale=1"><meta property="og:title" content="Inline Caching and Unboxing Optimization for Interpreters" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/entries/interpreter_optimizations/" />
+<meta property="article:published_time" content="2020-12-07T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-12-07T00:00:00+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Inline Caching and Unboxing Optimization for Interpreters"/>
+<meta name="twitter:description" content=""/>
+<link rel="stylesheet" type="text/css" media="screen" href="/css/front.css" />
+  <link rel="icon" href="/images/favicon.ico" type="image/icon">
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        processEscapes: true,
+        svg: {
+          fontCache: 'global'
+        }
+      };
+    </script>
+    
+    <script id="MathJax-script" async src="/js/mathjax/es5/tex-mml-chtml.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/script.js"></script>
+  
+  <script src="/js/flexsearch.min.js"></script><script src="/js/header-search.js"></script></head>
+
+<body class="mathjax_ignore">
+  <aside><div>
+  <div>
+<a href="/">
+  <img src="/images/afp.png" width="100" height="88" alt='Logo of the Archive of Formal Proofs' class="logo">
+</a><ul><li><a href="/">Home</a></li><li><a href="/topics/">Topics</a></li><li><a href="/download/">Download</a></li><li><a href="/help/">Help</a></li><li><a href="/statistics/">Statistics</a></li><li><a href="/about/">About</a></li></ul></div>
+<ul><li><a href="/contribution/">Contribution</a></li></ul>
+  </div></aside>
+
+  <div class='content entries'><header>
+  
+  <h1><span class='first'>I</span>nline <span class='first'>C</span>aching and <span class='first'>U</span>nboxing <span class='first'>O</span>ptimization for <span class='first'>I</span>nterpreters
+  </h1><form action="/%20search">
+    <div class='form-container'>
+      <input style="display: none" id="searchInput" type="search" size="31" maxlength="255" value=""><button id="searchButton"
+        type="button"><img src="/images/search.svg"/></button>
+      <div id="searchInputautocomplete-list" style="display: none">
+        <div></div>
+      </div>
+    </div>
+  </form>
+  <p><a href="/authors/martin-desharnais">Martin Desharnais</a>
+  </p>
+  
+  
+  <p class="date">7 December 2020</p>
+  
+</header><div><main>
+  <h3>Abstract</h3>
+
+  <p class="abstract mathjax_process">This Isabelle/HOL formalization builds on the
+<em>VeriComp</em> entry of the <em>Archive of Formal
+Proofs</em> to provide the following contributions:  <ul>
+<li>an operational semantics for a realistic virtual machine
+(Std) for dynamically typed programming languages;</li>
+<li>the formalization of an inline caching optimization (Inca),
+a proof of bisimulation with (Std), and a compilation
+function;</li> <li>the formalization of an unboxing
+optimization (Ubx), a proof of bisimulation with (Inca), and a simple
+compilation function.</li> </ul>  This formalization was
+described in the CPP 2021 paper <em>Towards Efficient and
+Verified Virtual Machines for Dynamic Languages</em></p><a href="http://isa-afp.org/LICENSE">BSD License</a><tr><h3>Depends On</h3>
+    <p><a href="/entries/vericomp">VeriComp</a></p>
+  </tr><h3>Theories</h3>
+  <ul><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Interpreter_Optimizations/Dynamic.html">Dynamic</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Interpreter_Optimizations/Env.html">Env</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Interpreter_Optimizations/Env_list.html">Env_list</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Interpreter_Optimizations/Global.html">Global</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Interpreter_Optimizations/Inca.html">Inca</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Interpreter_Optimizations/Inca_to_Ubx_compiler.html">Inca_to_Ubx_compiler</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Interpreter_Optimizations/Inca_to_Ubx_simulation.html">Inca_to_Ubx_simulation</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Interpreter_Optimizations/List_util.html">List_util</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Interpreter_Optimizations/Op.html">Op</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Interpreter_Optimizations/OpInl.html">OpInl</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Interpreter_Optimizations/Option_applicative.html">Option_applicative</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Interpreter_Optimizations/OpUbx.html">OpUbx</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Interpreter_Optimizations/Op_example.html">Op_example</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Interpreter_Optimizations/Result.html">Result</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Interpreter_Optimizations/Std.html">Std</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Interpreter_Optimizations/Std_to_Inca_compiler.html">Std_to_Inca_compiler</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Interpreter_Optimizations/Std_to_Inca_simulation.html">Std_to_Inca_simulation</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Interpreter_Optimizations/Ubx.html">Ubx</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Interpreter_Optimizations/Ubx_type_inference.html">Ubx_type_inference</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Interpreter_Optimizations/Unboxed.html">Unboxed</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Interpreter_Optimizations/Unboxed_lemmas.html">Unboxed_lemmas</a></li></ul></main>
+
+<nav class='links'>
+  <a class='popUpButton' href="#citePopUp">Cite</a>
+  <a class='popUpButton' href="#downloadPopUp">Download</a>
+  <a href="https://www.isa-afp.org/browser_info/current/AFP/Interpreter_Optimizations/outline.pdf">Proof
+    outline</a>
+  <a href="https://www.isa-afp.org/browser_info/current/AFP/Interpreter_Optimizations/document.pdf">Proof
+    document</a>
+  <a href="https://www.isa-afp.org/browser_info/current/AFP/Interpreter_Optimizations/index.html">Browse
+    theories</a>
+</nav>
+
+<div id="citePopUp" class="overlay">
+  <a class="cancel" href="#"></a>
+  <div class="popup">
+    <h2>Cite</h2>
+    <a class="close" href="#">&times;</a>
+    <div>
+      <pre>@article{Interpreter_Optimizations-AFP,
+        author  = {Martin Desharnais},
+        title   = {Inline Caching and Unboxing Optimization for Interpreters},
+        journal = {Archive of Formal Proofs},
+        month   = December,
+        year    = 2020,
+        note    = {\url{http://isa-afp.org/entries/Interpreter_Optimizations.html},
+                  Formal proof development},
+        ISSN    = {2150-914x},
+      }</pre>
+      <button>Copy</button> <button>Download</button>
+    </div>
+  </div>
+</div>
+
+<div id="downloadPopUp" class="overlay">
+  <a class="cancel" href="#"></a>
+  <div class="popup">
+    <h2>Download</h2>
+    <a class="close" href="#">&times;</a>
+    <a href="../release/afp-Interpreter_Optimizations-current.tar.gz" download>Download latest</a>
+    
+  </div>
+</div>
+    </div>
+  </div>
+</body>
+
+</html>

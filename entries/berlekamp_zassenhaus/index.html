@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"><title>The Factorization Algorithm of Berlekamp and Zassenhaus - Archive of Formal Proofs</title><meta name="viewport" content="width=device-width, initial-scale=1"><meta property="og:title" content="The Factorization Algorithm of Berlekamp and Zassenhaus" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/entries/berlekamp_zassenhaus/" />
+<meta property="article:published_time" content="2016-10-14T00:00:00+00:00" />
+<meta property="article:modified_time" content="2016-10-14T00:00:00+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="The Factorization Algorithm of Berlekamp and Zassenhaus"/>
+<meta name="twitter:description" content=""/>
+<link rel="stylesheet" type="text/css" media="screen" href="/css/front.css" />
+  <link rel="icon" href="/images/favicon.ico" type="image/icon">
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        processEscapes: true,
+        svg: {
+          fontCache: 'global'
+        }
+      };
+    </script>
+    
+    <script id="MathJax-script" async src="/js/mathjax/es5/tex-mml-chtml.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/script.js"></script>
+  
+  <script src="/js/flexsearch.min.js"></script><script src="/js/header-search.js"></script></head>
+
+<body class="mathjax_ignore">
+  <aside><div>
+  <div>
+<a href="/">
+  <img src="/images/afp.png" width="100" height="88" alt='Logo of the Archive of Formal Proofs' class="logo">
+</a><ul><li><a href="/">Home</a></li><li><a href="/topics/">Topics</a></li><li><a href="/download/">Download</a></li><li><a href="/help/">Help</a></li><li><a href="/statistics/">Statistics</a></li><li><a href="/about/">About</a></li></ul></div>
+<ul><li><a href="/contribution/">Contribution</a></li></ul>
+  </div></aside>
+
+  <div class='content entries'><header>
+  
+  <h1><span class='first'>T</span>he <span class='first'>F</span>actorization <span class='first'>A</span>lgorithm of <span class='first'>B</span>erlekamp and <span class='first'>Z</span>assenhaus
+  </h1><form action="/%20search">
+    <div class='form-container'>
+      <input style="display: none" id="searchInput" type="search" size="31" maxlength="255" value=""><button id="searchButton"
+        type="button"><img src="/images/search.svg"/></button>
+      <div id="searchInputautocomplete-list" style="display: none">
+        <div></div>
+      </div>
+    </div>
+  </form>
+  <p><a href="/authors/jose-divas%C3%B3n">Jose Divasón</a>, <a href="/authors/sebastiaan-joosten">Sebastiaan Joosten</a>, <a href="/authors/ren%C3%A9-thiemann">René Thiemann</a> and <a href="/authors/akihisa-yamada">Akihisa Yamada</a>
+  </p>
+  
+  
+  <p class="date">14 October 2016</p>
+  
+</header><div><main>
+  <h3>Abstract</h3>
+
+  <p class="abstract mathjax_process"><p>We formalize the Berlekamp-Zassenhaus algorithm for factoring
+square-free integer polynomials in Isabelle/HOL. We further adapt an
+existing formalization of Yun’s square-free factorization algorithm to
+integer polynomials, and thus provide an efficient and certified
+factorization algorithm for arbitrary univariate polynomials.
+</p>
+<p>The algorithm first performs a factorization in the prime field GF(p) and
+then performs computations in the integer ring modulo p^k, where both
+p and k are determined at runtime. Since a natural modeling of these
+structures via dependent types is not possible in Isabelle/HOL, we
+formalize the whole algorithm using Isabelle’s recent addition of
+local type definitions.
+</p>
+<p>Through experiments we verify that our algorithm factors polynomials of degree
+100 within seconds.
+</p></p><a href="http://isa-afp.org/LICENSE">BSD License</a><tr><h3>Depends On</h3>
+    <p><a href="/entries/pre_bz">Pre_BZ</a></p>
+  </tr><tr><h3>Used by</h3>
+    <p><a href="/entries/algebraic_numbers/">Algebraic_Numbers</a>, <a href="/entries/lll_basis_reduction/">LLL_Basis_Reduction</a> and <a href="/entries/smith_normal_form/">Smith_Normal_Form</a></p>
+  </tr><h3>Theories</h3>
+  <ul><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Berlekamp_Zassenhaus/Arithmetic_Record_Based.html">Arithmetic_Record_Based</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Berlekamp_Zassenhaus/Berlekamp_Hensel.html">Berlekamp_Hensel</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Berlekamp_Zassenhaus/Berlekamp_Type_Based.html">Berlekamp_Type_Based</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Berlekamp_Zassenhaus/Berlekamp_Zassenhaus.html">Berlekamp_Zassenhaus</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Berlekamp_Zassenhaus/Chinese_Remainder_Poly.html">Chinese_Remainder_Poly</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Berlekamp_Zassenhaus/Code_Abort_Gcd.html">Code_Abort_Gcd</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Berlekamp_Zassenhaus/Degree_Bound.html">Degree_Bound</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Berlekamp_Zassenhaus/Distinct_Degree_Factorization.html">Distinct_Degree_Factorization</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Berlekamp_Zassenhaus/Factorize_Int_Poly.html">Factorize_Int_Poly</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Berlekamp_Zassenhaus/Factorize_Rat_Poly.html">Factorize_Rat_Poly</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Berlekamp_Zassenhaus/Factor_Bound.html">Factor_Bound</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Berlekamp_Zassenhaus/Finite_Field.html">Finite_Field</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Berlekamp_Zassenhaus/Finite_Field_Factorization.html">Finite_Field_Factorization</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Berlekamp_Zassenhaus/Finite_Field_Factorization_Record_Based.html">Finite_Field_Factorization_Record_Based</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Berlekamp_Zassenhaus/Finite_Field_Record_Based.html">Finite_Field_Record_Based</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Berlekamp_Zassenhaus/Gcd_Finite_Field_Impl.html">Gcd_Finite_Field_Impl</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Berlekamp_Zassenhaus/Hensel_Lifting.html">Hensel_Lifting</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Berlekamp_Zassenhaus/Hensel_Lifting_Type_Based.html">Hensel_Lifting_Type_Based</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Berlekamp_Zassenhaus/Karatsuba_Multiplication.html">Karatsuba_Multiplication</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Berlekamp_Zassenhaus/Mahler_Measure.html">Mahler_Measure</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Berlekamp_Zassenhaus/Matrix_Record_Based.html">Matrix_Record_Based</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Berlekamp_Zassenhaus/Missing_Multiset2.html">Missing_Multiset2</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Berlekamp_Zassenhaus/Polynomial_Record_Based.html">Polynomial_Record_Based</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Berlekamp_Zassenhaus/Poly_Mod.html">Poly_Mod</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Berlekamp_Zassenhaus/Poly_Mod_Finite_Field.html">Poly_Mod_Finite_Field</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Berlekamp_Zassenhaus/Poly_Mod_Finite_Field_Record_Based.html">Poly_Mod_Finite_Field_Record_Based</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Berlekamp_Zassenhaus/Reconstruction.html">Reconstruction</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Berlekamp_Zassenhaus/Square_Free_Factorization_Int.html">Square_Free_Factorization_Int</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Berlekamp_Zassenhaus/Square_Free_Int_To_Square_Free_GFp.html">Square_Free_Int_To_Square_Free_GFp</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Berlekamp_Zassenhaus/Sublist_Iteration.html">Sublist_Iteration</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Berlekamp_Zassenhaus/Suitable_Prime.html">Suitable_Prime</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Berlekamp_Zassenhaus/Unique_Factorization.html">Unique_Factorization</a></li><li><a href="https://www.isa-afp.org/browser_info/current/AFP/Berlekamp_Zassenhaus/Unique_Factorization_Poly.html">Unique_Factorization_Poly</a></li></ul></main>
+
+<nav class='links'>
+  <a class='popUpButton' href="#citePopUp">Cite</a>
+  <a class='popUpButton' href="#downloadPopUp">Download</a>
+  <a href="https://www.isa-afp.org/browser_info/current/AFP/Berlekamp_Zassenhaus/outline.pdf">Proof
+    outline</a>
+  <a href="https://www.isa-afp.org/browser_info/current/AFP/Berlekamp_Zassenhaus/document.pdf">Proof
+    document</a>
+  <a href="https://www.isa-afp.org/browser_info/current/AFP/Berlekamp_Zassenhaus/index.html">Browse
+    theories</a>
+</nav>
+
+<div id="citePopUp" class="overlay">
+  <a class="cancel" href="#"></a>
+  <div class="popup">
+    <h2>Cite</h2>
+    <a class="close" href="#">&times;</a>
+    <div>
+      <pre>@article{Berlekamp_Zassenhaus-AFP,
+        author  = {Jose Divasón, Sebastiaan Joosten, René Thiemann and Akihisa Yamada},
+        title   = {The Factorization Algorithm of Berlekamp and Zassenhaus},
+        journal = {Archive of Formal Proofs},
+        month   = October,
+        year    = 2016,
+        note    = {\url{http://isa-afp.org/entries/Berlekamp_Zassenhaus.html},
+                  Formal proof development},
+        ISSN    = {2150-914x},
+      }</pre>
+      <button>Copy</button> <button>Download</button>
+    </div>
+  </div>
+</div>
+
+<div id="downloadPopUp" class="overlay">
+  <a class="cancel" href="#"></a>
+  <div class="popup">
+    <h2>Download</h2>
+    <a class="close" href="#">&times;</a>
+    <a href="../release/afp-Berlekamp_Zassenhaus-current.tar.gz" download>Download latest</a>
+    <p>Older releases:</p>
+    <ul><li>Isabelle2019:
+        <a href="../release/afp-Berlekamp_Zassenhaus-2019-06-11.tar.gz">
+          afp-Berlekamp_Zassenhaus-2019-06-11.tar.gz
+        </a>
+      </li><li>Isabelle2018:
+        <a href="../release/afp-Berlekamp_Zassenhaus-2018-09-07.tar.gz">
+          afp-Berlekamp_Zassenhaus-2018-09-07.tar.gz
+        </a>
+      </li><li>Isabelle2018:
+        <a href="../release/afp-Berlekamp_Zassenhaus-2018-08-16.tar.gz">
+          afp-Berlekamp_Zassenhaus-2018-08-16.tar.gz
+        </a>
+      </li><li>Isabelle2017:
+        <a href="../release/afp-Berlekamp_Zassenhaus-2017-10-10.tar.gz">
+          afp-Berlekamp_Zassenhaus-2017-10-10.tar.gz
+        </a>
+      </li><li>Isabelle2016-1:
+        <a href="../release/afp-Berlekamp_Zassenhaus-2016-12-17.tar.gz">
+          afp-Berlekamp_Zassenhaus-2016-12-17.tar.gz
+        </a>
+      </li></ul>
+  </div>
+</div>
+    </div>
+  </div>
+</body>
+
+</html>
