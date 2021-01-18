@@ -276,7 +276,7 @@ function populateResults(results, searchQuery, indices, all = false) {
         var output = render(templateDefinition, {
             key: resultKey,
             title: value.title,
-            link: value.shortname,
+            link: value.shortname.toLowerCase(),
             topics: topicString,
             shortname: value.shortname,
             abstract: value.abstract,
