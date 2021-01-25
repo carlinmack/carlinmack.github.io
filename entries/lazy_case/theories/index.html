@@ -17,7 +17,8 @@
 
   
   
-  <link rel="stylesheet" type="text/css" href="/css/front.min.css" integrity="sha256-QUoTd2RQ4/P7SQKKOG301QYvQ7o2&#43;3qwXOJptpPXM0E=">
+  <link rel="stylesheet" type="text/css" href="/css/front.min.css" integrity="sha256-QUoTd2RQ4/P7SQKKOG301QYvQ7o2&#43;3qwXOJptpPXM0E="><link rel="stylesheet" type="text/css" href="/css/isabelle.css">
+  
   <link rel="icon" href="/images/favicon.ico" type="image/icon">
   <script src="/js/flexsearch.min.js"></script><script src="/js/header-search.js"></script></head>
 
@@ -66,10 +67,162 @@
   
   </div>
 </header><div><main>
-  <iframe src="https://www.isa-afp.org/browser_info/current/AFP/Lazy_Case/Lazy_Case.html" frameborder="0" id="Lazy_Case">
-  </iframe>
-  <iframe src="https://www.isa-afp.org/browser_info/current/AFP/Lazy_Case/Test_Lazy_Case.html" frameborder="0" id="Test_Lazy_Case">
-  </iframe>
+  
+  <div id="Lazy_Case">
+<div class="head"><h1>Theory Lazy_Case</h1>
+<span class="command">theory</span> <span class="name">Lazy_Case</span><br/>
+<span class="keyword">imports</span> <a href="../../HOL/HOL/Main.html"><span class="name">Main</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Introduction›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Lazy_Case</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>Main</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">keywords</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"lazify"</span></span></span><span> </span><span class="delimiter">::</span><span> </span><span>thy_decl</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  Importing this theory adds a preprocessing step to the code generator: All case constants
+  (and @{const HOL.If}) are replaced by ``lazy'' versions; i.e., new constants that evaluate the
+  cases lazily. For example, the type of @{const case_list} is
+  @{typ "'a ⇒ ('b ⇒ 'b list ⇒ 'a) ⇒ 'b list ⇒ 'a"}. A new constant is created with the type
+  @{typ "(unit ⇒ 'a) ⇒ ('b ⇒ 'b list ⇒ 'a) ⇒ 'b list ⇒ 'a"}. All fully-applied occurrences of
+  the standard case constants are rewritten (using the [@{attribute code_unfold}] attribute).
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  The motivation for doing this is twofold:
+
+  ▸ Reconstructing match expressions is complicated. For existing target languages, this theory
+    reduces the amount of code that has to be trusted in the code generator, because the
+    transformation goes through the kernel.
+  ▸ It lays the groundwork to support targets that do not have syntactic constructs for case
+    expressions or that cannot be used for some reason, or targets where lazy evaluation of
+    branching constructs is not given.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  The obvious downside is that this construction will usually degrade performance of generated code.
+  To some extent, an optimising compiler that performs inlining can alleviate that.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Setup›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹@{const HOL.If} is just an alias for @{const case_bool}.›</span></span></span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="delimiter">[</span><span>code_unfold</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"HOL.If P t f = case_bool t f P"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">ML_file</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹lazy_case.ML›</span></span></span><span>
+</span><span class="keyword1"><span class="command">setup</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Lazy_Case.setup›</span></span></span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span></pre>
+</div>
+</div><div id="Test_Lazy_Case">
+<div class="head"><h1>Theory Test_Lazy_Case</h1>
+<span class="command">theory</span> <span class="name">Test_Lazy_Case</span><br/>
+<span class="keyword">imports</span> <a href="Lazy_Case.html"><span class="name">Lazy_Case</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Usage›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Test_Lazy_Case</span><span>
+</span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>Lazy_Case</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  This entry provides a @{command datatype} plugin and a separate command.
+  The plugin runs by default on all defined datatypes, but it can be disabled individually:
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">datatype</span></span><span> </span><span class="delimiter">(</span><span>plugins</span><span> </span><span>del</span><span class="delimiter">:</span><span> </span><span>lazy_case</span><span class="delimiter">)</span><span> </span><span class="tfree">'a</span><span> </span><span>tree</span><span> </span><span class="delimiter">=</span><span> </span><span>Node</span><span> </span><span class="delimiter">|</span><span> </span><span>Fork</span><span> </span><span class="tfree">'a</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a tree list"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">context</span></span><span> </span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  The @{command lazify} command can be used to add lazy constants if the plugin has been disabled
+  during datatype definition.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lazify</span></span><span> </span><span>tree</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Nested and mutual recursion are supported.›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">datatype</span></span><span>
+</span><span>  </span><span class="tfree">'a</span><span> </span><span>mlist1</span><span> </span><span class="delimiter">=</span><span> </span><span>MNil1</span><span> </span><span class="delimiter">|</span><span> </span><span>MCons1</span><span> </span><span class="tfree">'a</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a mlist2"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span>
+</span><span>  </span><span class="tfree">'a</span><span> </span><span>mlist2</span><span> </span><span class="delimiter">=</span><span> </span><span>MNil2</span><span> </span><span class="delimiter">|</span><span> </span><span>MCons2</span><span> </span><span class="tfree">'a</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a mlist1"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Records are supported.›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">record</span></span><span> </span><span>meep</span><span> </span><span class="delimiter">=</span><span>
+</span><span>  </span><span>x1</span><span> </span><span class="delimiter">::</span><span> </span><span>nat</span><span>
+</span><span>  </span><span>x2</span><span> </span><span class="delimiter">::</span><span> </span><span>int</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Examples›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>test</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span class="string"><span class="delete"><span class="delete">"test x ⟷ (if x then True else False)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>test'</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span class="string"><span class="delete"><span class="delete">"test' = case_bool True False"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>test''</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span class="string"><span class="delete"><span class="delete">"test'' xs = (case xs of [] ⇒ False | _ ⇒ True)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>fac</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"nat ⇒ nat"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span class="string"><span class="delete"><span class="delete">"fac n = (if n ≤ 1 then 1 else n * fac (n - 1))"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>map_tree</span><span class="delimiter">[</span><span>code</span><span class="delimiter">]</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"map_tree f t = (case t of Node ⇒ Node | Fork x ts ⇒ Fork (f x) (map (map_tree f) ts))"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induction</span><span> </span><span>t</span><span class="delimiter">)</span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹The generated code uses neither target-language \texttt{if-then-else} nor match expressions.›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">export_code</span></span><span> </span><span>test</span><span> </span><span>test'</span><span> </span><span>test''</span><span> </span><span>fac</span><span> </span><span>map_tree</span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>SML</span><span>
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(*&lt;*)</span></span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">ML</span></span><span class="cartouche"><span class="delete"><span class="delete">‹
+fun get_code_eqs ctxt const =
+  let
+    val thy = Proof_Context.theory_of ctxt
+    val graph = #eqngr (Code_Preproc.obtain true { ctxt = ctxt, consts = [const], terms = [] })
+    fun mk_eqs name = name
+      |&gt; Code_Preproc.cert graph
+      |&gt; Code.equations_of_cert thy ||&gt; these
+      |&gt; pair name
+  in
+    AList.lookup (=) (maps (map mk_eqs) (rev (Graph.strong_conn graph))) const
+    |&gt; the |&gt; snd
+    |&gt; map (fst o snd)
+    |&gt; map_filter I
+  end
+
+fun check_absence ctxt const =
+  let
+    val forbidden =
+      @{const_name HOL.If} :: map (fst o dest_Const o #casex) (Ctr_Sugar.ctr_sugars_of ctxt)
+    val check = exists_subterm (fn Const (c, _) =&gt; member (=) forbidden c | _ =&gt; false)
+  in
+    get_code_eqs ctxt const
+    |&gt; map Thm.prop_of
+    |&gt; forall (not o check)
+    |&gt; @{assert}
+  end
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span class="cartouche"><span class="delete"><span class="delete">‹check_absence @{context} @{const_name fac}: unit›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span class="cartouche"><span class="delete"><span class="delete">‹check_absence @{context} @{const_name test}: unit›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span class="cartouche"><span class="delete"><span class="delete">‹check_absence @{context} @{const_name test'}: unit›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span class="cartouche"><span class="delete"><span class="delete">‹check_absence @{context} @{const_name test''}: unit›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span class="cartouche"><span class="delete"><span class="delete">‹check_absence @{context} @{const_name map_tree}: unit›</span></span></span><span>
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(*&gt;*)</span></span></span></span></span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span></pre>
+</div>
+</div>
+  
 </main>
     </div>
   </div>

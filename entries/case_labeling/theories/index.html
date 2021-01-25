@@ -17,7 +17,8 @@
 
   
   
-  <link rel="stylesheet" type="text/css" href="/css/front.min.css" integrity="sha256-QUoTd2RQ4/P7SQKKOG301QYvQ7o2&#43;3qwXOJptpPXM0E=">
+  <link rel="stylesheet" type="text/css" href="/css/front.min.css" integrity="sha256-QUoTd2RQ4/P7SQKKOG301QYvQ7o2&#43;3qwXOJptpPXM0E="><link rel="stylesheet" type="text/css" href="/css/isabelle.css">
+  
   <link rel="icon" href="/images/favicon.ico" type="image/icon">
   <script src="/js/flexsearch.min.js"></script><script src="/js/header-search.js"></script></head>
 
@@ -66,10 +67,907 @@
   
   </div>
 </header><div><main>
-  <iframe src="https://www.isa-afp.org/browser_info/current/AFP/Case_Labeling/Case_Labeling.html" frameborder="0" id="Case_Labeling">
-  </iframe>
-  <iframe src="https://www.isa-afp.org/browser_info/current/AFP/Case_Labeling/Case_Labeling_Examples.html" frameborder="0" id="Case_Labeling_Examples">
-  </iframe>
+  
+  <div id="Case_Labeling">
+<div class="head"><h1>Theory Case_Labeling</h1>
+<span class="command">theory</span> <span class="name">Case_Labeling</span><br/>
+<span class="keyword">imports</span> <a href="../../HOL/HOL/Main.html"><span class="name">Main</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Case_Labeling</span><span>
+</span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>Main</span><span>
+</span><span class="keyword2"><span class="keyword">keywords</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"print_nested_cases"</span></span></span><span> </span><span class="delimiter">::</span><span> </span><span>diag</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Labeling Subgoals›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">context</span></span><span> </span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">qualified</span></span><span> </span><span class="keyword1"><span class="command">type_synonym</span></span><span> </span><span>prg_ctxt_var</span><span> </span><span class="delimiter">=</span><span> </span><span>unit</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">qualified</span></span><span> </span><span class="keyword1"><span class="command">type_synonym</span></span><span> </span><span>prg_ctxt</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"string × nat × prg_ctxt_var list"</span></span></span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Embed variables in terms›</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">qualified</span></span><span> </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>VAR</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'v ⇒ prg_ctxt_var"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"VAR _ = ()"</span></span></span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Labeling of a subgoal›</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">qualified</span></span><span> </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>VC</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"prg_ctxt list ⇒ 'a ⇒ 'a"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"VC ct P ≡ P"</span></span></span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Computing the statement numbers and context›</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">qualified</span></span><span> </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>CTXT</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"nat ⇒ prg_ctxt list ⇒ nat ⇒ 'a ⇒ 'a"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"CTXT inp ct outp P ≡ P"</span></span></span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Labeling of a term binding or assumption›</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">qualified</span></span><span> </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>BIND</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"string ⇒ nat ⇒ 'a ⇒ 'a"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"BIND name inp P ≡ P"</span></span></span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Hierarchy labeling›</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">qualified</span></span><span> </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>HIER</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"prg_ctxt list ⇒ 'a ⇒ 'a"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"HIER ct P ≡ P"</span></span></span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Split Labeling. This is used as an assumption›</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">qualified</span></span><span> </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>SPLIT</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a ⇒ 'a ⇒ bool"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"SPLIT v w ≡ v = w"</span></span></span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Disambiguation Labeling. This is used as an assumption›</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">qualified</span></span><span> </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>DISAMBIG</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"nat ⇒ bool"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"DISAMBIG n ≡ True"</span></span></span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">lemmas</span></span><span> </span><span>LABEL_simps</span><span> </span><span class="delimiter">=</span><span> </span><span>BIND_def</span><span> </span><span>CTXT_def</span><span> </span><span>HIER_def</span><span> </span><span>SPLIT_def</span><span> </span><span>VC_def</span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Initial_Label</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"CTXT 0 [] outp P ⟹ P"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Case_Labeling.CTXT_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">lemma</span></span><span>
+</span><span>    </span><span>BIND_I</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"P ⟹ BIND name inp P"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span>
+</span><span>    </span><span>BIND_D</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"BIND name inp P ⟹ P"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span>
+</span><span>    </span><span>VC_I</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"P ⟹ VC ct P"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>Case_Labeling.BIND_def</span><span> </span><span>Case_Labeling.VC_def</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>DISAMBIG_I</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"(DISAMBIG n ⟹ P) ⟹ P"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span class="delimiter">:</span><span> </span><span>DISAMBIG_def</span><span> </span><span>Case_Labeling.VC_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>DISAMBIG_E</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"(DISAMBIG n ⟹ P) ⟹ P"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span class="delimiter">:</span><span> </span><span>DISAMBIG_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Lemmas for the tuple postprocessing›</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>SPLIT_reflection</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"SPLIT x y ⟹ (x ≡ y)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>SPLIT_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>eq_reflection</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>rev_SPLIT_reflection</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"(x ≡ y) ⟹ SPLIT x y"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>SPLIT_def</span><span> </span><span class="keyword1"><span class="command">..</span></span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>SPLIT_sym</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"SPLIT x y ⟹ SPLIT y x"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>SPLIT_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>sym</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>SPLIT_thin_refl</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"⟦SPLIT x x; PROP W⟧ ⟹ PROP W"</span></span></span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>SPLIT_subst</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"⟦SPLIT x y; P x⟧ ⟹ P y"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>SPLIT_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>hypsubst</span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>SPLIT_prodE</span><span class="delimiter">:</span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"SPLIT (x1, y1) (x2, y2)"</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">obtains</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"SPLIT x1 x2"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"SPLIT y1 y2"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>SPLIT_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  The labeling constants were qualified to not interfere with any other theory.
+  The following locale allows using a nice syntax in other theories
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">locale</span></span><span> </span><span>Labeling_Syntax</span><span> </span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">abbreviation</span></span><span> </span><span>VAR</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"VAR ≡ Case_Labeling.VAR"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">abbreviation</span></span><span> </span><span>VC</span><span> </span><span class="delimiter">(</span><span class="string"><span class="delete"><span class="delete">"V⟨(2_,_:/ _)⟩"</span></span></span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"VC bl ct  ≡ Case_Labeling.VC (bl # ct)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">abbreviation</span></span><span> </span><span>CTXT</span><span> </span><span class="delimiter">(</span><span class="string"><span class="delete"><span class="delete">"C⟨(2_,_,_:/ _⟩)"</span></span></span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"CTXT ≡ Case_Labeling.CTXT"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">abbreviation</span></span><span> </span><span>BIND</span><span> </span><span class="delimiter">(</span><span class="string"><span class="delete"><span class="delete">"B⟨(2_,_:/ _⟩)"</span></span></span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"BIND ≡ Case_Labeling.BIND"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">abbreviation</span></span><span> </span><span>HIER</span><span> </span><span class="delimiter">(</span><span class="string"><span class="delete"><span class="delete">"H⟨(2_:/ _⟩)"</span></span></span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"HIER ≡ Case_Labeling.HIER"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">abbreviation</span></span><span> </span><span>SPLIT</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"SPLIT ≡ Case_Labeling.SPLIT"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Lemmas for converting terms from @{term Suc}/@{term "0::nat"} notation to numerals›</span></span></span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Suc_numerals_conv</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Suc 0 = Numeral1"</span></span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Suc (numeral n) = numeral (n + num.One)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemmas</span></span><span> </span><span>Suc_numeral_simps</span><span> </span><span class="delimiter">=</span><span> </span><span>Suc_numerals_conv</span><span> </span><span>add_num_simps</span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Casify›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  Introduces a command @{command print_nested_cases}. This is similar to @{command print_cases},
+  but shows also the nested cases.
+›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_file</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹print_nested_cases.ML›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">ML_file</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹util.ML›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Introduces the proof method.›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_file</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹casify.ML›</span></span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">ML</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  val casify_defs = Casify.Options { simp_all_cases=true, split_right_only=true, protect_subgoals=false }
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">method_setup</span></span><span> </span><span>prepare_labels</span><span> </span><span class="delimiter">=</span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  Scan.succeed (fn ctxt =&gt; SIMPLE_METHOD (ALLGOALS (Casify.prepare_labels_tac ctxt)))
+›</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"VCG labelling: prepare labels"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">method_setup</span></span><span> </span><span>casify</span><span> </span><span class="delimiter">=</span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Casify.casify_method_setup casify_defs›</span></span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"VCG labelling: Turn the labels into cases"</span></span></span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div><div id="Labeled_Hoare">
+<div class="head"><h1>Theory Labeled_Hoare</h1>
+<span class="command">theory</span> <span class="name">Labeled_Hoare</span><br/>
+<span class="keyword">imports</span> <a href="Case_Labeling.html"><span class="name">Case_Labeling</span></a> <a href="Hoare_Logic.html"><span class="name">Hoare_Logic</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Labeled_Hoare</span><span>
+</span><span class="keyword2"><span class="keyword">imports</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"../../Case_Labeling"</span></span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"HOL-Hoare.Hoare_Logic"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹A labeling VCG for HOL/Hoare›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">context</span></span><span> </span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">interpretation</span></span><span> </span><span>Labeling_Syntax</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>LSeqRule</span><span class="delimiter">:</span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"C⟨IC,CT,OC1: Valid P c1 Q⟩"</span></span></span><span>
+</span><span>      </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"C⟨Suc OC1,CT,OC: Valid Q c2 R⟩"</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"C⟨IC,CT,OC: Valid P (c1; c2) R⟩"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>LABEL_simps</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>SeqRule</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>LSkipRule</span><span class="delimiter">:</span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"V⟨(''weaken'', IC, []),CT: p ⊆ q⟩"</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"C⟨IC,CT,IC: Valid p SKIP q⟩"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>LABEL_simps</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>SkipRule</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">lemmas</span></span><span> </span><span>LAbortRule</span><span> </span><span class="delimiter">=</span><span> </span><span>LSkipRule</span><span>  </span><span class="comment">― ‹dummy version›</span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>LBasicRule</span><span class="delimiter">:</span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"V⟨(''basic'', IC, []),CT: p ⊆ {s. f s ∈ q}⟩"</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"C⟨IC,CT,IC: Valid p (Basic f) q⟩"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>LABEL_simps</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>BasicRule</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>LCondRule</span><span class="delimiter">:</span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">fixes</span></span><span> </span><span>IC</span><span> </span><span>CT</span><span> </span><span class="keyword2"><span class="keyword">defines</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"CT' ≡ (''cond'', IC, []) # CT "</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"V⟨(''vc'', IC, []),(''cond'', IC, []) # CT: p ⊆ {s. (s ∈ b ⟶ s ∈ w) ∧ (s ∉ b ⟶ s ∈ w')}⟩"</span></span></span><span>
+</span><span>      </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"C⟨Suc IC,(''then'', IC, []) # (''cond'', IC, []) # CT,OC1: Valid w c1 q⟩"</span></span></span><span>
+</span><span>      </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"C⟨Suc OC1,(''else'', Suc OC1, []) # (''cond'', IC, []) # CT,OC: Valid w' c2 q⟩"</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"C⟨IC,CT,OC: Valid p (IF b THEN c1  ELSE c2 FI) q⟩"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span class="delimiter">(</span><span>2</span><span>-</span><span class="delimiter">)</span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>LABEL_simps</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>CondRule</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>LWhileRule</span><span class="delimiter">:</span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">fixes</span></span><span> </span><span>IC</span><span> </span><span>CT</span><span> </span><span class="keyword2"><span class="keyword">defines</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"CT' ≡ (''while'', IC, []) # CT"</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"V⟨(''precondition'', IC, []),(''while'', IC, []) # CT: p ⊆ i⟩"</span></span></span><span>
+</span><span>      </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"C⟨Suc IC,(''invariant'', Suc IC, []) # (''while'', IC, []) # CT,OC: Valid (i ∩ b) c i⟩"</span></span></span><span>
+</span><span>      </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"V⟨(''postcondition'', IC, []),(''while'', IC, []) # CT: i ∩ - b ⊆ q⟩"</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"C⟨IC,CT,OC: Valid p (While b i c) q⟩"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span class="delimiter">(</span><span>2</span><span>-</span><span class="delimiter">)</span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>LABEL_simps</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>WhileRule</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>LABELs_to_prems</span><span class="delimiter">:</span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"(C⟨IC, CT, OC: True⟩ ⟹ P) ⟹ C⟨IC, CT, OC: P⟩"</span></span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"(V⟨x, ct: True⟩ ⟹ P) ⟹ V⟨x, ct: P⟩"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>LABEL_simps</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp_all</span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>LABELs_to_concl</span><span class="delimiter">:</span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"C⟨IC, CT, OC: True⟩ ⟹ C⟨IC, CT, OC: P⟩ ⟹ P"</span></span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"V⟨x, ct: True⟩ ⟹ V⟨x, ct: P⟩ ⟹ P"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>LABEL_simps</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">ML_file</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹labeled_hoare_tac.ML›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">method_setup</span></span><span> </span><span>labeled_vcg</span><span> </span><span class="delimiter">=</span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  Scan.succeed (fn ctxt =&gt; SIMPLE_METHOD' (Labeled_Hoare.hoare_tac ctxt (K all_tac)))›</span></span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"verification condition generator"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">method_setup</span></span><span> </span><span>labeled_vcg_simp</span><span> </span><span class="delimiter">=</span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  Scan.succeed (fn ctxt =&gt; SIMPLE_METHOD' (Labeled_Hoare.hoare_tac ctxt (asm_full_simp_tac ctxt)))›</span></span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"verification condition generator"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">method_setup</span></span><span> </span><span>casified_vcg</span><span> </span><span class="delimiter">=</span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  Scan.lift (Casify.casify_options casify_defs) &gt;&gt;
+    (fn opt =&gt; fn ctxt =&gt; Util.SIMPLE_METHOD_CASES (
+      HEADGOAL (Labeled_Hoare.hoare_tac ctxt (K all_tac))
+      THEN_CONTEXT Casify.casify_tac opt))
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">method_setup</span></span><span> </span><span>casified_vcg_simp</span><span> </span><span class="delimiter">=</span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  Scan.lift (Casify.casify_options casify_defs) &gt;&gt;
+    (fn opt =&gt; fn ctxt =&gt; Util.SIMPLE_METHOD_CASES (
+      HEADGOAL (Labeled_Hoare.hoare_tac ctxt (asm_full_simp_tac ctxt))
+      THEN_CONTEXT Casify.casify_tac opt))
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div><div id="Labeled_Hoare_Examples">
+<div class="head"><h1>Theory Labeled_Hoare_Examples</h1>
+<span class="command">theory</span> <span class="name">Labeled_Hoare_Examples</span><br/>
+<span class="keyword">imports</span> <a href="Labeled_Hoare.html"><span class="name">Labeled_Hoare</span></a> <a href="Arith2.html"><span class="name">Arith2</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(*  Based on:   HOL/Hoare/Examples.thy
+*)</span></span></span></span></span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Labeled_Hoare_Examples</span><span>
+</span><span class="keyword2"><span class="keyword">imports</span></span><span>
+</span><span>  </span><span>Labeled_Hoare</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"HOL-Hoare.Arith2"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsubsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Multiplication by successive addition›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>multiply_by_add</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"VARS m s a b
+  {a=A ∧ b=B}
+  m := 0; s := 0;
+  WHILE m≠a
+  INV {s=m*b ∧ a=A ∧ b=B}
+  DO s := s+b; m := m+(1::nat) OD
+  {s = A*B}"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span>vcg_simp</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"VARS M N P :: int
+ {m=M ∧ n=N}
+ IF M &lt; 0 THEN M := -M; N := -N ELSE SKIP FI;
+ P := 0;
+ WHILE 0 &lt; M
+ INV {0 ≤ M ∧ (∃p. p = (if m&lt;0 then -m else m) ∧ p*N = m*n ∧ P = (p-M)*N)}
+ DO P := P+N; M := M - 1 OD
+ {P = m*n}"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>casified_vcg_simp</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>while</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">{</span></span><span> </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>postcondition</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>    </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>invariant</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">{</span></span><span> </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>basic</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span class="delimiter">:</span><span> </span><span>int_distrib</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">}</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">}</span></span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsubsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Euclid's algorithm for GCD›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Euclid_GCD</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"VARS a b
+ {0&lt;A ∧ 0&lt;B}
+ a := A; b := B;
+ WHILE  a ≠ b
+ INV {0&lt;a ∧ 0&lt;b ∧ gcd A B = gcd a b}
+ DO IF a&lt;b THEN b := b-a ELSE a := a-b FI OD
+ {a = gcd A B}"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>casified_vcg_simp</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>while</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">{</span></span><span> </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>postcondition</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>elim</span><span class="delimiter">:</span><span> </span><span>gcd_nnn</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>    </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>invariant</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">{</span></span><span> </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>cond</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">{</span></span><span> </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>vc</span><span>
+</span><span>        </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>          </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>linorder_not_less</span><span> </span><span>gcd_diff_l</span><span> </span><span>gcd_diff_r</span><span> </span><span>less_imp_le</span><span class="delimiter">)</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">}</span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">}</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">}</span></span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsubsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Dijkstra's extension of Euclid's algorithm for simultaneous GCD and SCM›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹
+  From E.W. Disjkstra. Selected Writings on Computing, p 98 (EWD474),
+  where it is given without the invariant. Instead of defining scm
+  explicitly we have used the theorem scm x y = x*y/gcd x y and avoided
+  division by mupltiplying with gcd x y.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemmas</span></span><span> </span><span>distribs</span><span> </span><span class="delimiter">=</span><span>
+</span><span>  </span><span>diff_mult_distrib</span><span> </span><span>diff_mult_distrib2</span><span> </span><span>add_mult_distrib</span><span> </span><span>add_mult_distrib2</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>gcd_scm</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"VARS a b x y
+ {0&lt;A ∧ 0&lt;B ∧ a=A ∧ b=B ∧ x=B ∧ y=A}
+ WHILE  a ≠ b
+ INV {0&lt;a ∧ 0&lt;b ∧ gcd A B = gcd a b ∧ 2*A*B = a*x + b*y}
+ DO IF a&lt;b THEN (b := b-a; x := x+y) ELSE (a := a-b; y := y+x) FI OD
+ {a = gcd A B ∧ 2*A*B = a*(x+y)}"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>casified_vcg</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>while</span><span> </span><span class="keyword1"><span class="command">{</span></span><span>
+</span><span>    </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>precondition</span><span> </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>    </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>invariant</span><span>
+</span><span>    </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>cond</span><span>
+</span><span>    </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>vc</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>distribs</span><span> </span><span>gcd_diff_r</span><span> </span><span>linorder_not_less</span><span> </span><span>gcd_diff_l</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>    </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>postcondition</span><span> </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>distribs</span><span> </span><span>gcd_nnn</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">}</span></span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsubsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Power by iterated squaring and multiplication›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>power_by_mult</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"VARS a b c
+ {a=A ∧ b=B}
+ c := (1::nat);
+ WHILE b ≠ 0
+ INV {A^B = c * a^b}
+ DO  WHILE b mod 2 = 0
+     INV {A^B = c * a^b}
+     DO  a := a*a; b := b div 2 OD;
+     c := c*a; b := b - 1
+ OD
+ {c = A^B}"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>casified_vcg_simp</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>while</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>invariant</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>while</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>postcondition</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>cases</span><span> </span><span>b</span><span class="delimiter">)</span><span> </span><span>simp_all</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsubsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Factorial›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>factorial</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"VARS a b
+ {a=A}
+ b := 1;
+ WHILE a ≠ 0
+ INV {fac A = b * fac a}
+ DO b := b*a; a := a - 1 OD
+ {b = fac A}"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>vcg_simp</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="delimiter">(</span><span>clarsimp</span><span> </span><span>split</span><span class="delimiter">:</span><span> </span><span>nat_diff_split</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"VARS i f
+ {True}
+ i := (1::nat); f := 1;
+ WHILE i ≤ n INV {f = fac(i - 1) ∧ 1 ≤ i ∧ i ≤ n+1}
+ DO f := f*i; i := i+1 OD
+ {f = fac n}"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>casified_vcg_simp</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>while</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">{</span></span><span> </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>invariant</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">{</span></span><span> </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>basic</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>i</span><span class="delimiter">)</span><span> </span><span>simp_all</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">}</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>    </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>postcondition</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"i = Suc n"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">}</span></span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsubsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Quicksort›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  The `partition' procedure for quicksort.
+  `A' is the array to be sorted (modelled as a list).
+  Elements of A must be of class order to infer at the end
+  that the elements between u and l are equal to pivot.
+
+  Ambiguity warnings of parser are due to := being used
+  both for assignment and list update.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Partition</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">fixes</span></span><span> </span><span>pivot</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">defines</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"leq ≡ λA i. ∀k. k&lt;i ⟶ A!k ≤ pivot"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">defines</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"geq ≡ λA i. ∀k. i&lt;k ∧ k&lt;length A ⟶ pivot ≤ A!k"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"
+   VARS A u l
+   {0 &lt; length(A::('a::order)list)}
+   l := 0; u := length A - Suc 0;
+   WHILE l ≤ u
+    INV {leq A l ∧ geq A u ∧ u&lt;length A ∧ l≤length A}
+    DO WHILE l &lt; length A ∧ A!l ≤ pivot
+        INV {leq A l ∧ geq A u ∧ u&lt;length A ∧ l≤length A}
+        DO l := l+1 OD;
+       WHILE 0 &lt; u ∧ pivot ≤ A!u
+        INV {leq A l ∧ geq A u  ∧ u&lt;length A ∧ l≤length A}
+        DO u := u - 1 OD;
+       IF l ≤ u THEN A := A[l := A!u, u := A!l] ELSE SKIP FI
+    OD
+   {leq A u ∧ (∀k. u&lt;k ∧ k&lt;l ⟶ A!k = pivot) ∧ geq A l}"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>leq_def</span><span> </span><span>geq_def</span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>casified_vcg_simp</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>basic</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>while</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">{</span></span><span> </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>postcondition</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>force</span><span> </span><span>simp</span><span class="delimiter">:</span><span> </span><span>nth_list_update</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>    </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>invariant</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">{</span></span><span> </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>while</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">{</span></span><span> </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>invariant</span><span>
+</span><span>        </span><span class="keyword1"><span class="command">{</span></span><span> </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>basic</span><span>
+</span><span>          </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>blast</span><span> </span><span>elim</span><span class="delimiter">!</span><span class="delimiter">:</span><span> </span><span>less_SucE</span><span> </span><span>intro</span><span class="delimiter">:</span><span> </span><span>Suc_leI</span><span class="delimiter">)</span><span>
+</span><span>        </span><span class="keyword1"><span class="command">}</span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">}</span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>      </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>whilea</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">{</span></span><span> </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>invariant</span><span>
+</span><span>        </span><span class="keyword1"><span class="command">{</span></span><span> </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>basic</span><span>
+</span><span>          </span><span class="keyword1"><span class="command">have</span></span><span> </span><span>lem</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"⋀m n. m - Suc 0 &lt; n ⟹ m &lt; Suc n"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>linarith</span><span>
+</span><span>          </span><span class="keyword1"><span class="command">from</span></span><span> </span><span>basic</span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>blast</span><span> </span><span>elim</span><span class="delimiter">!</span><span class="delimiter">:</span><span> </span><span>less_SucE</span><span> </span><span>intro</span><span class="delimiter">:</span><span> </span><span>less_imp_diff_less</span><span> </span><span>dest</span><span class="delimiter">:</span><span> </span><span>lem</span><span class="delimiter">)</span><span>
+</span><span>        </span><span class="keyword1"><span class="command">}</span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">}</span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">}</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">}</span></span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div><div id="Conditionals">
+<div class="head"><h1>Theory Conditionals</h1>
+<span class="command">theory</span> <span class="name">Conditionals</span><br/>
+<span class="keyword">imports</span> <a href="../../HOL/HOL/Complex_Main.html"><span class="name">Complex_Main</span></a> <a href="Case_Labeling.html"><span class="name">Case_Labeling</span></a> <a href="Eisbach.html"><span class="name">Eisbach</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Decomposing Conditionals›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Conditionals</span><span>
+</span><span class="keyword2"><span class="keyword">imports</span></span><span>
+</span><span>  </span><span>Complex_Main</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"../Case_Labeling"</span></span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"HOL-Eisbach.Eisbach"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">context</span></span><span> </span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">interpretation</span></span><span> </span><span>Labeling_Syntax</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>DC_conj</span><span class="delimiter">:</span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"C⟨inp,ct,outp': a⟩"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"C⟨outp',ct,outp: b⟩"</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"C⟨inp,ct,outp: a ∧ b⟩"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>LABEL_simps</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>DC_if</span><span class="delimiter">:</span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">fixes</span></span><span> </span><span>ct</span><span> </span><span class="keyword2"><span class="keyword">defines</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"ct' ≡ λpos name. (name, pos,[]) # ct"</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"H⟨ct' inp ''then'': a⟩ ⟹ C⟨Suc inp,ct' inp ''then'', outp': b⟩"</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"H⟨ct' outp' ''else'': ¬a⟩ ⟹ C⟨Suc outp',ct' outp' ''else'', outp: c⟩"</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"C⟨inp,ct,outp: if a then b else c⟩"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span class="delimiter">(</span><span>2</span><span>-</span><span class="delimiter">)</span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>LABEL_simps</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>DC_final</span><span class="delimiter">:</span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"V⟨(''g'',inp,[]), ct: a⟩"</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"C⟨inp,ct,Suc inp: a⟩"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>LABEL_simps</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">method</span></span><span> </span><span>vcg_dc</span><span> </span><span class="delimiter">=</span><span> </span><span class="delimiter">(</span><span>intro</span><span> </span><span>DC_conj</span><span> </span><span>DC_if</span><span class="delimiter">;</span><span> </span><span>rule</span><span> </span><span>DC_final</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span>a</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"a"</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>d</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"b ⟹ c ⟹ d"</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>d'</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"b ⟹ c ⟹ d'"</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>e</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"b ⟹ ¬c ⟹ e"</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>f</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"¬b ⟹ f"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"a ∧ (if b then (if c then d ∧ d' else e) else f)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>Initial_Label</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>vcg_dc</span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>casify</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>g</span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>fact</span><span> </span><span>a</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"then"</span></span></span><span> </span><span class="keyword1"><span class="command">note</span></span><span> </span><span>b</span><span> </span><span class="delimiter">=</span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹b›</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">{</span></span><span> </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"then"</span></span></span><span> </span><span class="keyword1"><span class="command">note</span></span><span> </span><span>c</span><span> </span><span class="delimiter">=</span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹c›</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">{</span></span><span> </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>g</span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>b</span><span> </span><span>c</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>fact</span><span> </span><span>d</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>      </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>ga</span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>b</span><span> </span><span>c</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>fact</span><span> </span><span>d'</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">}</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>    </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>else</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">{</span></span><span> </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>g</span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"then"</span></span></span><span> </span><span>else</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>fact</span><span> </span><span>e</span><span class="delimiter">)</span><span> </span><span class="keyword1"><span class="command">}</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">}</span></span><span>
+</span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"else"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">{</span></span><span> </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>g</span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>else</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>fact</span><span> </span><span>f</span><span class="delimiter">)</span><span> </span><span class="keyword1"><span class="command">}</span></span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Protecting similar subgoals›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  The proof below fails if the @{verbatim disambig_subgoals} option is omitted: all three
+  subgoals have the same conclusion and can be discharged without using their assumptions.
+  If the case @{verbatim g} is solved first, it discharges instead the subgoal @{prop "a ⟹ b"},
+  making the case @{command then} fail afterwards.
+
+  The @{verbatim disambig_subgoals} options prevents this by inserting vacuous assumptions.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span>b</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"(if a then b else b) ∧ b"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>Initial_Label</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>vcg_dc</span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>casify</span><span> </span><span class="delimiter">(</span><span>disambig_subgoals</span><span class="delimiter">)</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>g</span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>fact</span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹b›</span></span></span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"then"</span></span></span><span> </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>g</span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>fact</span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹b›</span></span></span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"else"</span></span></span><span> </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>g</span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>fact</span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹b›</span></span></span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Unnamed Cases›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"a ⟹ b"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"¬a ⟹ c"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"d"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"(if a then b else c) ∧ d"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>Initial_Label</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>vcg_dc</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>only</span><span class="delimiter">:</span><span> </span><span>LABEL_simps</span><span class="delimiter">)</span><span class="delimiter">[</span><span>2</span><span class="delimiter">]</span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>casify</span><span> </span><span class="delimiter">(</span><span>disambig_subgoals</span><span class="delimiter">)</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>unnamed</span><span> </span><span class="keyword1"><span class="command">from</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹a›</span></span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>fact</span><span>
+</span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>unnameda</span><span> </span><span class="keyword1"><span class="command">from</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹¬a›</span></span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>fact</span><span>
+</span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>g</span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>fact</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div><div id="Monadic_Language">
+<div class="head"><h1>Theory Monadic_Language</h1>
+<span class="command">theory</span> <span class="name">Monadic_Language</span><br/>
+<span class="keyword">imports</span> <a href="../../HOL/HOL/Complex_Main.html"><span class="name">Complex_Main</span></a> <a href="Case_Labeling.html"><span class="name">Case_Labeling</span></a> <a href="Eisbach.html"><span class="name">Eisbach</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹A labeling VCG for a monadic language›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Monadic_Language</span><span>
+</span><span class="keyword2"><span class="keyword">imports</span></span><span>
+</span><span>  </span><span>Complex_Main</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"../Case_Labeling"</span></span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"HOL-Eisbach.Eisbach"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">ML_file</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹../util.ML›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">ML</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  fun vcg_tac nt_rules nt_comb ctxt =
+    let
+      val rules = Named_Theorems.get ctxt nt_rules
+      val comb = Named_Theorems.get ctxt nt_comb
+    in REPEAT_ALL_NEW_FWD ( resolve_tac ctxt rules ORELSE' (resolve_tac ctxt comb THEN' resolve_tac ctxt rules)) end
+›</span></span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹This language is inspired by the languages used in AutoCorres @{cite greenaway_bridging_2012}›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">consts</span></span><span> </span><span>bind</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a option ⇒ ('a ⇒ 'b option) ⇒ 'b option"</span></span></span><span> </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">infixr</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"|&gt;&gt;"</span></span></span><span> </span><span>4</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">consts</span></span><span> </span><span>return</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a ⇒ 'a option"</span></span></span><span>
+</span><span class="keyword1"><span class="command">consts</span></span><span> </span><span>while</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"('a ⇒ bool) ⇒ ('a ⇒ bool) ⇒ ('a ⇒ 'a option) ⇒ ('a ⇒ 'a option)"</span></span></span><span>
+</span><span class="keyword1"><span class="command">consts</span></span><span> </span><span>valid</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"bool ⇒ 'a option ⇒ ('a ⇒ bool) ⇒ bool"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">named_theorems</span></span><span> </span><span>vcg</span><span>
+</span><span class="keyword1"><span class="command">named_theorems</span></span><span> </span><span>vcg_comb</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">method_setup</span></span><span> </span><span>vcg</span><span> </span><span class="delimiter">=</span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  Scan.succeed (fn ctxt =&gt; SIMPLE_METHOD (FIRSTGOAL (vcg_tac @{named_theorems "vcg"} @{named_theorems "vcg_comb"} ctxt)))
+›</span></span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">axiomatization</span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>   </span><span>return</span><span class="delimiter">[</span><span>vcg</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"valid (Q x) (return x) Q"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span>
+</span><span>   </span><span>bind</span><span class="delimiter">[</span><span>vcg</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"⟦⋀x. valid (R x) (c2 x) Q; valid P c1 R⟧ ⟹ valid P (bind c1 c2) Q"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span>
+</span><span>   </span><span>while</span><span class="delimiter">[</span><span>vcg</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"⋀c. ⟦⋀x. valid (I x ∧ b x) (c x) I; ⋀x. I x ∧ ¬b x ⟹ Q x⟧ ⟹ valid (I x) (while b I c x) Q"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span>
+</span><span>   </span><span>cond</span><span class="delimiter">[</span><span>vcg</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"⋀b c1 c2. valid P1 c1 Q ⟹ valid P2 c2 Q ⟹ valid (if b then P1 else P2) (if b then c1 else c2) Q"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span>
+</span><span>   </span><span>case_prod</span><span class="delimiter">[</span><span>vcg</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"⋀P. ⟦⋀x y. v = (x,y) ⟹ valid (P x y) (B x y) Q⟧
+    ⟹ valid (case v of (x,y) ⇒ P x y) (case v of (x,y) ⇒ B x y) Q"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span>
+</span><span>   </span><span>conseq</span><span class="delimiter">[</span><span>vcg_comb</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"⟦valid P' c Q; P ⟹ P'⟧ ⟹ valid P c Q"</span></span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Labeled rules›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">named_theorems</span></span><span> </span><span>vcg_l</span><span>
+</span><span class="keyword1"><span class="command">named_theorems</span></span><span> </span><span>vcg_l_comb</span><span>
+</span><span class="keyword1"><span class="command">named_theorems</span></span><span> </span><span>vcg_elim</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">method_setup</span></span><span> </span><span>vcg_l</span><span> </span><span class="delimiter">=</span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  Scan.succeed (fn ctxt =&gt; SIMPLE_METHOD (FIRSTGOAL (vcg_tac @{named_theorems "vcg_l"} @{named_theorems "vcg_l_comb"} ctxt)))
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">method</span></span><span> </span><span>vcg_l'</span><span> </span><span class="delimiter">=</span><span> </span><span class="delimiter">(</span><span>vcg_l</span><span class="delimiter">;</span><span> </span><span class="delimiter">(</span><span>elim</span><span> </span><span>vcg_elim</span><span class="delimiter">)</span><span class="delimiter">?</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">context</span></span><span> </span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">interpretation</span></span><span> </span><span>Labeling_Syntax</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>L_return</span><span class="delimiter">[</span><span>vcg_l</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"CTXT inp ct (Suc inp) (valid (P x) (return x) P)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>LABEL_simps</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>return</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>L_bind</span><span class="delimiter">[</span><span>vcg_l</span><span class="delimiter">]</span><span class="delimiter">:</span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"⋀x. CTXT (Suc outp') ((''bind'',outp', [VAR x]) # ct) outp (valid (R x) (c2 x) Q)"</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"CTXT inp ct outp' (valid P c1 R)"</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"CTXT inp ct outp (valid P (bind c1 c2) Q)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>LABEL_simps</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>bind</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>L_while</span><span class="delimiter">[</span><span>vcg_l</span><span class="delimiter">]</span><span class="delimiter">:</span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">fixes</span></span><span> </span><span>inp</span><span> </span><span>ct</span><span> </span><span class="keyword2"><span class="keyword">defines</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"ct' ≡ λx. (''while'', inp, [VAR x])  # ct"</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"⋀x. CTXT (Suc inp) (ct' x) outp'
+      (valid (BIND ''inv_pre'' inp (I x) ∧ BIND ''lcond'' inp (b x)) (c x) (λx. BIND ''inv_post'' inp (I x)))"</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"⋀x. B⟨''inv_pre'',inp: I x⟩ ∧ B⟨''lcond'',inp: ¬b x⟩ ⟹ VC (''post'',outp' , []) (ct' x) (P x)"</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"CTXT inp ct (Suc outp') (valid (I x) (while b I c x) P)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span class="delimiter">(</span><span>2</span><span>-</span><span class="delimiter">)</span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>LABEL_simps</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>while</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>L_cond</span><span class="delimiter">[</span><span>vcg_l</span><span class="delimiter">]</span><span class="delimiter">:</span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">fixes</span></span><span> </span><span>inp</span><span> </span><span>ct</span><span> </span><span class="keyword2"><span class="keyword">defines</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"ct' ≡ (''if'',inp,[]) # ct"</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"C⟨Suc inp, (''then'',inp,[]) # ct',outp: valid P1 c1 Q⟩"</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"C⟨Suc outp, (''else'',outp,[]) # ct',outp': valid P2 c2 Q⟩"</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"C⟨inp,ct,outp': valid (if B⟨''cond'',inp: b⟩ then B⟨''then'',inp: P1⟩ else B⟨''else'',inp: P2⟩) (if b then c1 else c2) Q⟩"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span class="delimiter">(</span><span>2</span><span>-</span><span class="delimiter">)</span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>LABEL_simps</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>cond</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>L_case_prod</span><span class="delimiter">[</span><span>vcg_l</span><span class="delimiter">]</span><span class="delimiter">:</span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"⋀x y. v = (x,y) ⟹ CTXT inp ct outp (valid (P x y) (B x y) Q)"</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"CTXT inp ct outp (valid (case v of (x,y) ⇒ P x y) (case v of (x,y) ⇒ B x y) Q)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>LABEL_simps</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>case_prod</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>L_conseq</span><span class="delimiter">[</span><span>vcg_l_comb</span><span class="delimiter">]</span><span class="delimiter">:</span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"CTXT (Suc inp) ct outp (valid P' c Q)"</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"P ⟹ VC (''conseq'',inp,[]) ct P'"</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"CTXT inp ct outp (valid P c Q)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>LABEL_simps</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>conseq</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>L_assm_conjE</span><span class="delimiter">[</span><span>vcg_elim</span><span class="delimiter">]</span><span class="delimiter">:</span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"BIND name inp (P ∧ Q)"</span></span></span><span> </span><span class="keyword2"><span class="keyword">obtains</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"BIND name inp P"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"BIND name inp Q"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>LABEL_simps</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">declare</span></span><span> </span><span>conjE</span><span class="delimiter">[</span><span>vcg_elim</span><span class="delimiter">]</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>dvd_div</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">fixes</span></span><span> </span><span>a</span><span> </span><span>b</span><span> </span><span>c</span><span> </span><span class="delimiter">::</span><span> </span><span>int</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"a dvd b"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"c dvd b"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"coprime a c"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"a dvd (b div c)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span> </span><span>coprime_dvd_mult_left_iff</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>fastforce</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>divides</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"
+valid
+  (0 &lt; (a :: int))
+  (
+    return a
+    |&gt;&gt; (λn.
+      while
+        (λn. even n)
+        (λn. 0 &lt; n ∧ n dvd a ∧ (∀m. odd m ∧ m dvd a ⟶ m dvd n))
+        (λn. return (n div 2))
+        n
+    )
+  )
+  (λr. odd r ∧ r dvd a ∧ (∀m. odd m ∧ m dvd a ⟶ m ≤ r))
+"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>vcg</span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>zdvd_imp_le</span><span> </span><span>dvd_div</span><span> </span><span>div_positive_int</span><span> </span><span>elim</span><span class="delimiter">!</span><span class="delimiter">:</span><span>
+</span><span>      </span><span>evenE</span><span> </span><span>intro</span><span class="delimiter">:</span><span> </span><span>dvd_mult_right</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>L_divides</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"
+valid
+  (0 &lt; (a :: int))
+  (
+    return a
+    |&gt;&gt; (λn.
+      while
+        (λn. even n)
+        (λn. 0 &lt; n ∧ n dvd a ∧ (∀m. odd m ∧ m dvd a ⟶ m dvd n))
+        (λn. return (n div 2))
+        n
+    )
+  )
+  (λr. odd r ∧ r dvd a ∧ (∀m. odd m ∧ m dvd a ⟶ m ≤ r))
+"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>Initial_Label</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>vcg_l'</span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>casify</span><span>
+</span><span class="keyword1"><span class="command">print_nested_cases</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>bind</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">{</span></span><span> </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>while</span><span> </span><span>n</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">{</span></span><span> </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>post</span><span> </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span class="delimiter">:</span><span> </span><span>zdvd_imp_le</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>      </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>conseq</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">from</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹0 &lt; n›</span></span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹even n›</span></span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"0 &lt; n div 2"</span></span></span><span>
+</span><span>        </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>pos_imp_zdiv_pos_iff</span><span> </span><span>zdvd_imp_le</span><span class="delimiter">)</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">moreover</span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">from</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹n dvd a›</span></span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹even n›</span></span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"n div 2 dvd a"</span></span></span><span>
+</span><span>        </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>metis</span><span> </span><span>dvd_div_mult_self</span><span> </span><span>dvd_mult_left</span><span class="delimiter">)</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">moreover</span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">{</span></span><span> </span><span class="keyword3"><span class="command">fix</span></span><span> </span><span>m</span><span> </span><span class="keyword3"><span class="command">assume</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"odd m"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"m dvd a"</span></span></span><span>
+</span><span>        </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"m dvd n"</span></span></span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>conseq.inv_pre</span><span class="delimiter">(</span><span>3</span><span class="delimiter">)</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>        </span><span class="keyword1"><span class="command">moreover</span></span><span> </span><span class="keyword1"><span class="command">note</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹even n›</span></span></span><span>
+</span><span>        </span><span class="keyword1"><span class="command">moreover</span></span><span> </span><span class="keyword1"><span class="command">from</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹odd m›</span></span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"coprime m 2"</span></span></span><span>
+</span><span>         </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>metis</span><span> </span><span>dvd_eq_mod_eq_0</span><span> </span><span>invertible_coprime</span><span> </span><span>mult_cancel_left2</span><span> </span><span>not_mod_2_eq_1_eq_0</span><span class="delimiter">)</span><span>
+</span><span>        </span><span class="keyword1"><span class="command">ultimately</span></span><span>
+</span><span>        </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"m dvd n div 2"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>dvd_div</span><span class="delimiter">)</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">}</span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">ultimately</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">}</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>    </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>conseq</span><span> </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">}</span></span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"
+valid
+  True
+  (
+    while
+      ― ‹COND:› (λ(r,j). j &lt; (b :: nat))
+      ― ‹INV:› (λ(r,j). j ≤ b ∧ r = a + j)
+      ― ‹BODY:› (λ(r,j). return (r + 1, j + 1))
+      ― ‹START:› (a,0)
+    |&gt;&gt; (λ(r,_). return r)
+  )
+  (λr. r = a + b)
+"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>vcg</span><span> </span><span>auto</span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>mult</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"
+valid
+  True
+  (
+    while
+      ― ‹COND:› (λ(r,i). i &lt; (a :: nat))
+      ― ‹INV:› (λ(r,i). i ≤ a ∧ r = i * b)
+      ― ‹BODY:› (λ(r,i).
+        while
+          ― ‹COND:› (λ(r,j). j &lt; b)
+          ― ‹INV:› (λ(r,j). i &lt; a ∧ j ≤ b ∧ r = i * b + j)
+          ― ‹BODY:› (λ(r,j). return (r + 1, j + 1))
+          ― ‹START:› (r,0)
+        |&gt;&gt; (λ(r,_). return (r, i + 1))
+      )
+      ― ‹START:› (0,0)
+    |&gt;&gt; (λ(r,_). return r)
+  )
+  (λr. r = a * b)
+"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>vcg</span><span> </span><span>auto</span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Labeled›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>L_mult</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"
+valid
+  True
+  (
+    while
+      ― ‹COND:› (λ(r,i). i &lt; (a :: nat))
+      ― ‹INV:› (λ(r,i). i ≤ a ∧ r = i * b)
+      ― ‹BODY:› (λ(r,i).
+        while
+          ― ‹COND:› (λ(r,j). j &lt; b)
+          ― ‹INV:› (λ(r,j). i &lt; a ∧ j ≤ b ∧ r = i * b + j)
+          ― ‹BODY:› (λ(r,j). return (r + 1, j + 1))
+          ― ‹START:› (r,0)
+        |&gt;&gt; (λ(r,_). return (r, i + 1))
+      )
+      ― ‹START:› (0,0)
+    |&gt;&gt; (λ(r,_). return r)
+  )
+  (λr. r = a * b)
+"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>Initial_Label</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>vcg_l'</span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>casify</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>while</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">{</span></span><span> </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>while</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">{</span></span><span> </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>post</span><span> </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>      </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>conseq</span><span> </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">}</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>    </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>post</span><span> </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>    </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>conseq</span><span> </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">}</span></span><span>
+</span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>conseq</span><span> </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>L_paths</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"
+valid
+  (path ≠ [])
+  ( while
+      ― ‹COND:› (λ(p,r). p ≠ [])
+      ― ‹INV:› (λ(p,r). distinct r ∧ hd (r @ p) = hd path ∧ last (r @ p) = last path)
+      ― ‹BODY:› (λ(p,r).
+        return (hd p)
+        |&gt;&gt; (λx.
+          if (r ≠ [] ∧ x = hd r)
+          then return []
+          else (if x ∈ set r
+            then return (takeWhile (λy. y ≠ x) r)
+            else return (r))
+        |&gt;&gt; (λr'. return (tl p, r' @ [x])
+        )
+        )
+        )
+      ― ‹START:› (path, [])
+    |&gt;&gt; (λ(_,r). return r)
+  )
+  (λr. distinct r ∧ hd r = hd path ∧ last r = last path)
+"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>Initial_Label</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>vcg_l'</span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>casify</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>conseq</span><span> </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>while</span><span> </span><span>p</span><span> </span><span>r</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">{</span></span><span> </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>conseq</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">from</span></span><span> </span><span>conseq</span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"r = [] ⟹ ?case"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>cases</span><span> </span><span>p</span><span class="delimiter">)</span><span> </span><span>auto</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">moreover</span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">from</span></span><span> </span><span>conseq</span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"r ≠ [] ⟹ hd p = hd r ⟹ ?case"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>cases</span><span> </span><span>p</span><span class="delimiter">)</span><span> </span><span>auto</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">moreover</span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">{</span></span><span> </span><span class="keyword3"><span class="command">assume</span></span><span> </span><span>A</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"r ≠ []"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"hd p ≠ hd r"</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"hd (takeWhile (λy. y ≠ hd p) r @ hd p # tl p) = hd r"</span></span></span><span>
+</span><span>        </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>A</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>cases</span><span> </span><span>r</span><span class="delimiter">)</span><span> </span><span>auto</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">moreover</span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"last (takeWhile (λy. y ≠ hd p) r @ hd p # tl p) = last (r @ p)"</span></span></span><span>
+</span><span>        </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>A</span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹p ≠ []›</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">moreover</span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"distinct (takeWhile (λy. y ≠ hd p) r @ [hd p])"</span></span></span><span>
+</span><span>        </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>conseq</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>dest</span><span class="delimiter">:</span><span> </span><span>set_takeWhileD</span><span class="delimiter">)</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">ultimately</span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>A</span><span> </span><span>conseq</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">}</span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">ultimately</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>    </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>post</span><span> </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">}</span></span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div><div id="Case_Labeling_Examples">
+<div class="head"><h1>Theory Case_Labeling_Examples</h1>
+<span class="command">theory</span> <span class="name">Case_Labeling_Examples</span><br/>
+<span class="keyword">imports</span> <a href="Labeled_Hoare_Examples.html"><span class="name">Labeled_Hoare_Examples</span></a> <a href="Conditionals.html"><span class="name">Conditionals</span></a> <a href="Monadic_Language.html"><span class="name">Monadic_Language</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Case_Labeling_Examples</span><span>
+</span><span class="keyword2"><span class="keyword">imports</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Examples/Hoare/Labeled_Hoare_Examples"</span></span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Examples/Conditionals"</span></span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Examples/Monadic_Language"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div>
+  
 </main>
     </div>
   </div>

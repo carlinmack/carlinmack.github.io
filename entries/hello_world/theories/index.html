@@ -17,7 +17,8 @@
 
   
   
-  <link rel="stylesheet" type="text/css" href="/css/front.min.css" integrity="sha256-QUoTd2RQ4/P7SQKKOG301QYvQ7o2&#43;3qwXOJptpPXM0E=">
+  <link rel="stylesheet" type="text/css" href="/css/front.min.css" integrity="sha256-QUoTd2RQ4/P7SQKKOG301QYvQ7o2&#43;3qwXOJptpPXM0E="><link rel="stylesheet" type="text/css" href="/css/isabelle.css">
+  
   <link rel="icon" href="/images/favicon.ico" type="image/icon">
   <script src="/js/flexsearch.min.js"></script><script src="/js/header-search.js"></script></head>
 
@@ -68,14 +69,519 @@
   
   </div>
 </header><div><main>
-  <iframe src="https://www.isa-afp.org/browser_info/current/AFP/Hello_World/HelloWorld.html" frameborder="0" id="HelloWorld">
-  </iframe>
-  <iframe src="https://www.isa-afp.org/browser_info/current/AFP/Hello_World/HelloWorld_Proof.html" frameborder="0" id="HelloWorld_Proof">
-  </iframe>
-  <iframe src="https://www.isa-afp.org/browser_info/current/AFP/Hello_World/IO.html" frameborder="0" id="IO">
-  </iframe>
-  <iframe src="https://www.isa-afp.org/browser_info/current/AFP/Hello_World/RunningCodeFromIsabelle.html" frameborder="0" id="RunningCodeFromIsabelle">
-  </iframe>
+  
+  <div id="IO">
+<div class="head"><h1>Theory IO</h1>
+<span class="command">theory</span> <span class="name">IO</span><br/>
+<span class="keyword">imports</span> <a href="Monad_Syntax.html"><span class="name">Monad_Syntax</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">theory</span></span><span> </span><span>IO</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">imports</span></span><span>
+</span><span>    </span><span>Main</span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"HOL-Library.Monad_Syntax"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">section</span></span><span class="cartouche"><span class="delete"><span class="delete">‹IO Monad›</span></span></span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  Inspired by Haskell.
+  Definitions from 🌐‹https://wiki.haskell.org/IO_inside›
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Real World›</span></span></span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  We model the real world with a fake type.
+
+  WARNING:
+    Using low-level commands such as ⬚‹typedecl› instead of high-level ⬚‹datatype› is dangerous.
+    We explicitly use a ⬚‹typedecl› instead of a ⬚‹datatype› because we never want to instantiate
+    the world. We don't need a constructor, we just need the type.
+
+  The following models an arbitrary type we cannot reason about.
+  Don't reason about the complete world! Only write down some assumptions about parts of the world.
+›</span></span></span><span>
+</span><span class="keyword1"><span class="command">typedecl</span></span><span> </span><span>real_world</span><span> </span><span class="delimiter">(</span><span class="cartouche"><span class="delete"><span class="delete">‹🌐›</span></span></span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹
+  For examples, see 🗏‹HelloWorld_Proof.thy›.
+  In said theory, we model ▩‹STDIN› and ▩‹STDOUT› as parts of the world and describe how this part
+  of the wold can be affected. We don't model the rest of the world. This allows us to reason about
+  ▩‹STDIN› and ▩‹STDOUT› as part of the world, but nothing more.
+›</span></span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span class="cartouche"><span class="delete"><span class="delete">‹IO Monad›</span></span></span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  The set of all functions which take a \&lt;^typ&gt;‹🌐› and return an \&lt;^typ&gt;‹'α› and a \&lt;^typ&gt;‹🌐›.
+
+  The rough idea of all IO functions is the following: You are given the world in its current state.
+  You can do whatever you like to the world. You can produce some value of type \&lt;^typ&gt;‹'α› and you
+  have to return the modified world.
+
+  For example, the ▩‹main› function is Haskell does not produce a value, therefore, ▩‹main› in
+  Haskell is of type ▩‹IO ()›. Another example in Haskell is ▩‹getLine›, which returns ▩‹String›.
+  It's type in Haskell is ▩‹IO String›. All those functions may also modify the state of the world.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">typedef</span></span><span> </span><span class="tfree">'α</span><span> </span><span>io</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"UNIV :: (🌐 ⇒ 'α × 🌐) set"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"∃x. x ∈ UNIV"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  Related Work:
+  ∗‹Programming TLS in Isabelle/HOL› by Andreas Lochbihler and Marc Züst uses a partial function
+  (‹⇀›).
+  ⬚‹
+    typedecl real_world
+    typedef 'α io = "UNIV :: (🌐 ⇀ 'α × 🌐) set" by simp
+  ›
+  We use a total function. This implies the dangerous assumption that all IO functions are total
+  (i.e., terminate).
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  The ⬚‹typedef› above gives us some convenient definitions.
+  Since the model of \&lt;^typ&gt;‹'α io› is just a mode, those definitions should not end up in generated
+  code.
+›</span></span></span><span>
+</span><span class="keyword1"><span class="command">term</span></span><span> </span><span>Abs_io</span><span> </span><span class="comment">― ‹Takes a \&lt;^typ&gt;‹(🌐 ⇒ 'α × 🌐)› and abstracts it to an \&lt;^typ&gt;‹'α io›.›</span><span>
+</span><span class="keyword1"><span class="command">term</span></span><span> </span><span>Rep_io</span><span> </span><span class="comment">― ‹Unpacks an \&lt;^typ&gt;‹'α io› to a \&lt;^typ&gt;‹(🌐 ⇒ 'α × 🌐)››</span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Monad Operations›</span></span></span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹
+  Within an \&lt;^typ&gt;‹'α io› context, execute \&lt;^term&gt;‹action<span class="hidden">⇩</span><sub>1</sub>› and \&lt;^term&gt;‹action<span class="hidden">⇩</span><sub>2</sub>› sequentially.
+  The world is passed through and potentially modified by each action.
+›</span></span></span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>bind</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'α io ⇒ ('α ⇒ 'β io) ⇒ 'β io"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="delimiter">[</span><span>code</span><span> </span><span>del</span><span class="delimiter">]</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"bind action<span class="hidden">⇩</span><sub>1</sub> action<span class="hidden">⇩</span><sub>2</sub> = Abs_io (λworld<span class="hidden">⇩</span><sub>0</sub>.
+                                  let (a, world<span class="hidden">⇩</span><sub>1</sub>) = (Rep_io action<span class="hidden">⇩</span><sub>1</sub>) world<span class="hidden">⇩</span><sub>0</sub>;
+                                      (b, world<span class="hidden">⇩</span><sub>2</sub>) = (Rep_io (action<span class="hidden">⇩</span><sub>2</sub> a)) world<span class="hidden">⇩</span><sub>1</sub>
+                                  in (b, world<span class="hidden">⇩</span><sub>2</sub>))"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  In Haskell, the definition for ▩‹bind› (▩‹&gt;&gt;=›) is:
+  ▩‹
+    (&gt;&gt;=) :: IO a -&gt; (a -&gt; IO b) -&gt; IO b
+    (action1 &gt;&gt;= action2) world0 =
+       let (a, world1) = action1 world0
+           (b, world2) = action2 a world1
+       in (b, world2)
+  ›
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">hide_const</span></span><span> </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">open</span></span><span class="delimiter">)</span><span> </span><span>bind</span><span>
+</span><span class="keyword1"><span class="command">adhoc_overloading</span></span><span> </span><span>bind</span><span> </span><span>IO.bind</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Thanks to ⬚‹adhoc_overloading›, we can use monad syntax.›</span></span></span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"bind (foo :: 'α io) (λa. bar a) = foo ⤜ (λa. bar a)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>return</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'α ⇒ 'α io"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="delimiter">[</span><span>code</span><span> </span><span>del</span><span class="delimiter">]</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"return a ≡ Abs_io (λworld. (a, world))"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">hide_const</span></span><span> </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">open</span></span><span class="delimiter">)</span><span> </span><span>return</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  In Haskell, the definition for ▩‹return› is::
+  ▩‹
+    return :: a -&gt; IO a
+    return a world0  =  (a, world0)
+  ›
+›</span></span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Monad Laws›</span></span></span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>left_id</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">fixes</span></span><span> </span><span>f</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'α ⇒ 'β io"</span></span></span><span> </span><span class="comment">― ‹Make sure we use our \&lt;^const&gt;‹IO.bind›.›</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"(IO.return a ⤜ f) = f a"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>return_def</span><span> </span><span>IO.bind_def</span><span> </span><span>Abs_io_inverse</span><span> </span><span>Rep_io_inverse</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>right_id</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">fixes</span></span><span> </span><span>m</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'α io"</span></span></span><span> </span><span class="comment">― ‹Make sure we use our \&lt;^const&gt;‹IO.bind›.›</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"(m ⤜ IO.return) = m"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>return_def</span><span> </span><span>IO.bind_def</span><span> </span><span>Abs_io_inverse</span><span> </span><span>Rep_io_inverse</span><span class="delimiter">)</span><span>
+</span><span>    
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>bind_assoc</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">fixes</span></span><span> </span><span>m</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'α io"</span></span></span><span> </span><span class="comment">― ‹Make sure we use our \&lt;^const&gt;‹IO.bind›.›</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"((m ⤜ f) ⤜ g) = (m ⤜ (λx. f x ⤜ g))"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>IO.bind_def</span><span> </span><span>Abs_io_inverse</span><span> </span><span>Abs_io_inject</span><span> </span><span>fun_eq_iff</span><span> </span><span>split</span><span class="delimiter">:</span><span> </span><span>prod.splits</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Code Generator Setup›</span></span></span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  We don't expose our \&lt;^const&gt;‹IO.bind› definition to code.
+  We use the built-in definitions of the target language (e.g., Haskell, SML).
+›</span></span></span><span>
+</span><span class="keyword1"><span class="command">code_printing</span></span><span> </span><span class="keyword2"><span class="keyword">constant</span></span><span> </span><span>IO.bind</span><span> </span><span class="delimiter">⇀</span><span> </span><span class="delimiter">(</span><span>Haskell</span><span class="delimiter">)</span><span> </span><span class="string"><span class="delete"><span class="delete">"_ &gt;&gt;= _"</span></span></span><span>
+</span><span>                                  </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="delimiter">(</span><span>SML</span><span class="delimiter">)</span><span> </span><span class="string"><span class="delete"><span class="delete">"bind"</span></span></span><span>
+</span><span>            </span><span class="delimiter">|</span><span> </span><span class="keyword2"><span class="keyword">constant</span></span><span> </span><span>IO.return</span><span> </span><span class="delimiter">⇀</span><span> </span><span class="delimiter">(</span><span>Haskell</span><span class="delimiter">)</span><span> </span><span class="string"><span class="delete"><span class="delete">"return"</span></span></span><span>
+</span><span>                                    </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="delimiter">(</span><span>SML</span><span class="delimiter">)</span><span> </span><span class="string"><span class="delete"><span class="delete">"(() =&gt; _)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹SML does not come with a bind function. We just define it (hopefully correct).›</span></span></span><span>
+</span><span class="keyword1"><span class="command">code_printing</span></span><span> </span><span class="keyword2"><span class="keyword">code_module</span></span><span> </span><span>Bind</span><span> </span><span class="delimiter">⇀</span><span> </span><span class="delimiter">(</span><span>SML</span><span class="delimiter">)</span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+fun bind x f () = f (x ()) ();
+›</span></span></span><span>
+</span><span class="keyword1"><span class="command">code_reserved</span></span><span> </span><span>SML</span><span> </span><span>bind</span><span> </span><span>return</span><span>
+</span><span>  
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹
+  Make sure the code generator does not try to define \&lt;^typ&gt;‹'α io› by itself, but always uses
+  the one of the target language.
+  For Haskell, this is the fully qualified Prelude.IO.
+  For SML, we wrap it in a nullary function.
+›</span></span></span><span>
+</span><span class="keyword1"><span class="command">code_printing</span></span><span> </span><span class="keyword2"><span class="keyword">type_constructor</span></span><span> </span><span>io</span><span> </span><span class="delimiter">⇀</span><span> </span><span class="delimiter">(</span><span>Haskell</span><span class="delimiter">)</span><span> </span><span class="string"><span class="delete"><span class="delete">"Prelude.IO _"</span></span></span><span>
+</span><span>                                     </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="delimiter">(</span><span>SML</span><span class="delimiter">)</span><span> </span><span class="string"><span class="delete"><span class="delete">"unit -&gt; _"</span></span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹
+In Isabelle, a \&lt;^typ&gt;‹string› is just a type synonym for \&lt;^typ&gt;‹char list›.
+When translating a \&lt;^typ&gt;‹string› to Haskell, Isabelle does not use Haskell's ▩‹String› or 
+▩‹[Prelude.Char]›. Instead, Isabelle serializes its own
+  ▩‹data Char = Char Bool Bool Bool Bool Bool Bool Bool Bool›.
+The resulting code will look just ugly.
+
+To use the native strings of Haskell, we use the Isabelle type \&lt;^typ&gt;‹String.literal›.
+This gets translated to a Haskell ▩‹String›.
+
+A string literal in Isabelle is created with \&lt;^term&gt;‹STR ''foo'' :: String.literal›.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹
+  We define IO functions in Isabelle without implementation.
+  For a proof in Isabelle, we will only describe their externally observable properties.
+  For code generation, we map those functions to the corresponding function of the target language.
+
+  Our assumption is that our description in Isabelle corresponds to the real behavior of those
+  functions in the respective target language.
+
+  We use ⬚‹axiomatization› instead of ⬚‹consts› to axiomatically define that those functions exist,
+  but there is no implementation of them. This makes sure that we have to explicitly write down all
+  our assumptions about their behavior. Currently, no assumptions (apart from their type) can be
+  made about those functions.
+›</span></span></span><span>
+</span><span class="keyword1"><span class="command">axiomatization</span></span><span>
+</span><span>  </span><span>println</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"String.literal ⇒ unit io"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span>
+</span><span>  </span><span>getLine</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"String.literal io"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹A Haskell module named ▩‹StdIO› which just implements ▩‹println› and ▩‹getLine›.›</span></span></span><span>
+</span><span class="keyword1"><span class="command">code_printing</span></span><span> </span><span class="keyword2"><span class="keyword">code_module</span></span><span> </span><span>StdIO</span><span> </span><span class="delimiter">⇀</span><span> </span><span class="delimiter">(</span><span>Haskell</span><span class="delimiter">)</span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+module StdIO (println, getLine) where
+import qualified Prelude (putStrLn, getLine)
+println = Prelude.putStrLn
+getLine = Prelude.getLine
+›</span></span></span><span>                              </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="delimiter">(</span><span>SML</span><span class="delimiter">)</span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+(* Newline behavior in SML is odd.*)
+fun println s () = TextIO.print (s ^ "\n");
+fun getLine () = case (TextIO.inputLine TextIO.stdIn) of
+                  SOME s =&gt; String.substring (s, 0, String.size s - 1)
+                | NONE =&gt; raise Fail "getLine";
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">code_reserved</span></span><span> </span><span>Haskell</span><span> </span><span>StdIO</span><span> </span><span>println</span><span> </span><span>getLine</span><span>
+</span><span class="keyword1"><span class="command">code_reserved</span></span><span> </span><span>SML</span><span> </span><span>println</span><span> </span><span>print</span><span> </span><span>getLine</span><span> </span><span>TextIO</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹
+  When the code generator sees the functions \&lt;^const&gt;‹println› or \&lt;^const&gt;‹getLine›, we tell it to use
+  our language-specific implementation.
+  ›</span></span></span><span>
+</span><span class="keyword1"><span class="command">code_printing</span></span><span> </span><span class="keyword2"><span class="keyword">constant</span></span><span> </span><span>println</span><span> </span><span class="delimiter">⇀</span><span> </span><span class="delimiter">(</span><span>Haskell</span><span class="delimiter">)</span><span> </span><span class="string"><span class="delete"><span class="delete">"StdIO.println"</span></span></span><span>
+</span><span>                              </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="delimiter">(</span><span>SML</span><span class="delimiter">)</span><span> </span><span class="string"><span class="delete"><span class="delete">"println"</span></span></span><span>
+</span><span>            </span><span class="delimiter">|</span><span> </span><span class="keyword2"><span class="keyword">constant</span></span><span> </span><span>getLine</span><span> </span><span class="delimiter">⇀</span><span> </span><span class="delimiter">(</span><span>Haskell</span><span class="delimiter">)</span><span> </span><span class="string"><span class="delete"><span class="delete">"StdIO.getLine"</span></span></span><span>
+</span><span>                              </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="delimiter">(</span><span>SML</span><span class="delimiter">)</span><span> </span><span class="string"><span class="delete"><span class="delete">"getLine"</span></span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Monad syntax and \&lt;^const&gt;‹println› examples.›</span></span></span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"bind (println (STR ''foo''))
+            (λ_.  println (STR ''bar'')) =
+       println (STR ''foo'') ⤜ (λ_. println (STR ''bar''))"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span> 
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"do { _ ← println (STR ''foo'');
+            println (STR ''bar'')} =
+      println (STR ''foo'') ⪢ (println (STR ''bar''))"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Modelling Running an \&lt;^typ&gt;‹'α io› Function›</span></span></span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹
+  Apply some function \&lt;^term&gt;‹iofun :: 'α io› to a specific world and return the new world
+  (discarding the result of \&lt;^term&gt;‹iofun›).
+›</span></span></span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>exec</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'α io ⇒ 🌐 ⇒ 🌐"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"exec iofun world = snd (Rep_io iofun world)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Similar, but only get the result.›</span></span></span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>eval</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'α io ⇒ 🌐 ⇒ 'α"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"eval iofun world = fst (Rep_io iofun world)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹
+  Essentially, \&lt;^const&gt;‹exec› and \&lt;^const&gt;‹eval› extract the payload \&lt;^typ&gt;‹'α› and \&lt;^typ&gt;‹🌐›
+  when executing an \&lt;^typ&gt;‹'α io›.
+›</span></span></span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Abs_io (λworld. (eval iofun world, exec iofun world)) = iofun"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>exec_def</span><span> </span><span>eval_def</span><span> </span><span>Rep_io_inverse</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>exec_Abs_io</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"exec (Abs_io f) world = snd (f world)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>exec_def</span><span> </span><span>Abs_io_inverse</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>exec_then</span><span class="delimiter">:</span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"exec (io<span class="hidden">⇩</span><sub>1</sub> ⪢ io<span class="hidden">⇩</span><sub>2</sub>) world = exec io<span class="hidden">⇩</span><sub>2</sub> (exec io<span class="hidden">⇩</span><sub>1</sub> world)"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>eval_then</span><span class="delimiter">:</span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"eval (io<span class="hidden">⇩</span><sub>1</sub> ⪢ io<span class="hidden">⇩</span><sub>2</sub>) world = eval io<span class="hidden">⇩</span><sub>2</sub> (exec io<span class="hidden">⇩</span><sub>1</sub> world)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>exec_def</span><span> </span><span>eval_def</span><span> </span><span>bind_def</span><span> </span><span>Abs_io_inverse</span><span> </span><span>split_beta</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>exec_bind</span><span class="delimiter">:</span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"exec (io<span class="hidden">⇩</span><sub>1</sub> ⤜ io<span class="hidden">⇩</span><sub>2</sub>) world = exec (io<span class="hidden">⇩</span><sub>2</sub> (eval io<span class="hidden">⇩</span><sub>1</sub> world)) (exec io<span class="hidden">⇩</span><sub>1</sub> world)"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>eval_bind</span><span class="delimiter">:</span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"eval (io<span class="hidden">⇩</span><sub>1</sub> ⤜ io<span class="hidden">⇩</span><sub>2</sub>) world = eval (io<span class="hidden">⇩</span><sub>2</sub> (eval io<span class="hidden">⇩</span><sub>1</sub> world)) (exec io<span class="hidden">⇩</span><sub>1</sub> world)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>exec_def</span><span> </span><span>eval_def</span><span> </span><span>bind_def</span><span> </span><span>Abs_io_inverse</span><span> </span><span>split_beta</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>exec_return</span><span class="delimiter">:</span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"exec (IO.return a) world = world"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">and</span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"eval (IO.return a) world = a"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>exec_def</span><span> </span><span>eval_def</span><span> </span><span>Abs_io_inverse</span><span> </span><span>return_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span></pre>
+</div>
+</div><div id="HelloWorld">
+<div class="head"><h1>Theory HelloWorld</h1>
+<span class="command">theory</span> <span class="name">HelloWorld</span><br/>
+<span class="keyword">imports</span> <a href="IO.html"><span class="name">IO</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">theory</span></span><span> </span><span>HelloWorld</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>IO</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">section</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Hello, World!›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹
+  The idea of a \&lt;^term&gt;‹main :: unit io› function is that, upon start of your program, you will be
+  handed a value of type \&lt;^typ&gt;‹🌐›. You can pass this world through your code and modify it.
+  Be careful with the \&lt;^typ&gt;‹🌐›, it's the only one we have.
+›</span></span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹The main function, defined in Isabelle. It should have the right type in Haskell.›</span></span></span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>main</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"unit io"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"main ≡ do {
+               _ ← println (STR ''Hello World! What is your name?'');
+               name ← getLine;
+               println (STR ''Hello, '' + name + STR ''!'')
+             }"</span></span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">section</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Generating Code›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Checking that the generated code compiles.›</span></span></span><span>
+</span><span class="keyword1"><span class="command">export_code</span></span><span> </span><span>main</span><span> </span><span class="keyword2"><span class="keyword">checking</span></span><span> </span><span>Haskell</span><span class="delimiter">?</span><span> </span><span>SML</span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Isabelle_System.bash "echo ${ISABELLE_TMP} &gt; ${ISABELLE_TMP}/self"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹
+During the build of this session, the code generated in the following subsections will be
+written to
+›</span></span></span><span>
+</span><span class="keyword1"><span class="command">text_raw</span></span><span class="cartouche"><span class="delete"><span class="delete">‹\verbatiminput{${ISABELLE_TMP}/self}›</span></span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Haskell›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">export_code</span></span><span> </span><span>main</span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>Haskell</span><span> </span><span class="keyword2"><span class="keyword">file</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"$ISABELLE_TMP/exported_hs"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹The generated helper module 🗏‹$ISABELLE_TMP/exported_hs/StdIO.hs› is shown below.›</span></span></span><span>
+</span><span class="keyword1"><span class="command">text_raw</span></span><span class="cartouche"><span class="delete"><span class="delete">‹\verbatiminput{$ISABELLE_TMP/exported_hs/StdIO.hs}›</span></span></span><span>
+</span><span> 
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹The generated main file 🗏‹$ISABELLE_TMP/exported_hs/HelloWorld.hs› is shown below.›</span></span></span><span>
+</span><span class="keyword1"><span class="command">text_raw</span></span><span class="cartouche"><span class="delete"><span class="delete">‹\verbatiminput{$ISABELLE_TMP/exported_hs/HelloWorld.hs}›</span></span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span class="cartouche"><span class="delete"><span class="delete">‹SML›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">export_code</span></span><span> </span><span>main</span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>SML</span><span> </span><span class="keyword2"><span class="keyword">file</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"$ISABELLE_TMP/exported.sml"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹The generated SML code in 🗏‹$ISABELLE_TMP/exported.sml› is shown below.›</span></span></span><span>
+</span><span class="keyword1"><span class="command">text_raw</span></span><span class="cartouche"><span class="delete"><span class="delete">‹\verbatiminput{$ISABELLE_TMP/exported.sml}›</span></span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span></pre>
+</div>
+</div><div id="HelloWorld_Proof">
+<div class="head"><h1>Theory HelloWorld_Proof</h1>
+<span class="command">theory</span> <span class="name">HelloWorld_Proof</span><br/>
+<span class="keyword">imports</span> <a href="HelloWorld.html"><span class="name">HelloWorld</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">theory</span></span><span> </span><span>HelloWorld_Proof</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>HelloWorld</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">section</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Correctness›</span></span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Modeling Input and Output›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹
+  With the appropriate assumptions about \&lt;^const&gt;‹println› and \&lt;^const&gt;‹getLine›,
+  we can even prove something.
+  We summarize our model about input and output in the assumptions of a ⬚‹locale›.
+›</span></span></span><span>
+</span><span class="keyword1"><span class="command">locale</span></span><span> </span><span>io_stdio</span><span> </span><span class="delimiter">=</span><span>
+</span><span>  </span><span class="comment">― ‹We model ▩‹STDIN› and ▩‹STDOUT› as part of the \&lt;^typ&gt;‹🌐›.
+     Note that we know nothing about \&lt;^typ&gt;‹🌐›,
+     we just model that we can find ▩‹STDIN› and ▩‹STDOUT› somewhere in there.›</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">fixes</span></span><span> </span><span>stdout_of</span><span class="delimiter">::</span><span class="string"><span class="delete"><span class="delete">"🌐 ⇒ string list"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>stdin_of</span><span class="delimiter">::</span><span class="string"><span class="delete"><span class="delete">"🌐 ⇒ string list"</span></span></span><span>
+</span><span>
+</span><span>  </span><span class="comment">― ‹Assumptions about ▩‹STDIN›:
+      Calling \&lt;^const&gt;‹println› appends to the end of ▩‹STDOUT› and \&lt;^const&gt;‹getLine› does not change
+      anything.›</span><span>
+</span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span>stdout_of_println</span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"stdout_of (exec (println str) world) = stdout_of world@[String.explode str]"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>stdout_of_getLine</span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"stdout_of (exec getLine world) = stdout_of world"</span></span></span><span>
+</span><span>
+</span><span>  </span><span class="comment">― ‹Assumptions about ▩‹STDIN›:
+      Calling \&lt;^const&gt;‹println› does not change anything and \&lt;^const&gt;‹getLine› removes the first element
+      from the ▩‹STDIN› stream.›</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>stdin_of_println</span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"stdin_of (exec (println str) world) = stdin_of world"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>stdin_of_getLine</span><span class="delimiter">:</span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"stdin_of world = inp#stdin ⟹
+     stdin_of (exec getLine world) = stdin ∧ eval getLine world = String.implode inp"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Correctness of Hello World›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Correctness of \&lt;^const&gt;‹main›:
+    If ▩‹STDOUT› is initially empty and only \&lt;^term&gt;‹''corny''› will be typed into ▩‹STDIN›,
+    then the program will output: \&lt;^term&gt;‹[''Hello World! What is your name?'', ''Hello, corny!'']›.
+  ›</span></span></span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>io_stdio</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span>stdout</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"stdout_of world = []"</span></span></span><span>
+</span><span>       </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>stdin</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"stdin_of world = [''corny'']"</span></span></span><span>
+</span><span>     </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"stdout_of (exec main world) =
+              [''Hello World! What is your name?'',
+               ''Hello, corny!'']"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">let</span></span><span> </span><span class="var">?world1</span><span class="delimiter">=</span><span class="string"><span class="delete"><span class="delete">"exec (println (STR ''Hello World! What is your name?'')) world"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span>stdout_world2</span><span class="delimiter">:</span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"literal.explode STR ''Hello World! What is your name?'' =
+     ''Hello World! What is your name?''"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>code_simp</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">from</span></span><span> </span><span>stdin_of_getLine</span><span class="delimiter">[</span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span>stdin</span><span class="delimiter">=</span><span class="string"><span class="delete"><span class="delete">"[]"</span></span></span><span class="delimiter">,</span><span> </span><span>OF</span><span> </span><span>stdin</span><span class="delimiter">]</span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span>stdin_world2</span><span class="delimiter">:</span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"eval getLine ?world1 = String.implode ''corny''"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>stdin_of_getLine</span><span> </span><span>stdin</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>main_def</span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>exec_bind</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>stdout</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>stdout_world2</span><span> </span><span>stdin_world2</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>plus_literal.rep_eq</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>code_simp</span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span></pre>
+</div>
+</div><div id="RunningCodeFromIsabelle">
+<div class="head"><h1>Theory RunningCodeFromIsabelle</h1>
+<span class="command">theory</span> <span class="name">RunningCodeFromIsabelle</span><br/>
+<span class="keyword">imports</span> <a href="HelloWorld.html"><span class="name">HelloWorld</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">theory</span></span><span> </span><span>RunningCodeFromIsabelle</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>HelloWorld</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">section</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Running the Generated Code inside Isabelle›</span></span></span><span>
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(*Maintainer note: We invoke the generated code ON PURPOSE from bash to demonstrate how to use
+  the generated code from outside Isabelle and make sure the code runs.*)</span></span></span></span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹
+  Usually, one would use ⬚‹export_code› to generate code. Here, we want to write the code to
+  a temp directory and execute it right afterwards inside Isablle, so we invoke the code generator
+  directly from Isabelle/ML.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Haskell›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">ML</span></span><span class="cartouche"><span class="delete"><span class="delete">‹
+val (files, _) =
+  Code_Target.produce_code @{context} false [@{const_name main}] "Haskell" "Main" NONE []
+
+val target = File.tmp_path (Path.basic ("export" ^ serial_string ()))
+
+val ghc = getenv "ISABELLE_GHC";
+
+val cmd =
+  "cd " ^ Path.implode target ^ " &amp;&amp; " ^
+    Bash.string ghc ^ " Main.hs &amp;&amp; " ^
+    "(  echo 'Cyber Cat 42' | ./Main )";
+
+Isabelle_System.mkdirs target;
+
+app (fn ([file], content) =&gt;
+   let
+     val path = Path.append target (Path.basic file)
+   in
+     File.write path content
+   end) files;
+
+val exitcode =
+  if ghc &lt;&gt; "" then
+    Isabelle_System.bash cmd
+  else
+    (writeln "not running Haskell, because $ISABELLE_GHC is not set."; 0);
+
+if exitcode &lt;&gt; 0 then
+  raise (Fail ("example Haskell code did not run as expected, " ^
+                 "exit code was " ^ (Int.toString exitcode)))
+else ()
+›</span></span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span class="cartouche"><span class="delete"><span class="delete">‹SML›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">ML</span></span><span class="cartouche"><span class="delete"><span class="delete">‹
+
+val ([(_, content)], _) =
+  Code_Target.produce_code @{context} false [@{const_name main}] "SML" "HelloWorld" NONE []
+
+val target = File.tmp_path (Path.basic ("export" ^ serial_string ()))
+val file = Path.append target (Path.basic "main.ML")
+
+val cmd =
+  "echo 'Super Goat 2000' | " ^
+    "\"${POLYML_EXE?}\" --use " ^ Path.implode file ^
+    " --eval 'HelloWorld.main ()'";
+
+Isabelle_System.mkdirs target;
+File.write file content;
+
+val exitcode = Isabelle_System.bash cmd;
+
+if exitcode &lt;&gt; 0 then
+  raise (Fail ("example SML code did not run as expected, " ^
+                 "exit code was " ^ (Int.toString exitcode)))
+else ()
+›</span></span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span></pre>
+</div>
+</div>
+  
 </main>
     </div>
   </div>

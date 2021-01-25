@@ -1,0 +1,195 @@
+<div id="Exceptions">
+<div class="head"><h1>Theory Exceptions</h1>
+<span class="command">theory</span> <span class="name">Exceptions</span><br/>
+<span class="keyword">imports</span> <a href="../../HOL/HOL/Main.html"><span class="name">Main</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(*  Author:     Tobias Nipkow
+    Copyright   2004 TU Muenchen
+*)</span></span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Compiling exception handling›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Exceptions</span><span>
+</span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>Main</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span class="cartouche"><span class="delete"><span class="delete">‹The source language›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">datatype</span></span><span> </span><span>expr</span><span> </span><span class="delimiter">=</span><span> </span><span>Val</span><span> </span><span>int</span><span> </span><span class="delimiter">|</span><span> </span><span>Add</span><span> </span><span>expr</span><span> </span><span>expr</span><span> </span><span class="delimiter">|</span><span> </span><span>Throw</span><span> </span><span class="delimiter">|</span><span> </span><span>Catch</span><span> </span><span>expr</span><span> </span><span>expr</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">primrec</span></span><span> </span><span>eval</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"expr ⇒ int option"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"eval (Val i) = Some i"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"eval (Add x y) =
+   (case eval x of None ⇒ None
+    | Some i ⇒ (case eval y of None ⇒ None
+                 | Some j ⇒ Some(i+j)))"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"eval Throw = None"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"eval (Catch x h) = (case eval x of None ⇒ eval h | Some i ⇒ Some i)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span class="cartouche"><span class="delete"><span class="delete">‹The target language›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">datatype</span></span><span> </span><span>instr</span><span> </span><span class="delimiter">=</span><span>
+</span><span>  </span><span>Push</span><span> </span><span>int</span><span> </span><span class="delimiter">|</span><span> </span><span>ADD</span><span> </span><span class="delimiter">|</span><span> </span><span>THROW</span><span> </span><span class="delimiter">|</span><span> </span><span>Mark</span><span> </span><span>nat</span><span> </span><span class="delimiter">|</span><span> </span><span>Unmark</span><span> </span><span class="delimiter">|</span><span> </span><span>Label</span><span> </span><span>nat</span><span> </span><span class="delimiter">|</span><span> </span><span>Jump</span><span> </span><span>nat</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">datatype</span></span><span> </span><span>item</span><span> </span><span class="delimiter">=</span><span> </span><span>VAL</span><span> </span><span>int</span><span> </span><span class="delimiter">|</span><span> </span><span>HAN</span><span> </span><span>nat</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">type_synonym</span></span><span> </span><span>code</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"instr list"</span></span></span><span>
+</span><span class="keyword1"><span class="command">type_synonym</span></span><span> </span><span>stack</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"item list"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>jump</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"jump l [] = []"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"jump l (Label l' # cs) = (if l = l' then cs else jump l cs)"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"jump l (c # cs) = jump l cs"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>size_jump1</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"size (jump l cs) &lt; Suc (size cs)"</span></span></span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="delimiter">(</span><span>induct</span><span> </span><span>cs</span><span class="delimiter">)</span><span>
+</span><span> </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>simp</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="delimiter">(</span><span>case_tac</span><span> </span><span>a</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>auto</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>size_jump2</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"size (jump l cs) &lt; size cs ∨ jump l cs = cs"</span></span></span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="delimiter">(</span><span>induct</span><span> </span><span>cs</span><span class="delimiter">)</span><span>
+</span><span> </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>simp</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="delimiter">(</span><span>case_tac</span><span> </span><span>a</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>auto</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">function</span></span><span> </span><span class="delimiter">(</span><span>sequential</span><span class="delimiter">)</span><span> </span><span>exec2</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"bool ⇒ code ⇒ stack ⇒ stack"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"exec2 True [] s = s"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"exec2 True (Push i#cs) s = exec2 True cs (VAL i # s)"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"exec2 True (ADD#cs) (VAL j # VAL i # s) = exec2 True cs (VAL(i+j) # s)"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"exec2 True (THROW#cs) s = exec2 False cs s"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"exec2 True (Mark l#cs) s = exec2 True cs (HAN l # s)"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"exec2 True (Unmark#cs) (v # HAN l # s) = exec2 True cs (v # s)"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"exec2 True (Label l#cs) s = exec2 True cs s"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"exec2 True (Jump l#cs) s = exec2 True (jump l cs) s"</span></span></span><span>
+</span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"exec2 False cs [] = []"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"exec2 False cs (VAL i # s) = exec2 False cs s"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"exec2 False cs (HAN l # s) = exec2 True (jump l cs) s"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span>pat_completeness</span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">termination</span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>relation</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"inv_image (measure(%cs. size cs) &lt;*lex*&gt; measure(%s. size s)) (%(b,cs,s). (cs,s))"</span></span></span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>size_jump1</span><span> </span><span>size_jump2</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">abbreviation</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"exec ≡ exec2 True"</span></span></span><span>
+</span><span class="keyword1"><span class="command">abbreviation</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"unwind ≡ exec2 False"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span class="cartouche"><span class="delete"><span class="delete">‹The compiler›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">primrec</span></span><span> </span><span>compile</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"nat ⇒ expr ⇒ code * nat"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"compile l (Val i) = ([Push i], l)"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"compile l (Add x y) = (let (xs,m) = compile l x; (ys,n) = compile m y
+                       in (xs @ ys @ [ADD], n))"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"compile l Throw = ([THROW],l)"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"compile l (Catch x h) =
+    (let (xs,m) = compile (l+2) x; (hs,n) = compile m h
+     in (Mark l # xs @ [Unmark, Jump (l+1), Label l] @ hs @ [Label(l+1)], n))"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">abbreviation</span></span><span>
+</span><span>  </span><span>cmp</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"nat ⇒ expr ⇒ code"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"cmp l e == fst(compile l e)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">primrec</span></span><span> </span><span>isFresh</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"nat ⇒ stack ⇒ bool"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"isFresh l [] = True"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"isFresh l (it#s) = (case it of VAL i ⇒ isFresh l s
+                       | HAN l' ⇒ l' &lt; l ∧ isFresh l s)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span>
+</span><span>  </span><span>conv</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"code ⇒ stack ⇒ int option ⇒ stack"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"conv cs s io = (case io of None ⇒ unwind cs s
+                  | Some i ⇒ exec cs (VAL i # s))"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span class="cartouche"><span class="delete"><span class="delete">‹The proofs›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Lemma numbers are the same as in the paper.›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">declare</span></span><span>
+</span><span>  </span><span>conv_def</span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span> </span><span>option.splits</span><span class="delimiter">[</span><span>split</span><span class="delimiter">]</span><span> </span><span>Let_def</span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>3</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"(⋀l. c = Label l ⟹ isFresh l s) ⟹ unwind (c#cs) s = unwind cs s"</span></span></span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="delimiter">(</span><span>induct</span><span> </span><span>s</span><span class="delimiter">)</span><span>
+</span><span> </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>simp</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="delimiter">(</span><span>auto</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="delimiter">(</span><span>case_tac</span><span> </span><span>a</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>auto</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="delimiter">(</span><span>case_tac</span><span> </span><span>c</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>auto</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">corollary</span></span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"(!!l. c ≠ Label l) ⟹ unwind (c#cs) s = unwind cs s"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span class="delimiter">(</span><span>blast</span><span> </span><span>intro</span><span class="delimiter">:</span><span> </span><span>3</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">corollary</span></span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"isFresh l s ⟹ unwind (Label l#cs) s = unwind cs s"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span class="delimiter">(</span><span>blast</span><span> </span><span>intro</span><span class="delimiter">:</span><span> </span><span>3</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>5</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"⟦ isFresh l s; l ≤ m ⟧ ⟹ isFresh m s"</span></span></span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="delimiter">(</span><span>induct</span><span> </span><span>s</span><span class="delimiter">)</span><span>
+</span><span> </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>simp</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="delimiter">(</span><span>auto</span><span> </span><span>split</span><span class="delimiter">:</span><span>item.split</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">corollary</span></span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"isFresh l s ⟹ isFresh (Suc l) s"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span class="delimiter">(</span><span>auto</span><span> </span><span>intro</span><span class="delimiter">:</span><span>5</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>6</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"⋀l. l ≤ snd(compile l e)"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span class="delimiter">(</span><span>induct</span><span> </span><span>e</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>Val</span><span> </span><span class="keyword3"><span class="command">thus</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>Add</span><span> </span><span>x</span><span> </span><span>y</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">from</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹l ≤ snd (compile l x)›</span></span></span><span>
+</span><span>   </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹snd (compile l x) ≤ snd (compile (snd (compile l x)) y)›</span></span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">by</span></span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span>split_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>Throw</span><span> </span><span class="keyword3"><span class="command">thus</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>Catch</span><span> </span><span>x</span><span> </span><span>h</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">from</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹l+2 ≤ snd (compile (l+2) x)›</span></span></span><span>
+</span><span>   </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹snd (compile (l+2) x) ≤ snd (compile (snd (compile (l+2) x)) h)›</span></span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">by</span></span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span>split_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">corollary</span></span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"l &lt; m ⟹ l &lt; snd(compile m e)"</span></span></span><span>
+</span><span class="keyword1"><span class="command">using</span></span><span> </span><span>6</span><span class="delimiter">[</span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span>l</span><span> </span><span class="delimiter">=</span><span> </span><span>m</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>e</span><span> </span><span class="delimiter">=</span><span> </span><span>e</span><span class="delimiter">]</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">corollary</span></span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"isFresh l s ⟹ isFresh (snd(compile l e)) s"</span></span></span><span>
+</span><span class="keyword1"><span class="command">using</span></span><span> </span><span>5</span><span> </span><span>6</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Contrary to what the paper says, the proof of lemma 4 does not
+just need lemma 3 but also the above corollary of 5 and 6. Hence the
+strange order of the lemmas in our proof.›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>4</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"⋀l cs. isFresh l s ⟹ unwind (cmp l e @ cs) s = unwind cs s"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>e</span><span class="delimiter">)</span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span>split_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>7</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"l &lt; m ⟹ jump l (cmp m e @ cs) = jump l cs"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>e</span><span> </span><span>arbitrary</span><span class="delimiter">:</span><span> </span><span>m</span><span> </span><span>cs</span><span class="delimiter">)</span><span> </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span>split_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹The compiler correctness theorem:›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>comp_corr</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"⋀l s cs. isFresh l s ⟹ exec (cmp l e @ cs) s = conv cs s (eval e)"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span class="delimiter">(</span><span>induct</span><span> </span><span>e</span><span class="delimiter">)</span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span>split_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹The specialized and more readable version (omitted in the paper):›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">corollary</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"exec (cmp l e) [] = (case eval e of None ⇒ [] | Some n ⇒ [VAL n])"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>comp_corr</span><span class="delimiter">[</span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span>cs</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"[]"</span></span></span><span class="delimiter">,</span><span> </span><span>simplified</span><span class="delimiter">]</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div>

@@ -17,7 +17,8 @@
 
   
   
-  <link rel="stylesheet" type="text/css" href="/css/front.min.css" integrity="sha256-QUoTd2RQ4/P7SQKKOG301QYvQ7o2&#43;3qwXOJptpPXM0E=">
+  <link rel="stylesheet" type="text/css" href="/css/front.min.css" integrity="sha256-QUoTd2RQ4/P7SQKKOG301QYvQ7o2&#43;3qwXOJptpPXM0E="><link rel="stylesheet" type="text/css" href="/css/isabelle.css">
+  
   <link rel="icon" href="/images/favicon.ico" type="image/icon">
   <script src="/js/flexsearch.min.js"></script><script src="/js/header-search.js"></script></head>
 
@@ -65,8 +66,459 @@
   
   </div>
 </header><div><main>
-  <iframe src="https://www.isa-afp.org/browser_info/current/AFP/List_Inversions/List_Inversions.html" frameborder="0" id="List_Inversions">
-  </iframe>
+  
+  <div id="List_Inversions">
+<div class="head"><h1>Theory List_Inversions</h1>
+<span class="command">theory</span> <span class="name">List_Inversions</span><br/>
+<span class="keyword">imports</span> <a href="Permutations.html"><span class="name">Permutations</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(*
+  File:     List_Inversions.thy
+  Author:   Manuel Eberl, TU München
+
+  A formalisation of inversions of a list and the O(n log n) divide-and-conquer algorithm
+  to count them.
+*)</span></span></span></span></span><span>
+</span><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹The Inversions of a List›</span></span></span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>List_Inversions</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>Main</span><span> </span><span class="string"><span class="delete"><span class="delete">"HOL-Library.Permutations"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Definition of inversions›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">context</span></span><span> </span><span>preorder</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  We define inversions as pair of indices w.\,r.\,t.\ a preorder.
+›</span></span></span><span>
+</span><span class="keyword1"><span class="command">inductive_set</span></span><span> </span><span>inversions</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a list ⇒ (nat × nat) set"</span></span></span><span> </span><span class="keyword2"><span class="keyword">for</span></span><span> </span><span>xs</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a list"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"i &lt; j ⟹ j &lt; length xs ⟹ less (xs ! j) (xs ! i) ⟹ (i, j) ∈ inversions xs"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>inversions_subset</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"inversions xs ⊆ Sigma {..&lt;length xs} (λi. {i&lt;..&lt;length xs})"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span class="delimiter">:</span><span> </span><span>inversions.simps</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>finite_inversions</span><span> </span><span class="delimiter">[</span><span>intro</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"finite (inversions xs)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>finite_subset</span><span class="delimiter">[</span><span>OF</span><span> </span><span>inversions_subset</span><span class="delimiter">]</span><span class="delimiter">)</span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>inversions_altdef</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"inversions xs = {(i, j). i &lt; j ∧ j &lt; length xs ∧ less (xs ! j) (xs ! i)}"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span class="delimiter">:</span><span> </span><span>inversions.simps</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>inversions_code</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"inversions xs =
+     Sigma {..&lt;length xs} (λi. Set.filter (λj. less (xs ! j) (xs ! i)) {i&lt;..&lt;length xs})"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span class="delimiter">:</span><span> </span><span>inversions_altdef</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemmas</span></span><span> </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>-</span><span class="delimiter">)</span><span> </span><span class="delimiter">[</span><span>code</span><span class="delimiter">]</span><span> </span><span class="delimiter">=</span><span> </span><span>inversions_code</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>inversions_trivial</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"length xs ≤ Suc 0 ⟹ inversions xs = {}"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span class="delimiter">:</span><span> </span><span>inversions_altdef</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>inversions_imp_less</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"z ∈ inversions xs ⟹ fst z &lt; snd z"</span></span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"z ∈ inversions xs ⟹ snd z &lt; length xs"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span class="delimiter">:</span><span> </span><span>inversions_altdef</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>inversions_Nil</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"inversions [] = {}"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span class="delimiter">:</span><span> </span><span>inversions_altdef</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>inversions_Cons</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"inversions (x # xs) =
+     (λj. (0, j + 1)) ` {j∈{..&lt;length xs}. less (xs ! j) x} ∪
+     map_prod Suc Suc ` inversions xs"</span></span></span><span> </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">is</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"_ = ?rhs"</span></span></span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"z ∈ inversions (x # xs) ⟷ z ∈ ?rhs"</span></span></span><span> </span><span class="keyword2"><span class="keyword">for</span></span><span> </span><span>z</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>cases</span><span> </span><span>z</span><span class="delimiter">)</span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span class="delimiter">:</span><span> </span><span>inversions_altdef</span><span> </span><span>map_prod_def</span><span> </span><span>nth_Cons</span><span> </span><span>split</span><span class="delimiter">:</span><span> </span><span>nat.splits</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">thus</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  The following function returns the inversions between two lists, i.\,e.\ all pairs of
+  an element in the first list with an element in the second list such that the former
+  is greater than the latter.
+›</span></span></span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>inversions_between</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a list ⇒ 'a list ⇒ (nat × nat) set"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"inversions_between xs ys =
+     {(i, j) ∈ {..&lt;length xs}×{..&lt;length ys}. less (ys ! j) (xs ! i)}"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>finite_inversions_between</span><span> </span><span class="delimiter">[</span><span>intro</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"finite (inversions_between xs ys)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>finite_subset</span><span class="delimiter">[</span><span>of</span><span> </span><span>_</span><span> </span><span class="string"><span class="delete"><span class="delete">"{..&lt;length xs} × {..&lt;length xs + length ys}"</span></span></span><span class="delimiter">]</span><span class="delimiter">)</span><span>
+</span><span>       </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span class="delimiter">:</span><span> </span><span>inversions_between_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>inversions_between_Nil</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"inversions_between [] ys = {}"</span></span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"inversions_between xs [] = {}"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>inversions_between_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  We can now show the following equality for the inversions of the concatenation of two lists:
+›</span></span></span><span>
+</span><span class="keyword1"><span class="command">proposition</span></span><span> </span><span>inversions_append</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">fixes</span></span><span> </span><span>xs</span><span> </span><span>ys</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">defines</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"m ≡ length xs"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"n ≡ length ys"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"inversions (xs @ ys) =
+           inversions xs ∪ map_prod ((+) m) ((+) m) ` inversions ys ∪
+           map_prod id ((+) m) ` inversions_between xs ys"</span></span></span><span>
+</span><span>        </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">is</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"_ = ?rhs"</span></span></span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">note</span></span><span> </span><span>defs</span><span> </span><span class="delimiter">=</span><span> </span><span>inversions_altdef</span><span> </span><span>inversions_between_def</span><span> </span><span>m_def</span><span> </span><span>n_def</span><span> </span><span>map_prod_def</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"z ∈ inversions (xs @ ys) ⟷ z ∈ ?rhs"</span></span></span><span> </span><span class="keyword2"><span class="keyword">for</span></span><span> </span><span>z</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">proof</span></span><span>
+</span><span>    </span><span class="keyword3"><span class="command">assume</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"z ∈ inversions (xs @ ys)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">obtain</span></span><span> </span><span>i</span><span> </span><span>j</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"z = (i, j)"</span></span></span><span>
+</span><span>                      </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>ij</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"i &lt; j"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"j &lt; m + n"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"less ((xs @ ys) ! j) ((xs @ ys) ! i)"</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>cases</span><span> </span><span>z</span><span class="delimiter">)</span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span class="delimiter">:</span><span> </span><span>inversions_altdef</span><span> </span><span>m_def</span><span> </span><span>n_def</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">from</span></span><span> </span><span>ij</span><span> </span><span class="keyword1"><span class="command">consider</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"j &lt; m"</span></span></span><span> </span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"i ≥ m"</span></span></span><span> </span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"i &lt; m"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"j ≥ m"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>linarith</span><span>
+</span><span>    </span><span class="keyword3"><span class="command">thus</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"z ∈ ?rhs"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>cases</span><span>
+</span><span>      </span><span class="keyword3"><span class="command">assume</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"i &lt; m"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"j ≥ m"</span></span></span><span>
+</span><span>      </span><span class="keyword3"><span class="command">define</span></span><span> </span><span>j'</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"j' = j - m"</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"j = m + j'"</span></span></span><span>
+</span><span>        </span><span class="keyword1"><span class="command">using</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹j ≥ m›</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>j'_def</span><span class="delimiter">)</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">from</span></span><span> </span><span>ij</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹i &lt; m›</span></span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span>
+</span><span>        </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span class="delimiter">:</span><span> </span><span>inversions_altdef</span><span> </span><span>map_prod_def</span><span> </span><span>inversions_between_def</span><span> </span><span>nth_append</span><span> </span><span>m_def</span><span> </span><span>n_def</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>      </span><span class="keyword3"><span class="command">assume</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"i ≥ m"</span></span></span><span>
+</span><span>      </span><span class="keyword3"><span class="command">define</span></span><span> </span><span>i'</span><span> </span><span>j'</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"i' = i - m"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"j' = j - m"</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"i = m + i'"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"j = m + j'"</span></span></span><span>
+</span><span>        </span><span class="keyword1"><span class="command">using</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹i &lt; j›</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹i ≥ m›</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>i'_def</span><span> </span><span>j'_def</span><span class="delimiter">)</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">from</span></span><span> </span><span>ij</span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span>
+</span><span>        </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span class="delimiter">:</span><span> </span><span>inversions_altdef</span><span> </span><span>map_prod_def</span><span> </span><span>nth_append</span><span> </span><span>m_def</span><span> </span><span>n_def</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">qed</span></span><span> </span><span class="delimiter">(</span><span>use</span><span> </span><span>ij</span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹auto simp: nth_append defs›</span></span></span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">qed</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span class="delimiter">:</span><span> </span><span>nth_append</span><span> </span><span>defs</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">thus</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Counting inversions›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  We now define versions of @{const inversions} and @{const inversions_between} that
+  only return the ∗‹number› of inversions.
+›</span></span></span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>inversion_number</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a list ⇒ nat"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"inversion_number xs = card (inversions xs)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>inversion_number_between</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"inversion_number_between xs ys = card (inversions_between xs ys)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>inversions_between_code</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"inversions_between xs ys =
+     Set.filter (λ(i,j). less (ys ! j) (xs ! i)) ({..&lt;length xs}×{..&lt;length ys})"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span class="delimiter">:</span><span> </span><span>inversions_between_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemmas</span></span><span> </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>-</span><span class="delimiter">)</span><span> </span><span class="delimiter">[</span><span>code</span><span class="delimiter">]</span><span> </span><span class="delimiter">=</span><span> </span><span>inversions_between_code</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>inversion_number_Nil</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"inversion_number [] = 0"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>inversion_number_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>inversion_number_trivial</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"length xs ≤ Suc 0 ⟹ inversion_number xs = 0"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span class="delimiter">:</span><span> </span><span>inversion_number_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>inversion_number_between_Nil</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"inversion_number_between [] ys = 0"</span></span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"inversion_number_between xs [] = 0"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>inversion_number_between_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  We again get the following nice equation for the number of inversions of a concatenation:
+›</span></span></span><span>
+</span><span class="keyword1"><span class="command">proposition</span></span><span> </span><span>inversion_number_append</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"inversion_number (xs @ ys) =
+     inversion_number xs + inversion_number ys + inversion_number_between xs ys"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">define</span></span><span> </span><span>m</span><span> </span><span>n</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"m = length xs"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"n = length ys"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">let</span></span><span> </span><span class="var">?A</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"inversions xs"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">let</span></span><span> </span><span class="var">?B</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"map_prod ((+) m) ((+) m) ` inversions ys"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">let</span></span><span> </span><span class="var">?C</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"map_prod id ((+) m) ` inversions_between xs ys"</span></span></span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"inversion_number (xs @ ys) = card (?A ∪ ?B ∪ ?C)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>inversion_number_def</span><span> </span><span>inversions_append</span><span> </span><span>m_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">also</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"… = card (?A ∪ ?B) + card ?C"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>intro</span><span> </span><span>card_Un_disjoint</span><span> </span><span>finite_inversions</span><span> </span><span>finite_inversions_between</span><span> </span><span>finite_UnI</span><span> </span><span>finite_imageI</span><span class="delimiter">)</span><span>
+</span><span>       </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span class="delimiter">:</span><span> </span><span>inversions_altdef</span><span> </span><span>inversions_between_def</span><span> </span><span>m_def</span><span> </span><span>n_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">also</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"card (?A ∪ ?B) = inversion_number xs + card ?B"</span></span></span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>inversion_number_def</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>intro</span><span> </span><span>card_Un_disjoint</span><span> </span><span>finite_inversions</span><span> </span><span>finite_UnI</span><span> </span><span>finite_imageI</span><span class="delimiter">)</span><span>
+</span><span>       </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span class="delimiter">:</span><span> </span><span>inversions_altdef</span><span> </span><span>m_def</span><span> </span><span>n_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">also</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"card ?B = inversion_number ys"</span></span></span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>inversion_number_def</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>intro</span><span> </span><span>card_image</span><span class="delimiter">)</span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span class="delimiter">:</span><span> </span><span>map_prod_def</span><span> </span><span>inj_on_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">also</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"card ?C = inversion_number_between xs ys"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>inversion_number_between_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>intro</span><span> </span><span>card_image</span><span> </span><span>inj_onI</span><span class="delimiter">)</span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span class="delimiter">:</span><span> </span><span>map_prod_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">finally</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Stability of inversions between lists under permutations›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  A crucial fact for counting list inversions with merge sort is that the number
+  of inversions ∗‹between› two lists does not change when the lists are permuted. This is
+  true because the set of inversions commutes with the act of permuting the list:
+›</span></span></span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>inversions_between_permute1</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"π permutes {..&lt;length xs}"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span>   </span><span class="string"><span class="delete"><span class="delete">"inversions_between (permute_list π xs) ys =
+             map_prod (inv π) id ` inversions_between xs ys"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">from</span></span><span> </span><span>assms</span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"π i &lt; length xs"</span></span></span><span> </span><span class="keyword2"><span class="keyword">if</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"i &lt; length xs"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"π permutes {..&lt;length xs}"</span></span></span><span> </span><span class="keyword2"><span class="keyword">for</span></span><span> </span><span>i</span><span> </span><span>π</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>permutes_in_image</span><span class="delimiter">[</span><span>OF</span><span> </span><span>that</span><span class="delimiter">(</span><span>2</span><span class="delimiter">)</span><span class="delimiter">]</span><span> </span><span>that</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span>*</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"inv π permutes {..&lt;length xs}"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>permutes_inv</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">from</span></span><span> </span><span>assms</span><span> </span><span>*</span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>inversions_between_def</span><span> </span><span>map_prod_def</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>force</span><span> </span><span>simp</span><span class="delimiter">:</span><span> </span><span>image_iff</span><span> </span><span>permute_list_nth</span><span> </span><span>permutes_inverses</span><span> </span><span>intro</span><span class="delimiter">:</span><span> </span><span>exI</span><span class="delimiter">[</span><span>of</span><span> </span><span>_</span><span> </span><span class="string"><span class="delete"><span class="delete">"π i"</span></span></span><span> </span><span class="keyword2"><span class="keyword">for</span></span><span> </span><span>i</span><span class="delimiter">]</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>inversions_between_permute2</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"π permutes {..&lt;length ys}"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span>   </span><span class="string"><span class="delete"><span class="delete">"inversions_between xs (permute_list π ys) =
+             map_prod id (inv π) ` inversions_between xs ys"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">from</span></span><span> </span><span>assms</span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"π i &lt; length ys"</span></span></span><span> </span><span class="keyword2"><span class="keyword">if</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"i &lt; length ys"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"π permutes {..&lt;length ys}"</span></span></span><span> </span><span class="keyword2"><span class="keyword">for</span></span><span> </span><span>i</span><span> </span><span>π</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>permutes_in_image</span><span class="delimiter">[</span><span>OF</span><span> </span><span>that</span><span class="delimiter">(</span><span>2</span><span class="delimiter">)</span><span class="delimiter">]</span><span> </span><span>that</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span>*</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"inv π permutes {..&lt;length ys}"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>permutes_inv</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">from</span></span><span> </span><span>assms</span><span> </span><span>*</span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>inversions_between_def</span><span> </span><span>map_prod_def</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>force</span><span> </span><span>simp</span><span class="delimiter">:</span><span> </span><span>image_iff</span><span> </span><span>permute_list_nth</span><span> </span><span>permutes_inverses</span><span> </span><span>intro</span><span class="delimiter">:</span><span> </span><span>exI</span><span class="delimiter">[</span><span>of</span><span> </span><span>_</span><span> </span><span class="string"><span class="delete"><span class="delete">"π i"</span></span></span><span> </span><span class="keyword2"><span class="keyword">for</span></span><span> </span><span>i</span><span class="delimiter">]</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">proposition</span></span><span> </span><span>inversions_between_permute</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"π1 permutes {..&lt;length xs}"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"π2 permutes {..&lt;length ys}"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span>   </span><span class="string"><span class="delete"><span class="delete">"inversions_between (permute_list π1 xs) (permute_list π2 ys) =
+             map_prod (inv π1) (inv π2) ` inversions_between xs ys"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>inversions_between_permute1</span><span> </span><span>inversions_between_permute2</span><span> </span><span>assms</span><span>
+</span><span>                </span><span>map_prod_def</span><span> </span><span>image_image</span><span> </span><span>case_prod_unfold</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">corollary</span></span><span> </span><span>inversion_number_between_permute</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"π1 permutes {..&lt;length xs}"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"π2 permutes {..&lt;length ys}"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span>   </span><span class="string"><span class="delete"><span class="delete">"inversion_number_between (permute_list π1 xs) (permute_list π2 ys) =
+             inversion_number_between xs ys"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"inversion_number_between (permute_list π1 xs) (permute_list π2 ys) =
+          card (map_prod (inv π1) (inv π2) ` inversions_between xs ys)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>inversion_number_between_def</span><span> </span><span>inversions_between_permute</span><span> </span><span>assms</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">also</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"… = inversion_number_between xs ys"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>inversion_number_between_def</span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span class="delimiter">[</span><span>THEN</span><span> </span><span>permutes_inj_on</span><span class="delimiter">[</span><span>OF</span><span> </span><span>permutes_inv</span><span class="delimiter">]</span><span class="delimiter">]</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>intro</span><span> </span><span>card_image</span><span> </span><span>inj_onI</span><span class="delimiter">)</span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span class="delimiter">:</span><span> </span><span>map_prod_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">finally</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  The following form of the above theorem is nicer to apply since it has the form of a 
+  congruence rule.
+›</span></span></span><span>
+</span><span class="keyword1"><span class="command">corollary</span></span><span> </span><span>inversion_number_between_cong_mset</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"mset xs = mset xs'"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"mset ys = mset ys'"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span>   </span><span class="string"><span class="delete"><span class="delete">"inversion_number_between xs ys = inversion_number_between xs' ys'"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">obtain</span></span><span> </span><span>π1</span><span> </span><span>π2</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span>π12</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"π1 permutes {..&lt;length xs'}"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"xs = permute_list π1 xs'"</span></span></span><span>
+</span><span>                          </span><span class="string"><span class="delete"><span class="delete">"π2 permutes {..&lt;length ys'}"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"ys = permute_list π2 ys'"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span class="delimiter">[</span><span>THEN</span><span> </span><span>mset_eq_permutation</span><span class="delimiter">]</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>metis</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">thus</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>inversion_number_between_permute</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Inversions between sorted lists›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  Another fact that is crucial to the efficient computation of the inversion number is this:
+  If we have two sorted lists, we can reduce computing the inversions by inspecting the 
+  first elements and deleting one of them.
+›</span></span></span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>inversions_between_Cons_Cons</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"sorted_wrt less_eq (x # xs)"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"sorted_wrt less_eq (y # ys)"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span>   </span><span class="string"><span class="delete"><span class="delete">"inversions_between (x # xs) (y # ys) =
+             (if ¬less y x then
+                map_prod Suc id ` inversions_between xs (y # ys)
+              else
+                {..&lt;length (x#xs)} × {0} ∪
+                map_prod id Suc ` inversions_between (x # xs) ys)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span>  </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>inversions_between_def</span><span> </span><span>map_prod_def</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span class="delimiter">,</span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span class="delimiter">:</span><span> </span><span>set_conv_nth</span><span> </span><span>nth_Cons</span><span> </span><span>less_le_not_le</span><span> </span><span>image_iff</span><span> 
+</span><span>                  </span><span>intro</span><span class="delimiter">:</span><span> </span><span>order_trans</span><span> </span><span>split</span><span class="delimiter">:</span><span> </span><span>nat.splits</span><span class="delimiter">)</span><span class="delimiter">?</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* A bit fragile, but doing this manually is annoying *)</span></span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  This leads to the following analogous equation for counting the inversions between two
+  sorted lists. Note that a single step of this only takes constant time (assuming we 
+  pre-computed the lengths of the lists) so that the entire function runs in linear time.
+›</span></span></span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>inversion_number_between_Cons_Cons</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"sorted_wrt less_eq (x # xs)"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"sorted_wrt less_eq (y # ys)"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span>   </span><span class="string"><span class="delete"><span class="delete">"inversion_number_between (x # xs) (y # ys) =
+             (if ¬less y x then
+                inversion_number_between xs (y # ys)
+              else
+                inversion_number_between (x # xs) ys + length (x # xs))"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>cases</span><span> </span><span class="string"><span class="delete"><span class="delete">"less y x"</span></span></span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>False</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">hence</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"inversion_number_between (x # xs) (y # ys) = 
+           card (map_prod Suc id ` inversions_between xs (y # ys))"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>inversion_number_between_def</span><span> </span><span>inversions_between_Cons_Cons</span><span class="delimiter">[</span><span>OF</span><span> </span><span>assms</span><span class="delimiter">]</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">also</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"… = inversion_number_between xs (y # ys)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>inversion_number_between_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>intro</span><span> </span><span>card_image</span><span> </span><span>inj_onI</span><span class="delimiter">)</span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span class="delimiter">:</span><span> </span><span>map_prod_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">finally</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>False</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>True</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">hence</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"inversion_number_between (x # xs) (y # ys) =
+           card ({..&lt;length (x # xs)} × {0} ∪ map_prod id Suc ` inversions_between (x # xs) ys)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>inversion_number_between_def</span><span> </span><span>inversions_between_Cons_Cons</span><span class="delimiter">[</span><span>OF</span><span> </span><span>assms</span><span class="delimiter">]</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">also</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"… = length (x # xs) + card (map_prod id Suc ` inversions_between (x # xs) ys)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>subst</span><span> </span><span>card_Un_disjoint</span><span class="delimiter">)</span><span> </span><span>auto</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">also</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"card (map_prod id Suc ` inversions_between (x # xs) ys) =
+               inversion_number_between (x # xs) ys"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>inversion_number_between_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>intro</span><span> </span><span>card_image</span><span> </span><span>inj_onI</span><span class="delimiter">)</span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span class="delimiter">:</span><span> </span><span>map_prod_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">finally</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>True</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  We now define a function to compute the inversion number between two lists that are
+  assumed to be sorted using the equalities we just derived.
+›</span></span></span><span>
+</span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>inversion_number_between_sorted</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a list ⇒ 'a list ⇒ nat"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"inversion_number_between_sorted [] ys = 0"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"inversion_number_between_sorted xs [] = 0"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"inversion_number_between_sorted (x # xs) (y # ys) =
+             (if ¬less y x then
+                inversion_number_between_sorted xs (y # ys)
+              else
+                inversion_number_between_sorted (x # xs) ys + length (x # xs))"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>inversion_number_between_sorted_correct</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"sorted_wrt less_eq xs ⟹ sorted_wrt less_eq ys ⟹
+     inversion_number_between_sorted xs ys = inversion_number_between xs ys"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induction</span><span> </span><span>xs</span><span> </span><span>ys</span><span> </span><span>rule</span><span class="delimiter">:</span><span> </span><span>inversion_number_between_sorted.induct</span><span class="delimiter">)</span><span>
+</span><span>     </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>inversion_number_between_Cons_Cons</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Merge sort›</span></span></span><span>
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* TODO: Could be replaced by mergesort from HOL-Library in Isabelle 2019. *)</span></span></span></span></span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  For convenience, we first define a simple merge sort that does not compute the inversions.
+  At this point, we need to start assuming a linear ordering since the merging function
+  does not work otherwise.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">context</span></span><span> </span><span>linorder</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>split_list</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"split_list xs = (let n = length xs div 2 in (take n xs, drop n xs))"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>merge_lists</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a list ⇒ 'a list ⇒ 'a list"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"merge_lists [] ys = ys"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"merge_lists xs [] = xs"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"merge_lists (x # xs) (y # ys) =
+    (if less_eq x y then x # merge_lists xs (y # ys) else y # merge_lists (x # xs) ys)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>set_merge_lists</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"set (merge_lists xs ys) = set xs ∪ set ys"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induction</span><span> </span><span>xs</span><span> </span><span>ys</span><span> </span><span>rule</span><span class="delimiter">:</span><span> </span><span>merge_lists.induct</span><span class="delimiter">)</span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>mset_merge_lists</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"mset (merge_lists xs ys) = mset xs + mset ys"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induction</span><span> </span><span>xs</span><span> </span><span>ys</span><span> </span><span>rule</span><span class="delimiter">:</span><span> </span><span>merge_lists.induct</span><span class="delimiter">)</span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>sorted_merge_lists</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">,</span><span> </span><span>intro</span><span class="delimiter">]</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"sorted xs ⟹ sorted ys ⟹ sorted (merge_lists xs ys)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induction</span><span> </span><span>xs</span><span> </span><span>ys</span><span> </span><span>rule</span><span class="delimiter">:</span><span> </span><span>merge_lists.induct</span><span class="delimiter">)</span><span> </span><span>auto</span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>merge_sort</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a list ⇒ 'a list"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"merge_sort xs =
+    (if length xs ≤ 1 then
+       xs 
+     else
+       merge_lists (merge_sort (take (length xs div 2) xs))
+                   (merge_sort (drop (length xs div 2) xs)))"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemmas</span></span><span> </span><span class="delimiter">[</span><span>simp</span><span> </span><span>del</span><span class="delimiter">]</span><span> </span><span class="delimiter">=</span><span> </span><span>merge_sort.simps</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>merge_sort_trivial</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"length xs ≤ Suc 0 ⟹ merge_sort xs = xs"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>subst</span><span> </span><span>merge_sort.simps</span><span class="delimiter">)</span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>mset_merge_sort</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"mset (merge_sort xs) = mset xs"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induction</span><span> </span><span>xs</span><span> </span><span>rule</span><span class="delimiter">:</span><span> </span><span>merge_sort.induct</span><span class="delimiter">)</span><span>
+</span><span>     </span><span class="delimiter">(</span><span>subst</span><span> </span><span>merge_sort.simps</span><span class="delimiter">,</span><span> </span><span>auto</span><span> </span><span>simp</span><span> </span><span>flip</span><span class="delimiter">:</span><span> </span><span>mset_append</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">corollary</span></span><span> </span><span>set_merge_sort</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"set (merge_sort xs) = set xs"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>mset_eq_setD</span><span class="delimiter">)</span><span> </span><span>simp_all</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>sorted_merge_sort</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">,</span><span> </span><span>intro</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"sorted (merge_sort xs)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induction</span><span> </span><span>xs</span><span> </span><span>rule</span><span class="delimiter">:</span><span> </span><span>merge_sort.induct</span><span class="delimiter">)</span><span>
+</span><span>     </span><span class="delimiter">(</span><span>subst</span><span> </span><span>merge_sort.simps</span><span class="delimiter">,</span><span> </span><span>use</span><span> </span><span>sorted01</span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>auto</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>inversion_number_between_code</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"inversion_number_between xs ys = inversion_number_between_sorted (sort xs) (sort ys)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>subst</span><span> </span><span>inversion_number_between_sorted_correct</span><span class="delimiter">)</span><span>
+</span><span>     </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>sorted_sorted_wrt</span><span> </span><span class="delimiter">[</span><span>symmetric</span><span class="delimiter">]</span><span> </span><span>cong</span><span class="delimiter">:</span><span> </span><span>inversion_number_between_cong_mset</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemmas</span></span><span> </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>-</span><span class="delimiter">)</span><span> </span><span class="delimiter">[</span><span>code_unfold</span><span class="delimiter">]</span><span> </span><span class="delimiter">=</span><span> </span><span>inversion_number_between_code</span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Merge sort with inversion counting›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  Finally, we can put together all the components and define a variant of merge sort that
+  counts the number of inversions in the original list:
+›</span></span></span><span>
+</span><span class="keyword1"><span class="command">function</span></span><span> </span><span>sort_and_count_inversions</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a list ⇒ 'a list × nat"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"sort_and_count_inversions xs =
+     (if length xs ≤ 1 then
+        (xs, 0)
+      else
+        let (xs1, xs2) = split_list xs;
+            (xs1', m) = sort_and_count_inversions xs1;
+            (xs2', n) = sort_and_count_inversions xs2
+        in
+            (merge_lists xs1' xs2', m + n + inversion_number_between_sorted xs1' xs2'))"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span class="keyword1"><span class="command">termination</span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>relation</span><span> </span><span class="string"><span class="delete"><span class="delete">"measure length"</span></span></span><span class="delimiter">)</span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span class="delimiter">:</span><span> </span><span>split_list_def</span><span> </span><span>Let_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemmas</span></span><span> </span><span class="delimiter">[</span><span>simp</span><span> </span><span>del</span><span class="delimiter">]</span><span> </span><span class="delimiter">=</span><span> </span><span>sort_and_count_inversions.simps</span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  The projection of this function to the first component is simply the standard merge sort
+  algorithm that we defined and proved correct before.
+›</span></span></span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>fst_sort_and_count_inversions</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"fst (sort_and_count_inversions xs) = merge_sort xs"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induction</span><span> </span><span>xs</span><span> </span><span>rule</span><span class="delimiter">:</span><span> </span><span>length_induct</span><span class="delimiter">)</span><span>
+</span><span>     </span><span class="delimiter">(</span><span>subst</span><span> </span><span>sort_and_count_inversions.simps</span><span class="delimiter">,</span><span> </span><span>subst</span><span> </span><span>merge_sort.simps</span><span class="delimiter">,</span><span>
+</span><span>      </span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>split_list_def</span><span> </span><span>case_prod_unfold</span><span> </span><span>Let_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  The projection to the second component is the inversion number.
+›</span></span></span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>snd_sort_and_count_inversions</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"snd (sort_and_count_inversions xs) = inversion_number xs"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>induction</span><span> </span><span>xs</span><span> </span><span>rule</span><span class="delimiter">:</span><span> </span><span>length_induct</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>1</span><span> </span><span>xs</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>cases</span><span> </span><span class="string"><span class="delete"><span class="delete">"length xs ≤ 1"</span></span></span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>False</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"xs = take (length xs div 2) xs @ drop (length xs div 2) xs"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">also</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"inversion_number … = snd (sort_and_count_inversions xs)"</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>subst</span><span> </span><span>inversion_number_append</span><span class="delimiter">,</span><span> </span><span>subst</span><span> </span><span>sort_and_count_inversions.simps</span><span class="delimiter">)</span><span>
+</span><span>         </span><span class="delimiter">(</span><span>use</span><span> </span><span>False</span><span> </span><span>1</span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹auto simp: Let_def split_list_def case_prod_unfold 
+                                     inversion_number_between_sorted_correct
+                                     sorted_sorted_wrt [symmetric]
+                               cong: inversion_number_between_cong_mset›</span></span></span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">finally</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">..</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">qed</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span class="delimiter">:</span><span> </span><span>sort_and_count_inversions.simps</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemmas</span></span><span> </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>-</span><span class="delimiter">)</span><span> </span><span class="delimiter">[</span><span>code_unfold</span><span class="delimiter">]</span><span> </span><span class="delimiter">=</span><span> </span><span>snd_sort_and_count_inversions</span><span> </span><span class="delimiter">[</span><span>symmetric</span><span class="delimiter">]</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span></pre>
+</div>
+</div>
+  
 </main>
     </div>
   </div>

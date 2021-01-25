@@ -17,7 +17,8 @@
 
   
   
-  <link rel="stylesheet" type="text/css" href="/css/front.min.css" integrity="sha256-QUoTd2RQ4/P7SQKKOG301QYvQ7o2&#43;3qwXOJptpPXM0E=">
+  <link rel="stylesheet" type="text/css" href="/css/front.min.css" integrity="sha256-QUoTd2RQ4/P7SQKKOG301QYvQ7o2&#43;3qwXOJptpPXM0E="><link rel="stylesheet" type="text/css" href="/css/isabelle.css">
+  
   <link rel="icon" href="/images/favicon.ico" type="image/icon">
   <script src="/js/flexsearch.min.js"></script><script src="/js/header-search.js"></script></head>
 
@@ -68,14 +69,963 @@
   
   </div>
 </header><div><main>
-  <iframe src="https://www.isa-afp.org/browser_info/current/AFP/Dict_Construction/Dict_Construction.html" frameborder="0" id="Dict_Construction">
-  </iframe>
-  <iframe src="https://www.isa-afp.org/browser_info/current/AFP/Dict_Construction/Test_Dict_Construction.html" frameborder="0" id="Test_Dict_Construction">
-  </iframe>
-  <iframe src="https://www.isa-afp.org/browser_info/current/AFP/Dict_Construction/Test_Lazy_Case.html" frameborder="0" id="Test_Lazy_Case">
-  </iframe>
-  <iframe src="https://www.isa-afp.org/browser_info/current/AFP/Dict_Construction/Test_Side_Conditions.html" frameborder="0" id="Test_Side_Conditions">
-  </iframe>
+  
+  <div id="Introduction">
+<div class="head"><h1>Theory Introduction</h1>
+<span class="command">theory</span> <span class="name">Introduction</span><br/>
+<span class="keyword">imports</span> <a href="../../HOL/HOL/Main.html"><span class="name">Main</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Dictionary Construction›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Introduction</span><span>
+</span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>Main</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Introduction›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+ Isabelle's logic features \emph{type classes}~\cite{haftmann2007typeclasses,wenzel1997typeclasses}.
+ These are built into the kernel and are used extensively in theory developments.
+ The existing \emph{code generator}, when targeting Standard ML, performs the well-known dictionary
+ construction or \emph{dictionary translation}~\cite{haftmann2010codegeneration}.
+ This works by replacing type classes with records, instances with values, and occurrences with
+ explicit parameters.
+
+ Haftmann and Nipkow give a pen-and-paper correctness proof of this construction
+ \cite[‹§›4.1]{haftmann2010codegeneration}, based on a notion of \emph{higher-order rewrite
+ systems.}
+ The resulting theorem then states that any well-typed term is reduction-equivalent before and after
+ class elimination.
+ In this work, the dictionary construction is performed in a certified fashion, that is, the
+ equivalence is a theorem inside the logic.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Encoding classes›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  The choice of representation of a dictionary itself is straightforward: We model it as a
+  @{command datatype}, along with functions returning values of that type. The alternative here
+  would have been to use the @{command record} package. The obvious advantage is that we could
+  easily model subclass relationships through record inheritance. However, records do not support
+  multiple inheritance. Since records offer no advantage over datatypes in that regard, we opted for
+  the more modern @{command datatype} package.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Consider the following example:›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">class</span></span><span> </span><span>plus</span><span> </span><span class="delimiter">=</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">fixes</span></span><span> </span><span>plus</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a ⇒ 'a ⇒ 'a"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  This will get translated to a @{command datatype} with a single constructor taking a single
+  argument:
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">datatype</span></span><span> </span><span class="tfree">'a</span><span> </span><span>dict_plus</span><span> </span><span class="delimiter">=</span><span>
+</span><span>  </span><span>mk_plus</span><span> </span><span class="delimiter">(</span><span>param_plus</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a ⇒ 'a ⇒ 'a"</span></span></span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹A function using the @{class plus} constraint:›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>double</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a::plus ⇒ 'a"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span class="string"><span class="delete"><span class="delete">"double x = plus x x"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>double'</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a dict_plus ⇒ 'a ⇒ 'a"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span class="string"><span class="delete"><span class="delete">"double' dict x = param_plus dict x x"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Encoding instances›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  A more controversial design decision is how to represent dictionary certificates. For example,
+  given a value of type @{typ "nat dict_plus"}, how do we know that this is a faithful representation
+  of the @{class plus} instance for @{typ nat}?
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  ▪ Florian Haftmann proposed a ``shallow encoding''. It works by exploiting the internal treatment
+    of constants with sort constraints in the Isabelle kernel. Constants themselves do not carry
+    sort constraints, only their definitional equations. The fact that a constant only appears with
+    these constraints on the surface of the system is a feature of type inference.
+
+    Instead, we can instruct the system to ignore these constraints. However, any attempt at
+    ``hiding'' the constraints behind a type definition ultimately does not work: The nonemptiness
+    proof requires a witness of a valid dictionary for an arbitrary, but fixed type @{typ 'a}, which
+    is of course not possible (see ‹§›\ref{sec:impossibility} for details).
+
+  ▪ The certificates contain the class axioms directly. For example, the @{class semigroup_add}
+    class requires @{term "(a + b) + c = a + (b + c)"}.
+
+    Translated into a definition, this would look as follows:
+
+    @{term
+      "cert_plus dict ⟷
+        (∀a b c. param_plus dict (param_plus dict a b) c = param_plus dict a (param_plus dict b c))"}
+
+    Proving that instances satisfy this certificate is trivial.
+
+    However, the equality proof of ‹f'› and ‹f› is impossible: they are simply not equal in general.
+    Nothing would prevent someone from defining an alternative dictionary using multiplication
+    instead of addition and the certificate would still hold; but obviously functions using
+    @{const plus} on numbers would expect addition.
+
+    Intuitively, this makes sense: the above notion of ``certificate'' establishes no connection
+    between original instantiation and newly-generated dictionaries.
+
+    Instead of proving equality, one would have to ``lift'' all existing theorems over the old
+    constants to the new constants.
+
+  ▪ In order for equality between new and old constants to hold, the certificate needs to capture
+    that the dictionary corresponds exactly to the class constants. This is achieved by the
+    representation below.
+    It literally states that the fields of the dictionary are equal to the class constants.
+    The condition of the resulting equation can only be instantiated with dictionaries corresponding
+    to existing class instances. This constitutes a ∗‹closed world› assumption, i.e., callers of
+    generated code may not invent own instantiations.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>cert_plus</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a::plus dict_plus ⇒ bool"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span class="string"><span class="delete"><span class="delete">"cert_plus dict ⟷ (param_plus dict = plus)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  Based on that definition, we can prove that @{const double} and @{const double'} are equivalent:
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"cert_plus dict ⟹ double' dict = double"</span></span></span><span>
+</span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>cert_plus_def</span><span> </span><span>double'_def</span><span> </span><span>double_def</span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  An unconditional equation can be obtained by specializing the theorem to a ground type and
+  supplying a valid dictionary.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Implementation›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  When translating a constant ‹f›, we use existing mechanisms in Isabelle to obtain its
+  ∗‹code graph›. The graph contains the code equations of all transitive dependencies (i.e.,
+  other constants) of ‹f›. In general, we have to re-define each of these dependencies. For that,
+  we use the internal interface of the @{command function} package and feed it the code equations
+  after performing the dictionary construction. In the standard case, where the user has not
+  performed a custom code setup, the resulting function looks similar to its original definition.
+  But the user may have also changed the implementation of a function significantly afterwards.
+  This imposes some restrictions:
+
+  ▪ The new constant needs to be proven terminating. We apply some heuristics to transfer the
+    original termination proof to the new definition. This only works when the termination condition
+    does not rely on class axioms. (See ‹§›\ref{sec:termination} for details.)
+  ▪ Pattern matching must be performed on datatypes, instead of the more general
+    @{command code_datatype}s.
+  ▪ The set of code equations must be exhaustive and non-overlapping.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span></pre>
+</div>
+</div><div id="Impossibility">
+<div class="head"><h1>Theory Impossibility</h1>
+<span class="command">theory</span> <span class="name">Impossibility</span><br/>
+<span class="keyword">imports</span> <a href="../../HOL/HOL/Main.html"><span class="name">Main</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Impossibility of hiding sort constraints›</span></span></span><span>
+</span><span class="keyword1"><span class="command">text_raw</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹\label{sec:impossibility}›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Coauthor of this section: Florian Haftmann›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Impossibility</span><span>
+</span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>Main</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">axiomatization</span></span><span> </span><span>of_prop</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"prop ⇒ bool"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>of_prop_Trueprop</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"of_prop (Trueprop P) ⟷ P"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span>
+</span><span>Trueprop_of_prop</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"Trueprop (of_prop Q) ≡ PROP Q"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹A type satisfies the certificate if there is an instance of the class.›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>is_sg</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a itself ⇒ bool"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span class="string"><span class="delete"><span class="delete">"is_sg TYPE('a) = of_prop OFCLASS('a, semigroup_add_class)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹We trick the parser into ignoring the sort constraint of @{const plus}.›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">setup</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Sign.add_const_constraint (@{const_name plus}, SOME @{typ "'a::{} =&gt; 'a ⇒ 'a"})›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>sg</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"('a ⇒ 'a ⇒ 'a) ⇒ bool"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span class="string"><span class="delete"><span class="delete">"sg plus ⟷ plus = Groups.plus ∧ is_sg TYPE('a)"</span></span></span><span> </span><span class="keyword2"><span class="keyword">for</span></span><span> </span><span>plus</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Attempt: Define a type that contains all legal @{const plus} functions.›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">typedef</span></span><span> </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">overloaded</span></span><span class="delimiter">)</span><span> </span><span class="tfree">'a</span><span> </span><span>Sg</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"Collect sg :: ('a ⇒ 'a ⇒ 'a) set"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">morphisms</span></span><span> </span><span>the_plus</span><span> </span><span>Sg</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>sg_def</span><span class="delimiter">[</span><span>abs_def</span><span class="delimiter">]</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>is_sg_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹We need to prove @{term "OFCLASS('a, semigroup_add_class)"} for arbitrary @{typ 'a}, which is
+impossible.›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">oops</span></span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div><div id="Dict_Construction">
+<div class="head"><h1>Theory Dict_Construction</h1>
+<span class="command">theory</span> <span class="name">Dict_Construction</span><br/>
+<span class="keyword">imports</span> <a href="Refine_Util.html"><span class="name">Refine_Util</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Setup›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Dict_Construction</span><span>
+</span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>Automatic_Refinement.Refine_Util</span><span>
+</span><span class="keyword2"><span class="keyword">keywords</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"declassify"</span></span></span><span> </span><span class="delimiter">::</span><span> </span><span>thy_decl</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>set_of</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"('a ⇒ 'b ⇒ bool) ⇒ ('a × 'b) set"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span class="string"><span class="delete"><span class="delete">"set_of P = {(x, y). P x y}"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>wfP_implies_wf_set_of</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"wfP P ⟹ wf (set_of P)"</span></span></span><span>
+</span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>wfP_def</span><span> </span><span>set_of_def</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>wf_set_of_implies_wfP</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"wf (set_of P) ⟹ wfP P"</span></span></span><span>
+</span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>wfP_def</span><span> </span><span>set_of_def</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>wf_simulate_simple</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"wf r"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"⋀x y. (x, y) ∈ r' ⟹ (g x, g y) ∈ r"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"wf r'"</span></span></span><span>
+</span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>metis</span><span> </span><span>in_inv_image</span><span> </span><span>wf_eq_minimal</span><span> </span><span>wf_inv_image</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>set_ofI</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"P x y ⟹ (x, y) ∈ set_of P"</span></span></span><span>
+</span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>set_of_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>set_ofD</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"(x, y) ∈ set_of P ⟹ P x y"</span></span></span><span>
+</span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>set_of_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>wfP_simulate_simple</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"wfP r"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"⋀x y. r' x y ⟹ r (g x) (g y)"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"wfP r'"</span></span></span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>wf_set_of_implies_wfP</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>wf_simulate_simple</span><span class="delimiter">[</span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span>g</span><span> </span><span class="delimiter">=</span><span> </span><span>g</span><span class="delimiter">]</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>wfP_implies_wf_set_of</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>fact</span><span> </span><span>assms</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span class="delimiter">(</span><span>2</span><span class="delimiter">)</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>intro</span><span class="delimiter">:</span><span> </span><span>set_ofI</span><span> </span><span>dest</span><span class="delimiter">:</span><span> </span><span>set_ofD</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>wf_implies_dom</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"wf (set_of R) ⟹ All (Wellfounded.accp R)"</span></span></span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>allI</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>accp_wfPD</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>wf_set_of_implies_wfP</span><span class="delimiter">)</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>wfP_implies_dom</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"wfP R ⟹ All (Wellfounded.accp R)"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>metis</span><span> </span><span>wfP_implies_wf_set_of</span><span> </span><span>wf_implies_dom</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">named_theorems</span></span><span> </span><span>dict_construction_specs</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">ML_file</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹dict_construction_util.ML›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_file</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹transfer_termination.ML›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_file</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹congruences.ML›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_file</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹side_conditions.ML›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_file</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹class_graph.ML›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_file</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹dict_construction.ML›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">method_setup</span></span><span> </span><span>fo_cong_rule</span><span> </span><span class="delimiter">=</span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  Attrib.thm &gt;&gt; (fn thm =&gt; fn ctxt =&gt; SIMPLE_METHOD' (Dict_Construction_Util.fo_cong_tac ctxt thm))
+›</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"resolve congruence rule using first-order matching"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">declare</span></span><span> </span><span class="delimiter">[</span><span class="delimiter">[</span><span>code</span><span> </span><span>drop</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"(∧)"</span></span></span><span class="delimiter">]</span><span class="delimiter">]</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="delimiter">[</span><span>code</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"True ∧ p ⟷ p"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"False ∧ p ⟷ False"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">declare</span></span><span> </span><span class="delimiter">[</span><span class="delimiter">[</span><span>code</span><span> </span><span>drop</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"(∨)"</span></span></span><span class="delimiter">]</span><span class="delimiter">]</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="delimiter">[</span><span>code</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"True ∨ p ⟷ True"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"False ∨ p ⟷ p"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">declare</span></span><span> </span><span>comp_cong</span><span class="delimiter">[</span><span>fundef_cong</span><span> </span><span>del</span><span class="delimiter">]</span><span>
+</span><span class="keyword1"><span class="command">declare</span></span><span> </span><span>fun.map_cong</span><span class="delimiter">[</span><span>fundef_cong</span><span class="delimiter">]</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span></pre>
+</div>
+</div><div id="Termination">
+<div class="head"><h1>Theory Termination</h1>
+<span class="command">theory</span> <span class="name">Termination</span><br/>
+<span class="keyword">imports</span> <a href="Dict_Construction.html"><span class="name">Dict_Construction</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Termination heuristics›</span></span></span><span>
+</span><span class="keyword1"><span class="command">text_raw</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹\label{sec:termination}›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Termination</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"../Dict_Construction"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  As indicated in the introduction, the newly-defined functions must be proven terminating. In
+  general, we cannot reuse the original termination proof, as the following example illustrates:
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>f</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"nat ⇒ nat"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span class="string"><span class="delete"><span class="delete">"f 0 = 0"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span class="string"><span class="delete"><span class="delete">"f (Suc n) = f n"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="delimiter">[</span><span>code</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"f x = f x"</span></span></span><span> </span><span class="keyword1"><span class="command">..</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  The invocation of @{theory_text ‹declassify f›} would fail, because @{const f}'s code equations
+  are not terminating.
+
+  Hence, in the general case where users have modified the code equations, we need to fall back
+  to an (automated) attempt to prove termination.
+
+  In the remainder of this section, we will illustrate the special case where the user has not
+  modified the code equations, i.e., the original termination proof should ``morally'' be still
+  applicable. For this, we will perform the dictionary construction manually.
+›</span></span></span><span>
+</span><span>
+</span><span class="comment">― ‹Some ML incantations to ensure that the dictionary types are present›</span><span>
+</span><span class="keyword1"><span class="command">local_setup</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Class_Graph.ensure_class @{class plus} #&gt; snd›</span></span></span><span>
+</span><span class="keyword1"><span class="command">local_setup</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Class_Graph.ensure_class @{class zero} #&gt; snd›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>sum_list</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a::{plus,zero} list ⇒ 'a"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span class="string"><span class="delete"><span class="delete">"sum_list [] = 0"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span class="string"><span class="delete"><span class="delete">"sum_list (x # xs) = x + sum_list xs"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  The above function carries two distinct class constraints, which are translated into two
+  dictionary parameters:
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">function</span></span><span> </span><span>sum_list'</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span class="string"><span class="delete"><span class="delete">"sum_list' d_plus d_zero [] = Groups_zero__class_zero__field d_zero"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span class="string"><span class="delete"><span class="delete">"sum_list' d_plus d_zero (x # xs) = Groups_plus__class_plus__field d_plus x (sum_list' d_plus d_zero xs)"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span>pat_completeness</span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  Now, we need to carry out the termination proof of @{const sum_list'}. The @{theory_text function}
+  package analyzes the function definition and discovers one recursive call. In pseudo-notation:
+
+  @{text [display] ‹(d_plus, d_zero, x # xs) ↝ (d_plus, d_zero, xs)›}
+
+  The result of this analysis is captured in the inductive predicate @{const sum_list'_rel}. Its
+  introduction rules look as follows:
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">thm</span></span><span> </span><span>sum_list'_rel.intros</span><span>
+</span><span class="comment">― ‹@{thm sum_list'_rel.intros}›</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Compare this to the relation for @{const sum_list}:›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">thm</span></span><span> </span><span>sum_list_rel.intros</span><span>
+</span><span class="comment">― ‹@{thm sum_list_rel.intros}›</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  Except for the additional (unchanging) dictionary arguments, these relations are more or less
+  equivalent to each other. There is an important difference, though: @{const sum_list_rel} has
+  sort constraints, @{const sum_list'_rel} does not. (This will become important later on.)
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">context</span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">notes</span></span><span> </span><span class="delimiter">[</span><span class="delimiter">[</span><span>show_sorts</span><span class="delimiter">]</span><span class="delimiter">]</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">term</span></span><span> </span><span>sum_list_rel</span><span>
+</span><span class="comment">― ‹@{typ ‹'a::{plus,zero} list ⇒ 'a::{plus,zero} list ⇒ bool›}›</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">term</span></span><span> </span><span>sum_list'_rel</span><span>
+</span><span class="comment">― ‹@{typ ‹'a::type Groups_plus__dict × 'a::type Groups_zero__dict × 'a::type list ⇒ 'a::type Groups_plus__dict × 'a::type Groups_zero__dict × 'a::type list ⇒ bool›}›</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  Let us know discuss the rough concept of the termination proof for @{const sum_list'}. The goal is
+  to show that @{const sum_list'_rel} is well-founded. Usually, this is proved by specifying a
+  ∗‹measure function› that
+  ▸ maps the arguments to natural numbers
+  ▸ decreases for each recursive call.
+›</span></span></span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  Here, however, we want to instead show that each recursive call in @{const sum_list'} has a
+  corresponding recursive call in @{const sum_list}. In other words, we want to show that the
+  existing proof of well-foundedness of @{const sum_list_rel} can be lifted to a proof of
+  well-foundedness of @{const sum_list'_rel}. This is what the theorem
+  @{thm [source=true] wfP_simulate_simple} states:
+
+  @{thm [display=true] wfP_simulate_simple}
+
+  Given any well-founded relation ‹r› and a function ‹g› that maps function arguments from ‹r'› to
+  ‹r›, we can deduce that ‹r'› is also well-founded.
+
+  For our example, we need to provide a function ‹g› of type
+  @{typ ‹'b Groups_plus__dict × 'b Groups_zero__dict × 'b list ⇒ 'a list›}.
+  Because the dictionary parameters are not changing, they can safely be dropped by ‹g›.
+  However, because of the sort constraint in @{const sum_list_rel}, the term @{term "snd ∘ snd"}
+  is not a well-typed instantiation for ‹g›.
+
+  Instead (this is where the heuristic comes in), we assume that the original function
+  @{const sum_list} is parametric, i.e., termination does not depend on the elements of the list
+  passed to it, but only on the structure of the list. Additionally, we assume that all involved
+  type classes have at least one instantiation.
+
+  With this in mind, we can use @{term "map (λ_. undefined) ∘ snd ∘ snd"} as ‹g›:
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">thm</span></span><span> </span><span>wfP_simulate_simple</span><span class="delimiter">[</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span>r</span><span> </span><span class="delimiter">=</span><span> </span><span>sum_list_rel</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span>
+</span><span>  </span><span>r'</span><span> </span><span class="delimiter">=</span><span> </span><span>sum_list'_rel</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span>
+</span><span>  </span><span>g</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"map (λ_. undefined) ∘ snd ∘ snd"</span></span></span><span class="delimiter">]</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  Finally, we can prove the termination of @{const sum_list'}.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">termination</span></span><span> </span><span>sum_list'</span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"wfP sum_list'_rel"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>wfP_simulate_simple</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="comment">― ‹We first need to obtain the well-foundedness theorem for @{const sum_list_rel} from the ML
+        guts of the @{theory_text function} package.›</span><span>
+</span><span>    </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"wfP sum_list_rel"</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>accp_wfPI</span><span class="delimiter">)</span><span>
+</span><span>      </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>tactic</span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹resolve_tac @{context} [Function.get_info @{context} @{term sum_list} |&gt; #totality |&gt; the] 1›</span></span></span><span class="delimiter">)</span><span>
+</span><span>      </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span>    </span><span class="keyword3"><span class="command">define</span></span><span> </span><span>g</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'b Groups_plus__dict × 'b Groups_zero__dict × 'b list ⇒ 'c::{plus,zero} list"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>      </span><span class="string"><span class="delete"><span class="delete">"g = map (λ_. undefined) ∘ snd ∘ snd"</span></span></span><span>
+</span><span>
+</span><span>    </span><span class="comment">― ‹Prove the simulation of @{const sum_list'_rel} by @{const sum_list_rel} by rule induction.›</span><span>
+</span><span>    </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"sum_list_rel (g x) (g y)"</span></span></span><span> </span><span class="keyword2"><span class="keyword">if</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"sum_list'_rel x y"</span></span></span><span> </span><span class="keyword2"><span class="keyword">for</span></span><span> </span><span>x</span><span> </span><span>y</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>that</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>induction</span><span> </span><span>x</span><span> </span><span>y</span><span> </span><span>rule</span><span class="delimiter">:</span><span> </span><span>sum_list'_rel.induct</span><span class="delimiter">)</span><span>
+</span><span>        </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>1</span><span> </span><span>d_plus</span><span> </span><span>d_zero</span><span> </span><span>x</span><span> </span><span>xs</span><span class="delimiter">)</span><span>
+</span><span>        </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>          </span><span class="comment">― ‹Unfold the constituent parts of @{term g}:›</span><span>
+</span><span>          </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>only</span><span class="delimiter">:</span><span> </span><span>g_def</span><span> </span><span>comp_apply</span><span> </span><span>snd_conv</span><span> </span><span>list.map</span><span class="delimiter">)</span><span>
+</span><span>          </span><span class="comment">― ‹Use the corresponding introduction rule of @{const sum_list_rel} and hope for the best:›</span><span>
+</span><span>          </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>sum_list_rel.intros</span><span class="delimiter">(</span><span>1</span><span class="delimiter">)</span><span class="delimiter">)</span><span>
+</span><span>          </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span>  </span><span class="comment">― ‹This is the goal that the @{theory_text function} package expects.›</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"∀x. sum_list'_dom x"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>wfP_implies_dom</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹This can be automated with a special tactic:›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">experiment</span></span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">termination</span></span><span> </span><span>sum_list'</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>tactic</span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+    Transfer_Termination.termination_tac
+      (Function.get_info @{context} @{term sum_list'})
+      (Function.get_info @{context} @{term sum_list})
+      @{context}
+      1›</span></span></span><span class="delimiter">;</span><span> </span><span>fail</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  A similar technique can be used for making functions defined in locales executable when, for some
+  reason, the definition of a ``defs'' locale is not feasible.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">locale</span></span><span> </span><span>foo</span><span> </span><span class="delimiter">=</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">fixes</span></span><span> </span><span>A</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"nat"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"A &gt; 0"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>f</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span class="string"><span class="delete"><span class="delete">"f 0 = A"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span class="string"><span class="delete"><span class="delete">"f (Suc n) = Suc (f n)"</span></span></span><span>
+</span><span>
+</span><span class="comment">― ‹We carry out this proof in the locale for simplicity; a real implementation would probably
+    have to set up a local theory properly.›</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>f_total</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"wfP f_rel"</span></span></span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>accp_wfPI</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>tactic</span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹resolve_tac @{context} [Function.get_info @{context} @{term f} |&gt; #totality |&gt; the] 1›</span></span></span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>
+</span><span class="comment">― ‹The dummy interpretation serves the same purpose as the assumption that class constraints have
+    at least one instantiation.›</span><span>
+</span><span class="keyword1"><span class="command">interpretation</span></span><span> </span><span>dummy</span><span class="delimiter">:</span><span> </span><span>foo</span><span> </span><span>1</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>standard</span><span> </span><span>simp</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">function</span></span><span> </span><span>f'</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span class="string"><span class="delete"><span class="delete">"f' A 0 = A"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span class="string"><span class="delete"><span class="delete">"f' A (Suc n) = Suc (f' A n)"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span>pat_completeness</span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">termination</span></span><span> </span><span>f'</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>wfP_implies_dom</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>wfP_simulate_simple</span><span class="delimiter">[</span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span>g</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"snd"</span></span></span><span class="delimiter">]</span><span class="delimiter">)</span><span>
+</span><span>   </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>dummy.f_total</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">subgoal</span></span></span></span><span> </span><span class="keyword2"><span class="keyword">for</span></span><span> </span><span>x</span><span> </span><span>y</span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>induction</span><span> </span><span>x</span><span> </span><span>y</span><span> </span><span>rule</span><span class="delimiter">:</span><span> </span><span>f'_rel.induct</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">subgoal</span></span></span></span><span>
+</span><span>     </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>only</span><span class="delimiter">:</span><span> </span><span>snd_conv</span><span class="delimiter">)</span><span>
+</span><span>     </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>dummy.f_rel.intros</span><span class="delimiter">)</span><span>
+</span><span>     </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Automatic:›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">experiment</span></span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">termination</span></span><span> </span><span>f'</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>tactic</span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+    Transfer_Termination.termination_tac
+      (Function.get_info @{context} @{term f'})
+      (Function.get_info @{context} @{term dummy.f})
+      @{context}
+      1›</span></span></span><span class="delimiter">;</span><span> </span><span>fail</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span></pre>
+</div>
+</div><div id="Test_Dict_Construction">
+<div class="head"><h1>Theory Test_Dict_Construction</h1>
+<span class="command">theory</span> <span class="name">Test_Dict_Construction</span><br/>
+<span class="keyword">imports</span> <a href="Dict_Construction.html"><span class="name">Dict_Construction</span></a> <a href="ListVector.html"><span class="name">ListVector</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Test cases for dictionary construction›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Test_Dict_Construction</span><span>
+</span><span class="keyword2"><span class="keyword">imports</span></span><span>
+</span><span>  </span><span>Dict_Construction</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"HOL-Library.ListVector"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Code equations with different number of explicit arguments›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="delimiter">[</span><span>code</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"fold f [] = id"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"fold f (x # xs) s = fold f xs (f x s)"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"fold f [x, y] u ≡ f y (f x u)"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">experiment</span></span><span> </span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">declassify</span></span><span> </span><span>valid</span><span class="delimiter">:</span><span> </span><span>fold</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">thm</span></span><span> </span><span>valid</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"List_fold = fold"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>valid</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Complex class hierarchies›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">local_setup</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Class_Graph.ensure_class @{class zero} #&gt; snd›</span></span></span><span>
+</span><span class="keyword1"><span class="command">local_setup</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Class_Graph.ensure_class @{class plus} #&gt; snd›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">experiment</span></span><span> </span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">local_setup</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Class_Graph.ensure_class @{class comm_monoid_add} #&gt; snd›</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">local_setup</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Class_Graph.ensure_class @{class ring} #&gt; snd›</span></span></span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">typ</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"nat Rings_ring__dict"</span></span></span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Check that ‹Class_Graph› does not leak out of locales›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">ML</span></span><span class="cartouche"><span class="delete"><span class="delete">‹@{assert} (is_none (Class_Graph.node @{context} @{class ring}))›</span></span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Instances with non-trivial arity›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>f</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a::plus ⇒ 'a"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span class="string"><span class="delete"><span class="delete">"f x = x + x"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>g</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a::{plus,zero} list ⇒ 'a list"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span class="string"><span class="delete"><span class="delete">"g x = f x"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">datatype</span></span><span> </span><span>natt</span><span> </span><span class="delimiter">=</span><span> </span><span>Z</span><span> </span><span class="delimiter">|</span><span> </span><span>S</span><span> </span><span>natt</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">instantiation</span></span><span> </span><span>natt</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"{zero,plus}"</span></span></span><span> </span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>zero_natt</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"zero_natt = Z"</span></span></span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>plus_natt</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"plus_natt Z x = x"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"plus_natt (S m) n = S (plus_natt m n)"</span></span></span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">instance</span></span><span> </span><span class="keyword1"><span class="command">..</span></span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>h</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"natt list"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span class="string"><span class="delete"><span class="delete">"h = g [Z,S Z]"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">experiment</span></span><span> </span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* FIXME problem with smart_tac *)</span></span></span></span></span><span>
+</span><span class="keyword1"><span class="command">declassify</span></span><span> </span><span>valid</span><span class="delimiter">:</span><span> </span><span>h</span><span>
+</span><span class="keyword1"><span class="command">thm</span></span><span> </span><span>valid</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Test__Dict__Construction_h = h"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>fact</span><span> </span><span>valid</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">ML</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Dict_Construction.the_info @{context} @{const_name plus_natt_inst.plus_natt}›</span></span></span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Check that @{command declassify} does not leak out of locales›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">ML</span></span><span class="cartouche"><span class="delete"><span class="delete">‹
+  can (Dict_Construction.the_info @{context}) @{const_name plus_natt_inst.plus_natt}
+  |&gt; not |&gt; @{assert}
+›</span></span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹[@{attribute fundef_cong}] rules›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">datatype</span></span><span> </span><span class="tfree">'a</span><span> </span><span>seq</span><span> </span><span class="delimiter">=</span><span> </span><span>Cons</span><span> </span><span class="tfree">'a</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a seq"</span></span></span><span> </span><span class="delimiter">|</span><span> </span><span>Nil</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">experiment</span></span><span> </span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">declassify</span></span><span> </span><span>map_seq</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Check presence of derived [@{attribute fundef_cong}] rule›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">ML</span></span><span class="cartouche"><span class="delete"><span class="delete">‹
+  Dict_Construction.the_info @{context} @{const_name map_seq}
+  |&gt; #fun_info
+  |&gt; the
+  |&gt; #fs
+  |&gt; the_single
+  |&gt; dest_Const
+  |&gt; fst
+  |&gt; Dict_Construction.cong_of_const @{context}
+  |&gt; the
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Mutual recursion›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>odd</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"nat ⇒ bool"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>even</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span class="string"><span class="delete"><span class="delete">"odd 0 ⟷ False"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span class="string"><span class="delete"><span class="delete">"even 0 ⟷ True"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span class="string"><span class="delete"><span class="delete">"odd (Suc n) ⟷ even n"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span class="string"><span class="delete"><span class="delete">"even (Suc n) ⟷ odd n"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">experiment</span></span><span> </span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">declassify</span></span><span> </span><span>valid</span><span class="delimiter">:</span><span> </span><span>odd</span><span> </span><span>even</span><span>
+</span><span class="keyword1"><span class="command">thm</span></span><span> </span><span>valid</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">datatype</span></span><span> </span><span class="tfree">'a</span><span> </span><span>bin_tree</span><span> </span><span class="delimiter">=</span><span> </span><span>Leaf</span><span> </span><span class="delimiter">|</span><span> </span><span>Node</span><span> </span><span class="tfree">'a</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a bin_tree"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"'a bin_tree"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">experiment</span></span><span> </span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">declassify</span></span><span> </span><span>valid</span><span class="delimiter">:</span><span> </span><span>map_bin_tree</span><span> </span><span>rel_bin_tree</span><span>
+</span><span class="keyword1"><span class="command">thm</span></span><span> </span><span>valid</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">datatype</span></span><span> </span><span class="tfree">'v</span><span> </span><span>env</span><span> </span><span class="delimiter">=</span><span> </span><span>Env</span><span> </span><span class="string"><span class="delete"><span class="delete">"'v list"</span></span></span><span>
+</span><span class="keyword1"><span class="command">datatype</span></span><span> </span><span>v</span><span> </span><span class="delimiter">=</span><span> </span><span>Closure</span><span> </span><span class="string"><span class="delete"><span class="delete">"v env"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">context</span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">notes</span></span><span> </span><span>is_measure_trivial</span><span class="delimiter">[</span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span>f</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"size_env size"</span></span></span><span class="delimiter">,</span><span> </span><span>measure_function</span><span class="delimiter">]</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* FIXME order is important! *)</span></span></span></span></span><span>
+</span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>test_v</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"v ⇒ bool"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>test_w</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"v env ⇒ bool"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span class="string"><span class="delete"><span class="delete">"test_v (Closure env) ⟷ test_w env"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span class="string"><span class="delete"><span class="delete">"test_w (Env vs) ⟷ list_all test_v vs"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>test_v1</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"v ⇒ 'a::{one,monoid_add}"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>test_w1</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"v env ⇒ 'a"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span class="string"><span class="delete"><span class="delete">"test_v1 (Closure env) = 1 + test_w1 env"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span class="string"><span class="delete"><span class="delete">"test_w1 (Env vs) = sum_list (map test_v1 vs)"</span></span></span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">experiment</span></span><span> </span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">declassify</span></span><span> </span><span>valid</span><span class="delimiter">:</span><span> </span><span>test_w</span><span> </span><span>test_v</span><span>
+</span><span class="keyword1"><span class="command">thm</span></span><span> </span><span>valid</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">experiment</span></span><span> </span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* FIXME derive fundef_cong rule for sum_list *)</span></span></span></span></span><span>
+</span><span class="keyword1"><span class="command">declassify</span></span><span> </span><span>valid</span><span class="delimiter">:</span><span> </span><span>test_w1</span><span> </span><span>test_v1</span><span>
+</span><span class="keyword1"><span class="command">thm</span></span><span> </span><span>valid</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Non-trivial code dependencies; code equations where the head is not fully general›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"c ≡ 0 :: nat"</span></span></span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"d x ≡ if x = 0 then 0 else x"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>contrived</span><span class="delimiter">[</span><span>code</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"c = d 0"</span></span></span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>c_def</span><span> </span><span>d_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">experiment</span></span><span> </span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">declassify</span></span><span> </span><span>valid</span><span class="delimiter">:</span><span> </span><span>c</span><span>
+</span><span class="keyword1"><span class="command">thm</span></span><span> </span><span>valid</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Test__Dict__Construction_c = c"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>fact</span><span> </span><span>valid</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Pattern matching on @{term "0::nat"}›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>j</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"j (n::nat) = (0::nat)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="delimiter">[</span><span>code</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"j 0 = 0"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"j (Suc n) = j n"</span></span></span><span>
+</span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>j_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>k</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span class="string"><span class="delete"><span class="delete">"k 0 = (0::nat)"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span class="string"><span class="delete"><span class="delete">"k (Suc n) = k n"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>f_code</span><span class="delimiter">[</span><span>code</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"k n = 0"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>n</span><span class="delimiter">)</span><span> </span><span>simp</span><span class="delimiter">+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">experiment</span></span><span> </span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">declassify</span></span><span> </span><span>valid</span><span class="delimiter">:</span><span> </span><span>j</span><span> </span><span>k</span><span>
+</span><span class="keyword1"><span class="command">thm</span></span><span> </span><span>valid</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Test__Dict__Construction_j = j"</span></span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Test__Dict__Construction_k = k"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>fact</span><span> </span><span>valid</span><span class="delimiter">)</span><span class="delimiter">+</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Complex termination arguments›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>fac</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"nat ⇒ nat"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span class="string"><span class="delete"><span class="delete">"fac n = (if n ≤ 1 then 1 else n * fac (n - 1))"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">experiment</span></span><span> </span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">declassify</span></span><span> </span><span>valid</span><span class="delimiter">:</span><span> </span><span>fac</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Combination of various things›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">experiment</span></span><span> </span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">declassify</span></span><span> </span><span>valid</span><span class="delimiter">:</span><span> </span><span>sum_list</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Interaction with the code generator›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">declassify</span></span><span> </span><span>h</span><span>
+</span><span class="keyword1"><span class="command">export_code</span></span><span> </span><span>Test__Dict__Construction_h</span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>SML</span><span>
+</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span></pre>
+</div>
+</div><div id="Test_Side_Conditions">
+<div class="head"><h1>Theory Test_Side_Conditions</h1>
+<span class="command">theory</span> <span class="name">Test_Side_Conditions</span><br/>
+<span class="keyword">imports</span> <a href="Dict_Construction.html"><span class="name">Dict_Construction</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Contrived side conditions›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Test_Side_Conditions</span><span>
+</span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>Dict_Construction</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">ML</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+fun assert_alt_total ctxt term = @{assert} (Side_Conditions.is_total ctxt term)
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>head</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span class="string"><span class="delete"><span class="delete">"head (x # _) = x"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">local_setup</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹snd o Side_Conditions.mk_side @{thms head.simps} NONE›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>head_side_eq</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"head_side xs ⟷ xs ≠ []"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>cases</span><span> </span><span>xs</span><span class="delimiter">)</span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>intro</span><span class="delimiter">:</span><span> </span><span>head_side.intros</span><span> </span><span>elim</span><span class="delimiter">:</span><span> </span><span>head_side.cases</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">declaration</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹K (Side_Conditions.set_alt @{term head} @{thm head_side_eq})›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>map</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span class="string"><span class="delete"><span class="delete">"map f [] = []"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span class="string"><span class="delete"><span class="delete">"map f (x # xs) = f x # map f xs"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">local_setup</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹snd o Side_Conditions.mk_side @{thms map.simps} (SOME @{thms map.induct})›</span></span></span><span>
+</span><span class="keyword1"><span class="command">thm</span></span><span> </span><span>map_side.intros</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">ML</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹assert_alt_total @{context} @{term map}›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">experiment</span></span><span> </span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Functions that use partial functions always in their domain are processed correctly.›</span></span></span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>tail</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"tail (_ # xs) = xs"</span></span></span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">local_setup</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹snd o Side_Conditions.mk_side @{thms tail.simps} NONE›</span></span></span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>tail_side_eq</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"tail_side xs ⟷ xs ≠ []"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>cases</span><span> </span><span>xs</span><span class="delimiter">)</span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>intro</span><span class="delimiter">:</span><span> </span><span>tail_side.intros</span><span> </span><span>elim</span><span class="delimiter">:</span><span> </span><span>tail_side.cases</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">declaration</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹K (Side_Conditions.set_alt @{term tail} @{thm tail_side_eq})›</span></span></span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">function</span></span><span> </span><span>map'</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"map' f xs = (if xs = [] then [] else f (head xs) # map' f (tail xs))"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">termination</span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>relation</span><span> </span><span class="string"><span class="delete"><span class="delete">"measure (size ∘ snd)"</span></span></span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>rule</span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">subgoal</span></span></span></span><span> </span><span class="keyword2"><span class="keyword">for</span></span><span> </span><span>f</span><span> </span><span>xs</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>cases</span><span> </span><span>xs</span><span class="delimiter">)</span><span> </span><span>auto</span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">local_setup</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹snd o Side_Conditions.mk_side @{thms map'.simps} (SOME @{thms map'.induct})›</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">thm</span></span><span> </span><span>map'_side.intros</span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">ML</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹assert_alt_total @{context} @{term map'}›</span></span></span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>map_cong</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"xs = ys"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"⋀x. x ∈ set ys ⟹ f x = g x"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"map f xs = map g ys"</span></span></span><span>
+</span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>assms</span><span class="delimiter">(</span><span>1</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span class="delimiter">(</span><span>2</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induction</span><span> </span><span>ys</span><span class="delimiter">)</span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>map_head</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span class="string"><span class="delete"><span class="delete">"map_head xs = map head xs"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">experiment</span></span><span> </span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">declare</span></span><span> </span><span>map_cong</span><span class="delimiter">[</span><span>fundef_cong</span><span class="delimiter">]</span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">local_setup</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹snd o Side_Conditions.mk_side @{thms map_head_def} NONE›</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">thm</span></span><span> </span><span>map_head_side.intros</span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"map_head_side xs ⟷ (∀x ∈ set xs. x ≠ [])"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>intro</span><span class="delimiter">:</span><span> </span><span>map_head_side.intros</span><span> </span><span>elim</span><span class="delimiter">:</span><span> </span><span>map_head_side.cases</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>map_head'</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"map_head' xss = map (map head) xss"</span></span></span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">local_setup</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹snd o Side_Conditions.mk_side @{thms map_head'_def} NONE›</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">thm</span></span><span> </span><span>map_head'_side.intros</span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"map_head'_side xss ⟷ (∀xs ∈ set xss. ∀x ∈ set xs. x ≠ [])"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>intro</span><span class="delimiter">:</span><span> </span><span>map_head'_side.intros</span><span> </span><span>elim</span><span class="delimiter">:</span><span> </span><span>map_head'_side.cases</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">experiment</span></span><span> </span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">local_setup</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹snd o Side_Conditions.mk_side @{thms map_head_def} NONE›</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">term</span></span><span> </span><span>map_head_side</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">thm</span></span><span> </span><span>map_head_side.intros</span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"¬ map_head_side xs"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>elim</span><span class="delimiter">:</span><span> </span><span>map_head_side.cases</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>head_known</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span class="string"><span class="delete"><span class="delete">"head_known xs = head (3 # xs)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">local_setup</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹snd o Side_Conditions.mk_side @{thms head_known_def} NONE›</span></span></span><span>
+</span><span class="keyword1"><span class="command">thm</span></span><span> </span><span>head_known_side.intros</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">ML</span></span><span class="cartouche"><span class="delete"><span class="delete">‹assert_alt_total @{context} @{term head_known}›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>odd</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"nat ⇒ bool"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>even</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span class="string"><span class="delete"><span class="delete">"odd 0 ⟷ False"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span class="string"><span class="delete"><span class="delete">"even 0 ⟷ True"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span class="string"><span class="delete"><span class="delete">"odd (Suc n) ⟷ even n"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span class="string"><span class="delete"><span class="delete">"even (Suc n) ⟷ odd n"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">local_setup</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹snd o Side_Conditions.mk_side @{thms odd.simps even.simps} (SOME @{thms odd_even.induct})›</span></span></span><span>
+</span><span class="keyword1"><span class="command">thm</span></span><span> </span><span>odd_side_even_side.intros</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">ML</span></span><span class="cartouche"><span class="delete"><span class="delete">‹assert_alt_total @{context} @{term odd}›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML</span></span><span class="cartouche"><span class="delete"><span class="delete">‹assert_alt_total @{context} @{term even}›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>odd_known</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span class="string"><span class="delete"><span class="delete">"odd_known = odd (Suc 0)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">local_setup</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹snd o Side_Conditions.mk_side @{thms odd_known_def} NONE›</span></span></span><span>
+</span><span class="keyword1"><span class="command">thm</span></span><span> </span><span>odd_known_side.intros</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">ML</span></span><span class="cartouche"><span class="delete"><span class="delete">‹assert_alt_total @{context} @{term odd_known}›</span></span></span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span></pre>
+</div>
+</div><div id="Test_Lazy_Case">
+<div class="head"><h1>Theory Test_Lazy_Case</h1>
+<span class="command">theory</span> <span class="name">Test_Lazy_Case</span><br/>
+<span class="keyword">imports</span> <a href="Dict_Construction.html"><span class="name">Dict_Construction</span></a> <a href="Lazy_Case.html"><span class="name">Lazy_Case</span></a> <a href="Show_Instances.html"><span class="name">Show_Instances</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Interaction with ‹Lazy_Case››</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Test_Lazy_Case</span><span>
+</span><span class="keyword2"><span class="keyword">imports</span></span><span>
+</span><span>  </span><span>Dict_Construction</span><span>
+</span><span>  </span><span>Lazy_Case.Lazy_Case</span><span>
+</span><span>  </span><span>Show.Show_Instances</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">datatype</span></span><span> </span><span class="tfree">'a</span><span> </span><span>tree</span><span> </span><span class="delimiter">=</span><span> </span><span>Node</span><span> </span><span class="delimiter">|</span><span> </span><span>Fork</span><span> </span><span class="tfree">'a</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a tree list"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>map_tree</span><span class="delimiter">[</span><span>code</span><span class="delimiter">]</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"map_tree f t = (case t of Node ⇒ Node | Fork x ts ⇒ Fork (f x) (map (map_tree f) ts))"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induction</span><span> </span><span>t</span><span class="delimiter">)</span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">experiment</span></span><span> </span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* FIXME proper qualified path *)</span></span></span></span></span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  Dictionary construction of @{const map_tree} requires the [@{attribute fundef_cong}] rule of
+  @{const Test_Lazy_Case.tree.case_lazy}.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">declassify</span></span><span> </span><span>valid</span><span class="delimiter">:</span><span> </span><span>map_tree</span><span>
+</span><span class="keyword1"><span class="command">thm</span></span><span> </span><span>valid</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Test__Lazy__Case_tree_map__tree = map_tree"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>fact</span><span> </span><span>valid</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>i</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"(unit × (bool list × string × nat option) list) option ⇒ string"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span class="string"><span class="delete"><span class="delete">"i = show"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">experiment</span></span><span> </span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹This currently requires @{theory Lazy_Case.Lazy_Case} because of @{const divmod_nat}.›</span></span></span><span>
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* FIXME get rid of Lazy_Case dependency *)</span></span></span></span></span><span>
+</span><span class="keyword1"><span class="command">declassify</span></span><span> </span><span>valid</span><span class="delimiter">:</span><span> </span><span>i</span><span>
+</span><span class="keyword1"><span class="command">thm</span></span><span> </span><span>valid</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Test__Lazy__Case_i = i"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>fact</span><span> </span><span>valid</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span></pre>
+</div>
+</div>
+  
 </main>
     </div>
   </div>

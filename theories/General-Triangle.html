@@ -1,0 +1,162 @@
+<div id="GeneralTriangle">
+<div class="head"><h1>Theory GeneralTriangle</h1>
+<span class="command">theory</span> <span class="name">GeneralTriangle</span><br/>
+<span class="keyword">imports</span> <a href="../../HOL/HOL/Complex_Main.html"><span class="name">Complex_Main</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">theory</span></span><span> </span><span>GeneralTriangle</span><span>
+</span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>Complex_Main</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Type definitions›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Since we are only considering acute-angled triangles, we define ‹angles› as numbers from the real interval $[0\ldots 90]$.›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">abbreviation</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"angles ≡ { x::real . 0 ≤ x ∧ x ≤ 90 }"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Triangles are represented as lists consisting of exactly three angles
+which add up to 180\textdegree. As we consider triangles up to similarity, we
+assume the angles to be given in ascending order.
+
+Isabelle expects us to prove that the type is not empty, which we do by an example.
+
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"triangle =
+    { l . l ∈ lists angles ∧ 
+                    length l = 3 ∧
+                    sum_list l = 180 ∧
+                    sorted l
+                    }"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">typedef</span></span><span> </span><span>triangle</span><span> </span><span class="delimiter">=</span><span> </span><span>triangle</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>triangle_def</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule_tac</span><span> </span><span>x</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"[45,45,90]"</span></span></span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>exI</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>auto</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹For convenience, the following lemma gives us easy access to the three angles
+of a triangle and their properties.›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>unfold_triangle</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">obtains</span></span><span> </span><span>a</span><span> </span><span>b</span><span> </span><span>c</span><span> 
+</span><span>  </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Rep_triangle t = [a,b,c]"</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"a ∈ angles"</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"b ∈ angles"</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"c ∈ angles"</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"a + b + c = 180"</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"a ≤ b"</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"b ≤ c"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span>-</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">obtain</span></span><span> </span><span>a</span><span> </span><span>b</span><span> </span><span>c</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"a = Rep_triangle t ! 0"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"b = Rep_triangle t ! 1"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"c = Rep_triangle t ! 2"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>Rep_triangle</span><span class="delimiter">[</span><span>of</span><span> </span><span>t</span><span class="delimiter">]</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span>triangle_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">hence</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Rep_triangle t = [a,b,c]"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>Rep_triangle</span><span class="delimiter">[</span><span>of</span><span> </span><span>t</span><span class="delimiter">]</span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span>triangle_def</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>cases</span><span> </span><span class="string"><span class="delete"><span class="delete">"Rep_triangle t"</span></span></span><span class="delimiter">,</span><span> </span><span>auto</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>case_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"list"</span></span></span><span class="delimiter">,</span><span> </span><span>auto</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>case_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"lista"</span></span></span><span class="delimiter">,</span><span> </span><span>auto</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">with</span></span><span> </span><span>that</span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span>thesis</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>Rep_triangle</span><span class="delimiter">[</span><span>of</span><span> </span><span>t</span><span class="delimiter">]</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span>triangle_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Property definitions›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Two angles can be considered too similar if they differ by less than
+15\textdegree. This number is obtained heuristically by a field experiment with
+an 11th grade class and was chosen that statistically, 99\% will consider the
+angles as different.›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>similar_angle</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"real ⇒ real ⇒ bool"</span></span></span><span>  </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">infix</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"∼"</span></span></span><span> </span><span>50</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"similar_angle x y = (abs (x - y) &lt; 15)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹The usual definitions of right-angled and isosceles, using the just
+introduced similarity for comparison of angles.›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>right_angled</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"right_angled l = (∃ x ∈ set (Rep_triangle l). x ∼ 90)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>isosceles</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"isosceles l = ((Rep_triangle l) ! 0 ∼ (Rep_triangle l) ! 1 ∨
+                        (Rep_triangle l) ! 1 ∼ (Rep_triangle l) ! (Suc 1))"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹A triangle is special if it is isosceles or right-angled, and general
+if not. Equilateral triangle are isosceles and thus not mentioned on their own
+here.›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>special</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"special t = (isosceles t ∨ right_angled t)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>general</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"general t = (¬ special t)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹The Theorem›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"∃! t. general t"</span></span></span><span>
+</span><span class="keyword1"><span class="command">txt</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹The proof proceeds in two steps: There is a general triangle, and it is
+       unique. For the first step we give the triangle (angles 45\textdegree,
+       60\textdegree and 75\textdegree), show that it is a triangle and that it
+       is general.›</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span>is_t</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"[45, 60, 75] ∈ triangle"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>triangle_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"general (Abs_triangle [45,60,75])"</span></span></span><span> </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">is</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"general ?t"</span></span></span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span>general_def</span><span> </span><span>special_def</span><span> </span><span>isosceles_def</span><span> </span><span>right_angled_def</span><span>
+</span><span>                    </span><span>Abs_triangle_inverse</span><span> </span><span>similar_angle_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">txt</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹For the second step, we give names to the three angles and
+         successively find upper bounds to them.›</span></span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">fix</span></span><span> </span><span>t</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">obtain</span></span><span> </span><span>a</span><span> </span><span>b</span><span> </span><span>c</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> 
+</span><span>    </span><span>abc</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"Rep_triangle t = [a,b,c]"</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"a ∈ angles"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"b ∈ angles"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"c ∈ angles"</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"a ≤ b"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"b ≤ c"</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"a + b + c = 180"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>unfold_triangle</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">assume</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"general t"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">hence</span></span><span> </span><span>ni</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"¬ isosceles t"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>nra</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"¬ right_angled t"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>general_def</span><span> </span><span>special_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"¬ c ∼ 90"</span></span></span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>nra</span><span> </span><span>abc</span><span> 
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span>right_angled_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">hence</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"c ≤ 75"</span></span></span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹c ∈ angles›</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span>similar_angle_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"¬ b ∼ c"</span></span></span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>ni</span><span> </span><span>abc</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span>isosceles_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">hence</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"b ≤ 60"</span></span></span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹b ≤ c›</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹c ≤ 75›</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span>similar_angle_def</span><span class="delimiter">)</span><span>
+</span><span>  
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"¬ a ∼ b"</span></span></span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>ni</span><span> </span><span>abc</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span>isosceles_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">hence</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"a ≤ 45"</span></span></span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹a ≤ b›</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹b ≤ 60›</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span>similar_angle_def</span><span class="delimiter">)</span><span>
+</span><span>  
+</span><span>  </span><span class="keyword1"><span class="command">txt</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹The upper bound is actually the value, or we would not have a triangle›</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"¬ (c &lt; 75 ∨ b &lt; 60 ∨ a &lt; 45)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">proof</span></span><span>
+</span><span>    </span><span class="keyword3"><span class="command">assume</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"c &lt; 75 ∨ b &lt; 60 ∨ a &lt; 45"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">hence</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"a + b + c &lt; 180"</span></span></span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹c ≤ 75›</span></span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹b ≤ 60›</span></span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹a ≤ 45›</span></span></span><span>
+</span><span>                            </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹a ∈ angles›</span></span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹b ∈ angles›</span></span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹c ∈ angles›</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>    </span><span class="keyword3"><span class="command">thus</span></span><span> </span><span>False</span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹a + b + c = 180›</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">hence</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"c = 75"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"b = 60"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"a = 45"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹c ≤ 75›</span></span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹b ≤ 60›</span></span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹a ≤ 45›</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">txt</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹And this concludes the proof.›</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">hence</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Abs_triangle (Rep_triangle t) = Abs_triangle [45, 60, 75]"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>abc</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">thus</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"t = Abs_triangle [45, 60, 75]"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Rep_triangle_inverse</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div>

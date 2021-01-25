@@ -17,7 +17,8 @@
 
   
   
-  <link rel="stylesheet" type="text/css" href="/css/front.min.css" integrity="sha256-QUoTd2RQ4/P7SQKKOG301QYvQ7o2&#43;3qwXOJptpPXM0E=">
+  <link rel="stylesheet" type="text/css" href="/css/front.min.css" integrity="sha256-QUoTd2RQ4/P7SQKKOG301QYvQ7o2&#43;3qwXOJptpPXM0E="><link rel="stylesheet" type="text/css" href="/css/isabelle.css">
+  
   <link rel="icon" href="/images/favicon.ico" type="image/icon">
   <script src="/js/flexsearch.min.js"></script><script src="/js/header-search.js"></script></head>
 
@@ -65,8 +66,135 @@
   
   </div>
 </header><div><main>
-  <iframe src="https://www.isa-afp.org/browser_info/current/AFP/Lifting_Definition_Option/Lifting_Definition_Option_Examples.html" frameborder="0" id="Lifting_Definition_Option_Examples">
-  </iframe>
+  
+  <div id="Lifting_Definition_Option_Examples">
+<div class="head"><h1>Theory Lifting_Definition_Option_Examples</h1>
+<span class="command">theory</span> <span class="name">Lifting_Definition_Option_Examples</span><br/>
+<span class="keyword">imports</span> <a href="../../HOL/HOL/Main.html"><span class="name">Main</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(*  Title:       Lifting Definition Option
+    Author:      René Thiemann       &lt;rene.thiemann@uibk.ac.at&gt;
+    Maintainer:  René Thiemann
+    License:     LGPL
+*)</span></span></span></span></span><span>
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(*
+Copyright 2014 René Thiemann
+
+This file is part of IsaFoR/CeTA.
+
+IsaFoR/CeTA is free software: you can redistribute it and/or modify it under the
+terms of the GNU Lesser General Public License as published by the Free Software
+Foundation, either version 3 of the License, or (at your option) any later
+version.
+
+IsaFoR/CeTA is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License along
+with IsaFoR/CeTA. If not, see &lt;http://www.gnu.org/licenses/&gt;.
+*)</span></span></span></span></span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Lifting_Definition_Option_Examples</span><span>
+</span><span class="keyword2"><span class="keyword">imports</span></span><span>  
+</span><span>  </span><span>Main</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Examples›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹A simple restricted type without type-parameters›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">typedef</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"restricted"</span></span></span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"{ i :: int. i mod 2 = 0}"</span></span></span><span> </span><span class="keyword2"><span class="keyword">morphisms</span></span><span> </span><span>base</span><span> </span><span class="string"><span class="delete"><span class="delete">"restricted"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>intro</span><span> </span><span>exI</span><span class="delimiter">[</span><span>of</span><span> </span><span>_</span><span> </span><span>4</span><span class="delimiter">]</span><span class="delimiter">)</span><span> </span><span>auto</span><span>
+</span><span class="keyword1"><span class="command">setup_lifting</span></span><span> </span><span>type_definition_restricted</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Let us start with just using a sufficient criterion for testing for even numbers,
+  without actually generating them, i.e., where the generator is just the identity function.›</span></span></span><span>
+</span><span class="keyword1"><span class="command">lift_definition</span></span><span class="delimiter">(</span><span>code_dt</span><span class="delimiter">)</span><span> </span><span>restricted_of_simple</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"int ⇒ restricted option"</span></span></span><span> </span><span class="keyword2"><span class="keyword">is</span></span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"λ x :: int. if x ∈ {0, 2, 4, 6} then Some x else None"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹We can also take several input arguments for the test, and generate a more complex value.›</span></span></span><span>
+</span><span class="keyword1"><span class="command">lift_definition</span></span><span class="delimiter">(</span><span>code_dt</span><span class="delimiter">)</span><span> </span><span>restricted_of_many_args</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"nat ⇒ int ⇒ bool ⇒ restricted option"</span></span></span><span> </span><span class="keyword2"><span class="keyword">is</span></span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"λ x y (b :: bool). if int x + y = 5 then Some ((int x + 1) * (y + 1)) else None"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span>clarsimp</span><span> </span><span>presburger</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹No problem to use type parameters.›</span></span></span><span>
+</span><span class="keyword1"><span class="command">lift_definition</span></span><span class="delimiter">(</span><span>code_dt</span><span class="delimiter">)</span><span> </span><span>restricted_of_poly</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'b list ⇒ restricted option"</span></span></span><span> </span><span class="keyword2"><span class="keyword">is</span></span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"λ xs :: 'b list. if length xs = 2 then Some (int (length (xs))) else None"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Examples with type-parameters in the restricted type.›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">typedef</span></span><span> </span><span class="tfree">'f</span><span> </span><span>restrictedf</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"{ xs :: 'f list. length xs &lt; 3}"</span></span></span><span> </span><span class="keyword2"><span class="keyword">morphisms</span></span><span> </span><span>basef</span><span> </span><span>restrictedf</span><span> 
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>intro</span><span> </span><span>exI</span><span class="delimiter">[</span><span>of</span><span> </span><span>_</span><span> </span><span>Nil</span><span class="delimiter">]</span><span class="delimiter">)</span><span> </span><span>auto</span><span>
+</span><span class="keyword1"><span class="command">setup_lifting</span></span><span> </span><span>type_definition_restrictedf</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹It does not matter, if we take the same or different type-parameters in the lift-definition.›</span></span></span><span>
+</span><span class="keyword1"><span class="command">lift_definition</span></span><span class="delimiter">(</span><span>code_dt</span><span class="delimiter">)</span><span> </span><span>test1</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'g ⇒ nat ⇒ 'g restrictedf option"</span></span></span><span> </span><span class="keyword2"><span class="keyword">is</span></span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"λ (e :: 'g) x. if x &lt; 2 then Some (replicate x e) else None"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lift_definition</span></span><span class="delimiter">(</span><span>code_dt</span><span class="delimiter">)</span><span> </span><span>test2</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'f ⇒ nat ⇒ 'f restrictedf option"</span></span></span><span> </span><span class="keyword2"><span class="keyword">is</span></span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"λ (e :: 'f) x. if x &lt; 2 then Some (replicate x e) else None"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Tests with multiple type-parameters.›</span></span></span><span>
+</span><span> 
+</span><span class="keyword1"><span class="command">typedef</span></span><span> </span><span class="delimiter">(</span><span class="tfree">'a</span><span class="delimiter">,</span><span class="tfree">'f</span><span class="delimiter">)</span><span> </span><span>restr</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"{ (xs :: 'a list,ys :: 'f list) . length xs = length ys}"</span></span></span><span> 
+</span><span>  </span><span class="keyword2"><span class="keyword">morphisms</span></span><span> </span><span>base'</span><span> </span><span>restr</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>exI</span><span class="delimiter">[</span><span>of</span><span> </span><span>_</span><span> </span><span class="string"><span class="delete"><span class="delete">"([], [])"</span></span></span><span class="delimiter">]</span><span class="delimiter">,</span><span> </span><span>auto</span><span class="delimiter">)</span><span> 
+</span><span class="keyword1"><span class="command">setup_lifting</span></span><span> </span><span>type_definition_restr</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lift_definition</span></span><span class="delimiter">(</span><span>code_dt</span><span class="delimiter">)</span><span> </span><span>restr_of_pair</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'g ⇒ 'e list ⇒ nat ⇒ nat ⇒ ('e,nat) restr option"</span></span></span><span> </span><span class="keyword2"><span class="keyword">is</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"λ (z :: 'g) (xs :: 'e list) (y :: nat) n. if length xs = n then Some (xs,replicate n y) else None"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Example from \isafor/\ceta›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹An argument filter is a mapping @{term π} from n-ary function symbols into 
+lists of positions, i.e., where each position is between 0 and n-1. In \isafor,
+(Isabelle's Formalization of Rewriting) and \ceta 
+\cite{DBLP:conf/tphol/ThiemannS09}, the corresponding certifier for 
+term rewriting related properties,
+this is modelled as follows, where a partial argument filter in a map is extended to a full one 
+by means of an default filter.›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">typedef</span></span><span> </span><span class="tfree">'f</span><span> </span><span>af</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"{ (π :: 'f × nat ⇒ nat list). (∀ f n. set (π (f,n)) ⊆ {0 ..&lt; n})}"</span></span></span><span> 
+</span><span>  </span><span class="keyword2"><span class="keyword">morphisms</span></span><span> </span><span>af</span><span> </span><span>Abs_af</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>exI</span><span class="delimiter">[</span><span>of</span><span> </span><span>_</span><span> </span><span class="string"><span class="delete"><span class="delete">"λ _. []"</span></span></span><span class="delimiter">]</span><span class="delimiter">,</span><span> </span><span>auto</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">setup_lifting</span></span><span> </span><span>type_definition_af</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">type_synonym</span></span><span> </span><span class="tfree">'f</span><span> </span><span>af_impl</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"(('f × nat) × nat list)list"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>fun_of_map_fun</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"('a ⇒ 'b option) ⇒ ('a ⇒ 'b) ⇒ ('a ⇒ 'b)"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"fun_of_map_fun m f a = (case m a of Some b ⇒ b | None ⇒ f a)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lift_definition</span></span><span class="delimiter">(</span><span>code_dt</span><span class="delimiter">)</span><span> </span><span>af_of</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'f af_impl ⇒ 'f af option"</span></span></span><span> </span><span class="keyword2"><span class="keyword">is</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"λ s :: 'f af_impl. if (∀ fidx ∈ set s. (∀ i ∈ set (snd fidx). i &lt; snd (fst fidx)))
+     then Some (fun_of_map_fun (map_of s) (λ (f,n). [0 ..&lt; n])) else None"</span></span></span><span>
+</span><span class="keyword1"><span class="command">using</span></span><span> </span><span>map_of_SomeD</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>fastforce</span><span> </span><span>split</span><span class="delimiter">:</span><span> </span><span>option.splits</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Code generation tests and derived theorems›</span></span></span><span>
+</span><span class="keyword1"><span class="command">export_code</span></span><span> 
+</span><span>  </span><span>restricted_of_many_args</span><span>
+</span><span>  </span><span>restricted_of_simple</span><span>
+</span><span>  </span><span>restricted_of_poly</span><span>
+</span><span>  </span><span>test1</span><span>
+</span><span>  </span><span>test2</span><span>
+</span><span>  </span><span>restr_of_pair</span><span>
+</span><span>  </span><span>af_of</span><span>
+</span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>Haskell</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>restricted_of_simple_Some</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"restricted_of_simple x = Some r ⟹ base r = x"</span></span></span><span>
+</span><span class="keyword1"><span class="command">using</span></span><span> </span><span>restricted_of_simple.rep_eq</span><span class="delimiter">[</span><span>of</span><span> </span><span>x</span><span class="delimiter">]</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>split</span><span> </span><span>if_splits</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>only</span><span class="delimiter">:</span><span> </span><span>option.map</span><span> </span><span>option.inject</span><span> </span><span>option.simps</span><span class="delimiter">(</span><span>3</span><span class="delimiter">)</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div>
+  
 </main>
     </div>
   </div>

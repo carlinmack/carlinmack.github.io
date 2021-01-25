@@ -17,7 +17,8 @@
 
   
   
-  <link rel="stylesheet" type="text/css" href="/css/front.min.css" integrity="sha256-QUoTd2RQ4/P7SQKKOG301QYvQ7o2&#43;3qwXOJptpPXM0E=">
+  <link rel="stylesheet" type="text/css" href="/css/front.min.css" integrity="sha256-QUoTd2RQ4/P7SQKKOG301QYvQ7o2&#43;3qwXOJptpPXM0E="><link rel="stylesheet" type="text/css" href="/css/isabelle.css">
+  
   <link rel="icon" href="/images/favicon.ico" type="image/icon">
   <script src="/js/flexsearch.min.js"></script><script src="/js/header-search.js"></script></head>
 
@@ -66,10 +67,245 @@
   
   </div>
 </header><div><main>
-  <iframe src="https://www.isa-afp.org/browser_info/current/AFP/DPT-SAT-Solver/DPT_SAT_Solver.html" frameborder="0" id="DPT_SAT_Solver">
-  </iframe>
-  <iframe src="https://www.isa-afp.org/browser_info/current/AFP/DPT-SAT-Solver/DPT_SAT_Tests.html" frameborder="0" id="DPT_SAT_Tests">
-  </iframe>
+  
+  <div id="DPT_SAT_Solver">
+<div class="head"><h1>Theory DPT_SAT_Solver</h1>
+<span class="command">theory</span> <span class="name">DPT_SAT_Solver</span><br/>
+<span class="keyword">imports</span> <a href="../../HOL/HOL/Main.html"><span class="name">Main</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(*  Title:       DPT (Decision Procedure Toolkit) SAT solver ported to SML
+    Author:      Armin Heller, 2008
+    Maintainer:  Jasmin Blanchette &lt;blanchette at in.tum.de&gt;
+*)</span></span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>DPT_SAT_Solver</span><span>
+</span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>Main</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">ML_file</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹dpt_sat_solver.ML›</span></span></span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div><div id="DPT_SAT_Tests">
+<div class="head"><h1>Theory DPT_SAT_Tests</h1>
+<span class="command">theory</span> <span class="name">DPT_SAT_Tests</span><br/>
+<span class="keyword">imports</span> <a href="DPT_SAT_Solver.html"><span class="name">DPT_SAT_Solver</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(*  Title:       Tests for DPTSAT
+    Author:      Jasmin Blanchette &lt;blanchette at in.tum.de&gt;, 2009
+    Maintainer:  Jasmin Blanchette &lt;blanchette at in.tum.de&gt;
+*)</span></span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>DPT_SAT_Tests</span><span>
+</span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>DPT_SAT_Solver</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">ML</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+val path = File.tmp_path (Path.explode "sat.out")
+val max_secs = 60
+
+(*
+val _ = File.write path ""
+fun write_out s = (tracing s; File.append path (s ^ "\n"))
+*)
+val write_out = tracing
+
+fun test name =
+  let
+    val solver = "dptsat"
+    fun aux () =
+      let
+        val name = "cnf/" ^ name
+        val timer1 = Timer.startRealTimer ()
+        val formula =
+          SAT_Solver.read_dimacs_cnf_file
+            (Path.append (Resources.master_directory @{theory}) (Path.explode name))
+        val timer2 = Timer.startRealTimer ()
+        val res = SAT_Solver.invoke_solver solver formula
+        val code = case res of
+                     SAT_Solver.SATISFIABLE _ =&gt; "SAT"
+                   | SAT_Solver.UNSATISFIABLE _ =&gt; "UNSAT"
+                   | SAT_Solver.UNKNOWN =&gt; "UNKNOWN"
+        fun show_time timer =
+          signed_string_of_int (Time.toMilliseconds (Timer.checkRealTimer timer1)) ^ " ms"
+      in
+        write_out (solver ^ ":" ^ name ^ ": " ^ code ^ " " ^ show_time timer1 ^ " " ^
+                  show_time timer2); code
+      end
+      handle Timeout.TIMEOUT _ =&gt; (write_out (solver ^ ":" ^ name ^ ": TIMEOUT"); "UNKNOWN")
+  in
+    Timeout.apply (Time.fromSeconds max_secs) aux ()
+      handle Timeout.TIMEOUT _ =&gt; (write_out (solver ^ ":" ^ name ^ ": TIMEOUT"); "UNKNOWN")
+  end
+
+fun sat name = (test name = "SAT" orelse error "Expected SAT")
+fun unsat name = (test name = "UNSAT" orelse error "Expected UNSAT")
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.398356.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹sat "np.core.398568.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.398723.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.398761.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.398773.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.398787.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.398823.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.398855.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.398863.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.398889.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.398907.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹sat "np.core.399306.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹sat "np.core.399317.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹sat "np.core.399458.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹sat "np.core.399645.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.399856.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.399874.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.399904.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.399960.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.400034.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.400046.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.400209.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.400219.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.400351.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.400353.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.400474.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.400496.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹sat "np.core.400660.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹sat "np.core.400683.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.400719.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.400745.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.400795.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.401023.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹sat "np.core.401292.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.401685.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.401784.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹sat "np.core.402032.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.402136.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.402512.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹sat "np.core.402547.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.402722.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.402730.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.402742.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.402772.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.402774.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.402778.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.402794.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.403005.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.403015.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.403051.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.403079.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.403559.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.403586.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.403624.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.403642.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.403836.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.403838.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.403862.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.404160.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.404182.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.404186.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.404196.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.404200.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.404234.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.404238.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.404246.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.404266.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.404318.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.404326.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.404334.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.404344.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.404368.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.404388.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.404394.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.404414.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.404460.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.404506.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.404510.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.404534.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.404592.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.404596.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.404866.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.404876.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.405031.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.405035.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.405052.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.405056.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.405095.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.405097.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.405100.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.405125.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.405155.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.405184.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.405205.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.405217.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.405254.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.405286.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.405296.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.405314.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.405343.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.405362.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.405372.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.405391.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.405443.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.405445.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.405455.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.405464.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.405536.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.405571.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.405579.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.405588.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.405647.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.405649.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.405657.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.405687.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.405701.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.405703.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.405721.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.405740.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.405811.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.405817.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.405823.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.405869.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.406136.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.406138.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹sat "np.core.406192.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹sat "np.core.406216.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.406290.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.406294.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.406310.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.406355.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.406411.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.406413.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹sat "np.core.406457.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹sat "np.core.406541.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.406599.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.406601.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.406609.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹sat "np.core.406679.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.406857.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.406866.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.406927.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.406994.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.407020.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.407028.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹sat "np.core.407044.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹sat "np.core.407130.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.407514.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.core.407526.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.huff.402973.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.huff.403048.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.huff.403214.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.huff.403497.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.huff.405095.cnf"›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_val</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹unsat "np.huff.405186.cnf"›</span></span></span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div>
+  
 </main>
     </div>
   </div>

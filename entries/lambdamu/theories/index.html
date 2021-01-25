@@ -17,7 +17,8 @@
 
   
   
-  <link rel="stylesheet" type="text/css" href="/css/front.min.css" integrity="sha256-QUoTd2RQ4/P7SQKKOG301QYvQ7o2&#43;3qwXOJptpPXM0E=">
+  <link rel="stylesheet" type="text/css" href="/css/front.min.css" integrity="sha256-QUoTd2RQ4/P7SQKKOG301QYvQ7o2&#43;3qwXOJptpPXM0E="><link rel="stylesheet" type="text/css" href="/css/isabelle.css">
+  
   <link rel="icon" href="/images/favicon.ico" type="image/icon">
   <script src="/js/flexsearch.min.js"></script><script src="/js/header-search.js"></script></head>
 
@@ -73,24 +74,682 @@
   
   </div>
 </header><div><main>
-  <iframe src="https://www.isa-afp.org/browser_info/current/AFP/LambdaMu/ContextFacts.html" frameborder="0" id="ContextFacts">
-  </iframe>
-  <iframe src="https://www.isa-afp.org/browser_info/current/AFP/LambdaMu/DeBruijn.html" frameborder="0" id="DeBruijn">
-  </iframe>
-  <iframe src="https://www.isa-afp.org/browser_info/current/AFP/LambdaMu/Peirce.html" frameborder="0" id="Peirce">
-  </iframe>
-  <iframe src="https://www.isa-afp.org/browser_info/current/AFP/LambdaMu/Progress.html" frameborder="0" id="Progress">
-  </iframe>
-  <iframe src="https://www.isa-afp.org/browser_info/current/AFP/LambdaMu/Reduction.html" frameborder="0" id="Reduction">
-  </iframe>
-  <iframe src="https://www.isa-afp.org/browser_info/current/AFP/LambdaMu/Substitution.html" frameborder="0" id="Substitution">
-  </iframe>
-  <iframe src="https://www.isa-afp.org/browser_info/current/AFP/LambdaMu/Syntax.html" frameborder="0" id="Syntax">
-  </iframe>
-  <iframe src="https://www.isa-afp.org/browser_info/current/AFP/LambdaMu/TypePreservation.html" frameborder="0" id="TypePreservation">
-  </iframe>
-  <iframe src="https://www.isa-afp.org/browser_info/current/AFP/LambdaMu/Types.html" frameborder="0" id="Types">
-  </iframe>
+  
+  <div id="Syntax">
+<div class="head"><h1>Theory Syntax</h1>
+<span class="command">theory</span> <span class="name">Syntax</span><br/>
+<span class="keyword">imports</span> <a href="../../HOL/HOL/Main.html"><span class="name">Main</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹The $\lambda\mu$-calculus›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹More examples, as well as a call-by-value programming language built on
+top of our formalisation, can be found in an associated Bitbucket repository~\cite{bitbucket}.›</span></span></span><span>
+</span><span>  
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Syntax</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>Main</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Syntax›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">datatype</span></span><span> </span><span>type</span><span> </span><span class="delimiter">=</span><span> 
+</span><span>     </span><span>Iota</span><span>
+</span><span>    </span><span class="delimiter">|</span><span> </span><span>Fun</span><span> </span><span>type</span><span> </span><span>type</span><span> </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">infixr</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"→"</span></span></span><span> </span><span>200</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹To deal with $\alpha$-equivalence, we use De Bruijn's nameless representation wherein each bound
+     variable is represented by a natural number, its index, that denotes the number of binders
+     that must be traversed to arrive at the one that binds the given variable.
+     Each free variable has an index that points into the top-level context, not enclosed in
+     any abstractions.›</span></span></span><span>
+</span><span>  
+</span><span class="keyword1"><span class="command">datatype</span></span><span> </span><span>trm</span><span> </span><span class="delimiter">=</span><span>
+</span><span>      </span><span>LVar</span><span> </span><span>nat</span><span>    </span><span class="delimiter">(</span><span class="string"><span class="delete"><span class="delete">"`_"</span></span></span><span> </span><span class="delimiter">[</span><span>100</span><span class="delimiter">]</span><span> </span><span>100</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="delimiter">|</span><span> </span><span>Lbd</span><span> </span><span>type</span><span> </span><span>trm</span><span> </span><span class="delimiter">(</span><span class="string"><span class="delete"><span class="delete">"λ_:_"</span></span></span><span> </span><span class="delimiter">[</span><span>0</span><span class="delimiter">,</span><span> </span><span>60</span><span class="delimiter">]</span><span> </span><span>60</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="delimiter">|</span><span> </span><span>App</span><span> </span><span>trm</span><span> </span><span>trm</span><span> </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">infix</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"°"</span></span></span><span> </span><span>60</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="delimiter">|</span><span> </span><span>Mu</span><span> </span><span>type</span><span> </span><span>cmd</span><span> </span><span class="delimiter">(</span><span class="string"><span class="delete"><span class="delete">"μ_:_"</span></span></span><span> </span><span class="delimiter">[</span><span>0</span><span class="delimiter">,</span><span> </span><span>60</span><span class="delimiter">]</span><span> </span><span>60</span><span class="delimiter">)</span><span>
+</span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>cmd</span><span> </span><span class="delimiter">=</span><span> 
+</span><span>      </span><span>MVar</span><span> </span><span>nat</span><span> </span><span>trm</span><span> </span><span class="delimiter">(</span><span class="string"><span class="delete"><span class="delete">"&lt;_&gt;_"</span></span></span><span> </span><span class="delimiter">[</span><span>0</span><span class="delimiter">,</span><span> </span><span>60</span><span class="delimiter">]</span><span> </span><span>60</span><span class="delimiter">)</span><span>
+</span><span>      
+</span><span class="keyword1"><span class="command">datatype</span></span><span> </span><span>ctxt</span><span> </span><span class="delimiter">=</span><span> 
+</span><span>  </span><span>ContextEmpty</span><span> </span><span class="delimiter">(</span><span class="string"><span class="delete"><span class="delete">"◇"</span></span></span><span class="delimiter">)</span><span> </span><span class="delimiter">|</span><span>
+</span><span>  </span><span>ContextApp</span><span> </span><span>ctxt</span><span> </span><span>trm</span><span> </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">infixl</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"<span class="hidden">⇧</span><sup>∙</sup>"</span></span></span><span> </span><span>75</span><span class="delimiter">)</span><span>
+</span><span>  
+</span><span class="keyword1"><span class="command">primrec</span></span><span> </span><span>ctxt_app</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"ctxt ⇒ ctxt ⇒ ctxt"</span></span></span><span> </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">infix</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"."</span></span></span><span> </span><span>60</span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"◇ . F = F"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"(E <span class="hidden">⇧</span><sup>∙</sup> t) . F = (E . F) <span class="hidden">⇧</span><sup>∙</sup> t"</span></span></span><span>
+</span><span>  
+</span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>is_val</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"trm ⇒ bool"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"is_val (λ T : v) = True"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"is_val _ = False"</span></span></span><span>
+</span><span>
+</span><span>  
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div><div id="Types">
+<div class="head"><h1>Theory Types</h1>
+<span class="command">theory</span> <span class="name">Types</span><br/>
+<span class="keyword">imports</span> <a href="Syntax.html"><span class="name">Syntax</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Types›</span></span></span><span>
+</span><span>  
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Types</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>Syntax</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>  
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹We implement typing environments as (total) functions from natural numbers to types,
+     following the approach of Stefan Berghofer in his formalisation of the simply typed
+     $\lambda$-calculus in the Isabelle/HOL library.
+     An empty typing environment may be represented by an arbitrary function of the correct type
+     as it will never be queried when a typing judgement is valid. We split typing environments,
+     dedicating one environment to $\lambda$-variables and another to $\mu$-variables, and
+     use $\Gamma$ and $\Delta$ to range over the former and latter, respectively.›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹From src/HOL/Proofs/LambdaType.thy›</span></span></span><span>
+</span><span>  
+</span><span class="keyword1"><span class="command">definition</span></span><span>
+</span><span>  </span><span>shift</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"(nat ⇒ 'a) ⇒ nat ⇒ 'a ⇒ nat ⇒ 'a"</span></span></span><span>  </span><span class="delimiter">(</span><span class="string"><span class="delete"><span class="delete">"_⟨_:_⟩"</span></span></span><span> </span><span class="delimiter">[</span><span>90</span><span class="delimiter">,</span><span> </span><span>0</span><span class="delimiter">,</span><span> </span><span>0</span><span class="delimiter">]</span><span> </span><span>91</span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"e⟨i:a⟩ = (λj. if j &lt; i then e j else if j = i then a else e (j-1))"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>shift_eq</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"i = j ⟹ (e⟨i:T⟩) j = T"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>shift_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>shift_gt</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"j &lt; i ⟹ (e⟨i:T⟩) j = e j"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>shift_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>shift_lt</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"i &lt; j ⟹ (e⟨i:T⟩) j = e (j - 1)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>shift_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>shift_commute</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"e⟨i:U⟩⟨0:T⟩ = e⟨0:T⟩⟨Suc i:U⟩"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>ext</span><span class="delimiter">)</span><span> </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>shift_def</span><span> </span><span>split</span><span class="delimiter">:</span><span> </span><span>nat.split</span><span class="delimiter">,</span><span> </span><span>force</span><span class="delimiter">)</span><span>
+</span><span>   
+</span><span class="keyword1"><span class="command">inductive</span></span><span> </span><span>typing_trm</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"(nat ⇒ type) ⇒ (nat ⇒ type) ⇒ trm ⇒ type ⇒ bool"</span></span></span><span>  
+</span><span>     </span><span class="delimiter">(</span><span class="string"><span class="delete"><span class="delete">"_ , _ ⊢<span class="hidden">⇩</span><sub>T</sub> _ : _"</span></span></span><span> </span><span class="delimiter">[</span><span>50</span><span class="delimiter">,</span><span> </span><span>50</span><span class="delimiter">,</span><span> </span><span>50</span><span class="delimiter">,</span><span> </span><span>50</span><span class="delimiter">]</span><span> </span><span>50</span><span class="delimiter">)</span><span>
+</span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>typing_cmd</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"(nat ⇒ type) ⇒ (nat ⇒ type) ⇒ cmd ⇒ bool"</span></span></span><span>
+</span><span>     </span><span class="delimiter">(</span><span class="string"><span class="delete"><span class="delete">"_ , _ ⊢<span class="hidden">⇩</span><sub>C</sub> _"</span></span></span><span> </span><span class="delimiter">[</span><span>50</span><span class="delimiter">,</span><span> </span><span>50</span><span class="delimiter">,</span><span> </span><span>50</span><span class="delimiter">]</span><span> </span><span>50</span><span class="delimiter">)</span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span> 
+</span><span>  </span><span>var</span><span> </span><span class="delimiter">[</span><span>intro</span><span class="delimiter">!</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"⟦ Γ x = T ⟧ ⟹ Γ, Δ ⊢<span class="hidden">⇩</span><sub>T</sub> `x : T"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span>  </span><span>app</span><span> </span><span class="delimiter">[</span><span>intro</span><span class="delimiter">!</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"⟦ Γ, Δ ⊢<span class="hidden">⇩</span><sub>T</sub> t : (T1→T2); Γ, Δ ⊢<span class="hidden">⇩</span><sub>T</sub> s : T1 ⟧
+                    ⟹ Γ, Δ ⊢<span class="hidden">⇩</span><sub>T</sub> (t°s) : T2"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span>  </span><span>lambda</span><span> </span><span class="delimiter">[</span><span>intro</span><span class="delimiter">!</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"⟦ Γ⟨0:T1⟩, Δ ⊢<span class="hidden">⇩</span><sub>T</sub> t : T2 ⟧
+                    ⟹ Γ, Δ ⊢<span class="hidden">⇩</span><sub>T</sub> (λ T1 : t) : (T1→T2)"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span>  </span><span>activate</span><span> </span><span class="delimiter">[</span><span>intro</span><span class="delimiter">!</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"⟦ Γ, Δ⟨0:T⟩ ⊢<span class="hidden">⇩</span><sub>C</sub> c ⟧ ⟹ Γ, Δ ⊢<span class="hidden">⇩</span><sub>T</sub> (μ T : c) : T"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span>  </span><span>passivate</span><span> </span><span class="delimiter">[</span><span>intro</span><span class="delimiter">!</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"⟦ Γ, Δ ⊢<span class="hidden">⇩</span><sub>T</sub> t : T; Δ x = T⟧ ⟹ Γ, Δ ⊢<span class="hidden">⇩</span><sub>C</sub> (&lt;x&gt; t)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">inductive_cases</span></span><span> </span><span>typing_elims</span><span> </span><span class="delimiter">[</span><span>elim</span><span class="delimiter">!</span><span class="delimiter">]</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Γ, Δ ⊢<span class="hidden">⇩</span><sub>T</sub> `x : T"</span></span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Γ, Δ ⊢<span class="hidden">⇩</span><sub>T</sub> t°s : T"</span></span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Γ, Δ ⊢<span class="hidden">⇩</span><sub>T</sub> λ T1 : t : T"</span></span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Γ, Δ ⊢<span class="hidden">⇩</span><sub>T</sub> μ T1 : t : T"</span></span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Γ, Δ ⊢<span class="hidden">⇩</span><sub>C</sub> &lt;x&gt; t"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">inductive_cases</span></span><span> </span><span>type_arrow_elim</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Γ , Δ ⊢<span class="hidden">⇩</span><sub>T</sub> t : T1 → T2"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>uniqueness</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Γ, Δ ⊢<span class="hidden">⇩</span><sub>T</sub> t : T1 ⟹ Γ, Δ ⊢<span class="hidden">⇩</span><sub>T</sub> t : T2 ⟹ T1 = T2"</span></span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Γ, Δ ⊢<span class="hidden">⇩</span><sub>C</sub> c ⟹ Γ, Δ ⊢<span class="hidden">⇩</span><sub>C</sub> c"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="delimiter">(</span><span>induct</span><span> </span><span>arbitrary</span><span class="delimiter">:</span><span> </span><span>T2</span><span> </span><span>rule</span><span class="delimiter">:</span><span> </span><span>typing_trm_typing_cmd.inducts</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>typing_cmd.cases</span><span> </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>blast</span><span class="delimiter">+</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div><div id="DeBruijn">
+<div class="head"><h1>Theory DeBruijn</h1>
+<span class="command">theory</span> <span class="name">DeBruijn</span><br/>
+<span class="keyword">imports</span> <a href="Syntax.html"><span class="name">Syntax</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">theory</span></span><span> </span><span>DeBruijn</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>Syntax</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>  
+</span><span class="keyword1"><span class="command">subsection</span></span><span class="cartouche"><span class="delete"><span class="delete">‹De Bruijn indices›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Functions to find the free $\lambda$ and $\mu$ variables in an expression.›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">primrec</span></span><span> </span><span>flv_trm</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"trm ⇒ nat ⇒ nat set"</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>flv_cmd</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"cmd ⇒ nat ⇒ nat set"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"flv_trm (`i) k = (if i≥k then {i-k} else {})"</span></span></span><span>
+</span><span>  </span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"flv_trm (λ T : t) k = flv_trm t (k+1)"</span></span></span><span>
+</span><span>  </span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"flv_trm (s°t) k = (flv_trm s k) ∪ (flv_trm t k)"</span></span></span><span>
+</span><span>  </span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"flv_trm (μ T : c) k = flv_cmd c k"</span></span></span><span>
+</span><span>  </span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"flv_cmd (&lt;i&gt; t) k = flv_trm t k"</span></span></span><span>
+</span><span>    
+</span><span class="keyword1"><span class="command">primrec</span></span><span> </span><span>fmv_trm</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"trm ⇒ nat ⇒ nat set"</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>fmv_cmd</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"cmd ⇒ nat ⇒ nat set"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"fmv_trm (`i) k = {}"</span></span></span><span>
+</span><span>  </span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"fmv_trm (λ T : t) k = fmv_trm t k"</span></span></span><span>
+</span><span>  </span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"fmv_trm (s°t) k = (fmv_trm s k) ∪ (fmv_trm t k)"</span></span></span><span>
+</span><span>  </span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"fmv_trm (μ T : c) k = fmv_cmd c (k+1)"</span></span></span><span>
+</span><span>  </span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"fmv_cmd (&lt;i&gt; t) k = (if i≥k then {i-k} ∪ (fmv_trm t k) else (fmv_trm t k))"</span></span></span><span>
+</span><span>    
+</span><span class="keyword1"><span class="command">abbreviation</span></span><span> </span><span>lambda_closed</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"_"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"lambda_closed t ≡ flv_trm t 0 = {}"</span></span></span><span>
+</span><span>  
+</span><span class="keyword1"><span class="command">abbreviation</span></span><span> </span><span>lambda_closedC</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"_"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"lambda_closedC c ≡ flv_cmd c 0 = {}"</span></span></span><span>
+</span><span>    
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Free variables in a context.›</span></span></span><span>
+</span><span>  
+</span><span class="keyword1"><span class="command">primrec</span></span><span> </span><span>fmv_ctxt</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"ctxt ⇒ nat ⇒ nat set"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"fmv_ctxt ◇ k = {}"</span></span></span><span>
+</span><span>  </span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"fmv_ctxt (E <span class="hidden">⇧</span><sup>∙</sup> t) k = (fmv_ctxt E k) ∪ (fmv_trm t k)"</span></span></span><span>     
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Shift free $\lambda$ and $\mu$ variables in terms and commands to make substitution capture avoiding.›</span></span></span><span>    
+</span><span>    
+</span><span class="keyword1"><span class="command">primrec</span></span><span>
+</span><span>  </span><span>liftL_trm</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"[trm, nat] ⇒ trm"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span>
+</span><span>  </span><span>liftL_cmd</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"[cmd, nat] ⇒ cmd"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"liftL_trm (`i) k = (if i&lt;k then `i else `(i+1))"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"liftL_trm (λ T : t) k = λ T : (liftL_trm t (k+1))"</span></span></span><span> </span><span class="delimiter">|</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"liftL_trm (s ° t) k = liftL_trm s k ° liftL_trm t k"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"liftL_trm (μ T : c) k = μ T : (liftL_cmd c k)"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"liftL_cmd (&lt;i&gt; t) k = &lt;i&gt; (liftL_trm t k)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">primrec</span></span><span>
+</span><span>  </span><span>liftM_trm</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"[trm, nat] ⇒ trm"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span>
+</span><span>  </span><span>liftM_cmd</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"[cmd, nat] ⇒ cmd"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"liftM_trm (`i) k = `i"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"liftM_trm (λ T : t) k = λ T : (liftM_trm t k)"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"liftM_trm (s ° t) k = liftM_trm s k ° liftM_trm t k"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"liftM_trm (μ T : c) k = μ T : (liftM_cmd c (k+1))"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"liftM_cmd (&lt;i&gt; t) k =
+      (if i&lt;k then (&lt;i&gt; (liftM_trm t k)) else (&lt;i+1&gt; (liftM_trm t k)))"</span></span></span><span>
+</span><span>  
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Shift free $\lambda$ and $\mu$ variables in contexts to make structural substitution capture avoiding.›</span></span></span><span>
+</span><span>  
+</span><span class="keyword1"><span class="command">primrec</span></span><span> </span><span>liftL_ctxt</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"ctxt ⇒ nat ⇒ ctxt"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"liftL_ctxt ◇ n = ◇"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"liftL_ctxt (E <span class="hidden">⇧</span><sup>∙</sup> t) n = (liftL_ctxt E n) <span class="hidden">⇧</span><sup>∙</sup> (liftL_trm t n)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">primrec</span></span><span> </span><span>liftM_ctxt</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"ctxt ⇒ nat ⇒ ctxt"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"liftM_ctxt ◇ n = ◇"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"liftM_ctxt (E <span class="hidden">⇧</span><sup>∙</sup> t) n = (liftM_ctxt E n) <span class="hidden">⇧</span><sup>∙</sup> (liftM_trm t n)"</span></span></span><span>  
+</span><span>  
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹A function to decrement the indices of free $\mu$-variables when a $\mu$ surrounding the
+     expression disappears as a result of a reduction›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">primrec</span></span><span>
+</span><span>  </span><span>dropM_trm</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"[trm, nat] ⇒ trm"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span>
+</span><span>  </span><span>dropM_cmd</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"[cmd, nat] ⇒ cmd"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"dropM_trm (`i) k = `i"</span></span></span><span>
+</span><span>  </span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"dropM_trm (λ T : t) k = λ T : (dropM_trm t k)"</span></span></span><span>
+</span><span>  </span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"dropM_trm (s ° t) k = (dropM_trm s k) ° (dropM_trm t k)"</span></span></span><span>
+</span><span>  </span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"dropM_trm (μ T : c) k = μ T : (dropM_cmd c (k+1))"</span></span></span><span>
+</span><span>  </span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"dropM_cmd (&lt;i&gt; t) k = 
+      (if i&gt;k then (&lt;i-1&gt; (dropM_trm t k)) else (&lt;i&gt; (dropM_trm t k)))"</span></span></span><span>
+</span><span>    
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>fmv_liftL</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"β ∉ fmv_trm t n ⟹ β ∉ fmv_trm (liftL_trm t m) n"</span></span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"β ∉ fmv_cmd c n ⟹ β ∉ fmv_cmd (liftL_cmd c m) n"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span class="delimiter">(</span><span>induct</span><span> </span><span>t</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>c</span><span> </span><span>arbitrary</span><span class="delimiter">:</span><span> </span><span>m</span><span> </span><span>n</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>m</span><span> </span><span>n</span><span class="delimiter">)</span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>fmv_liftL_ctxt</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"β ∉ fmv_ctxt E m ⟹ β ∉ fmv_ctxt (liftL_ctxt E n) m"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span class="delimiter">(</span><span>induct</span><span> </span><span>E</span><span class="delimiter">)</span><span> </span><span class="delimiter">(</span><span>fastforce</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>fmv_liftL</span><span class="delimiter">)</span><span class="delimiter">+</span><span>
+</span><span>    
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>fmv_suc</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"β ∉ fmv_cmd c (Suc n) ⟹ (Suc β) ∉ fmv_cmd c n"</span></span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"β ∉ fmv_trm t (Suc n) ⟹ (Suc β) ∉ fmv_trm t n"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>c</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>t</span><span> </span><span>arbitrary</span><span class="delimiter">:</span><span> </span><span>n</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>n</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>MVar</span><span> </span><span>x1</span><span> </span><span>x2</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>clarsimp</span><span> </span><span class="delimiter">(</span><span>metis</span><span> </span><span>UnI1</span><span> </span><span>UnI2</span><span> </span><span>diff_Suc_1</span><span> </span><span>diff_Suc_eq_diff_pred</span><span> </span><span>diff_commute</span><span> </span><span>diff_is_0_eq</span><span> </span><span>nat.simps</span><span class="delimiter">(</span><span>3</span><span class="delimiter">)</span><span> </span><span>not_less_eq_eq</span><span> </span><span>singletonI</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span> </span><span class="delimiter">(</span><span>force</span><span class="delimiter">)</span><span class="delimiter">+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>flv_drop</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"flv_trm t k = {} ⟶ flv_trm (dropM_trm t j) k = {}"</span></span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"flv_cmd c k = {} ⟶ flv_cmd (dropM_cmd c j) k = {}"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>t</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>c</span><span> </span><span>arbitrary</span><span class="delimiter">:</span><span> </span><span>j</span><span> </span><span>k</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>j</span><span> </span><span>k</span><span class="delimiter">)</span><span> </span><span>clarsimp</span><span class="delimiter">+</span><span>
+</span><span>    
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div><div id="Substitution">
+<div class="head"><h1>Theory Substitution</h1>
+<span class="command">theory</span> <span class="name">Substitution</span><br/>
+<span class="keyword">imports</span> <a href="DeBruijn.html"><span class="name">DeBruijn</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">subsection</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Logical and structural substitution›</span></span></span><span>
+</span><span>  
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Substitution</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>DeBruijn</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span> 
+</span><span>
+</span><span class="keyword1"><span class="command">primrec</span></span><span>
+</span><span>  </span><span>subst_trm</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"[trm, trm, nat] ⇒ trm"</span></span></span><span>  </span><span class="delimiter">(</span><span class="string"><span class="delete"><span class="delete">"_[_'/_]<span class="hidden">⇧</span><sup>T</sup>"</span></span></span><span> </span><span class="delimiter">[</span><span>300</span><span class="delimiter">,</span><span> </span><span>0</span><span class="delimiter">,</span><span> </span><span>0</span><span class="delimiter">]</span><span> </span><span>300</span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span>
+</span><span>  </span><span>subst_cmd</span><span> </span><span class="delimiter">::</span><span>  </span><span class="string"><span class="delete"><span class="delete">"[cmd, trm, nat] ⇒ cmd"</span></span></span><span> </span><span class="delimiter">(</span><span class="string"><span class="delete"><span class="delete">"_[_'/_]<span class="hidden">⇧</span><sup>C</sup>"</span></span></span><span> </span><span class="delimiter">[</span><span>300</span><span class="delimiter">,</span><span> </span><span>0</span><span class="delimiter">,</span><span> </span><span>0</span><span class="delimiter">]</span><span> </span><span>300</span><span class="delimiter">)</span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>    </span><span>subst_LVar</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"(`i)[s/k]<span class="hidden">⇧</span><sup>T</sup> = 
+          (if k &lt; i then `(i-1) else if k = i then s else (`i))"</span></span></span><span>
+</span><span>    </span><span class="delimiter">|</span><span> </span><span>subst_Lbd</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"(λ T : t)[s/k]<span class="hidden">⇧</span><sup>T</sup> = λ T : (t[(liftL_trm s 0) / k+1]<span class="hidden">⇧</span><sup>T</sup>)"</span></span></span><span>
+</span><span>    </span><span class="delimiter">|</span><span> </span><span>subst_App</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"(t ° u)[s/k]<span class="hidden">⇧</span><sup>T</sup> = t[s/k]<span class="hidden">⇧</span><sup>T</sup> ° u[s/k]<span class="hidden">⇧</span><sup>T</sup>"</span></span></span><span>
+</span><span>    </span><span class="delimiter">|</span><span> </span><span>subst_Mu</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"(μ T : c)[s/k]<span class="hidden">⇧</span><sup>T</sup>  = μ T : (c[(liftM_trm s 0) / k]<span class="hidden">⇧</span><sup>C</sup>)"</span></span></span><span>
+</span><span>    </span><span class="delimiter">|</span><span> </span><span>subst_MVar</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"(&lt;i&gt; t)[s/k]<span class="hidden">⇧</span><sup>C</sup> = &lt;i&gt; (t[s/k]<span class="hidden">⇧</span><sup>T</sup>)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Substituting a term for the hole in a context.›</span></span></span><span>
+</span><span>  
+</span><span class="keyword1"><span class="command">primrec</span></span><span> </span><span>ctxt_subst</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"ctxt ⇒ trm ⇒ trm"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"ctxt_subst ◇ s = s"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"ctxt_subst (E <span class="hidden">⇧</span><sup>∙</sup> t) s = (ctxt_subst E s)° t"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>ctxt_app_subst</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"ctxt_subst E (ctxt_subst F t) = ctxt_subst (E . F) t"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induction</span><span> </span><span>E</span><span class="delimiter">,</span><span> </span><span>auto</span><span class="delimiter">)</span><span>
+</span><span>    
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹The structural substitution is based on Geuvers and al.~\cite{DBLP:journals/apal/GeuversKM13}.›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">primrec</span></span><span>
+</span><span>  </span><span>struct_subst_trm</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"[trm, nat, nat, ctxt] ⇒ trm"</span></span></span><span>  </span><span class="delimiter">(</span><span class="string"><span class="delete"><span class="delete">"_[_=_ _]<span class="hidden">⇧</span><sup>T</sup>"</span></span></span><span> </span><span class="delimiter">[</span><span>300</span><span class="delimiter">,</span><span> </span><span>0</span><span class="delimiter">,</span><span> </span><span>0</span><span class="delimiter">,</span><span> </span><span>0</span><span class="delimiter">]</span><span> </span><span>300</span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span>
+</span><span>  </span><span>struct_subst_cmd</span><span> </span><span class="delimiter">::</span><span>  </span><span class="string"><span class="delete"><span class="delete">"[cmd, nat, nat, ctxt] ⇒ cmd"</span></span></span><span> </span><span class="delimiter">(</span><span class="string"><span class="delete"><span class="delete">"_[_=_ _]<span class="hidden">⇧</span><sup>C</sup>"</span></span></span><span> </span><span class="delimiter">[</span><span>300</span><span class="delimiter">,</span><span> </span><span>0</span><span class="delimiter">,</span><span> </span><span>0</span><span class="delimiter">,</span><span> </span><span>0</span><span class="delimiter">]</span><span> </span><span>300</span><span class="delimiter">)</span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span>struct_LVar</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"(`i)[j=k E]<span class="hidden">⇧</span><sup>T</sup> = (`i)"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span>  </span><span>struct_Lbd</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"(λ T : t)[j=k E]<span class="hidden">⇧</span><sup>T</sup> = (λ T : (t[j=k (liftL_ctxt E 0)]<span class="hidden">⇧</span><sup>T</sup>))"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span>  </span><span>struct_App</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"(t°s)[j=k E]<span class="hidden">⇧</span><sup>T</sup> = (t[j=k E]<span class="hidden">⇧</span><sup>T</sup>)°(s[j=k E]<span class="hidden">⇧</span><sup>T</sup>)"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span>  </span><span>struct_Mu</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"(μ T : c)[j=k E]<span class="hidden">⇧</span><sup>T</sup> = μ T : (c[(j+1)=(k+1) (liftM_ctxt E 0)]<span class="hidden">⇧</span><sup>C</sup>)"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span>  </span><span>struct_MVar</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"(&lt;i&gt; t)[j=k E]<span class="hidden">⇧</span><sup>C</sup> = 
+      (if i=j then (&lt;k&gt; (ctxt_subst E (t[j=k E]<span class="hidden">⇧</span><sup>T</sup>))) 
+       else (if j&lt;i ∧ i≤k then (&lt;i-1&gt; (t[j=k E]<span class="hidden">⇧</span><sup>T</sup>))
+             else (if k≤i ∧ i&lt;j then (&lt;i+1&gt; (t[j=k E]<span class="hidden">⇧</span><sup>T</sup>))
+                   else (&lt;i&gt; (t[j=k E]<span class="hidden">⇧</span><sup>T</sup>)))))"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Lifting of lambda and mu variables commute with each other›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>liftLM_comm</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"liftL_trm (liftM_trm t n) m = liftM_trm (liftL_trm t m) n"</span></span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"liftL_cmd (liftM_cmd c n) m = liftM_cmd (liftL_cmd c m) n"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span class="delimiter">(</span><span>induct</span><span> </span><span>t</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>c</span><span> </span><span>arbitrary</span><span class="delimiter">:</span><span> </span><span>n</span><span> </span><span>m</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>n</span><span> </span><span>m</span><span class="delimiter">)</span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>liftLM_comm_ctxt</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"liftL_ctxt (liftM_ctxt E n) m = liftM_ctxt (liftL_ctxt E m) n"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span class="delimiter">(</span><span>induct</span><span> </span><span>E</span><span> </span><span>arbitrary</span><span class="delimiter">:</span><span> </span><span>n</span><span> </span><span>m</span><span class="delimiter">,</span><span> </span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>liftLM_comm</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Lifting of $\mu$-variables (almost) commutes.›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>liftMM_comm</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"n≥m ⟹ liftM_trm (liftM_trm t n) m = liftM_trm (liftM_trm t m) (Suc n)"</span></span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"n≥m ⟹ liftM_cmd (liftM_cmd c n) m = liftM_cmd (liftM_cmd c m) (Suc n)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span class="delimiter">(</span><span>induct</span><span> </span><span>t</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>c</span><span> </span><span>arbitrary</span><span class="delimiter">:</span><span> </span><span>n</span><span> </span><span>m</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>n</span><span> </span><span>m</span><span class="delimiter">)</span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>liftMM_comm_ctxt</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"liftM_ctxt (liftM_ctxt E n) 0 = liftM_ctxt (liftM_ctxt E 0) (n+1)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span class="delimiter">(</span><span>induct</span><span> </span><span>E</span><span> </span><span>arbitrary</span><span class="delimiter">:</span><span> </span><span>n</span><span class="delimiter">,</span><span> </span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>liftMM_comm</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹If a $\mu$ variable $i$ doesn't occur in a term or a context, 
+then these remain the same after structural substitution of variable $i$.›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>liftM_struct_subst</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"liftM_trm t i[i=i F]<span class="hidden">⇧</span><sup>T</sup> = liftM_trm t i"</span></span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"liftM_cmd c i[i=i F]<span class="hidden">⇧</span><sup>C</sup> = liftM_cmd c i"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span class="delimiter">(</span><span>induct</span><span> </span><span>t</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>c</span><span> </span><span>arbitrary</span><span class="delimiter">:</span><span> </span><span>i</span><span> </span><span>F</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>i</span><span> </span><span>F</span><span class="delimiter">)</span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>liftM_ctxt_struct_subst</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"(ctxt_subst (liftM_ctxt E i) t)[i=i F]<span class="hidden">⇧</span><sup>T</sup> = ctxt_subst (liftM_ctxt E i) (t[i=i F]<span class="hidden">⇧</span><sup>T</sup>)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span class="delimiter">(</span><span>induct</span><span> </span><span>E</span><span> </span><span>arbitrary</span><span class="delimiter">:</span><span> </span><span>i</span><span> </span><span>t</span><span> </span><span>F</span><span class="delimiter">;</span><span> </span><span>force</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>liftM_struct_subst</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div><div id="Reduction">
+<div class="head"><h1>Theory Reduction</h1>
+<span class="command">theory</span> <span class="name">Reduction</span><br/>
+<span class="keyword">imports</span> <a href="Substitution.html"><span class="name">Substitution</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Reduction relation›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Reduction</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>Substitution</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">inductive</span></span><span> </span><span>red_term</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"[trm, trm] ⇒ bool"</span></span></span><span>  </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">infixl</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"⇢"</span></span></span><span> </span><span>50</span><span class="delimiter">)</span><span> 
+</span><span>      </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>red_cmd</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"[cmd, cmd] ⇒ bool"</span></span></span><span>  </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">infixl</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"<span class="hidden">⇩</span><sub>C</sub>⇢"</span></span></span><span> </span><span>50</span><span class="delimiter">)</span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span>beta</span><span>   </span><span class="delimiter">[</span><span>intro</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"(λ T : t)°r ⇢ t[r/0]<span class="hidden">⇧</span><sup>T</sup>"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span>  </span><span>struct</span><span> </span><span class="delimiter">[</span><span>intro</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"(μ (T1→T2) : c)°s ⇢ μ T2 : (c[0 = 0 (◇ <span class="hidden">⇧</span><sup>∙</sup> (liftM_trm s 0))]<span class="hidden">⇧</span><sup>C</sup>)"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span>  </span><span>rename</span><span> </span><span class="delimiter">[</span><span>intro</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"⟦ 0 ∉ (fmv_trm t 0) ⟧ ⟹ (μ T : (&lt;0&gt; t)) ⇢ dropM_trm t 0"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span>  </span><span>mueta</span><span>  </span><span class="delimiter">[</span><span>intro</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"&lt;i&gt; (μ T : c) <span class="hidden">⇩</span><sub>C</sub>⇢ (dropM_cmd (c[0 = i ◇]<span class="hidden">⇧</span><sup>C</sup>) i)"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span>
+</span><span>  </span><span>lambda</span><span> </span><span class="delimiter">[</span><span>intro</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"⟦ s ⇢ t ⟧ ⟹ (λ T : s) ⇢ (λ T : t)"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span>  </span><span>appL</span><span>   </span><span class="delimiter">[</span><span>intro</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"⟦ s ⇢ u ⟧ ⟹ (s°t) ⇢ (u°t)"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span>  </span><span>appR</span><span>   </span><span class="delimiter">[</span><span>intro</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"⟦ t ⇢ u ⟧ ⟹ (s°t) ⇢ (s°u)"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span>  </span><span>mu</span><span>     </span><span class="delimiter">[</span><span>intro</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"⟦ c <span class="hidden">⇩</span><sub>C</sub>⇢ d ⟧ ⟹ (μ T : c) ⇢ (μ T : d)"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span>  </span><span>cmd</span><span>    </span><span class="delimiter">[</span><span>intro</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"⟦ t ⇢ s ⟧ ⟹ (&lt;i&gt; t) <span class="hidden">⇩</span><sub>C</sub>⇢ (&lt;i&gt; s)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">inductive_cases</span></span><span> </span><span>redE</span><span> </span><span class="delimiter">[</span><span>elim</span><span class="delimiter">]</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"`i ⇢ s"</span></span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"(λ T : t) ⇢ s"</span></span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"s°t ⇢ u"</span></span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"(μ T : c) ⇢ t"</span></span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"&lt;i&gt; t <span class="hidden">⇩</span><sub>C</sub>⇢ c"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Reflexive transitive closure›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">inductive</span></span><span> </span><span>beta_rtc_term</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"[trm, trm] ⇒ bool"</span></span></span><span>  </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">infixl</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"⇢<span class="hidden">⇧</span><sup>*</sup>"</span></span></span><span> </span><span>50</span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span>refl_term</span><span> </span><span class="delimiter">[</span><span>iff</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"s ⇢<span class="hidden">⇧</span><sup>*</sup> s"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span>  </span><span>step_term</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"⟦s ⇢ t; t ⇢<span class="hidden">⇧</span><sup>*</sup> u⟧ ⟹ s ⇢<span class="hidden">⇧</span><sup>*</sup> u"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>step_term2</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"⟦s ⇢<span class="hidden">⇧</span><sup>*</sup> t; t ⇢ u⟧ ⟹ s ⇢<span class="hidden">⇧</span><sup>*</sup> u"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>rule</span><span class="delimiter">:</span><span> </span><span>beta_rtc_term.induct</span><span class="delimiter">)</span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>intro</span><span class="delimiter">:</span><span> </span><span>step_term</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">inductive</span></span><span> </span><span>beta_rtc_command</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"[cmd, cmd] ⇒ bool"</span></span></span><span>  </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">infixl</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"<span class="hidden">⇩</span><sub>C</sub>⇢<span class="hidden">⇧</span><sup>*</sup>"</span></span></span><span> </span><span>50</span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span>refl_command</span><span> </span><span class="delimiter">[</span><span>iff</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"c <span class="hidden">⇩</span><sub>C</sub>⇢<span class="hidden">⇧</span><sup>*</sup> c"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span>  </span><span>step_command</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"c <span class="hidden">⇩</span><sub>C</sub>⇢ d ⟹ d <span class="hidden">⇩</span><sub>C</sub>⇢<span class="hidden">⇧</span><sup>*</sup> e ⟹ c <span class="hidden">⇩</span><sub>C</sub>⇢<span class="hidden">⇧</span><sup>*</sup> e"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹The beta reduction relation is included in the reflexive transitive closure.›</span></span></span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>rtc_term_incl</span><span> </span><span class="delimiter">[</span><span>intro</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"s ⇢ t ⟹ s ⇢<span class="hidden">⇧</span><sup>*</sup> t"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>meson</span><span> </span><span>beta_rtc_term.simps</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="delimiter">[</span><span>intro</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"c <span class="hidden">⇩</span><sub>C</sub>⇢ d ⟹ c <span class="hidden">⇩</span><sub>C</sub>⇢<span class="hidden">⇧</span><sup>*</sup> d"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span class="delimiter">(</span><span>auto</span><span> </span><span>intro</span><span class="delimiter">:</span><span> </span><span>step_command</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Proof that the reflexive transitive closure as defined above is transitive.›</span></span></span><span>
+</span><span>  
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>rtc_term_trans</span><span> </span><span class="delimiter">[</span><span>intro</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"s ⇢<span class="hidden">⇧</span><sup>*</sup> t ⟹ t ⇢<span class="hidden">⇧</span><sup>*</sup> u ⟹ s ⇢<span class="hidden">⇧</span><sup>*</sup> u"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span class="delimiter">(</span><span>induction</span><span> </span><span>rule</span><span class="delimiter">:</span><span> </span><span>beta_rtc_term.induct</span><span class="delimiter">)</span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>step_term</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>rtc_command_trans</span><span class="delimiter">[</span><span>intro</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"c <span class="hidden">⇩</span><sub>C</sub>⇢<span class="hidden">⇧</span><sup>*</sup> d ⟹ d <span class="hidden">⇩</span><sub>C</sub>⇢<span class="hidden">⇧</span><sup>*</sup> e ⟹ c <span class="hidden">⇩</span><sub>C</sub>⇢<span class="hidden">⇧</span><sup>*</sup> e"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span class="delimiter">(</span><span>induction</span><span> </span><span>rule</span><span class="delimiter">:</span><span> </span><span>beta_rtc_command.induct</span><span class="delimiter">)</span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>step_command</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Congruence rules for the reflexive transitive closure.›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>rtc_lambda</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"s ⇢<span class="hidden">⇧</span><sup>*</sup> t ⟹ (λ T : s) ⇢<span class="hidden">⇧</span><sup>*</sup> (λ T : t)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="delimiter">(</span><span>induction</span><span> </span><span>rule</span><span class="delimiter">:</span><span> </span><span>beta_rtc_term.induct</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>force</span><span> </span><span class="delimiter">(</span><span>meson</span><span> </span><span>red_term_red_cmd.lambda</span><span> </span><span>step_term</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>rtc_appL</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"s ⇢<span class="hidden">⇧</span><sup>*</sup> u ⟹ (s°t) ⇢<span class="hidden">⇧</span><sup>*</sup> (u°t)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="delimiter">(</span><span>induction</span><span> </span><span>rule</span><span class="delimiter">:</span><span> </span><span>beta_rtc_term.induct</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>force</span><span> </span><span class="delimiter">(</span><span>meson</span><span> </span><span>appL</span><span> </span><span>step_term</span><span class="delimiter">)</span><span>
+</span><span>    
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div><div id="ContextFacts">
+<div class="head"><h1>Theory ContextFacts</h1>
+<span class="command">theory</span> <span class="name">ContextFacts</span><br/>
+<span class="keyword">imports</span> <a href="Reduction.html"><span class="name">Reduction</span></a> <a href="Types.html"><span class="name">Types</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">subsection</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Contextual typing›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>ContextFacts</span><span>
+</span><span class="keyword2"><span class="keyword">imports</span></span><span>
+</span><span>    </span><span>Reduction</span><span>
+</span><span>    </span><span>Types</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Naturally, we may wonder when instantiating the hole in a context is type-preserving.
+    To assess this, we define a typing judgement for contexts.›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">inductive</span></span><span> </span><span>typing_ctxt</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"(nat ⇒ type) ⇒ (nat ⇒ type) ⇒ ctxt ⇒ type ⇒ type ⇒ bool"</span></span></span><span>
+</span><span>                         </span><span class="delimiter">(</span><span class="string"><span class="delete"><span class="delete">"_ , _ ⊢<span class="hidden">⇩</span><sub>c</sub><span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>x</sub><span class="hidden">⇩</span><sub>t</sub> _ : _ ⇐ _"</span></span></span><span> </span><span class="delimiter">[</span><span>50</span><span class="delimiter">,</span><span> </span><span>50</span><span class="delimiter">,</span><span> </span><span>50</span><span class="delimiter">,</span><span> </span><span>50</span><span class="delimiter">,</span><span> </span><span>50</span><span class="delimiter">]</span><span> </span><span>50</span><span class="delimiter">)</span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span>type_ctxtEmpty</span><span> </span><span class="delimiter">[</span><span>intro</span><span class="delimiter">!</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"Γ, Δ ⊢<span class="hidden">⇩</span><sub>c</sub><span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>x</sub><span class="hidden">⇩</span><sub>t</sub> ◇ : T ⇐ T"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span>  </span><span>type_ctxtApp</span><span>   </span><span class="delimiter">[</span><span>intro</span><span class="delimiter">!</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"⟦ Γ, Δ ⊢<span class="hidden">⇩</span><sub>c</sub><span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>x</sub><span class="hidden">⇩</span><sub>t</sub> E : (T1→T2) ⇐ U; Γ, Δ ⊢<span class="hidden">⇩</span><sub>T</sub> t : T1 ⟧ ⟹ Γ, Δ ⊢<span class="hidden">⇩</span><sub>c</sub><span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>x</sub><span class="hidden">⇩</span><sub>t</sub> (E <span class="hidden">⇧</span><sup>∙</sup> t) : T2 ⇐ U"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">inductive_cases</span></span><span> </span><span>typing_ctxt_elims</span><span> </span><span class="delimiter">[</span><span>elim</span><span class="delimiter">!</span><span class="delimiter">]</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Γ, Δ ⊢<span class="hidden">⇩</span><sub>c</sub><span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>x</sub><span class="hidden">⇩</span><sub>t</sub> ◇ : T ⇐ T"</span></span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Γ, Δ ⊢<span class="hidden">⇩</span><sub>c</sub><span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>x</sub><span class="hidden">⇩</span><sub>t</sub> (E <span class="hidden">⇧</span><sup>∙</sup> t) : T ⇐ U"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>typing_ctxt_correct1</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Γ, Δ ⊢<span class="hidden">⇩</span><sub>T</sub> (ctxt_subst E r) : T  ⟹ ∃U. (Γ, Δ ⊢<span class="hidden">⇩</span><sub>T</sub> r : U ∧ Γ, Δ ⊢<span class="hidden">⇩</span><sub>c</sub><span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>x</sub><span class="hidden">⇩</span><sub>t</sub> E : T ⇐ U)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span class="delimiter">(</span><span>induction</span><span> </span><span>E</span><span> </span><span>arbitrary</span><span class="delimiter">:</span><span> </span><span>Γ</span><span> </span><span>Δ</span><span> </span><span>T</span><span> </span><span>r</span><span class="delimiter">;</span><span> </span><span>force</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>typing_ctxt_correct2</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Γ, Δ ⊢<span class="hidden">⇩</span><sub>c</sub><span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>x</sub><span class="hidden">⇩</span><sub>t</sub> E : T ⇐ U ⟹ Γ, Δ ⊢<span class="hidden">⇩</span><sub>T</sub> r : U  ⟹ Γ, Δ ⊢<span class="hidden">⇩</span><sub>T</sub> (ctxt_subst E r) : T"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span class="delimiter">(</span><span>induction</span><span> </span><span>arbitrary</span><span class="delimiter">:</span><span> </span><span>r</span><span> </span><span>rule</span><span class="delimiter">:</span><span> </span><span>typing_ctxt.induct</span><span class="delimiter">)</span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>ctxt_subst_basecase</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"∀n. c[n = n ◇]<span class="hidden">⇧</span><sup>C</sup> =  c"</span></span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"∀n. t[n = n ◇]<span class="hidden">⇧</span><sup>T</sup> =  t"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span class="delimiter">(</span><span>induct</span><span> </span><span>c</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>t</span><span class="delimiter">)</span><span> </span><span class="delimiter">(</span><span>auto</span><span class="delimiter">)</span><span> 
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>ctxt_subst_caseApp</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"∀n E s. (c[n=n (liftM_ctxt E n)]<span class="hidden">⇧</span><sup>C</sup>)[n=n (◇ <span class="hidden">⇧</span><sup>∙</sup> (liftM_trm s n))]<span class="hidden">⇧</span><sup>C</sup> = c[n=n ((liftM_ctxt E n) <span class="hidden">⇧</span><sup>∙</sup> (liftM_trm s n))]<span class="hidden">⇧</span><sup>C</sup>"</span></span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"∀n E s. (t[n=n (liftM_ctxt E n)]<span class="hidden">⇧</span><sup>T</sup>)[n=n (◇ <span class="hidden">⇧</span><sup>∙</sup> (liftM_trm s n))]<span class="hidden">⇧</span><sup>T</sup> = t[n=n ((liftM_ctxt E n) <span class="hidden">⇧</span><sup>∙</sup> (liftM_trm s n))]<span class="hidden">⇧</span><sup>T</sup>"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induction</span><span> </span><span>c</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>t</span><span class="delimiter">)</span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>liftLM_comm_ctxt</span><span> </span><span>liftLM_comm</span><span> </span><span>liftMM_comm_ctxt</span><span>  </span><span>liftMM_comm</span><span> </span><span>liftM_ctxt_struct_subst</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>ctxt_subst</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Γ, Δ ⊢<span class="hidden">⇩</span><sub>c</sub><span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>x</sub><span class="hidden">⇩</span><sub>t</sub> E : U ⇐ T"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span>   </span><span class="string"><span class="delete"><span class="delete">"(ctxt_subst E (μ T : c)) ⇢<span class="hidden">⇧</span><sup>*</sup> μ U : (c[0 = 0 (liftM_ctxt E 0)]<span class="hidden">⇧</span><sup>C</sup>)"</span></span></span><span>
+</span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span> </span><span class="keyword1"><span class="command">proof</span></span><span class="delimiter">(</span><span>induct</span><span> </span><span>E</span><span> </span><span>arbitrary</span><span class="delimiter">:</span><span> </span><span>U</span><span> </span><span>T</span><span> </span><span>Γ</span><span> </span><span>Δ</span><span> </span><span>c</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>ContextEmpty</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span>ctxtEmpty_inv</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"Γ, Δ ⊢<span class="hidden">⇩</span><sub>c</sub><span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>x</sub><span class="hidden">⇩</span><sub>t</sub> ◇ : U ⇐ T ⟹ U = T"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span class="delimiter">(</span><span>cases</span><span> </span><span>Γ</span><span> </span><span>Δ</span><span> </span><span class="string"><span class="delete"><span class="delete">"◇"</span></span></span><span> </span><span>rule</span><span class="delimiter">:</span><span> </span><span>typing_ctxt.cases</span><span class="delimiter">,</span><span> </span><span>fastforce</span><span class="delimiter">,</span><span> </span><span>simp</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>ContextEmpty</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>clarsimp</span><span> </span><span>dest</span><span class="delimiter">!</span><span class="delimiter">:</span><span> </span><span>ctxtEmpty_inv</span><span> </span><span>simp</span><span class="delimiter">:</span><span> </span><span>ctxt_subst_basecase</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>ContextApp</span><span> </span><span>E</span><span> </span><span>x</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>clarsimp</span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>rtc_term_trans</span><span class="delimiter">,</span><span> </span><span>rule</span><span> </span><span>rtc_appL</span><span class="delimiter">,</span><span> </span><span>assumption</span><span class="delimiter">,</span><span> </span><span>rule</span><span> </span><span>step_term</span><span class="delimiter">,</span><span> </span><span>force</span><span class="delimiter">,</span><span> </span><span>clarsimp</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>ctxt_subst_caseApp</span><span class="delimiter">(</span><span>1</span><span class="delimiter">)</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>  
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div><div id="TypePreservation">
+<div class="head"><h1>Theory TypePreservation</h1>
+<span class="command">theory</span> <span class="name">TypePreservation</span><br/>
+<span class="keyword">imports</span> <a href="ContextFacts.html"><span class="name">ContextFacts</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">subsection</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Type preservation›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>TypePreservation</span><span>
+</span><span class="keyword2"><span class="keyword">imports</span></span><span>
+</span><span>    </span><span>ContextFacts</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Shifting lambda variables preserves well-typedness.›</span></span></span><span>
+</span><span>  
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>liftL_type</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Γ, Δ ⊢<span class="hidden">⇩</span><sub>T</sub> t : T ⟹ ∀k. Γ⟨k:U⟩, Δ ⊢<span class="hidden">⇩</span><sub>T</sub> (liftL_trm t k) : T"</span></span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Γ, Δ ⊢<span class="hidden">⇩</span><sub>C</sub> c ⟹ ∀k. Γ⟨k:U⟩, Δ ⊢<span class="hidden">⇩</span><sub>C</sub> (liftL_cmd c k)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>rule</span><span class="delimiter">:</span><span> </span><span>typing_trm_typing_cmd.inducts</span><span class="delimiter">)</span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Shifting mu variables preserves well-typedness.›</span></span></span><span>
+</span><span>  
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>liftM_type</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Γ, Δ ⊢<span class="hidden">⇩</span><sub>T</sub> t : T ⟹ ∀k. Γ, Δ⟨k:U⟩ ⊢<span class="hidden">⇩</span><sub>T</sub> (liftM_trm t k) : T"</span></span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Γ, Δ ⊢<span class="hidden">⇩</span><sub>C</sub> c ⟹ ∀k. Γ, Δ⟨k:U⟩ ⊢<span class="hidden">⇩</span><sub>C</sub> (liftM_cmd c k)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span class="delimiter">(</span><span>induct</span><span> </span><span>rule</span><span class="delimiter">:</span><span> </span><span>typing_trm_typing_cmd.inducts</span><span class="delimiter">)</span><span> </span><span>auto</span><span>
+</span><span>    
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>dropM_type</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Γ , Δ1 ⊢<span class="hidden">⇩</span><sub>T</sub> t : T ⟹ k ∉ fmv_trm t 0 ⟹ (∀x. x&lt;k ⟶ Δ1 x = Δ x) 
+    ⟹ (∀x. x&gt;k ⟶ Δ1 x = Δ (x-1)) ⟹ Γ , Δ ⊢<span class="hidden">⇩</span><sub>T</sub> dropM_trm t k : T"</span></span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Γ , Δ1 ⊢<span class="hidden">⇩</span><sub>C</sub> c ⟹ k ∉ fmv_cmd c 0 ⟹ (∀x. x&lt;k ⟶ Δ1 x = Δ x) 
+    ⟹ (∀x. x&gt;k ⟶ Δ1 x = Δ (x-1)) ⟹ Γ , Δ ⊢<span class="hidden">⇩</span><sub>C</sub> dropM_cmd c k"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>arbitrary</span><span class="delimiter">:</span><span> </span><span>k</span><span> </span><span>Δ</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>k</span><span> </span><span>Δ</span><span> </span><span>rule</span><span class="delimiter">:</span><span> </span><span>typing_trm_typing_cmd.inducts</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>activate</span><span> </span><span>Γ</span><span> </span><span>Δ</span><span> </span><span>T</span><span> </span><span>c</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="delimiter">(</span><span>erule_tac</span><span> </span><span>x</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"Suc k"</span></span></span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>meta_allE</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="delimiter">(</span><span>insert</span><span> </span><span>fmv_suc</span><span class="delimiter">(</span><span>1</span><span class="delimiter">)</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="delimiter">(</span><span>clarsimp</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>shift_def</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span> </span><span>fastforce</span><span class="delimiter">+</span><span>
+</span><span>
+</span><span>  
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Lifting $\lambda$ and $\mu$-variables in contexts preserves contextual typing judgements.›</span></span></span><span>
+</span><span>  
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>liftL_ctxt_type</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Γ, Δ ⊢<span class="hidden">⇩</span><sub>c</sub><span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>x</sub><span class="hidden">⇩</span><sub>t</sub> E : T ⇐ U"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span>   </span><span class="string"><span class="delete"><span class="delete">"∀k. Γ⟨k:T1⟩, Δ ⊢<span class="hidden">⇩</span><sub>c</sub><span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>x</sub><span class="hidden">⇩</span><sub>t</sub> (liftL_ctxt E k) : T ⇐ U"</span></span></span><span>
+</span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>rule</span><span class="delimiter">:</span><span> </span><span>typing_ctxt.induct</span><span class="delimiter">)</span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>liftL_type</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>liftM_ctxt_type</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Γ, Δ ⊢<span class="hidden">⇩</span><sub>c</sub><span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>x</sub><span class="hidden">⇩</span><sub>t</sub> E : T ⇐ U"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span>   </span><span class="string"><span class="delete"><span class="delete">"Γ, Δ⟨k:T1⟩ ⊢<span class="hidden">⇩</span><sub>c</sub><span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>x</sub><span class="hidden">⇩</span><sub>t</sub> (liftM_ctxt E k) : T ⇐ U"</span></span></span><span>
+</span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span> </span><span class="keyword1"><span class="command">by</span></span><span class="delimiter">(</span><span>induct</span><span> </span><span>rule</span><span class="delimiter">:</span><span> </span><span>typing_ctxt.induct</span><span class="delimiter">)</span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>liftM_type</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Substitution lemma for logical substitution.›</span></span></span><span>
+</span><span>  
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>subst_type</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Γ1, Δ ⊢<span class="hidden">⇩</span><sub>T</sub> t : T ⟹ Γ, Δ ⊢<span class="hidden">⇩</span><sub>T</sub> r : T1 ⟹ Γ1 = Γ⟨k:T1⟩ ⟹ Γ, Δ ⊢<span class="hidden">⇩</span><sub>T</sub> t[r/k]<span class="hidden">⇧</span><sup>T</sup> : T"</span></span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Γ1, Δ ⊢<span class="hidden">⇩</span><sub>C</sub> c ⟹ Γ, Δ ⊢<span class="hidden">⇩</span><sub>T</sub> r : T1 ⟹ Γ1 = Γ⟨k:T1⟩ ⟹ Γ, Δ ⊢<span class="hidden">⇩</span><sub>C</sub> c[r/k]<span class="hidden">⇧</span><sup>C</sup> "</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span class="delimiter">(</span><span>induct</span><span> </span><span>arbitrary</span><span class="delimiter">:</span><span> </span><span>Γ</span><span> </span><span>k</span><span> </span><span>T1</span><span> </span><span>r</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>Γ</span><span> </span><span>k</span><span> </span><span>r</span><span> </span><span>T1</span><span> </span><span>rule</span><span class="delimiter">:</span><span> </span><span>typing_trm_typing_cmd.inducts</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>lambda</span><span> </span><span>Γ</span><span> </span><span>T1</span><span> </span><span>Δ</span><span> </span><span>t</span><span> </span><span>T2</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>-</span><span class="delimiter">(</span><span>rotate_tac</span><span> </span><span>2</span><span class="delimiter">,</span><span> </span><span>drule</span><span> </span><span>liftL_type</span><span class="delimiter">(</span><span>1</span><span class="delimiter">)</span><span class="delimiter">,</span><span> </span><span>fastforce</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>activate</span><span> </span><span>Γ</span><span> </span><span>Δ</span><span> </span><span>T</span><span> </span><span>c</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>-</span><span class="delimiter">(</span><span>rotate_tac</span><span> </span><span>2</span><span class="delimiter">,</span><span> </span><span>drule</span><span> </span><span>liftM_type</span><span class="delimiter">(</span><span>1</span><span class="delimiter">)</span><span class="delimiter">,</span><span> </span><span>fastforce</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span> </span><span>force</span><span class="delimiter">+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Substitution lemma for structural substitution. The proof is by induction on the first typing judgement.›</span></span></span><span>
+</span><span>  
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>struct_subst_command</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Γ, Δ ⊢<span class="hidden">⇩</span><sub>T</sub> t : T"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Δ x = T"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Γ , Δ' ⊢<span class="hidden">⇩</span><sub>c</sub><span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>x</sub><span class="hidden">⇩</span><sub>t</sub> E : U ⇐ T1"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Δ = Δ'⟨α:T1⟩"</span></span></span><span>
+</span><span>          </span><span class="string"><span class="delete"><span class="delete">"(Γ , Δ' ⊢<span class="hidden">⇩</span><sub>c</sub><span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>x</sub><span class="hidden">⇩</span><sub>t</sub> E : U ⇐ T1 ⟹ Δ = Δ'⟨α:T1⟩ ⟹ Γ , Δ'⟨β:U⟩ ⊢<span class="hidden">⇩</span><sub>T</sub> t[α=β (liftM_ctxt E β)]<span class="hidden">⇧</span><sup>T</sup> : T)"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span>   </span><span class="string"><span class="delete"><span class="delete">"Γ,( Δ'⟨β:U⟩) ⊢<span class="hidden">⇩</span><sub>C</sub> (&lt;x&gt; t)[α=β (liftM_ctxt E β)]<span class="hidden">⇧</span><sup>C</sup>"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span> </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>clarsimp</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>conjI</span><span class="delimiter">,</span><span> </span><span>force</span><span class="delimiter">,</span><span> </span><span>clarsimp</span><span class="delimiter">)</span><span class="delimiter">+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>conjI</span><span class="delimiter">)</span><span>
+</span><span>   </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>metis</span><span> </span><span>liftM_ctxt_type</span><span> </span><span>passivate</span><span> </span><span>shift_eq</span><span> </span><span>typing_ctxt_correct2</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>force</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>struct_subst_type</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Γ, Δ1 ⊢<span class="hidden">⇩</span><sub>T</sub> t : T ⟹ Γ, Δ ⊢<span class="hidden">⇩</span><sub>c</sub><span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>x</sub><span class="hidden">⇩</span><sub>t</sub> E : U ⇐ T1 ⟹ Δ1 = Δ⟨α:T1⟩ ⟹ Γ, Δ⟨β:U⟩ ⊢<span class="hidden">⇩</span><sub>T</sub> t[α=β (liftM_ctxt E β)]<span class="hidden">⇧</span><sup>T</sup> : T"</span></span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Γ, Δ1 ⊢<span class="hidden">⇩</span><sub>C</sub> c ⟹ Γ, Δ ⊢<span class="hidden">⇩</span><sub>c</sub><span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>x</sub><span class="hidden">⇩</span><sub>t</sub> E : U ⇐ T1  ⟹ Δ1 = Δ⟨α:T1⟩ ⟹ Γ, Δ⟨β:U⟩ ⊢<span class="hidden">⇩</span><sub>C</sub> c[α=β (liftM_ctxt E β)]<span class="hidden">⇧</span><sup>C</sup>"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>arbitrary</span><span class="delimiter">:</span><span> </span><span>Δ</span><span> </span><span>T1</span><span> </span><span>E</span><span> </span><span>U</span><span> </span><span>β</span><span> </span><span>α</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>Δ</span><span> </span><span>T1</span><span> </span><span>E</span><span> </span><span>U</span><span> </span><span>β</span><span> </span><span>α</span><span> </span><span>rule</span><span class="delimiter">:</span><span> </span><span>typing_trm_typing_cmd.inducts</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>lambda</span><span> </span><span>Γ</span><span> </span><span>T1</span><span> </span><span>Δ</span><span> </span><span>t</span><span> </span><span>T2</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>-</span><span class="delimiter">(</span><span>drule</span><span> </span><span>liftL_ctxt_type</span><span class="delimiter">,</span><span> </span><span>fastforce</span><span> </span><span>simp</span><span class="delimiter">:</span><span> </span><span>liftLM_comm_ctxt</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>activate</span><span> </span><span>Γ</span><span> </span><span>Δ</span><span> </span><span>T</span><span> </span><span>c</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>-</span><span class="delimiter">(</span><span>drule</span><span> </span><span>liftM_ctxt_type</span><span class="delimiter">,</span><span> </span><span>fastforce</span><span> </span><span>simp</span><span class="delimiter">:</span><span> </span><span>liftMM_comm_ctxt</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>passivate</span><span> </span><span>Γ</span><span> </span><span>Δ</span><span> </span><span>t</span><span> </span><span>T</span><span> </span><span>x</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>struct_subst_command</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>force</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span> </span><span>fastforce</span><span class="delimiter">+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>struct_subst_type_command</span><span class="delimiter">:</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Γ, Δ1 ⊢<span class="hidden">⇩</span><sub>C</sub> c ⟹ Γ, Δ ⊢<span class="hidden">⇩</span><sub>c</sub><span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>x</sub><span class="hidden">⇩</span><sub>t</sub> E : U ⇐ T1 
+    ⟹ Δ1 = Δ⟨α:T1⟩
+    ⟹ Γ, Δ⟨β:U⟩ ⊢<span class="hidden">⇩</span><sub>C</sub> c[α=β (liftM_ctxt E β)]<span class="hidden">⇧</span><sup>C</sup>"</span></span></span><span>
+</span><span class="keyword1"><span class="command">using</span></span><span> </span><span>struct_subst_type</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>force</span><span>
+</span><span>  
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>dropM_env</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Γ, Δ1 ⊢<span class="hidden">⇩</span><sub>T</sub> t[k=x ◇]<span class="hidden">⇧</span><sup>T</sup> : T ⟹ Δ1 = Δ⟨x:(Δ x)⟩ ⟹ Γ , Δ ⊢<span class="hidden">⇩</span><sub>T</sub> dropM_trm (t[k=x ◇]<span class="hidden">⇧</span><sup>T</sup>) x : T"</span></span></span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Γ, Δ1 ⊢<span class="hidden">⇩</span><sub>C</sub> c[k=x ◇]<span class="hidden">⇧</span><sup>C</sup> ⟹ Δ1 = Δ⟨x:(Δ x)⟩ ⟹ Γ , Δ ⊢<span class="hidden">⇩</span><sub>C</sub> dropM_cmd (c[k=x ◇]<span class="hidden">⇧</span><sup>C</sup>) x"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>t</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>c</span><span> </span><span>arbitrary</span><span class="delimiter">:</span><span> </span><span>Γ</span><span> </span><span>T</span><span> </span><span>Δ1</span><span> </span><span>x</span><span> </span><span>k</span><span> </span><span>Δ</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>Γ</span><span> </span><span>T</span><span> </span><span>Δ1</span><span> </span><span>x</span><span> </span><span>k</span><span> </span><span>Δ</span><span class="delimiter">)</span><span> </span><span>fastforce</span><span class="delimiter">+</span><span>
+</span><span>    
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>type_preservation</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Γ, Δ ⊢<span class="hidden">⇩</span><sub>T</sub> t : T ⟹ t ⇢ s ⟹ Γ, Δ ⊢<span class="hidden">⇩</span><sub>T</sub> s : T"</span></span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Γ, Δ ⊢<span class="hidden">⇩</span><sub>C</sub> c ⟹ c <span class="hidden">⇩</span><sub>C</sub>⇢ d ⟹ Γ, Δ ⊢<span class="hidden">⇩</span><sub>C</sub> d"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span class="delimiter">(</span><span>induct</span><span> </span><span>arbitrary</span><span class="delimiter">:</span><span> </span><span>s</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>d</span><span> </span><span>rule</span><span class="delimiter">:</span><span> </span><span>typing_trm_typing_cmd.inducts</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>app</span><span> </span><span>Γ</span><span> </span><span>Δ</span><span> </span><span>t</span><span> </span><span>T1</span><span> </span><span>T2</span><span> </span><span>s</span><span> </span><span>s'</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>-</span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>erule</span><span> </span><span>redE</span><span class="delimiter">;</span><span> </span><span>clarsimp</span><span> </span><span>simp</span><span class="delimiter">:</span><span> </span><span>subst_type</span><span class="delimiter">(</span><span>1</span><span class="delimiter">)</span><span class="delimiter">)</span><span>
+</span><span>      </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>subgoal_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"Γ , Δ ⊢<span class="hidden">⇩</span><sub>T</sub> ctxt_subst (◇ <span class="hidden">⇧</span><sup>∙</sup> s) (μ(T1→T2) : c) : T2"</span></span></span><span class="delimiter">)</span><span>
+</span><span>       </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>drule</span><span> </span><span>typing_ctxt_correct1</span><span class="delimiter">,</span><span> </span><span>clarsimp</span><span class="delimiter">)</span><span>
+</span><span>       </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>subgoal_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"Γ , Δ⟨0:T2⟩ ⊢<span class="hidden">⇩</span><sub>C</sub> c[0=0 (liftM_ctxt (◇ <span class="hidden">⇧</span><sup>∙</sup> s) 0)]<span class="hidden">⇧</span><sup>C</sup>"</span></span></span><span class="delimiter">)</span><span>
+</span><span>        </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>clarsimp</span><span class="delimiter">,</span><span> </span><span>rule</span><span> </span><span>struct_subst_type_command</span><span class="delimiter">)</span><span>
+</span><span>         </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>force</span><span class="delimiter">+</span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>passivate</span><span> </span><span>Γ</span><span> </span><span>Δ</span><span> </span><span>t</span><span> </span><span>T</span><span> </span><span>x</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>clarsimp</span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>erule</span><span> </span><span>redE</span><span class="delimiter">,</span><span> </span><span>clarsimp</span><span class="delimiter">)</span><span>
+</span><span>     </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>drule</span><span> </span><span>struct_subst_type_command</span><span> </span><span class="delimiter">[</span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span>β</span><span> </span><span class="delimiter">=</span><span> </span><span>x</span><span class="delimiter">]</span><span class="delimiter">)</span><span>
+</span><span>       </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>fastforce</span><span> </span><span>simp</span><span class="delimiter">:</span><span> </span><span>dropM_env</span><span class="delimiter">(</span><span>2</span><span class="delimiter">)</span><span class="delimiter">)</span><span class="delimiter">+</span><span>                  
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span> </span><span class="delimiter">(</span><span>force</span><span> </span><span>simp</span><span class="delimiter">:</span><span> </span><span>dropM_type</span><span class="delimiter">)</span><span class="delimiter">+</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div><div id="Progress">
+<div class="head"><h1>Theory Progress</h1>
+<span class="command">theory</span> <span class="name">Progress</span><br/>
+<span class="keyword">imports</span> <a href="TypePreservation.html"><span class="name">TypePreservation</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">subsection</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Progress›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Progress</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>TypePreservation</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>  
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹We say that a term $t$ is in \emph{weak-head-normal} form when one of the following conditions are met:
+  \begin{enumerate}
+    \item $t$ is a value,
+    \item there exists $\alpha$ and $v$ such that $t = \mu:\tau.[\alpha]\ v$ with $\alpha \in fcv(v)$
+          whenever $\alpha = 0$.
+  \end{enumerate}›</span></span></span><span>
+</span><span>  
+</span><span class="keyword1"><span class="command">fun</span></span><span> </span><span class="delimiter">(</span><span>sequential</span><span class="delimiter">)</span><span> </span><span>is_nf</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"trm ⇒ bool"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"is_nf (μ U: (&lt;β&gt; v)) = (is_val v ∧ (β = 0 ⟶ 0 ∈ fmv_trm v 0))"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"is_nf v = is_val v"</span></span></span><span>
+</span><span>  
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>progress'</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Γ, Δ ⊢<span class="hidden">⇩</span><sub>T</sub> t : T ⟹ lambda_closed t ⟹ (∀ s. ¬(t ⇢ s)) ⟹ is_nf t"</span></span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Γ, Δ ⊢<span class="hidden">⇩</span><sub>C</sub> c ⟹ lambda_closedC c  ⟹ (∀ β t. c = (&lt;β&gt; t) ⟶ (∀ d. ¬(t ⇢ d)) ⟶ is_nf t)"</span></span></span><span>                            
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>rule</span><span class="delimiter">:</span><span> </span><span>typing_trm_typing_cmd.inducts</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>app</span><span> </span><span>Γ</span><span> </span><span>Δ</span><span> </span><span>t</span><span> </span><span>T1</span><span> </span><span>T2</span><span> </span><span>s</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>-</span><span class="delimiter">(</span><span>erule</span><span> </span><span>type_arrow_elim</span><span class="delimiter">;</span><span> </span><span>force</span><span class="delimiter">)</span><span>  
+</span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>activate</span><span> </span><span>Γ</span><span> </span><span>Δ</span><span> </span><span>T</span><span> </span><span>c</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">proof</span></span><span class="delimiter">(</span><span>cases</span><span> </span><span>c</span><span class="delimiter">)</span><span>
+</span><span>      </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>MVar</span><span> </span><span>α</span><span> </span><span>t</span><span class="delimiter">)</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span>
+</span><span>        </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>activate</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>case_tac</span><span> </span><span>t</span><span class="delimiter">;</span><span> </span><span>force</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span> </span><span>force</span><span class="delimiter">+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>progress</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Γ, Δ ⊢<span class="hidden">⇩</span><sub>T</sub> t : T"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"lambda_closed t"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span>   </span><span class="string"><span class="delete"><span class="delete">"is_nf t ∨ (∃ s. t ⇢ s)"</span></span></span><span>
+</span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>fastforce</span><span> </span><span>intro</span><span class="delimiter">:</span><span> </span><span>progress'</span><span class="delimiter">)</span><span>
+</span><span>    
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div><div id="Peirce">
+<div class="head"><h1>Theory Peirce</h1>
+<span class="command">theory</span> <span class="name">Peirce</span><br/>
+<span class="keyword">imports</span> <a href="Types.html"><span class="name">Types</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">subsection</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Peirce›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Peirce</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>Types</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>  
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹As an example of our $\lambda\mu$ formalisation, we show show a
+     $\lambda\mu$-term inhabiting Peirce's Law. The example is due to
+     Parigot~\cite{DBLP:conf/lpar/Parigot92}.›</span></span></span><span>  
+</span><span>    
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Peirce's law: $((A \rightarrow B) \rightarrow A) \rightarrow A$.›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Γ, Δ ⊢<span class="hidden">⇩</span><sub>T</sub> λ (A→B)→A: (μ A:(&lt;0&gt;((`0) ° (λ A: (μ B:(&lt;1&gt; (`0))))))) 
+    : ((A→B)→A)→A"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>fastforce</span><span>    
+</span><span>    
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>  
+</span></pre>
+</div>
+</div>
+  
 </main>
     </div>
   </div>

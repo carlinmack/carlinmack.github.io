@@ -17,7 +17,8 @@
 
   
   
-  <link rel="stylesheet" type="text/css" href="/css/front.min.css" integrity="sha256-QUoTd2RQ4/P7SQKKOG301QYvQ7o2&#43;3qwXOJptpPXM0E=">
+  <link rel="stylesheet" type="text/css" href="/css/front.min.css" integrity="sha256-QUoTd2RQ4/P7SQKKOG301QYvQ7o2&#43;3qwXOJptpPXM0E="><link rel="stylesheet" type="text/css" href="/css/isabelle.css">
+  
   <link rel="icon" href="/images/favicon.ico" type="image/icon">
   <script src="/js/flexsearch.min.js"></script><script src="/js/header-search.js"></script></head>
 
@@ -67,12 +68,536 @@
   
   </div>
 </header><div><main>
-  <iframe src="https://www.isa-afp.org/browser_info/current/AFP/Boolean_Expression_Checkers/Boolean_Expression_Checkers.html" frameborder="0" id="Boolean_Expression_Checkers">
-  </iframe>
-  <iframe src="https://www.isa-afp.org/browser_info/current/AFP/Boolean_Expression_Checkers/Boolean_Expression_Checkers_AList_Mapping.html" frameborder="0" id="Boolean_Expression_Checkers_AList_Mapping">
-  </iframe>
-  <iframe src="https://www.isa-afp.org/browser_info/current/AFP/Boolean_Expression_Checkers/Boolean_Expression_Example.html" frameborder="0" id="Boolean_Expression_Example">
-  </iframe>
+  
+  <div id="Boolean_Expression_Checkers">
+<div class="head"><h1>Theory Boolean_Expression_Checkers</h1>
+<span class="command">theory</span> <span class="name">Boolean_Expression_Checkers</span><br/>
+<span class="keyword">imports</span> <a href="../../HOL/HOL-Library/Mapping.html"><span class="name">Mapping</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(*
+  Boolean Expression Checkers Based on Binary Decision Trees
+  Author: Tobias Nipkow
+*)</span></span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Boolean_Expression_Checkers</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>Main</span><span> </span><span class="string"><span class="delete"><span class="delete">"HOL-Library.Mapping"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Tautology (etc) Checking via Binary Decision Trees›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Binary Decision Trees›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">datatype</span></span><span> </span><span class="tfree">'a</span><span> </span><span>ifex</span><span> </span><span class="delimiter">=</span><span> </span><span>Trueif</span><span> </span><span class="delimiter">|</span><span> </span><span>Falseif</span><span> </span><span class="delimiter">|</span><span> </span><span>IF</span><span> </span><span class="tfree">'a</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a ifex"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"'a ifex"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>val_ifex</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a ifex ⇒ ('a ⇒ bool) ⇒ bool"</span></span></span><span> 
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"val_ifex Trueif s = True"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"val_ifex Falseif s = False"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"val_ifex (IF n t1 t2) s = (if s n then val_ifex t1 s else val_ifex t2 s)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsubsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Environment›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Environments are substitutions of values for variables:›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">type_synonym</span></span><span> </span><span class="tfree">'a</span><span> </span><span>env_bool</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"('a, bool) mapping"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>agree</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"('a ⇒ bool) ⇒ 'a env_bool ⇒ bool"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"agree s env = (∀x b. Mapping.lookup env x = Some b ⟶ s x = b)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>agree_Nil</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"agree s Mapping.empty"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>agree_def</span><span> </span><span>lookup_empty</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>lookup_update_unfold</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Mapping.lookup (Mapping.update k v m) k' = (if k = k' then Some v else Mapping.lookup m k')"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>lookup_update</span><span> </span><span>lookup_update_neq</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>metis</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>agree_Cons</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"x ∉ Mapping.keys env ⟹ agree s (Mapping.update x b env) = ((if b then s x else ¬ s x) ∧ agree s env)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>agree_def</span><span> </span><span>lookup_update_unfold</span><span class="delimiter">;</span><span> </span><span>unfold</span><span> </span><span>keys_is_none_rep</span><span> </span><span>lookup_update_unfold</span><span> </span><span>Option.is_none_def</span><span class="delimiter">;</span><span> </span><span>blast</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>agreeDT</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"agree s env ⟹ Mapping.lookup env x = Some True ⟹ s x"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>agree_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>agreeDF</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"agree s env ⟹ Mapping.lookup env x = Some False ⟹ ¬s x"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>agree_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Recursive Tautology Checker›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Provided for completeness. However, it is recommend to use the checkers based on reduced trees.›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>taut_test_rec</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a ifex ⇒ 'a env_bool ⇒ bool"</span></span></span><span> 
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"taut_test_rec Trueif env = True"</span></span></span><span> 
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"taut_test_rec Falseif env = False"</span></span></span><span> 
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"taut_test_rec (IF x t1 t2) env = (case Mapping.lookup env x of
+  Some b ⇒ taut_test_rec (if b then t1 else t2) env |
+  None ⇒ taut_test_rec t1 (Mapping.update x True env) ∧ taut_test_rec t2 (Mapping.update x False env))"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>taut_test_rec</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"taut_test_rec t env = (∀s. agree s env ⟶ val_ifex t s)"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>induction</span><span> </span><span>t</span><span> </span><span>arbitrary</span><span class="delimiter">:</span><span> </span><span>env</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>Falseif</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"agree (λx. the (Mapping.lookup env x)) env"</span></span></span><span> 
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span class="delimiter">:</span><span> </span><span>agree_def</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword3"><span class="command">thus</span></span><span> </span><span class="var">?case</span><span> 
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>IF</span><span> </span><span>x</span><span> </span><span>t1</span><span> </span><span>t2</span><span class="delimiter">)</span><span> 
+</span><span>    </span><span class="keyword3"><span class="command">thus</span></span><span> </span><span class="var">?case</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>cases</span><span> </span><span class="string"><span class="delete"><span class="delete">"Mapping.lookup env x"</span></span></span><span class="delimiter">)</span><span>
+</span><span>      </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>None</span><span> 
+</span><span>        </span><span class="keyword1"><span class="command">with</span></span><span> </span><span>IF</span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span> 
+</span><span>          </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span> </span><span class="delimiter">(</span><span>metis</span><span> </span><span>is_none_simps</span><span class="delimiter">(</span><span>1</span><span class="delimiter">)</span><span> </span><span>agree_Cons</span><span> </span><span>keys_is_none_rep</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">qed</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>agree_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span> </span><span>simp</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>taut_test_ifex</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a ifex ⇒ bool"</span></span></span><span> 
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"taut_test_ifex t = taut_test_rec t Mapping.empty"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">corollary</span></span><span> </span><span>taut_test_ifex</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"taut_test_ifex t = (∀s. val_ifex t s)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span class="delimiter">:</span><span> </span><span>taut_test_ifex_def</span><span> </span><span>taut_test_rec</span><span> </span><span>agree_Nil</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Reduced Binary Decision Trees›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsubsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Normalisation›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹A normalisation avoiding duplicate variables and collapsing @{term "If x t t"} to ‹t›.›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>mkIF</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a ⇒ 'a ifex ⇒ 'a ifex ⇒ 'a ifex"</span></span></span><span> 
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"mkIF x t1 t2 = (if t1=t2 then t1 else IF x t1 t2)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>reduce</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a env_bool ⇒ 'a ifex ⇒ 'a ifex"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"reduce env (IF x t1 t2) = (case Mapping.lookup env x of
+     None ⇒ mkIF x (reduce (Mapping.update x True env) t1) (reduce (Mapping.update x False env) t2) |
+     Some b ⇒ reduce env (if b then t1 else t2))"</span></span></span><span> 
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"reduce _ t = t"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">primrec</span></span><span> </span><span>normif</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a env_bool ⇒ 'a ifex ⇒ 'a ifex ⇒ 'a ifex ⇒ 'a ifex"</span></span></span><span> 
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"normif env Trueif t1 t2 = reduce env t1"</span></span></span><span> 
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"normif env Falseif t1 t2 = reduce env t2"</span></span></span><span> 
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"normif env (IF x t1 t2) t3 t4 =
+    (case Mapping.lookup env x of
+       None ⇒ mkIF x (normif (Mapping.update x True env) t1 t3 t4) (normif (Mapping.update x False env) t2 t3 t4) |
+       Some b ⇒ if b then normif env t1 t3 t4 else normif env t2 t3 t4)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsubsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Functional Correctness Proof›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>val_mkIF</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"val_ifex (mkIF x t1 t2) s = val_ifex (IF x t1 t2) s"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span class="delimiter">:</span><span> </span><span>mkIF_def</span><span> </span><span>Let_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>val_reduce</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"agree s env ⟹ val_ifex (reduce env t) s = val_ifex t s"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induction</span><span> </span><span>t</span><span> </span><span>arbitrary</span><span class="delimiter">:</span><span> </span><span>s</span><span> </span><span>env</span><span class="delimiter">)</span><span>
+</span><span>     </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span class="delimiter">:</span><span> </span><span>map_of_eq_None_iff</span><span> </span><span>val_mkIF</span><span> </span><span>agree_Cons</span><span> </span><span>Let_def</span><span> </span><span>keys_is_none_rep</span><span>
+</span><span>           </span><span>dest</span><span class="delimiter">:</span><span> </span><span>agreeDT</span><span> </span><span>agreeDF</span><span> </span><span>split</span><span class="delimiter">:</span><span> </span><span>option.splits</span><span class="delimiter">)</span><span> 
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>val_normif</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"agree s env ⟹ val_ifex (normif env t t1 t2) s = val_ifex (if val_ifex t s then t1 else t2) s"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>t</span><span> </span><span>arbitrary</span><span class="delimiter">:</span><span> </span><span>t1</span><span> </span><span>t2</span><span> </span><span>s</span><span> </span><span>env</span><span class="delimiter">)</span><span>
+</span><span>     </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span class="delimiter">:</span><span> </span><span>val_reduce</span><span> </span><span>val_mkIF</span><span> </span><span>agree_Cons</span><span> </span><span>map_of_eq_None_iff</span><span> </span><span>keys_is_none_rep</span><span>
+</span><span>           </span><span>dest</span><span class="delimiter">:</span><span> </span><span>agreeDT</span><span> </span><span>agreeDF</span><span> </span><span>split</span><span class="delimiter">:</span><span> </span><span>option.splits</span><span class="delimiter">)</span><span>   
+</span><span>
+</span><span class="keyword1"><span class="command">subsubsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Reduced If-Expressions›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹An expression reduced iff no variable appears twice on any branch and there is no subexpression @{term "IF x t t"}.›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>reduced</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a ifex ⇒ 'a set ⇒ bool"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span class="string"><span class="delete"><span class="delete">"reduced (IF x t1 t2) X =
+  (x ∉ X ∧ t1 ≠ t2 ∧ reduced t1 (insert x X) ∧ reduced t2 (insert x X))"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span class="string"><span class="delete"><span class="delete">"reduced _ _ = True"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>reduced_antimono</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"X ⊆ Y ⟹ reduced t Y ⟹ reduced t X"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induction</span><span> </span><span>t</span><span> </span><span>arbitrary</span><span class="delimiter">:</span><span> </span><span>X</span><span> </span><span>Y</span><span class="delimiter">)</span><span>
+</span><span>     </span><span class="delimiter">(</span><span>auto</span><span class="delimiter">,</span><span> </span><span class="delimiter">(</span><span>metis</span><span> </span><span>insert_mono</span><span class="delimiter">)</span><span class="delimiter">+</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>reduced_mkIF</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"x ∉ X ⟹ reduced t1 (insert x X) ⟹ reduced t2 (insert x X) ⟹ reduced (mkIF x t1 t2) X"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span class="delimiter">:</span><span> </span><span>mkIF_def</span><span> </span><span>intro</span><span class="delimiter">:</span><span>reduced_antimono</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>reduced_reduce</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"reduced (reduce env t) (Mapping.keys env)"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span class="delimiter">(</span><span>induction</span><span> </span><span>t</span><span> </span><span>arbitrary</span><span class="delimiter">:</span><span> </span><span>env</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>IF</span><span> </span><span>x</span><span> </span><span>t1</span><span> </span><span>t2</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword3"><span class="command">thus</span></span><span> </span><span class="var">?case</span><span> 
+</span><span>      </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>IF.IH</span><span class="delimiter">(</span><span>1</span><span class="delimiter">)</span><span> </span><span>IF.IH</span><span class="delimiter">(</span><span>2</span><span class="delimiter">)</span><span>
+</span><span>      </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span class="delimiter">:</span><span> </span><span>map_of_eq_None_iff</span><span> </span><span>image_iff</span><span> </span><span>reduced_mkIF</span><span> </span><span>split</span><span class="delimiter">:</span><span> </span><span>option.split</span><span class="delimiter">)</span><span> 
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>metis</span><span> </span><span>is_none_code</span><span class="delimiter">(</span><span>1</span><span class="delimiter">)</span><span> </span><span>keys_is_none_rep</span><span> </span><span>keys_update</span><span> </span><span>reduced_mkIF</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>reduced_normif</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"reduced (normif env t t1 t2) (Mapping.keys env)"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span class="delimiter">(</span><span>induction</span><span> </span><span>t</span><span> </span><span>arbitrary</span><span class="delimiter">:</span><span> </span><span>t1</span><span> </span><span>t2</span><span> </span><span>env</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>IF</span><span> </span><span>x</span><span> </span><span>s1</span><span> </span><span>s2</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">thus</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>IF.IH</span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span class="delimiter">:</span><span> </span><span>reduced_mkIF</span><span> </span><span>map_of_eq_None_iff</span><span> </span><span>split</span><span class="delimiter">:</span><span> </span><span>option.split</span><span class="delimiter">)</span><span> 
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>metis</span><span> </span><span>is_none_code</span><span class="delimiter">(</span><span>1</span><span class="delimiter">)</span><span> </span><span>keys_is_none_rep</span><span> </span><span>keys_update</span><span> </span><span>reduced_mkIF</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span class="delimiter">:</span><span> </span><span>reduced_reduce</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsubsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Checkers Based on Reduced Binary Decision Trees›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹The checkers are parameterized over the translation function to binary decision trees. 
+  They rely on the fact that @{term ifex_of} produces reduced trees›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>taut_test</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"('a ⇒ 'b ifex) ⇒ 'a ⇒ bool"</span></span></span><span> 
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"taut_test ifex_of b = (ifex_of b = Trueif)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>sat_test</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"('a ⇒ 'b ifex) ⇒ 'a ⇒ bool"</span></span></span><span> 
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"sat_test ifex_of b = (ifex_of b ≠ Falseif)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>impl_test</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"('a ⇒ 'b ifex) ⇒ 'a ⇒ 'a ⇒ bool"</span></span></span><span> 
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"impl_test ifex_of b1 b2 = (normif Mapping.empty (ifex_of b1) (ifex_of b2) Trueif = Trueif)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>equiv_test</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"('a ⇒ 'b ifex) ⇒ 'a ⇒ 'a ⇒ bool"</span></span></span><span> 
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"equiv_test ifex_of b1 b2 = (let t1 = ifex_of b1; t2 = ifex_of b2 
+    in Trueif = normif Mapping.empty t1 t2 (normif Mapping.empty t2 Falseif Trueif))"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">locale</span></span><span> </span><span>reduced_bdt_checkers</span><span> </span><span class="delimiter">=</span><span> 
+</span><span>  </span><span class="keyword2"><span class="keyword">fixes</span></span><span>
+</span><span>    </span><span>ifex_of</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'b ⇒ 'a ifex"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">fixes</span></span><span>
+</span><span>    </span><span>val</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'b ⇒ ('a ⇒ bool) ⇒ bool"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span>
+</span><span>    </span><span>val_ifex</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"val_ifex (ifex_of b) s = val b s"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> 
+</span><span>    </span><span>reduced_ifex</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"reduced (ifex_of b) {}"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Proof that reduced if-expressions are @{const Trueif}, @{const Falseif}
+or can evaluate to both @{const True} and @{const False}.›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>same_val_if_reduced</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"reduced t X ⟹ ∀x. x ∉ X ⟶ s1 x = s2 x ⟹ val_ifex t s1 = val_ifex t s2"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induction</span><span> </span><span>t</span><span> </span><span>arbitrary</span><span class="delimiter">:</span><span> </span><span>X</span><span class="delimiter">)</span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>reduced_IF_depends</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"⟦ reduced t X; t ≠ Trueif; t ≠ Falseif ⟧ ⟹ ∃s1 s2. val_ifex t s1 ≠ val_ifex t s2"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span class="delimiter">(</span><span>induction</span><span> </span><span>t</span><span> </span><span>arbitrary</span><span class="delimiter">:</span><span> </span><span>X</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>IF</span><span> </span><span>x</span><span> </span><span>t1</span><span> </span><span>t2</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">let</span></span><span> </span><span class="var">?t</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"IF x t1 t2"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span>1</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"reduced t1 (insert x X)"</span></span></span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>IF.prems</span><span class="delimiter">(</span><span>1</span><span class="delimiter">)</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span>2</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"reduced t2 (insert x X)"</span></span></span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>IF.prems</span><span class="delimiter">(</span><span>1</span><span class="delimiter">)</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">proof</span></span><span class="delimiter">(</span><span>cases</span><span> </span><span>t1</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span>Trueif</span><span>
+</span><span>    </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>cases</span><span> </span><span>t2</span><span class="delimiter">)</span><span>
+</span><span>      </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>Trueif</span><span> </span><span class="keyword3"><span class="command">thus</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>IF.prems</span><span class="delimiter">(</span><span>1</span><span class="delimiter">)</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>      </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>Falseif</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">hence</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"val_ifex ?t (λ_. True) ≠ val_ifex ?t (λ_. False)"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>      </span><span class="keyword3"><span class="command">thus</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>      </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>IF</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">obtain</span></span><span> </span><span>s1</span><span> </span><span>s2</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"val_ifex t2 s1 ≠ val_ifex t2 s2"</span></span></span><span>
+</span><span>        </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>IF.IH</span><span class="delimiter">(</span><span>2</span><span class="delimiter">)</span><span class="delimiter">[</span><span>OF</span><span> </span><span>2</span><span class="delimiter">]</span><span> </span><span>IF.prems</span><span class="delimiter">(</span><span>1</span><span class="delimiter">)</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">hence</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"val_ifex ?t (s1(x:=False)) ≠ val_ifex ?t (s2(x:=False))"</span></span></span><span>
+</span><span>        </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>same_val_if_reduced</span><span class="delimiter">[</span><span>OF</span><span> </span><span>2</span><span class="delimiter">,</span><span> </span><span>of</span><span> </span><span class="string"><span class="delete"><span class="delete">"s1(x:=False)"</span></span></span><span> </span><span>s1</span><span class="delimiter">]</span><span>
+</span><span>          </span><span>same_val_if_reduced</span><span class="delimiter">[</span><span>OF</span><span> </span><span>2</span><span class="delimiter">,</span><span> </span><span>of</span><span> </span><span class="string"><span class="delete"><span class="delete">"s2(x:=False)"</span></span></span><span> </span><span>s2</span><span class="delimiter">]</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>      </span><span class="keyword3"><span class="command">thus</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>    </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span>Falseif</span><span>
+</span><span>    </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>cases</span><span> </span><span>t2</span><span class="delimiter">)</span><span>
+</span><span>      </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>Falseif</span><span> </span><span class="keyword3"><span class="command">thus</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>IF.prems</span><span class="delimiter">(</span><span>1</span><span class="delimiter">)</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>      </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>Trueif</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">hence</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"val_ifex ?t (λ_. True) ≠ val_ifex ?t (λ_. False)"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>      </span><span class="keyword3"><span class="command">thus</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>      </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>IF</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">obtain</span></span><span> </span><span>s1</span><span> </span><span>s2</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"val_ifex t2 s1 ≠ val_ifex t2 s2"</span></span></span><span>
+</span><span>        </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>IF.IH</span><span class="delimiter">(</span><span>2</span><span class="delimiter">)</span><span class="delimiter">[</span><span>OF</span><span> </span><span>2</span><span class="delimiter">]</span><span> </span><span>IF.prems</span><span class="delimiter">(</span><span>1</span><span class="delimiter">)</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">hence</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"val_ifex ?t (s1(x:=False)) ≠ val_ifex ?t (s2(x:=False))"</span></span></span><span>
+</span><span>        </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>same_val_if_reduced</span><span class="delimiter">[</span><span>OF</span><span> </span><span>2</span><span class="delimiter">,</span><span> </span><span>of</span><span> </span><span class="string"><span class="delete"><span class="delete">"s1(x:=False)"</span></span></span><span> </span><span>s1</span><span class="delimiter">]</span><span>
+</span><span>          </span><span>same_val_if_reduced</span><span class="delimiter">[</span><span>OF</span><span> </span><span>2</span><span class="delimiter">,</span><span> </span><span>of</span><span> </span><span class="string"><span class="delete"><span class="delete">"s2(x:=False)"</span></span></span><span> </span><span>s2</span><span class="delimiter">]</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>      </span><span class="keyword3"><span class="command">thus</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>    </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>IF</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">obtain</span></span><span> </span><span>s1</span><span> </span><span>s2</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"val_ifex t1 s1 ≠ val_ifex t1 s2"</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>IF.IH</span><span class="delimiter">(</span><span>1</span><span class="delimiter">)</span><span class="delimiter">[</span><span>OF</span><span> </span><span>1</span><span class="delimiter">]</span><span> </span><span>IF.prems</span><span class="delimiter">(</span><span>1</span><span class="delimiter">)</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">hence</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"val_ifex ?t (s1(x:=True)) ≠ val_ifex ?t (s2(x:=True))"</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>same_val_if_reduced</span><span class="delimiter">[</span><span>OF</span><span> </span><span>1</span><span class="delimiter">,</span><span> </span><span>of</span><span> </span><span class="string"><span class="delete"><span class="delete">"s1(x:=True)"</span></span></span><span> </span><span>s1</span><span class="delimiter">]</span><span>
+</span><span>          </span><span>same_val_if_reduced</span><span class="delimiter">[</span><span>OF</span><span> </span><span>1</span><span class="delimiter">,</span><span> </span><span>of</span><span> </span><span class="string"><span class="delete"><span class="delete">"s2(x:=True)"</span></span></span><span> </span><span>s2</span><span class="delimiter">]</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>    </span><span class="keyword3"><span class="command">thus</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">corollary</span></span><span> </span><span>taut_test</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"taut_test ifex_of b = (∀s. val b s)"</span></span></span><span>    
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>metis</span><span> </span><span>taut_test_def</span><span> </span><span>reduced_IF_depends</span><span class="delimiter">[</span><span>OF</span><span> </span><span>reduced_ifex</span><span class="delimiter">]</span><span> </span><span>val_ifex</span><span> </span><span>val_ifex.simps</span><span class="delimiter">(</span><span>1</span><span class="delimiter">,</span><span>2</span><span class="delimiter">)</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">corollary</span></span><span> </span><span>sat_test</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"sat_test ifex_of b = (∃s. val b s)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>metis</span><span> </span><span>sat_test_def</span><span> </span><span>reduced_IF_depends</span><span class="delimiter">[</span><span>OF</span><span> </span><span>reduced_ifex</span><span class="delimiter">]</span><span> </span><span>val_ifex</span><span> </span><span>val_ifex.simps</span><span class="delimiter">(</span><span>1</span><span class="delimiter">,</span><span>2</span><span class="delimiter">)</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">corollary</span></span><span> </span><span>impl_test</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"impl_test ifex_of b1 b2 = (∀s. val b1 s ⟶ val b2 s)"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"impl_test ifex_of b1 b2 = (∀s. val_ifex (normif Mapping.empty (ifex_of b1) (ifex_of b2) Trueif) s)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>reduced_IF_depends</span><span class="delimiter">[</span><span>OF</span><span> </span><span>reduced_normif</span><span class="delimiter">]</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>fastforce</span><span>  </span><span>simp</span><span class="delimiter">:</span><span> </span><span>impl_test_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">also</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"(∀s. val_ifex (normif Mapping.empty (ifex_of b1) (ifex_of b2) Trueif) s) ⟷ (∀s. val b1 s ⟶ val b2 s)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>reduced_IF_depends</span><span class="delimiter">[</span><span>OF</span><span> </span><span>reduced_ifex</span><span class="delimiter">]</span><span> </span><span>val_ifex</span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>val_normif</span><span class="delimiter">[</span><span>OF</span><span> </span><span>agree_Nil</span><span class="delimiter">]</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">finally</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">corollary</span></span><span> </span><span>equiv_test</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"equiv_test ifex_of b1 b2 = (∀s. val b1 s = val b2 s)"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"equiv_test ifex_of b1 b2 = (∀s. val_ifex (let t1 = ifex_of b1; t2 = ifex_of b2 in normif Mapping.empty t1 t2 (normif Mapping.empty t2 Falseif Trueif)) s)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>equiv_test_def</span><span> </span><span>Let_def</span><span class="delimiter">;</span><span> </span><span>insert</span><span> </span><span>reduced_IF_depends</span><span class="delimiter">[</span><span>OF</span><span> </span><span>reduced_normif</span><span class="delimiter">]</span><span class="delimiter">;</span><span> </span><span>force</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">moreover</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">{</span></span><span>
+</span><span>    </span><span class="keyword3"><span class="command">fix</span></span><span> </span><span>s</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"val_ifex (let t1 = ifex_of b1; t2 = ifex_of b2 in normif Mapping.empty t1 t2 (normif Mapping.empty t2 Falseif Trueif)) s
+      = (val b1 s = val b2 s)"</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>val_ifex</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Let_def</span><span> </span><span>val_normif</span><span class="delimiter">[</span><span>OF</span><span> </span><span>agree_Nil</span><span class="delimiter">]</span><span class="delimiter">)</span><span> 
+</span><span>  </span><span class="keyword1"><span class="command">}</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">ultimately</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span> 
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Boolean Expressions›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹This is the simplified interface to the tautology checker. If you have your own type of Boolean 
+expressions you can either define your own translation to reduced binary decision trees or you can just 
+translate into this type.›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">datatype</span></span><span> </span><span class="tfree">'a</span><span> </span><span>bool_expr</span><span> </span><span class="delimiter">=</span><span>
+</span><span>  </span><span>Const_bool_expr</span><span> </span><span>bool</span><span> </span><span class="delimiter">|</span><span>
+</span><span>  </span><span>Atom_bool_expr</span><span> </span><span class="tfree">'a</span><span> </span><span class="delimiter">|</span><span>
+</span><span>  </span><span>Neg_bool_expr</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a bool_expr"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span>  </span><span>And_bool_expr</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a bool_expr"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"'a bool_expr"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span>  </span><span>Or_bool_expr</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a bool_expr"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"'a bool_expr"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span>  </span><span>Imp_bool_expr</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a bool_expr"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"'a bool_expr"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span>  </span><span>Iff_bool_expr</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a bool_expr"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"'a bool_expr"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">primrec</span></span><span> </span><span>val_bool_expr</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a bool_expr ⇒ ('a ⇒ bool) ⇒ bool"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span class="string"><span class="delete"><span class="delete">"val_bool_expr (Const_bool_expr b) s = b"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span class="string"><span class="delete"><span class="delete">"val_bool_expr (Atom_bool_expr x) s = s x"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span class="string"><span class="delete"><span class="delete">"val_bool_expr (Neg_bool_expr b) s = (¬ val_bool_expr b s)"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span class="string"><span class="delete"><span class="delete">"val_bool_expr (And_bool_expr b1 b2) s = (val_bool_expr b1 s ∧ val_bool_expr b2 s)"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span class="string"><span class="delete"><span class="delete">"val_bool_expr (Or_bool_expr b1 b2) s = (val_bool_expr b1 s ∨ val_bool_expr b2 s)"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span class="string"><span class="delete"><span class="delete">"val_bool_expr (Imp_bool_expr b1 b2) s = (val_bool_expr b1 s ⟶ val_bool_expr b2 s)"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span class="string"><span class="delete"><span class="delete">"val_bool_expr (Iff_bool_expr b1 b2) s = (val_bool_expr b1 s = val_bool_expr b2 s)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>ifex_of</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a bool_expr ⇒ 'a ifex"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span class="string"><span class="delete"><span class="delete">"ifex_of (Const_bool_expr b) = (if b then Trueif else Falseif)"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span class="string"><span class="delete"><span class="delete">"ifex_of (Atom_bool_expr x)   = IF x Trueif Falseif"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span class="string"><span class="delete"><span class="delete">"ifex_of (Neg_bool_expr b)   = normif Mapping.empty (ifex_of b) Falseif Trueif"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span class="string"><span class="delete"><span class="delete">"ifex_of (And_bool_expr b1 b2) = normif Mapping.empty (ifex_of b1) (ifex_of b2) Falseif"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span class="string"><span class="delete"><span class="delete">"ifex_of (Or_bool_expr b1 b2) = normif Mapping.empty (ifex_of b1) Trueif (ifex_of b2)"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span class="string"><span class="delete"><span class="delete">"ifex_of (Imp_bool_expr b1 b2) = normif Mapping.empty (ifex_of b1) (ifex_of b2) Trueif"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span class="string"><span class="delete"><span class="delete">"ifex_of (Iff_bool_expr b1 b2) = (let t1 = ifex_of b1; t2 = ifex_of b2 in
+   normif Mapping.empty t1 t2 (normif Mapping.empty t2 Falseif Trueif))"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>val_ifex</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"val_ifex (ifex_of b) s = val_bool_expr b s"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induct_tac</span><span> </span><span>b</span><span class="delimiter">)</span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span class="delimiter">:</span><span> </span><span>val_normif</span><span> </span><span>agree_Nil</span><span> </span><span>Let_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>reduced_ifex</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"reduced (ifex_of b) {}"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induction</span><span> </span><span>b</span><span class="delimiter">)</span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Let_def</span><span class="delimiter">;</span><span> </span><span>metis</span><span> </span><span>keys_empty</span><span> </span><span>reduced_normif</span><span class="delimiter">)</span><span class="delimiter">+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"bool_taut_test ≡ taut_test ifex_of"</span></span></span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"bool_sat_test ≡ sat_test ifex_of"</span></span></span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"bool_impl_test ≡ impl_test ifex_of"</span></span></span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"bool_equiv_test ≡ equiv_test ifex_of"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>bool_tests</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"bool_taut_test b = (∀s. val_bool_expr b s)"</span></span></span><span> </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">is</span></span><span> </span><span class="var">?t1</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"bool_sat_test b = (∃s. val_bool_expr b s)"</span></span></span><span> </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">is</span></span><span> </span><span class="var">?t2</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"bool_impl_test b1 b2 = (∀s. val_bool_expr b1 s ⟶ val_bool_expr b2 s)"</span></span></span><span> </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">is</span></span><span> </span><span class="var">?t3</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"bool_equiv_test b1 b2 = (∀s. val_bool_expr b1 s ⟷ val_bool_expr b2 s)"</span></span></span><span> </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">is</span></span><span> </span><span class="var">?t4</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">interpret</span></span><span> </span><span>reduced_bdt_checkers</span><span> </span><span>ifex_of</span><span> </span><span>val_bool_expr</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>unfold_locales</span><span class="delimiter">;</span><span> </span><span>insert</span><span> </span><span>val_ifex</span><span> </span><span>reduced_ifex</span><span class="delimiter">;</span><span> </span><span>blast</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?t1</span><span> </span><span class="var">?t2</span><span> </span><span class="var">?t3</span><span> </span><span class="var">?t4</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>bool_taut_test_def</span><span> </span><span>bool_sat_test_def</span><span> </span><span>bool_impl_test_def</span><span> </span><span>bool_equiv_test_def</span><span> </span><span>taut_test</span><span> </span><span>sat_test</span><span> </span><span>impl_test</span><span> </span><span>equiv_test</span><span class="delimiter">)</span><span> 
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div><div id="Boolean_Expression_Checkers_AList_Mapping">
+<div class="head"><h1>Theory Boolean_Expression_Checkers_AList_Mapping</h1>
+<span class="command">theory</span> <span class="name">Boolean_Expression_Checkers_AList_Mapping</span><br/>
+<span class="keyword">imports</span> <a href="../../HOL/HOL-Library/AList_Mapping.html"><span class="name">AList_Mapping</span></a> <a href="Boolean_Expression_Checkers.html"><span class="name">Boolean_Expression_Checkers</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(*
+  Boolean Expression Checkers Based on Binary Decision Trees
+  Author: Tobias Nipkow
+*)</span></span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Boolean_Expression_Checkers_AList_Mapping</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>Main</span><span> </span><span class="string"><span class="delete"><span class="delete">"HOL-Library.AList_Mapping"</span></span></span><span> </span><span>Boolean_Expression_Checkers</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">section</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Tweaks for @{const AList_Mapping.Mapping}›</span></span></span><span>
+</span><span>                                                       
+</span><span class="comment">― ‹If mappings are implemented by @{const AList_Mapping.Mapping}, the functions @{const reduce} and @{const normif} 
+    search for x twice. The following code equations remove this redundant operation›</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>AList_Mapping_update</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"map_of m k = None ⟹ Mapping.update k v (AList_Mapping.Mapping xs) = AList_Mapping.Mapping ((k,v)#xs)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>metis</span><span> </span><span>Mapping.abs_eq</span><span> </span><span>map_of.simps</span><span class="delimiter">(</span><span>2</span><span class="delimiter">)</span><span> </span><span>prod.sel</span><span class="delimiter">(</span><span>1</span><span class="delimiter">)</span><span> </span><span>prod.sel</span><span class="delimiter">(</span><span>2</span><span class="delimiter">)</span><span> </span><span>update_Mapping</span><span> </span><span>update_conv'</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>reduce_alist</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"('a * bool) list ⇒ 'a ifex ⇒ 'a ifex"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"reduce_alist xs (IF x t1 t2) = (case map_of xs x of
+     None ⇒ mkIF x (reduce_alist ((x, True)#xs) t1) (reduce_alist ((x, False)#xs) t2) |
+     Some b ⇒ reduce_alist xs (if b then t1 else t2))"</span></span></span><span> 
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"reduce_alist _ t = t"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">primrec</span></span><span> </span><span>normif_alist</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"('a * bool) list ⇒ 'a ifex ⇒ 'a ifex ⇒ 'a ifex ⇒ 'a ifex"</span></span></span><span> 
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"normif_alist xs Trueif t1 t2 = reduce_alist xs t1"</span></span></span><span> 
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"normif_alist xs Falseif t1 t2 = reduce_alist xs t2"</span></span></span><span> 
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"normif_alist xs (IF x t1 t2) t3 t4 = (case map_of xs x of
+    None ⇒ mkIF x (normif_alist ((x, True)#xs) t1 t3 t4) (normif_alist ((x, False)#xs) t2 t3 t4) |
+    Some b ⇒ if b then normif_alist xs t1 t3 t4 else normif_alist xs t2 t3 t4)"</span></span></span><span>
+</span><span>   
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>reduce_alist_code</span><span> </span><span class="delimiter">[</span><span>code</span><span class="delimiter">,</span><span> </span><span>code_unfold</span><span class="delimiter">]</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"reduce (AList_Mapping.Mapping xs) t = reduce_alist xs t"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induction</span><span> </span><span>t</span><span> </span><span>arbitrary</span><span class="delimiter">:</span><span> </span><span>xs</span><span class="delimiter">)</span><span>
+</span><span>     </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span class="delimiter">:</span><span> </span><span>AList_Mapping_update</span><span> </span><span>split</span><span class="delimiter">:</span><span> </span><span>option.split</span><span class="delimiter">)</span><span>  
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>normif_alist_code</span><span> </span><span class="delimiter">[</span><span>code</span><span class="delimiter">,</span><span> </span><span>code_unfold</span><span class="delimiter">]</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"normif (AList_Mapping.Mapping xs) t = normif_alist xs t"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induction</span><span> </span><span>t</span><span> </span><span>arbitrary</span><span class="delimiter">:</span><span> </span><span>xs</span><span class="delimiter">)</span><span>
+</span><span>     </span><span class="delimiter">(</span><span>fastforce</span><span> </span><span>simp</span><span class="delimiter">:</span><span> </span><span>AList_Mapping_update</span><span> </span><span>reduce_alist_code</span><span> </span><span>split</span><span class="delimiter">:</span><span> </span><span>option.split</span><span class="delimiter">)</span><span class="delimiter">+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemmas</span></span><span> </span><span>empty_Mapping</span><span> </span><span class="delimiter">[</span><span>code_unfold</span><span class="delimiter">]</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div><div id="Boolean_Expression_Example">
+<div class="head"><h1>Theory Boolean_Expression_Example</h1>
+<span class="command">theory</span> <span class="name">Boolean_Expression_Example</span><br/>
+<span class="keyword">imports</span> <a href="Boolean_Expression_Checkers_AList_Mapping.html"><span class="name">Boolean_Expression_Checkers_AList_Mapping</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Boolean_Expression_Example</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>Boolean_Expression_Checkers</span><span> </span><span>Boolean_Expression_Checkers_AList_Mapping</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Example›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Example usage of checkers. We have our own type of Boolean expressions with its own evaluation function:›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">datatype</span></span><span> </span><span class="tfree">'a</span><span> </span><span>bexp</span><span> </span><span class="delimiter">=</span><span>
+</span><span>  </span><span>Const</span><span> </span><span>bool</span><span> </span><span class="delimiter">|</span><span>
+</span><span>  </span><span>Atom</span><span> </span><span class="tfree">'a</span><span> </span><span class="delimiter">|</span><span>
+</span><span>  </span><span>Neg</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a bexp"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span>  </span><span>And</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a bexp"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"'a bexp"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>bval</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span class="string"><span class="delete"><span class="delete">"bval (Const b) s = b"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span class="string"><span class="delete"><span class="delete">"bval (Atom a) s = s a"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span class="string"><span class="delete"><span class="delete">"bval (Neg b) s = (¬ bval b s)"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span class="string"><span class="delete"><span class="delete">"bval (And b1 b2) s = (bval b1 s ∧ bval b2 s)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Indirect Translation using the Boolean Expression Interface›</span></span></span><span> 
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Now we translate into @{datatype bool_expr} provided by the checkers interface and show that the 
+  semantics remains the same:›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>bool_expr_of_bexp</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a bexp ⇒ 'a bool_expr"</span></span></span><span> 
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"bool_expr_of_bexp (Const b) = Const_bool_expr b"</span></span></span><span> 
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"bool_expr_of_bexp (Atom a) = Atom_bool_expr a"</span></span></span><span> 
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"bool_expr_of_bexp (Neg b) = Neg_bool_expr(bool_expr_of_bexp b)"</span></span></span><span> 
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"bool_expr_of_bexp (And b1 b2) = And_bool_expr (bool_expr_of_bexp b1) (bool_expr_of_bexp b2)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>val_preservation</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"val_bool_expr (bool_expr_of_bexp b) s = bval b s"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induction</span><span> </span><span>b</span><span class="delimiter">)</span><span> </span><span>auto</span><span> 
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"my_taut_test_bool = bool_taut_test o bool_expr_of_bexp"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">corollary</span></span><span> </span><span>my_taut_test</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"my_taut_test_bool b = (∀s. bval b s)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>my_taut_test_bool_def</span><span> </span><span>val_preservation</span><span> </span><span>bool_tests</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Direct Translation into Reduced Binary Decision Trees›</span></span></span><span> 
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Now we translate into a reduced binary decision tree, show that the semantics remains the same and 
+  the tree is reduced:›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>ifex_of</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a bexp ⇒ 'a ifex"</span></span></span><span> 
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"ifex_of (Const b) = (if b then Trueif else Falseif)"</span></span></span><span> 
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"ifex_of (Atom a) = IF a Trueif Falseif"</span></span></span><span> 
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"ifex_of (Neg b)   = normif Mapping.empty (ifex_of b) Falseif Trueif"</span></span></span><span> 
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"ifex_of (And b1 b2) = normif Mapping.empty (ifex_of b1) (ifex_of b2) Falseif"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>val_ifex</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"val_ifex (ifex_of b) s = bval b s"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induction</span><span> </span><span>b</span><span class="delimiter">)</span><span> </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>agree_Nil</span><span> </span><span>val_normif</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>reduced_ifex</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"reduced (ifex_of b) {}"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induction</span><span> </span><span>b</span><span class="delimiter">)</span><span> </span><span class="delimiter">(</span><span>simp</span><span class="delimiter">;</span><span> </span><span>metis</span><span> </span><span>keys_empty</span><span> </span><span>reduced_normif</span><span class="delimiter">)</span><span class="delimiter">+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"my_taut_test_ifex = taut_test ifex_of"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">corollary</span></span><span> </span><span>my_taut_test_ifex</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"my_taut_test_ifex b = (∀s. bval b s)"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">interpret</span></span><span> </span><span>reduced_bdt_checkers</span><span> </span><span>ifex_of</span><span> </span><span>bval</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>unfold_locales</span><span class="delimiter">;</span><span> </span><span>insert</span><span> </span><span>val_ifex</span><span> </span><span>reduced_ifex</span><span class="delimiter">;</span><span> </span><span>blast</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>my_taut_test_ifex_def</span><span> </span><span>taut_test</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Test: Pigeonhole Formulas›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Or b1 b2 == Neg (And (Neg b1) (Neg b2))"</span></span></span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"ors = foldl Or (Const False)"</span></span></span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"ands = foldl And (Const True)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"pc n = ands[ors[Atom(i,j). j &lt;- [1..&lt;n+1]]. i &lt;- [1..&lt;n+2]]"</span></span></span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"nc n = ands[Or (Neg(Atom(i,k))) (Neg(Atom(j,k))). k &lt;- [1..&lt;n+1], i &lt;- [1..&lt;n+1], j &lt;- [i+1..&lt;n+2]]"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"php n = Neg(And (pc n) (nc n))"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Takes about 5 secs each; with 7 instead of 6 it takes about 4 mins (2015).›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"my_taut_test_bool (php 6)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"my_taut_test_ifex (php 6)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span> 
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div>
+  
 </main>
     </div>
   </div>

@@ -1,0 +1,114 @@
+<div id="Constructor_Funs">
+<div class="head"><h1>Theory Constructor_Funs</h1>
+<span class="command">theory</span> <span class="name">Constructor_Funs</span><br/>
+<span class="keyword">imports</span> <a href="../../HOL/HOL/Main.html"><span class="name">Main</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Introduction›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Constructor_Funs</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>Main</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">keywords</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"constructor_funs"</span></span></span><span> </span><span class="delimiter">::</span><span> </span><span>thy_decl</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  Importing this theory adds a preprocessing step to the code generator: All datatype constructors
+  are replaced by functions, and all constructor calls are replaced by function calls. For example,
+  for the @{const Suc} constructor of @{const nat}, a new constant with the same type and the
+  definition @{term ‹suc' n = Suc n›} is created. Then, all instances of @{const Suc} (except for
+  in the constructor functions themselves) are replaced. Note that the constructor functions are
+  defined in eta-long form.
+
+  Note that this does not affect constructors declared by @{command code_datatype}, only
+  @{command datatype} (and @{command free_constructors}).
+
+  The motivation for doing this is to avoid target-specific lambda-insertion by the code generator.
+  In some target languages, constructors cannot be used as functions. As a consequence, terms like
+  @{term ‹map Suc xs›} have to be printed as ‹map (fn x =&gt; Suc x) xs)›. This entails generation of
+  fresh names outside of the proof kernel. The transformation provided by this theory ensures that
+  all constructor calls are fully saturated. This makes supporting target languages that forbid
+  partially-applied constructor calls much easier.
+
+  The obvious downside is that this construction will usually degrade performance of generated code.
+  To some extent, an optimising compiler that performs inlining can alleviate that.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Setup›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">ML_file</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹constructor_funs.ML›</span></span></span><span>
+</span><span class="keyword1"><span class="command">setup</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Constructor_Funs.setup›</span></span></span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div><div id="Test_Constructor_Funs">
+<div class="head"><h1>Theory Test_Constructor_Funs</h1>
+<span class="command">theory</span> <span class="name">Test_Constructor_Funs</span><br/>
+<span class="keyword">imports</span> <a href="Constructor_Funs.html"><span class="name">Constructor_Funs</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Usage›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Test_Constructor_Funs</span><span>
+</span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>Constructor_Funs</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  This entry provides a @{command datatype} plugin and a separate command.
+  The plugin runs by default on all defined datatypes, but it can be disabled individually:
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">datatype</span></span><span> </span><span class="delimiter">(</span><span>plugins</span><span> </span><span>del</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"constructor_funs"</span></span></span><span class="delimiter">)</span><span> </span><span class="tfree">'a</span><span> </span><span>tree</span><span> </span><span class="delimiter">=</span><span> </span><span>Node</span><span> </span><span class="delimiter">|</span><span> </span><span>Fork</span><span> </span><span class="tfree">'a</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a tree list"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">context</span></span><span> </span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  The @{command constructor_funs} command can be used to add constructor functions if the plugin has
+  been disabled during datatype definition.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">constructor_funs</span></span><span> </span><span>tree</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Records are supported.›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">record</span></span><span> </span><span class="tfree">'a</span><span> </span><span>meep</span><span> </span><span class="delimiter">=</span><span>
+</span><span>  </span><span>field1</span><span> </span><span class="delimiter">::</span><span> </span><span class="tfree">'a</span><span>
+</span><span>  </span><span>field2</span><span> </span><span class="delimiter">::</span><span> </span><span>nat</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Nested and mutual recursion are supported.›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">datatype</span></span><span>
+</span><span>  </span><span class="tfree">'a</span><span> </span><span>mlist1</span><span> </span><span class="delimiter">=</span><span> </span><span>MNil1</span><span> </span><span class="delimiter">|</span><span> </span><span>MCons1</span><span> </span><span class="tfree">'a</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a mlist2"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span>
+</span><span>  </span><span class="tfree">'a</span><span> </span><span>mlist2</span><span> </span><span class="delimiter">=</span><span> </span><span>MNil2</span><span> </span><span class="delimiter">|</span><span> </span><span>MCons2</span><span> </span><span class="tfree">'a</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a mlist1"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Examples›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">datatype</span></span><span> </span><span class="tfree">'a</span><span> </span><span>seq</span><span> </span><span class="delimiter">=</span><span> </span><span>Nil</span><span> </span><span class="delimiter">|</span><span> </span><span>Cons</span><span> </span><span class="tfree">'a</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a seq"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>app</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a seq ⇒ 'a seq ⇒ 'a seq"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span class="string"><span class="delete"><span class="delete">"app Nil ys = ys"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span class="string"><span class="delete"><span class="delete">"app (Cons x xs) ys = Cons x (app xs ys)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>map</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span class="string"><span class="delete"><span class="delete">"map _ Nil = Nil"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span class="string"><span class="delete"><span class="delete">"map f (Cons x xs) = Cons (f x) (map f xs)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"bla = map (Cons True) Nil"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  The generated code never calls constructors directly, but only through regular functions. These
+  functions are defined in eta-long form.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">declare</span></span><span> </span><span class="delimiter">[</span><span class="delimiter">[</span><span class="string"><span class="delete"><span class="delete">"constructor_funs"</span></span></span><span class="delimiter">]</span><span class="delimiter">]</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">export_code</span></span><span> </span><span>app</span><span> </span><span>bla</span><span> </span><span>plus_nat_inst.plus_nat</span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>SML</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">export_code</span></span><span> </span><span>app</span><span> </span><span>bla</span><span> </span><span>plus_nat_inst.plus_nat</span><span> </span><span class="keyword2"><span class="keyword">checking</span></span><span> </span><span>SML</span><span> </span><span>Scala</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div>

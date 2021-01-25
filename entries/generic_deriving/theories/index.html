@@ -17,7 +17,8 @@
 
   
   
-  <link rel="stylesheet" type="text/css" href="/css/front.min.css" integrity="sha256-QUoTd2RQ4/P7SQKKOG301QYvQ7o2&#43;3qwXOJptpPXM0E=">
+  <link rel="stylesheet" type="text/css" href="/css/front.min.css" integrity="sha256-QUoTd2RQ4/P7SQKKOG301QYvQ7o2&#43;3qwXOJptpPXM0E="><link rel="stylesheet" type="text/css" href="/css/isabelle.css">
+  
   <link rel="icon" href="/images/favicon.ico" type="image/icon">
   <script src="/js/flexsearch.min.js"></script><script src="/js/header-search.js"></script></head>
 
@@ -66,10 +67,911 @@
   
   </div>
 </header><div><main>
-  <iframe src="https://www.isa-afp.org/browser_info/current/AFP/Generic_Deriving/Derive.html" frameborder="0" id="Derive">
-  </iframe>
-  <iframe src="https://www.isa-afp.org/browser_info/current/AFP/Generic_Deriving/Tagged_Prod_Sum.html" frameborder="0" id="Tagged_Prod_Sum">
-  </iframe>
+  
+  <div id="Tagged_Prod_Sum">
+<div class="head"><h1>Theory Tagged_Prod_Sum</h1>
+<span class="command">theory</span> <span class="name">Tagged_Prod_Sum</span><br/>
+<span class="keyword">imports</span> <a href="../../HOL/HOL/Main.html"><span class="name">Main</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">chapter</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Tagged Sum-of-Products Representation›</span></span></span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+This theory sets up a version of the sum-of-products representation that includes constructor and 
+selector names. For an example of a type class that uses this representation see Derive\_Show.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Tagged_Prod_Sum</span><span>
+</span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>Main</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">context</span></span><span> </span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">qualified</span></span><span> </span><span class="keyword1"><span class="command">datatype</span></span><span> </span><span class="delimiter">(</span><span class="tfree">'a</span><span class="delimiter">,</span><span> </span><span class="tfree">'b</span><span class="delimiter">)</span><span> </span><span>prod</span><span> </span><span class="delimiter">=</span><span> </span><span>Prod</span><span> </span><span class="string"><span class="delete"><span class="delete">"string option"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"string option"</span></span></span><span> </span><span class="tfree">'a</span><span> </span><span class="tfree">'b</span><span>
+</span><span class="keyword2"><span class="keyword">qualified</span></span><span> </span><span class="keyword1"><span class="command">datatype</span></span><span> </span><span class="delimiter">(</span><span class="tfree">'a</span><span class="delimiter">,</span><span> </span><span class="tfree">'b</span><span class="delimiter">)</span><span> </span><span>sum</span><span> </span><span class="delimiter">=</span><span> </span><span>Inl</span><span> </span><span class="string"><span class="delete"><span class="delete">"string option"</span></span></span><span> </span><span class="tfree">'a</span><span> </span><span class="delimiter">|</span><span> </span><span>Inr</span><span> </span><span class="string"><span class="delete"><span class="delete">"string option"</span></span></span><span> </span><span class="tfree">'b</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">qualified</span></span><span> </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>fst</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"fst p = (case p of (Prod _ _ a _) ⇒ a)"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">qualified</span></span><span> </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>snd</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"snd p = (case p of (Prod _ _ _ b) ⇒ b)"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">qualified</span></span><span> </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>sel_name_fst</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"sel_name_fst p = (case p of (Prod s _ _ _) ⇒ s)"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">qualified</span></span><span> </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>sel_name_snd</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"sel_name_snd p = (case p of (Prod _ s _ _) ⇒ s)"</span></span></span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">qualified</span></span><span> </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>constr_name</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"constr_name x = (case x of (Inl s _) ⇒ s | (Inr s _) ⇒ s)"</span></span></span><span> 
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>measure_tagged_fst</span><span class="delimiter">[</span><span>measure_function</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"is_measure f ⟹ is_measure (λ p. f (Tagged_Prod_Sum.fst p))"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>is_measure_trivial</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>measure_tagged_snd</span><span class="delimiter">[</span><span>measure_function</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"is_measure f ⟹ is_measure (λ p. f (Tagged_Prod_Sum.snd p))"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>is_measure_trivial</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>size_tagged_prod_simp</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Tagged_Prod_Sum.prod.size_prod f g p = f (Tagged_Prod_Sum.fst p) + g (Tagged_Prod_Sum.snd p) + Suc 0"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>p</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Tagged_Prod_Sum.fst_def</span><span> </span><span>Tagged_Prod_Sum.snd_def</span><span class="delimiter">)</span><span> 
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>size_tagged_sum_simp</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Tagged_Prod_Sum.sum.size_sum f g x = (case x of Tagged_Prod_Sum.Inl _ a ⇒ f a + Suc 0 | Tagged_Prod_Sum.Inr _ b ⇒ g b + Suc 0)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>x</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>size_tagged_prod_measure</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"is_measure f ⟹ is_measure g ⟹ is_measure (Tagged_Prod_Sum.prod.size_prod f g)"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>is_measure_trivial</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>size_tagged_sum_measure</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"is_measure f ⟹ is_measure g ⟹ is_measure (Tagged_Prod_Sum.sum.size_sum f g)"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>is_measure_trivial</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span></pre>
+</div>
+</div><div id="Derive">
+<div class="head"><h1>Theory Derive</h1>
+<span class="command">theory</span> <span class="name">Derive</span><br/>
+<span class="keyword">imports</span> <a href="Tagged_Prod_Sum.html"><span class="name">Tagged_Prod_Sum</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">chapter</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Derive›</span></span></span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+This theory includes the Isabelle/ML code needed for the derivation and exports the two keywords
+\texttt{derive\_generic} and \texttt{derive\_generic\_setup}.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Derive</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>Main</span><span> </span><span>Tagged_Prod_Sum</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">keywords</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"derive_generic"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"derive_generic_setup"</span></span></span><span> </span><span class="delimiter">::</span><span> </span><span>thy_goal</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">context</span></span><span> </span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">qualified</span></span><span> </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>iso</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"('a ⇒ 'b) ⇒ ('b ⇒ 'a) ⇒ bool"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span class="string"><span class="delete"><span class="delete">"iso from to = ((∀ a. to (from a) = a) ∧ (∀ b . from (to b) = b))"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>iso_intro</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"(⋀a. to (from a) = a) ⟹ (⋀b. from (to b) = b) ⟹ iso from to"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>iso_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">ML_file</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹derive_util.ML›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_file</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹derive_laws.ML›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_file</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹derive_setup.ML›</span></span></span><span>
+</span><span class="keyword1"><span class="command">ML_file</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹derive.ML›</span></span></span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span></pre>
+</div>
+</div><div id="Derive_Datatypes">
+<div class="head"><h1>Theory Derive_Datatypes</h1>
+<span class="command">theory</span> <span class="name">Derive_Datatypes</span><br/>
+<span class="keyword">imports</span> <a href="../../HOL/HOL/Main.html"><span class="name">Main</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">chapter</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Examples"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">section</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Example Datatypes"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Derive_Datatypes</span><span>
+</span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>Main</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* Simple type without recursion or parameters *)</span></span></span></span></span><span>
+</span><span class="keyword1"><span class="command">datatype</span></span><span> </span><span>simple</span><span> </span><span class="delimiter">=</span><span> </span><span>A</span><span> </span><span class="delimiter">(</span><span>num</span><span class="delimiter">:</span><span> </span><span>nat</span><span class="delimiter">)</span><span> </span><span class="delimiter">|</span><span> </span><span>B</span><span> </span><span class="delimiter">(</span><span>left</span><span class="delimiter">:</span><span>nat</span><span class="delimiter">)</span><span> </span><span class="delimiter">(</span><span>right</span><span class="delimiter">:</span><span>nat</span><span class="delimiter">)</span><span> </span><span class="delimiter">|</span><span> </span><span>C</span><span> 
+</span><span>  
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* type with parameters *)</span></span></span></span></span><span>  
+</span><span class="keyword1"><span class="command">datatype</span></span><span> </span><span class="delimiter">(</span><span class="tfree">'a</span><span class="delimiter">,</span><span class="tfree">'b</span><span class="delimiter">)</span><span> </span><span>either</span><span> </span><span class="delimiter">=</span><span> </span><span>L</span><span> </span><span class="tfree">'a</span><span> </span><span class="delimiter">|</span><span> </span><span>R</span><span> </span><span class="tfree">'b</span><span>
+</span><span>  
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* recursive type *)</span></span></span></span></span><span>
+</span><span class="keyword1"><span class="command">datatype</span></span><span> </span><span class="tfree">'a</span><span> </span><span>tree</span><span> </span><span class="delimiter">=</span><span> </span><span>Leaf</span><span> </span><span class="delimiter">|</span><span> </span><span>Node</span><span> </span><span class="tfree">'a</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a tree"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"'a tree"</span></span></span><span>     
+</span><span>  
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* mutually recursive types *)</span></span></span></span></span><span>
+</span><span>  
+</span><span class="keyword1"><span class="command">datatype</span></span><span> </span><span>even_nat</span><span> </span><span class="delimiter">=</span><span> </span><span>Even_Zero</span><span> </span><span class="delimiter">|</span><span> </span><span>Even_Succ</span><span> </span><span>odd_nat</span><span>
+</span><span>   </span><span class="keyword2"><span class="keyword">and</span></span><span>   </span><span>odd_nat</span><span>  </span><span class="delimiter">=</span><span> </span><span>Odd_Succ</span><span> </span><span>even_nat</span><span>  
+</span><span>   
+</span><span class="keyword1"><span class="command">datatype</span></span><span> </span><span class="delimiter">(</span><span class="tfree">'a</span><span class="delimiter">,</span><span class="tfree">'b</span><span class="delimiter">)</span><span> </span><span>exp</span><span> </span><span class="delimiter">=</span><span> </span><span>Term</span><span> </span><span class="string"><span class="delete"><span class="delete">"('a,'b) trm"</span></span></span><span> </span><span class="delimiter">|</span><span> </span><span>Sum</span><span> </span><span class="delimiter">(</span><span>left</span><span class="delimiter">:</span><span class="string"><span class="delete"><span class="delete">"('a,'b) trm"</span></span></span><span class="delimiter">)</span><span> </span><span class="delimiter">(</span><span>right</span><span class="delimiter">:</span><span class="string"><span class="delete"><span class="delete">"('a,'b) exp"</span></span></span><span class="delimiter">)</span><span>
+</span><span class="keyword2"><span class="keyword">and</span></span><span>      </span><span class="delimiter">(</span><span class="tfree">'a</span><span class="delimiter">,</span><span class="tfree">'b</span><span class="delimiter">)</span><span> </span><span>trm</span><span> </span><span class="delimiter">=</span><span> </span><span>Factor</span><span> </span><span class="string"><span class="delete"><span class="delete">"('a,'b) fct "</span></span></span><span> </span><span class="delimiter">|</span><span> </span><span>Prod</span><span> </span><span class="string"><span class="delete"><span class="delete">"('a,'b) fct "</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"('a,'b) trm "</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">and</span></span><span>      </span><span class="delimiter">(</span><span class="tfree">'a</span><span class="delimiter">,</span><span class="tfree">'b</span><span class="delimiter">)</span><span> </span><span>fct</span><span> </span><span class="delimiter">=</span><span> </span><span>Const</span><span> </span><span class="tfree">'a</span><span> </span><span class="delimiter">|</span><span> </span><span>Var</span><span> </span><span class="delimiter">(</span><span>v</span><span class="delimiter">:</span><span class="tfree">'b</span><span class="delimiter">)</span><span> </span><span class="delimiter">|</span><span> </span><span>Expr</span><span> </span><span class="string"><span class="delete"><span class="delete">"('a,'b) exp"</span></span></span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span></pre>
+</div>
+</div><div id="Derive_Eq">
+<div class="head"><h1>Theory Derive_Eq</h1>
+<span class="command">theory</span> <span class="name">Derive_Eq</span><br/>
+<span class="keyword">imports</span> <a href="Derive.html"><span class="name">Derive</span></a> <a href="Derive_Datatypes.html"><span class="name">Derive_Datatypes</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">section</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Equality"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Derive_Eq</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>Main</span><span> </span><span class="string"><span class="delete"><span class="delete">"../Derive"</span></span></span><span> </span><span>Derive_Datatypes</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">class</span></span><span> </span><span>eq</span><span> </span><span class="delimiter">=</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">fixes</span></span><span> </span><span>eq</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a ⇒ 'a ⇒ bool"</span></span></span><span>
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* Manual instances for nat, unit, prod, and sum *)</span></span></span></span></span><span>
+</span><span class="keyword1"><span class="command">instantiation</span></span><span> </span><span>nat</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>unit</span><span class="delimiter">::</span><span> </span><span>eq</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>eq_nat</span><span> </span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"eq (x::nat) y ⟷ x = y"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>eq_unit_def</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"eq (x::unit) y ⟷ True"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">instance</span></span><span> </span><span class="keyword1"><span class="command">..</span></span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">instantiation</span></span><span> </span><span>prod</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>sum</span><span> </span><span class="delimiter">::</span><span> </span><span class="delimiter">(</span><span>eq</span><span class="delimiter">,</span><span> </span><span>eq</span><span class="delimiter">)</span><span> </span><span>eq</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>eq_prod_def</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"eq x y ⟷ (eq (fst x) (fst y)) ∧ (eq (snd x) (snd y))"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>eq_sum_def</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"eq x y = (case x of Inl a ⇒ (case y of Inl b ⇒ eq a b | Inr b ⇒ False)
+                                            | Inr a ⇒ (case y of Inl b ⇒ False | Inr b ⇒ eq a b))"</span></span></span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">instance</span></span><span> </span><span class="keyword1"><span class="command">..</span></span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>  
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* nonrecursive test *)</span></span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">derive_generic</span></span><span> </span><span>eq</span><span> </span><span>simple</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* some tests *)</span></span></span></span></span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq (A 4) (A 4)"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq (A 6) (A 4) ⟷ False"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq C C"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq (B 4 5) (B 4 5)"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq (B 4 4) (A 3) ⟷ False"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq C (A 4) ⟷ False"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span>
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* type with parameter *)</span></span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">derive_generic</span></span><span> </span><span>eq</span><span> </span><span>either</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq (L (3::nat)) (R 3) ⟷ False"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>code_simp</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq (L (3::nat)) (L 3)"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>code_simp</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq (L (3::nat)) (L 4) ⟷ False"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>code_simp</span><span>
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* recursive types *)</span></span></span></span></span><span>
+</span><span class="keyword1"><span class="command">derive_generic</span></span><span> </span><span>eq</span><span> </span><span>list</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq ([]::(nat list)) []"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq ([1,2,3]:: (nat list)) [1,2,3]"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq [(1::nat)] [1,2] ⟷ False"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">derive_generic</span></span><span> </span><span>eq</span><span> </span><span>tree</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq Leaf Leaf"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>code_simp</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq (Node (1::nat) Leaf Leaf) Leaf ⟷ False"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq (Node (1::nat) Leaf Leaf) (Node (1::nat) Leaf Leaf)"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq (Node (1::nat) (Node 2 Leaf Leaf) (Node 3 Leaf Leaf)) (Node (1::nat) (Node 2 Leaf Leaf) (Node 4 Leaf Leaf)) 
+    ⟷ False"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span>
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* mutually recursive types *)</span></span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">derive_generic</span></span><span> </span><span>eq</span><span> </span><span>even_nat</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span class="keyword1"><span class="command">derive_generic</span></span><span> </span><span>eq</span><span> </span><span>exp</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq Even_Zero Even_Zero"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq Even_Zero (Even_Succ (Odd_Succ Even_Zero)) ⟷ False"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq (Odd_Succ (Even_Succ (Odd_Succ Even_Zero))) (Odd_Succ (Even_Succ (Odd_Succ Even_Zero)))"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq (Odd_Succ (Even_Succ (Odd_Succ Even_Zero))) (Odd_Succ (Even_Succ (Odd_Succ (Even_Succ (Odd_Succ Even_Zero)))))
+    ⟷ False"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq (Const (1::nat)) (Const (1::nat))"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>code_simp</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq (Const (1::nat)) (Var (1::nat)) ⟷ False"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq (Term (Prod (Const (1::nat)) (Factor (Const (2::nat))))) (Term (Prod (Const (1::nat)) (Factor (Const (2::nat)))))"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>code_simp</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq (Term (Prod (Const (1::nat)) (Factor (Const (2::nat))))) (Term (Prod (Const (1::nat)) (Factor (Const (3::nat)))))
+    ⟷ False"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>code_simp</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span></pre>
+</div>
+</div><div id="Derive_Encode">
+<div class="head"><h1>Theory Derive_Encode</h1>
+<span class="command">theory</span> <span class="name">Derive_Encode</span><br/>
+<span class="keyword">imports</span> <a href="Derive.html"><span class="name">Derive</span></a> <a href="Derive_Datatypes.html"><span class="name">Derive_Datatypes</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">section</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Encoding"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Derive_Encode</span><span>
+</span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>Main</span><span> </span><span class="string"><span class="delete"><span class="delete">"../Derive"</span></span></span><span> </span><span>Derive_Datatypes</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">class</span></span><span> </span><span>encodeable</span><span> </span><span class="delimiter">=</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">fixes</span></span><span> </span><span>encode</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a ⇒ bool list"</span></span></span><span>
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* Manual instances for nat, unit, prod, and sum *)</span></span></span></span></span><span>    
+</span><span class="keyword1"><span class="command">instantiation</span></span><span> </span><span>nat</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>unit</span><span class="delimiter">::</span><span> </span><span>encodeable</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>  
+</span><span>  </span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>encode_nat</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"nat ⇒ bool list"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"encode_nat 0 = []"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"encode_nat (Suc n) = True # (encode n)"</span></span></span><span>
+</span><span>  
+</span><span>  </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>encode_unit</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"encode (x::unit) = []"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">instance</span></span><span> </span><span class="keyword1"><span class="command">..</span></span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span> 
+</span><span>
+</span><span class="keyword1"><span class="command">instantiation</span></span><span> </span><span>prod</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>sum</span><span> </span><span class="delimiter">::</span><span> </span><span class="delimiter">(</span><span>encodeable</span><span class="delimiter">,</span><span> </span><span>encodeable</span><span class="delimiter">)</span><span> </span><span>encodeable</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>encode_prod_def</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"encode x = append (encode (fst x)) (encode (snd x))"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>encode_sum_def</span><span class="delimiter">:</span><span>  </span><span class="string"><span class="delete"><span class="delete">"encode x = (case x of Inl a ⇒ False # encode a
+                                                   | Inr a ⇒ True # encode a)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">instance</span></span><span> </span><span class="keyword1"><span class="command">..</span></span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">derive_generic</span></span><span> </span><span>encodeable</span><span> </span><span>simple</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span class="keyword1"><span class="command">derive_generic</span></span><span> </span><span>encodeable</span><span> </span><span>either</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span>  
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"encode (B 3 4) = [True, False, True, True, True, True, True, True, True]"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"encode C = [True, True]"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span> 
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"encode (R (3::nat)) = [True, True, True, True]"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>code_simp</span><span>
+</span><span>  
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* recursive types *)</span></span></span></span></span><span> 
+</span><span>  
+</span><span class="keyword1"><span class="command">derive_generic</span></span><span> </span><span>encodeable</span><span> </span><span>list</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span class="keyword1"><span class="command">derive_generic</span></span><span> </span><span>encodeable</span><span> </span><span>tree</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span>  
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"encode [1,2,3,4::nat] 
+  = [True, True, True, True, True, True, True, True, True, True, True, True, True, True, False]"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"encode (Node (3::nat) (Node 1 Leaf Leaf) (Node 2 Leaf Leaf)) 
+  = [True, True, True, True, True, True, False, False, True, True, True, False, False]"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span>
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* mutually recursive types *)</span></span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">derive_generic</span></span><span> </span><span>encodeable</span><span> </span><span>even_nat</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span class="keyword1"><span class="command">derive_generic</span></span><span> </span><span>encodeable</span><span> </span><span>exp</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span>   
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"encode (Odd_Succ (Even_Succ (Odd_Succ Even_Zero))) 
+  = [True, False, True, True, False, False]"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span> 
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"encode (Term (Prod (Const (1::nat)) (Factor (Const (2::nat)))))
+  = [False, False, True, False, True, True, True, False, True, True, False, False, True, True, False, True, True]"</span></span></span><span> 
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>code_simp</span><span>    
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span></pre>
+</div>
+</div><div id="Derive_Algebra">
+<div class="head"><h1>Theory Derive_Algebra</h1>
+<span class="command">theory</span> <span class="name">Derive_Algebra</span><br/>
+<span class="keyword">imports</span> <a href="Derive.html"><span class="name">Derive</span></a> <a href="Derive_Datatypes.html"><span class="name">Derive_Datatypes</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">section</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Algebraic Classes"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Derive_Algebra</span><span>
+</span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>Main</span><span> </span><span class="string"><span class="delete"><span class="delete">"../Derive"</span></span></span><span> </span><span>Derive_Datatypes</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">class</span></span><span> </span><span>semigroup</span><span> </span><span class="delimiter">=</span><span> 
+</span><span>  </span><span class="keyword2"><span class="keyword">fixes</span></span><span> </span><span>mult</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a ⇒ 'a ⇒ 'a"</span></span></span><span> </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">infixl</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"⊗"</span></span></span><span> </span><span>70</span><span class="delimiter">)</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(*  assumes assoc: "(x ⊗ y) ⊗ z = x ⊗ (y ⊗ z)" *)</span></span></span></span></span><span>
+</span><span>    
+</span><span class="keyword1"><span class="command">class</span></span><span> </span><span>monoidl</span><span> </span><span class="delimiter">=</span><span> </span><span>semigroup</span><span> </span><span class="delimiter">+</span><span>
+</span><span class="keyword2"><span class="keyword">fixes</span></span><span> </span><span>neutral</span><span> </span><span class="delimiter">::</span><span> </span><span class="tfree">'a</span><span> </span><span class="delimiter">(</span><span class="string"><span class="delete"><span class="delete">"𝟭"</span></span></span><span class="delimiter">)</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* assumes neutl : "𝟭 ⊗ x = x" *)</span></span></span></span></span><span>    
+</span><span>  
+</span><span class="keyword1"><span class="command">class</span></span><span> </span><span>group</span><span> </span><span class="delimiter">=</span><span> </span><span>monoidl</span><span> </span><span class="delimiter">+</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">fixes</span></span><span> </span><span>inverse</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a ⇒ 'a"</span></span></span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* assumes invl: "x÷ ⊗ x = 𝟭" *)</span></span></span></span></span><span>
+</span><span>    
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* Manual instances for nat, unit, prod, and sum *)</span></span></span></span></span><span>    
+</span><span class="keyword1"><span class="command">instantiation</span></span><span> </span><span>nat</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>unit</span><span class="delimiter">::</span><span> </span><span>semigroup</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>  
+</span><span>  </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>mult_nat</span><span> </span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"mult (x::nat) y = x + y"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>mult_unit_def</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"mult (x::unit) y = x"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">instance</span></span><span> </span><span class="keyword1"><span class="command">..</span></span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span> 
+</span><span class="keyword1"><span class="command">instantiation</span></span><span> </span><span>nat</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>unit</span><span class="delimiter">::</span><span> </span><span>monoidl</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>  
+</span><span>  </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>neutral_nat</span><span> </span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"neutral = (0::nat)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>neutral_unit_def</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"neutral = ()"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">instance</span></span><span> </span><span class="keyword1"><span class="command">..</span></span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>   
+</span><span>  
+</span><span class="keyword1"><span class="command">instantiation</span></span><span> </span><span>nat</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>unit</span><span class="delimiter">::</span><span> </span><span>group</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>  
+</span><span>  </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>inverse_nat</span><span> </span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"inverse (i::nat) = 𝟭 - i"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>inverse_unit_def</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"inverse u = ()"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">instance</span></span><span> </span><span class="keyword1"><span class="command">..</span></span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>   
+</span><span>
+</span><span class="keyword1"><span class="command">instantiation</span></span><span> </span><span>prod</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>sum</span><span> </span><span class="delimiter">::</span><span> </span><span class="delimiter">(</span><span>semigroup</span><span class="delimiter">,</span><span> </span><span>semigroup</span><span class="delimiter">)</span><span> </span><span>semigroup</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>mult_prod_def</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"x ⊗ y = (fst x ⊗ fst y, snd x ⊗ snd y)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>mult_sum_def</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"x ⊗ y = (case x of Inl a ⇒ (case y of Inl b ⇒ Inl (a ⊗ b) | Inr b ⇒ Inl a)
+                                             | Inr a ⇒ (case y of Inl b ⇒ Inr a | Inr b ⇒ Inr (a ⊗ b)))"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">instance</span></span><span> </span><span class="keyword1"><span class="command">..</span></span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>  
+</span><span class="keyword1"><span class="command">instantiation</span></span><span> </span><span>prod</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>sum</span><span> </span><span class="delimiter">::</span><span> </span><span class="delimiter">(</span><span>monoidl</span><span class="delimiter">,</span><span> </span><span>monoidl</span><span class="delimiter">)</span><span> </span><span>monoidl</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>neutral_prod_def</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"neutral = (neutral,neutral)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>neutral_sum_def</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"neutral = Inl neutral"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">instance</span></span><span> </span><span class="keyword1"><span class="command">..</span></span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span> 
+</span><span>  
+</span><span class="keyword1"><span class="command">instantiation</span></span><span> </span><span>prod</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>sum</span><span> </span><span class="delimiter">::</span><span> </span><span class="delimiter">(</span><span>group</span><span class="delimiter">,</span><span> </span><span>group</span><span class="delimiter">)</span><span> </span><span>group</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>inverse_prod_def</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"inverse p = (inverse (fst p), inverse (snd p))"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>inverse_sum_def</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"inverse x = (case x of Inl a ⇒ (Inl (inverse a)) 
+                                                    | Inr b ⇒ Inr (inverse b))"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">instance</span></span><span> </span><span class="keyword1"><span class="command">..</span></span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>    
+</span><span>    
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* Simple test *)</span></span></span></span></span><span>  
+</span><span>  
+</span><span class="keyword1"><span class="command">derive_generic</span></span><span> </span><span>semigroup</span><span> </span><span>simple</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span class="keyword1"><span class="command">derive_generic</span></span><span> </span><span>monoidl</span><span> </span><span>simple</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span class="keyword1"><span class="command">derive_generic</span></span><span> </span><span>group</span><span> </span><span>simple</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span>  
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"(B 𝟭 6) ⊗ (B 4 5) = B 4 11"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"(A 2) ⊗ (A 3) = A 5"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"(B 𝟭 6) ⊗ 𝟭 = B 0 6"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span>
+</span><span>  
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* type with parameter *)</span></span></span></span></span><span>
+</span><span>  
+</span><span class="keyword1"><span class="command">derive_generic</span></span><span> </span><span>group</span><span> </span><span>either</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>  
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"(L 3) ⊗ ((L 4)::(nat,nat) either) = L 7"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"(R (2::nat)) ⊗ (L (3::nat)) = R 2"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span>
+</span><span>  
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* recursive types *)</span></span></span></span></span><span> 
+</span><span>
+</span><span class="keyword1"><span class="command">derive_generic</span></span><span> </span><span>semigroup</span><span> </span><span>list</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span class="keyword1"><span class="command">derive_generic</span></span><span> </span><span>monoidl</span><span> </span><span>list</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span class="keyword1"><span class="command">derive_generic</span></span><span> </span><span>group</span><span> </span><span>list</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span class="keyword1"><span class="command">derive_generic</span></span><span> </span><span>semigroup</span><span> </span><span>tree</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span class="keyword1"><span class="command">derive_generic</span></span><span> </span><span>monoidl</span><span> </span><span>tree</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span class="keyword1"><span class="command">derive_generic</span></span><span> </span><span>group</span><span> </span><span>tree</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span>  
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"[1,2,3,4::nat] ⊗ [1,2,3] = [2,4,6,4]"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"inverse [1,2,3::nat] = [0,0,0]"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span>
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* mutually recursive types *)</span></span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">derive_generic</span></span><span> </span><span>semigroup</span><span> </span><span>even_nat</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span class="keyword1"><span class="command">derive_generic</span></span><span> </span><span>monoidl</span><span> </span><span>even_nat</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span class="keyword1"><span class="command">derive_generic</span></span><span> </span><span>group</span><span> </span><span>even_nat</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span class="keyword1"><span class="command">derive_generic</span></span><span> </span><span>semigroup</span><span> </span><span>exp</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* instantiate monoidl manually *)</span></span></span></span></span><span>  
+</span><span class="keyword1"><span class="command">instantiation</span></span><span> </span><span>exp</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>trm</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>fct</span><span>  </span><span class="delimiter">::</span><span> </span><span class="delimiter">(</span><span>monoidl</span><span class="delimiter">,</span><span>monoidl</span><span class="delimiter">)</span><span> </span><span>monoidl</span><span> 
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>  
+</span><span>  </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>neutral_fct</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"neutral_fct = Const neutral"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>neutral_trm</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"neutral_trm = Factor neutral"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>neutral_exp</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"neutral_exp = Term neutral"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">instance</span></span><span> </span><span class="keyword1"><span class="command">..</span></span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>     
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* Manually defined instances need to be added to the theory context *)</span></span></span></span></span><span>
+</span><span class="keyword1"><span class="command">setup</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+(Derive.add_inst_info \&lt;^class&gt;‹monoidl› \&lt;^type_name&gt;‹fct› [@{thm neutral_fct_def}]) #&gt;
+(Derive.add_inst_info \&lt;^class&gt;‹monoidl› \&lt;^type_name&gt;‹trm› [@{thm neutral_trm_def}]) #&gt;
+(Derive.add_inst_info \&lt;^class&gt;‹monoidl› \&lt;^type_name&gt;‹exp› [@{thm neutral_exp_def}])
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">derive_generic</span></span><span> </span><span>group</span><span> </span><span>exp</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span>   
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"(Odd_Succ (Even_Succ (Odd_Succ Even_Zero))) ⊗ (Odd_Succ Even_Zero) 
+       = Odd_Succ (Even_Succ (Odd_Succ Even_Zero))"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"inverse (Odd_Succ Even_Zero) = Odd_Succ Even_Zero"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"(Term (Prod ((Const 1)::(nat, nat) fct) (Factor (Const (2::nat))))) 
+    ⊗ (Term (Prod (Const (2::nat)) (Factor ((Const 2)::(nat, nat) fct))))
+    = Term (Prod (Const 3) (Factor (Const 4)))"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span>   
+</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span></pre>
+</div>
+</div><div id="Derive_Show">
+<div class="head"><h1>Theory Derive_Show</h1>
+<span class="command">theory</span> <span class="name">Derive_Show</span><br/>
+<span class="keyword">imports</span> <a href="Derive.html"><span class="name">Derive</span></a> <a href="Derive_Datatypes.html"><span class="name">Derive_Datatypes</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">section</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Show"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Derive_Show</span><span>
+</span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>Main</span><span> </span><span class="string"><span class="delete"><span class="delete">"../Derive"</span></span></span><span> </span><span>Derive_Datatypes</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">class</span></span><span> </span><span>showable</span><span> </span><span class="delimiter">=</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">fixes</span></span><span> </span><span>print</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a ⇒ string"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>string_of_nat</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"nat ⇒ string"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"string_of_nat n = (if n &lt; 10 then [(char_of :: nat ⇒ char) (48 + n)] else
+     string_of_nat (n div 10) @ [(char_of :: nat ⇒ char) (48 + (n mod 10))])"</span></span></span><span>
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* Manual instances for nat, unit, prod, and sum *)</span></span></span></span></span><span>
+</span><span class="keyword1"><span class="command">instantiation</span></span><span> </span><span>nat</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>unit</span><span class="delimiter">::</span><span> </span><span>showable</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>print_nat</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"print (n::nat) = string_of_nat n"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>print_unit</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"print (x::unit) = ''''"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">instance</span></span><span> </span><span class="keyword1"><span class="command">..</span></span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">instantiation</span></span><span> </span><span>Tagged_Prod_Sum.prod</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>Tagged_Prod_Sum.sum</span><span> </span><span class="delimiter">::</span><span> </span><span class="delimiter">(</span><span>showable</span><span class="delimiter">,</span><span> </span><span>showable</span><span class="delimiter">)</span><span> </span><span>showable</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>print_prod_def</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"print (x::('a,'b) Tagged_Prod_Sum.prod) = 
+    (case Tagged_Prod_Sum.sel_name_fst x of 
+        None ⇒ (print (Tagged_Prod_Sum.fst x)) 
+      | Some s ⇒ ''('' @ s @ '': '' @ (print (Tagged_Prod_Sum.fst x)) @ '')'')
+    @
+    '' '' 
+    @
+    (case Tagged_Prod_Sum.sel_name_snd x of 
+        None ⇒ (print (Tagged_Prod_Sum.snd x)) 
+      | Some s ⇒ ''('' @ s @ '': '' @ (print (Tagged_Prod_Sum.snd x)) @ '')'')"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>print_sum_def</span><span class="delimiter">:</span><span>  </span><span class="string"><span class="delete"><span class="delete">"print (x::('a,'b) Tagged_Prod_Sum.sum) = 
+  (case x of (Tagged_Prod_Sum.Inl s a) ⇒ (case s of None ⇒ print a | Some c ⇒ ''('' @ c @ '' '' @ (print a) @ '')'')
+           | (Tagged_Prod_Sum.Inr s b) ⇒ (case s of None ⇒ print b | Some c ⇒ ''('' @ c @ '' '' @ (print b) @ '')''))"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">instance</span></span><span> </span><span class="keyword1"><span class="command">..</span></span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* simple types *)</span></span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">declare</span></span><span> </span><span class="delimiter">[</span><span class="delimiter">[</span><span>ML_print_depth</span><span class="delimiter">=</span><span>30</span><span class="delimiter">]</span><span class="delimiter">]</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">derive_generic</span></span><span> </span><span class="delimiter">(</span><span>metadata</span><span class="delimiter">)</span><span> </span><span>showable</span><span> </span><span>simple</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span class="keyword1"><span class="command">derive_generic</span></span><span> </span><span class="delimiter">(</span><span>metadata</span><span class="delimiter">)</span><span> </span><span>showable</span><span> </span><span>either</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">value</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"print (A 3)"</span></span></span><span> 
+</span><span class="keyword1"><span class="command">value</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"print (B 1 2)"</span></span></span><span>
+</span><span class="keyword1"><span class="command">value</span></span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span> </span><span class="string"><span class="delete"><span class="delete">"print (L (2::nat))"</span></span></span><span>
+</span><span class="keyword1"><span class="command">value</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"print C"</span></span></span><span>
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* recursive types *)</span></span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">derive_generic</span></span><span> </span><span class="delimiter">(</span><span>metadata</span><span class="delimiter">)</span><span> </span><span>showable</span><span> </span><span>list</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span class="keyword1"><span class="command">derive_generic</span></span><span> </span><span class="delimiter">(</span><span>metadata</span><span class="delimiter">)</span><span> </span><span>showable</span><span> </span><span>tree</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">value</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"print [1,2::nat]"</span></span></span><span>
+</span><span class="keyword1"><span class="command">value</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"print (Node (3::nat) (Node 1 Leaf Leaf) (Node 2 Leaf Leaf))"</span></span></span><span>
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* mutually recursive types *)</span></span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">derive_generic</span></span><span> </span><span class="delimiter">(</span><span>metadata</span><span class="delimiter">)</span><span> </span><span>showable</span><span> </span><span>even_nat</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span class="keyword1"><span class="command">derive_generic</span></span><span> </span><span class="delimiter">(</span><span>metadata</span><span class="delimiter">)</span><span> </span><span>showable</span><span> </span><span>exp</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">value</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"print (Odd_Succ (Even_Succ (Odd_Succ Even_Zero)))"</span></span></span><span>
+</span><span class="keyword1"><span class="command">value</span></span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span> </span><span class="string"><span class="delete"><span class="delete">"print (Sum (Factor (Const (0::nat))) (Term (Prod (Const (1::nat)) (Factor (Const (2::nat))))))"</span></span></span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span></pre>
+</div>
+</div><div id="Derive_Eq_Laws">
+<div class="head"><h1>Theory Derive_Eq_Laws</h1>
+<span class="command">theory</span> <span class="name">Derive_Eq_Laws</span><br/>
+<span class="keyword">imports</span> <a href="Derive.html"><span class="name">Derive</span></a> <a href="Derive_Datatypes.html"><span class="name">Derive_Datatypes</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">section</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Classes with Laws"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Equality"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Derive_Eq_Laws</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>Main</span><span> </span><span class="string"><span class="delete"><span class="delete">"../Derive"</span></span></span><span> </span><span>Derive_Datatypes</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">class</span></span><span> </span><span>eq</span><span> </span><span class="delimiter">=</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">fixes</span></span><span> </span><span>eq</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a ⇒ 'a ⇒ bool"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span>refl</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"eq x x"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span>
+</span><span>          </span><span>sym</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"eq x y ⟹ eq y x"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span>
+</span><span>          </span><span>trans</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"eq x y ⟹ eq y z ⟹ eq x z"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">derive_generic_setup</span></span><span> </span><span>eq</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>eq_class_law_def</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>eq_law_eq</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"eq_class_law eq"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>eq_class_law_def</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>eq_class.axioms</span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>class.eq_def</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* Manual instances for nat, unit, prod, and sum *)</span></span></span></span></span><span>
+</span><span class="keyword1"><span class="command">instantiation</span></span><span> </span><span>nat</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>unit</span><span> </span><span class="delimiter">::</span><span> </span><span>eq</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>eq_nat_def</span><span> </span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"eq (x::nat) y ⟷ x = y"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>eq_unit_def</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"eq (x::unit) y ⟷ True"</span></span></span><span>
+</span><span class="keyword1"><span class="command">instance</span></span><span> </span><span class="keyword1"><span class="command">proof</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">fix</span></span><span> </span><span>x</span><span> </span><span>y</span><span> </span><span>z</span><span> </span><span class="delimiter">::</span><span> </span><span>nat</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq x x"</span></span></span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>eq_nat_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq x y ⟹ eq y x"</span></span></span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>eq_nat_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq x y ⟹ eq y z ⟹ eq x z"</span></span></span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>eq_nat_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">fix</span></span><span> </span><span>x</span><span> </span><span>y</span><span> </span><span>z</span><span> </span><span class="delimiter">::</span><span> </span><span>unit</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq x x"</span></span></span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>eq_unit_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq x y ⟹ eq y x"</span></span></span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>eq_unit_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq x y ⟹ eq y z ⟹ eq x z"</span></span></span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>eq_unit_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">instantiation</span></span><span> </span><span>prod</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>sum</span><span> </span><span class="delimiter">::</span><span> </span><span class="delimiter">(</span><span>eq</span><span class="delimiter">,</span><span> </span><span>eq</span><span class="delimiter">)</span><span> </span><span>eq</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>eq_prod_def</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"eq x y ⟷ (eq (fst x) (fst y)) ∧ (eq (snd x) (snd y))"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>eq_sum_def</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"eq x y = (case x of Inl a ⇒ (case y of Inl b ⇒ eq a b | Inr b ⇒ False)
+                                            | Inr a ⇒ (case y of Inl b ⇒ False | Inr b ⇒ eq a b))"</span></span></span><span>
+</span><span class="keyword1"><span class="command">instance</span></span><span> </span><span class="keyword1"><span class="command">proof</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">fix</span></span><span> </span><span>x</span><span> </span><span>y</span><span> </span><span>z</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"('a::eq) × ('b::eq)"</span></span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq x x"</span></span></span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>eq_prod_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>eq_class.refl</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq x y ⟹ eq y x"</span></span></span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>eq_prod_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>eq_class.sym</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq x y ⟹ eq y z ⟹ eq x z"</span></span></span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>eq_prod_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>meson</span><span> </span><span>eq_class.trans</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">fix</span></span><span> </span><span>x</span><span> </span><span>y</span><span> </span><span>z</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"('a::eq) + ('b::eq)"</span></span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq x x"</span></span></span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>eq_sum_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>sum.case_eq_if</span><span> </span><span>eq_class.refl</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq x y ⟹ eq y x"</span></span></span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>eq_sum_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>metis</span><span> </span><span>eq_class.sym</span><span> </span><span>sum.case_eq_if</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq x y ⟹ eq y z ⟹ eq x z"</span></span></span><span> 
+</span><span>    </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>eq_sum_def</span><span> 
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>only</span><span class="delimiter">:</span><span> </span><span>sum.case_eq_if</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>cases</span><span> </span><span class="string"><span class="delete"><span class="delete">"isl x"</span></span></span><span class="delimiter">;</span><span> </span><span>cases</span><span> </span><span class="string"><span class="delete"><span class="delete">"isl y"</span></span></span><span class="delimiter">;</span><span> </span><span>cases</span><span> </span><span class="string"><span class="delete"><span class="delete">"isl z"</span></span></span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>eq_class.trans</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* nonrecursive test *)</span></span></span></span></span><span>
+</span><span class="keyword1"><span class="command">derive_generic</span></span><span> </span><span>eq</span><span> </span><span>simple</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* some tests *)</span></span></span></span></span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq (A 4) (A 4)"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq (A 6) (A 4) ⟷ False"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq C C"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq (B 4 5) (B 4 5)"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq (B 4 4) (A 3) ⟷ False"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq C (A 4) ⟷ False"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span>
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* type with parameter *)</span></span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">derive_generic</span></span><span> </span><span>eq</span><span> </span><span>either</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq (L (3::nat)) (R 3) ⟷ False"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>code_simp</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq (L (3::nat)) (L 3)"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>code_simp</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq (L (3::nat)) (L 4) ⟷ False"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>code_simp</span><span>
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* recursive types *)</span></span></span></span></span><span>
+</span><span class="keyword1"><span class="command">derive_generic</span></span><span> </span><span>eq</span><span> </span><span>list</span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>goal_cases</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>1</span><span> </span><span>x</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>induction</span><span> </span><span>x</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>In</span><span> </span><span>y</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>      </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="delimiter">(</span><span>cases</span><span> </span><span>y</span><span class="delimiter">)</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Derive_Eq_Laws.eq_mulistF.simps</span><span> </span><span>eq_unit_def</span><span> </span><span>eq_class.refl</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>2</span><span> </span><span>x</span><span> </span><span>y</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>induction</span><span> </span><span>y</span><span> </span><span>arbitrary</span><span class="delimiter">:</span><span> </span><span>x</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>In</span><span> </span><span>y</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>      </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="delimiter">(</span><span>cases</span><span> </span><span>x</span><span class="delimiter">;</span><span> </span><span>cases</span><span> </span><span>y</span><span class="delimiter">;</span><span> </span><span>hypsubst_thin</span><span class="delimiter">)</span><span>
+</span><span>       </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Derive_Eq_Laws.eq_mulistF.simps</span><span> </span><span>sum.case_eq_if</span><span> </span><span>eq_unit_def</span><span class="delimiter">)</span><span>
+</span><span>       </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="delimiter">(</span><span>metis</span><span> </span><span>old.sum.simps</span><span class="delimiter">(</span><span>5</span><span class="delimiter">)</span><span class="delimiter">)</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>sum_set_defs</span><span> </span><span>prod_set_defs</span><span>
+</span><span>      </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Derive_Eq_Laws.eq_mulistF.simps</span><span> </span><span>sum.case_eq_if</span><span class="delimiter">)</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>eq_class.sym</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>fastforce</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span class="keyword1"><span class="command">next</span></span><span>      
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>3</span><span> </span><span>x</span><span> </span><span>y</span><span> </span><span>z</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>induction</span><span> </span><span>x</span><span> </span><span>arbitrary</span><span class="delimiter">:</span><span> </span><span>y</span><span> </span><span>z</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>In</span><span> </span><span>x'</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>      </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="delimiter">(</span><span>cases</span><span> </span><span>x'</span><span class="delimiter">)</span><span>
+</span><span>      </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>cases</span><span> </span><span>y</span><span class="delimiter">;</span><span> </span><span>cases</span><span> </span><span>z</span><span class="delimiter">;</span><span> </span><span>hypsubst_thin</span><span class="delimiter">)</span><span>
+</span><span>       </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Derive_Eq_Laws.eq_mulistF.simps</span><span> </span><span>sum.case_eq_if</span><span> </span><span>eq_unit_def</span><span class="delimiter">)</span><span>
+</span><span>       </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>metis</span><span> </span><span>sum.case_eq_if</span><span class="delimiter">)</span><span>
+</span><span>      </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="delimiter">(</span><span>cases</span><span> </span><span>y</span><span class="delimiter">;</span><span> </span><span>cases</span><span> </span><span>z</span><span class="delimiter">;</span><span> </span><span>hypsubst_thin</span><span class="delimiter">)</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>sum_set_defs</span><span> </span><span>prod_set_defs</span><span>
+</span><span>      </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Derive_Eq_Laws.eq_mulistF.simps</span><span> </span><span>eq_unit_def</span><span> </span><span>snds.intros</span><span class="delimiter">)</span><span>
+</span><span>      </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>only</span><span class="delimiter">:</span><span> </span><span>sum.case_eq_if</span><span class="delimiter">)</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>meson</span><span> </span><span>eq_class.trans</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq ([]::(nat list)) []"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq ([1,2,3]:: (nat list)) [1,2,3]"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq [(1::nat)] [1,2] ⟷ False"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">derive_generic</span></span><span> </span><span>eq</span><span> </span><span>tree</span><span> 
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>goal_cases</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>1</span><span> </span><span>x</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>induction</span><span> </span><span>x</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>In</span><span> </span><span>y</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>      </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="delimiter">(</span><span>cases</span><span> </span><span>y</span><span class="delimiter">)</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Derive_Eq_Laws.eq_mutreeF.simps</span><span> </span><span>eq_unit_def</span><span> </span><span>eq_class.refl</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>2</span><span> </span><span>x</span><span> </span><span>y</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>induction</span><span> </span><span>y</span><span> </span><span>arbitrary</span><span class="delimiter">:</span><span> </span><span>x</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>In</span><span> </span><span>y</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>      </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="delimiter">(</span><span>cases</span><span> </span><span>x</span><span class="delimiter">;</span><span> </span><span>cases</span><span> </span><span>y</span><span class="delimiter">;</span><span> </span><span>hypsubst_thin</span><span class="delimiter">)</span><span>
+</span><span>       </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Derive_Eq_Laws.eq_mutreeF.simps</span><span> </span><span>sum.case_eq_if</span><span> </span><span>eq_unit_def</span><span class="delimiter">)</span><span>
+</span><span>       </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="delimiter">(</span><span>metis</span><span> </span><span>old.sum.simps</span><span class="delimiter">(</span><span>5</span><span class="delimiter">)</span><span class="delimiter">)</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>sum_set_defs</span><span> </span><span>prod_set_defs</span><span>
+</span><span>      </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Derive_Eq_Laws.eq_mutreeF.simps</span><span> </span><span>sum.case_eq_if</span><span class="delimiter">)</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>eq_class.sym</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>fastforce</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span class="keyword1"><span class="command">next</span></span><span>      
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>3</span><span> </span><span>x</span><span> </span><span>y</span><span> </span><span>z</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>induction</span><span> </span><span>x</span><span> </span><span>arbitrary</span><span class="delimiter">:</span><span> </span><span>y</span><span> </span><span>z</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>In</span><span> </span><span>x'</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>      </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="delimiter">(</span><span>cases</span><span> </span><span>x'</span><span class="delimiter">)</span><span>
+</span><span>      </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>cases</span><span> </span><span>y</span><span class="delimiter">;</span><span> </span><span>cases</span><span> </span><span>z</span><span class="delimiter">;</span><span> </span><span>hypsubst_thin</span><span class="delimiter">)</span><span>
+</span><span>       </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Derive_Eq_Laws.eq_mutreeF.simps</span><span> </span><span>sum.case_eq_if</span><span> </span><span>eq_unit_def</span><span class="delimiter">)</span><span>
+</span><span>       </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>metis</span><span> </span><span>sum.case_eq_if</span><span class="delimiter">)</span><span>
+</span><span>      </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="delimiter">(</span><span>cases</span><span> </span><span>y</span><span class="delimiter">;</span><span> </span><span>cases</span><span> </span><span>z</span><span class="delimiter">;</span><span> </span><span>hypsubst_thin</span><span class="delimiter">)</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>sum_set_defs</span><span> </span><span>prod_set_defs</span><span>
+</span><span>      </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Derive_Eq_Laws.eq_mutreeF.simps</span><span> </span><span>eq_unit_def</span><span> </span><span>snds.intros</span><span class="delimiter">)</span><span>
+</span><span>      </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>only</span><span class="delimiter">:</span><span> </span><span>sum.case_eq_if</span><span class="delimiter">)</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>meson</span><span> </span><span>eq_class.trans</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq Leaf Leaf"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>code_simp</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq (Node (1::nat) Leaf Leaf) Leaf ⟷ False"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq (Node (1::nat) Leaf Leaf) (Node (1::nat) Leaf Leaf)"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"eq (Node (1::nat) (Node 2 Leaf Leaf) (Node 3 Leaf Leaf)) (Node (1::nat) (Node 2 Leaf Leaf) (Node 4 Leaf Leaf)) 
+    ⟷ False"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span></pre>
+</div>
+</div><div id="Derive_Algebra_Laws">
+<div class="head"><h1>Theory Derive_Algebra_Laws</h1>
+<span class="command">theory</span> <span class="name">Derive_Algebra_Laws</span><br/>
+<span class="keyword">imports</span> <a href="Derive.html"><span class="name">Derive</span></a> <a href="Derive_Datatypes.html"><span class="name">Derive_Datatypes</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Algebraic Classes"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Derive_Algebra_Laws</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>Main</span><span> </span><span class="string"><span class="delete"><span class="delete">"../Derive"</span></span></span><span> </span><span>Derive_Datatypes</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">datatype</span></span><span> </span><span>simple_int</span><span> </span><span class="delimiter">=</span><span> </span><span>A</span><span> </span><span>int</span><span> </span><span class="delimiter">|</span><span> </span><span>B</span><span> </span><span>int</span><span> </span><span>int</span><span> </span><span class="delimiter">|</span><span> </span><span>C</span><span> 
+</span><span>
+</span><span class="keyword1"><span class="command">class</span></span><span> </span><span>semigroup</span><span> </span><span class="delimiter">=</span><span> 
+</span><span>  </span><span class="keyword2"><span class="keyword">fixes</span></span><span> </span><span>mult</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a ⇒ 'a ⇒ 'a"</span></span></span><span> </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">infixl</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"⊗"</span></span></span><span> </span><span>70</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span>assoc</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"(x ⊗ y) ⊗ z = x ⊗ (y ⊗ z)"</span></span></span><span> 
+</span><span>
+</span><span class="keyword1"><span class="command">class</span></span><span> </span><span>monoidl</span><span> </span><span class="delimiter">=</span><span> </span><span>semigroup</span><span> </span><span class="delimiter">+</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">fixes</span></span><span> </span><span>neutral</span><span> </span><span class="delimiter">::</span><span> </span><span class="tfree">'a</span><span> </span><span class="delimiter">(</span><span class="string"><span class="delete"><span class="delete">"𝟭"</span></span></span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span>neutl</span><span> </span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"𝟭 ⊗ x = x"</span></span></span><span>   
+</span><span>  
+</span><span class="keyword1"><span class="command">class</span></span><span> </span><span>group</span><span> </span><span class="delimiter">=</span><span> </span><span>monoidl</span><span> </span><span class="delimiter">+</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">fixes</span></span><span> </span><span>inverse</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a ⇒ 'a"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span>invl</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"(inverse x) ⊗ x = 𝟭"</span></span></span><span> 
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>semigroup_law</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"('a ⇒ 'a ⇒ 'a) ⇒ bool"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span class="string"><span class="delete"><span class="delete">"semigroup_law MULT = (∀ x y z. MULT (MULT x y) z = MULT x (MULT y z))"</span></span></span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>monoidl_law</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a ⇒ ('a ⇒ 'a ⇒ 'a) ⇒ bool"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span class="string"><span class="delete"><span class="delete">"monoidl_law NEUTRAL MULT = ((∀ x. MULT NEUTRAL x = x) ∧ semigroup_law MULT)"</span></span></span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>group_law</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"('a ⇒ 'a) ⇒ 'a ⇒ ('a ⇒ 'a ⇒ 'a) ⇒ bool"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span class="string"><span class="delete"><span class="delete">"group_law INVERSE NEUTRAL MULT = ((∀ x. MULT (INVERSE x) x = NEUTRAL) ∧ monoidl_law NEUTRAL MULT)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>transfer_semigroup</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Derive.iso f g"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"semigroup_law MULT ⟹ semigroup_law (λx y. g (MULT (f x) (f y)))"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>semigroup_law_def</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>Derive.iso_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>transfer_monoidl</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Derive.iso f g"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"monoidl_law NEUTRAL MULT ⟹ monoidl_law (g NEUTRAL) (λx y. g (MULT (f x) (f y)))"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>monoidl_law_def</span><span> </span><span>semigroup_law_def</span><span> 
+</span><span>  </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>Derive.iso_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>transfer_group</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Derive.iso f g"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"group_law INVERSE NEUTRAL MULT ⟹ group_law (λ x. g (INVERSE (f x))) (g NEUTRAL) (λx y. g (MULT (f x) (f y)))"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>group_law_def</span><span> </span><span>monoidl_law_def</span><span> </span><span>semigroup_law_def</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>Derive.iso_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>semigroup_law_semigroup</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"semigroup_law mult"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>semigroup_law_def</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>semigroup_class.axioms</span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>class.semigroup_def</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>monoidl_law_monoidl</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"monoidl_law neutral mult"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>monoidl_law_def</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>monoidl_class.axioms</span><span> </span><span>semigroup_law_semigroup</span><span> 
+</span><span>  </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>class.monoidl_axioms_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>group_law_group</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"group_law inverse neutral mult"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>group_law_def</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>group_class.axioms</span><span> </span><span>monoidl_law_monoidl</span><span> 
+</span><span>  </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>class.group_axioms_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">derive_generic_setup</span></span><span> </span><span>semigroup</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>semigroup_class_law_def</span><span>
+</span><span>  </span><span>Derive.iso_def</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">derive_generic_setup</span></span><span> </span><span>monoidl</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>monoidl_class_law_def</span><span> </span><span>semigroup_class_law_def</span><span> </span><span>Derive.iso_def</span><span> 
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">derive_generic_setup</span></span><span> </span><span>group</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>group_class_law_def</span><span> </span><span>monoidl_class_law_def</span><span> </span><span>semigroup_class_law_def</span><span> </span><span>Derive.iso_def</span><span> 
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* Manual instances for int, unit, prod, and sum *)</span></span></span></span></span><span>    
+</span><span class="keyword1"><span class="command">instantiation</span></span><span> </span><span>int</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>unit</span><span class="delimiter">::</span><span> </span><span>semigroup</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>  
+</span><span>  </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>mult_int_def</span><span> </span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"mult (x::int) y = x + y"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>mult_unit_def</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"mult (x::unit) y = x"</span></span></span><span>
+</span><span class="keyword1"><span class="command">instance</span></span><span> </span><span class="keyword1"><span class="command">proof</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">fix</span></span><span> </span><span>x</span><span> </span><span>y</span><span> </span><span>z</span><span> </span><span class="delimiter">::</span><span> </span><span>int</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"x ⊗ y ⊗ z = x ⊗ (y ⊗ z)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>mult_int_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">fix</span></span><span> </span><span>x</span><span> </span><span>y</span><span> </span><span>z</span><span> </span><span class="delimiter">::</span><span> </span><span>unit</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"x ⊗ y ⊗ z = x ⊗ (y ⊗ z)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>mult_unit_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span> 
+</span><span class="keyword1"><span class="command">instantiation</span></span><span> </span><span>int</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>unit</span><span class="delimiter">::</span><span> </span><span>monoidl</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>  
+</span><span>  </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>neutral_int_def</span><span> </span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"neutral = (0::int)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>neutral_unit_def</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"neutral = ()"</span></span></span><span>
+</span><span class="keyword1"><span class="command">instance</span></span><span> </span><span class="keyword1"><span class="command">proof</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">fix</span></span><span> </span><span>x</span><span> </span><span class="delimiter">::</span><span> </span><span>int</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"𝟭 ⊗ x = x"</span></span></span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>neutral_int_def</span><span> </span><span>mult_int_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">fix</span></span><span> </span><span>x</span><span> </span><span class="delimiter">::</span><span> </span><span>unit</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"𝟭 ⊗ x = x"</span></span></span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>neutral_unit_def</span><span> </span><span>mult_unit_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>   
+</span><span>  
+</span><span class="keyword1"><span class="command">instantiation</span></span><span> </span><span>int</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>unit</span><span class="delimiter">::</span><span> </span><span>group</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>  
+</span><span>  </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>inverse_int_def</span><span> </span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"inverse (i::int) = 𝟭 - i"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>inverse_unit_def</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"inverse u = ()"</span></span></span><span>
+</span><span class="keyword1"><span class="command">instance</span></span><span> </span><span class="keyword1"><span class="command">proof</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">fix</span></span><span> </span><span>x</span><span> </span><span class="delimiter">::</span><span> </span><span>int</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"inverse x ⊗ x = 𝟭"</span></span></span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>inverse_int_def</span><span> </span><span>mult_int_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">fix</span></span><span> </span><span>x</span><span> </span><span class="delimiter">::</span><span> </span><span>unit</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"inverse x ⊗ x = 𝟭"</span></span></span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>inverse_unit_def</span><span> </span><span>mult_unit_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>   
+</span><span>
+</span><span class="keyword1"><span class="command">instantiation</span></span><span> </span><span>prod</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>sum</span><span> </span><span class="delimiter">::</span><span> </span><span class="delimiter">(</span><span>semigroup</span><span class="delimiter">,</span><span> </span><span>semigroup</span><span class="delimiter">)</span><span> </span><span>semigroup</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>mult_prod_def</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"x ⊗ y = (fst x ⊗ fst y, snd x ⊗ snd y)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>mult_sum_def</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"x ⊗ y = (case x of Inl a ⇒ (case y of Inl b ⇒ Inl (a ⊗ b) | Inr b ⇒ Inr b)
+                                             | Inr a ⇒ (case y of Inl b ⇒ Inr a | Inr b ⇒ Inr (a ⊗ b)))"</span></span></span><span>
+</span><span class="keyword1"><span class="command">instance</span></span><span> </span><span class="keyword1"><span class="command">proof</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">fix</span></span><span> </span><span>x</span><span> </span><span>y</span><span> </span><span>z</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"('a::semigroup) × ('b::semigroup)"</span></span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"x ⊗ y ⊗ z = x ⊗ (y ⊗ z)"</span></span></span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>mult_prod_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>assoc</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">fix</span></span><span> </span><span>x</span><span> </span><span>y</span><span> </span><span>z</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"('a::semigroup) + ('b::semigroup)"</span></span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"x ⊗ y ⊗ z = x ⊗ (y ⊗ z)"</span></span></span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>mult_sum_def</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>assoc</span><span> </span><span>sum.case_eq_if</span><span class="delimiter">)</span><span> 
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>  
+</span><span class="keyword1"><span class="command">instantiation</span></span><span> </span><span>prod</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>sum</span><span> </span><span class="delimiter">::</span><span> </span><span class="delimiter">(</span><span>monoidl</span><span class="delimiter">,</span><span> </span><span>monoidl</span><span class="delimiter">)</span><span> </span><span>monoidl</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>neutral_prod_def</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"neutral = (neutral,neutral)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>neutral_sum_def</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"neutral = Inl neutral"</span></span></span><span>
+</span><span class="keyword1"><span class="command">instance</span></span><span> </span><span class="keyword1"><span class="command">proof</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">fix</span></span><span> </span><span>x</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"('a::monoidl) × ('b::monoidl)"</span></span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"𝟭 ⊗ x = x"</span></span></span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>neutral_prod_def</span><span> </span><span>mult_prod_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>neutl</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">fix</span></span><span> </span><span>x</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"('a::monoidl) + ('b::monoidl)"</span></span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"𝟭 ⊗ x = x"</span></span></span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>neutral_sum_def</span><span> </span><span>mult_sum_def</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>neutl</span><span> </span><span>sum.case_eq_if</span><span> </span><span>sum.exhaust_sel</span><span class="delimiter">)</span><span> 
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span> 
+</span><span>  
+</span><span class="keyword1"><span class="command">instantiation</span></span><span> </span><span>prod</span><span> </span><span class="delimiter">::</span><span> </span><span class="delimiter">(</span><span>group</span><span class="delimiter">,</span><span> </span><span>group</span><span class="delimiter">)</span><span> </span><span>group</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>inverse_prod_def</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"inverse p = (inverse (fst p), inverse (snd p))"</span></span></span><span>
+</span><span class="keyword1"><span class="command">instance</span></span><span> </span><span class="keyword1"><span class="command">proof</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">fix</span></span><span> </span><span>x</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"('a::group) × ('b::group)"</span></span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"inverse x ⊗ x = 𝟭"</span></span></span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>inverse_prod_def</span><span> </span><span>mult_prod_def</span><span> </span><span>neutral_prod_def</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>invl</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">derive_generic</span></span><span> </span><span>semigroup</span><span> </span><span>simple_int</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span class="keyword1"><span class="command">derive_generic</span></span><span> </span><span>monoidl</span><span> </span><span>simple_int</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">derive_generic</span></span><span> </span><span>semigroup</span><span> </span><span>either</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span class="keyword1"><span class="command">derive_generic</span></span><span> </span><span>monoidl</span><span> </span><span>either</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"(B 𝟭 6) ⊗ (B 4 5) = B 4 11"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"(A 2) ⊗ (A 3) = A 5"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"(B 𝟭 6) ⊗ 𝟭 = B 0 6"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"(L 3) ⊗ ((L 4)::(int,int) either) = L 7"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"(R (2::int)) ⊗ (L (3::int)) = R 2"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">derive_generic</span></span><span> </span><span>semigroup</span><span> </span><span>list</span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>goal_cases</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>1</span><span> </span><span>x</span><span> </span><span>y</span><span> </span><span>z</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>induction</span><span> </span><span>x</span><span> </span><span>arbitrary</span><span class="delimiter">:</span><span> </span><span>y</span><span> </span><span>z</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>In</span><span> </span><span>x'</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>      </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="delimiter">(</span><span>cases</span><span> </span><span>x'</span><span class="delimiter">)</span><span>
+</span><span>      </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>cases</span><span> </span><span>y</span><span class="delimiter">;</span><span> </span><span>cases</span><span> </span><span>z</span><span class="delimiter">;</span><span> </span><span>hypsubst_thin</span><span class="delimiter">)</span><span>
+</span><span>       </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Derive_Algebra_Laws.mult_mulistF.simps</span><span> </span><span>sum.case_eq_if</span><span> </span><span>mult_unit_def</span><span class="delimiter">)</span><span>
+</span><span>      </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="delimiter">(</span><span>cases</span><span> </span><span>y</span><span class="delimiter">;</span><span> </span><span>cases</span><span> </span><span>z</span><span class="delimiter">;</span><span> </span><span>hypsubst_thin</span><span class="delimiter">)</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>sum_set_defs</span><span> </span><span>prod_set_defs</span><span>
+</span><span>      </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Derive_Algebra_Laws.mult_mulistF.simps</span><span> </span><span>mult_unit_def</span><span class="delimiter">)</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>sum.case_eq_if</span><span> </span><span>assoc</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>    
+</span><span>
+</span><span class="keyword1"><span class="command">derive_generic</span></span><span> </span><span>semigroup</span><span> </span><span>tree</span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>goal_cases</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>1</span><span> </span><span>x</span><span> </span><span>y</span><span> </span><span>z</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>induction</span><span> </span><span>x</span><span> </span><span>arbitrary</span><span class="delimiter">:</span><span> </span><span>y</span><span> </span><span>z</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>In</span><span> </span><span>x'</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>      </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="delimiter">(</span><span>cases</span><span> </span><span>x'</span><span class="delimiter">)</span><span>
+</span><span>      </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>cases</span><span> </span><span>y</span><span class="delimiter">;</span><span> </span><span>cases</span><span> </span><span>z</span><span class="delimiter">;</span><span> </span><span>hypsubst_thin</span><span class="delimiter">)</span><span>
+</span><span>       </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Derive_Algebra_Laws.mult_mutreeF.simps</span><span> </span><span>sum.case_eq_if</span><span> </span><span>mult_unit_def</span><span class="delimiter">)</span><span>
+</span><span>      </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="delimiter">(</span><span>cases</span><span> </span><span>y</span><span class="delimiter">;</span><span> </span><span>cases</span><span> </span><span>z</span><span class="delimiter">;</span><span> </span><span>hypsubst_thin</span><span class="delimiter">)</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>sum_set_defs</span><span> </span><span>prod_set_defs</span><span>
+</span><span>      </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Derive_Algebra_Laws.mult_mutreeF.simps</span><span> </span><span>mult_unit_def</span><span class="delimiter">)</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>semigroup_class.assoc</span><span> </span><span>sum.case_eq_if</span><span class="delimiter">)</span><span> 
+</span><span>  </span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">derive_generic</span></span><span> </span><span>monoidl</span><span> </span><span>list</span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>goal_cases</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>1</span><span> </span><span>x</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>induction</span><span> </span><span>x</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>In</span><span> </span><span>x'</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>      </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="delimiter">(</span><span>cases</span><span> </span><span>x'</span><span class="delimiter">)</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Derive_Algebra_Laws.neutral_mulistF_def</span><span> </span><span>sum.case_eq_if</span><span> </span><span>neutral_unit_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">derive_generic</span></span><span> </span><span>monoidl</span><span> </span><span>tree</span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>goal_cases</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>1</span><span> </span><span>x</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>induction</span><span> </span><span>x</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>In</span><span> </span><span>x'</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>      </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="delimiter">(</span><span>cases</span><span> </span><span>x'</span><span class="delimiter">)</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Derive_Algebra_Laws.neutral_mutreeF_def</span><span> </span><span>sum.case_eq_if</span><span> </span><span>neutral_unit_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"[1,2,3,4::int] ⊗ [1,2,3] = [2,4,6,4]"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"(Node (3::int) Leaf Leaf) ⊗ (Node (1::int) Leaf Leaf) = (Node 4 Leaf Leaf)"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>eval</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span></pre>
+</div>
+</div>
+  
 </main>
     </div>
   </div>

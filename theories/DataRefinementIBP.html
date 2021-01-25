@@ -1,0 +1,918 @@
+<div id="Preliminaries">
+<div class="head"><h1>Theory Preliminaries</h1>
+<span class="command">theory</span> <span class="name">Preliminaries</span><br/>
+<span class="keyword">imports</span> <a href="Complete_Lattice_Prop.html"><span class="name">Complete_Lattice_Prop</span></a> <a href="Conj_Disj.html"><span class="name">Conj_Disj</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Preliminaries›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Preliminaries</span><span>
+</span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>Main</span><span> </span><span>LatticeProperties.Complete_Lattice_Prop</span><span> 
+</span><span>  </span><span>LatticeProperties.Conj_Disj</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">notation</span></span><span>
+</span><span>  </span><span>less_eq</span><span> </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">infix</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"⊑"</span></span></span><span> </span><span>50</span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span>
+</span><span>  </span><span>less</span><span> </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">infix</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"⊏"</span></span></span><span> </span><span>50</span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span>
+</span><span>  </span><span>inf</span><span> </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">infixl</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"⊓"</span></span></span><span> </span><span>70</span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span>
+</span><span>  </span><span>sup</span><span> </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">infixl</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"⊔"</span></span></span><span> </span><span>65</span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span>
+</span><span>  </span><span>top</span><span> </span><span class="delimiter">(</span><span class="string"><span class="delete"><span class="delete">"⊤"</span></span></span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span>
+</span><span>  </span><span>bot</span><span> </span><span class="delimiter">(</span><span class="string"><span class="delete"><span class="delete">"⊥"</span></span></span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span>
+</span><span>  </span><span>Inf</span><span> </span><span class="delimiter">(</span><span class="string"><span class="delete"><span class="delete">"⨅_"</span></span></span><span> </span><span class="delimiter">[</span><span>900</span><span class="delimiter">]</span><span> </span><span>900</span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span>
+</span><span>  </span><span>Sup</span><span> </span><span class="delimiter">(</span><span class="string"><span class="delete"><span class="delete">"⨆_"</span></span></span><span> </span><span class="delimiter">[</span><span>900</span><span class="delimiter">]</span><span> </span><span>900</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Simplification Lemmas›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">declare</span></span><span> </span><span>fun_upd_idem</span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>simp_eq_emptyset</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"(X = {}) = (∀ x. x ∉ X)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>mono_comp</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"mono f ⟹ mono g ⟹ mono (f o g)"</span></span></span><span> 
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>unfold</span><span> </span><span>mono_def</span><span class="delimiter">)</span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Some lattice simplification rules›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>inf_bot_bot</span><span class="delimiter">:</span><span> </span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* FIXME *)</span></span></span></span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"(x::'a::{semilattice_inf,order_bot}) ⊓ ⊥ = ⊥"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>antisym</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div><div id="Statements">
+<div class="head"><h1>Theory Statements</h1>
+<span class="command">theory</span> <span class="name">Statements</span><br/>
+<span class="keyword">imports</span> <a href="Preliminaries.html"><span class="name">Preliminaries</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Program Statements as Predicate Transformers›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Statements</span><span>
+</span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>Preliminaries</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  Program statements are modeled as predicate transformers, functions from predicates to predicates.
+  If $\mathit{State}$ is the type of program states, then a program $S$ is a a function from 
+  $\mathit{State}\ \mathit{set}$ to
+  $\mathit{State}\ \mathit{set}$. If $q \in \mathit{State}\ \mathit{set}$, then the elements of 
+  $S\ q$ are the initial states from which
+  $S$ is guarantied to terminate in a state from $q$.
+
+  However, most of the time we will work with an arbitrary compleate lattice, or an arbitrary boolean algebra
+  instead of the complete boolean algebra of predicate transformers. 
+
+  We will introduce in this section assert, assume, demonic choice, angelic choice, demonic update, and 
+  angelic update statements. We will prove also that these statements are monotonic.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>mono_top</span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"mono top"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>mono_def</span><span> </span><span>top_fun_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>mono_choice</span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"mono S ⟹ mono T ⟹ mono (S ⊓ T)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>mono_def</span><span> </span><span>inf_fun_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>safe</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule_tac</span><span> </span><span>y</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"S x"</span></span></span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>order_trans</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>simp_all</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule_tac</span><span> </span><span>y</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"T x"</span></span></span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>order_trans</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp_all</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Assert statement"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+The assert statement of a predicate $p$ when executed from a state $s$ fails
+if $s\not\in p$ and behaves as skip otherwise.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span>
+</span><span>  </span><span>assert</span><span class="delimiter">::</span><span class="string"><span class="delete"><span class="delete">"'a::semilattice_inf ⇒ 'a ⇒ 'a"</span></span></span><span> </span><span class="delimiter">(</span><span class="string"><span class="delete"><span class="delete">"{. _ .}"</span></span></span><span> </span><span class="delimiter">[</span><span>0</span><span class="delimiter">]</span><span> </span><span>1000</span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"{.p.} q ≡  p ⊓ q"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>mono_assert</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"mono {.p.}"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>assert_def</span><span> </span><span>mono_def</span><span class="delimiter">,</span><span> </span><span>safe</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule_tac</span><span> </span><span>y</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"x"</span></span></span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>order_trans</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp_all</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Assume statement"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+The assume statement of a predicate $p$ when executed from a state $s$ is not enabled
+if $s\not\in p$ and behaves as skip otherwise.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"assume"</span></span></span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a::boolean_algebra ⇒ 'a ⇒ 'a"</span></span></span><span> </span><span class="delimiter">(</span><span class="string"><span class="delete"><span class="delete">"[. _ .]"</span></span></span><span> </span><span class="delimiter">[</span><span>0</span><span class="delimiter">]</span><span> </span><span>1000</span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"[. p .] q ≡  -p ⊔ q"</span></span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>mono_assume</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"mono (assume P)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>assume_def</span><span> </span><span>mono_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>safe</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule_tac</span><span> </span><span>y</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"y"</span></span></span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>order_trans</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp_all</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Demonic update statement"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+The demonic update statement of a relation $Q: \mathit{State} \to \mathit{Sate} \to bool$,
+when executed in a state $s$ computes nondeterministically a new state $s'$ such 
+$Q\ s \ s'$ is true. In order for this statement to be correct all
+possible choices of $s'$ should be correct. If there is no state $s'$
+such that $Q\ s \ s'$, then the demonic update of $Q$ is not enabled
+in $s$.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span>
+</span><span>  </span><span>demonic</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"('a ⇒ 'b::ord) ⇒ 'b::ord ⇒ 'a set"</span></span></span><span> </span><span class="delimiter">(</span><span class="string"><span class="delete"><span class="delete">"[: _ :]"</span></span></span><span> </span><span class="delimiter">[</span><span>0</span><span class="delimiter">]</span><span> </span><span>1000</span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"[:Q:] p = {s . Q s ≤ p}"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>mono_demonic</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"mono [:Q:]"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>mono_def</span><span> </span><span>demonic_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>demonic_bottom</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"[:R:] (⊥::('a::order_bot)) = {s . (R s) = ⊥}"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>unfold</span><span> </span><span>demonic_def</span><span class="delimiter">,</span><span> </span><span>safe</span><span class="delimiter">,</span><span> </span><span>simp_all</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>antisym</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>demonic_bottom_top</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"[:(⊥::_::order_bot):]  = ⊤"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>fun_eq_iff</span><span> </span><span>inf_fun_def</span><span> </span><span>sup_fun_def</span><span> </span><span>demonic_def</span><span> </span><span>top_fun_def</span><span> </span><span>bot_fun_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>demonic_sup_inf</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"[:Q ⊔ Q':] = [:Q:] ⊓ [:Q':]"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>fun_eq_iff</span><span> </span><span>sup_fun_def</span><span> </span><span>inf_fun_def</span><span> </span><span>demonic_def</span><span class="delimiter">,</span><span> </span><span>blast</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Angelic update statement"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+The angelic update statement of a relation $Q: \mathit{State} \to \mathit{State} \to \mathit{bool}$ is similar
+to the demonic version, except that it is enough that at least for one choice $s'$, $Q \ s \ s'$
+is correct. If there is no state $s'$
+such that $Q\ s \ s'$, then the angelic update of $Q$ fails in $s$.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span>
+</span><span>  </span><span>angelic</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"('a ⇒ 'b::{semilattice_inf,order_bot}) ⇒ 'b ⇒ 'a set"</span></span></span><span> 
+</span><span>               </span><span class="delimiter">(</span><span class="string"><span class="delete"><span class="delete">"{: _ :}"</span></span></span><span> </span><span class="delimiter">[</span><span>0</span><span class="delimiter">]</span><span> </span><span>1000</span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"{:Q:} p = {s . (Q s) ⊓ p ≠ ⊥}"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">syntax</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"_update"</span></span></span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"patterns =&gt; patterns =&gt; logic =&gt; logic"</span></span></span><span> </span><span class="delimiter">(</span><span class="string"><span class="delete"><span class="delete">"_ ↝ _ . _"</span></span></span><span> </span><span>0</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">translations</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"_update (_patterns x xs) (_patterns y ys) t"</span></span></span><span> </span><span class="delimiter">==</span><span> </span><span class="string"><span class="delete"><span class="delete">"CONST id (_abs
+           (_pattern x xs) (_Coll (_pattern y ys) t))"</span></span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"_update x y t"</span></span></span><span> </span><span class="delimiter">==</span><span> </span><span class="string"><span class="delete"><span class="delete">"CONST id (_abs x (_Coll y t))"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">term</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"{: y, z ↝ x, z' . P x y z z' :}"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>angelic_bottom</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"angelic R ⊥  = {}"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>angelic_def</span><span> </span><span>inf_bot_bot</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>angelic_disjunctive</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"{:(R::('a ⇒ 'b::complete_distrib_lattice)):} ∈ Apply.Disjunctive"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Apply.Disjunctive_def</span><span> </span><span>angelic_def</span><span> </span><span>inf_Sup</span><span class="delimiter">,</span><span> </span><span>blast</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"The guard of a statement"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+The guard of a statement $S$ is the set of iniatial states from which $S$
+is enabled or fails.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"((grd S)::'a::boolean_algebra) = - (S bot)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>grd_choice</span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"grd (S ⊓ T) = (grd S) ⊔ (grd T)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>grd_def</span><span> </span><span>inf_fun_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>grd_demonic</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"grd [:Q:] = {s . ∃ s' . s' ∈ (Q s) }"</span></span></span><span> 
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>grd_def</span><span> </span><span>demonic_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>grd_demonic_2</span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"(s ∉ grd [:Q:]) = (∀ s' . s' ∉  (Q s))"</span></span></span><span> 
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>grd_demonic</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>grd_angelic</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"grd {:R:} = UNIV"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>grd_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div><div id="Hoare">
+<div class="head"><h1>Theory Hoare</h1>
+<span class="command">theory</span> <span class="name">Hoare</span><br/>
+<span class="keyword">imports</span> <a href="Statements.html"><span class="name">Statements</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Hoare Triples›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Hoare</span><span>
+</span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>Statements</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+A hoare triple for $p,q\in \mathit{State}\ \mathit{set}$, and 
+$S : \mathit{State}\ \mathit{set} \to \mathit{State}\ \mathit{set}$ is valid,
+denoted $\models p \{|S|\} q$, if every execution of $S$ starting from state $s\in p$
+always terminates, and if it terminates in state $s'$, then $s'\in q$. When $S$ is
+modeled as a predicate transformer, this definition is equivalent to requiring that
+$p$ is a subset of the initial states from which the execution of $S$ is guaranteed
+to terminate in $q$, that is $p \subseteq S\ q$.
+
+The formal definition of a valid hoare triple only assumes that $p$ (and also $S\ q$) ranges
+over a complete lattice.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span>
+</span><span>  </span><span>Hoare</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a::complete_distrib_lattice ⇒ ('b ⇒ 'a) ⇒ 'b ⇒ bool"</span></span></span><span> </span><span class="delimiter">(</span><span class="string"><span class="delete"><span class="delete">"⊨ (_){| _ |}(_)"</span></span></span><span> </span><span class="delimiter">[</span><span>0</span><span class="delimiter">,</span><span>0</span><span class="delimiter">,</span><span>900</span><span class="delimiter">]</span><span> </span><span>900</span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"⊨ p {|S|} q = (p ≤ (S q))"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>hoare_sequential</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"mono S ⟹ (⊨ p {| S o T |} r) = ( (∃ q. ⊨ p {| S |} q ∧ ⊨ q {| T |} r))"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>metis</span><span> </span><span class="delimiter">(</span><span>no_types</span><span class="delimiter">)</span><span> </span><span>Hoare_def</span><span> </span><span>monoD</span><span> </span><span>o_def</span><span> </span><span>order_refl</span><span> </span><span>order_trans</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>hoare_choice</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"⊨ p {| S ⊓ T |} q = (⊨ p {| S |} q ∧ ⊨ p {| T |} q)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Hoare_def</span><span> </span><span>inf_fun_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>hoare_assume</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"(⊨ P {| [.R.] |} Q) = (P ⊓ R ≤ Q)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Hoare_def</span><span> </span><span>assume_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>safe</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>case_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"(inf P R) ≤ (inf (sup (- R) Q) R)"</span></span></span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>inf_sup_distrib2</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>le_infI1</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>case_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"(sup (-R) (inf P R)) ≤ sup (- R) Q"</span></span></span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>sup_inf_distrib1</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>le_supI2</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>hoare_mono</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"mono S ⟹ Q ≤ R ⟹ ⊨ P {| S |} Q ⟹ ⊨ P {| S |} R"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>mono_def</span><span> </span><span>Hoare_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule_tac</span><span> </span><span>y</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"S Q"</span></span></span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>order_trans</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>hoare_pre</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"R ≤ P ⟹ ⊨ P {| S |} Q ⟹ ⊨ R {| S |} Q"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Hoare_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>hoare_Sup</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"(∀ p ∈ P . ⊨ p {| S |} q) = ⊨ Sup P {| S |} q"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Hoare_def</span><span class="delimiter">,</span><span> </span><span>safe</span><span class="delimiter">,</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Sup_least</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule_tac</span><span> </span><span>y</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"⨆P"</span></span></span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>order_trans</span><span class="delimiter">,</span><span> </span><span>simp_all</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Sup_upper</span><span class="delimiter">)</span><span>
+</span><span>  
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>hoare_magic</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"⊨ P {| ⊤ |} Q"</span></span></span><span> 
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Hoare_def</span><span> </span><span>top_fun_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>hoare_demonic</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"⊨ P {| [:R:] |} Q = (∀ s . s ∈ P ⟶  R s ⊆ Q)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>unfold</span><span> </span><span>Hoare_def</span><span> </span><span>demonic_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>hoare_not_guard</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"mono (S :: (_::order_bot) ⇒ _) ⟹ ⊨ p {| S |} q = ⊨ (p ⊔ (- grd S)) {| S |} q"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Hoare_def</span><span> </span><span>grd_def</span><span class="delimiter">,</span><span> </span><span>safe</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>drule</span><span> </span><span>monoD</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Hoare rule for recursive statements›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+A statement $S$ is refined by another statement $S'$ if $\models p \{| S' |\} q$ 
+is true for all $p$ and $q$ such that  $\models p \{| S |\} q$ is true. This
+is equivalent to $S \le S'$. 
+
+Next theorem can be used to prove refinement of a recursive program. A recursive
+program is modeled as the least fixpoint of a monotonic mapping from predicate
+transformers to predicate transformers.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>lfp_wf_induction</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"mono f ⟹ (∀ w . (p w) ≤ f (Sup_less p w)) ⟹ Sup (range p) ≤ lfp f"</span></span></span><span>
+</span><span> </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>fp_wf_induction</span><span class="delimiter">,</span><span> </span><span>simp_all</span><span class="delimiter">)</span><span>
+</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>drule</span><span> </span><span>lfp_unfold</span><span class="delimiter">,</span><span> </span><span>simp</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"post_fun (p::'a::order) q = (if p ≤ q then ⊤ else ⊥)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>post_mono</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"mono (post_fun p :: (_::{order_bot,order_top}))"</span></span></span><span>
+</span><span>   </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>post_fun_def</span><span>  </span><span>mono_def</span><span class="delimiter">,</span><span> </span><span>safe</span><span class="delimiter">)</span><span>
+</span><span>   </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>subgoal_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"p ≤ y"</span></span></span><span class="delimiter">,</span><span> </span><span>simp</span><span class="delimiter">)</span><span>
+</span><span>   </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule_tac</span><span> </span><span>y</span><span> </span><span class="delimiter">=</span><span> </span><span>x</span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>order_trans</span><span class="delimiter">,</span><span> </span><span>simp_all</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>post_top</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"post_fun p p = ⊤"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>post_fun_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>post_refin</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"mono S ⟹ ((S p)::'a::bounded_lattice) ⊓ (post_fun p) x ≤ S x"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>le_fun_def</span><span> </span><span>post_fun_def</span><span class="delimiter">,</span><span> </span><span>safe</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule_tac</span><span> </span><span>f</span><span> </span><span class="delimiter">=</span><span> </span><span>S</span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>monoD</span><span class="delimiter">,</span><span> </span><span>simp_all</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+Next theorem shows the equivalence between the validity of Hoare
+triples and refinement statements. This theorem together with the
+theorem for refinement of recursive programs will be used to prove
+a Hoare rule for recursive programs.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>hoare_refinement_post</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"mono f ⟹  (⊨ x {| f |} y) = ({.x.} o (post_fun y) ≤ f)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>safe</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Hoare_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>le_fun_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>assert_def</span><span class="delimiter">,</span><span> </span><span>safe</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule_tac</span><span> </span><span>y</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"f y ⊓ post_fun y xa"</span></span></span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>order_trans</span><span class="delimiter">,</span><span> </span><span>simp_all</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule_tac</span><span> </span><span>y</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"x"</span></span></span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>order_trans</span><span class="delimiter">,</span><span> </span><span>simp_all</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>assert_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>drule_tac</span><span> </span><span>x</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"y"</span></span></span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>spec</span><span class="delimiter">,</span><span> </span><span>simp</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+Next theorem gives a Hoare rule for recursive programs. If we can prove correct the unfolding 
+of the recursive definition applid to a program $f$, $\models p\ w\ \{| F\  f |\}\  y$, assumming
+that $f$ is correct when starting from $p\  v$, $v&lt;w$, $\models SUP-L\  p\  w\  \{| f |\}\  y$, then
+the recursive program is correct $\models SUP\ p\ \{| lfp\  F |\}\  y$
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>assert_Sup</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"{.⨆ (X::'a::complete_distrib_lattice set).} = ⨆ (assert ` X)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>fun_eq_iff</span><span> </span><span>assert_def</span><span> </span><span>Sup_inf</span><span> </span><span>image_comp</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>assert_Sup_range</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"{.⨆ (range (p::'W ⇒ 'a::complete_distrib_lattice)).} = ⨆ (range (assert o p))"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>fun_eq_iff</span><span> </span><span>assert_def</span><span> </span><span>SUP_inf</span><span> </span><span>image_comp</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Sup_range_comp</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"(⨆ range p) o S = ⨆ (range (λ w . ((p w) o S)))"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>fun_eq_iff</span><span> </span><span>image_comp</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Sup_less_comp</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"(Sup_less P) w o S = Sup_less (λ w . ((P w) o S)) w"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Sup_less_def</span><span> </span><span>fun_eq_iff</span><span class="delimiter">,</span><span> </span><span>safe</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>subgoal_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"((λf. f (S x)) ` {y. ∃v&lt;w. ∀x. y x = P v x}) = ((λf. f x) ` {y. ∃v&lt;w. ∀x. y x = P v (S x)})"</span></span></span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>cong</span><span> </span><span>del</span><span class="delimiter">:</span><span> </span><span>SUP_cong_simp</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Sup_less_assert</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"Sup_less (λw. {. (p w)::'a::complete_distrib_lattice .}) w = {.Sup_less p w.}"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Sup_less_def</span><span> </span><span>assert_Sup</span><span> </span><span>image_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>subgoal_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"{y. ∃v&lt;w. y = {. p v .}} = {y. ∃x. (∃v&lt;w. x = p v) ∧ y = {. x .}}"</span></span></span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>image_def</span><span> </span><span>cong</span><span> </span><span>del</span><span class="delimiter">:</span><span> </span><span>SUP_cong_simp</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">declare</span></span><span> </span><span>mono_comp</span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>hoare_fixpoint</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"mono_mono F ⟹
+   (!! w f . mono f ∧ ⊨ Sup_less p w {| f |} y ⟹ ⊨ p w {| F f |} y) ⟹ ⊨ (Sup (range p)) {| lfp F |} y"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>mono_mono_def</span><span> </span><span>hoare_refinement_post</span><span> </span><span>assert_Sup_range</span><span> </span><span>Sup_range_comp</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>lfp_wf_induction</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>auto</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Sup_less_comp</span><span> </span><span class="delimiter">[</span><span>THEN</span><span> </span><span>sym</span><span class="delimiter">]</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Sup_less_assert</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>drule_tac</span><span> </span><span>x</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"{. Sup_less p w .} ∘ post_fun y"</span></span></span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>spec</span><span class="delimiter">,</span><span> </span><span>safe</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>simp</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>hoare_refinement_post</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"(∀ t . ⊨ ({s . t ∈ R s}) {|S|} q) ⟹ ⊨ ({:R:} p) {| S |} q"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Hoare_def</span><span> </span><span>angelic_def</span><span> </span><span>subset_eq</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div><div id="Diagram">
+<div class="head"><h1>Theory Diagram</h1>
+<span class="command">theory</span> <span class="name">Diagram</span><br/>
+<span class="keyword">imports</span> <a href="Hoare.html"><span class="name">Hoare</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Predicate Transformers Semantics of Invariant Diagrams›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Diagram</span><span>
+</span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>Hoare</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+This theory introduces the concept of a transition diagram and proves
+a number of Hoare total corectness rules for these diagrams. As before
+the diagrams are introduced using their predicate transformer semantics.
+
+A transition diagram $D$ is a function from pairs of indexes to predicate
+transformers: $D:I\times I \to (\mathit{State}\ \mathit{set}\to \mathit{State}\ \mathit{set})$, or more
+general $D:I\times I \to \mathit{Ptran}$, where $\mathit{Ptran}$ is a complete lattice. The elements
+of $I$ are called situations and intuitively a diagram is executed starting
+in a situation $i\in I$ by choosing a transition $D (i,j)$ which is enabled
+and continuing similarly from $j$ if there are enabled trasitions. The 
+execution of a diagram stops when there are no more transitions enabled or
+when it fails.
+
+The semantics of a transition diagram is an indexed predicate transformer 
+($I\to \mathit{State}\ \mathit{set}$).
+If $Q:I\to \mathit{State}\ \mathit{set}$ is an indexed predicate, then $p = \mathit{pt}\ D\ Q\ i$ is a
+weakest predicate such that if the executution of $D$ starts in a state
+$s\in p$ from situation $i$, then it terminates, and if it terminates
+in situation $j$ and state $s'$, then $s'\in Q \  j$.
+
+We introduce first the indexed predicate transformer $\mathit{step}\ D$ of executing
+one step of diagram $D$. The predicate $step\ D\ Q\ i$ is true for those
+states $s$ from which the execution of one step of $D$ starting in situation 
+$i$ ends in one of the situations $j$ such that $Q \, j$ is true.
+
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"step D Q i = (INF j . D (i, j) (Q j) :: _ :: complete_lattice)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"dmono D = (∀ ij . mono (D ij))"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>dmono_mono</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"dmono D ⟹ mono (D ij)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>dmono_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>mono_step</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"dmono D ⟹ mono (step D)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>dmono_def</span><span> </span><span>mono_def</span><span> </span><span>le_fun_def</span><span> </span><span>step_def</span><span> </span><span>Inf_fun_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>auto</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>INF_greatest</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>auto</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule_tac</span><span> </span><span>y</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"D(xa, j) (x j)"</span></span></span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>order_trans</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>auto</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>INF_lower</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+The indexed predicate transformer of a transition diagram is defined as the least
+fixpoint of the unfolding of the execution of the diagram. The indexed predicate
+transformer $dgr\ D\ U$ is the choice between executing one step of $D$ follwed by
+$U$ ($(\mathit{step}\ D)\circ U$) or skip if no transion of $D$ is enabled 
+($\mathit{assume}\ \neg \mathit{grd} (\mathit{step}\ D)$).
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"dgr D U = ((step D) o U) ⊓ [.-(grd (step D)).]"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>mono_mono_dgr</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"dmono D ⟹ mono_mono (dgr D)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>mono_mono_def</span><span> </span><span>mono_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>safe</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>dgr_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>le_fun_def</span><span> </span><span>inf_fun_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>safe</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule_tac</span><span> </span><span>y</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"(step D (x xa) xb)"</span></span></span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>order_trans</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>simp_all</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>case_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"mono (step D)"</span></span></span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>mono_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>le_fun_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>simp</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule_tac</span><span> </span><span>y</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"(step D (f x) xa)"</span></span></span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>order_trans</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>simp_all</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>case_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"mono (step D)"</span></span></span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>mono_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>le_fun_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule_tac</span><span> </span><span>y</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"(assume (- grd (step D)) x xa)"</span></span></span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>order_trans</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>simp_all</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>case_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"mono (assume (- grd (step D)))"</span></span></span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>mono_def</span><span> </span><span>le_fun_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"pt D = lfp (dgr D)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+If $U$ is an indexed predicate transformer and if $P, Q:I\to \mathit{State} \ \mathit{set}$
+are indexed predicates, then the meaning of the Hoare triple defined earlier,
+$\models P \{ | U | \} Q$, is that if
+we start $U$ in a state $s$ from a situation $i$ such that $s\in P\, i$,
+then U terminates, and if it terminates in $s'$ and situation $j$, then
+$s'\in Q\ j$ is true.
+
+Next theorem shows that in a diagram all transitions are correct
+if and only if $\mathit{step}\ D$ is correct.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>hoare_step</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"(∀ i j . ⊨ (P i) {| D(i,j) |} (Q j) ) = (⊨ P {| step D |} Q)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>safe</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>le_fun_def</span><span> </span><span>Hoare_def</span><span> </span><span>step_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>safe</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>INF_greatest</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>auto</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>le_fun_def</span><span> </span><span>Hoare_def</span><span> </span><span>step_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>erule_tac</span><span> </span><span>x</span><span> </span><span class="delimiter">=</span><span> </span><span>i</span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>allE</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule_tac</span><span> </span><span>y</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"INF j. D(i, j) (Q j)"</span></span></span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>order_trans</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>auto</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>INF_lower</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+Next theorem provides the first proof rule for total correctnes of transition
+diagrams. If all transitions are correct and if a global variant decreases 
+on every transition then the diagram is correct and it terminates. The variant
+must decrease according to a well founded and transitive relation.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>hoare_diagram</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"dmono D ⟹ (∀ w i j . ⊨ X w i  {| D(i,j) |} Sup_less X w j) ⟹ 
+    ⊨ (Sup (range X)) {| pt D |} (Sup(range X) ⊓ -(grd (step D)))"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>hoare_step</span><span> </span><span>pt_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>hoare_fixpoint</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>auto</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>dgr_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>hoare_choice</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>safe</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>hoare_sequential</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>auto</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>hoare_assume</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>le_infI1</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>SUP_upper</span><span class="delimiter">,</span><span> </span><span>auto</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹
+This theorem is a more general form of the more familiar form with a variant $t$
+which must decrease. If we take $X\ w\ i = (Y \ i \land t\ i = w)$, then the
+second hypothesis of the theorem above becomes
+$\models Y \ i \land t\ i = w \{| D(i,j) |\} Y \ i \land t \ i &lt; w$. However,
+the more general form of the theorem is needed, because
+in data refinements, the form $Y\ i \land t\ i = w$ cannot be preserved.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+The drawback of this theorem is that the variant must be decreased on every
+transitions which may be too cumbersome for practical applications. A similar 
+situation occur when introducing proof rules for mutually recursive procedures.
+There the straightforward generalization of the proof rule of a recursive procedure
+to mutually recursive procedures suffers of a similar problem. We would need
+to prove that the variant decreases before every recursive call. Nipkow
+\cite{nipkow:2002} has introduced a rule for mutually recursive procedures
+in which the variant is required to decrease only in a sequence of recursive
+calls before calling again a procedure in this sequence. We introduce a
+similar proof rule in which the variant depends also on the situation
+indexes.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">locale</span></span><span> </span><span>DiagramTermination</span><span> </span><span class="delimiter">=</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">fixes</span></span><span> </span><span>pair</span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a ⇒ 'b ⇒ ('c::well_founded_transitive)"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"SUP_L_P X u i = (SUP v∈{v. pair v i &lt; u}. X v i :: _ :: complete_lattice)"</span></span></span><span> 
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"SUP_LE_P X u i = (SUP v∈{v. pair v i ≤ u}. X v i :: _ :: complete_lattice)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>SUP_L_P_upper</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"pair v i &lt; u ⟹ P v i ≤ SUP_L_P P u i"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>SUP_L_P_def</span><span> </span><span>intro</span><span class="delimiter">:</span><span> </span><span>SUP_upper</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>SUP_L_P_least</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"(!! v . pair v i &lt; u ⟹ P v i ≤ Q) ⟹ SUP_L_P P u i ≤ Q"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>SUP_L_P_def</span><span class="delimiter">,</span><span> </span><span>rule</span><span> </span><span>SUP_least</span><span class="delimiter">,</span><span> </span><span>auto</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>SUP_LE_P_upper</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"pair v i ≤ u ⟹ P v i ≤ SUP_LE_P P u i"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>SUP_LE_P_def</span><span> </span><span>intro</span><span class="delimiter">:</span><span> </span><span>SUP_upper</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>SUP_LE_P_least</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"(!! v . pair v i ≤ u ⟹ P v i ≤ Q) ⟹ SUP_LE_P P u i ≤ Q"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>SUP_LE_P_def</span><span class="delimiter">,</span><span> </span><span>rule</span><span> </span><span>SUP_least</span><span class="delimiter">,</span><span> </span><span>auto</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>SUP_SUP_L</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"Sup (range (SUP_LE_P X)) = Sup (range X)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>fun_eq_iff</span><span> </span><span>Sup_fun_def</span><span> </span><span>image_comp</span><span class="delimiter">,</span><span> </span><span>clarify</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>antisym</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>SUP_least</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>SUP_LE_P_least</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>SUP_upper</span><span class="delimiter">,</span><span> </span><span>simp</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>SUP_least</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule_tac</span><span> </span><span>y</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"SUP_LE_P X (pair xa x) x"</span></span></span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>order_trans</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>SUP_LE_P_upper</span><span class="delimiter">,</span><span> </span><span>simp</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>SUP_upper</span><span class="delimiter">,</span><span> </span><span>simp</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>SUP_L_SUP_LE_P</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"Sup_less (SUP_LE_P X) = SUP_L_P X"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>antisym</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>subst</span><span> </span><span>le_fun_def</span><span class="delimiter">,</span><span> </span><span>safe</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>Sup_less_least</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>subst</span><span> </span><span>le_fun_def</span><span class="delimiter">,</span><span> </span><span>safe</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>SUP_LE_P_least</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>SUP_L_P_upper</span><span class="delimiter">,</span><span> </span><span>simp</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>le_fun_def</span><span class="delimiter">,</span><span> </span><span>safe</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>SUP_L_P_least</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule_tac</span><span> </span><span>y</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"SUP_LE_P X (pair v xa) xa"</span></span></span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>order_trans</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>SUP_LE_P_upper</span><span class="delimiter">,</span><span> </span><span>simp</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>cut_tac</span><span> </span><span>P</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"SUP_LE_P X"</span></span></span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>Sup_less_upper</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span class="delimiter">,</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>le_fun_def</span><span class="delimiter">)</span><span>
+</span><span>  
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>    
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>DiagramTermination</span><span class="delimiter">)</span><span> </span><span>hoare_diagram2</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"dmono D ⟹ (∀ u i j . ⊨ X u i  {| D(i, j) |} SUP_L_P X (pair u i) j) ⟹ 
+    ⊨ (Sup (range X)) {| pt D |} ((Sup (range  X)) ⊓ (-(grd (step D))))"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>frule_tac</span><span> </span><span>X</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"SUP_LE_P X"</span></span></span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>hoare_diagram</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>auto</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>SUP_LE_P_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>unfold</span><span> </span><span>hoare_Sup</span><span> </span><span class="delimiter">[</span><span>THEN</span><span> </span><span>sym</span><span class="delimiter">]</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>auto</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule_tac</span><span> </span><span>Q</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"SUP_L_P X (pair p i) j"</span></span></span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>hoare_mono</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>auto</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>SUP_L_P_least</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>SUP_L_P_upper</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>order_trans3</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>mono_pt</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"dmono D ⟹ mono (pt D)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>drule</span><span> </span><span>mono_mono_dgr</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>pt_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>DiagramTermination</span><span class="delimiter">)</span><span> </span><span>hoare_diagram3</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"dmono D ⟹ 
+     (∀ u i j . ⊨ X u i  {| D(i, j) |} SUP_L_P X (pair u i) j) ⟹ 
+      P ≤ Sup (range X) ⟹  ((Sup (range X)) ⊓ (-(grd (step D)))) ≤ Q ⟹
+      ⊨ P {| pt D |} Q"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>hoare_mono</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>auto</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>hoare_pre</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>auto</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>hoare_diagram2</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹
+The following definition introduces the concept of correct Hoare triples for diagrams.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>DiagramTermination</span><span class="delimiter">)</span><span>
+</span><span>  </span><span>Hoare_dgr</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"('b ⇒ ('u::{complete_distrib_lattice, boolean_algebra})) ⇒ ('b × 'b ⇒ 'u ⇒ 'u) ⇒ ('b ⇒ 'u) ⇒ bool"</span></span></span><span> </span><span class="delimiter">(</span><span class="string"><span class="delete"><span class="delete">"⊢ (_){| _ |}(_) "</span></span></span><span> 
+</span><span>  </span><span class="delimiter">[</span><span>0</span><span class="delimiter">,</span><span>0</span><span class="delimiter">,</span><span>900</span><span class="delimiter">]</span><span> </span><span>900</span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"⊢ P {| D |} Q ≡ (∃ X . (∀ u i j . ⊨ X u i  {| D(i, j) |} SUP_L_P X (pair u i) j) ∧ 
+       P = Sup (range X) ∧ Q = ((Sup (range  X)) ⊓ (-(grd (step D)))))"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>DiagramTermination</span><span class="delimiter">)</span><span>
+</span><span>  </span><span>Hoare_dgr1</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"('b ⇒ ('u::{complete_distrib_lattice, boolean_algebra})) ⇒ ('b × 'b ⇒ 'u ⇒ 'u) ⇒ ('b ⇒ 'u) ⇒ bool"</span></span></span><span> </span><span class="delimiter">(</span><span class="string"><span class="delete"><span class="delete">"⊢1 (_){| _ |}(_) "</span></span></span><span> 
+</span><span>  </span><span class="delimiter">[</span><span>0</span><span class="delimiter">,</span><span>0</span><span class="delimiter">,</span><span>900</span><span class="delimiter">]</span><span> </span><span>900</span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"⊢1 P {| D |} Q ≡ (∃ X . (∀ u i j . ⊨ X u i  {| D(i, j) |} SUP_L_P X (pair u i) j) ∧ 
+      P ≤ Sup (range X) ∧ ((Sup (range X)) ⊓ (-(grd (step D)))) ≤ Q)"</span></span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>DiagramTermination</span><span class="delimiter">)</span><span> </span><span>hoare_dgr_correctness</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"dmono D ⟹ (⊢ P {| D |} Q) ⟹ (⊨ P {| pt D |} Q)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Hoare_dgr_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>safe</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>hoare_diagram3</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span>  </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>DiagramTermination</span><span class="delimiter">)</span><span> </span><span>hoare_dgr_correctness1</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"dmono D ⟹ (⊢1 P {| D |} Q) ⟹ (⊨ P {| pt D |} Q)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Hoare_dgr1_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>safe</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>hoare_diagram3</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"dgr_demonic Q ij = [:Q ij:]"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>dgr_demonic_mono</span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"dmono (dgr_demonic Q)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>dmono_def</span><span> </span><span>dgr_demonic_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"dangelic R Q i = angelic (R i) (Q i)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span>  </span><span>grd_dgr</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"((grd (step D) i)::('a::complete_boolean_algebra)) = ⨆ {P . ∃ j . P = grd (D(i,j))}"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>grd_def</span><span> </span><span>step_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>unfold</span><span> </span><span>step_def</span><span> </span><span>uminus_Inf</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>case_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"(uminus ` range (λj::'b. D (i, j) ⊥)) = {P::'a. ∃j::'b. P = - D (i, j) ⊥}"</span></span></span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>cong</span><span> </span><span>del</span><span class="delimiter">:</span><span> </span><span>SUP_cong_simp</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span>  </span><span>grd_dgr_set</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"((grd (step D) i)::('a set)) = Union {P . ∃ j . P = grd (D(i,j))}"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>grd_dgr</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>not_grd_dgr</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"(a ∈ (- grd (step D) i)) = (∀ j . a ∉ grd (D(i,j)))"</span></span></span><span>
+</span><span> </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>grd_dgr</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>not_grd_dgr2</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"a ∉ (grd (step D) i) = (∀ j . a ∉ grd (D(i,j)))"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>subst</span><span> </span><span>not_grd_dgr</span><span> </span><span class="delimiter">[</span><span>THEN</span><span> </span><span>sym</span><span class="delimiter">]</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div><div id="DataRefinement">
+<div class="head"><h1>Theory DataRefinement</h1>
+<span class="command">theory</span> <span class="name">DataRefinement</span><br/>
+<span class="keyword">imports</span> <a href="Diagram.html"><span class="name">Diagram</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Data Refinement of Diagrams›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>DataRefinement</span><span>
+</span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>Diagram</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹
+Next definition introduces the concept of data refinement of $S1$
+to $S2$ using the data abstractions $R$ and $R'$.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span>
+</span><span>  </span><span>DataRefinement</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"('a::type ⇒ 'b::type)
+     ⇒ ('b::type ⇒ 'c::ord) ⇒ ('a::type ⇒ 'd::type) 
+     ⇒ ('d::type ⇒ 'c::ord) ⇒ bool"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"DataRefinement S1 R R' S2 = ((R o S1) ≤ (S2 o R'))"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹
+If $\mathit{demonic}\ Q$ is correct with respect to $p$ and $q$, and 
+$(\mathit{assert} \ p)\circ (\mathit{demonic}\  Q)$ is data refined
+by $S$, then $S$ is correct with respect to $\mathit{angelic}\  R\  p$ and 
+$\mathit{angelic} \ R' \ q$.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>data_refinement</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"mono R ⟹ ⊨ p {| S |} q ⟹  DataRefinement S R R' S' ⟹ 
+         ⊨ (R p) {| S' |} (R' q)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span>  </span><span>DataRefinement_def</span><span> </span><span>Hoare_def</span><span> </span><span>le_fun_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>drule_tac</span><span> </span><span>x</span><span> </span><span class="delimiter">=</span><span> </span><span>q</span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>spec</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule_tac</span><span> </span><span>y</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"R (S q)"</span></span></span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>order_trans</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>drule_tac</span><span> </span><span>x</span><span> </span><span class="delimiter">=</span><span> </span><span>p</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>y</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"S q"</span></span></span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>monoD</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp_all</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>data_refinement2</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"mono R ⟹ ⊨ p {| S |} q ⟹  DataRefinement ({.p.} o S) R R' S' ⟹ 
+         ⊨ (R p) {| S' |} (R' q)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span>  </span><span>DataRefinement_def</span><span> </span><span>Hoare_def</span><span> </span><span>le_fun_def</span><span> </span><span>assert_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>drule_tac</span><span> </span><span>x</span><span> </span><span class="delimiter">=</span><span> </span><span>q</span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>spec</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>subgoal_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"p ⊓ S q = p"</span></span></span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>simp</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>antisym</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp_all</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>data_refinement_hoare</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"mono S ⟹ mono D ⟹ DataRefinement ({.p.} o [:Q:]) {:R:} D S = 
+         (∀ s . ⊨ {s' . s ∈ R s' ∧ s ∈ p} {| S |} (D ((Q s)::'a::order)))"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>le_fun_def</span><span> </span><span>assert_def</span><span> </span><span>angelic_def</span><span> </span><span>demonic_def</span><span> </span><span>Hoare_def</span><span> </span><span>DataRefinement_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>safe</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp_all</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>drule_tac</span><span> </span><span>x</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"Q s"</span></span></span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>spec</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>auto</span><span> </span><span class="delimiter">[</span><span>1</span><span class="delimiter">]</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>drule_tac</span><span> </span><span>x</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"xb"</span></span></span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>spec</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>simp</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>less_eq_set_def</span><span> </span><span>le_fun_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>drule_tac</span><span> </span><span>x</span><span> </span><span class="delimiter">=</span><span> </span><span>xa</span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>spec</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>mono_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>data_refinement_choice1</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"DataRefinement S1 D D' S2 ⟹ DataRefinement S1 D D' S2' ⟹ DataRefinement S1 D D' ( S2 ⊓ S2') "</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>DataRefinement_def</span><span> </span><span>hoare_choice</span><span> </span><span>le_fun_def</span><span> </span><span>inf_fun_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>data_refinement_choice2</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"mono D ⟹ DataRefinement S1 D D' S2 ⟹ DataRefinement S1' D D' S2' ⟹ 
+     DataRefinement (S1 ⊓ S1') D D' (S2 ⊓ S2')"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>DataRefinement_def</span><span> </span><span>inf_fun_def</span><span> </span><span>le_fun_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>safe</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule_tac</span><span> </span><span>y</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"D (S1 x)"</span></span></span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>order_trans</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>drule_tac</span><span> </span><span>x</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"S1 x ⊓ S1' x"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>y</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"S1 x"</span></span></span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>monoD</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>simp_all</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule_tac</span><span> </span><span>y</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"D (S1' x)"</span></span></span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>order_trans</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>drule_tac</span><span> </span><span>x</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"S1 x ⊓ S1' x"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>y</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"S1' x"</span></span></span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>monoD</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp_all</span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>data_refinement_top</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"DataRefinement S1 D D' (⊤::_::order_top)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>DataRefinement_def</span><span> </span><span>le_fun_def</span><span> </span><span>top_fun_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>apply_fun</span><span class="delimiter">::</span><span class="string"><span class="delete"><span class="delete">"('a⇒'b⇒'c)⇒('a⇒'b)⇒'a⇒'c"</span></span></span><span> </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">infixl</span></span><span> </span><span class="string"><span class="delete"><span class="delete">".."</span></span></span><span> </span><span>5</span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"(A .. B) = (λ x . (A x) (B x))"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Disjunctive_fun R = (∀ i . (R i) ∈ Apply.Disjunctive)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Disjunctive_Sup</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Disjunctive_fun R ⟹ (R .. (Sup X)) =  Sup {y . ∃ x ∈ X . y = (R .. x)}"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>subst</span><span> </span><span>fun_eq_iff</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>apply_fun_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>safe</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>subst</span><span> </span><span class="delimiter">(</span><span>asm</span><span class="delimiter">)</span><span> </span><span>Disjunctive_fun_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>drule_tac</span><span> </span><span>x</span><span> </span><span class="delimiter">=</span><span> </span><span>x</span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>spec</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Apply.Disjunctive_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>subgoal_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"(R x ` (λf. f x) ` X) =((λf. f x) ` {y. ∃x∈X. y = (λxa. R xa (x xa))})"</span></span></span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>image_image</span><span> </span><span>cong</span><span> </span><span>del</span><span class="delimiter">:</span><span> </span><span>SUP_cong_simp</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>DiagramTermination</span><span class="delimiter">)</span><span> </span><span>disjunctive_SUP_L_P</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Disjunctive_fun R ⟹ (R .. (SUP_L_P P (pair u i))) =  (SUP_L_P (λ w . (R .. (P w)))) (pair u i)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>SUP_L_P_def</span><span> </span><span>apply_fun_def</span><span> </span><span>Disjunctive_fun_def</span><span> </span><span>Apply.Disjunctive_def</span><span> </span><span>fun_eq_iff</span><span> </span><span>image_comp</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>apply_fun_range</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"{y. ∃x. y = (R .. P x)} = range (λ x . R .. P x)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>fact</span><span> </span><span>full_SetCompr_eq</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"Disjunctive_fun R ⟹ mono ((R i)::'a::complete_lattice ⇒ 'b::complete_lattice)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Disjunctive_fun_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>DiagramTermination</span><span class="delimiter">)</span><span> </span><span>dgr_data_refinement_1</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"dmono D' ⟹ Disjunctive_fun R ⟹
+   (∀ w i j . ⊨ P w i  {| D(i,j) |} SUP_L_P P (pair w i) j) ⟹
+   (∀ w i j . DataRefinement ((assert (P w i)) o (D (i,j))) (R i) (R j) (D' (i, j))) ⟹
+   
+   ⊨ (R .. (Sup (range P))) {| pt D' |} ((R .. (Sup (range P))) ⊓ (-(grd (step D'))))"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Disjunctive_Sup</span><span> </span><span>apply_fun_range</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>hoare_diagram2</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>simp_all</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>safe</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>disjunctive_SUP_L_P</span><span> </span><span class="delimiter">[</span><span>THEN</span><span> </span><span>sym</span><span class="delimiter">]</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>apply_fun_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule_tac</span><span> </span><span>S</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"D (i, j)"</span></span></span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>data_refinement2</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"DgrDataRefinement1 D R D' = (∀ i j . DataRefinement (D (i , j)) (R i) (R j) (D' (i, j)))"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"DgrDataRefinement2 P D R D' = (∀ i j . DataRefinement ({.P i.} o D (i , j)) (R i) (R j) (D' (i, j)))"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>DataRefinement_mono</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"T ≤ S ⟹ mono R ⟹ DataRefinement S R R' S' ⟹ DataRefinement T R R' S' "</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>DataRefinement_def</span><span> </span><span>mono_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>subst</span><span> </span><span>le_fun_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>le_fun_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>safe</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule_tac</span><span> </span><span>y</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"R (S x)"</span></span></span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>order_trans</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp_all</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"mono_fun R = (∀ i . mono (R i))"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>DgrDataRefinement_mono</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Q ≤ P ⟹ mono_fun R ⟹ DgrDataRefinement2 P D R D' ⟹ DgrDataRefinement2 Q D R D'"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>DgrDataRefinement2_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>auto</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule_tac</span><span> </span><span>S</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"{.P i.} o D(i, j)"</span></span></span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>DataRefinement_mono</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>le_fun_def</span><span> </span><span>assert_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>safe</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule_tac</span><span> </span><span>y</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"Q i"</span></span></span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>order_trans</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>mono_fun_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹
+Next theorem is the diagram version of the data refinement theorem. If the
+diagram demonic choice $T$ is correct, and it is refined by $D$, then
+$D$ is also correct. One important point in this theorem is that 
+if the diagram demonic choice $T$ terminates, then $D$ also terminates.
+›</span></span></span><span>
+</span><span>  
+</span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>DiagramTermination</span><span class="delimiter">)</span><span> </span><span>Diagram_DataRefinement1</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"dmono D ⟹ Disjunctive_fun R ⟹ ⊢ P {| D |} Q ⟹ DgrDataRefinement1 D R D' ⟹
+      ⊢ (R .. P) {| D' |} ((R .. P) ⊓ (-(grd (step D'))))"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>unfold</span><span> </span><span>Hoare_dgr_def</span><span> </span><span>DgrDataRefinement1_def</span><span> </span><span>dgr_demonic_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>safe</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule_tac</span><span> </span><span>x</span><span class="delimiter">=</span><span class="string"><span class="delete"><span class="delete">"λ w . R .. (X w)"</span></span></span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>exI</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>safe</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>unfold</span><span> </span><span>disjunctive_SUP_L_P</span><span> </span><span class="delimiter">[</span><span>THEN</span><span> </span><span>sym</span><span class="delimiter">]</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>apply_fun_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule_tac</span><span> </span><span>S</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"D (i,j)"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>R</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"R i"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>R'</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"R j"</span></span></span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>data_refinement</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Disjunctive_Sup</span><span> </span><span>apply_fun_range</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>comp_left_mono</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"S ≤ S' ⟹ S o T ≤ S' o T"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>le_fun_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>assert_pred_mono</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"p ≤ q ⟹ {.p.} ≤ {.q.}"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>le_fun_def</span><span> </span><span>assert_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>safe</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule_tac</span><span> </span><span>y</span><span> </span><span class="delimiter">=</span><span> </span><span>p</span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>order_trans</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp_all</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>DiagramTermination</span><span class="delimiter">)</span><span> </span><span>Diagram_DataRefinement2</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"dmono D ⟹ Disjunctive_fun R ⟹ ⊢ P {| D |} Q ⟹ DgrDataRefinement2 P D R D' ⟹
+      ⊢ (R .. P) {| D' |} ((R .. P) ⊓ (-(grd (step D'))))"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>unfold</span><span> </span><span>Hoare_dgr_def</span><span> </span><span>DgrDataRefinement2_def</span><span> </span><span>dgr_demonic_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>auto</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule_tac</span><span> </span><span>x</span><span class="delimiter">=</span><span class="string"><span class="delete"><span class="delete">"λ w . R .. (X w)"</span></span></span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>exI</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>safe</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>unfold</span><span> </span><span>disjunctive_SUP_L_P</span><span> </span><span class="delimiter">[</span><span>THEN</span><span> </span><span>sym</span><span class="delimiter">]</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>apply_fun_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule_tac</span><span> </span><span>S</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"D (i,j)"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>R</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"R i"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>R'</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"R j"</span></span></span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>data_refinement2</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Disjunctive_Sup</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule_tac</span><span> </span><span>S</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"{.Sup (range X) i.} ∘ D (i, j)"</span></span></span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>DataRefinement_mono</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>comp_left_mono</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>assert_pred_mono</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Sup_fun_def</span><span> </span><span>comp_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>SUP_upper</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>apply_fun_def</span><span> </span><span>apply_fun_range</span><span> </span><span>image_image</span><span> </span><span>fun_eq_iff</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>intro</span><span class="delimiter">!</span><span class="delimiter">:</span><span> </span><span>arg_cong</span><span> </span><span class="delimiter">[</span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span>f</span><span> </span><span class="delimiter">=</span><span> </span><span>Sup</span><span class="delimiter">]</span><span> </span><span>arg_cong2</span><span> </span><span class="delimiter">[</span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span>f</span><span> </span><span class="delimiter">=</span><span> </span><span>inf</span><span class="delimiter">]</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"(R'::'a::complete_lattice ⇒ 'b::complete_lattice) ∈ Apply.Disjunctive ⟹
+   DataRefinement S R R' S' ⟹ R (- grd S) ≤ - grd S'"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>DataRefinement_def</span><span> </span><span>grd_def</span><span> </span><span>le_fun_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>drule_tac</span><span> </span><span>x</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"⊥"</span></span></span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>spec</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div>

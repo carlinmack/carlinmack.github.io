@@ -17,7 +17,8 @@
 
   
   
-  <link rel="stylesheet" type="text/css" href="/css/front.min.css" integrity="sha256-QUoTd2RQ4/P7SQKKOG301QYvQ7o2&#43;3qwXOJptpPXM0E=">
+  <link rel="stylesheet" type="text/css" href="/css/front.min.css" integrity="sha256-QUoTd2RQ4/P7SQKKOG301QYvQ7o2&#43;3qwXOJptpPXM0E="><link rel="stylesheet" type="text/css" href="/css/isabelle.css">
+  
   <link rel="icon" href="/images/favicon.ico" type="image/icon">
   <script src="/js/flexsearch.min.js"></script><script src="/js/header-search.js"></script></head>
 
@@ -65,8 +66,244 @@
   
   </div>
 </header><div><main>
-  <iframe src="https://www.isa-afp.org/browser_info/current/AFP/Card_Multisets/Card_Multisets.html" frameborder="0" id="Card_Multisets">
-  </iframe>
+  
+  <div id="Card_Multisets">
+<div class="head"><h1>Theory Card_Multisets</h1>
+<span class="command">theory</span> <span class="name">Card_Multisets</span><br/>
+<span class="keyword">imports</span> <a href="Multiset.html"><span class="name">Multiset</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(*  Author: Lukas Bulwahn &lt;lukas.bulwahn-at-gmail.com&gt; *)</span></span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Cardinality of Multisets›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Card_Multisets</span><span>
+</span><span class="keyword2"><span class="keyword">imports</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"HOL-Library.Multiset"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Additions to Multiset Theory›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>mset_set_set_mset_subseteq</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"mset_set (set_mset M) ⊆# M"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>M</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>empty</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>add</span><span> </span><span>x</span><span> </span><span>M</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">from</span></span><span> </span><span>this</span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>cases</span><span> </span><span class="string"><span class="delete"><span class="delete">"x ∈# M"</span></span></span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword3"><span class="command">assume</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"x ∈# M"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">from</span></span><span> </span><span>this</span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"mset_set (set_mset (M + {#x#})) = mset_set (set_mset M)"</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>insert_absorb</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">from</span></span><span> </span><span>this</span><span> </span><span>add.hyps</span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>subset_mset.order.trans</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>fastforce</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>    </span><span class="keyword3"><span class="command">assume</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"¬ x ∈# M"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">from</span></span><span> </span><span>this</span><span> </span><span>add.hyps</span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"{#x#} + mset_set (set_mset M) ⊆# M + {#x#}"</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>insert_subset_eq_iff</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">from</span></span><span> </span><span>this</span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹¬ x ∈# M›</span></span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>size_mset_set_eq_card</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"finite A"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"size (mset_set A) = card A"</span></span></span><span>
+</span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>A</span><span class="delimiter">)</span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>card_set_mset_leq</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"card (set_mset M) ≤ size M"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>M</span><span class="delimiter">)</span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>card_insert_le_m1</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Lemma to Enumerate Sets of Multisets›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>set_of_multisets_eq</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"x ∉ A"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"{M. set_mset M ⊆ insert x A ∧ size M = Suc k} =
+    {M. set_mset M ⊆ A ∧ size M = Suc k} ∪
+    (λM. M + {#x#}) ` {M. set_mset M ⊆ insert x A ∧ size M = k}"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">from</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹x ∉ A›</span></span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"{M. set_mset M ⊆ insert x A ∧ size M = Suc k} =
+    {M. set_mset M ⊆ A ∧ size M = Suc k} ∪
+    {M. set_mset M ⊆ insert x A ∧ size M = Suc k ∧ x ∈# M}"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">moreover</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"{M. set_mset M ⊆ insert x A ∧ size M = Suc k ∧ x ∈# M} =
+    (λM. M + {#x#}) ` {M. set_mset M ⊆ insert x A ∧ size M = k}"</span></span></span><span> </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">is</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"?S = ?T"</span></span></span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">proof</span></span><span>
+</span><span>    </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"?S ⊆ ?T"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">proof</span></span><span>
+</span><span>      </span><span class="keyword3"><span class="command">fix</span></span><span> </span><span>M</span><span>
+</span><span>      </span><span class="keyword3"><span class="command">assume</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"M ∈ ?S"</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">from</span></span><span> </span><span>this</span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"M = M - {#x#} + {#x#}"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">moreover</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"M - {#x#} ∈ {M. set_mset M ⊆ insert x A ∧ size M = k}"</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>        </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"set_mset (M - {#x#} + {#x#}) ⊆ insert x A"</span></span></span><span>
+</span><span>          </span><span class="keyword1"><span class="command">using</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹M ∈ ?S›</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>force</span><span>
+</span><span>        </span><span class="keyword1"><span class="command">moreover</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"size (M - {#x#} + {#x#}) = Suc k ∧ x ∈# M - {#x#} + {#x#}"</span></span></span><span>
+</span><span>          </span><span class="keyword1"><span class="command">using</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹M ∈ ?S›</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>force</span><span>
+</span><span>        </span><span class="keyword1"><span class="command">ultimately</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>force</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">ultimately</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"M ∈ ?T"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>    </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"?T ⊆ ?S"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>force</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">ultimately</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Derivation of Suitable Induction Rule›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">context</span></span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">private</span></span><span> </span><span class="keyword1"><span class="command">inductive</span></span><span> </span><span>R</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a set ⇒ nat ⇒ bool"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"finite A ⟹ R A 0"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"R {} k"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"finite A ⟹ x ∉ A ⟹ R A (Suc k) ⟹ R (insert x A) k ⟹ R (insert x A) (Suc k)"</span></span></span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">private</span></span><span> </span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>R_eq_finite</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"R A k ⟷ finite A"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">assume</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"R A k"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">from</span></span><span> </span><span>this</span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"finite A"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>cases</span><span> </span><span>auto</span><span>
+</span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">assume</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"finite A"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">from</span></span><span> </span><span>this</span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"R A k"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>A</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>empty</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">from</span></span><span> </span><span>this</span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>R.intros</span><span class="delimiter">(</span><span>2</span><span class="delimiter">)</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>    </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>insert</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">from</span></span><span> </span><span>this</span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>k</span><span class="delimiter">)</span><span>
+</span><span>      </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>0</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">from</span></span><span> </span><span>this</span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>        </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>intro</span><span> </span><span>R.intros</span><span class="delimiter">(</span><span>1</span><span class="delimiter">)</span><span> </span><span>finite.insertI</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>      </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>Suc</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">from</span></span><span> </span><span>this</span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>        </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>metis</span><span> </span><span>R.simps</span><span> </span><span>Zero_neq_Suc</span><span> </span><span>diff_Suc_1</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>finite_set_and_nat_induct</span><span class="delimiter">[</span><span>consumes</span><span> </span><span>1</span><span class="delimiter">,</span><span> </span><span>case_names</span><span> </span><span>zero</span><span> </span><span>empty</span><span> </span><span>step</span><span class="delimiter">]</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"finite A"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"⋀A. finite A ⟹ P A 0"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"⋀k. P {} k"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"⋀A k x. finite A ⟹ x ∉ A ⟹ P A (Suc k) ⟹ P (insert x A) k ⟹ P (insert x A) (Suc k)"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"P A k"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">from</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹finite A›</span></span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"R A k"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>subst</span><span> </span><span>R_eq_finite</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">from</span></span><span> </span><span>this</span><span> </span><span>assms</span><span class="delimiter">(</span><span>2</span><span>-</span><span>4</span><span class="delimiter">)</span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>A</span><span> </span><span>k</span><span class="delimiter">)</span><span> </span><span>auto</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Finiteness of Sets of Multisets›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>finite_multisets</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"finite A"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"finite {M. set_mset M ⊆ A ∧ size M = k}"</span></span></span><span>
+</span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>A</span><span> </span><span>k</span><span> </span><span>rule</span><span class="delimiter">:</span><span> </span><span>finite_set_and_nat_induct</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>zero</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">from</span></span><span> </span><span>this</span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>empty</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">from</span></span><span> </span><span>this</span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>step</span><span> </span><span>A</span><span> </span><span>k</span><span> </span><span>x</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">from</span></span><span> </span><span>this</span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>set_of_multisets_eq</span><span class="delimiter">[</span><span>OF</span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹x ∉ A›</span></span></span><span class="delimiter">]</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Cardinality of Multisets›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>card_multisets</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"finite A"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"card {M. set_mset M ⊆ A ∧ size M = k} = (card A + k - 1) choose k"</span></span></span><span>
+</span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>A</span><span> </span><span>k</span><span> </span><span>rule</span><span class="delimiter">:</span><span> </span><span>finite_set_and_nat_induct</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>zero</span><span> </span><span>A</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">assume</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"finite (A :: 'a set)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"{M. set_mset M ⊆ A ∧ size M = 0} = {{#}}"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">from</span></span><span> </span><span>this</span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"card {M. set_mset M ⊆ A ∧ size M = 0} = card A + 0 - 1 choose 0"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>empty</span><span> </span><span>k</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"card {M. set_mset M ⊆ {} ∧ size M = k} = card {} + k - 1 choose k"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>cases</span><span> </span><span>k</span><span class="delimiter">)</span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>binomial_eq_0</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>step</span><span> </span><span>A</span><span> </span><span>k</span><span> </span><span>x</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">let</span></span><span> </span><span class="var">?S<span class="hidden">⇩</span><sub>1</sub></span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"{M. set_mset M ⊆ A ∧ size M = Suc k}"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="var">?S<span class="hidden">⇩</span><sub>2</sub></span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"{M. set_mset M ⊆ insert x A ∧ size M = k}"</span></span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">assume</span></span><span> </span><span>hyps1</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"card ?S<span class="hidden">⇩</span><sub>1</sub> = card A + Suc k - 1 choose Suc k"</span></span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">assume</span></span><span> </span><span>hyps2</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"card ?S<span class="hidden">⇩</span><sub>2</sub> = card (insert x A) + k - 1 choose k"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span>finite_sets</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"finite ?S<span class="hidden">⇩</span><sub>1</sub>"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"finite ((λM. M + {#x#}) ` ?S<span class="hidden">⇩</span><sub>2</sub>)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹finite A›</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>finite_multisets</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span>inj</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"inj_on (λM. M + {#x#}) ?S<span class="hidden">⇩</span><sub>2</sub>"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>inj_onI</span><span class="delimiter">)</span><span> </span><span>auto</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"card {M. set_mset M ⊆ insert x A ∧ size M = Suc k} =
+    card (?S<span class="hidden">⇩</span><sub>1</sub> ∪ (λM. M + {#x#}) ` ?S<span class="hidden">⇩</span><sub>2</sub>)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>set_of_multisets_eq</span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹x ∉ A›</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>fastforce</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">also</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"… = card ?S<span class="hidden">⇩</span><sub>1</sub> + card ((λM. M + {#x#}) ` ?S<span class="hidden">⇩</span><sub>2</sub>)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>finite_sets</span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹x ∉ A›</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>subst</span><span> </span><span>card_Un_disjoint</span><span class="delimiter">)</span><span> </span><span>auto</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">also</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"… = card ?S<span class="hidden">⇩</span><sub>1</sub> + card ?S<span class="hidden">⇩</span><sub>2</sub>"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>inj</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>intro</span><span class="delimiter">:</span><span> </span><span>card_image</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">also</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"… = card A + Suc k - 1 choose Suc k + (card (insert x A) + k - 1 choose k)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>hyps1</span><span> </span><span>hyps2</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">also</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"… = card (insert x A) + Suc k - 1 choose Suc k"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹x ∉ A›</span></span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹finite A›</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">finally</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>card_too_small_multisets_covering_set</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"finite A"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"k &lt; card A"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"card {M. set_mset M = A ∧ size M = k} = 0"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">from</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹k &lt; card A›</span></span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span>eq</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"{M. set_mset M = A ∧ size M = k} = {}"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>card_set_mset_leq</span><span> </span><span>Collect_empty_eq</span><span> </span><span>leD</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">from</span></span><span> </span><span>this</span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>metis</span><span> </span><span>card_empty</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>card_multisets_covering_set</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"finite A"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"card A ≤ k"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"card {M. set_mset M = A ∧ size M = k} = (k - 1) choose (k - card A)"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"{M. set_mset M = A ∧ size M = k} = (λM. M + mset_set A) `
+    {M. set_mset M ⊆ A ∧ size M = k - card A}"</span></span></span><span> </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">is</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"?S = ?f ` ?T"</span></span></span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">proof</span></span><span>
+</span><span>    </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"?S ⊆ ?f ` ?T"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">proof</span></span><span>
+</span><span>      </span><span class="keyword3"><span class="command">fix</span></span><span> </span><span>M</span><span>
+</span><span>      </span><span class="keyword3"><span class="command">assume</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"M ∈ ?S"</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">from</span></span><span> </span><span>this</span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"M = M - mset_set A + mset_set A"</span></span></span><span>
+</span><span>        </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>mset_set_set_mset_subseteq</span><span> </span><span>subset_mset.diff_add</span><span class="delimiter">)</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">moreover</span></span><span> </span><span class="keyword1"><span class="command">from</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹M ∈ ?S›</span></span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"M - mset_set A ∈ ?T"</span></span></span><span>
+</span><span>        </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>mset_set_set_mset_subseteq</span><span> </span><span>size_Diff_submset</span><span> </span><span>size_mset_set_eq_card</span><span> </span><span>in_diffD</span><span class="delimiter">)</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">ultimately</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"M ∈ ?f ` ?T"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">from</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹finite A›</span></span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹card A ≤ k›</span></span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"?f ` ?T ⊆ ?S"</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>size_mset_set_eq_card</span><span class="delimiter">)</span><span class="delimiter">+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">moreover</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"inj_on ?f ?T"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>inj_onI</span><span class="delimiter">)</span><span> </span><span>auto</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">ultimately</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"card ?S = card ?T"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>card_image</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">also</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"… = card A + (k - card A) - 1 choose (k - card A)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹finite A›</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>only</span><span class="delimiter">:</span><span> </span><span>card_multisets</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">also</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"… = (k - 1) choose (k - card A)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹card A ≤ k›</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">finally</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div>
+  
 </main>
     </div>
   </div>

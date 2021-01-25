@@ -17,7 +17,8 @@
 
   
   
-  <link rel="stylesheet" type="text/css" href="/css/front.min.css" integrity="sha256-QUoTd2RQ4/P7SQKKOG301QYvQ7o2&#43;3qwXOJptpPXM0E=">
+  <link rel="stylesheet" type="text/css" href="/css/front.min.css" integrity="sha256-QUoTd2RQ4/P7SQKKOG301QYvQ7o2&#43;3qwXOJptpPXM0E="><link rel="stylesheet" type="text/css" href="/css/isabelle.css">
+  
   <link rel="icon" href="/images/favicon.ico" type="image/icon">
   <script src="/js/flexsearch.min.js"></script><script src="/js/header-search.js"></script></head>
 
@@ -65,8 +66,770 @@
   
   </div>
 </header><div><main>
-  <iframe src="https://www.isa-afp.org/browser_info/current/AFP/Free-Boolean-Algebra/Free_Boolean_Algebra.html" frameborder="0" id="Free_Boolean_Algebra">
-  </iframe>
+  
+  <div id="Free_Boolean_Algebra">
+<div class="head"><h1>Theory Free_Boolean_Algebra</h1>
+<span class="command">theory</span> <span class="name">Free_Boolean_Algebra</span><br/>
+<span class="keyword">imports</span> <a href="../../HOL/HOL/Main.html"><span class="name">Main</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(*  Title:      Free_Boolean_Algebra.thy
+    Author:     Brian Huffman, Portland State University
+*)</span></span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Free Boolean algebras›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Free_Boolean_Algebra</span><span>
+</span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>Main</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(*&lt;*)</span></span></span></span></span><span>
+</span><span class="keyword1"><span class="command">notation</span></span><span>
+</span><span>  </span><span>bot</span><span> </span><span class="delimiter">(</span><span class="string"><span class="delete"><span class="delete">"⊥"</span></span></span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span>
+</span><span>  </span><span>top</span><span> </span><span class="delimiter">(</span><span class="string"><span class="delete"><span class="delete">"⊤"</span></span></span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span>
+</span><span>  </span><span>inf</span><span>  </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">infixl</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"⊓"</span></span></span><span> </span><span>70</span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span>
+</span><span>  </span><span>sup</span><span>  </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">infixl</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"⊔"</span></span></span><span> </span><span>65</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>sup_conv_inf</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">fixes</span></span><span> </span><span>x</span><span> </span><span>y</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a::boolean_algebra"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"x ⊔ y = - (- x ⊓ - y)"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(*&gt;*)</span></span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Free boolean algebra as a set›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  We start by defining the free boolean algebra over type @{typ 'a} as
+  an inductive set.  Here ‹i :: 'a› represents a variable;
+  ‹A :: 'a set› represents a valuation, assigning a truth
+  value to each variable; and ‹S :: 'a set set› represents a
+  formula, as the set of valuations that make the formula true.  The
+  set ‹fba› contains representatives of formulas built from
+  finite combinations of variables with negation and conjunction.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">inductive_set</span></span><span>
+</span><span>  </span><span>fba</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a set set set"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span>var</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"{A. i ∈ A} ∈ fba"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span>Compl</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"S ∈ fba ⟹ - S ∈ fba"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span>inter</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"S ∈ fba ⟹ T ∈ fba ⟹ S ∩ T ∈ fba"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>fba_Diff</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"S ∈ fba ⟹ T ∈ fba ⟹ S - T ∈ fba"</span></span></span><span>
+</span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>Diff_eq</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>intro</span><span> </span><span>fba.inter</span><span> </span><span>fba.Compl</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>fba_union</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"S ∈ fba ⟹ T ∈ fba ⟹ S ∪ T ∈ fba"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">assume</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"S ∈ fba"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"T ∈ fba"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">hence</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"- (- S ∩ - T) ∈ fba"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>intro</span><span> </span><span>fba.intros</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">thus</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"S ∪ T ∈ fba"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>fba_empty</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"({} :: 'a set set) ∈ fba"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">obtain</span></span><span> </span><span>S</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a set set"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"S ∈ fba"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>fast</span><span> </span><span>intro</span><span class="delimiter">:</span><span> </span><span>fba.var</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">hence</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"S ∩ - S ∈ fba"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>intro</span><span> </span><span>fba.intros</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">thus</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>fba_UNIV</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"(UNIV :: 'a set set) ∈ fba"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"- {} ∈ fba"</span></span></span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>fba_empty</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>fba.Compl</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">thus</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"UNIV ∈ fba"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Free boolean algebra as a type›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  The next step is to use ‹typedef› to define a type isomorphic
+  to the set @{const fba}.  We also define a constructor ‹var›
+  that corresponds with the similarly-named introduction rule for
+  @{const fba}.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">typedef</span></span><span> </span><span class="tfree">'a</span><span> </span><span>formula</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"fba :: 'a set set set"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>intro</span><span class="delimiter">:</span><span> </span><span>fba_empty</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>var</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a ⇒ 'a formula"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"var i = Abs_formula {A. i ∈ A}"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Rep_formula_var</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"Rep_formula (var i) = {A. i ∈ A}"</span></span></span><span>
+</span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>var_def</span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>fba.var</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>Abs_formula_inverse</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  \medskip
+  Now we make type @{typ "'a formula"} into a Boolean algebra.  This
+  involves defining the various operations (ordering relations, binary
+  infimum and supremum, complement, difference, top and bottom
+  elements) and proving that they satisfy the appropriate laws.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">instantiation</span></span><span> </span><span>formula</span><span> </span><span class="delimiter">::</span><span> </span><span class="delimiter">(</span><span>type</span><span class="delimiter">)</span><span> </span><span>boolean_algebra</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"x ⊓ y = Abs_formula (Rep_formula x ∩ Rep_formula y)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"x ⊔ y = Abs_formula (Rep_formula x ∪ Rep_formula y)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"⊤ = Abs_formula UNIV"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"⊥ = Abs_formula {}"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"x ≤ y ⟷ Rep_formula x ⊆ Rep_formula y"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"x &lt; y ⟷ Rep_formula x ⊂ Rep_formula y"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"- x = Abs_formula (- Rep_formula x)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"x - y = Abs_formula (Rep_formula x - Rep_formula y)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Rep_formula_inf</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Rep_formula (x ⊓ y) = Rep_formula x ∩ Rep_formula y"</span></span></span><span>
+</span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>inf_formula_def</span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>intro</span><span> </span><span>Abs_formula_inverse</span><span> </span><span>fba.inter</span><span> </span><span>Rep_formula</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Rep_formula_sup</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Rep_formula (x ⊔ y) = Rep_formula x ∪ Rep_formula y"</span></span></span><span>
+</span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>sup_formula_def</span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>intro</span><span> </span><span>Abs_formula_inverse</span><span> </span><span>fba_union</span><span> </span><span>Rep_formula</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Rep_formula_top</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"Rep_formula ⊤ = UNIV"</span></span></span><span>
+</span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>top_formula_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>intro</span><span> </span><span>Abs_formula_inverse</span><span> </span><span>fba_UNIV</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Rep_formula_bot</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"Rep_formula ⊥ = {}"</span></span></span><span>
+</span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>bot_formula_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>intro</span><span> </span><span>Abs_formula_inverse</span><span> </span><span>fba_empty</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Rep_formula_compl</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"Rep_formula (- x) = - Rep_formula x"</span></span></span><span>
+</span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>uminus_formula_def</span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>intro</span><span> </span><span>Abs_formula_inverse</span><span> </span><span>fba.Compl</span><span> </span><span>Rep_formula</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Rep_formula_diff</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Rep_formula (x - y) = Rep_formula x - Rep_formula y"</span></span></span><span>
+</span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>minus_formula_def</span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>intro</span><span> </span><span>Abs_formula_inverse</span><span> </span><span>fba_Diff</span><span> </span><span>Rep_formula</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemmas</span></span><span> </span><span>eq_formula_iff</span><span> </span><span class="delimiter">=</span><span> </span><span>Rep_formula_inject</span><span> </span><span class="delimiter">[</span><span>symmetric</span><span class="delimiter">]</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemmas</span></span><span> </span><span>Rep_formula_simps</span><span> </span><span class="delimiter">=</span><span>
+</span><span>  </span><span>less_eq_formula_def</span><span> </span><span>less_formula_def</span><span> </span><span>eq_formula_iff</span><span>
+</span><span>  </span><span>Rep_formula_sup</span><span> </span><span>Rep_formula_inf</span><span> </span><span>Rep_formula_top</span><span> </span><span>Rep_formula_bot</span><span>
+</span><span>  </span><span>Rep_formula_compl</span><span> </span><span>Rep_formula_diff</span><span> </span><span>Rep_formula_var</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">instance</span></span><span> </span><span class="keyword1"><span class="command">proof</span></span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span> </span><span class="delimiter">(</span><span>unfold</span><span> </span><span>Rep_formula_simps</span><span class="delimiter">,</span><span> </span><span>auto</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  \medskip
+  The laws of a Boolean algebra do not require the top and bottom
+  elements to be distinct, so the following rules must be proved
+  separately:
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>bot_neq_top_formula</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"(⊥ :: 'a formula) ≠ ⊤"</span></span></span><span>
+</span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>Rep_formula_simps</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>top_neq_bot_formula</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"(⊤ :: 'a formula) ≠ ⊥"</span></span></span><span>
+</span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>Rep_formula_simps</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  \medskip
+  Here we prove an essential property of a free Boolean algebra:
+  all generators are independent.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>var_le_var_simps</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"var i ≤ var j ⟷ i = j"</span></span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"¬ var i ≤ - var j"</span></span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"¬ - var i ≤ var j"</span></span></span><span>
+</span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>Rep_formula_simps</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>fast</span><span class="delimiter">+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>var_eq_var_simps</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"var i = var j ⟷ i = j"</span></span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"var i ≠ - var j"</span></span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"- var i ≠ var j"</span></span></span><span>
+</span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>Rep_formula_simps</span><span> </span><span>set_eq_subset</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>fast</span><span class="delimiter">+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  \medskip
+  We conclude this section by proving an induction principle for
+  formulas.  It mirrors the definition of the inductive set ‹fba›, with cases for variables, complements, and conjunction.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>formula_induct</span><span> </span><span class="delimiter">[</span><span>case_names</span><span> </span><span>var</span><span> </span><span>compl</span><span> </span><span>inf</span><span class="delimiter">,</span><span> </span><span>induct</span><span> </span><span>type</span><span class="delimiter">:</span><span> </span><span>formula</span><span class="delimiter">]</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">fixes</span></span><span> </span><span>P</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a formula ⇒ bool"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span>1</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"⋀i. P (var i)"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span>2</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"⋀x. P x ⟹ P (- x)"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span>3</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"⋀x y. P x ⟹ P y ⟹ P (x ⊓ y)"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"P x"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>x</span><span> </span><span>rule</span><span class="delimiter">:</span><span> </span><span>Abs_formula_induct</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">fix</span></span><span> </span><span>y</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a set set"</span></span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">assume</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"y ∈ fba"</span></span></span><span> </span><span class="keyword3"><span class="command">thus</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"P (Abs_formula y)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>rule</span><span class="delimiter">:</span><span> </span><span>fba.induct</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>var</span><span> </span><span>i</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"P (var i)"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>1</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword3"><span class="command">thus</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>var_def</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>    </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>Compl</span><span> </span><span>S</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">from</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹P (Abs_formula S)›</span></span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"P (- Abs_formula S)"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>2</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">with</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹S ∈ fba›</span></span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>uminus_formula_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Abs_formula_inverse</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>    </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>inter</span><span> </span><span>S</span><span> </span><span>T</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">from</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹P (Abs_formula S)›</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹P (Abs_formula T)›</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"P (Abs_formula S ⊓ Abs_formula T)"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>3</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">with</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹S ∈ fba›</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹T ∈ fba›</span></span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>inf_formula_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Abs_formula_inverse</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹If-then-else for Boolean algebras›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  This is a generic if-then-else operator for arbitrary Boolean
+  algebras.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span>
+</span><span>  </span><span>ifte</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a::boolean_algebra ⇒ 'a ⇒ 'a ⇒ 'a"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"ifte a x y = (a ⊓ x) ⊔ (- a ⊓ y)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>ifte_top</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"ifte ⊤ x y = x"</span></span></span><span>
+</span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>ifte_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>ifte_bot</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"ifte ⊥ x y = y"</span></span></span><span>
+</span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>ifte_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>ifte_same</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"ifte a x x = x"</span></span></span><span>
+</span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>ifte_def</span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>inf_sup_distrib2</span><span> </span><span class="delimiter">[</span><span>symmetric</span><span class="delimiter">]</span><span> </span><span>sup_compl_top</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>compl_ifte</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"- ifte a x y = ifte a (- x) (- y)"</span></span></span><span>
+</span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>ifte_def</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>order_antisym</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>inf_sup_distrib1</span><span> </span><span>inf_sup_distrib2</span><span> </span><span>compl_inf_bot</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>sup_inf_distrib1</span><span> </span><span>sup_inf_distrib2</span><span> </span><span>sup_compl_top</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>le_infI1</span><span> </span><span>le_infI2</span><span> </span><span>le_supI1</span><span> </span><span>le_supI2</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>le_infI1</span><span> </span><span>le_infI2</span><span> </span><span>le_supI1</span><span> </span><span>le_supI2</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>inf_ifte_distrib</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"ifte x a b ⊓ ifte x c d = ifte x (a ⊓ c) (b ⊓ d)"</span></span></span><span>
+</span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>ifte_def</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>inf_sup_distrib1</span><span> </span><span>inf_sup_distrib2</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>inf_sup_aci</span><span> </span><span>inf_compl_bot</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>ifte_ifte_distrib</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"ifte x (ifte y a b) (ifte y c d) = ifte y (ifte x a c) (ifte x b d)"</span></span></span><span>
+</span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>ifte_def</span><span> </span><span class="delimiter">[</span><span>of</span><span> </span><span>x</span><span class="delimiter">]</span><span> </span><span>sup_conv_inf</span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>only</span><span class="delimiter">:</span><span> </span><span>compl_ifte</span><span> </span><span class="delimiter">[</span><span>symmetric</span><span class="delimiter">]</span><span> </span><span>inf_ifte_distrib</span><span> </span><span class="delimiter">[</span><span>symmetric</span><span class="delimiter">]</span><span> </span><span>ifte_same</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Formulas over a set of generators›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  The set ‹formulas S› consists of those formulas that only
+  depend on variables in the set ‹S›.  It is analogous to the
+  @{const lists} operator for the list datatype.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span>
+</span><span>  </span><span>formulas</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a set ⇒ 'a formula set"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"formulas S =
+    {x. ∀A B. (∀i∈S. i ∈ A ⟷ i ∈ B) ⟶
+      A ∈ Rep_formula x ⟷ B ∈ Rep_formula x}"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>formulasI</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"⋀A B. ∀i∈S. i ∈ A ⟷ i ∈ B
+    ⟹ A ∈ Rep_formula x ⟷ B ∈ Rep_formula x"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"x ∈ formulas S"</span></span></span><span>
+</span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>formulas_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>formulasD</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"x ∈ formulas S"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"∀i∈S. i ∈ A ⟷ i ∈ B"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"A ∈ Rep_formula x ⟷ B ∈ Rep_formula x"</span></span></span><span>
+</span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>formulas_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>formulas_mono</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"S ⊆ T ⟹ formulas S ⊆ formulas T"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>fast</span><span> </span><span>intro</span><span class="delimiter">!</span><span class="delimiter">:</span><span> </span><span>formulasI</span><span> </span><span>elim</span><span class="delimiter">!</span><span class="delimiter">:</span><span> </span><span>formulasD</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>formulas_insert</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"x ∈ formulas S ⟹ x ∈ formulas (insert a S)"</span></span></span><span>
+</span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>formulas_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>formulas_var</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"i ∈ S ⟹ var i ∈ formulas S"</span></span></span><span>
+</span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>formulas_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Rep_formula_simps</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>formulas_var_iff</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"var i ∈ formulas S ⟷ i ∈ S"</span></span></span><span>
+</span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>formulas_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Rep_formula_simps</span><span class="delimiter">,</span><span> </span><span>fast</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>formulas_bot</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"⊥ ∈ formulas S"</span></span></span><span>
+</span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>formulas_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Rep_formula_simps</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>formulas_top</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"⊤ ∈ formulas S"</span></span></span><span>
+</span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>formulas_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Rep_formula_simps</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>formulas_compl</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"x ∈ formulas S ⟹ - x ∈ formulas S"</span></span></span><span>
+</span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>formulas_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Rep_formula_simps</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>formulas_inf</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"x ∈ formulas S ⟹ y ∈ formulas S ⟹ x ⊓ y ∈ formulas S"</span></span></span><span>
+</span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>formulas_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Rep_formula_simps</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>formulas_sup</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"x ∈ formulas S ⟹ y ∈ formulas S ⟹ x ⊔ y ∈ formulas S"</span></span></span><span>
+</span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>formulas_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Rep_formula_simps</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>formulas_diff</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"x ∈ formulas S ⟹ y ∈ formulas S ⟹ x - y ∈ formulas S"</span></span></span><span>
+</span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>formulas_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Rep_formula_simps</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>formulas_ifte</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"a ∈ formulas S ⟹ x ∈ formulas S ⟹ y ∈ formulas S ⟹
+    ifte a x y ∈ formulas S"</span></span></span><span>
+</span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>ifte_def</span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>intro</span><span> </span><span>formulas_sup</span><span> </span><span>formulas_inf</span><span> </span><span>formulas_compl</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemmas</span></span><span> </span><span>formulas_intros</span><span> </span><span class="delimiter">=</span><span>
+</span><span>  </span><span>formulas_var</span><span> </span><span>formulas_bot</span><span> </span><span>formulas_top</span><span> </span><span>formulas_compl</span><span>
+</span><span>  </span><span>formulas_inf</span><span> </span><span>formulas_sup</span><span> </span><span>formulas_diff</span><span> </span><span>formulas_ifte</span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Injectivity of if-then-else›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  The if-then-else operator is injective in some limited
+  circumstances: when the scrutinee is a variable that is not
+  mentioned in either branch.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>ifte_inject</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"ifte (var i) x y = ifte (var i) x' y'"</span></span></span><span> 
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"i ∉ S"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"x ∈ formulas S"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"x' ∈ formulas S"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"y ∈ formulas S"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"y' ∈ formulas S"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"x = x' ∧ y = y'"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span>1</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"⋀A. i ∈ A ⟹ A ∈ Rep_formula x ⟷ A ∈ Rep_formula x'"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span class="delimiter">(</span><span>1</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Rep_formula_simps</span><span> </span><span>ifte_def</span><span> </span><span>set_eq_iff</span><span class="delimiter">,</span><span> </span><span>fast</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span>2</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"⋀A. i ∉ A ⟹ A ∈ Rep_formula y ⟷ A ∈ Rep_formula y'"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span class="delimiter">(</span><span>1</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Rep_formula_simps</span><span> </span><span>ifte_def</span><span> </span><span>set_eq_iff</span><span class="delimiter">,</span><span> </span><span>fast</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"x = x'"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>Rep_formula_simps</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>set_eqI</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword3"><span class="command">fix</span></span><span> </span><span>A</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"A ∈ Rep_formula x ⟷ insert i A ∈ Rep_formula x"</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">using</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹x ∈ formulas S›</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>formulasD</span><span class="delimiter">,</span><span> </span><span>force</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹i ∉ S›</span></span></span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">also</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"… ⟷ insert i A ∈ Rep_formula x'"</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>1</span><span class="delimiter">,</span><span> </span><span>simp</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">also</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"… ⟷ A ∈ Rep_formula x'"</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">using</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹x' ∈ formulas S›</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>formulasD</span><span class="delimiter">,</span><span> </span><span>force</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹i ∉ S›</span></span></span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">finally</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"A ∈ Rep_formula x ⟷ A ∈ Rep_formula x'"</span></span></span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span>  </span><span class="string"><span class="delete"><span class="delete">"y = y'"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>Rep_formula_simps</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>set_eqI</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword3"><span class="command">fix</span></span><span> </span><span>A</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"A ∈ Rep_formula y ⟷ A - {i} ∈ Rep_formula y"</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">using</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹y ∈ formulas S›</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>formulasD</span><span class="delimiter">,</span><span> </span><span>force</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹i ∉ S›</span></span></span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">also</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"… ⟷ A - {i} ∈ Rep_formula y'"</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>2</span><span class="delimiter">,</span><span> </span><span>simp</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">also</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"… ⟷ A ∈ Rep_formula y'"</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">using</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹y' ∈ formulas S›</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>formulasD</span><span class="delimiter">,</span><span> </span><span>force</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹i ∉ S›</span></span></span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">finally</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"A ∈ Rep_formula y ⟷ A ∈ Rep_formula y'"</span></span></span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Specification of homomorphism operator›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  Our goal is to define a homomorphism operator ‹hom› such that
+  for any function ‹f›, ‹hom f› is the unique Boolean
+  algebra homomorphism satisfying ‹hom f (var i) = f i›
+  for all ‹i›.
+
+  Instead of defining ‹hom› directly, we will follow the
+  approach used to define Isabelle's ‹fold› operator for finite
+  sets.  First we define the graph of the ‹hom› function as a
+  relation; later we will define the ‹hom› function itself using
+  definite choice.
+
+  The ‹hom_graph› relation is defined inductively, with
+  introduction rules based on the if-then-else normal form of Boolean
+  formulas.  The relation is also indexed by an extra set parameter
+  ‹S›, to ensure that branches of each if-then-else do not use
+  the same variable again.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">inductive</span></span><span>
+</span><span>  </span><span>hom_graph</span><span> </span><span class="delimiter">::</span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"('a ⇒ 'b::boolean_algebra) ⇒ 'a set ⇒ 'a formula ⇒ 'b ⇒ bool"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">for</span></span><span> </span><span>f</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a ⇒ 'b::boolean_algebra"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span>bot</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"hom_graph f {} bot bot"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span>top</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"hom_graph f {} top top"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span>ifte</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"i ∉ S ⟹ hom_graph f S x a ⟹ hom_graph f S y b ⟹
+  hom_graph f (insert i S) (ifte (var i) x y) (ifte (f i) a b)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  \medskip
+  The next two lemmas establish a stronger elimination rule for
+  assumptions of the form @{term "hom_graph f (insert i S) x a"}.
+  Essentially, they say that we can arrange the top-level if-then-else
+  to use the variable of our choice.  The proof makes use of the
+  distributive properties of if-then-else.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>hom_graph_dest</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"hom_graph f S x a ⟹ k ∈ S ⟹ ∃y z b c.
+    x = ifte (var k) y z ∧ a = ifte (f k) b c ∧
+    hom_graph f (S - {k}) y b ∧ hom_graph f (S - {k}) z c"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>set</span><span class="delimiter">:</span><span> </span><span>hom_graph</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>ifte</span><span> </span><span>i</span><span> </span><span>S</span><span> </span><span>x</span><span> </span><span>a</span><span> </span><span>y</span><span> </span><span>b</span><span class="delimiter">)</span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>cases</span><span> </span><span class="string"><span class="delete"><span class="delete">"i = k"</span></span></span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword3"><span class="command">assume</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"i = k"</span></span></span><span> </span><span class="keyword1"><span class="command">with</span></span><span> </span><span>ifte</span><span class="delimiter">(</span><span>1</span><span class="delimiter">,</span><span>2</span><span class="delimiter">,</span><span>4</span><span class="delimiter">)</span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>    </span><span class="keyword3"><span class="command">assume</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"i ≠ k"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">with</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹k ∈ insert i S›</span></span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span>k</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"k ∈ S"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">have</span></span><span> </span><span>*</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"insert i S - {k} = insert i (S - {k})"</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">using</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹i ≠ k›</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>insert_Diff_if</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">have</span></span><span> </span><span>**</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"i ∉ S - {k}"</span></span></span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹i ∉ S›</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">from</span></span><span> </span><span>ifte</span><span class="delimiter">(</span><span>1</span><span class="delimiter">)</span><span> </span><span>ifte</span><span class="delimiter">(</span><span>3</span><span class="delimiter">)</span><span> </span><span class="delimiter">[</span><span>OF</span><span> </span><span>k</span><span class="delimiter">]</span><span> </span><span>ifte</span><span class="delimiter">(</span><span>5</span><span class="delimiter">)</span><span> </span><span class="delimiter">[</span><span>OF</span><span> </span><span>k</span><span class="delimiter">]</span><span>
+</span><span>    </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>*</span><span>
+</span><span>      </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>clarify</span><span>
+</span><span>      </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>only</span><span class="delimiter">:</span><span> </span><span>ifte_ifte_distrib</span><span> </span><span class="delimiter">[</span><span>of</span><span> </span><span class="string"><span class="delete"><span class="delete">"var i"</span></span></span><span class="delimiter">]</span><span class="delimiter">)</span><span>
+</span><span>      </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>only</span><span class="delimiter">:</span><span> </span><span>ifte_ifte_distrib</span><span> </span><span class="delimiter">[</span><span>of</span><span> </span><span class="string"><span class="delete"><span class="delete">"f i"</span></span></span><span class="delimiter">]</span><span class="delimiter">)</span><span>
+</span><span>      </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>fast</span><span> </span><span>intro</span><span class="delimiter">:</span><span> </span><span>hom_graph.ifte</span><span> </span><span class="delimiter">[</span><span>OF</span><span> </span><span>**</span><span class="delimiter">]</span><span class="delimiter">)</span><span>
+</span><span>      </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span> </span><span>simp_all</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>hom_graph_insert_elim</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"hom_graph f (insert i S) x a"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"i ∉ S"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">obtains</span></span><span> </span><span>y</span><span> </span><span>z</span><span> </span><span>b</span><span> </span><span>c</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"x = ifte (var i) y z"</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"a = ifte (f i) b c"</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"hom_graph f S y b"</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"hom_graph f S z c"</span></span></span><span>
+</span><span class="keyword1"><span class="command">using</span></span><span> </span><span>hom_graph_dest</span><span> </span><span class="delimiter">[</span><span>OF</span><span> </span><span>assms</span><span class="delimiter">(</span><span>1</span><span class="delimiter">)</span><span> </span><span>insertI1</span><span class="delimiter">]</span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>clarify</span><span class="delimiter">,</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>assms</span><span class="delimiter">(</span><span>2</span><span class="delimiter">)</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  \medskip
+  Now we prove the first uniqueness property of the @{const hom_graph}
+  relation.  This version of uniqueness says that for any particular
+  value of ‹S›, the relation @{term "hom_graph f S"} maps each
+  ‹x› to at most one ‹a›.  The proof uses the
+  injectiveness of if-then-else, which we proved earlier.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>hom_graph_imp_formulas</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"hom_graph f S x a ⟹ x ∈ formulas S"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>set</span><span class="delimiter">:</span><span> </span><span>hom_graph</span><span class="delimiter">,</span><span> </span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>formulas_intros</span><span> </span><span>formulas_insert</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>hom_graph_unique</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"hom_graph f S x a ⟹ hom_graph f S x a' ⟹ a = a'"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>arbitrary</span><span class="delimiter">:</span><span> </span><span>a'</span><span> </span><span>set</span><span class="delimiter">:</span><span> </span><span>hom_graph</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>ifte</span><span> </span><span>i</span><span> </span><span>S</span><span> </span><span>y</span><span> </span><span>b</span><span> </span><span>z</span><span> </span><span>c</span><span> </span><span>a'</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">from</span></span><span> </span><span>ifte</span><span class="delimiter">(</span><span>6</span><span class="delimiter">,</span><span>1</span><span class="delimiter">)</span><span> </span><span class="keyword3"><span class="command">obtain</span></span><span> </span><span>y'</span><span> </span><span>z'</span><span> </span><span>b'</span><span> </span><span>c'</span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span>1</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"ifte (var i) y z = ifte (var i) y' z'"</span></span></span><span>
+</span><span>      </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>2</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"a' = ifte (f i) b' c'"</span></span></span><span>
+</span><span>      </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>3</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"hom_graph f S y' b'"</span></span></span><span>
+</span><span>      </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>4</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"hom_graph f S z' c'"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>hom_graph_insert_elim</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">from</span></span><span> </span><span>1</span><span> </span><span>3</span><span> </span><span>4</span><span> </span><span>ifte</span><span class="delimiter">(</span><span>1</span><span class="delimiter">,</span><span>2</span><span class="delimiter">,</span><span>4</span><span class="delimiter">)</span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"y = y' ∧ z = z'"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>intro</span><span> </span><span>ifte_inject</span><span> </span><span>hom_graph_imp_formulas</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">with</span></span><span> </span><span>2</span><span> </span><span>3</span><span> </span><span>4</span><span> </span><span>ifte</span><span class="delimiter">(</span><span>3</span><span class="delimiter">,</span><span>5</span><span class="delimiter">)</span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"ifte (f i) b c = a'"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span> </span><span class="delimiter">(</span><span>erule</span><span> </span><span>hom_graph.cases</span><span class="delimiter">,</span><span> </span><span>simp_all</span><span class="delimiter">)</span><span class="delimiter">+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  \medskip
+  The next few lemmas will help to establish a stronger version of the
+  uniqueness property of @{const hom_graph}.  They show that the @{const
+  hom_graph} relation is preserved if we replace ‹S› with a
+  larger finite set.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>hom_graph_insert</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"hom_graph f S x a"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"hom_graph f (insert i S) x a"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>cases</span><span> </span><span class="string"><span class="delete"><span class="delete">"i ∈ S"</span></span></span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">assume</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"i ∈ S"</span></span></span><span> </span><span class="keyword1"><span class="command">with</span></span><span> </span><span>assms</span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>insert_absorb</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">assume</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"i ∉ S"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">hence</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"hom_graph f (insert i S) (ifte (var i) x x) (ifte (f i) a a)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>intro</span><span> </span><span>hom_graph.ifte</span><span> </span><span>assms</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">thus</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"hom_graph f (insert i S) x a"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>only</span><span class="delimiter">:</span><span> </span><span>ifte_same</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>hom_graph_finite_superset</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"hom_graph f S x a"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"finite T"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"S ⊆ T"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"hom_graph f T x a"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">from</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹finite T›</span></span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"hom_graph f (S ∪ T) x a"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>set</span><span class="delimiter">:</span><span> </span><span>finite</span><span class="delimiter">,</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>assms</span><span class="delimiter">,</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>hom_graph_insert</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">with</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹S ⊆ T›</span></span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"hom_graph f T x a"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>only</span><span class="delimiter">:</span><span> </span><span>subset_Un_eq</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>hom_graph_imp_finite</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"hom_graph f S x a ⟹ finite S"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>set</span><span class="delimiter">:</span><span> </span><span>hom_graph</span><span class="delimiter">)</span><span> </span><span>simp_all</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  \medskip
+  This stronger uniqueness property says that @{term "hom_graph f"}
+  maps each ‹x› to at most one ‹a›, even for
+  \emph{different} values of the set parameter.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>hom_graph_unique'</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"hom_graph f S x a"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"hom_graph f T x a'"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"a = a'"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>hom_graph_unique</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span>fin</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"finite (S ∪ T)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>intro</span><span> </span><span>finite_UnI</span><span> </span><span>hom_graph_imp_finite</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"hom_graph f (S ∪ T) x a"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span class="delimiter">(</span><span>1</span><span class="delimiter">)</span><span> </span><span>fin</span><span> </span><span>Un_upper1</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>hom_graph_finite_superset</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"hom_graph f (S ∪ T) x a'"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span class="delimiter">(</span><span>2</span><span class="delimiter">)</span><span> </span><span>fin</span><span> </span><span>Un_upper2</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>hom_graph_finite_superset</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  \medskip
+  Finally, these last few lemmas establish that the @{term "hom_graph
+  f"} relation is total: every ‹x› is mapped to some ‹a›.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>hom_graph_var</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"hom_graph f {i} (var i) (f i)"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"hom_graph f {i} (ifte (var i) top bot) (ifte (f i) top bot)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>hom_graph.intros</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">thus</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"hom_graph f {i} (var i) (f i)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>ifte_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>hom_graph_compl</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"hom_graph f S x a ⟹ hom_graph f S (- x) (- a)"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>set</span><span class="delimiter">:</span><span> </span><span>hom_graph</span><span class="delimiter">,</span><span> </span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>hom_graph.intros</span><span> </span><span>compl_ifte</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>hom_graph_inf</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"hom_graph f S x a ⟹ hom_graph f S y b ⟹
+   hom_graph f S (x ⊓ y) (a ⊓ b)"</span></span></span><span>
+</span><span> </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>arbitrary</span><span class="delimiter">:</span><span> </span><span>y</span><span> </span><span>b</span><span> </span><span>set</span><span class="delimiter">:</span><span> </span><span>hom_graph</span><span class="delimiter">)</span><span>
+</span><span>   </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>hom_graph.bot</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>simp</span><span>
+</span><span> </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>erule</span><span> </span><span class="delimiter">(</span><span>1</span><span class="delimiter">)</span><span> </span><span>hom_graph_insert_elim</span><span class="delimiter">)</span><span>
+</span><span> </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>inf_ifte_distrib</span><span> </span><span>hom_graph.ifte</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>hom_graph_union_inf</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"hom_graph f S x a"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"hom_graph f T y b"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"hom_graph f (S ∪ T) (x ⊓ y) (a ⊓ b)"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>hom_graph_inf</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span>fin</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"finite (S ∪ T)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>intro</span><span> </span><span>finite_UnI</span><span> </span><span>hom_graph_imp_finite</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"hom_graph f (S ∪ T) x a"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span class="delimiter">(</span><span>1</span><span class="delimiter">)</span><span> </span><span>fin</span><span> </span><span>Un_upper1</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>hom_graph_finite_superset</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"hom_graph f (S ∪ T) y b"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span class="delimiter">(</span><span>2</span><span class="delimiter">)</span><span> </span><span>fin</span><span> </span><span>Un_upper2</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>hom_graph_finite_superset</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>hom_graph_exists</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"∃a S. hom_graph f S x a"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>x</span><span class="delimiter">)</span><span>
+</span><span>   </span><span class="delimiter">(</span><span>auto</span><span> </span><span>intro</span><span class="delimiter">:</span><span> </span><span>hom_graph_var</span><span> </span><span>hom_graph_compl</span><span> </span><span>hom_graph_union_inf</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Homomorphisms into other boolean algebras›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  Now that we have proved the necessary existence and uniqueness
+  properties of @{const hom_graph}, we can define the function ‹hom› using definite choice.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span>
+</span><span>  </span><span>hom</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"('a ⇒ 'b::boolean_algebra) ⇒ 'a formula ⇒ 'b"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"hom f x = (THE a. ∃S. hom_graph f S x a)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>hom_graph_hom</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"∃S. hom_graph f S x (hom f x)"</span></span></span><span>
+</span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>hom_def</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>theI'</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>ex_ex1I</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>hom_graph_exists</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>fast</span><span> </span><span>elim</span><span class="delimiter">:</span><span> </span><span>hom_graph_unique'</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>hom_equality</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"hom_graph f S x a ⟹ hom f x = a"</span></span></span><span>
+</span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>hom_def</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>the_equality</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>erule</span><span> </span><span>exI</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>erule</span><span> </span><span>exE</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>erule</span><span> </span><span class="delimiter">(</span><span>1</span><span class="delimiter">)</span><span> </span><span>hom_graph_unique'</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  \medskip
+  The @{const hom} function correctly implements its specification:
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>hom_var</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"hom f (var i) = f i"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>hom_equality</span><span class="delimiter">,</span><span> </span><span>rule</span><span> </span><span>hom_graph_var</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>hom_bot</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"hom f ⊥ = ⊥"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>hom_equality</span><span class="delimiter">,</span><span> </span><span>rule</span><span> </span><span>hom_graph.bot</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>hom_top</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"hom f ⊤ = ⊤"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>hom_equality</span><span class="delimiter">,</span><span> </span><span>rule</span><span> </span><span>hom_graph.top</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>hom_compl</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"hom f (- x) = - hom f x"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">obtain</span></span><span> </span><span>S</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"hom_graph f S x (hom f x)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>hom_graph_hom</span><span> </span><span class="keyword1"><span class="command">..</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">hence</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"hom_graph f S (- x) (- hom f x)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>hom_graph_compl</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">thus</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"hom f (- x) = - hom f x"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>hom_equality</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>hom_inf</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"hom f (x ⊓ y) = hom f x ⊓ hom f y"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">obtain</span></span><span> </span><span>S</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span>S</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"hom_graph f S x (hom f x)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>hom_graph_hom</span><span> </span><span class="keyword1"><span class="command">..</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">obtain</span></span><span> </span><span>T</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span>T</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"hom_graph f T y (hom f y)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>hom_graph_hom</span><span> </span><span class="keyword1"><span class="command">..</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"hom_graph f (S ∪ T) (x ⊓ y) (hom f x ⊓ hom f y)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>S</span><span> </span><span>T</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>hom_graph_union_inf</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">thus</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>hom_equality</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>hom_sup</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"hom f (x ⊔ y) = hom f x ⊔ hom f y"</span></span></span><span>
+</span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>sup_conv_inf</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>only</span><span class="delimiter">:</span><span> </span><span>hom_compl</span><span> </span><span>hom_inf</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>hom_diff</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"hom f (x - y) = hom f x - hom f y"</span></span></span><span>
+</span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>diff_eq</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>only</span><span class="delimiter">:</span><span> </span><span>hom_compl</span><span> </span><span>hom_inf</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>hom_ifte</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"hom f (ifte x y z) = ifte (hom f x) (hom f y) (hom f z)"</span></span></span><span>
+</span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>ifte_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>only</span><span class="delimiter">:</span><span> </span><span>hom_compl</span><span> </span><span>hom_inf</span><span> </span><span>hom_sup</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemmas</span></span><span> </span><span>hom_simps</span><span> </span><span class="delimiter">=</span><span>
+</span><span>  </span><span>hom_var</span><span> </span><span>hom_bot</span><span> </span><span>hom_top</span><span> </span><span>hom_compl</span><span>
+</span><span>  </span><span>hom_inf</span><span> </span><span>hom_sup</span><span> </span><span>hom_diff</span><span> </span><span>hom_ifte</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  \medskip
+  The type @{typ "'a formula"} can be viewed as a monad, with @{const
+  var} as the unit, and @{const hom} as the bind operator.  We can
+  prove the standard monad laws with simple proofs by induction.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>hom_var_eq_id</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"hom var x = x"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>x</span><span class="delimiter">)</span><span> </span><span>simp_all</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>hom_hom</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"hom f (hom g x) = hom (λi. hom f (g i)) x"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>x</span><span class="delimiter">)</span><span> </span><span>simp_all</span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Map operation on Boolean formulas›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  We can define a map functional in terms of @{const hom} and @{const
+  var}.  The properties of ‹fmap› follow directly from the
+  lemmas we have already proved about @{const hom}.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span>
+</span><span>  </span><span>fmap</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"('a ⇒ 'b) ⇒ 'a formula ⇒ 'b formula"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"fmap f = hom (λi. var (f i))"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>fmap_var</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"fmap f (var i) = var (f i)"</span></span></span><span>
+</span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>fmap_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>fmap_bot</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"fmap f ⊥ = ⊥"</span></span></span><span>
+</span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>fmap_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>fmap_top</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"fmap f ⊤ = ⊤"</span></span></span><span>
+</span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>fmap_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>fmap_compl</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"fmap f (- x) = - fmap f x"</span></span></span><span>
+</span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>fmap_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>fmap_inf</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"fmap f (x ⊓ y) = fmap f x ⊓ fmap f y"</span></span></span><span>
+</span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>fmap_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>fmap_sup</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"fmap f (x ⊔ y) = fmap f x ⊔ fmap f y"</span></span></span><span>
+</span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>fmap_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>fmap_diff</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"fmap f (x - y) = fmap f x - fmap f y"</span></span></span><span>
+</span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>fmap_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>fmap_ifte</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"fmap f (ifte x y z) = ifte (fmap f x) (fmap f y) (fmap f z)"</span></span></span><span>
+</span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>fmap_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemmas</span></span><span> </span><span>fmap_simps</span><span> </span><span class="delimiter">=</span><span>
+</span><span>  </span><span>fmap_var</span><span> </span><span>fmap_bot</span><span> </span><span>fmap_top</span><span> </span><span>fmap_compl</span><span>
+</span><span>  </span><span>fmap_inf</span><span> </span><span>fmap_sup</span><span> </span><span>fmap_diff</span><span> </span><span>fmap_ifte</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  \medskip
+  The map functional satisfies the functor laws: it preserves identity
+  and function composition.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>fmap_ident</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"fmap (λi. i) x = x"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>x</span><span class="delimiter">)</span><span> </span><span>simp_all</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>fmap_fmap</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"fmap f (fmap g x) = fmap (f ∘ g) x"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>x</span><span class="delimiter">)</span><span> </span><span>simp_all</span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Hiding lattice syntax›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  The following command hides the lattice syntax, to avoid potential
+  conflicts with other theories that import this one.  To re-enable
+  the syntax, users should import theory ‹Lattice_Syntax› from
+  the Isabelle library.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">no_notation</span></span><span>
+</span><span>  </span><span>top</span><span> </span><span class="delimiter">(</span><span class="string"><span class="delete"><span class="delete">"⊤"</span></span></span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span>
+</span><span>  </span><span>bot</span><span> </span><span class="delimiter">(</span><span class="string"><span class="delete"><span class="delete">"⊥"</span></span></span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span>
+</span><span>  </span><span>inf</span><span>  </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">infixl</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"⊓"</span></span></span><span> </span><span>70</span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span>
+</span><span>  </span><span>sup</span><span>  </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">infixl</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"⊔"</span></span></span><span> </span><span>65</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div>
+  
 </main>
     </div>
   </div>

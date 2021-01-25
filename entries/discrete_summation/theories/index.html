@@ -17,7 +17,8 @@
 
   
   
-  <link rel="stylesheet" type="text/css" href="/css/front.min.css" integrity="sha256-QUoTd2RQ4/P7SQKKOG301QYvQ7o2&#43;3qwXOJptpPXM0E=">
+  <link rel="stylesheet" type="text/css" href="/css/front.min.css" integrity="sha256-QUoTd2RQ4/P7SQKKOG301QYvQ7o2&#43;3qwXOJptpPXM0E="><link rel="stylesheet" type="text/css" href="/css/isabelle.css">
+  
   <link rel="icon" href="/images/favicon.ico" type="image/icon">
   <script src="/js/flexsearch.min.js"></script><script src="/js/header-search.js"></script></head>
 
@@ -68,14 +69,738 @@
   
   </div>
 </header><div><main>
-  <iframe src="https://www.isa-afp.org/browser_info/current/AFP/Discrete_Summation/Discrete_Summation.html" frameborder="0" id="Discrete_Summation">
-  </iframe>
-  <iframe src="https://www.isa-afp.org/browser_info/current/AFP/Discrete_Summation/Examples.html" frameborder="0" id="Examples">
-  </iframe>
-  <iframe src="https://www.isa-afp.org/browser_info/current/AFP/Discrete_Summation/Factorials.html" frameborder="0" id="Factorials">
-  </iframe>
-  <iframe src="https://www.isa-afp.org/browser_info/current/AFP/Discrete_Summation/Summation_Conversion.html" frameborder="0" id="Summation_Conversion">
-  </iframe>
+  
+  <div id="Factorials">
+<div class="head"><h1>Theory Factorials</h1>
+<span class="command">theory</span> <span class="name">Factorials</span><br/>
+<span class="keyword">imports</span> <a href="../../HOL/HOL/Complex_Main.html"><span class="name">Complex_Main</span></a> <a href="Stirling.html"><span class="name">Stirling</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* Authors: Amine Chaieb &amp; Florian Haftmann, TU Muenchen with contributions by Lukas Bulwahn *)</span></span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Falling factorials›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Factorials</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>Complex_Main</span><span> </span><span class="string"><span class="delete"><span class="delete">"HOL-Library.Stirling"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>pochhammer_0</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="comment">― ‹TODO move›</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"pochhammer 0 n = (0::nat)"</span></span></span><span> </span><span class="keyword2"><span class="keyword">if</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"n &gt; 0"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>that</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>pochhammer_prod</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>ffact</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"nat ⇒ 'a::comm_semiring_1_cancel ⇒ 'a"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"ffact n a = pochhammer (a + 1 - of_nat n) n"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>ffact_0</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"ffact 0 = (λx. 1)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>fun_eq_iff</span><span> </span><span>ffact_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>ffact_Suc</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"ffact (Suc n) a = a * ffact n (a - 1)"</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">for</span></span><span> </span><span>a</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a :: comm_ring_1"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>ffact_def</span><span> </span><span>pochhammer_prod</span><span> </span><span>prod.atLeast0_lessThan_Suc</span><span> </span><span>algebra_simps</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* TODO: what's the right class here? *)</span></span></span></span></span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>ffact_Suc_rev</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"ffact (Suc n) m = (m - of_nat n) * ffact n m"</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">for</span></span><span> </span><span>m</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a :: {comm_semiring_1_cancel, ab_group_add}"</span></span></span><span>
+</span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>ffact_def</span><span> </span><span>pochhammer_rec</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>diff_add_eq</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>ffact_nat_triv</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"ffact n m = 0"</span></span></span><span> </span><span class="keyword2"><span class="keyword">if</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"m &lt; n"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>that</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>ffact_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>ffact_Suc_nat</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"ffact (Suc n) m = m * ffact n (m - 1)"</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">for</span></span><span> </span><span>m</span><span> </span><span class="delimiter">::</span><span> </span><span>nat</span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>cases</span><span> </span><span class="string"><span class="delete"><span class="delete">"n ≤ m"</span></span></span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>True</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>ffact_def</span><span> </span><span>pochhammer_prod</span><span> </span><span>algebra_simps</span><span> </span><span>prod.atLeast0_lessThan_Suc</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>False</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"m &lt; n"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>ffact_nat_triv</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>ffact_Suc_rev_nat</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"ffact (Suc n) m = (m - n) * ffact n m"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>cases</span><span> </span><span class="string"><span class="delete"><span class="delete">"n ≤ m"</span></span></span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>True</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>ffact_def</span><span> </span><span>pochhammer_rec</span><span> </span><span>Suc_diff_le</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>False</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"m &lt; n"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>ffact_nat_triv</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>fact_div_fact_ffact</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"fact n div fact m = ffact (n - m) n"</span></span></span><span> </span><span class="keyword2"><span class="keyword">if</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"m ≤ n"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">from</span></span><span> </span><span>that</span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"fact n = ffact (n - m) n * fact m"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>ffact_def</span><span> </span><span>pochhammer_product</span><span> </span><span>pochhammer_fact</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">moreover</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"fact m dvd (fact n :: nat)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>that</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>fact_dvd</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">ultimately</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>fact_div_fact_ffact_nat</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"fact n div fact (n - k) = ffact k n"</span></span></span><span> </span><span class="keyword2"><span class="keyword">if</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"k ≤ n"</span></span></span><span>
+</span><span class="keyword1"><span class="command">using</span></span><span> </span><span>that</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>fact_div_fact_ffact</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>ffact_fact</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"ffact n (of_nat n) = (of_nat (fact n) :: 'a :: comm_ring_1)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>n</span><span class="delimiter">)</span><span> </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>algebra_simps</span><span> </span><span>ffact_Suc</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>ffact_add_diff_assoc</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"(a - of_nat n) * ffact n a + of_nat n * ffact n a = a * ffact n a"</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">for</span></span><span> </span><span>a</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a :: comm_ring_1"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>algebra_simps</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>mult_ffact</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"a * ffact n a = ffact (Suc n) a + of_nat n * ffact n a"</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">for</span></span><span> </span><span>a</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a :: comm_ring_1"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"ffact (Suc n) a + of_nat n * (ffact n a) = (a - of_nat n) * (ffact n a) + of_nat n * (ffact n a)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>ffact_Suc_rev</span><span> </span><span class="delimiter">[</span><span>of</span><span> </span><span>n</span><span class="delimiter">]</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">also</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"… = a * ffact n a"</span></span></span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>ffact_add_diff_assoc</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>algebra_simps</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">finally</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* TODO: what's the right class here? *)</span></span></span></span></span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>prod_ffact</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">fixes</span></span><span> </span><span>m</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a :: {ord, ring_1, comm_monoid_mult, comm_semiring_1_cancel}"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"(∏i = 0..&lt;n. m - of_nat i) = ffact n m"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"inj_on (λj. j - 1) {1..n}"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>force</span><span> </span><span>intro</span><span class="delimiter">:</span><span> </span><span>inj_on_diff_nat</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">moreover</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"{0..&lt;n} = (λj. j - 1) ` {1..n}"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"i ∈ (λj. j - 1) ` {1..n}"</span></span></span><span> </span><span class="keyword2"><span class="keyword">if</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"i ∈ {0..&lt;n}"</span></span></span><span> </span><span class="keyword2"><span class="keyword">for</span></span><span> </span><span>i</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>that</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>intro</span><span class="delimiter">:</span><span> </span><span>image_eqI</span><span class="delimiter">[</span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span>x</span><span class="delimiter">=</span><span class="string"><span class="delete"><span class="delete">"i + 1"</span></span></span><span class="delimiter">]</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">from</span></span><span> </span><span>this</span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">moreover</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"m - of_nat (i - 1) = m + 1 - of_nat n + of_nat (n - i)"</span></span></span><span> </span><span class="keyword2"><span class="keyword">if</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"i ∈ {1..n}"</span></span></span><span> </span><span class="keyword2"><span class="keyword">for</span></span><span> </span><span>i</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>that</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>of_nat_diff</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">ultimately</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"(∏i = 0..&lt;n. m - of_nat i) = (∏i = 1..n. m + 1 - of_nat n + of_nat (n - i))"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>prod.reindex_cong</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">from</span></span><span> </span><span>this</span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>ffact_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>only</span><span class="delimiter">:</span><span> </span><span>pochhammer_prod_rev</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>prod_ffact_nat</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">fixes</span></span><span> </span><span>m</span><span> </span><span class="delimiter">::</span><span> </span><span>nat</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"(∏i = 0..&lt;n. m - i) = ffact n m"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>cases</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">assume</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"n ≤ m"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"inj_on (λj. j - 1) {1..n}"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>force</span><span> </span><span>intro</span><span class="delimiter">:</span><span> </span><span>inj_on_diff_nat</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">moreover</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"{0..&lt;n} = (λj. j - 1) ` {1..n}"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"i ∈ (λj. j - 1) ` {1..n}"</span></span></span><span> </span><span class="keyword2"><span class="keyword">if</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"i ∈ {0..&lt;n}"</span></span></span><span> </span><span class="keyword2"><span class="keyword">for</span></span><span> </span><span>i</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>that</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>intro</span><span class="delimiter">:</span><span> </span><span>image_eqI</span><span class="delimiter">[</span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span>x</span><span class="delimiter">=</span><span class="string"><span class="delete"><span class="delete">"i + 1"</span></span></span><span class="delimiter">]</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">from</span></span><span> </span><span>this</span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">ultimately</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"(∏i = 0..&lt;n. m - i) = (∏i = 1..n. (m + 1) - i)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>intro</span><span class="delimiter">:</span><span> </span><span>prod.reindex_cong</span><span class="delimiter">[</span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span>l</span><span class="delimiter">=</span><span class="string"><span class="delete"><span class="delete">"λi. i - 1"</span></span></span><span class="delimiter">]</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">from</span></span><span> </span><span>this</span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹n ≤ m›</span></span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>ffact_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>pochhammer_prod_rev</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">assume</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"¬ n ≤ m"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">from</span></span><span> </span><span>this</span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>ffact_nat_triv</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* TODO: what's the right class here? *)</span></span></span></span></span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>prod_rev_ffact</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">fixes</span></span><span> </span><span>m</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a :: {ord, ring_1, comm_monoid_mult, comm_semiring_1_cancel}"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"(∏i = 1..n. m - of_nat n + of_nat i) = ffact n m"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"inj_on (λi. i + 1) {0..&lt;n}"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">moreover</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"{1..n} = (λi. i + 1) ` {0..&lt;n}"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">moreover</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"m - of_nat n + of_nat (i + 1) = m + 1 - of_nat n + of_nat i"</span></span></span><span> </span><span class="keyword2"><span class="keyword">for</span></span><span> </span><span>i</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">ultimately</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"(∏i = 1..n. m - of_nat n + of_nat i) = (∏i = 0..&lt;n. m + 1 - of_nat n + of_nat i)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>prod.reindex_cong</span><span class="delimiter">[</span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span>l</span><span class="delimiter">=</span><span class="string"><span class="delete"><span class="delete">"λi. i + 1"</span></span></span><span class="delimiter">]</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">from</span></span><span> </span><span>this</span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>ffact_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>only</span><span class="delimiter">:</span><span> </span><span>pochhammer_prod</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>prod_rev_ffact_nat</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">fixes</span></span><span> </span><span>m</span><span> </span><span class="delimiter">::</span><span> </span><span>nat</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"n ≤ m"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"(∏i = 1..n. m - n + i) = ffact n m"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"inj_on (λi. i + 1) {0..&lt;n}"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">moreover</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"{1..n} = (λi. i + 1) ` {0..&lt;n}"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">moreover</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"m - n + (i + 1) = m + 1 - n + i"</span></span></span><span> </span><span class="keyword2"><span class="keyword">for</span></span><span> </span><span>i</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span>  </span><span class="cartouche"><span class="delete"><span class="delete">‹n ≤ m›</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">ultimately</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"(∏i = 1..n. m - n + i) = (∏i = 0..&lt;n. m + 1 - n + i)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>prod.reindex_cong</span><span class="delimiter">)</span><span>
+</span><span> </span><span class="keyword1"><span class="command">from</span></span><span> </span><span>this</span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span>
+</span><span>   </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>ffact_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>only</span><span class="delimiter">:</span><span> </span><span>pochhammer_prod</span><span> </span><span>of_nat_id</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>prod_rev_ffact_nat'</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">fixes</span></span><span> </span><span>m</span><span> </span><span class="delimiter">::</span><span> </span><span>nat</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"n ≤ m"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"∏{m - n + 1..m} = ffact n m"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"inj_on (λi. m - n + i) {1::nat..n}"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>intro</span><span class="delimiter">:</span><span> </span><span>inj_onI</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">moreover</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"{m - n + 1..m} = (λi. m - n + i) ` {1::nat..n}"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"i ∈ (λi. m + i - n) ` {Suc 0..n}"</span></span></span><span> </span><span class="keyword2"><span class="keyword">if</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"i ∈ {m - n + 1..m}"</span></span></span><span> </span><span class="keyword2"><span class="keyword">for</span></span><span> </span><span>i</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>that</span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹n ≤ m›</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>intro</span><span class="delimiter">!</span><span class="delimiter">:</span><span> </span><span>image_eqI</span><span class="delimiter">[</span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span>x</span><span class="delimiter">=</span><span class="string"><span class="delete"><span class="delete">"i - (m - n)"</span></span></span><span class="delimiter">]</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">with</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹n ≤ m›</span></span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">moreover</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"m - n + i = m - n + i"</span></span></span><span> </span><span class="keyword2"><span class="keyword">for</span></span><span> </span><span>i</span><span> </span><span class="keyword1"><span class="command">..</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">ultimately</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"∏{m - n + (1::nat)..m} = (∏i = 1..n. m - n + i)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>prod.reindex_cong</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">from</span></span><span> </span><span>this</span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹n ≤ m›</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>only</span><span class="delimiter">:</span><span> </span><span>prod_rev_ffact_nat</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>ffact_eq_fact_mult_binomial</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"ffact k n = fact k * (n choose k)"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>cases</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">assume</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"k ≤ n"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"ffact k n = fact n div fact (n - k)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹k ≤ n›</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>fact_div_fact_ffact_nat</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">also</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"… = fact k * (n choose k)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹k ≤ n›</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>binomial_fact_lemma</span><span class="delimiter">[</span><span>symmetric</span><span class="delimiter">]</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">finally</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">assume</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"¬ k ≤ n"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">from</span></span><span> </span><span>this</span><span> </span><span>ffact_nat_triv</span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>force</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>of_nat_ffact</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"of_nat (ffact n m) = ffact n (of_nat m :: 'a :: comm_ring_1)"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>n</span><span> </span><span>arbitrary</span><span class="delimiter">:</span><span> </span><span>m</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>0</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>Suc</span><span> </span><span>n</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>cases</span><span> </span><span>m</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>0</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>ffact_Suc_nat</span><span> </span><span>ffact_Suc</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>    </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>Suc</span><span> </span><span>m</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">with</span></span><span> </span><span>Suc.hyps</span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>algebra_simps</span><span> </span><span>ffact_Suc_nat</span><span> </span><span>ffact_Suc</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>of_int_ffact</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"of_int (ffact n k) = ffact n (of_int k :: 'a :: comm_ring_1)"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>n</span><span> </span><span>arbitrary</span><span class="delimiter">:</span><span> </span><span>k</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>0</span><span> </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>Suc</span><span> </span><span>n</span><span> </span><span>k</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"of_int (ffact n (k - 1)) = ffact n (of_int (k - 1) :: 'a)"</span></span></span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>ffact_Suc_nat</span><span> </span><span>ffact_Suc</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>ffact_minus</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">fixes</span></span><span> </span><span>x</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a :: comm_ring_1"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"ffact n (- x) = (- 1) ^ n * pochhammer x n"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"ffact n (- x) = pochhammer (- x + 1 - of_nat n) n"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>ffact_def</span><span> </span><span class="keyword1"><span class="command">..</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">also</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"… = pochhammer (- x - of_nat n + 1) n"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>diff_add_eq</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">also</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"… = (- 1) ^ n * pochhammer (- (- x)) n"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>pochhammer_minus'</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">also</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"… = (- 1) ^ n * pochhammer x n"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">finally</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Conversion of natural potences into falling factorials and back›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>monomial_ffact</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"a ^ n = (∑k = 0..n. of_nat (Stirling n k) * ffact k a)"</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">for</span></span><span> </span><span>a</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a :: comm_ring_1"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>n</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>0</span><span> </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>Suc</span><span> </span><span>n</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"a ^ Suc n = a * (∑k = 0..n. of_nat (Stirling n k) * ffact k a)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">also</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"… = (∑k = 0..n. of_nat (Stirling n k) * (a * ffact k a))"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>sum_distrib_left</span><span> </span><span>algebra_simps</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">also</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"… = (∑k = 0..n. of_nat (Stirling n k) * ffact (Suc k) a) +
+    (∑k = 0..n. of_nat (Stirling n k) * (of_nat k * ffact k a))"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>sum.distrib</span><span> </span><span>algebra_simps</span><span> </span><span>mult_ffact</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">also</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"… = (∑k = 0.. Suc n. of_nat (Stirling n k) * ffact (Suc k) a) +
+    (∑k = 0..Suc n. of_nat ((Suc k) * (Stirling n (Suc k))) * (ffact (Suc k) a))"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"(∑k = 0..n. of_nat (Stirling n k) * (of_nat k * ffact k a)) =
+      (∑k = 0..n+2. of_nat (Stirling n k) * (of_nat k * ffact k a))"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">also</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"… = (∑k = Suc 0 .. Suc (Suc n). of_nat (Stirling n k) * (of_nat k * ffact k a)) "</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>only</span><span class="delimiter">:</span><span> </span><span>sum.atLeast_Suc_atMost</span><span> </span><span class="delimiter">[</span><span>of</span><span> </span><span>0</span><span> </span><span class="string"><span class="delete"><span class="delete">"n + 2"</span></span></span><span class="delimiter">]</span><span class="delimiter">)</span><span> </span><span>simp</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">also</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"… = (∑k = 0 .. Suc n. of_nat (Stirling n (Suc k)) * (of_nat (Suc k) * ffact (Suc k) a))"</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>only</span><span class="delimiter">:</span><span> </span><span>image_Suc_atLeastAtMost</span><span> </span><span>sum.shift_bounds_cl_Suc_ivl</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">also</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"… = (∑k = 0 .. Suc n. of_nat ((Suc k) * Stirling n (Suc k)) * ffact (Suc k) a)"</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>only</span><span class="delimiter">:</span><span> </span><span>of_nat_mult</span><span> </span><span>algebra_simps</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">finally</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"(∑k = 0..n. of_nat (Stirling n k) * (of_nat k * ffact k a)) =
+      (∑k = 0..Suc n. of_nat (Suc k * Stirling n (Suc k)) * ffact (Suc k) a)"</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">also</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"… = (∑k = 0..n. of_nat (Stirling (Suc n) (Suc k)) * ffact (Suc k) a)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>algebra_simps</span><span> </span><span>sum.distrib</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">also</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"… = (∑k = Suc 0..Suc n. of_nat (Stirling (Suc n) k) * ffact k a)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>only</span><span class="delimiter">:</span><span> </span><span>image_Suc_atLeastAtMost</span><span> </span><span>sum.shift_bounds_cl_Suc_ivl</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">also</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"… = (∑k = 0..Suc n. of_nat (Stirling (Suc n) k) * ffact k a)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>only</span><span class="delimiter">:</span><span> </span><span>sum.atLeast_Suc_atMost</span><span> </span><span class="delimiter">[</span><span>of</span><span> </span><span class="string"><span class="delete"><span class="delete">"0"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Suc n"</span></span></span><span class="delimiter">]</span><span class="delimiter">)</span><span> </span><span>simp</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">finally</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>ffact_monomial</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"ffact n a = (∑k = 0..n. (- 1) ^ (n - k) * of_nat (stirling n k) * a ^ k)"</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">for</span></span><span> </span><span>a</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a :: comm_ring_1"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>n</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>0</span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>Suc</span><span> </span><span>n</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"ffact (Suc n) a = (a - of_nat n) * (∑k = 0..n. (- 1) ^ (n - k) * of_nat (stirling n k) * a ^ k)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>ffact_Suc_rev</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">also</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"… = (∑k = 0..n. (- 1) ^ (n - k) * of_nat (stirling n k) * a ^ (Suc k)) +
+    (∑k = 0..n. (- 1) * (- 1) ^ (n - k) * of_nat (n * (stirling n k)) * a ^ k)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>only</span><span class="delimiter">:</span><span> </span><span>diff_conv_add_uminus</span><span> </span><span>distrib_right</span><span class="delimiter">)</span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>sum_distrib_left</span><span> </span><span>field_simps</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">also</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"… = (∑k = 0..n. (- 1) ^ (Suc n - Suc k) * of_nat (stirling n k) * a ^ Suc k) +
+  (∑k = 0..n. (- 1) ^ (Suc n - Suc k) * of_nat (n * stirling n (Suc k)) * a ^ Suc k)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"(∑k = 0..n. (- 1) * (- 1) ^ (n - k) * of_nat (n * stirling n k) * a ^ k) =
+      (∑k = 0..n. (- 1) ^ (Suc n - k) * of_nat (n * stirling n k) * a ^ k)"</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Suc_diff_le</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">also</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"… = (∑k = Suc 0..Suc n. (- 1) ^ (Suc n - k) * of_nat (n * stirling n k) * a ^ k)"</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>sum.atLeast_Suc_atMost</span><span class="delimiter">)</span><span> </span><span class="delimiter">(</span><span>cases</span><span> </span><span>n</span><span class="delimiter">;</span><span> </span><span>simp</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">also</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"… = (∑k = 0..n. (- 1) ^ (Suc n - Suc k) * of_nat (n * stirling n (Suc k)) * a ^ Suc k)"</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>only</span><span class="delimiter">:</span><span> </span><span>sum.shift_bounds_cl_Suc_ivl</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">finally</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">also</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"… = (∑k = 0..n. (- 1) ^ (Suc n - Suc k) * of_nat (n * stirling n (Suc k) + stirling n k) * a ^ Suc k)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>sum.distrib</span><span> </span><span>algebra_simps</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">also</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"… = (∑k = 0..n. (- 1) ^ (Suc n - Suc k) * of_nat (stirling (Suc n) (Suc k)) * a ^ Suc k)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>only</span><span class="delimiter">:</span><span> </span><span>stirling.simps</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">also</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"… = (∑k = Suc 0..Suc n. (- 1) ^ (Suc n - k) * of_nat (stirling (Suc n) k) * a ^ k)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>only</span><span class="delimiter">:</span><span> </span><span>sum.shift_bounds_cl_Suc_ivl</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">also</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"… = (∑k = 0..Suc n. (- 1) ^ (Suc n - k) * of_nat (stirling (Suc n) k) * a ^ k)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>sum.atLeast_Suc_atMost</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">finally</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div><div id="Discrete_Summation">
+<div class="head"><h1>Theory Discrete_Summation</h1>
+<span class="command">theory</span> <span class="name">Discrete_Summation</span><br/>
+<span class="keyword">imports</span> <a href="../../HOL/HOL/Main.html"><span class="name">Main</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* Author: Florian Haftmann, TU Muenchen *)</span></span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Some basic facts about discrete summation›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Discrete_Summation</span><span>
+</span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>Main</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Auxiliary›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>add_sum_orient</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"sum f {k..&lt;j} + sum f {l..&lt;k} = sum f {l..&lt;k} + sum f {k..&lt;j}"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>fact</span><span> </span><span>add.commute</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>add_sum_int</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">fixes</span></span><span> </span><span>j</span><span> </span><span>k</span><span> </span><span>l</span><span> </span><span class="delimiter">::</span><span> </span><span>int</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"j &lt; k ⟹ k &lt; l ⟹
+    sum f {j..&lt;k} + sum f {k..&lt;l} = sum f {j..&lt;l}"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>sum.union_inter</span><span> </span><span class="delimiter">[</span><span>symmetric</span><span class="delimiter">]</span><span> </span><span>ivl_disj_un</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹The shift operator›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>Δ</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"('b::ring_1 ⇒ 'a::ab_group_add) ⇒ int ⇒ 'a"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Δ f k = f (of_int (k + 1)) - f (of_int k)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Δ_shift</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Δ (λk. l + f k) = Δ f"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Δ_def</span><span> </span><span>fun_eq_iff</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Δ_same_shift</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Δ f = Δ g"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"∃l. plus l ∘ f ∘ of_int = g ∘ of_int"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">let</span></span><span> </span><span class="var">?F</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"λk. f (of_int k)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">let</span></span><span> </span><span class="var">?G</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"λk. g (of_int k)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">from</span></span><span> </span><span>assms</span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"⋀k. Δ f (of_int k) = Δ g (of_int k)"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span>k_incr</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"⋀k. ?F (k + 1) - ?G (k + 1) = ?F k - ?G k"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Δ_def</span><span> </span><span>algebra_simps</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"⋀k. ?F ((k - 1) + 1) - ?G ((k - 1) + 1) =
+    ?F (k - 1) - ?G (k - 1)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span>k_decr</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"⋀k. ?F (k - 1) - ?G (k - 1) = ?F k - ?G k"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"⋀k. ?F k - ?G k = ?F 0 - ?G 0"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>    </span><span class="keyword3"><span class="command">fix</span></span><span> </span><span>k</span><span>
+</span><span>    </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"?F k - ?G k = ?F 0 - ?G 0"</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>k</span><span> </span><span>rule</span><span class="delimiter">:</span><span> </span><span>int_induct</span><span class="delimiter">)</span><span>
+</span><span>        </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>k_incr</span><span> </span><span>k_decr</span><span> </span><span>del</span><span class="delimiter">:</span><span> </span><span>of_int_add</span><span> </span><span>of_int_diff</span><span> </span><span>of_int_0</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"⋀k. (plus (?G 0 - ?F 0) ∘ ?F) k = ?G k"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>algebra_simps</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"plus (?G 0 - ?F 0) ∘ ?F = ?G"</span></span></span><span> </span><span class="keyword1"><span class="command">..</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"plus (?G 0 - ?F 0) ∘ f ∘ of_int = g ∘ of_int"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>only</span><span class="delimiter">:</span><span> </span><span>comp_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">..</span></span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Δ_add</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Δ (λk. f k + g k) k = Δ f k + Δ g k"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Δ_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Δ_factor</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Δ (λk. c * k) k = c"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Δ_def</span><span> </span><span>algebra_simps</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹The formal sum operator›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>Σ</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"('b::ring_1 ⇒ 'a::ab_group_add) ⇒ int ⇒ int ⇒ 'a"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Σ f j l = (if j &lt; l then sum (f ∘ of_int) {j..&lt;l}
+    else if j &gt; l then - sum (f ∘ of_int) {l..&lt;j}
+    else 0)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Σ_same</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Σ f j j = 0"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Σ_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Σ_positive</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"j &lt; l ⟹ Σ f j l = sum (f ∘ of_int) {j..&lt;l}"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Σ_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Σ_negative</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"j &gt; l ⟹ Σ f j l = - Σ f l j"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Σ_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Σ_comp_of_int</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Σ (f ∘ of_int) = Σ f"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Σ_def</span><span> </span><span>fun_eq_iff</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Σ_const</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Σ (λk. c) j l = of_int (l - j) * c"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Σ_def</span><span> </span><span>algebra_simps</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Σ_add</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Σ (λk. f k + g k) j l = Σ f j l + Σ g j l"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Σ_def</span><span> </span><span>sum.distrib</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Σ_factor</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Σ (λk. c * f k) j l = (c::'a::ring) * Σ (λk. f k) j l"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Σ_def</span><span> </span><span>sum_distrib_left</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Σ_concat</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Σ f j k + Σ f k l = Σ f j l"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Σ_def</span><span> </span><span>algebra_simps</span><span> </span><span>add_sum_int</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>add_sum_orient</span><span> </span><span class="delimiter">[</span><span>of</span><span> </span><span class="string"><span class="delete"><span class="delete">"λk. f (of_int k)"</span></span></span><span> </span><span>k</span><span> </span><span>j</span><span> </span><span>l</span><span class="delimiter">]</span><span>
+</span><span>      </span><span>add_sum_orient</span><span> </span><span class="delimiter">[</span><span>of</span><span> </span><span class="string"><span class="delete"><span class="delete">"λk. f (of_int k)"</span></span></span><span> </span><span>j</span><span> </span><span>l</span><span> </span><span>k</span><span class="delimiter">]</span><span>
+</span><span>      </span><span>add_sum_orient</span><span> </span><span class="delimiter">[</span><span>of</span><span> </span><span class="string"><span class="delete"><span class="delete">"λk. f (of_int k)"</span></span></span><span> </span><span>j</span><span> </span><span>k</span><span> </span><span>l</span><span class="delimiter">]</span><span> </span><span>add_sum_int</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Σ_incr_upper</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Σ f j (l + 1) = Σ f j l + f (of_int l)"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"{l..&lt;l+1} = {l}"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Σ f l (l + 1) = f (of_int l)"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Σ_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">moreover</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Σ f j (l + 1) = Σ f j l + Σ f l (l + 1)"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Σ_concat</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">ultimately</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Fundamental lemmas: The relation between @{term Δ} and @{term Σ}›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Δ_Σ</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Δ (Σ f j) = f"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">fix</span></span><span> </span><span>k</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Δ (Σ f j) k = f k"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Δ_def</span><span> </span><span>Σ_incr_upper</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Σ_Δ</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Σ (Δ f) j l = f (of_int l) - f (of_int j)"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">from</span></span><span> </span><span>Δ_Σ</span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Δ (Σ (Δ f) j) = Δ f"</span></span></span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">obtain</span></span><span> </span><span>k</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"plus k ∘ Σ (Δ f) j ∘ of_int = f ∘ of_int"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>blast</span><span> </span><span>dest</span><span class="delimiter">:</span><span> </span><span>Δ_same_shift</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"⋀q. f (of_int q) = k + Σ (Δ f) j q"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>fun_eq_iff</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>
+</span></pre>
+</div>
+</div><div id="Summation_Conversion">
+<div class="head"><h1>Theory Summation_Conversion</h1>
+<span class="command">theory</span> <span class="name">Summation_Conversion</span><br/>
+<span class="keyword">imports</span> <a href="Factorials.html"><span class="name">Factorials</span></a> <a href="Discrete_Summation.html"><span class="name">Discrete_Summation</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* Author: Florian Haftmann, TU Muenchen *)</span></span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹A barebone conversion for discrete summation›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Summation_Conversion</span><span>
+</span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>Factorials</span><span> </span><span>Discrete_Summation</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Extensible theorem collection for solving summation problems›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">named_theorems</span></span><span> </span><span>summation</span><span> </span><span class="string"><span class="delete"><span class="delete">"rules for solving summation problems"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">declare</span></span><span>
+</span><span>  </span><span>Σ_const</span><span> </span><span class="delimiter">[</span><span>summation</span><span class="delimiter">]</span><span> </span><span>Σ_add</span><span> </span><span class="delimiter">[</span><span>summation</span><span class="delimiter">]</span><span>
+</span><span>  </span><span>Σ_factor</span><span> </span><span class="delimiter">[</span><span>summation</span><span class="delimiter">]</span><span> </span><span>monomial_ffact</span><span> </span><span class="delimiter">[</span><span>summation</span><span class="delimiter">]</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>intervall_simps</span><span> </span><span class="delimiter">[</span><span>summation</span><span class="delimiter">]</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"(∑k::nat = 0..0. f k) = f 0"</span></span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"(∑k::nat = 0..Suc n. f k) = f (Suc n) + (∑k::nat = 0..n. f k)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>add.commute</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Δ_ffact</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Δ (ffact (Suc n)) k = of_nat (Suc n) * ffact n (of_int k :: 'a :: comm_ring_1)"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>n</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>0</span><span> </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Δ_def</span><span> </span><span>ffact_Suc</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>Suc</span><span> </span><span>n</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">obtain</span></span><span> </span><span>m</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"m = Suc n"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Δ (ffact (Suc m)) k =
+    ffact (Suc m) (of_int (k + 1)) - ffact (Suc m) (of_int k :: 'a)"</span></span></span><span> 
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Δ_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">also</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"… = of_int (k + 1) * ffact m (of_int k)
+    - (ffact m (of_int k) * (of_int k - of_nat m))"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>ffact_Suc_rev</span><span> </span><span class="delimiter">[</span><span>of</span><span> </span><span>m</span><span> </span><span class="string"><span class="delete"><span class="delete">"(of_int k :: 'a :: comm_ring_1)"</span></span></span><span class="delimiter">]</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>ac_simps</span><span> </span><span>ffact_Suc</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">also</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"… = (of_int k + 1 - of_int k + of_nat m) * ffact m (of_int k)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>algebra_simps</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">also</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"… = of_nat (Suc m) * ffact m (of_int k)"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">also</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"… = of_nat (Suc m) * ffact (Suc m - 1) (of_int k)"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">finally</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>only</span><span class="delimiter">:</span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹m = Suc n›</span></span></span><span> </span><span>diff_Suc_1</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Σ_ffact_divide</span><span> </span><span class="delimiter">[</span><span>summation</span><span class="delimiter">]</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"Σ (ffact n) j l =
+    (ffact (Suc n) (of_int l :: 'a :: {idom_divide, semiring_char_0}) - ffact (Suc n) (of_int j)) div of_nat (Suc n)"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span>*</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"(of_nat (Suc n) * Σ (ffact n) j l) div of_nat (Suc n) = (Σ (ffact n) j l :: 'a)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>of_nat_neq_0</span><span> </span><span class="delimiter">[</span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="tvar">?'a</span><span> </span><span class="delimiter">=</span><span> </span><span class="tfree">'a</span><span class="delimiter">]</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"ffact (Suc n) (of_int l :: 'a) - ffact (Suc n) (of_int j) =
+    Σ (λk. Δ (ffact (Suc n)) k) j l"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Σ_Δ</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">also</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"… = Σ (λk. of_nat (Suc n) * ffact n (of_int k)) j l"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Δ_ffact</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">also</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"… = of_nat (Suc n) * Σ (ffact n ∘ of_int) j l"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Σ_factor</span><span> </span><span>comp_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">finally</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>only</span><span class="delimiter">:</span><span> </span><span>Σ_comp_of_int</span><span> </span><span>*</span><span> </span><span>of_nat_eq_0_iff</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Various other rules›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>of_int_coeff</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"(of_int l :: 'a::comm_ring_1) * numeral k = of_int (l * numeral k)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemmas</span></span><span> </span><span>nat_simps</span><span> </span><span class="delimiter">=</span><span>
+</span><span>  </span><span>add_0_left</span><span> </span><span>add_0_right</span><span> </span><span>add_Suc</span><span> </span><span>add_Suc_right</span><span>
+</span><span>  </span><span>mult_Suc</span><span> </span><span>mult_Suc_right</span><span> </span><span>mult_zero_left</span><span> </span><span>mult_zero_right</span><span>
+</span><span>  </span><span>One_nat_def</span><span> </span><span>of_nat_simps</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemmas</span></span><span> </span><span>of_int_pull_out</span><span> </span><span class="delimiter">=</span><span>
+</span><span>  </span><span>of_int_add</span><span> </span><span class="delimiter">[</span><span>symmetric</span><span class="delimiter">]</span><span> </span><span>of_int_diff</span><span> </span><span class="delimiter">[</span><span>symmetric</span><span class="delimiter">]</span><span> </span><span>of_int_mult</span><span> </span><span class="delimiter">[</span><span>symmetric</span><span class="delimiter">]</span><span>
+</span><span>  </span><span>of_int_coeff</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>of_nat_coeff</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"(of_nat n :: 'a::comm_semiring_1) * numeral m = of_nat (n * numeral m)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>n</span><span class="delimiter">)</span><span> </span><span>simp_all</span><span>
+</span><span>  
+</span><span class="keyword1"><span class="command">lemmas</span></span><span> </span><span>of_nat_pull_out</span><span> </span><span class="delimiter">=</span><span>
+</span><span>  </span><span>of_nat_add</span><span> </span><span class="delimiter">[</span><span>symmetric</span><span class="delimiter">]</span><span> </span><span>of_nat_mult</span><span> </span><span class="delimiter">[</span><span>symmetric</span><span class="delimiter">]</span><span> </span><span>of_nat_coeff</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemmas</span></span><span> </span><span>nat_pull_in</span><span> </span><span class="delimiter">=</span><span>
+</span><span>  </span><span>nat_int_add</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemmas</span></span><span> </span><span>of_int_pull_in</span><span> </span><span class="delimiter">=</span><span>
+</span><span>  </span><span>of_int_pull_out</span><span> </span><span class="delimiter">[</span><span>symmetric</span><span class="delimiter">]</span><span> </span><span>add_divide_distrib</span><span> </span><span>diff_divide_distrib</span><span> </span><span>of_int_power</span><span>
+</span><span>  </span><span>of_int_numeral</span><span> </span><span>of_int_neg_numeral</span><span> </span><span>times_divide_eq_left</span><span> </span><span class="delimiter">[</span><span>symmetric</span><span class="delimiter">]</span><span>
+</span><span>
+</span><span>  
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Special for @{typ nat}›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>lift_nat</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"(nat ⇒ nat) ⇒ int ⇒ int"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"lift_nat f = int ∘ f ∘ nat"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>Σ_nat</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"(nat ⇒ nat) ⇒ nat ⇒ nat ⇒ nat"</span></span></span><span> </span><span class="delimiter">(</span><span class="string"><span class="delete"><span class="delete">"Σ<span class="hidden">⇩</span><sub>ℕ</sub>"</span></span></span><span class="delimiter">)</span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="delimiter">[</span><span>summation</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"Σ<span class="hidden">⇩</span><sub>ℕ</sub> f m n = nat (Σ (lift_nat f) (int m) (int n))"</span></span></span><span>  
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>pos_id</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"int ⇒ int"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"pos_id k = (if k &lt; 0 then 0 else k)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Σ_pos_id</span><span> </span><span class="delimiter">[</span><span>summation</span><span class="delimiter">]</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"0 ≤ k ⟹ 0 ≤ l ⟹ Σ (λr. f (pos_id r)) k l = Σ f k l"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Σ_def</span><span> </span><span>pos_id_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="delimiter">[</span><span>summation</span><span class="delimiter">]</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"(0::int) ≤ 0"</span></span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"(0::int) ≤ 1"</span></span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"(0::int) ≤ numeral m"</span></span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"(0::int) ≤ int n"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp_all</span><span>
+</span><span>  
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="delimiter">[</span><span>summation</span><span class="delimiter">]</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"lift_nat (λn. m) = (λk. int m)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>lift_nat_def</span><span> </span><span>fun_eq_iff</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="delimiter">[</span><span>summation</span><span class="delimiter">]</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"lift_nat (λn. n) = pos_id"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>lift_nat_def</span><span> </span><span>fun_eq_iff</span><span> </span><span>pos_id_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="delimiter">[</span><span>summation</span><span class="delimiter">]</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"lift_nat (λn. f n + g n) = (λk. lift_nat f k + lift_nat g k)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>lift_nat_def</span><span> </span><span>fun_eq_iff</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="delimiter">[</span><span>summation</span><span class="delimiter">]</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"lift_nat (λn. m * f n) = (λk. int m * lift_nat f k)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>lift_nat_def</span><span> </span><span>fun_eq_iff</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="delimiter">[</span><span>summation</span><span class="delimiter">]</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"lift_nat (λn. f n * m) = (λk. lift_nat f k * int m)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>lift_nat_def</span><span> </span><span>fun_eq_iff</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="delimiter">[</span><span>summation</span><span class="delimiter">]</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"lift_nat (λn. f n ^ m) = (λk. lift_nat f k ^ m)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>lift_nat_def</span><span> </span><span>fun_eq_iff</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span>  
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Generic conversion›</span></span></span><span>  
+</span><span>
+</span><span class="keyword1"><span class="command">ML</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+signature SUMMATION =
+sig
+  val conv: Proof.context -&gt; conv
+end
+
+structure Summation : SUMMATION =
+struct
+
+val simps2 = @{thms Stirling.simps ffact_0 ffact_Suc nat_simps};
+val simpset3 =
+  @{context}
+  |&gt; fold Simplifier.add_simp @{thms field_simps}
+  |&gt; Simplifier.simpset_of;
+val simps4 = @{thms of_int_pull_out of_nat_pull_out nat_pull_in};
+val simps6 = @{thms of_int_pull_in};
+
+fun conv ctxt =
+  let
+    val ctxt1 =
+      ctxt
+      |&gt; put_simpset HOL_basic_ss
+      |&gt; fold Simplifier.add_simp (Named_Theorems.get ctxt @{named_theorems summation})
+    val ctxt2 =
+      ctxt
+      |&gt; put_simpset HOL_basic_ss
+      |&gt; fold Simplifier.add_simp simps2
+    val ctxt3 =
+      ctxt
+      |&gt; put_simpset simpset3
+    val ctxt4 =
+      ctxt
+      |&gt; put_simpset HOL_basic_ss
+      |&gt; fold Simplifier.add_simp simps4
+    val semiring_conv_base = Semiring_Normalizer.semiring_normalize_conv ctxt
+    val semiring_conv = Conv.arg_conv (Conv.arg1_conv (Conv.arg_conv semiring_conv_base))
+      else_conv Conv.arg1_conv (Conv.arg_conv semiring_conv_base)
+      else_conv semiring_conv_base
+    val ctxt6 =
+      ctxt
+      |&gt; put_simpset HOL_basic_ss
+      |&gt; fold Simplifier.add_simp simps6
+  in
+     Simplifier.rewrite ctxt1
+     then_conv Simplifier.rewrite ctxt2
+     then_conv Simplifier.rewrite ctxt3
+     then_conv Simplifier.rewrite ctxt4
+     then_conv semiring_conv
+     then_conv Simplifier.rewrite ctxt6
+  end
+
+end
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">hide_fact</span></span><span> </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">open</span></span><span class="delimiter">)</span><span> </span><span>nat_simps</span><span> </span><span>of_int_pull_out</span><span> </span><span>of_int_pull_in</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div><div id="Examples">
+<div class="head"><h1>Theory Examples</h1>
+<span class="command">theory</span> <span class="name">Examples</span><br/>
+<span class="keyword">imports</span> <a href="Summation_Conversion.html"><span class="name">Summation_Conversion</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* Author: Florian Haftmann, TU Muenchen *)</span></span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Simple examples›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Examples</span><span>
+</span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>Summation_Conversion</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">ML</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  Summation.conv @{context}
+  @{cterm "Σ (λq::rat. q ^ Suc (Suc (Suc 0)) + 3) 0 j"}
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">ML</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  Summation.conv @{context}
+  @{cterm "Σ (λx::real. x ^ Suc (Suc (Suc 0)) + 3) 0 j"}
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">ML</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  Summation.conv @{context}
+  @{cterm "Σ (λk::int. k ^ Suc (Suc (Suc 0)) + 3) 0 j"}
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">ML</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  Summation.conv @{context}
+  @{cterm "Σ<span class="hidden">⇩</span><sub>ℕ</sub> (λn::nat. n ^ Suc (Suc (Suc 0)) + 3) 0 m"}
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div>
+  
 </main>
     </div>
   </div>

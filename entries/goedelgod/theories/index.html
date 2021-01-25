@@ -17,7 +17,8 @@
 
   
   
-  <link rel="stylesheet" type="text/css" href="/css/front.min.css" integrity="sha256-QUoTd2RQ4/P7SQKKOG301QYvQ7o2&#43;3qwXOJptpPXM0E=">
+  <link rel="stylesheet" type="text/css" href="/css/front.min.css" integrity="sha256-QUoTd2RQ4/P7SQKKOG301QYvQ7o2&#43;3qwXOJptpPXM0E="><link rel="stylesheet" type="text/css" href="/css/isabelle.css">
+  
   <link rel="icon" href="/images/favicon.ico" type="image/icon">
   <script src="/js/flexsearch.min.js"></script><script src="/js/header-search.js"></script></head>
 
@@ -65,8 +66,225 @@
   
   </div>
 </header><div><main>
-  <iframe src="https://www.isa-afp.org/browser_info/current/AFP/GoedelGod/GoedelGod.html" frameborder="0" id="GoedelGod">
-  </iframe>
+  
+  <div id="GoedelGod">
+<div class="head"><h1>Theory GoedelGod</h1>
+<span class="command">theory</span> <span class="name">GoedelGod</span><br/>
+<span class="keyword">imports</span> <a href="../../HOL/HOL/Main.html"><span class="name">Main</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(*&lt;*)</span></span></span></span></span><span> 
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>GoedelGod</span><span>
+</span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>Main</span><span> 
+</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(*&gt;*)</span></span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Introduction›</span></span></span><span>
+</span><span>
+</span><span> </span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Dana Scott's version \cite{ScottNotes} (cf.~Fig.~1)
+ of G\"odel's proof of God's existence \cite{GoedelNotes} is 
+ formalized in quantified modal logic KB (QML KB) within the proof assistant Isabelle/HOL. 
+ QML KB is  modeled as a fragment of classical higher-order logic (HOL); 
+ thus, the formalization is essentially a formalization in HOL. The employed embedding 
+ of QML KB in HOL is adapting the work of Benzm\"uller and Paulson \cite{J23,B9}.
+ Note that the QML KB formalization employs quantification over individuals and 
+ quantification over sets of individuals (properties).
+
+ The gaps in Scott's proof have been automated 
+ with Sledgehammer \cite{Sledgehammer}, performing remote calls to the higher-order automated
+ theorem prover LEO-II \cite{LEO-II}. Sledgehammer suggests the 
+ Metis \cite{Metis} calls, which result in proofs that are verified by Isabelle/HOL.
+ For consistency checking, the model finder Nitpick \cite{Nitpick} has been employed.
+ The successfull calls to Sledgehammer
+ are deliberately kept as comments in the file for demonstration purposes
+ (normally, they are automatically eliminated by Isabelle/HOL).
+ 
+ Isabelle is described in the textbook by Nipkow, 
+ Paulson, and Wenzel \cite{Isabelle} and in tutorials available 
+ at: @{url "http://isabelle.in.tum.de"}.
+ 
+\subsection{Related Work}
+
+ The formalization presented here is related to the THF \cite{J22} and 
+ Coq \cite{Coq} formalizations at 
+ @{url "https://github.com/FormalTheology/GoedelGod/tree/master/Formalizations/"}.
+ 
+ An older ontological argument by Anselm was formalized in PVS by John Rushby \cite{rushby}.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹An Embedding of QML KB in HOL›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹The types ‹i› for possible worlds and $\mu$ for individuals are introduced.›</span></span></span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">typedecl</span></span><span> </span><span>i</span><span>    </span><span class="comment">― ‹the type for possible worlds›</span><span> 
+</span><span>  </span><span class="keyword1"><span class="command">typedecl</span></span><span> </span><span>μ</span><span>    </span><span class="comment">― ‹the type for indiviuals›</span><span>      
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Possible worlds are connected by an accessibility relation ‹r›.›</span></span></span><span> 
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">consts</span></span><span> </span><span>r</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"i ⇒ i ⇒ bool"</span></span></span><span> </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">infixr</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"r"</span></span></span><span> </span><span>70</span><span class="delimiter">)</span><span>    </span><span class="comment">― ‹accessibility relation r›</span><span>   
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹QML formulas are translated as HOL terms of type @{typ "i ⇒ bool"}. 
+This type is abbreviated as ‹σ›.›</span></span></span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">type_synonym</span></span><span> </span><span>σ</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"(i ⇒ bool)"</span></span></span><span>
+</span><span> 
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹The classical connectives $\neg, \wedge, \rightarrow$, and $\forall$
+(over individuals and over sets of individuals) and $\exists$ (over individuals) are
+lifted to type $\sigma$. The lifted connectives are ‹m¬›, ‹m∧›, ‹m→›,
+‹∀›, and ‹∃› (the latter two are modeled as constant symbols). 
+Other connectives can be introduced analogously. We exemplarily do this for ‹m∨› , 
+‹m≡›, and ‹mL=› (Leibniz equality on individuals). Moreover, the modal 
+operators ‹□› and ‹◇›  are introduced. Definitions could be used instead of 
+abbreviations.›</span></span></span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">abbreviation</span></span><span> </span><span>mnot</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"σ ⇒ σ"</span></span></span><span> </span><span class="delimiter">(</span><span class="string"><span class="delete"><span class="delete">"m¬"</span></span></span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"m¬ φ ≡ (λw. ¬ φ w)"</span></span></span><span>    
+</span><span>  </span><span class="keyword1"><span class="command">abbreviation</span></span><span> </span><span>mand</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"σ ⇒ σ ⇒ σ"</span></span></span><span> </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">infixr</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"m∧"</span></span></span><span> </span><span>65</span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"φ m∧ ψ ≡ (λw. φ w ∧ ψ w)"</span></span></span><span>   
+</span><span>  </span><span class="keyword1"><span class="command">abbreviation</span></span><span> </span><span>mor</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"σ ⇒ σ ⇒ σ"</span></span></span><span> </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">infixr</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"m∨"</span></span></span><span> </span><span>70</span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"φ m∨ ψ ≡ (λw. φ w ∨ ψ w)"</span></span></span><span>   
+</span><span>  </span><span class="keyword1"><span class="command">abbreviation</span></span><span> </span><span>mimplies</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"σ ⇒ σ ⇒ σ"</span></span></span><span> </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">infixr</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"m→"</span></span></span><span> </span><span>74</span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"φ m→ ψ ≡ (λw. φ w ⟶ ψ w)"</span></span></span><span>  
+</span><span>  </span><span class="keyword1"><span class="command">abbreviation</span></span><span> </span><span>mequiv</span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"σ ⇒ σ ⇒ σ"</span></span></span><span> </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">infixr</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"m≡"</span></span></span><span> </span><span>76</span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"φ m≡ ψ ≡ (λw. φ w ⟷ ψ w)"</span></span></span><span>  
+</span><span>  </span><span class="keyword1"><span class="command">abbreviation</span></span><span> </span><span>mforall</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"('a ⇒ σ) ⇒ σ"</span></span></span><span> </span><span class="delimiter">(</span><span class="string"><span class="delete"><span class="delete">"∀"</span></span></span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"∀ Φ ≡ (λw. ∀x. Φ x w)"</span></span></span><span>   
+</span><span>  </span><span class="keyword1"><span class="command">abbreviation</span></span><span> </span><span>mexists</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"('a ⇒ σ) ⇒ σ"</span></span></span><span> </span><span class="delimiter">(</span><span class="string"><span class="delete"><span class="delete">"∃"</span></span></span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"∃ Φ ≡ (λw. ∃x. Φ x w)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">abbreviation</span></span><span> </span><span>mLeibeq</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"μ ⇒ μ ⇒ σ"</span></span></span><span> </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">infixr</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"mL="</span></span></span><span> </span><span>90</span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"x mL= y ≡ ∀(λφ. (φ x m→ φ y))"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">abbreviation</span></span><span> </span><span>mbox</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"σ ⇒ σ"</span></span></span><span> </span><span class="delimiter">(</span><span class="string"><span class="delete"><span class="delete">"□"</span></span></span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"□ φ ≡ (λw. ∀v.  w r v ⟶ φ v)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">abbreviation</span></span><span> </span><span>mdia</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"σ ⇒ σ"</span></span></span><span> </span><span class="delimiter">(</span><span class="string"><span class="delete"><span class="delete">"◇"</span></span></span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"◇ φ ≡ (λw. ∃v. w r v ∧ φ v)"</span></span></span><span> 
+</span><span>  
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹For grounding lifted formulas, the meta-predicate ‹valid› is introduced.›</span></span></span><span>
+</span><span>
+</span><span>  </span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(*&lt;*)</span></span></span></span></span><span> </span><span class="keyword1"><span class="command">no_syntax</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"_list"</span></span></span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"args ⇒ 'a list"</span></span></span><span> </span><span class="delimiter">(</span><span class="string"><span class="delete"><span class="delete">"[(_)]"</span></span></span><span class="delimiter">)</span><span> </span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(*&gt;*)</span></span></span></span></span><span> 
+</span><span>  </span><span class="keyword1"><span class="command">abbreviation</span></span><span> </span><span>valid</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"σ ⇒ bool"</span></span></span><span> </span><span class="delimiter">(</span><span class="string"><span class="delete"><span class="delete">"[_]"</span></span></span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"[p] ≡ ∀w. p w"</span></span></span><span>
+</span><span>  
+</span><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹G\"odel's Ontological Argument›</span></span></span><span>  
+</span><span>  
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Constant symbol ‹P› (G\"odel's `Positive') is declared.›</span></span></span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">consts</span></span><span> </span><span>P</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"(μ ⇒ σ) ⇒ σ"</span></span></span><span>  
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹The meaning of ‹P› is restricted by axioms ‹A1(a/b)›: $\all \phi 
+[P(\neg \phi) \biimp \neg P(\phi)]$ (Either a property or its negation is positive, but not both.) 
+and ‹A2›: $\all \phi \all \psi [(P(\phi) \wedge \nec \all x [\phi(x) \imp \psi(x)]) 
+\imp P(\psi)]$ (A property necessarily implied by a positive property is positive).›</span></span></span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">axiomatization</span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>    </span><span>A1a</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"[∀(λΦ. P (λx. m¬ (Φ x)) m→ m¬ (P Φ))]"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span>
+</span><span>    </span><span>A1b</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"[∀(λΦ. m¬ (P Φ) m→ P (λx. m¬ (Φ x)))]"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span>
+</span><span>    </span><span>A2</span><span class="delimiter">:</span><span>  </span><span class="string"><span class="delete"><span class="delete">"[∀(λΦ. ∀(λΨ. (P Φ m∧ □ (∀(λx. Φ x m→ Ψ x))) m→ P Ψ))]"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹We prove theorem T1: $\all \phi [P(\phi) \imp \pos \ex x \phi(x)]$ (Positive 
+properties are possibly exemplified). T1 is proved directly by Sledgehammer with command ‹sledgehammer [provers = remote_leo2]›. 
+Sledgehammer suggests to call Metis with axioms A1a and A2. 
+Metis sucesfully generates a proof object 
+that is verified in Isabelle/HOL's kernel.›</span></span></span><span>
+</span><span> 
+</span><span>  </span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>T1</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"[∀(λΦ. P Φ m→ ◇ (∃ Φ))]"</span></span></span><span>  
+</span><span>  </span><span class="comment">― ‹sledgehammer [provers = remote\_leo2]›</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>metis</span><span> </span><span>A1a</span><span> </span><span>A2</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Next, the symbol ‹G› for `God-like'  is introduced and defined 
+as $G(x) \biimp \forall \phi [P(\phi) \to \phi(x)]$ \\ (A God-like being possesses 
+all positive properties).›</span></span></span><span> 
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>G</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"μ ⇒ σ"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"G = (λx. ∀(λΦ. P Φ m→ Φ x))"</span></span></span><span>   
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Axiom ‹A3› is added: $P(G)$ (The property of being God-like is positive).
+Sledgehammer and Metis then prove corollary ‹C›: $\pos \ex x G(x)$ 
+(Possibly, God exists).›</span></span></span><span> 
+</span><span> 
+</span><span>  </span><span class="keyword1"><span class="command">axiomatization</span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span>A3</span><span class="delimiter">:</span><span>  </span><span class="string"><span class="delete"><span class="delete">"[P G]"</span></span></span><span> 
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">corollary</span></span><span> </span><span>C</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"[◇ (∃ G)]"</span></span></span><span> 
+</span><span>  </span><span class="comment">― ‹sledgehammer [provers = remote\_leo2]›</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>metis</span><span> </span><span>A3</span><span> </span><span>T1</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Axiom ‹A4› is added: $\all \phi [P(\phi) \to \Box \; P(\phi)]$ 
+(Positive properties are necessarily positive).›</span></span></span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">axiomatization</span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span>A4</span><span class="delimiter">:</span><span>  </span><span class="string"><span class="delete"><span class="delete">"[∀(λΦ. P Φ m→ □ (P Φ))]"</span></span></span><span> 
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Symbol ‹ess› for `Essence' is introduced and defined as 
+$$\ess{\phi}{x} \biimp \phi(x) \wedge \all \psi (\psi(x) \imp \nec \all y (\phi(y) 
+\imp \psi(y)))$$ (An \emph{essence} of an individual is a property possessed by it and necessarily implying any of its properties).›</span></span></span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>ess</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"(μ ⇒ σ) ⇒ μ ⇒ σ"</span></span></span><span> </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">infixr</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"ess"</span></span></span><span> </span><span>85</span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"Φ ess x = Φ x m∧ ∀(λΨ. Ψ x m→ □ (∀(λy. Φ y m→ Ψ y)))"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Next, Sledgehammer and Metis prove theorem ‹T2›: $\all x [G(x) \imp \ess{G}{x}]$ \\
+(Being God-like is an essence of any God-like being).›</span></span></span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>T2</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"[∀(λx. G x m→ G ess x)]"</span></span></span><span>
+</span><span>  </span><span class="comment">― ‹sledgehammer [provers = remote\_leo2]›</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>metis</span><span> </span><span>A1b</span><span> </span><span>A4</span><span> </span><span>G_def</span><span> </span><span>ess_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Symbol ‹NE›, for `Necessary Existence', is introduced and
+defined as $$\NE(x) \biimp \all \phi [\ess{\phi}{x} \imp \nec \ex y \phi(y)]$$ (Necessary 
+existence of an individual is the necessary exemplification of all its essences).›</span></span></span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>NE</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"μ ⇒ σ"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"NE = (λx. ∀(λΦ. Φ ess x m→ □ (∃ Φ)))"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Moreover, axiom ‹A5› is added: $P(\NE)$ (Necessary existence is a positive 
+property).›</span></span></span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">axiomatization</span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span>A5</span><span class="delimiter">:</span><span>  </span><span class="string"><span class="delete"><span class="delete">"[P NE]"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹The ‹B› axiom (symmetry) for relation r is stated. ‹B› is needed only 
+for proving theorem T3 and for corollary C2.›</span></span></span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">axiomatization</span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span>sym</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"x r y ⟶ y r x"</span></span></span><span> 
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Finally, Sledgehammer and Metis prove the main theorem ‹T3›: $\nec \ex x G(x)$ \\
+(Necessarily, God exists).›</span></span></span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>T3</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"[□ (∃ G)]"</span></span></span><span> 
+</span><span>  </span><span class="comment">― ‹sledgehammer [provers = remote\_leo2]›</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>metis</span><span> </span><span>A5</span><span> </span><span>C</span><span> </span><span>T2</span><span> </span><span>sym</span><span> </span><span>G_def</span><span> </span><span>NE_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Surprisingly, the following corollary can be derived even without the ‹T› axiom 
+(reflexivity).›</span></span></span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">corollary</span></span><span> </span><span>C2</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"[∃ G]"</span></span></span><span> 
+</span><span>  </span><span class="comment">― ‹sledgehammer [provers = remote\_leo2]›</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>metis</span><span> </span><span>T1</span><span> </span><span>T3</span><span> </span><span>G_def</span><span> </span><span>sym</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹The consistency of the entire theory is confirmed by Nitpick.›</span></span></span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>True</span><span> </span><span class="keyword1"><span class="command">nitpick</span></span><span> </span><span class="delimiter">[</span><span>satisfy</span><span class="delimiter">,</span><span> </span><span>user_axioms</span><span class="delimiter">,</span><span> </span><span>expect</span><span> </span><span class="delimiter">=</span><span> </span><span>genuine</span><span class="delimiter">]</span><span> </span><span class="keyword1"><span class="command">oops</span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Additional Results on G\"odel's God.›</span></span></span><span>  
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹G\"odel's God is flawless: (s)he does not have non-positive properties.›</span></span></span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>Flawlessness</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"[∀(λΦ. ∀(λx. (G x m→ (m¬ (P Φ) m→ m¬ (Φ x)))))]"</span></span></span><span>
+</span><span>  </span><span class="comment">― ‹sledgehammer [provers = remote\_leo2]›</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>metis</span><span> </span><span>A1b</span><span> </span><span>G_def</span><span class="delimiter">)</span><span> 
+</span><span>  
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹There is only one God: any two God-like beings are equal.›</span></span></span><span>   
+</span><span>  
+</span><span>  </span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>Monotheism</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"[∀(λx.∀(λy. (G x m→ (G y m→ (x mL= y)))))]"</span></span></span><span>
+</span><span>  </span><span class="comment">― ‹sledgehammer [provers = remote\_leo2]›</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>metis</span><span> </span><span>Flawlessness</span><span> </span><span>G_def</span><span class="delimiter">)</span><span> 
+</span><span>
+</span><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Modal Collapse›</span></span></span><span>  
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹G\"odel's axioms have been criticized for entailing the so-called 
+modal collapse. The prover Satallax \cite{Satallax} confirms this. 
+However, sledgehammer is not able to determine which axioms, 
+definitions and previous theorems are used by Satallax;
+hence it suggests to call Metis using everything, but this (unsurprinsingly) fails.
+Attempting to use `Sledegehammer min' to minimize Sledgehammer's suggestion does not work.
+Calling Metis with ‹T2›, ‹T3› and ‹ess_def› also does not work.›</span></span></span><span> 
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>MC</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"[∀(λΦ.(Φ m→ (□ Φ)))]"</span></span></span><span>  
+</span><span>  </span><span class="comment">― ‹sledgehammer [provers = remote\_satallax]›</span><span>
+</span><span>  </span><span class="comment">― ‹by (metis T2 T3 ess\_def)›</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">oops</span></span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(*&lt;*)</span></span></span></span></span><span> 
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(*&gt;*)</span></span></span></span></span><span> 
+</span></pre>
+</div>
+</div>
+  
 </main>
     </div>
   </div>

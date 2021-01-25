@@ -17,7 +17,8 @@
 
   
   
-  <link rel="stylesheet" type="text/css" href="/css/front.min.css" integrity="sha256-QUoTd2RQ4/P7SQKKOG301QYvQ7o2&#43;3qwXOJptpPXM0E=">
+  <link rel="stylesheet" type="text/css" href="/css/front.min.css" integrity="sha256-QUoTd2RQ4/P7SQKKOG301QYvQ7o2&#43;3qwXOJptpPXM0E="><link rel="stylesheet" type="text/css" href="/css/isabelle.css">
+  
   <link rel="icon" href="/images/favicon.ico" type="image/icon">
   <script src="/js/flexsearch.min.js"></script><script src="/js/header-search.js"></script></head>
 
@@ -65,8 +66,920 @@
   
   </div>
 </header><div><main>
-  <iframe src="https://www.isa-afp.org/browser_info/current/AFP/IMP2_Binary_Heap/IMP2_Binary_Heap.html" frameborder="0" id="IMP2_Binary_Heap">
-  </iframe>
+  
+  <div id="IMP2_Binary_Heap">
+<div class="head"><h1>Theory IMP2_Binary_Heap</h1>
+<span class="command">theory</span> <span class="name">IMP2_Binary_Heap</span><br/>
+<span class="keyword">imports</span> <a href="../IMP2/IMP2.html"><span class="name">IMP2</span></a> <a href="../IMP2/IMP2_Aux_Lemmas.html"><span class="name">IMP2_Aux_Lemmas</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">theory</span></span><span> </span><span>IMP2_Binary_Heap</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>IMP2.IMP2</span><span> </span><span>IMP2.IMP2_Aux_Lemmas</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Introduction›</span></span></span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹In this submission imperative versions of the following array-based binary minimum heap
+      functions are implemented and verified: insert, get-min, delete-min, make-heap.
+      The latter three are then used to prove the correctness of an in-place heapsort, which sorts
+      an array in descending order. To do that in Isabelle/HOL, the proof framework IMP2
+      \cite{IMP2-AFP} is used. Here arrays are modeled by ‹int ⇒ int› functions. The imperative
+      implementations are iterative versions of the partly recursive algorithms described in
+      \cite{MS} and \cite{CLRS}.
+
+      This submission starts with the basic definitions and lemmas, which are needed for array-based 
+      binary heaps. These definitions and lemmas are parameterised with an arbitrary (transitive) 
+      comparison function (where such a function is needed), so they are not only applicable to 
+      minimum heaps. After some more general, useful lemmas on arrays, the imperative minimum heap 
+      functions and the heapsort are implemented and verified.›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Heap Related Definitions and Theorems›</span></span></span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Array Bounds›</span></span></span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹A small helper function is used to define valid array indices. Note that the lower index 
+      bound ‹l› is arbitrary and not fixed to 0 or 1. The upper index bound ‹r› is not a valid
+      index itself, so that the empty array can be denoted by having ‹l = r›.›</span></span></span><span>
+</span><span class="keyword1"><span class="command">abbreviation</span></span><span> </span><span>bounded</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"int ⇒ int ⇒ int ⇒ bool"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"bounded l r x ≡ l ≤ x ∧ x &lt; r"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Parent and Children›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsubsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Definitions›</span></span></span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹For the notion of an array-based binary heap, the parent and child relations on the array 
+      indices need to be defined.›</span></span></span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>parent</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"int ⇒ int ⇒ int"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"parent l c = l + (c - l - 1) div 2"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>l_child</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"int ⇒ int ⇒ int"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"l_child l p = 2 * p - l + 1"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>r_child</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"int ⇒ int ⇒ int"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"r_child l p = 2 * p - l + 2"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsubsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Lemmas›</span></span></span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>parent_upper_bound</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"parent l c &lt; c ⟷ l ≤ c"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>parent_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>parent_upper_bound_alt</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"l ≤ parent l c ⟹ parent l c &lt; c"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>parent_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>parent_lower_bound</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"l ≤ parent l c ⟷ l &lt; c"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>parent_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>linarith</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>grand_parent_upper_bound</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"parent l (parent l c) &lt; c ⟷ l ≤ c"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>parent_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>linarith</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">corollary</span></span><span> </span><span>parent_bounds</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"l &lt; x ⟹ x &lt; r ⟹ bounded l r (parent l x)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>parent_lower_bound</span><span> </span><span>parent_upper_bound_alt</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>fastforce</span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>l_child_lower_bound</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">" p &lt; l_child l p ⟷ l ≤ p"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>l_child_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">corollary</span></span><span> </span><span>l_child_lower_bound_alt</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"l ≤ x ⟹ x ≤ p ⟹ x &lt; l_child l p"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>l_child_lower_bound</span><span class="delimiter">[</span><span>of</span><span> </span><span>p</span><span> </span><span>l</span><span class="delimiter">]</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>linarith</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>parent_l_child</span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"parent l (l_child l n) = n"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>parent_def</span><span> </span><span>l_child_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>r_child_lower_bound</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"l ≤ p ⟹ p &lt; r_child l p"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>r_child_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">corollary</span></span><span> </span><span>r_child_lower_bound_alt</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"l ≤ x ⟹ x ≤ p ⟹ x &lt; r_child l p"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>r_child_lower_bound</span><span class="delimiter">[</span><span>of</span><span> </span><span>l</span><span> </span><span>p</span><span class="delimiter">]</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>linarith</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>parent_r_child</span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"parent l (r_child l n) = n"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>parent_def</span><span> </span><span>r_child_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>smaller_l_child</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"l_child l x &lt; r_child l x"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>l_child_def</span><span> </span><span>r_child_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>parent_two_children</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"(c = l_child l p ∨ c = r_child l p) ⟷ parent l c = p"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>parent_def</span><span> </span><span>l_child_def</span><span> </span><span>r_child_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>linarith</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Heap Invariants›</span></span></span><span>
+</span><span class="keyword1"><span class="command">subsubsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Definitions›</span></span></span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹The following heap invariants and the following lemmas are parameterised with an arbitrary 
+      (transitive) comparison function. For the concrete function implementations at the end of 
+      this submission ‹≤› on ints is used.›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹For the ‹make_heap› function, which transforms an unordered array into a valid heap,
+      the notion of a partial heap is needed. Here the heap invariant only holds for array indices
+      between a certain valid array index ‹m› and ‹r›. The standard heap invariant is then
+      simply the special case where ‹m = l›.›</span></span></span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>is_partial_heap</span><span> 
+</span><span>  </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"('a::order ⇒ 'a::order ⇒ bool) ⇒ (int ⇒ 'a::order) ⇒ int ⇒ int ⇒ int ⇒ bool"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"is_partial_heap cmp heap l m r = (∀ x. bounded m r x ⟶ 
+               bounded m r (parent l x) ⟶ cmp (heap (parent l x)) (heap x))"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">abbreviation</span></span><span> </span><span>is_heap</span><span> 
+</span><span>  </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"('a::order ⇒ 'a::order ⇒ bool) ⇒ (int ⇒ 'a::order) ⇒ int ⇒ int ⇒ bool"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"is_heap cmp heap l r ≡ is_partial_heap cmp heap l l r"</span></span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹During all of the modifying heap functions the heap invariant is temporarily violated at
+      a single index ‹i› and it is then gradually restored by either ‹sift_down› or 
+      ‹sift_up›. The following definitions formalize these weakened invariants.
+
+      The second part of the conjunction in the following definitions states, that the comparison 
+      between the parent of ‹i› and each of the children of ‹i› evaluates to ‹True› without 
+      explicitly using the child relations.›</span></span></span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>is_partial_heap_except_down</span><span> 
+</span><span>  </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"('a::order ⇒ 'a::order ⇒ bool) ⇒ (int ⇒ 'a::order) ⇒ int ⇒ int ⇒ int ⇒ int ⇒ bool"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"is_partial_heap_except_down cmp heap l m r i = (∀ x. bounded m r x ⟶
+    ((parent l x ≠ i ⟶ bounded m r (parent l x) ⟶ cmp (heap (parent l x)) (heap x)) ∧ 
+     (parent l x = i ⟶ bounded m r (parent l (parent l x))  
+                     ⟶ cmp (heap (parent l (parent l x))) (heap x))))"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">abbreviation</span></span><span> </span><span>is_heap_except_down</span><span> 
+</span><span>  </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"('a::order ⇒ 'a::order ⇒ bool) ⇒ (int ⇒ 'a::order) ⇒ int ⇒ int ⇒ int ⇒ bool"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"is_heap_except_down cmp heap l r i ≡ is_partial_heap_except_down cmp heap l l r i"</span></span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹As mentioned the notion of a partial heap is only needed for ‹make_heap›, 
+      which only uses ‹sift_down› internally, so there doesn't need to be an additional 
+      definition for the partial heap version of the ‹sift_up› invariant.›</span></span></span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>is_heap_except_up</span><span> 
+</span><span>  </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"('a::order ⇒ 'a::order ⇒ bool) ⇒ (int ⇒ 'a::order) ⇒ int ⇒ int ⇒ int ⇒ bool"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"is_heap_except_up cmp heap l r i = (∀ x. bounded l r x ⟶ 
+    ((x ≠ i ⟶ bounded l r (parent l x) ⟶ cmp (heap (parent l x)) (heap x)) ∧ 
+     (parent l x = i ⟶ bounded l r (parent l (parent l x)) 
+                     ⟶ cmp (heap (parent l (parent l x))) (heap x))))"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsubsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Lemmas›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>empty_partial_heap</span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"is_partial_heap cmp heap l r r"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>is_partial_heap_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>linarith</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>is_partial_heap_smaller_back</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"is_partial_heap cmp heap l m r ⟹ r' ≤ r ⟹ is_partial_heap cmp heap l m r'"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>is_partial_heap_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>is_partial_heap_smaller_front</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"is_partial_heap cmp heap l m r ⟹ m ≤ m' ⟹ is_partial_heap cmp heap l m' r"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>is_partial_heap_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹The second half of each array is a is a partial binary heap, since it contains only leafs,
+      which are all trivial binary heaps.›</span></span></span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>snd_half_is_partial_heap</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"(l + r) div 2 ≤ m ⟹ is_partial_heap cmp heap l m r"</span></span></span><span> 
+</span><span>  </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>is_partial_heap_def</span><span> </span><span>parent_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>linarith</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>modify_outside_partial_heap</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> 
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"heap = heap' on {m..&lt;r}"</span></span></span><span> 
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"is_partial_heap cmp heap l m r"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"is_partial_heap cmp heap' l m r"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span> </span><span>eq_onD</span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>is_partial_heap_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>fastforce</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹The next few lemmas formalize how the heap invariant is weakened, when the heap is modified
+      in a certain way.›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹This lemma is used by ‹make_heap›.›</span></span></span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>partial_heap_added_first_el</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> 
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"l ≤ m"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"m ≤ r"</span></span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"is_partial_heap cmp heap l (m + 1) r"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"is_partial_heap_except_down cmp heap l m r m"</span></span></span><span>
+</span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>is_partial_heap_except_down_def</span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">fix</span></span><span> </span><span>x</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">let</span></span><span> </span><span class="var">?p_x</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"parent l x"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">let</span></span><span> </span><span class="var">?gp_x</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"parent l ?p_x"</span></span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"bounded m r x ⟶
+        (?p_x ≠ m ⟶ bounded m r ?p_x ⟶ cmp (heap ?p_x) (heap x)) ∧
+        (?p_x = m ⟶ bounded m r ?gp_x ⟶ cmp (heap ?gp_x) (heap x))"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">proof</span></span><span>
+</span><span>    </span><span class="keyword3"><span class="command">assume</span></span><span> </span><span>x_bound</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"bounded m r x"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">have</span></span><span> </span><span>p_x_lower</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"?p_x ≠ m ⟶ bounded m r ?p_x ⟶ ?p_x ≥ m + 1"</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">hence</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"?p_x ≠ m ⟶ bounded m r ?p_x ⟶ x ≥ m + 1"</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>parent_upper_bound</span><span class="delimiter">[</span><span>of</span><span> </span><span>l</span><span> </span><span>x</span><span class="delimiter">]</span><span> </span><span>x_bound</span><span> </span><span>assms</span><span class="delimiter">(</span><span>1</span><span class="delimiter">)</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>linarith</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">hence</span></span><span> </span><span>p_invariant</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"(?p_x ≠ m ⟶ bounded m r ?p_x ⟶ cmp (heap ?p_x) (heap x))"</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span class="delimiter">(</span><span>3</span><span class="delimiter">)</span><span> </span><span>is_partial_heap_def</span><span> </span><span>p_x_lower</span><span> </span><span>x_bound</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
+</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">have</span></span><span> </span><span>gp_up_bound</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"(?p_x = m ⟶ ?gp_x &lt; m)"</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>assms</span><span class="delimiter">(</span><span>1</span><span class="delimiter">)</span><span> </span><span>parent_upper_bound</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"(?p_x ≠ m ⟶ bounded m r ?p_x ⟶ cmp (heap ?p_x) (heap x)) ∧
+          (?p_x = m ⟶ bounded m r ?gp_x ⟶ cmp (heap ?gp_x) (heap x))"</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>gp_up_bound</span><span> </span><span>p_invariant</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>linarith</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹This lemma is used by ‹del_min›.›</span></span></span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>heap_changed_first_el</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"is_heap cmp heap l r"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"l ≤ r"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"is_heap_except_down cmp (heap(l := b)) l r l"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"is_partial_heap cmp heap l (l + 1) r"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span class="delimiter">(</span><span>1</span><span class="delimiter">)</span><span> </span><span>is_partial_heap_smaller_front</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>fastforce</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">hence</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"is_partial_heap cmp (heap(l := b)) l (l + 1) r"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>modify_outside_partial_heap</span><span class="delimiter">[</span><span>of</span><span> </span><span>heap</span><span class="delimiter">]</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">thus</span></span><span> </span><span class="var">?thesis</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>assms</span><span class="delimiter">(</span><span>2</span><span class="delimiter">)</span><span> </span><span>partial_heap_added_first_el</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹This lemma is used by ‹insert›.›</span></span></span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>heap_appended_el</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> 
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"is_heap cmp heap l r"</span></span></span><span> 
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"heap = heap' on {l..&lt;r}"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"is_heap_except_up cmp heap' l (r+1) r"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"is_heap cmp heap' l r"</span></span></span><span> 
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span class="delimiter">(</span><span>1</span><span class="delimiter">,</span><span>2</span><span class="delimiter">)</span><span> </span><span>modify_outside_partial_heap</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span> 
+</span><span>  </span><span class="keyword3"><span class="command">thus</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>is_partial_heap_def</span><span> </span><span>is_heap_except_up_def</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>metis</span><span> </span><span>not_less_iff_gr_or_eq</span><span> </span><span>parent_upper_bound</span><span> </span><span>zless_add1_eq</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsubsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹First Heap Element›</span></span></span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹The next step is to show that the first element of the heap is always the ``smallest'' 
+      according to the given comparison function. For the proof a rule for strong induction on lower
+      bounded integers is needed. Its proof is based on the proof of strong induction on natural 
+      numbers found in \cite{Str_Ind}.›</span></span></span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>strong_int_gr_induct_helper</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"k &lt; (i::int)"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"(⋀i. k &lt; i ⟹ (⋀j. k &lt; j ⟹ j &lt; i ⟹ P j) ⟹ P i)"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"⋀j. k &lt; j ⟹ j &lt; i ⟹ P j"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span class="delimiter">(</span><span>induction</span><span> </span><span>i</span><span> </span><span>rule</span><span class="delimiter">:</span><span> </span><span>int_gr_induct</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>base</span><span> 
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>linarith</span><span> 
+</span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>step</span><span> </span><span>i</span><span class="delimiter">)</span><span> 
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> 
+</span><span>  </span><span class="keyword1"><span class="command">proof</span></span><span class="delimiter">(</span><span>cases</span><span> </span><span class="string"><span class="delete"><span class="delete">"j = i"</span></span></span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>True</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>step.IH</span><span> </span><span>step.prems</span><span class="delimiter">(</span><span>1</span><span class="delimiter">,</span><span>3</span><span class="delimiter">)</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span> 
+</span><span>  </span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>    </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>False</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">hence</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"j &lt; i"</span></span></span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>step.prems</span><span class="delimiter">(</span><span>2</span><span class="delimiter">)</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>step.IH</span><span> </span><span>step.prems</span><span class="delimiter">(</span><span>1</span><span class="delimiter">,</span><span>3</span><span class="delimiter">)</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span> 
+</span><span>  </span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>strong_int_gr_induct</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> 
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"k &lt; (i::int)"</span></span></span><span> 
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"(⋀i. k &lt; i ⟹ (⋀j. k &lt; j ⟹ j &lt; i ⟹ P j) ⟹ P i)"</span></span></span><span> 
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"P i"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span> </span><span>less_induct</span><span> </span><span>strong_int_gr_induct_helper</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Now the main theorem, that the first heap element is the ``smallest'' according to the
+      given comparison function, can be proven.›</span></span></span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>heap_first_el</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> 
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"is_heap cmp heap l r"</span></span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"transp cmp"</span></span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"l &lt; x"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"x &lt; r"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"cmp (heap l) (heap x)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>is_partial_heap_def</span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span class="delimiter">(</span><span>induction</span><span> </span><span>x</span><span> </span><span>rule</span><span class="delimiter">:</span><span> </span><span>strong_int_gr_induct</span><span class="delimiter">[</span><span>of</span><span> </span><span>l</span><span class="delimiter">]</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>1</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span class="delimiter">(</span><span>3</span><span class="delimiter">)</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>2</span><span> </span><span>i</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span>cmp_pi_i</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"cmp (heap (parent l i)) (heap i)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"2.hyps"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"2.prems"</span></span></span><span class="delimiter">(</span><span>1</span><span class="delimiter">,</span><span>4</span><span class="delimiter">)</span><span> </span><span>parent_bounds</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> 
+</span><span>  </span><span class="keyword1"><span class="command">proof</span></span><span class="delimiter">(</span><span>cases</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword3"><span class="command">assume</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"parent l i &gt; l"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"cmp (heap l) (heap (parent l i))"</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">using</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"2.IH"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"2.prems"</span></span></span><span class="delimiter">(</span><span>1</span><span class="delimiter">,</span><span>2</span><span class="delimiter">,</span><span>4</span><span class="delimiter">)</span><span> </span><span>parent_upper_bound_alt</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">using</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"2.prems"</span></span></span><span class="delimiter">(</span><span>2</span><span class="delimiter">)</span><span> </span><span>cmp_pi_i</span><span> </span><span>transpE</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>metis</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>    </span><span class="keyword3"><span class="command">assume</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"¬ parent l i &gt; l"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"parent l i = l"</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">using</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"2.hyps"</span></span></span><span> </span><span>dual_order.order_iff_strict</span><span> </span><span>parent_lower_bound</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>metis</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>cmp_pi_i</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹General Lemmas on Arrays›</span></span></span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Some additional lemmas on @{const "mset_ran"}, @{const "swap"} and @{const "eq_on"} are needed
+      for the final proofs.›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Lemmas on @{const "mset_ran"}›</span></span></span><span>
+</span><span class="keyword1"><span class="command">abbreviation</span></span><span> </span><span>arr_mset</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"(int ⇒ 'a) ⇒ int ⇒ int ⇒ 'a multiset"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"arr_mset arr l r ≡ mset_ran arr {l..&lt;r}"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>in_mset_imp_in_array</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"x ∈# (arr_mset arr l r) ⟷ (∃i. bounded l r i ∧ arr i = x)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>mset_ran_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>fastforce</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>arr_mset_remove_last</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"l ≤ r ⟹ arr_mset arr l r = arr_mset arr l (r + 1) - {#arr r#}"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>intvs_upper_decr</span><span> </span><span>mset_ran_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>arr_mset_append</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"l ≤ r ⟹ arr_mset arr l (r + 1) = arr_mset arr l r + {#arr r#}"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>arr_mset_remove_last</span><span class="delimiter">[</span><span>of</span><span> </span><span>l</span><span> </span><span>r</span><span> </span><span>arr</span><span class="delimiter">]</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">corollary</span></span><span> </span><span>arr_mset_append_alt</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"l ≤ r ⟹ arr_mset (arr(r := b)) l (r + 1) = arr_mset arr l r + {#b#}"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>arr_mset_append</span><span> </span><span>mset_ran_subst_outside</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>arr_mset_remove_first</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"i ≤ r ⟹ arr_mset arr (i - 1) r = arr_mset arr i r + {#arr (i - 1)#}"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span class="delimiter">(</span><span>induction</span><span> </span><span>r</span><span> </span><span>rule</span><span class="delimiter">:</span><span> </span><span>int_ge_induct</span><span class="delimiter">)</span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>arr_mset_append</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>arr_mset_split</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"l ≤ m"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"m ≤ r"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"arr_mset arr l r = arr_mset arr l m + arr_mset arr m r"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span class="delimiter">(</span><span>induction</span><span> </span><span>m</span><span> </span><span>rule</span><span class="delimiter">:</span><span> </span><span>int_ge_induct</span><span class="delimiter">[</span><span>of</span><span> </span><span>l</span><span class="delimiter">]</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>step</span><span> </span><span>i</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span>add_last</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"arr_mset arr l (i + 1) = arr_mset arr l i + {#arr i#}"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>step</span><span> </span><span>arr_mset_append</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span>rem_first</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"arr_mset arr (i+1) r = arr_mset arr i r - {#arr i#}"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>metis</span><span> </span><span>step.prems</span><span> </span><span>arr_mset_remove_first</span><span> </span><span>add_diff_cancel_right'</span><span class="delimiter">)</span><span> 
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> 
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>step</span><span> </span><span>add_last</span><span> </span><span>rem_first</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>fastforce</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹That the first element in a heap is the ``smallest'', can now be expressed using multisets.›</span></span></span><span>
+</span><span class="keyword1"><span class="command">corollary</span></span><span> </span><span>heap_first_el_alt</span><span class="delimiter">:</span><span>                                                   
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> 
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"transp cmp"</span></span></span><span> 
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"is_heap cmp heap l r"</span></span></span><span> 
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"x ∈# (arr_mset heap l r)"</span></span></span><span> 
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"heap l ≠ x"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"cmp (heap l) x"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span class="delimiter">(</span><span>metis</span><span> </span><span>assms</span><span> </span><span>heap_first_el</span><span> </span><span>in_mset_imp_in_array</span><span> </span><span>le_less</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Lemmas on @{term "swap"} and @{term "eq_on"}›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>eq_on_subset</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"arr1 = arr2 on R ⟹ S ⊆ R ⟹ arr1 = arr2 on S"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>eq_on_def</span><span> </span><span>set_mp</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>swap_swaps</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"arr' = swap arr x y ⟹ arr' y = arr x ∧ arr' x = arr y"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>swap_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>swap_only_swaps</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"arr' = swap arr x y ⟹ z ≠ x ⟹ z ≠ y ⟹ arr' z = arr z"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>swap_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>swap_commute</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"swap arr x y = swap arr y x"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>swap_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>fastforce</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>swap_eq_on</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"arr1 = arr2 on S ⟹ x ∉ S ⟹ y ∉ S ⟹ arr1 = swap arr2 x y on S"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>swap_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">corollary</span></span><span> </span><span>swap_parent_eq_on</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> 
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"arr1 = arr2 on - {l..&lt;r}"</span></span></span><span> 
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"l &lt; c"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"c &lt; r"</span></span></span><span> 
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"arr1 = swap arr2 (parent l c) c on - {l..&lt;r} "</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>parent_bounds</span><span> </span><span>swap_eq_on</span><span> </span><span>assms</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>fastforce</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">corollary</span></span><span> </span><span>swap_child_eq_on</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> 
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"arr1 = arr2 on - {l..&lt;r}"</span></span></span><span> 
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"c = l_child l p ∨ c = r_child l p"</span></span></span><span> 
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"l ≤ p"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"c &lt; r"</span></span></span><span> 
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"arr1 = swap arr2 p c on - {l..&lt;r} "</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>metis</span><span> </span><span>assms</span><span> </span><span>parent_lower_bound</span><span> </span><span>parent_two_children</span><span> </span><span>swap_parent_eq_on</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>swap_child_mset</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> 
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"arr_mset arr1 l r = arr_mset arr2 l r"</span></span></span><span> 
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"c = l_child l p ∨ c = r_child l p"</span></span></span><span> 
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"l ≤ p"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"c &lt; r"</span></span></span><span> 
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"arr_mset arr1 l r = arr_mset (swap arr2 p c) l r"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span>child_bounded</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"l &lt; c ∧ c &lt; r"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>metis</span><span> </span><span>assms</span><span class="delimiter">(</span><span>2</span><span>-</span><span>4</span><span class="delimiter">)</span><span> </span><span>parent_lower_bound</span><span> </span><span>parent_two_children</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span>parent_bounded</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"bounded l r p"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>metis</span><span> </span><span>assms</span><span class="delimiter">(</span><span>2</span><span>-</span><span>4</span><span class="delimiter">)</span><span> </span><span>dual_order.strict_trans</span><span> </span><span>parent_two_children</span><span> </span><span>parent_upper_bound_alt</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">thus</span></span><span> </span><span class="var">?thesis</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span class="delimiter">(</span><span>1</span><span class="delimiter">)</span><span> </span><span>child_bounded</span><span> </span><span>mset_ran_swap</span><span class="delimiter">[</span><span>of</span><span> </span><span>p</span><span> </span><span class="string"><span class="delete"><span class="delete">"{l..&lt;r}"</span></span></span><span> </span><span>c</span><span> </span><span>arr2</span><span class="delimiter">]</span><span> </span><span>atLeastLessThan_iff</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹The following lemma shows, which propositions have to hold on the pre-swap array, so that
+      a comparison between two elements holds on the post-swap array. This is useful for the 
+      proofs of the loop invariants of ‹sift_up› and ‹sift_down›. The lemma is kept 
+      quite general (except for the argument order) and could probably be more closely
+      related to the parent relation for more concise proofs.›</span></span></span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>cmp_swapI</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="keyword2"><span class="keyword">fixes</span></span><span> </span><span>arr</span><span class="delimiter">::</span><span class="string"><span class="delete"><span class="delete">"'a::order ⇒ 'a::order"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"m &lt; n ∧ x &lt; y"</span></span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"m &lt; n ∧ x &lt; y ⟹ x = m ⟹ y = n ⟹ P (arr n) (arr m)"</span></span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"m &lt; n ∧ x &lt; y ⟹ x ≠ m ⟹ x ≠ n ⟹ y ≠ m ⟹ y ≠ n ⟹ P (arr m) (arr n)"</span></span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"m &lt; n ∧ x &lt; y ⟹ x = m ⟹ y ≠ m ⟹ y ≠ n ⟹  P (arr y) (arr n)"</span></span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"m &lt; n ∧ x &lt; y ⟹ x = n ⟹ y ≠ m ⟹ y ≠ n ⟹  P (arr m) (arr y)"</span></span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"m &lt; n ∧ x &lt; y ⟹ x ≠ m ⟹ x ≠ n ⟹ y = n ⟹ P (arr m) (arr x)"</span></span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"m &lt; n ∧ x &lt; y ⟹ x ≠ m ⟹ x ≠ n ⟹ y = m ⟹ P (arr x) (arr n)"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"P (swap arr x y m) (swap arr x y n)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>metis</span><span> </span><span>assms</span><span> </span><span>order.asym</span><span> </span><span>swap_only_swaps</span><span> </span><span>swap_swaps</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Imperative Heap Implementation›</span></span></span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹The following imperative heap functions are based on \cite{MS} and \cite{CLRS}. All functions,
+      that are recursive in these books, are iterative in the following implementations. The 
+      function definitions are done with IMP2 \cite{IMP2-AFP}. From now on the heaps only contain 
+      ints and only use ‹≤› as comparison function. The auxiliary lemmas used from now on are 
+      heavily modeled after the proof goals, that are generated by the vcg tool (also part of IMP2).›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Simple Functions›</span></span></span><span>
+</span><span class="keyword1"><span class="command">subsubsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Parent, Children and Swap›</span></span></span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹In this section the parent and children relations are expressed as IMP2 procedures. 
+      Additionally a simple procedure, that swaps two array elements, is defined.›</span></span></span><span>
+</span><span class="keyword1"><span class="command">procedure_spec</span></span><span> </span><span>prnt</span><span> </span><span class="delimiter">(</span><span>l</span><span class="delimiter">,</span><span> </span><span>x</span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">returns</span></span><span> </span><span>p</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span>True</span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">ensures</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"p = parent l<span class="hidden">⇩</span><sub>0</sub> x<span class="hidden">⇩</span><sub>0</sub>"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">defines</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹p = ((x - l - 1) / 2 + l)›</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>vcg</span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>parent_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">procedure_spec</span></span><span> </span><span>left_child</span><span> </span><span class="delimiter">(</span><span>l</span><span class="delimiter">,</span><span> </span><span>x</span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">returns</span></span><span> </span><span>lc</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span>True</span><span> 
+</span><span>    </span><span class="keyword2"><span class="keyword">ensures</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"lc = l_child l<span class="hidden">⇩</span><sub>0</sub> x<span class="hidden">⇩</span><sub>0</sub>"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">defines</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹lc = 2 * x - l + 1›</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>vcg</span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>l_child_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">procedure_spec</span></span><span> </span><span>right_child</span><span> </span><span class="delimiter">(</span><span>l</span><span class="delimiter">,</span><span> </span><span>x</span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">returns</span></span><span> </span><span>rc</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span>True</span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">ensures</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"rc = r_child l<span class="hidden">⇩</span><sub>0</sub> x<span class="hidden">⇩</span><sub>0</sub>"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">defines</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹rc = 2 * x - l + 2›</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>vcg</span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>r_child_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">procedure_spec</span></span><span> </span><span>swp</span><span> </span><span class="delimiter">(</span><span>heap</span><span class="delimiter">,</span><span> </span><span>x</span><span class="delimiter">,</span><span> </span><span>y</span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">returns</span></span><span> </span><span>heap</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span>True</span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">ensures</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"heap = swap heap<span class="hidden">⇩</span><sub>0</sub> x<span class="hidden">⇩</span><sub>0</sub> y<span class="hidden">⇩</span><sub>0</sub> "</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">defines</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹tmp = heap[x]; heap[x] = heap[y]; heap[y] = tmp›</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>vcg</span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>swap_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsubsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹‹get_min››</span></span></span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹In this section ‹get_min› is defined, which simply returns the first element (the minimum) of 
+      the heap. For this definition an additional theorem is proven, which enables the use of
+      @{const "Min_mset"} in the postcondition.›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>heap_minimum</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> 
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"l &lt; r"</span></span></span><span> 
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"is_heap (≤) heap l r"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"heap l = Min_mset (arr_mset heap l r)"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"(∀x ∈# (arr_mset heap l r). (heap l) ≤ x)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span class="delimiter">(</span><span>2</span><span class="delimiter">)</span><span> </span><span>heap_first_el_alt</span><span> </span><span>transp_le</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">thus</span></span><span> </span><span class="var">?thesis</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>assms</span><span class="delimiter">(</span><span>1</span><span class="delimiter">)</span><span> </span><span>dual_order.antisym</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">procedure_spec</span></span><span> </span><span>get_min</span><span> </span><span class="delimiter">(</span><span>heap</span><span class="delimiter">,</span><span> </span><span>l</span><span class="delimiter">,</span><span> </span><span>r</span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">returns</span></span><span> </span><span>min</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"l &lt; r ∧ is_heap (≤) heap l r"</span></span></span><span>  
+</span><span>    </span><span class="keyword2"><span class="keyword">ensures</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"min = Min_mset (arr_mset heap<span class="hidden">⇩</span><sub>0</sub> l<span class="hidden">⇩</span><sub>0</sub> r<span class="hidden">⇩</span><sub>0</sub>)"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">for</span></span><span> </span><span>heap</span><span class="delimiter">[</span><span class="delimiter">]</span><span> </span><span>l</span><span> </span><span>r</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">defines</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹min = heap[l]›</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>vcg</span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>heap_minimum</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Modifying Functions›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsubsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹‹sift_up› and ‹insert››</span></span></span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹The next heap function is ‹insert›, which internally uses ‹sift_up›. In the beginning of 
+      this section ‹sift_up_step› is proven, which states that each ‹sift_up› loop iteration 
+      correctly transforms the weakened heap invariant. For its proof two additional
+      auxiliary lemmas are used. After ‹sift_up_step› ‹sift_up› and then ‹insert› are verified.›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹‹sift_up_step› can be proven directly by the smt-solver without auxiliary lemmas, but they
+      were introduced to show the proof details. The analogous proofs for ‹sift_down› were 
+      just solved with smt, since the proof structure should be very similar, even though the 
+      ‹sift_down› proof goals are slightly more complex.›</span></span></span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>sift_up_step_aux1</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">fixes</span></span><span> </span><span>heap</span><span class="delimiter">::</span><span class="string"><span class="delete"><span class="delete">"int ⇒ int"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span>  
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"is_heap_except_up (≤) heap l r x"</span></span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"parent l x ≥ l"</span></span></span><span> 
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"(heap x) ≤ (heap (parent l x))"</span></span></span><span> 
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"bounded l r k"</span></span></span><span> 
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"k ≠ (parent l x)"</span></span></span><span> 
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"bounded l r (parent l k)"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"(swap heap (parent l x) x (parent l k)) ≤ (swap heap (parent l x) x k)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="delimiter">(</span><span>intro</span><span> </span><span>cmp_swapI</span><span class="delimiter">[</span><span>of</span><span> </span><span class="string"><span class="delete"><span class="delete">"(parent l k)"</span></span></span><span> </span><span>k</span><span> </span><span class="string"><span class="delete"><span class="delete">"(parent l x)"</span></span></span><span> </span><span>x</span><span> </span><span class="string"><span class="delete"><span class="delete">"(≤)"</span></span></span><span> </span><span>heap</span><span class="delimiter">]</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">subgoal</span></span></span></span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span class="delimiter">(</span><span>2</span><span class="delimiter">,</span><span>6</span><span class="delimiter">)</span><span> </span><span>parent_upper_bound_alt</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">subgoal</span></span></span></span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span class="delimiter">(</span><span>3</span><span class="delimiter">)</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">subgoal</span></span></span></span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span class="delimiter">(</span><span>1</span><span class="delimiter">,</span><span>4</span><span class="delimiter">,</span><span>6</span><span class="delimiter">)</span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>is_heap_except_up_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">subgoal</span></span></span></span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span class="delimiter">(</span><span>1</span><span class="delimiter">,</span><span>3</span><span class="delimiter">,</span><span>4</span><span class="delimiter">,</span><span>6</span><span class="delimiter">)</span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>is_heap_except_up_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>fastforce</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">subgoal</span></span></span></span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span class="delimiter">(</span><span>5</span><span class="delimiter">)</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">subgoal</span></span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span> 
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">subgoal</span></span></span></span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span class="delimiter">(</span><span>1</span><span class="delimiter">,</span><span>2</span><span class="delimiter">,</span><span>4</span><span class="delimiter">)</span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>is_heap_except_up_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>sift_up_step_aux2</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="keyword2"><span class="keyword">fixes</span></span><span> </span><span>heap</span><span class="delimiter">::</span><span class="string"><span class="delete"><span class="delete">"int ⇒ int"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"is_heap_except_up (≤) heap l r x"</span></span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"parent l x ≥ l"</span></span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"heap x ≤ (heap (parent l x))"</span></span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"bounded l r k"</span></span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"parent l k = parent l x"</span></span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"bounded l r (parent l (parent l k))"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> 
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"swap heap (parent l x) x (parent l (parent l k)) ≤ swap heap (parent l x) x k"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>is_heap_except_up_def</span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span>-</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">let</span></span><span> </span><span class="var">?gp_k</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"parent l (parent l k)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">let</span></span><span> </span><span class="var">?gp_x</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"parent l (parent l x)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span>gp_k_eq_gp_x</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"swap heap (parent l x) x ?gp_k = heap ?gp_x"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>metis</span><span> </span><span>assms</span><span class="delimiter">(</span><span>2</span><span class="delimiter">,</span><span>5</span><span class="delimiter">)</span><span> </span><span>grand_parent_upper_bound</span><span> </span><span>less_irrefl</span><span> </span><span>swap_only_swaps</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>is_heap_except_up_def</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">proof</span></span><span class="delimiter">(</span><span>cases</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword3"><span class="command">assume</span></span><span> </span><span>k_eq_x</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"k = x"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"swap heap (parent l x) x k = heap (parent l x)"</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>metis</span><span> </span><span>k_eq_x</span><span> </span><span>swap_swaps</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span class="delimiter">(</span><span>1</span><span class="delimiter">,</span><span>2</span><span class="delimiter">,</span><span>4</span><span class="delimiter">,</span><span>6</span><span class="delimiter">)</span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>is_heap_except_up_def</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>metis</span><span> </span><span>gp_k_eq_gp_x</span><span> </span><span>k_eq_x</span><span> </span><span>parent_bounds</span><span> </span><span>parent_lower_bound</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>    </span><span class="keyword3"><span class="command">assume</span></span><span> </span><span>k_neq_x</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"k ≠ x"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"swap heap (parent l x) x k = heap k"</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>metis</span><span> </span><span>assms</span><span class="delimiter">(</span><span>5</span><span class="delimiter">)</span><span> </span><span>gp_k_eq_gp_x</span><span> </span><span>k_neq_x</span><span> </span><span>swap_only_swaps</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>is_heap_except_up_def</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>metis</span><span> </span><span>gp_k_eq_gp_x</span><span> </span><span>k_neq_x</span><span> </span><span>order_trans</span><span> </span><span>parent_bounds</span><span> </span><span>parent_lower_bound</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>sift_up_step</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">fixes</span></span><span> </span><span>heap</span><span class="delimiter">::</span><span class="string"><span class="delete"><span class="delete">"int ⇒ int"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span>  
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"is_heap_except_up (≤) heap l r x"</span></span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"parent l x ≥ l"</span></span></span><span> 
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"(heap x) ≤ (heap (parent l x))"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"is_heap_except_up (≤) (swap heap (parent l x) x) l r (parent l x)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span> </span><span>sift_up_step_aux1</span><span> </span><span>sift_up_step_aux2</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>is_heap_except_up_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹‹sift_up› restores the heap invariant, that is only violated at the current position, by 
+      iteratively swapping the current element with its parent until the beginning of the array is 
+      reached or the current element is bigger than its parent.›</span></span></span><span>
+</span><span class="keyword1"><span class="command">procedure_spec</span></span><span> </span><span>sift_up</span><span> </span><span class="delimiter">(</span><span>heap</span><span class="delimiter">,</span><span> </span><span>l</span><span class="delimiter">,</span><span> </span><span>r</span><span class="delimiter">,</span><span> </span><span>x</span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">returns</span></span><span> </span><span>heap</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"is_heap_except_up (≤) heap l r x ∧ bounded l r x"</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">ensures</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"is_heap (≤) heap l<span class="hidden">⇩</span><sub>0</sub> r<span class="hidden">⇩</span><sub>0</sub> ∧
+             arr_mset heap<span class="hidden">⇩</span><sub>0</sub> l<span class="hidden">⇩</span><sub>0</sub> r<span class="hidden">⇩</span><sub>0</sub> = arr_mset heap l<span class="hidden">⇩</span><sub>0</sub> r<span class="hidden">⇩</span><sub>0</sub> ∧
+             heap<span class="hidden">⇩</span><sub>0</sub> = heap on - {l<span class="hidden">⇩</span><sub>0</sub>..&lt;r<span class="hidden">⇩</span><sub>0</sub>}"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">for</span></span><span> </span><span>heap</span><span class="delimiter">[</span><span class="delimiter">]</span><span> </span><span>l</span><span> </span><span>x</span><span> </span><span>r</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">defines</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+    p = prnt(l, x);
+    while (x &gt; l ∧ heap[x] ≤ heap[p]) 
+      @variant ‹x - l›
+      @invariant ‹is_heap_except_up (≤) heap l r x ∧ p = parent l x ∧ 
+                  bounded l r x ∧ arr_mset heap<span class="hidden">⇩</span><sub>0</sub> l<span class="hidden">⇩</span><sub>0</sub> r<span class="hidden">⇩</span><sub>0</sub> = arr_mset heap l r ∧
+                  heap<span class="hidden">⇩</span><sub>0</sub> = heap  on - {l..&lt;r}› 
+    {
+        heap = swp(heap, p, x);
+        x = p;
+        p = prnt(l, x)
+    }›</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>vcg_cs</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="delimiter">(</span><span>intro</span><span> </span><span>conjI</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">subgoal</span></span></span></span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>parent_lower_bound</span><span> </span><span>sift_up_step</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">subgoal</span></span></span></span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>parent_lower_bound</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">subgoal</span></span></span></span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>parent_bounds</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">subgoal</span></span></span></span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>parent_bounds</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>mset_ran_swap</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">subgoal</span></span></span></span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>swap_parent_eq_on</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">subgoal</span></span></span></span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>parent_upper_bound</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">subgoal</span></span></span></span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>is_heap_except_up_def</span><span> </span><span>is_partial_heap_def</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>metis</span><span> </span><span>le_less</span><span> </span><span>not_less</span><span> </span><span>parent_lower_bound</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹‹insert› inserts an element into a heap by appending it to the heap and restoring the heap 
+      invariant with @{const "sift_up"}.›</span></span></span><span>
+</span><span class="keyword1"><span class="command">procedure_spec</span></span><span> </span><span>insert</span><span> </span><span class="delimiter">(</span><span>heap</span><span class="delimiter">,</span><span> </span><span>l</span><span class="delimiter">,</span><span> </span><span>r</span><span class="delimiter">,</span><span> </span><span>el</span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">returns</span></span><span> </span><span class="delimiter">(</span><span>heap</span><span class="delimiter">,</span><span> </span><span>l</span><span class="delimiter">,</span><span> </span><span>r</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"is_heap (≤) heap l r ∧ l ≤ r"</span></span></span><span>  
+</span><span>    </span><span class="keyword2"><span class="keyword">ensures</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"is_heap (≤) heap l r ∧
+             arr_mset heap l r = arr_mset heap<span class="hidden">⇩</span><sub>0</sub> l<span class="hidden">⇩</span><sub>0</sub> r<span class="hidden">⇩</span><sub>0</sub> + {#el<span class="hidden">⇩</span><sub>0</sub>#} ∧
+             l = l<span class="hidden">⇩</span><sub>0</sub> ∧ r = r<span class="hidden">⇩</span><sub>0</sub> + 1  ∧ heap<span class="hidden">⇩</span><sub>0</sub> = heap on - {l..&lt;r}"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">for</span></span><span> </span><span>heap</span><span> </span><span>l</span><span> </span><span>r</span><span> </span><span>el</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">defines</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+    heap[r] = el;
+    x = r;
+    r = r + 1;
+    heap = sift_up(heap, l, r, x)
+  ›</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>vcg_cs</span><span> 
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">subgoal</span></span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>heap_appended_el</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">subgoal</span></span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>metis</span><span> </span><span>arr_mset_append_alt</span><span> </span><span>add_mset_add_single</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsubsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹‹sift_down›, ‹del_min› and ‹make_heap››</span></span></span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹The next heap functions are ‹del_min› and ‹make_heap›, which both use ‹sift_down› to 
+      restore/establish the heap invariant. ‹sift_down› is proven first (this time without 
+      additional auxiliary lemmas) followed by ‹del_min› and ‹make_heap›.›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹‹sift_down› restores the heap invariant, that is only violated at the current position, by 
+      iteratively swapping the current element with its smallest child until the end of 
+      the array is reached or the current element is smaller than its children.›</span></span></span><span>
+</span><span class="keyword1"><span class="command">procedure_spec</span></span><span> </span><span>sift_down</span><span class="delimiter">(</span><span>heap</span><span class="delimiter">,</span><span> </span><span>l</span><span class="delimiter">,</span><span> </span><span>r</span><span class="delimiter">,</span><span> </span><span>x</span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">returns</span></span><span> </span><span>heap</span><span> 
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"is_partial_heap_except_down (≤) heap l x r x ∧ l ≤ x ∧ x ≤ r"</span></span></span><span>
+</span><span>    </span><span class="keyword2"><span class="keyword">ensures</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"is_partial_heap (≤) heap l<span class="hidden">⇩</span><sub>0</sub> x<span class="hidden">⇩</span><sub>0</sub> r<span class="hidden">⇩</span><sub>0</sub> ∧ 
+             arr_mset heap<span class="hidden">⇩</span><sub>0</sub> l<span class="hidden">⇩</span><sub>0</sub> r<span class="hidden">⇩</span><sub>0</sub> = arr_mset heap l<span class="hidden">⇩</span><sub>0</sub> r<span class="hidden">⇩</span><sub>0</sub> ∧ 
+             heap<span class="hidden">⇩</span><sub>0</sub> = heap on - {l<span class="hidden">⇩</span><sub>0</sub>..&lt;r<span class="hidden">⇩</span><sub>0</sub>}"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">defines</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+   lc = left_child(l, x);
+   rc = right_child(l, x);
+    while (lc &lt; r ∧ (heap[lc] &lt; heap[x] ∨ (rc &lt; r ∧ heap[rc] &lt; heap[x]))) 
+      @variant ‹r - x›
+      @invariant ‹is_partial_heap_except_down (≤) heap l x<span class="hidden">⇩</span><sub>0</sub> r x ∧
+                  x<span class="hidden">⇩</span><sub>0</sub> ≤ x ∧ x ≤ r ∧ lc = l_child l x ∧ rc = r_child l x ∧
+                  arr_mset heap<span class="hidden">⇩</span><sub>0</sub> l r = arr_mset heap l r ∧
+                  heap<span class="hidden">⇩</span><sub>0</sub> = heap on - {l..&lt;r}›
+  { 
+    smallest = lc;
+    if (rc &lt; r ∧ heap[rc] &lt; heap[lc]) {
+      smallest = rc
+    };
+    heap = swp(heap, x, smallest);
+    x = smallest;
+    lc = left_child(l, x);
+    rc = right_child(l, x)
+  }›</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>vcg_cs</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">subgoal</span></span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="delimiter">(</span><span>intro</span><span> </span><span>conjI</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">subgoal</span></span></span></span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>is_partial_heap_except_down_def</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>smt</span><span> </span><span>parent_two_children</span><span> </span><span>swap_swaps</span><span> </span><span>swap_only_swaps</span><span>
+</span><span>          </span><span>swap_commute</span><span> </span><span>parent_upper_bound_alt</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">subgoal</span></span></span></span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>r_child_lower_bound_alt</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>fastforce</span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">subgoal</span></span></span></span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>swap_child_mset</span><span> </span><span>order_trans</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">subgoal</span></span></span></span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>swap_child_eq_on</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>fastforce</span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">subgoal</span></span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>meson</span><span> </span><span>less_le_trans</span><span> </span><span>not_le</span><span> </span><span>order.asym</span><span> </span><span>r_child_lower_bound</span><span class="delimiter">)</span><span> 
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">subgoal</span></span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="delimiter">(</span><span>intro</span><span> </span><span>conjI</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">subgoal</span></span></span></span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>is_partial_heap_except_down_def</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>smt</span><span> </span><span>parent_two_children</span><span> </span><span>swap_swaps</span><span> </span><span>swap_only_swaps</span><span>
+</span><span>          </span><span>swap_commute</span><span> </span><span>parent_upper_bound_alt</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">subgoal</span></span></span></span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>l_child_lower_bound_alt</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>fastforce</span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">subgoal</span></span></span></span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>swap_child_mset</span><span> </span><span>order_trans</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">subgoal</span></span></span></span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>swap_child_eq_on</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>fastforce</span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">subgoal</span></span></span></span><span> 
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>meson</span><span> </span><span>less_le_trans</span><span> </span><span>not_le</span><span> </span><span>order.asym</span><span> </span><span>l_child_lower_bound</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">subgoal</span></span></span></span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>is_partial_heap_except_down_def</span><span> </span><span>is_partial_heap_def</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>metis</span><span> </span><span>dual_order.strict_trans</span><span> </span><span>not_less</span><span> </span><span>parent_two_children</span><span> </span><span>smaller_l_child</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹‹del_min› needs an additional lemma which shows, that it actually removes (only) the minimum
+      from the heap.›</span></span></span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>del_min_mset</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="keyword2"><span class="keyword">fixes</span></span><span> </span><span>heap</span><span class="delimiter">::</span><span class="string"><span class="delete"><span class="delete">"int ⇒ int"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> 
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"l &lt; r"</span></span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"is_heap (≤) heap l r"</span></span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"mod_heap = heap(l := heap (r - 1))"</span></span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"arr_mset mod_heap l (r - 1) = arr_mset new_heap l (r - 1)"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> 
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"arr_mset new_heap l (r - 1) = arr_mset heap l r - {#Min_mset (arr_mset heap l r)#}"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">let</span></span><span> </span><span class="var">?heap_mset</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"arr_mset heap l r"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span>l_is_min</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"heap l = Min_mset ?heap_mset"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span class="delimiter">(</span><span>1</span><span class="delimiter">,</span><span>2</span><span class="delimiter">)</span><span> </span><span>heap_minimum</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"(arr_mset mod_heap l r) = ?heap_mset + {#heap (r-1)#} - {#heap l#}"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>assms</span><span class="delimiter">(</span><span>1</span><span class="delimiter">,</span><span>3</span><span class="delimiter">)</span><span> </span><span>mset_ran_subst_inside</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">hence</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"(arr_mset mod_heap l (r - 1)) = ?heap_mset - {#heap l#}"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>assms</span><span class="delimiter">(</span><span>1</span><span class="delimiter">,</span><span>3</span><span class="delimiter">)</span><span> </span><span>arr_mset_remove_last</span><span class="delimiter">)</span><span> 
+</span><span>  </span><span class="keyword3"><span class="command">thus</span></span><span> </span><span class="var">?thesis</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span class="delimiter">(</span><span>4</span><span class="delimiter">)</span><span> </span><span>l_is_min</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹‹del_min› removes the minimum element from the heap by replacing the first element with the 
+      last element, shrinking the array by one and subsequently restoring the heap invariant 
+      with @{const "sift_down"}.›</span></span></span><span>
+</span><span class="keyword1"><span class="command">procedure_spec</span></span><span> </span><span>del_min</span><span> </span><span class="delimiter">(</span><span>heap</span><span class="delimiter">,</span><span> </span><span>l</span><span class="delimiter">,</span><span> </span><span>r</span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">returns</span></span><span> </span><span class="delimiter">(</span><span>heap</span><span class="delimiter">,</span><span> </span><span>l</span><span class="delimiter">,</span><span> </span><span>r</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"l &lt; r ∧ is_heap (≤) heap l r"</span></span></span><span>  
+</span><span>    </span><span class="keyword2"><span class="keyword">ensures</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"is_heap (≤) heap l r ∧ 
+             arr_mset heap l r = arr_mset heap<span class="hidden">⇩</span><sub>0</sub> l<span class="hidden">⇩</span><sub>0</sub> r<span class="hidden">⇩</span><sub>0</sub> - {#Min_mset (arr_mset heap<span class="hidden">⇩</span><sub>0</sub> l<span class="hidden">⇩</span><sub>0</sub> r<span class="hidden">⇩</span><sub>0</sub>)#} ∧ 
+             l = l<span class="hidden">⇩</span><sub>0</sub> ∧ r = r<span class="hidden">⇩</span><sub>0</sub> - 1 ∧ 
+             heap<span class="hidden">⇩</span><sub>0</sub> = heap on - {l<span class="hidden">⇩</span><sub>0</sub>..&lt;r<span class="hidden">⇩</span><sub>0</sub>}"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">for</span></span><span> </span><span>heap</span><span> </span><span>l</span><span> </span><span>r</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">defines</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+    r = r - 1;
+    heap[l] = heap[r];
+    heap = sift_down(heap, l, r, l)
+  ›</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>vcg_cs</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">subgoal</span></span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>heap_changed_first_el</span><span> </span><span>is_partial_heap_smaller_back</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">subgoal</span></span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="delimiter">(</span><span>rule</span><span> </span><span>conjI</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">subgoal</span></span></span></span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>del_min_mset</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">subgoal</span></span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>eq_on_def</span><span> </span><span>intvs_incdec</span><span class="delimiter">(</span><span>3</span><span class="delimiter">)</span><span> </span><span>intvs_lower_incr</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹‹make_heap› transforms an arbitrary array into a heap by iterating through all array 
+      positions from the middle of the array up to the beginning of the array and calling 
+      @{const "sift_down"} for each one.›</span></span></span><span>
+</span><span class="keyword1"><span class="command">procedure_spec</span></span><span> </span><span>make_heap</span><span> </span><span class="delimiter">(</span><span>heap</span><span class="delimiter">,</span><span> </span><span>l</span><span class="delimiter">,</span><span> </span><span>r</span><span class="delimiter">)</span><span> </span><span class="keyword2"><span class="keyword">returns</span></span><span> </span><span>heap</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"l ≤ r"</span></span></span><span>  
+</span><span>    </span><span class="keyword2"><span class="keyword">ensures</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"is_heap (≤) heap l<span class="hidden">⇩</span><sub>0</sub> r<span class="hidden">⇩</span><sub>0</sub> ∧ 
+             arr_mset heap l<span class="hidden">⇩</span><sub>0</sub> r<span class="hidden">⇩</span><sub>0</sub> = arr_mset heap<span class="hidden">⇩</span><sub>0</sub> l<span class="hidden">⇩</span><sub>0</sub> r<span class="hidden">⇩</span><sub>0</sub> ∧ 
+             heap<span class="hidden">⇩</span><sub>0</sub> = heap on - {l<span class="hidden">⇩</span><sub>0</sub>..&lt; r<span class="hidden">⇩</span><sub>0</sub>}"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">for</span></span><span> </span><span>heap</span><span class="delimiter">[</span><span class="delimiter">]</span><span> </span><span>l</span><span> </span><span>r</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">defines</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+    y = (r + l)/2 - 1;
+    while (y ≥ l)
+          @variant ‹y - l + 1›
+          @invariant ‹is_partial_heap (≤) heap l (y + 1) r ∧
+                      arr_mset heap l r = arr_mset heap<span class="hidden">⇩</span><sub>0</sub> l<span class="hidden">⇩</span><sub>0</sub> r<span class="hidden">⇩</span><sub>0</sub> ∧
+                      l - 1 ≤ y ∧ y &lt; r ∧ heap<span class="hidden">⇩</span><sub>0</sub> = heap on - {l..&lt;r}›
+    {
+      heap = sift_down(heap, l, r, y);
+      y = y - 1
+    }›</span></span></span><span> 
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="delimiter">(</span><span>vcg_cs</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">subgoal</span></span></span></span><span> 
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="delimiter">(</span><span>rule</span><span> </span><span>conjI</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">subgoal</span></span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>snd_half_is_partial_heap</span><span> </span><span>add.commute</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">subgoal</span></span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>linarith</span><span> 
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">subgoal</span></span></span></span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>partial_heap_added_first_el</span><span> </span><span>le_less</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span> 
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">subgoal</span></span></span></span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>eq_on_trans</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span> 
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">subgoal</span></span></span></span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>dual_order.antisym</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>fastforce</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Heapsort Implementation›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹The final part of this submission is the implementation of the in-place heapsort. Firstly it 
+      builds the ‹≤›-heap and then it iteratively removes the minimum of the heap, which is put at 
+      the now vacant end of the shrinking heap. This is done until the heap is empty, which leaves 
+      the array sorted in descending order.›</span></span></span><span>
+</span><span class="keyword1"><span class="command">subsubsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Auxiliary Lemmas›</span></span></span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Firstly the notion of a sorted array is needed. This is more or less the same as 
+      @{const "ran_sorted"} generalized for arbitrary comparison functions.›</span></span></span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>array_is_sorted</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"(int ⇒ int ⇒ bool) ⇒  (int ⇒ int) ⇒ int ⇒ int ⇒ bool"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"array_is_sorted cmp a l r ≡ ∀i. ∀j. bounded l r i ⟶ bounded l r j ⟶ i &lt; j ⟶ cmp (a i) (a j)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹This lemma states, that the heapsort doesn't change the elements contained in the array during
+      the loop iterations.›</span></span></span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>heap_sort_mset_step</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">fixes</span></span><span> </span><span>arr</span><span class="delimiter">::</span><span class="string"><span class="delete"><span class="delete">"int ⇒ int"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> 
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"l &lt; m"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"m ≤ r"</span></span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"arr_mset arr' l (m - 1) = arr_mset arr l m - {#Min_mset (arr_mset arr l m)#}"</span></span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"arr = arr' on - {l..&lt;m}"</span></span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"mod_arr = arr'(m - 1 := Min_mset (arr_mset arr l m))"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"arr_mset arr l r = arr_mset mod_arr l r"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">let</span></span><span> </span><span class="var">?min</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"{#Min_mset (arr_mset arr l m)#}"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">let</span></span><span> </span><span class="var">?new_arr_mset</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"arr_mset mod_arr"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span>middle</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"?new_arr_mset (m - 1) m = ?min"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>assms</span><span class="delimiter">(</span><span>5</span><span class="delimiter">)</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span>first_half</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"?new_arr_mset l (m - 1) = arr_mset arr l m - ?min"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>assms</span><span class="delimiter">(</span><span>3</span><span class="delimiter">,</span><span>5</span><span class="delimiter">)</span><span> </span><span>mset_ran_subst_outside</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">hence</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"?new_arr_mset l m = ?new_arr_mset l (m - 1) + ?new_arr_mset (m - 1) m"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>metis</span><span> </span><span>assms</span><span class="delimiter">(</span><span>1</span><span class="delimiter">,</span><span>3</span><span class="delimiter">,</span><span>5</span><span class="delimiter">)</span><span> </span><span>diff_add_cancel</span><span> </span><span>middle</span><span> </span><span>arr_mset_append_alt</span><span> </span><span>zle_diff1_eq</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">hence</span></span><span> </span><span>first_half_middle</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"?new_arr_mset l m = arr_mset arr l m"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>middle</span><span> </span><span>first_half</span><span> </span><span>assms</span><span class="delimiter">(</span><span>1</span><span class="delimiter">)</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">hence</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"mod_arr = arr on - {l..&lt;m}"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span class="delimiter">(</span><span>1</span><span class="delimiter">,</span><span>4</span><span class="delimiter">,</span><span>5</span><span class="delimiter">)</span><span> </span><span>eq_on_sym</span><span> </span><span>eq_on_trans</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span>second_half</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"arr_mset arr m r = arr_mset mod_arr m r"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>eq_on_def</span><span> </span><span>mset_ran_cong</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>metis</span><span> </span><span>arr_mset_split</span><span> </span><span>assms</span><span class="delimiter">(</span><span>1</span><span class="delimiter">,</span><span>2</span><span class="delimiter">)</span><span> </span><span>first_half_middle</span><span> </span><span>le_less</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹This lemma states, that each loop iteration leaves the growing second half of the array 
+      sorted in descending order.›</span></span></span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>heap_sort_second_half_sorted_step</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="keyword2"><span class="keyword">fixes</span></span><span> </span><span>arr</span><span class="delimiter">::</span><span class="string"><span class="delete"><span class="delete">"int ⇒ int"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"l<span class="hidden">⇩</span><sub>0</sub> &lt; m"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"m ≤ r<span class="hidden">⇩</span><sub>0</sub>"</span></span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"arr = arr' on - {l<span class="hidden">⇩</span><sub>0</sub>..&lt;m}"</span></span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"∀i. ∀j. bounded m r<span class="hidden">⇩</span><sub>0</sub> i ⟶ bounded m r<span class="hidden">⇩</span><sub>0</sub> j ⟶  i &lt; j ⟶ arr j ≤ arr i"</span></span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"∀x∈#arr_mset arr l<span class="hidden">⇩</span><sub>0</sub> m. ∀y∈#arr_mset arr m r<span class="hidden">⇩</span><sub>0</sub>. ¬ x &lt; y"</span></span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"bounded (m - 1) r<span class="hidden">⇩</span><sub>0</sub> i"</span></span></span><span> 
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"bounded (m - 1) r<span class="hidden">⇩</span><sub>0</sub> j"</span></span></span><span> 
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"i &lt; j"</span></span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"mod_arr = (arr'(m - 1 := Min_mset (arr_mset arr l<span class="hidden">⇩</span><sub>0</sub> m)))"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"mod_arr j ≤ mod_arr i"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span>second_half_eq</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"mod_arr = arr on {m..&lt; r<span class="hidden">⇩</span><sub>0</sub>}"</span></span></span><span> 
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span class="delimiter">(</span><span>3</span><span class="delimiter">,</span><span> </span><span>9</span><span class="delimiter">)</span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>eq_on_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span>j_stricter_bound</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"bounded m r<span class="hidden">⇩</span><sub>0</sub> j"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span class="delimiter">(</span><span>6</span><span>-</span><span>8</span><span class="delimiter">)</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span>el_at_j</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"mod_arr j ∈# arr_mset arr m r<span class="hidden">⇩</span><sub>0</sub>"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>eq_onD</span><span> </span><span>second_half_eq</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>fastforce</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span> 
+</span><span>  </span><span class="keyword1"><span class="command">proof</span></span><span class="delimiter">(</span><span>cases</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword3"><span class="command">assume</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"i = (m-1)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"mod_arr i ∈# arr_mset arr l<span class="hidden">⇩</span><sub>0</sub> m"</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>assms</span><span class="delimiter">(</span><span>1</span><span class="delimiter">,</span><span> </span><span>9</span><span class="delimiter">)</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span class="delimiter">(</span><span>5</span><span class="delimiter">)</span><span> </span><span>el_at_j</span><span> </span><span>not_less</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span> 
+</span><span>  </span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>    </span><span class="keyword3"><span class="command">assume</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"i ≠ (m-1)"</span></span></span><span>  
+</span><span>    </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"bounded m r<span class="hidden">⇩</span><sub>0</sub> i"</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span class="delimiter">(</span><span>6</span><span class="delimiter">)</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span> 
+</span><span>      </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span class="delimiter">(</span><span>4</span><span class="delimiter">,</span><span> </span><span>8</span><span class="delimiter">)</span><span> </span><span>eq_on_def</span><span> </span><span>j_stricter_bound</span><span> </span><span>second_half_eq</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>force</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹The following lemma shows that all elements in the first part of the array (the binary heap) 
+      are bigger than the elements in the second part (the sorted part) after every iteration. This 
+      lemma and the invariant of the ‹heap_sort› loop use ‹¬ x &lt; y› instead of ‹x ≥ y› since 
+      ‹vcg_cs› doesn't terminate in the latter case.›</span></span></span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>heap_sort_fst_part_bigger_snd_part_step</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">fixes</span></span><span> </span><span>arr</span><span class="delimiter">::</span><span class="string"><span class="delete"><span class="delete">"int ⇒ int"</span></span></span><span> 
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"l<span class="hidden">⇩</span><sub>0</sub> &lt; m"</span></span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"m ≤ r<span class="hidden">⇩</span><sub>0</sub>"</span></span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"arr_mset arr' l<span class="hidden">⇩</span><sub>0</sub> (m - 1) = arr_mset arr l<span class="hidden">⇩</span><sub>0</sub> m - {#Min_mset (arr_mset arr l<span class="hidden">⇩</span><sub>0</sub> m)#}"</span></span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"arr = arr' on - {l<span class="hidden">⇩</span><sub>0</sub>..&lt;m}"</span></span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"∀x∈#arr_mset arr l<span class="hidden">⇩</span><sub>0</sub> m. ∀y∈#arr_mset arr m r<span class="hidden">⇩</span><sub>0</sub>. ¬ x &lt; y"</span></span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"mod_arr = arr'(m - 1 := Min_mset (arr_mset arr l<span class="hidden">⇩</span><sub>0</sub> m))"</span></span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"x∈#arr_mset mod_arr l<span class="hidden">⇩</span><sub>0</sub> (m - 1)"</span></span></span><span>
+</span><span>    </span><span class="string"><span class="delete"><span class="delete">"y∈#arr_mset mod_arr (m - 1) r<span class="hidden">⇩</span><sub>0</sub>"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"¬ x &lt; y"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"{m..&lt;r<span class="hidden">⇩</span><sub>0</sub>} ⊆ - {l<span class="hidden">⇩</span><sub>0</sub>..&lt;m}"</span></span></span><span> 
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">hence</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"arr' = arr on {m..&lt;r<span class="hidden">⇩</span><sub>0</sub>}"</span></span></span><span> 
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span class="delimiter">(</span><span>4</span><span class="delimiter">)</span><span> </span><span>eq_on_sym</span><span> </span><span>eq_on_subset</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">hence</span></span><span> </span><span>arr_eq_on</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"mod_arr = arr on {m..&lt;r<span class="hidden">⇩</span><sub>0</sub>}"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>assms</span><span class="delimiter">(</span><span>6</span><span class="delimiter">)</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">hence</span></span><span> </span><span>same_mset</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"arr_mset mod_arr m r<span class="hidden">⇩</span><sub>0</sub> = arr_mset arr m r<span class="hidden">⇩</span><sub>0</sub>"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>mset_ran_cong</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"x ∈# arr_mset arr l<span class="hidden">⇩</span><sub>0</sub> m"</span></span></span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>same_mset</span><span> </span><span>assms</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>metis</span><span> </span><span>assms</span><span class="delimiter">(</span><span>3</span><span class="delimiter">,</span><span>6</span><span class="delimiter">,</span><span>7</span><span class="delimiter">)</span><span> </span><span>add_mset_remove_trivial_eq</span><span> </span><span>lran_upd_outside</span><span class="delimiter">(</span><span>2</span><span class="delimiter">)</span><span>
+</span><span>        </span><span>mset_lran</span><span> </span><span>cancel_ab_semigroup_add_class.diff_right_commute</span><span>
+</span><span>        </span><span>diff_single_trivial</span><span> </span><span>multi_self_add_other_not_self</span><span> </span><span>order_refl</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span>x_bigger_min</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"x ≥ Min_mset (arr_mset arr l<span class="hidden">⇩</span><sub>0</sub> m)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>Min_le</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span> 
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span>y_smaller_min</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"y ≤ Min_mset (arr_mset arr l<span class="hidden">⇩</span><sub>0</sub> m)"</span></span></span><span> 
+</span><span>  </span><span class="keyword1"><span class="command">proof</span></span><span class="delimiter">(</span><span>cases</span><span> </span><span class="string"><span class="delete"><span class="delete">"y = mod_arr (m - 1)"</span></span></span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>False</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">hence</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"y∈#arr_mset mod_arr (m - 1) r<span class="hidden">⇩</span><sub>0</sub> - {#mod_arr (m - 1)#}"</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>metis</span><span> </span><span>assms</span><span class="delimiter">(</span><span>8</span><span class="delimiter">)</span><span> </span><span>diff_single_trivial</span><span> </span><span>insert_DiffM</span><span> </span><span>insert_noteq_member</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"y∈#arr_mset arr m r<span class="hidden">⇩</span><sub>0</sub>"</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>assms</span><span class="delimiter">(</span><span>2</span><span class="delimiter">)</span><span> </span><span>intvs_decr_l</span><span> </span><span>mset_ran_insert</span><span> </span><span>same_mset</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span class="delimiter">(</span><span>1</span><span class="delimiter">)</span><span> </span><span>assms</span><span class="delimiter">(</span><span>5</span><span class="delimiter">)</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>fastforce</span><span> 
+</span><span>  </span><span class="keyword1"><span class="command">qed</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>assms</span><span class="delimiter">(</span><span>6</span><span class="delimiter">)</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>x_bigger_min</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>linarith</span><span> 
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsubsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Implementation›</span></span></span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Now finally the correctness of the ‹heap_sort› is shown. As mentioned, it starts by 
+      transforming the array into a minimum heap using @{const "make_heap"}. Then in each 
+      iteration it removes the first element from the heap with @{const "del_min"} after its value 
+      was retrieved with @{const "get_min"}. This value is then put at the position freed by 
+      @{const "del_min"}.›</span></span></span><span>
+</span><span class="keyword1"><span class="command">program_spec</span></span><span> </span><span>heap_sort</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"l ≤ r"</span></span></span><span>  
+</span><span>    </span><span class="keyword2"><span class="keyword">ensures</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"array_is_sorted (≥) arr l<span class="hidden">⇩</span><sub>0</sub> r<span class="hidden">⇩</span><sub>0</sub> ∧ 
+             arr_mset arr<span class="hidden">⇩</span><sub>0</sub> l<span class="hidden">⇩</span><sub>0</sub> r<span class="hidden">⇩</span><sub>0</sub> = arr_mset arr l<span class="hidden">⇩</span><sub>0</sub> r<span class="hidden">⇩</span><sub>0</sub> ∧ 
+             arr<span class="hidden">⇩</span><sub>0</sub> = arr on - {l<span class="hidden">⇩</span><sub>0</sub> ..&lt;r<span class="hidden">⇩</span><sub>0</sub> } ∧ l = l<span class="hidden">⇩</span><sub>0</sub> ∧ r = r<span class="hidden">⇩</span><sub>0</sub>"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">for</span></span><span> </span><span>l</span><span> </span><span>r</span><span> </span><span>arr</span><span class="delimiter">[</span><span class="delimiter">]</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">defines</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+    arr = make_heap(arr, l, r);
+    m = r;
+    while (m &gt; l)
+      @variant ‹m - l + 1› 
+      @invariant ‹is_heap (≤) arr l m ∧
+        array_is_sorted (≥) arr m r<span class="hidden">⇩</span><sub>0</sub> ∧
+        (∀x ∈# arr_mset arr l<span class="hidden">⇩</span><sub>0</sub> m. ∀y ∈# arr_mset arr m r<span class="hidden">⇩</span><sub>0</sub>. ¬ x &lt; y) ∧
+        arr_mset arr<span class="hidden">⇩</span><sub>0</sub> l<span class="hidden">⇩</span><sub>0</sub> r<span class="hidden">⇩</span><sub>0</sub> = arr_mset arr l<span class="hidden">⇩</span><sub>0</sub> r<span class="hidden">⇩</span><sub>0</sub> ∧ 
+        l ≤ m ∧ m ≤ r<span class="hidden">⇩</span><sub>0</sub> ∧ l = l<span class="hidden">⇩</span><sub>0</sub> ∧ arr<span class="hidden">⇩</span><sub>0</sub> = arr on - {l<span class="hidden">⇩</span><sub>0</sub> ..&lt;r<span class="hidden">⇩</span><sub>0</sub>}›
+    {
+      min = get_min(arr, l, m);
+      (arr, l, m) = del_min(arr, l, m);
+      arr[m] = min 
+    }
+  ›</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>vcg_cs</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">subgoal</span></span></span></span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>array_is_sorted_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">subgoal</span></span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="delimiter">(</span><span>intro</span><span> </span><span>conjI</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">subgoal</span></span></span></span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>is_partial_heap_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">subgoal</span></span></span></span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>array_is_sorted_def</span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>heap_sort_second_half_sorted_step</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">subgoal</span></span></span></span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>heap_sort_fst_part_bigger_snd_part_step</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">subgoal</span></span></span></span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>heap_sort_mset_step</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">subgoal</span></span></span></span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>eq_on_def</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>metis</span><span> </span><span>ComplD</span><span> </span><span>ComplI</span><span> </span><span>atLeastLessThan_iff</span><span> </span><span>less_le_trans</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div>
+  
 </main>
     </div>
   </div>

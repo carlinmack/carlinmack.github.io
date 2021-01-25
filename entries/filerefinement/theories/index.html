@@ -17,7 +17,8 @@
 
   
   
-  <link rel="stylesheet" type="text/css" href="/css/front.min.css" integrity="sha256-QUoTd2RQ4/P7SQKKOG301QYvQ7o2&#43;3qwXOJptpPXM0E=">
+  <link rel="stylesheet" type="text/css" href="/css/front.min.css" integrity="sha256-QUoTd2RQ4/P7SQKKOG301QYvQ7o2&#43;3qwXOJptpPXM0E="><link rel="stylesheet" type="text/css" href="/css/isabelle.css">
+  
   <link rel="icon" href="/images/favicon.ico" type="image/icon">
   <script src="/js/flexsearch.min.js"></script><script src="/js/header-search.js"></script></head>
 
@@ -67,12 +68,627 @@
   
   </div>
 </header><div><main>
-  <iframe src="https://www.isa-afp.org/browser_info/current/AFP/FileRefinement/CArrays.html" frameborder="0" id="CArrays">
-  </iframe>
-  <iframe src="https://www.isa-afp.org/browser_info/current/AFP/FileRefinement/FileRefinement.html" frameborder="0" id="FileRefinement">
-  </iframe>
-  <iframe src="https://www.isa-afp.org/browser_info/current/AFP/FileRefinement/ResizableArrays.html" frameborder="0" id="ResizableArrays">
-  </iframe>
+  
+  <div id="CArrays">
+<div class="head"><h1>Theory CArrays</h1>
+<span class="command">theory</span> <span class="name">CArrays</span><br/>
+<span class="keyword">imports</span> <a href="../../HOL/HOL/Main.html"><span class="name">Main</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">section</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Arrays without bounds"</span></span></span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>CArrays</span><span> </span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>Main</span><span> </span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹For these arrays there is no
+        built-in protection against reading or writing out-of-bounds.›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">type_synonym</span></span><span> </span><span class="tfree">'a</span><span> </span><span>cArray</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"nat =&gt; 'a"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>makeCArray</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"nat =&gt; 'a =&gt; 'a cArray"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"makeCArray arraySize fillValue index == 
+   if index &lt; arraySize then fillValue else undefined"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>readCArray</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a cArray =&gt; nat =&gt; 'a"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"readCArray array index == array index"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>writeCArray</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a cArray =&gt; nat =&gt; 'a =&gt; 'a cArray"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"writeCArray array index value == array(index := value)"</span></span></span><span>
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* ---------------------------------------------------------------*)</span></span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>makeCArrayCorrect</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"index &lt; arraySize ==&gt;
+   readCArray (makeCArray arraySize fillValue) index = fillValue"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>readCArray_def</span><span> </span><span>makeCArray_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>writeCArrayCorrect1</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"readCArray (writeCArray array index value) index = value"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>readCArray_def</span><span> </span><span>writeCArray_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>writeCArrayCorrect2</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"index1 ~= index2 ==&gt;
+   readCArray (writeCArray array index1 value) index2 = 
+   readCArray array index2"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>readCArray_def</span><span> </span><span>writeCArray_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div><div id="ResizableArrays">
+<div class="head"><h1>Theory ResizableArrays</h1>
+<span class="command">theory</span> <span class="name">ResizableArrays</span><br/>
+<span class="keyword">imports</span> <a href="../../HOL/HOL/Main.html"><span class="name">Main</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">section</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Resizable arrays"</span></span></span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>ResizableArrays</span><span> </span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>Main</span><span> </span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹These arrays resize themselves, padding with fillValue.›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">type_synonym</span></span><span> </span><span class="tfree">'a</span><span> </span><span>rArray</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"nat * (nat =&gt; 'a)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>fillAndUpdate</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"nat =&gt; (nat =&gt; 'a) =&gt; nat =&gt; 'a =&gt; 'a =&gt; (nat =&gt; 'a)"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"fillAndUpdate len f i value fillValue j ==
+     if j=i then value
+     else if (len &lt;= j &amp; j &lt; i) then fillValue
+     else f j"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>raWrite</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a rArray =&gt; nat =&gt; 'a =&gt; 'a =&gt; 'a rArray"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"raWrite arr i value fillValue ==    
+   (let len = fst arr;
+        f = snd arr
+    in
+     if i &lt; len then (len,f(i:=value))
+     else (i+1, fillAndUpdate len f i value fillValue)
+   )"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>cutoff</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a =&gt; 'a rArray =&gt; 'a rArray"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"cutoff fill arr == 
+     (fst arr, 
+      % i. if i &lt; fst arr then snd arr i else fill)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>raWriteSizeSame</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"i &lt; fst arr ==&gt; fst (raWrite arr i value fillValue) = fst arr"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>raWrite_def</span><span> </span><span>fillAndUpdate_def</span><span> </span><span>Let_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>raWriteSizeGrows</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"(fst arr &lt;= i) ==&gt; fst (raWrite arr i value fillValue) = i+1"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>raWrite_def</span><span> </span><span>fillAndUpdate_def</span><span> </span><span>Let_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>raWriteContentChanged</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"snd (raWrite arr i value fillValue) i = value"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>raWrite_def</span><span> </span><span>fillAndUpdate_def</span><span> </span><span>Let_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>raWriteContentOld</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"[| j &lt; fst arr; i ~= j |] ==&gt; 
+                          snd (raWrite arr i value fillValue) j = snd arr j"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>raWrite_def</span><span> </span><span>fillAndUpdate_def</span><span> </span><span>Let_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>raWriteContentFill</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"[| fst arr &lt; j; j &lt; i |] ==&gt; 
+                          snd (raWrite arr i value fillValue) j = fillValue"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>raWrite_def</span><span> </span><span>fillAndUpdate_def</span><span> </span><span>Let_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div><div id="FileRefinement">
+<div class="head"><h1>Theory FileRefinement</h1>
+<span class="command">theory</span> <span class="name">FileRefinement</span><br/>
+<span class="keyword">imports</span> <a href="../../HOL/HOL/Complex_Main.html"><span class="name">Complex_Main</span></a> <a href="CArrays.html"><span class="name">CArrays</span></a> <a href="ResizableArrays.html"><span class="name">ResizableArrays</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(*  Title:       Data refinement of representation of a file
+    Authors:     Karen Zee &lt;kkz at mit.edu&gt; and Viktor Kuncak &lt;vkuncak at mit.edu&gt;
+    Maintainer:  Karen Zee &lt;kkz at mit.edu&gt;
+    License:     LGPL
+*)</span></span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">section</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Data refinement of representation of a file"</span></span></span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>FileRefinement</span><span> </span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>Complex_Main</span><span> </span><span>CArrays</span><span> </span><span>ResizableArrays</span><span> </span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  We describe a file at
+  two levels of abstraction: an abstract file, represented as a resizable array, and
+  a concrete file, represented using data blocks.
+  We consider the following operations:
+\begin{verbatim}
+makeAFS     :: AFile
+afsRead     :: "AFile =&gt; nat ⇀ byte"
+afsWrite    :: "AFile =&gt; nat =&gt; byte ⇀ AFile"
+afsFileSize :: "AFile =&gt; nat"
+\end{verbatim}
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">typedecl</span></span><span>
+</span><span>  </span><span class="comment">― ‹unit of file content›</span><span>
+</span><span>  </span><span>byte</span><span>
+</span><span class="keyword1"><span class="command">consts</span></span><span>
+</span><span>  </span><span class="comment">― ‹value used for padding›</span><span>
+</span><span>  </span><span>fillByte</span><span> </span><span class="delimiter">::</span><span> </span><span>byte</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">axiomatization</span></span><span>
+</span><span>  </span><span>blockSize</span><span> </span><span class="delimiter">::</span><span> </span><span>nat</span><span>  </span><span class="comment">― ‹in bytes›</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span>
+</span><span>  </span><span>numBlocks</span><span> </span><span class="delimiter">::</span><span> </span><span>nat</span><span>  </span><span class="comment">― ‹total number of blocks in the file system›</span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span>nonZeroBlockSize</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"blockSize &gt; 0"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span>
+</span><span>  </span><span>nonZeroNumBlocks</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"numBlocks &gt; 0"</span></span></span><span>
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* ------------------------------------------------------------ *)</span></span></span></span></span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Abstract File›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">type_synonym</span></span><span> </span><span>AFile</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"byte rArray"</span></span></span><span> </span><span class="comment">― ‹abstract file is a resizable array of bytes›</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>makeAF</span><span> </span><span class="delimiter">::</span><span> </span><span>AFile</span><span>
+</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>  </span><span class="comment">― ‹initial file has size 0›</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"makeAF == (0, % index. fillByte)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>afSize</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"AFile =&gt; nat"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="comment">― ‹file size is the length of the resizable array›</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"afSize afile == fst afile"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>afRead</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"AFile =&gt; nat ⇀ byte"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="comment">― ‹reading from a file looks up the byte, reporting @{term None} if the index is out of file bounds›</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"afRead afile byteIndex == 
+   if byteIndex &lt; fst afile then Some ((snd afile) byteIndex) else None"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>afWrite</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"AFile =&gt; nat =&gt; byte ⇀ AFile"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="comment">― ‹writing to a file updates the file content and extends the file if there is enough space›</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"afWrite afile byteIndex value == 
+   if byteIndex div blockSize &lt; numBlocks then
+     Some (raWrite afile byteIndex value fillByte)
+   else None"</span></span></span><span>
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* ------------------------------------------------------------ *)</span></span></span></span></span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Concrete File›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">type_synonym</span></span><span> </span><span>Block</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"byte cArray"</span></span></span><span> </span><span class="comment">― ‹array of @{term blockSize} bytes›</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">record</span></span><span> </span><span>CFile</span><span> </span><span class="delimiter">=</span><span>
+</span><span>  </span><span>fileSize</span><span>      </span><span class="delimiter">::</span><span> </span><span>nat</span><span> </span><span class="comment">― ‹in bytes›</span><span>
+</span><span>  </span><span>nextFreeBlock</span><span> </span><span class="delimiter">::</span><span> </span><span>nat</span><span> </span><span class="comment">― ‹next block available for allocation›</span><span>
+</span><span>  </span><span>data</span><span>          </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"Block cArray"</span></span></span><span> </span><span class="comment">― ‹array of up to @{term numBlocks} blocks›</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>makeCF</span><span> </span><span class="delimiter">::</span><span> </span><span>CFile</span><span>
+</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>  </span><span class="comment">― ‹initial file has no allocated blocks›</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"makeCF ==
+   (| fileSize      = 0,
+      nextFreeBlock = 0,
+      data          = makeCArray numBlocks (makeCArray blockSize fillByte)
+   |)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>cfSize</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"CFile =&gt; nat"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"cfSize cfile == fileSize cfile"</span></span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>cfRead</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"CFile =&gt; nat ⇀ byte"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="comment">― ‹Looks up correct data block and reads its content,
+        if byteIndex is within bounds, else returns None.›</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"cfRead cfile byteIndex ==
+   if byteIndex &lt; fileSize cfile then 
+     (let i = byteIndex div blockSize in 
+       (let j = byteIndex mod blockSize in
+         Some (readCArray (readCArray (data cfile) i) j)))
+   else None"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsubsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Writing File›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹We first present some auxiliary operations.›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>cfWriteNoExtend</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"CFile =&gt; nat =&gt; byte =&gt; CFile"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="comment">― ‹Writing to a file when
+        @{term byteIndex} is within bounds.›</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"cfWriteNoExtend cfile byteIndex value ==
+   let i = byteIndex div blockSize in
+     let j = byteIndex mod blockSize in
+       let block = readCArray (data cfile) i in
+         cfile(| data := 
+                 writeCArray (data cfile) i (writeCArray block j value) |)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>cfExtendFile</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"CFile =&gt; nat =&gt; CFile"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="comment">― ‹Writing to a file when
+        @{term byteIndex} is out of bounds.  Involves
+        allocating a new block.›</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"cfExtendFile cfile byteIndex ==
+     cfile(| fileSize := Suc byteIndex,
+             nextFreeBlock := Suc (byteIndex div blockSize) |)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹The main file write operation.›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>cfWrite</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"CFile =&gt; nat =&gt; byte ⇀ CFile"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="comment">― ‹Writes the file at byte location byteIndex, automatically extending
+   the file to that byte location if byteIndex is not within bounds.›</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"cfWrite cfile byteIndex value ==
+     if byteIndex div blockSize &lt; numBlocks then
+       if byteIndex &lt; fileSize cfile then
+         Some (cfWriteNoExtend cfile byteIndex value)
+       else
+         Some (cfWriteNoExtend (cfExtendFile cfile byteIndex) byteIndex value)
+     else None"</span></span></span><span>
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* ---------------------------------------------------------------*)</span></span></span></span></span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Reachability Invariants for Concrete File›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>nextFreeBlockInvariant</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"CFile =&gt; bool"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"nextFreeBlockInvariant state ==
+   (fileSize state + blockSize - 1) div blockSize = nextFreeBlock state"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>unallocatedBlocksInvariant</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"CFile =&gt; bool"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="comment">― ‹This invariant of the implementation is needed to prove
+   writeExtendCorrect. It says that any unallocated block contains
+   fillByte's.›</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"unallocatedBlocksInvariant state ==
+   ∀blockNum i . 
+     ~ blockNum &lt; nextFreeBlock state &amp; blockNum &lt; numBlocks &amp; i &lt; blockSize 
+     --&gt; data state blockNum i = fillByte"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>lastBlockInvariant</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"CFile =&gt; bool"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"lastBlockInvariant state ==
+   ∀index .
+     ~ index &lt; fileSize state &amp; nextFreeBlock state = index div blockSize + 1
+     --&gt; data state (index div blockSize) (index mod blockSize) = fillByte"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>reachabilityInvariant</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"CFile =&gt; bool"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"reachabilityInvariant cfile == 
+      nextFreeBlockInvariant cfile &amp;
+      unallocatedBlocksInvariant cfile &amp;
+      lastBlockInvariant cfile"</span></span></span><span>
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* ---------------------------------------------------------------*)</span></span></span></span></span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Initial File Satisfies Invariants›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹We prove each invariant individually and then summarize.›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>nextFreeBlockInvariant1</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"nextFreeBlockInvariant makeCF"</span></span></span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>nextFreeBlockInvariant_def</span><span> </span><span>makeCF_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>nonZeroBlockSize</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>unallocatedBlocksInvariant1</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"unallocatedBlocksInvariant makeCF"</span></span></span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>unallocatedBlocksInvariant_def</span><span> </span><span>makeCF_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>makeCArray_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>lastBlockInvariant1</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"lastBlockInvariant makeCF"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>lastBlockInvariant_def</span><span> </span><span>makeCF_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>makeCFpreserves</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"reachabilityInvariant makeCF"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>reachabilityInvariant_def</span><span>
+</span><span>              </span><span>nextFreeBlockInvariant1</span><span>
+</span><span>              </span><span>unallocatedBlocksInvariant1</span><span>
+</span><span>              </span><span>lastBlockInvariant1</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* ---------------------------------------------------------------*)</span></span></span></span></span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Properties of Concrete File Operations›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>cfWriteNoExtendPreservesFileSize</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"[| index &lt; fileSize cfile1;
+      cfWrite cfile1 index value = Some cfile2
+   |] ==&gt; 
+   fileSize cfile2 = fileSize cfile1"</span></span></span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>cfWrite_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>case_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"index div blockSize &lt; numBlocks"</span></span></span><span class="delimiter">,</span><span> </span><span>simp_all</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>cfWriteNoExtend_def</span><span> </span><span>Let_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>force</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>cfWriteExtendFileSize</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"[| ~ index &lt; fileSize cfile1;
+      cfWrite cfile1 index value = Some cfile2
+   |] ==&gt; fileSize cfile2 = Suc index"</span></span></span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>cfWrite_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>case_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"index div blockSize &lt; numBlocks"</span></span></span><span class="delimiter">,</span><span> </span><span>simp_all</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>cfWriteNoExtend_def</span><span> </span><span>cfExtendFile_def</span><span> </span><span>Let_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>force</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>fileSizeIncreases</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"cfWrite cfile1 index value = Some cfile2
+   ==&gt; fileSize cfile1 &lt;= fileSize cfile2"</span></span></span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>cfWrite_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>case_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"index div blockSize &lt; numBlocks"</span></span></span><span class="delimiter">,</span><span> </span><span>simp_all</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>case_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"index &lt; fileSize cfile1"</span></span></span><span class="delimiter">,</span><span> </span><span>simp_all</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>cfWriteNoExtend_def</span><span> </span><span>cfExtendFile_def</span><span> </span><span>Let_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>force</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>force</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>nextFreeBlockIncreases</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"[| nextFreeBlockInvariant cfile1;
+      cfWrite cfile1 index value = Some cfile2
+   |] ==&gt; nextFreeBlock cfile1 &lt;= nextFreeBlock cfile2"</span></span></span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>cfWrite_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>case_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"index div blockSize &lt; numBlocks"</span></span></span><span class="delimiter">,</span><span> </span><span>simp_all</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>case_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"index &lt; fileSize cfile1"</span></span></span><span class="delimiter">,</span><span> </span><span>simp_all</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>cfWriteNoExtend_def</span><span> </span><span>cfExtendFile_def</span><span> </span><span>Let_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>force</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>nextFreeBlockInvariant_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>auto</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>hypsubst_thin</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>subgoal_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"nextFreeBlock cfile1 = 
+  (fileSize cfile1 + blockSize - Suc 0) div blockSize"</span></span></span><span class="delimiter">,</span><span> </span><span>simp_all</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>subgoal_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"Suc (index div blockSize) = 
+  (index + blockSize) div blockSize"</span></span></span><span class="delimiter">,</span><span> </span><span>simp</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>subgoal_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"(fileSize cfile1 + blockSize - Suc 0) &lt;= 
+  (index + blockSize)"</span></span></span><span class="delimiter">,</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>div_le_mono</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>subgoal_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"(fileSize cfile1 + blockSize - Suc 0) &lt; 
+  (fileSize cfile1 + blockSize)"</span></span></span><span class="delimiter">,</span><span> </span><span>simp</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>nonZeroBlockSize</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* ---------------------------------------------------------------*)</span></span></span></span></span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Concrete File Operations Preserve Invariants›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹There is only one top-level concrete operation: write, and we
+show that it preserves all reachability invariants.›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>cfWritePreservesNextFreeBlockInvariant</span><span class="delimiter">:</span><span>
+</span><span>   </span><span class="string"><span class="delete"><span class="delete">"[| reachabilityInvariant cfile1;
+       cfWrite cfile1 byteIndex value = Some cfile2
+    |] ==&gt; nextFreeBlockInvariant cfile2"</span></span></span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>reachabilityInvariant_def</span><span>
+</span><span>                 </span><span>cfWrite_def</span><span>
+</span><span>                 </span><span>nextFreeBlockInvariant_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>case_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"byteIndex div blockSize &lt; numBlocks"</span></span></span><span class="delimiter">,</span><span> </span><span>simp_all</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>case_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"byteIndex &lt; fileSize cfile1"</span></span></span><span class="delimiter">,</span><span> </span><span>simp_all</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>cfWriteNoExtend_def</span><span> </span><span>cfExtendFile_def</span><span> </span><span>Let_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>auto</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>nonZeroBlockSize</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>modInequalityLemma</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"(a::nat) ~= b &amp; a mod c = b mod c ==&gt; a div c ~= b div c"</span></span></span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>auto</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>insert</span><span> </span><span>div_mult_mod_eq</span><span> </span><span class="delimiter">[</span><span>of</span><span> </span><span class="string"><span class="delete"><span class="delete">"a"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"c"</span></span></span><span class="delimiter">]</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>insert</span><span> </span><span>div_mult_mod_eq</span><span> </span><span class="delimiter">[</span><span>of</span><span> </span><span class="string"><span class="delete"><span class="delete">"b"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"c"</span></span></span><span class="delimiter">]</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>simp</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>mod_round_lt</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"[| 0 &lt; (c::nat);
+      a &lt; b
+   |] ==&gt; a div c &lt; (b + c - 1) div c"</span></span></span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>subgoal_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"a &lt;= b - 1"</span></span></span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>subgoal_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"a div c &lt;= (b - 1) div c"</span></span></span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>insert</span><span> </span><span>div_add_self2</span><span> </span><span class="delimiter">[</span><span>of</span><span> </span><span>c</span><span> </span><span class="string"><span class="delete"><span class="delete">"b - 1"</span></span></span><span class="delimiter">]</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>div_le_mono</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>insert</span><span> </span><span>less_Suc_eq_le</span><span> </span><span class="delimiter">[</span><span>of</span><span> </span><span>a</span><span> </span><span class="string"><span class="delete"><span class="delete">"b - 1"</span></span></span><span class="delimiter">]</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>simp</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>blockNumNELemma</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"!!blockNum i.
+       [| nextFreeBlockInvariant cfile1;
+          cfile1
+          (| data :=
+               writeCArray (data cfile1) (byteIndex div blockSize)
+                (writeCArray
+                  (readCArray (data cfile1) (byteIndex div blockSize))
+                  (byteIndex mod blockSize) value) |) =
+          cfile2;
+          ~ blockNum &lt; nextFreeBlock cfile2; blockNum &lt; numBlocks;
+          i &lt; blockSize; byteIndex div blockSize &lt; numBlocks;
+          byteIndex &lt; fileSize cfile1 |]
+       ==&gt; blockNum ~= byteIndex div blockSize"</span></span></span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>nextFreeBlockInvariant_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>subgoal_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"byteIndex div blockSize &lt; nextFreeBlock cfile1"</span></span></span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>force</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>subgoal_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"nextFreeBlock cfile1 = 
+  (fileSize cfile1 + blockSize - Suc 0) div blockSize"</span></span></span><span class="delimiter">,</span><span> </span><span>simp_all</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>insert</span><span> </span><span>mod_round_lt</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>force</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>cfWritePreservesUnallocatedBlocksInvariant</span><span class="delimiter">:</span><span>
+</span><span>   </span><span class="string"><span class="delete"><span class="delete">"[| reachabilityInvariant cfile1;
+       cfWrite cfile1 byteIndex value = Some cfile2
+    |] ==&gt; unallocatedBlocksInvariant cfile2"</span></span></span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>reachabilityInvariant_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>subgoal_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"nextFreeBlock cfile1 &lt;= nextFreeBlock cfile2"</span></span></span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>unallocatedBlocksInvariant_def</span><span> </span><span>cfWrite_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>auto</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>case_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"byteIndex div blockSize &lt; numBlocks"</span></span></span><span class="delimiter">,</span><span> </span><span>simp_all</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>case_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"byteIndex &lt; fileSize cfile1"</span></span></span><span class="delimiter">,</span><span> </span><span>simp_all</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>cfWriteNoExtend_def</span><span> </span><span>cfExtendFile_def</span><span> </span><span>Let_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>writeCArray_def</span><span> </span><span>readCArray_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>subgoal_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"blockNum ~= byteIndex div blockSize"</span></span></span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>force</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>blockNumNELemma</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>subgoal_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"~ blockNum &lt; nextFreeBlock cfile1"</span></span></span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>subgoal_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"blockNum ~= byteIndex div blockSize"</span></span></span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>auto</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>nextFreeBlockIncreases</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>cfWritePreservesLastBlockInvariant</span><span class="delimiter">:</span><span>
+</span><span>   </span><span class="string"><span class="delete"><span class="delete">"[| reachabilityInvariant cfile1;
+       cfWrite cfile1 byteIndex value = Some cfile2 |] ==&gt; 
+    lastBlockInvariant cfile2"</span></span></span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>reachabilityInvariant_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>subgoal_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"nextFreeBlock cfile1 &lt;= nextFreeBlock cfile2"</span></span></span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>cfWrite_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span class="delimiter">(</span><span>no_asm</span><span class="delimiter">)</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>lastBlockInvariant_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>auto</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>case_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"byteIndex div blockSize &lt; numBlocks"</span></span></span><span class="delimiter">,</span><span> </span><span>simp_all</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>case_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"byteIndex &lt; fileSize cfile1"</span></span></span><span class="delimiter">,</span><span> </span><span>simp_all</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>cfWriteNoExtend_def</span><span> </span><span>Let_def</span><span> </span><span>cfExtendFile_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>writeCArray_def</span><span> </span><span>readCArray_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>lastBlockInvariant_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>subgoal_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"index ~= byteIndex"</span></span></span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>case_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"index div blockSize ~= byteIndex div blockSize"</span></span></span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>force</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>subgoal_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"index mod blockSize ~= byteIndex mod blockSize"</span></span></span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>force</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>insert</span><span> </span><span>modInequalityLemma</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>force</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>force</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>subgoal_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"index ~= byteIndex"</span></span></span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>case_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"index div blockSize ~= byteIndex div blockSize"</span></span></span><span class="delimiter">,</span><span> </span><span>simp_all</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>force</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>subgoal_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"index mod blockSize ~= byteIndex mod blockSize"</span></span></span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>case_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"nextFreeBlock cfile1 = Suc (index div blockSize)"</span></span></span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>subgoal_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"~ index &lt; fileSize cfile1"</span></span></span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>lastBlockInvariant_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>auto</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>unallocatedBlocksInvariant_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>erule_tac</span><span> </span><span>x</span><span class="delimiter">=</span><span class="string"><span class="delete"><span class="delete">"index div blockSize"</span></span></span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>allE</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>erule_tac</span><span> </span><span>x</span><span class="delimiter">=</span><span class="string"><span class="delete"><span class="delete">"index mod blockSize"</span></span></span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>allE</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>nonZeroBlockSize</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>insert</span><span> </span><span>modInequalityLemma</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>auto</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>nextFreeBlockIncreases</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Final statement that all invariants are preserved.›</span></span></span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>cfWritePreserves</span><span class="delimiter">:</span><span> 
+</span><span>   </span><span class="string"><span class="delete"><span class="delete">"[| reachabilityInvariant cfile1;
+       cfWrite cfile1 byteIndex value = Some cfile2 |] ==&gt; 
+    reachabilityInvariant cfile2"</span></span></span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span class="delimiter">(</span><span>no_asm</span><span class="delimiter">)</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>reachabilityInvariant_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>cfWritePreservesNextFreeBlockInvariant</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>cfWritePreservesUnallocatedBlocksInvariant</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>cfWritePreservesLastBlockInvariant</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* ---------------------------------------------------------------*)</span></span></span></span></span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Commuting Diagrams for Simulation Relation›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Here we show correctness of file system operations.›</span></span></span><span>
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* ---------------------------------------------------------------*)</span></span></span></span></span><span>
+</span><span class="keyword1"><span class="command">subsubsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Abstraction Function›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>abstFn</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"CFile =&gt; AFile"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"abstFn cfile == (fileSize cfile, 
+                    % index . case cfRead cfile index of
+                                None       =&gt; fillByte
+                              | Some value =&gt; value)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">primrec</span></span><span> </span><span>oAbstFn</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"CFile option =&gt; AFile option"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"oAbstFn None = None"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"oAbstFn (Some s) = Some (abstFn s)"</span></span></span><span>
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* ---------------------------------------------------------------*)</span></span></span></span></span><span>
+</span><span class="keyword1"><span class="command">subsubsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Creating a File›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>makeCFCorrect</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"abstFn makeCF = makeAF"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>makeCF_def</span><span> </span><span>makeAF_def</span><span> </span><span>abstFn_def</span><span> </span><span>cfRead_def</span><span>
+</span><span>    </span><span>split</span><span class="delimiter">:</span><span> </span><span>bool.splits</span><span> </span><span>option.splits</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsubsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹File Size›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>fileSizeCorrect</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"cfSize cfile = afSize (abstFn cfile)"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>cfSize_def</span><span> </span><span>afSize_def</span><span> </span><span>abstFn_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsubsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Read Operation›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>readCorrect</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"cfRead cfile = afRead (abstFn cfile)"</span></span></span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>abstFn_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>ext</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>cfRead_def</span><span> </span><span>afRead_def</span><span> </span><span>Let_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsubsection</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Write Operation›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>writeNoExtendCorrect</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"[| index &lt; fileSize cfile1;
+      Some cfile2 = cfWrite cfile1 index value
+   |] ==&gt; Some (abstFn cfile2) = afWrite (abstFn cfile1) index value"</span></span></span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>abstFn_def</span><span> </span><span>afWrite_def</span><span> </span><span>raWrite_def</span><span> </span><span>Let_def</span><span> </span><span>cfWrite_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>case_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"index div blockSize &lt; numBlocks"</span></span></span><span class="delimiter">,</span><span> </span><span>simp_all</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>cfWriteNoExtend_def</span><span> </span><span>Let_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>ext</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>cfRead_def</span><span> </span><span>writeCArray_def</span><span> </span><span>readCArray_def</span><span> </span><span>Let_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>case_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"indexa &lt; fileSize cfile1"</span></span></span><span class="delimiter">,</span><span> </span><span>simp_all</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>case_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"indexa = index"</span></span></span><span class="delimiter">,</span><span> </span><span>simp_all</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>case_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"indexa mod blockSize = index mod blockSize"</span></span></span><span class="delimiter">,</span><span> </span><span>simp_all</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>subgoal_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"indexa div blockSize ~= index div blockSize"</span></span></span><span class="delimiter">,</span><span> </span><span>simp_all</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>modInequalityLemma</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>writeExtendCorrect</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"[| nextFreeBlockInvariant cfile1;
+      unallocatedBlocksInvariant cfile1;
+      lastBlockInvariant cfile1;
+      ~ index &lt; fileSize cfile1;
+      Some cfile2 = cfWrite cfile1 index value
+   |] ==&gt; Some (abstFn cfile2) = afWrite (abstFn cfile1) index value"</span></span></span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>insert</span><span> </span><span>nextFreeBlockIncreases</span><span> </span><span class="delimiter">[</span><span>of</span><span> </span><span>cfile1</span><span> </span><span>index</span><span> </span><span class="string"><span class="delete"><span class="delete">"value"</span></span></span><span> </span><span>cfile2</span><span class="delimiter">]</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>abstFn_def</span><span> </span><span>afWrite_def</span><span> </span><span>raWrite_def</span><span> </span><span>Let_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>case_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"~ index div blockSize &lt; numBlocks"</span></span></span><span class="delimiter">,</span><span>
+</span><span>  </span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>cfWrite_def</span><span> </span><span>cfWriteNoExtend_def</span><span> </span><span>cfExtendFile_def</span><span> </span><span>Let_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>ext</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>cfRead_def</span><span> </span><span>fillAndUpdate_def</span><span> </span><span>Let_def</span><span> </span><span>writeCArrayCorrect1</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>case_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"indexa &lt; fileSize cfile1"</span></span></span><span class="delimiter">,</span><span> </span><span>simp_all</span><span class="delimiter">)</span><span> </span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* 2 subgoals *)</span></span></span></span></span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>subgoal_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"indexa ~= index"</span></span></span><span class="delimiter">,</span><span> </span><span>simp_all</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>case_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"indexa div blockSize = index div blockSize"</span></span></span><span class="delimiter">)</span><span> </span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* 3 subgoals *)</span></span></span></span></span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>case_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"indexa mod blockSize = index mod blockSize"</span></span></span><span class="delimiter">,</span><span>
+</span><span>  </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>modInequalityLemma</span><span class="delimiter">)</span><span> </span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* 3 subgoals *)</span></span></span></span></span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>writeCArrayCorrect1</span><span> </span><span>writeCArrayCorrect2</span><span class="delimiter">)</span><span> </span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* 1 subgoal *)</span></span></span></span></span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>case_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"indexa &lt; index"</span></span></span><span class="delimiter">,</span><span> </span><span>simp_all</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>case_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"indexa div blockSize = index div blockSize"</span></span></span><span class="delimiter">)</span><span> </span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* 2 subgoals *)</span></span></span></span></span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>case_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"indexa mod blockSize = index mod blockSize"</span></span></span><span class="delimiter">,</span><span>
+</span><span>  </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>modInequalityLemma</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>readCArray_def</span><span> </span><span>writeCArray_def</span><span> </span><span>lastBlockInvariant_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>erule_tac</span><span> </span><span>x</span><span class="delimiter">=</span><span>indexa</span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>allE</span><span class="delimiter">,</span><span> </span><span>simp_all</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>case_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"nextFreeBlock cfile1 = nextFreeBlock cfile2"</span></span></span><span class="delimiter">,</span><span> </span><span>simp_all</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>unallocatedBlocksInvariant_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>subgoal_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"~ indexa div blockSize &lt; nextFreeBlock cfile1"</span></span></span><span class="delimiter">,</span><span> </span><span>simp_all</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>subgoal_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"indexa mod blockSize &lt; blockSize"</span></span></span><span class="delimiter">,</span><span> </span><span>simp_all</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>insert</span><span> </span><span>nonZeroBlockSize</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>force</span><span> </span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* 1 subgoal *)</span></span></span></span></span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>unallocatedBlocksInvariant_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>case_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"~ indexa div blockSize &lt; nextFreeBlock cfile1"</span></span></span><span class="delimiter">,</span><span> </span><span>simp_all</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>subgoal_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"indexa div blockSize &lt; numBlocks"</span></span></span><span class="delimiter">,</span><span> </span><span>simp_all</span><span class="delimiter">)</span><span> 
+</span><span>  </span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* 2 subgoals *)</span></span></span></span></span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>subgoal_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"indexa div blockSize &lt;= index div blockSize"</span></span></span><span class="delimiter">,</span><span> </span><span>simp_all</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>div_le_mono</span><span class="delimiter">)</span><span> </span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* 1 subgoal *)</span></span></span></span></span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>subgoal_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"nextFreeBlock cfile1 = Suc (indexa div blockSize)"</span></span></span><span class="delimiter">,</span><span> </span><span>simp</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>nextFreeBlockInvariant_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>subgoal_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"nextFreeBlock cfile1 = 
+  (fileSize cfile1 + blockSize - Suc 0) div blockSize"</span></span></span><span class="delimiter">,</span><span> </span><span>simp_all</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>subgoal_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"(fileSize cfile1 + blockSize - Suc 0) div blockSize &lt;=
+  Suc (indexa div blockSize)"</span></span></span><span class="delimiter">,</span><span> </span><span>simp_all</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>subgoal_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"Suc (indexa div blockSize) = 
+  (indexa + blockSize) div blockSize"</span></span></span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>only</span><span class="delimiter">:</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>div_le_mono</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>le_diff_conv</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>writeSucceedCorrect</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"[| nextFreeBlockInvariant cfile1;
+      unallocatedBlocksInvariant cfile1;
+      lastBlockInvariant cfile1;
+      Some cfile2 = cfWrite cfile1 index value
+   |] ==&gt; Some (abstFn cfile2) = afWrite (abstFn cfile1) index value"</span></span></span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>case_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"index &lt; fileSize cfile1"</span></span></span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>writeExtendCorrect</span><span> </span><span>writeNoExtendCorrect</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>writeFailCorrect</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"cfWrite cfile1 index value = None ==&gt; 
+   afWrite (abstFn cfile1) index value = None"</span></span></span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>abstFn_def</span><span> </span><span>cfWrite_def</span><span> </span><span>afWrite_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>case_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"index div blockSize &lt; numBlocks"</span></span></span><span class="delimiter">,</span><span> </span><span>simp_all</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>case_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"index &lt; fileSize cfile1"</span></span></span><span class="delimiter">,</span><span> </span><span>simp_all</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>writeCorrect</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"reachabilityInvariant cfile1 ==&gt;
+   oAbstFn (cfWrite cfile1 index value) = afWrite (abstFn cfile1) index value"</span></span></span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>reachabilityInvariant_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>case_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"cfWrite cfile1 index value"</span></span></span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>writeFailCorrect</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>writeSucceedCorrect</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div>
+  
 </main>
     </div>
   </div>

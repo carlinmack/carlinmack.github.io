@@ -17,7 +17,8 @@
 
   
   
-  <link rel="stylesheet" type="text/css" href="/css/front.min.css" integrity="sha256-QUoTd2RQ4/P7SQKKOG301QYvQ7o2&#43;3qwXOJptpPXM0E=">
+  <link rel="stylesheet" type="text/css" href="/css/front.min.css" integrity="sha256-QUoTd2RQ4/P7SQKKOG301QYvQ7o2&#43;3qwXOJptpPXM0E="><link rel="stylesheet" type="text/css" href="/css/isabelle.css">
+  
   <link rel="icon" href="/images/favicon.ico" type="image/icon">
   <script src="/js/flexsearch.min.js"></script><script src="/js/header-search.js"></script></head>
 
@@ -72,22 +73,724 @@
   
   </div>
 </header><div><main>
-  <iframe src="https://www.isa-afp.org/browser_info/current/AFP/GPU_Kernel_PL/Kernel_programming_language.html" frameborder="0" id="Kernel_programming_language">
-  </iframe>
-  <iframe src="https://www.isa-afp.org/browser_info/current/AFP/GPU_Kernel_PL/KPL_execution_group.html" frameborder="0" id="KPL_execution_group">
-  </iframe>
-  <iframe src="https://www.isa-afp.org/browser_info/current/AFP/GPU_Kernel_PL/KPL_execution_kernel.html" frameborder="0" id="KPL_execution_kernel">
-  </iframe>
-  <iframe src="https://www.isa-afp.org/browser_info/current/AFP/GPU_Kernel_PL/KPL_execution_thread.html" frameborder="0" id="KPL_execution_thread">
-  </iframe>
-  <iframe src="https://www.isa-afp.org/browser_info/current/AFP/GPU_Kernel_PL/KPL_state.html" frameborder="0" id="KPL_state">
-  </iframe>
-  <iframe src="https://www.isa-afp.org/browser_info/current/AFP/GPU_Kernel_PL/KPL_syntax.html" frameborder="0" id="KPL_syntax">
-  </iframe>
-  <iframe src="https://www.isa-afp.org/browser_info/current/AFP/GPU_Kernel_PL/KPL_wellformedness.html" frameborder="0" id="KPL_wellformedness">
-  </iframe>
-  <iframe src="https://www.isa-afp.org/browser_info/current/AFP/GPU_Kernel_PL/Misc.html" frameborder="0" id="Misc">
-  </iframe>
+  
+  <div id="Misc">
+<div class="head"><h1>Theory Misc</h1>
+<span class="command">theory</span> <span class="name">Misc</span><br/>
+<span class="keyword">imports</span> <a href="../../HOL/HOL/Main.html"><span class="name">Main</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹General purpose definitions and lemmas›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Misc</span><span> </span><span class="keyword2"><span class="keyword">imports</span></span><span> 
+</span><span>  </span><span>Main</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹A handy abbreviation when working with maps›</span></span></span><span>
+</span><span class="keyword1"><span class="command">abbreviation</span></span><span> </span><span>make_map</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a set ⇒ 'b ⇒ ('a ⇀ 'b)"</span></span></span><span> </span><span class="delimiter">(</span><span class="string"><span class="delete"><span class="delete">"[ _ |=&gt; _ ]"</span></span></span><span class="delimiter">)</span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"[ks |=&gt; v] ≡ λk. if k ∈ ks then Some v else None"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Projecting the components of a triple›</span></span></span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"fst3 ≡ fst"</span></span></span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"snd3 ≡ fst ∘ snd"</span></span></span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"thd3 ≡ snd ∘ snd"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>fst3_simp</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"fst3 (a,b,c) = a"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>fst3_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>snd3_simp</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"snd3 (a,b,c) = b"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>snd3_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>thd3_simp</span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"thd3 (a,b,c) = c"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>thd3_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div><div id="KPL_syntax">
+<div class="head"><h1>Theory KPL_syntax</h1>
+<span class="command">theory</span> <span class="name">KPL_syntax</span><br/>
+<span class="keyword">imports</span> <a href="Misc.html"><span class="name">Misc</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Syntax of KPL›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>KPL_syntax</span><span> </span><span class="keyword2"><span class="keyword">imports</span></span><span> 
+</span><span>  </span><span>Misc</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Locations of local variables›</span></span></span><span>
+</span><span class="keyword1"><span class="command">typedecl</span></span><span> </span><span>V</span><span> 
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹C strings›</span></span></span><span>
+</span><span class="keyword1"><span class="command">typedecl</span></span><span> </span><span>name</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Procedure names›</span></span></span><span>
+</span><span class="keyword1"><span class="command">typedecl</span></span><span> </span><span>proc_name</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Local-id, group-id›</span></span></span><span>
+</span><span class="keyword1"><span class="command">type_synonym</span></span><span> </span><span>lid</span><span> </span><span class="delimiter">=</span><span> </span><span>nat</span><span>
+</span><span class="keyword1"><span class="command">type_synonym</span></span><span> </span><span>gid</span><span> </span><span class="delimiter">=</span><span> </span><span>nat</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Fully-qualified thread-id›</span></span></span><span>
+</span><span class="keyword1"><span class="command">type_synonym</span></span><span> </span><span>tid</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"gid × lid"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Let @{term "(G,T)"} range over threadsets›</span></span></span><span>
+</span><span class="keyword1"><span class="command">type_synonym</span></span><span> </span><span>threadset</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"gid set × (gid ⇀ lid set)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Returns the set of tids in a threadset›</span></span></span><span>
+</span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>tids</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"threadset ⇒ tid set"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"tids (G,T) = {(i,j) | i j. i ∈ G ∧ j ∈ the (T i)}"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">type_synonym</span></span><span> </span><span>word</span><span> </span><span class="delimiter">=</span><span> </span><span>nat</span><span>  </span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* should really be machine words *)</span></span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">datatype</span></span><span> </span><span>loc</span><span> </span><span class="delimiter">=</span><span>
+</span><span>  </span><span>Name</span><span> </span><span>name</span><span>
+</span><span class="delimiter">|</span><span> </span><span>Var</span><span> </span><span>V</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Local expressions›</span></span></span><span>
+</span><span class="keyword1"><span class="command">datatype</span></span><span> </span><span>local_expr</span><span> </span><span class="delimiter">=</span><span>
+</span><span>  </span><span>Loc</span><span> </span><span>loc</span><span>
+</span><span class="delimiter">|</span><span> </span><span>Gid</span><span>
+</span><span class="delimiter">|</span><span> </span><span>Lid</span><span>
+</span><span class="delimiter">|</span><span> </span><span>eTrue</span><span>
+</span><span class="delimiter">|</span><span> </span><span>eConj</span><span> </span><span>local_expr</span><span> </span><span>local_expr</span><span>  </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">infixl</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"∧*"</span></span></span><span> </span><span>50</span><span class="delimiter">)</span><span>
+</span><span class="delimiter">|</span><span> </span><span>eNot</span><span> </span><span>local_expr</span><span>              </span><span class="delimiter">(</span><span class="string"><span class="delete"><span class="delete">"¬*"</span></span></span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Basic statements›</span></span></span><span>
+</span><span class="keyword1"><span class="command">datatype</span></span><span> </span><span>basic_stmt</span><span> </span><span class="delimiter">=</span><span>
+</span><span>  </span><span>Assign</span><span> </span><span>loc</span><span> </span><span>local_expr</span><span>
+</span><span class="delimiter">|</span><span> </span><span>Read</span><span> </span><span>loc</span><span> </span><span>local_expr</span><span>
+</span><span class="delimiter">|</span><span> </span><span>Write</span><span> </span><span>local_expr</span><span> </span><span>local_expr</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Statements›</span></span></span><span>
+</span><span class="keyword1"><span class="command">datatype</span></span><span> </span><span>stmt</span><span> </span><span class="delimiter">=</span><span>
+</span><span>  </span><span>Basic</span><span> </span><span>basic_stmt</span><span>
+</span><span class="delimiter">|</span><span> </span><span>Seq</span><span> </span><span>stmt</span><span> </span><span>stmt</span><span> </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">infixl</span></span><span> </span><span class="string"><span class="delete"><span class="delete">";;"</span></span></span><span> </span><span>50</span><span class="delimiter">)</span><span>
+</span><span class="delimiter">|</span><span> </span><span>Local</span><span> </span><span>name</span><span> </span><span>stmt</span><span>
+</span><span class="delimiter">|</span><span> </span><span>If</span><span> </span><span>local_expr</span><span> </span><span>stmt</span><span> </span><span>stmt</span><span>
+</span><span class="delimiter">|</span><span> </span><span>While</span><span> </span><span>local_expr</span><span> </span><span>stmt</span><span>
+</span><span class="delimiter">|</span><span> </span><span>WhileDyn</span><span> </span><span>local_expr</span><span> </span><span>stmt</span><span>
+</span><span class="delimiter">|</span><span> </span><span>Call</span><span> </span><span>proc_name</span><span> </span><span>local_expr</span><span>
+</span><span class="delimiter">|</span><span> </span><span>Barrier</span><span>
+</span><span class="delimiter">|</span><span> </span><span>Break</span><span>
+</span><span class="delimiter">|</span><span> </span><span>Continue</span><span>
+</span><span class="delimiter">|</span><span> </span><span>Return</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Procedures comprise a procedure name, parameter name, and a body statement›</span></span></span><span>
+</span><span class="keyword1"><span class="command">record</span></span><span> </span><span>proc</span><span> </span><span class="delimiter">=</span><span> 
+</span><span>  </span><span>proc_name</span><span> </span><span class="delimiter">::</span><span> </span><span>proc_name</span><span>
+</span><span>  </span><span>param</span><span> </span><span class="delimiter">::</span><span> </span><span>name</span><span>
+</span><span>  </span><span>body</span><span> </span><span class="delimiter">::</span><span> </span><span>stmt</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Kernels›</span></span></span><span>
+</span><span class="keyword1"><span class="command">record</span></span><span> </span><span>kernel</span><span> </span><span class="delimiter">=</span><span> 
+</span><span>  </span><span>groups</span><span> </span><span class="delimiter">::</span><span> </span><span>nat</span><span>
+</span><span>  </span><span>threads</span><span> </span><span class="delimiter">::</span><span> </span><span>nat</span><span>
+</span><span>  </span><span>procs</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"proc list"</span></span></span><span>
+</span><span>  </span><span>main</span><span> </span><span class="delimiter">::</span><span> </span><span>stmt</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div><div id="KPL_wellformedness">
+<div class="head"><h1>Theory KPL_wellformedness</h1>
+<span class="command">theory</span> <span class="name">KPL_wellformedness</span><br/>
+<span class="keyword">imports</span> <a href="KPL_syntax.html"><span class="name">KPL_syntax</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Well-formedness of KPL kernels›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>KPL_wellformedness</span><span> </span><span class="keyword2"><span class="keyword">imports</span></span><span> 
+</span><span>  </span><span>KPL_syntax</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  Well-formed local expressions. @{term "wf_local_expr ns e"} 
+  means that 
+  \begin{itemize} 
+  \item @{term e} does not mention any internal locations, and
+  \item any name mentioned by @{term e} is in the set @{term ns}.
+  \end{itemize}
+›</span></span></span><span>
+</span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>wf_local_expr</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"name set ⇒ local_expr ⇒ bool"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"wf_local_expr ns (Loc (Var j)) = False"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"wf_local_expr ns (Loc (Name n)) = (n ∈ ns)"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"wf_local_expr ns (e1 ∧* e2) =
+  (wf_local_expr ns e1 ∧ wf_local_expr ns e2)"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"wf_local_expr ns (¬* e) = wf_local_expr ns e"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"wf_local_expr ns _ = True"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  Well-formed basic statements. @{term "wf_basic_stmt ns b"} 
+  means that 
+  \begin{itemize}
+  \item @{term b} does not mention any internal locations, and
+  \item any name mentioned by @{term b} is in the set @{term ns}.
+  \end{itemize}
+›</span></span></span><span>
+</span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>wf_basic_stmt</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"name set ⇒ basic_stmt ⇒ bool"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"wf_basic_stmt ns (Assign x e) = wf_local_expr ns e"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"wf_basic_stmt ns (Read x e) = wf_local_expr ns e"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"wf_basic_stmt ns (Write e1 e2) = 
+  (wf_local_expr ns e1 ∧ wf_local_expr ns e2)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  Well-formed statements. @{term "wf_stmt ns F S"} means:
+  \begin{itemize}
+  \item @{term S} only calls procedures whose name is in @{term F},
+  \item @{term S} does not contain @{term WhileDyn}, 
+  \item @{term S} does not mention internal variables, 
+  \item @{term S} only mentions names in @{term ns}, and
+  \item @{term S} does not declare the same name twice, e.g. @{term "Local x (Local x foo)"}.
+  \end{itemize}
+›</span></span></span><span>
+</span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>wf_stmt</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"name set ⇒ proc_name set ⇒ stmt ⇒ bool"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"wf_stmt ns F (Basic b) = wf_basic_stmt ns b"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"wf_stmt ns F (S1 ;; S2) = (wf_stmt ns F S1 ∧ wf_stmt ns F S2)"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"wf_stmt ns F (Local n S) = (n ∉ ns ∧ wf_stmt ({n} ∪ ns) F S)"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"wf_stmt ns F (If e S1 S2) = 
+  (wf_local_expr ns e ∧ wf_stmt ns F S1 ∧ wf_stmt ns F S2)"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"wf_stmt ns F (While e S) = 
+  (wf_local_expr ns e ∧ wf_stmt ns F S)"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"wf_stmt ns F (WhileDyn _ _) = False"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"wf_stmt ns F (Call f e) = (f ∈ F ∧ wf_local_expr ns e)"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"wf_stmt _ _ _ = True"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹@{term "no_return S"} holds if @{term S} does not contain a @{term Return} statement›</span></span></span><span>
+</span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>no_return</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"stmt ⇒ bool"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"no_return (S1 ;; S2) = (no_return S1 ∧ no_return S2)"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"no_return (Local n S) = no_return S"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"no_return (If e S1 S2) = (no_return S1 ∧ no_return S2)"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"no_return (While e S) = (no_return S)"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"no_return Return = False"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"no_return _ = True"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Well-formed kernel›</span></span></span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>wf_kernel</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"kernel ⇒ bool"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"wf_kernel P ≡
+  let F = set (map proc_name (procs P)) in
+ 
+  ― ‹The main statement must not refer to ∗‹any› variable, except those it locally defines.›
+  wf_stmt {} F (main P)
+
+  ― ‹The main statement contains no return statement.›
+∧ no_return (main P)
+ 
+  ― ‹A procedure body may refer only to its argument.›
+∧ list_all (λf. wf_stmt {param f} F (body f)) (procs P)"</span></span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div><div id="KPL_state">
+<div class="head"><h1>Theory KPL_state</h1>
+<span class="command">theory</span> <span class="name">KPL_state</span><br/>
+<span class="keyword">imports</span> <a href="KPL_syntax.html"><span class="name">KPL_syntax</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Thread, group and kernel states›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>KPL_state</span><span> </span><span class="keyword2"><span class="keyword">imports</span></span><span> 
+</span><span>  </span><span>KPL_syntax</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Thread state›</span></span></span><span>
+</span><span class="keyword1"><span class="command">record</span></span><span> </span><span>thread_state</span><span> </span><span class="delimiter">=</span><span>
+</span><span>  </span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* We use "V + bool" to indicate that the domain of
+     l is extended with two extra values. Let's say
+     that "l (Inr True)" returns the gid, and that
+     "l (Inr False)" returns the lid. *)</span></span></span></span></span><span>
+</span><span>  </span><span>l</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"V + bool ⇒ word"</span></span></span><span> 
+</span><span>  </span><span>sh</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"nat ⇒ word"</span></span></span><span>
+</span><span>  </span><span>R</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"nat set"</span></span></span><span>
+</span><span>  </span><span>W</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"nat set"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">abbreviation</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"GID ≡ Inr True"</span></span></span><span>
+</span><span class="keyword1"><span class="command">abbreviation</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"LID ≡ Inr False"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Group state›</span></span></span><span>
+</span><span class="keyword1"><span class="command">record</span></span><span> </span><span>group_state</span><span> </span><span class="delimiter">=</span><span> 
+</span><span>  </span><span>thread_states</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"lid ⇀ thread_state"</span></span></span><span> </span><span class="delimiter">(</span><span class="string"><span class="delete"><span class="delete">"_ <span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>s</sub>"</span></span></span><span> </span><span class="delimiter">[</span><span>1000</span><span class="delimiter">]</span><span> </span><span>1000</span><span class="delimiter">)</span><span>
+</span><span>  </span><span>R_group</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"(lid × nat) set"</span></span></span><span>
+</span><span>  </span><span>W_group</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"(lid × nat) set"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Valid group state›</span></span></span><span>
+</span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>valid_group_state</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"(gid ⇀ lid set) ⇒ gid ⇒ group_state ⇒ bool"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"valid_group_state T i γ = (
+  dom (γ <span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>s</sub>) = the (T i) ∧
+  (∀j ∈ the (T i).
+  l (the (γ <span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>s</sub> j)) GID = i ∧
+  l (the (γ <span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>s</sub> j)) LID = j))"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Predicated statements›</span></span></span><span>
+</span><span class="keyword1"><span class="command">type_synonym</span></span><span> </span><span>pred_stmt</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"stmt × local_expr"</span></span></span><span>
+</span><span class="keyword1"><span class="command">type_synonym</span></span><span> </span><span>pred_basic_stmt</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"basic_stmt × local_expr"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Kernel state›</span></span></span><span>
+</span><span class="keyword1"><span class="command">type_synonym</span></span><span> </span><span>kernel_state</span><span> </span><span class="delimiter">=</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"(gid ⇀ group_state) × pred_stmt list × V list"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Valid kernel state›</span></span></span><span>
+</span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>valid_kernel_state</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"threadset ⇒ kernel_state ⇒ bool"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"valid_kernel_state (G,T) (κ, ss, _) = (
+  dom κ = G ∧
+  (∀i ∈ G. valid_group_state T i (the (κ i))))"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Valid initial kernel state›</span></span></span><span>
+</span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>valid_initial_kernel_state</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"stmt ⇒ threadset ⇒ kernel_state ⇒ bool"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"valid_initial_kernel_state S (G,T) (κ, ss, vs) = ( 
+  valid_kernel_state (G,T) (κ, ss, vs) ∧
+  (ss = [(S, eTrue)]) ∧
+  (∀i ∈ G. R_group (the (κ i)) = {} ∧ W_group (the (κ i)) = {}) ∧
+  (∀i ∈ G. ∀j ∈ the (T i). R (the ((the (κ i))<span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>s</sub> j)) = {}
+    ∧ W (the ((the (κ i))<span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>s</sub> j)) = {}) ∧
+  (∀i ∈ G. ∀j ∈ the (T i). ∀v :: V. 
+    l (the ((the (κ i))<span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>s</sub> j)) (Inl v) = 0) ∧
+  (∀i ∈ G. ∀i' ∈ G. ∀j ∈ the (T i). ∀j' ∈ the (T i').
+    sh (the ((the (κ i))<span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>s</sub> j)) = 
+    sh (the ((the (κ i'))<span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>s</sub> j'))) ∧
+  (vs = []))"</span></span></span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div><div id="KPL_execution_thread">
+<div class="head"><h1>Theory KPL_execution_thread</h1>
+<span class="command">theory</span> <span class="name">KPL_execution_thread</span><br/>
+<span class="keyword">imports</span> <a href="KPL_state.html"><span class="name">KPL_state</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Execution rules for threads›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>KPL_execution_thread</span><span> </span><span class="keyword2"><span class="keyword">imports</span></span><span> 
+</span><span>  </span><span>KPL_state</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Evaluate a local expression down to a word›</span></span></span><span>
+</span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>eval_word</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"local_expr ⇒ thread_state ⇒ word"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"eval_word (Loc (Var v)) τ = l τ (Inl v)"</span></span></span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* eval_word (Loc (Name n)) τ = undefined *)</span></span></span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"eval_word Lid τ = l τ LID"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"eval_word Gid τ = l τ GID"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"eval_word eTrue τ = 1"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"eval_word (e1 ∧* e2) τ = 
+  (eval_word e1 τ * eval_word e2 τ)"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"eval_word (¬* e) τ = (if eval_word e τ = 0 then 1 else 0)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Evaluate a local expression down to a boolean›</span></span></span><span>
+</span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>eval_bool</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"local_expr ⇒ thread_state ⇒ bool"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"eval_bool e τ = (eval_word e τ ≠ 0)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Abstraction level: none, equality abstraction, or adversarial abstraction›</span></span></span><span>
+</span><span class="keyword1"><span class="command">datatype</span></span><span> </span><span>abs_level</span><span> </span><span class="delimiter">=</span><span> </span><span>No_Abst</span><span> </span><span class="delimiter">|</span><span> </span><span>Eq_Abst</span><span> </span><span class="delimiter">|</span><span> </span><span>Adv_Abst</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹The rules of Figure 4, plus two additional rules 
+  for adversarial abstraction (Fig 7b)›</span></span></span><span>
+</span><span class="keyword1"><span class="command">inductive</span></span><span> </span><span>step_t</span><span> 
+</span><span>  </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"abs_level ⇒ (thread_state × pred_basic_stmt) ⇒ thread_state ⇒ bool"</span></span></span><span>  
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span>T_Disabled</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"¬ (eval_bool p τ) ⟹ step_t a (τ, (b, p)) τ"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span>T_Assign</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"⟦ eval_bool p τ ; l' = (l τ) (Inl v := eval_word e τ) ⟧ 
+  ⟹ step_t a (τ, (Assign (Var v) e, p)) (τ (| l := l' |))"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span>T_Read</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"⟦ eval_bool p τ ; l' = (l τ) (Inl v := sh τ (eval_word e τ)) ;
+  R' = R τ ∪ { eval_word e τ } ; a ∈ {No_Abst, Eq_Abst} ⟧ 
+  ⟹ step_t a (τ, (Read (Var v) e, p)) (τ (| l := l', R := R' |))"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span>T_Write</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"⟦ eval_bool p τ ; 
+  sh' = (sh τ) (eval_word e1 τ := eval_word e2 τ) ;
+  W' = W τ ∪ { eval_word e1 τ } ; a ∈ {No_Abst, Eq_Abst} ⟧ 
+  ⟹ step_t a (τ, (Write e1 e2, p)) (τ (| sh := sh', W := W' |))"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span>T_Read_Adv</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"⟦ eval_bool p τ ; l' = (l τ) (Inl v := asterisk) ;
+  R' = R τ ∪ { eval_word e τ } ⟧ 
+  ⟹ step_t Adv_Abst (τ, (Read (Var v) e, p)) (τ (| l := l', R := R' |))"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span>T_Write_Adv</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"⟦ eval_bool p τ ; W' = W τ ∪ { eval_word e1 τ } ⟧ 
+  ⟹ step_t Adv_Abst (τ, (Write e1 e2, p)) (τ (| ⌦‹sh := sh',› W := W' |))"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Rephrasing ‹T_Assign› to make it more usable›</span></span></span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>T_Assign_helper</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"⟦ eval_bool p τ ; l' = (l τ) (Inl v := eval_word e τ) ; τ' = τ (| l := l' |) ⟧ 
+  ⟹ step_t a (τ, (Assign (Var v) e, p)) τ'"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>step_t.T_Assign</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Rephrasing ‹T_Read› to make it more usable›</span></span></span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>T_Read_helper</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"⟦ eval_bool p τ ; l' = (l τ) (Inl v := sh τ (eval_word e τ)) ;
+  R' = R τ ∪ { eval_word e τ } ; a ∈ {No_Abst, Eq_Abst} ; 
+  τ' = τ (| l := l', R := R' |) ⟧ 
+  ⟹ step_t a (τ, (Read (Var v) e, p)) τ'"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>step_t.T_Read</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Rephrasing ‹T_Write› to make it more usable›</span></span></span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>T_Write_helper</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"⟦ eval_bool p τ ; 
+  sh' = (sh τ) (eval_word e1 τ := eval_word e2 τ) ;
+  W' = W τ ∪ { eval_word e1 τ } ; a ∈ {No_Abst, Eq_Abst} ;
+  τ' = τ (| sh := sh', W := W' |) ⟧ 
+  ⟹ step_t a (τ, (Write e1 e2, p)) τ'"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>step_t.T_Write</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div><div id="KPL_execution_group">
+<div class="head"><h1>Theory KPL_execution_group</h1>
+<span class="command">theory</span> <span class="name">KPL_execution_group</span><br/>
+<span class="keyword">imports</span> <a href="KPL_execution_thread.html"><span class="name">KPL_execution_thread</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Execution rules for groups›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>KPL_execution_group</span><span> </span><span class="keyword2"><span class="keyword">imports</span></span><span> 
+</span><span>  </span><span>KPL_execution_thread</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Intra-group race detection›</span></span></span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>group_race</span><span> 
+</span><span>  </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"lid set ⇒ (lid ⇀ thread_state) ⇒ bool"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"group_race T γ ≡ 
+  ∃j ∈ T. ∃k ∈ T. j ≠ k ∧ 
+  W (the (γ j)) ∩ (R (the (γ k)) ∪ W (the (γ k))) ≠ {}"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹The constraints for the @{term "merge"} map›</span></span></span><span>
+</span><span class="keyword1"><span class="command">inductive</span></span><span> </span><span>pre_merge</span><span> 
+</span><span>  </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"lid set ⇒ (lid ⇀ thread_state) ⇒ nat ⇒ word ⇒ bool"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"⟦ j ∈ T ; z ∈ W (the (γ j)) ; dom γ = T ⟧ ⟹
+  pre_merge T γ z (sh (the (γ j)) z)"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"⟦ ∀j ∈ T. z ∉ W (the (γ j)) ; dom γ = T ⟧ ⟹ 
+  pre_merge T γ z (sh (the (γ 0)) z)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">inductive_cases</span></span><span> </span><span>pre_merge_inv</span><span> </span><span class="delimiter">[</span><span>elim</span><span class="delimiter">!</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"pre_merge P γ z z'"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹The @{term "merge"} map maps each nat to the word that 
+   satisfies the above constaints. The ‹merge_is_unique›
+   lemma shows that there exists exactly one such word 
+   per nat, provided there are no group races.›</span></span></span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>merge</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"lid set ⇒ (lid ⇀ thread_state) ⇒ nat ⇒ word"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"merge T γ ≡ λz. The (pre_merge T γ z)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>no_races_imp_no_write_overlap</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"¬ (group_race T γ) ⟹ 
+  ∀i ∈ T. ∀j ∈ T. 
+  i ≠ j ⟶ W (the (γ i)) ∩ W (the (γ j)) = {}"</span></span></span><span>
+</span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>group_race_def</span><span> 
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>merge_is_unique</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"dom γ = T"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"¬ (group_race T γ)"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"∃!z'. pre_merge T γ z z'"</span></span></span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>insert</span><span> </span><span>assms</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>drule</span><span> </span><span>no_races_imp_no_write_overlap</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>intro</span><span> </span><span>allI</span><span> </span><span>ex_ex1I</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>metis</span><span> </span><span>pre_merge.intros</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>clarify</span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">fix</span></span><span> </span><span>z1</span><span> </span><span>z2</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">assume</span></span><span> </span><span>a</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"∀i∈dom γ. ∀j∈dom γ. i ≠ j ⟶ W (the (γ i)) ∩ W (the (γ j)) = {}"</span></span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">assume</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"pre_merge (dom γ) γ z z1"</span></span></span><span> 
+</span><span>  </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"pre_merge (dom γ) γ z z2"</span></span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">thus</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"z1 = z2"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>elim</span><span> </span><span>pre_merge_inv</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>rename_tac</span><span> </span><span>j1</span><span> </span><span>j2</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>case_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"j1 = j2"</span></span></span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>auto</span><span class="delimiter">[</span><span>1</span><span class="delimiter">]</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>simp</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>subgoal_tac</span><span> </span><span class="string"><span class="delete"><span class="delete">"W (the (γ j1)) ∩ W (the (γ j2)) = {}"</span></span></span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>auto</span><span class="delimiter">[</span><span>1</span><span class="delimiter">]</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>a</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span> 
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹The rules of Figure 5, plus an additional rule for
+  equality abstraction (Fig 7a), plus an additional rule for
+  adversarial abstraction (Fig 7b)›</span></span></span><span>
+</span><span class="keyword1"><span class="command">inductive</span></span><span> </span><span>step_g</span><span>
+</span><span>  </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"abs_level ⇒ gid ⇒ (gid ⇀ lid set) ⇒ (group_state × pred_stmt) ⇒ group_state option ⇒ bool"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span>G_Race</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"⟦ ∀j ∈ the (T i). step_t a (the (γ <span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>s</sub> j), (s, p)) (the (γ' <span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>s</sub> j)) ; 
+    group_race (the (T i)) ((γ' :: group_state)<span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>s</sub>) ⟧
+  ⟹ step_g a i T (γ, (Basic s, p)) None"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span>G_Basic</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"⟦ ∀j ∈ the (T i). step_t a (the (γ <span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>s</sub> j), (s, p)) (the (γ' <span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>s</sub> j)) ; 
+    ¬ (group_race (the (T i)) (γ' <span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>s</sub>)) ;
+    R_group γ' = R_group γ ∪ (⋃j ∈ the (T i). ({j} × R (the (γ' <span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>s</sub> j)))) ;
+    W_group γ' = W_group γ ∪ (⋃j ∈ the (T i). ({j} × W (the (γ' <span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>s</sub> j)))) ⟧
+  ⟹ step_g a i T (γ, (Basic s, p)) (Some γ')"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span>G_No_Op</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"∀j ∈ the (T i). ¬ (eval_bool p (the (γ <span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>s</sub> j)))
+  ⟹ step_g a i T (γ, (Barrier, p)) (Some γ)"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span>G_Divergence</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"⟦ j ≠ k ; j ∈ the (T i) ; k ∈ the (T i) ;
+   eval_bool p (the (γ <span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>s</sub> j)) ; ¬ (eval_bool p (the (γ <span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>s</sub> k))) ⟧
+  ⟹ step_g a i T (γ, (Barrier, p)) None"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span>G_Sync</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"⟦ ∀j ∈ the (T i). eval_bool p (the (γ <span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>s</sub> j)) ;
+    ∀j ∈ the (T i). the (γ' <span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>s</sub> j) = (the (γ <span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>s</sub> j)) (| 
+    sh := merge P (γ <span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>s</sub>), R := {}, W := {} |) ⟧ 
+  ⟹ step_g No_Abst i T (γ, (Barrier, p)) (Some γ')"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span>G_Sync_Eq</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"⟦ ∀j ∈ the (T i). eval_bool p (the (γ <span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>s</sub> j)) ;
+    ∀j ∈ the (T i). the (γ' <span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>s</sub> j) = (the (γ <span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>s</sub> j)) (| 
+    sh := sh', R := {}, W := {} |) ⟧ 
+  ⟹ step_g Eq_Abst i T (γ, (Barrier, p)) (Some γ')"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span>G_Sync_Adv</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"⟦ ∀j ∈ the (T i). eval_bool p (the (γ <span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>s</sub> j)) ;
+    ∀j ∈ the (T i). ∃sh'. the (γ' <span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>s</sub> j) = (the (γ <span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>s</sub> j)) (| 
+    sh := sh', R := {}, W := {} |) ⟧ 
+  ⟹ step_g Adv_Abst i T (γ, (Barrier, p)) (Some γ')"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Rephrasing ‹G_No_Op› to make it more usable›</span></span></span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>G_No_Op_helper</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"⟦ ∀j ∈ the (T i). ¬ (eval_bool p (the (γ <span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>s</sub> j))) ; γ = γ' ⟧
+  ⟹ step_g a i T (γ, (Barrier, p)) (Some γ')"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>step_g.G_No_Op</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div><div id="KPL_execution_kernel">
+<div class="head"><h1>Theory KPL_execution_kernel</h1>
+<span class="command">theory</span> <span class="name">KPL_execution_kernel</span><br/>
+<span class="keyword">imports</span> <a href="KPL_execution_group.html"><span class="name">KPL_execution_group</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Execution rules for kernels›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>KPL_execution_kernel</span><span> </span><span class="keyword2"><span class="keyword">imports</span></span><span> 
+</span><span>  </span><span>KPL_execution_group</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Inter-group race detection›</span></span></span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>kernel_race</span><span> 
+</span><span>  </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"gid set ⇒ (gid ⇀ group_state) ⇒ bool"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"kernel_race G κ ≡ 
+  ∃i ∈ G. ∃j ∈ G. i ≠ j ∧ 
+  (snd ` (W_group (the (κ i)))) ∩ 
+  (snd ` (R_group (the (κ j))) ∪ snd ` (W_group (the (κ j)))) ≠ {}"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Replaces top-level @{term Break} with ‹v := true››</span></span></span><span>
+</span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>belim</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"stmt ⇒ V ⇒ stmt"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"belim (Basic b) v = Basic b"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"belim (S1 ;; S2) v = (belim S1 v ;; belim S2 v)"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"belim (Local n S) v = Local n (belim S v)"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"belim (If e S1 S2) v = If e (belim S1 v) (belim S2 v)"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"belim (While e S) v = While e S"</span></span></span><span> </span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* only top-level *)</span></span></span></span></span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* belim (WhileDyn e S) v = undefined *)</span></span></span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"belim (Call f e) v = Call f e"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"belim Barrier v = Barrier"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"belim Break v = Basic (Assign (Var v) eTrue)"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"belim Continue v = Continue"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"belim Return v = Return"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Replaces top-level @{term Continue} with ‹v := true››</span></span></span><span>
+</span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>celim</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"stmt ⇒ V ⇒ stmt"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"celim (Basic b) v = Basic b"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"celim (S1 ;; S2) v = (celim S1 v ;; celim S2 v)"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"celim (Local n S) v = Local n (celim S v)"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"celim (If e S1 S2) v = If e (celim S1 v) (celim S2 v)"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"celim (While e S) v = While e S"</span></span></span><span> </span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* only top-level *)</span></span></span></span></span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* celim (WhileDyn e S) v = undefined *)</span></span></span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"celim (Call f e) v = Call f e"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"celim Barrier v = Barrier"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"celim Break v = Break"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"celim Continue v = Basic (Assign (Var v) eTrue)"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"celim Return v = Return"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹@{term "subst_basic_stmt n v loc"} replaces @{term n} with @{term v} inside @{term loc}›</span></span></span><span>
+</span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>subst_loc</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"name ⇒ V ⇒ loc ⇒ loc"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"subst_loc n v (Var w) = Var w"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"subst_loc n v (Name m) = (if n = m then Var v else Name m)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹@{term "subst_local_expr n v e"} replaces @{term n} with @{term v} inside @{term e}›</span></span></span><span>
+</span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>subst_local_expr</span><span> 
+</span><span>  </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"name ⇒ V ⇒ local_expr ⇒ local_expr"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"subst_local_expr n v (Loc loc) = Loc (subst_loc n v loc)"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"subst_local_expr n v Gid = Gid"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"subst_local_expr n v Lid = Lid"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"subst_local_expr n v eTrue = eTrue"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"subst_local_expr n v (e1 ∧* e2) = 
+  (subst_local_expr n v e1 ∧* subst_local_expr n v e2)"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"subst_local_expr n v (¬* e) = ¬* (subst_local_expr n v e)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹@{term "subst_basic_stmt n v b"} replaces @{term n} with @{term v} inside @{term b}›</span></span></span><span>
+</span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>subst_basic_stmt</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"name ⇒ V ⇒ basic_stmt ⇒ basic_stmt"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"subst_basic_stmt n v (Assign loc e) = 
+  Assign (subst_loc n v loc) (subst_local_expr n v e)"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"subst_basic_stmt n v (Read loc e) =
+  Read (subst_loc n v loc) (subst_local_expr n v e)"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"subst_basic_stmt n v (Write e1 e2) =
+  Write (subst_local_expr n v e1) (subst_local_expr n v e2)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹@{term "subst_stmt n v s t"} holds if @{term t} is the result 
+  of replacing @{term n} with @{term v} inside @{term s}›</span></span></span><span>
+</span><span class="keyword1"><span class="command">inductive</span></span><span> </span><span>subst_stmt</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"name ⇒ V ⇒ stmt ⇒ stmt ⇒ bool"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"subst_stmt n v (Basic b) (Basic (subst_basic_stmt n v b))"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"⟦ subst_stmt n v S1 S1' ; subst_stmt n v S2 S2' ⟧ ⟹
+  subst_stmt n v (S1 ;; S2) (S1' ;; S2')"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"⟦ m ≠ n ; subst_stmt n v S S' ⟧ ⟹ 
+  subst_stmt n v (Local m S) (Local m S')"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"⟦ subst_stmt n v S1 S1' ; subst_stmt n v S2 S2' ⟧ ⟹ 
+  subst_stmt n v (If e S1 S2) (If e S1' S2')"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"subst_stmt n v S S' ⟹ subst_stmt n v (While e S) (While e S')"</span></span></span><span> 
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* subst_stmt n v (WhileDyn e S) undefined *)</span></span></span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"subst_stmt n v (Call f e) (Call f e)"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"subst_stmt n v Barrier Barrier"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"subst_stmt n v Break Break"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"subst_stmt n v Continue Continue"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"subst_stmt n v Return Return"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹@{term "param_subst f u"} replaces @{term f}'s parameter with @{term u}›</span></span></span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>param_subst</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"proc list ⇒ proc_name ⇒ V ⇒ stmt"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"param_subst fs f u ≡ 
+  let proc = THE proc. proc ∈ set fs ∧ proc_name proc = f in
+  THE S'. subst_stmt (param proc) u (body proc) S'"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Replace @{term "Return"} with ‹v := true››</span></span></span><span>
+</span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>relim</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"stmt ⇒ V ⇒ stmt"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"relim (Basic b) v = Basic b"</span></span></span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* Additional rule for adversarial abstraction (Fig 7b) *)</span></span></span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"relim (S1 ;; S2) v = (relim S1 v ;; relim S2 v)"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"relim (Local n S) v = Local n (relim S v)"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"relim (If e S1 S2) v = If e (relim S1 v) (relim S2 v)"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"relim (While e S) v = While e (relim S v)"</span></span></span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* relim (WhileDyn e S) v = undefined *)</span></span></span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"relim (Call f e) v = Call f e"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"relim Barrier v = Barrier"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"relim Break v = Break"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"relim Continue v = Continue"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"relim Return v = Basic (Assign (Var v) eTrue)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Fresh variables›</span></span></span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>fresh</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"V ⇒ V list ⇒ bool"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"fresh v vs ≡ v ∉ set vs"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹The rules of Figure 6›</span></span></span><span>
+</span><span class="keyword1"><span class="command">inductive</span></span><span> </span><span>step_k</span><span>
+</span><span>  </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"abs_level ⇒ proc list ⇒ threadset ⇒ kernel_state ⇒ kernel_state option ⇒ bool"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span>K_Inter_Group_Race</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"⟦ ∀i ∈ G. step_g a i T (the (κ i), (Basic b, p)) (Some (the (κ' i))) ;
+     kernel_race P κ' ⟧ ⟹
+  step_k a fs (G,T) (κ, (Basic b, p) # ss, vs) None"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span>K_Intra_Group_Race</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"⟦ i ∈ G; step_g a i T (the (κ i), (Basic s, p)) None ⟧ ⟹
+  step_k a fs (G,T) (κ, (Basic s, p) # ss, vs) None"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span>K_Basic</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"⟦ ∀i ∈ G. step_g a i T (the (κ i), (Basic b, p)) (Some (the (κ' i))) ;
+     ¬ (kernel_race G κ') ⟧ ⟹
+  step_k a fs (G,T) (κ, (Basic b, p) # ss, vs) (Some (κ',ss, vs))"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span>K_Divergence</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"⟦ i ∈ G; step_g a i T (the (κ i), (Barrier, p)) None ⟧ ⟹
+  step_k a fs (G,T) (κ, (Barrier, p) # ss, vs) None"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span>K_Sync</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"⟦ ∀i ∈ G. step_g a i T (the (κ i), (Barrier, p)) (Some (the (κ' i))) ;
+     ¬ (kernel_race G κ') ⟧ ⟹
+  step_k a fs (G,T) (κ, (Barrier, p) # ss, vs) (Some (κ',ss, vs))"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span>K_Seq</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"step_k a fs (G,T) (κ, (S1 ;; S2, p) # ss, vs) 
+  (Some (κ, (S1, p) # (S2, p) # ss, vs))"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span>K_Var</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"fresh v vs ⟹ 
+  step_k a fs (G,T) (κ, (Local n S, p) # ss, vs)  
+  (Some (κ, (THE S'. subst_stmt n v S S', p) # ss, v # vs))"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span>K_If</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"fresh v vs ⟹ 
+  step_k a fs (G,T) (κ, (If e S1 S2, p) # ss, vs) (Some (κ, 
+  (Basic (Assign (Var v) e), p) 
+  # (S1, p ∧* Loc (Var v)) 
+  # (S2, p ∧* ¬* (Loc (Var v))) # ss, v # vs))"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span>K_Open</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"fresh v vs ⟹
+  step_k a fs (G,T) (κ, (While e S, p) # ss, vs) (Some (κ, 
+  (WhileDyn e (belim S v), p ∧* ¬* (Loc (Var v))) # ss, v # vs))"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span>K_Iter</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"⟦ i ∈ G ; j ∈ the (T i) ; 
+  eval_bool (p ∧* e) (the ((the (κ i))<span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>s</sub> j)) ; 
+  fresh u vs ; fresh v vs; u ≠ v ⟧ ⟹
+  step_k a fs (G,T) (κ, (WhileDyn e S, p) # ss, vs) (Some (κ, 
+  (Basic (Assign (Var u) e), p) 
+  # (celim S v, p ∧* Loc (Var u) ∧* ¬* (Loc (Var v))) 
+  # (WhileDyn e S, p) # ss, u # v # vs))"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span>K_Done</span><span class="delimiter">:</span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"∀i ∈ G. ∀j ∈ the (T i). 
+  ¬ (eval_bool (p ∧* e) (the ((the (κ i))<span class="hidden">⇩</span><sub>t</sub><span class="hidden">⇩</span><sub>s</sub> j))) ⟹
+  step_k a fs (G,T) (κ, (WhileDyn e S, p) # ss, vs) (Some (κ, ss, vs))"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span>K_Call</span><span class="delimiter">:</span><span> 
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"⟦ fresh u vs ; fresh v vs ; u ≠ v ; s = param_subst fs f u ⟧ ⟹
+  step_k a fs (G,T) (κ, (Call f e, p) # ss, vs ) 
+  (Some (κ, (Basic (Assign (Var u) e) ;; relim s v, 
+  p ∧* ¬* (Loc (Var v))) # ss, u # v # vs))"</span></span></span><span>
+</span><span>
+</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div><div id="Kernel_programming_language">
+<div class="head"><h1>Theory Kernel_programming_language</h1>
+<span class="command">theory</span> <span class="name">Kernel_programming_language</span><br/>
+<span class="keyword">imports</span> <a href="KPL_wellformedness.html"><span class="name">KPL_wellformedness</span></a> <a href="KPL_execution_kernel.html"><span class="name">KPL_execution_kernel</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* 
+Title:       Kernel_programming_language.thy
+Author:      John Wickerson
+Date:        2 April 2014
+Description: 
+  This theory file accompanies the article "The Design and 
+  Implementation of a Verification Technique for GPU Kernels" 
+  by Adam Betts, Nathan Chong, Alastair F. Donaldson, Jeroen
+  Ketema, Shaz Qadeer, Paul Thomson and John Wickerson. It
+  formalises all of the definitions provided in Sections 3
+  and 4. 
+*)</span></span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Kernel_programming_language</span><span> </span><span class="keyword2"><span class="keyword">imports</span></span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* 1. SOME GENERAL PURPOSE STUFF *)</span></span></span></span></span><span>
+</span><span>  </span><span>Misc</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* 2. SYNTAX OF KPL *)</span></span></span></span></span><span>
+</span><span>  </span><span>KPL_syntax</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* 3. WELL-FORMEDNESS OF KPL KERNELS *)</span></span></span></span></span><span>
+</span><span>  </span><span>KPL_wellformedness</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* 4. THREAD, GROUP, AND KERNEL STATES *)</span></span></span></span></span><span>
+</span><span>  </span><span>KPL_state</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* 5. EXECUTION RULES FOR THREADS *)</span></span></span></span></span><span>
+</span><span>  </span><span>KPL_execution_thread</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* 6. EXECUTION RULES FOR GROUPS *)</span></span></span></span></span><span>
+</span><span>  </span><span>KPL_execution_group</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(* 7. EXECUTION RULES FOR KERNELS *)</span></span></span></span></span><span>
+</span><span>  </span><span>KPL_execution_kernel</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span> 
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div>
+  
 </main>
     </div>
   </div>

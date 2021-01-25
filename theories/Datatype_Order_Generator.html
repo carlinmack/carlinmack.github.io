@@ -1,0 +1,391 @@
+<div id="Derive_Aux">
+<div class="head"><h1>Theory Derive_Aux</h1>
+<span class="command">theory</span> <span class="name">Derive_Aux</span><br/>
+<span class="keyword">imports</span> <a href="Derive_Manager.html"><span class="name">Derive_Manager</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Derive_Aux</span><span>
+</span><span class="keyword2"><span class="keyword">imports</span></span><span> 
+</span><span>  </span><span>Deriving.Derive_Manager</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">ML_file</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹derive_aux.ML›</span></span></span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div><div id="Order_Generator">
+<div class="head"><h1>Theory Order_Generator</h1>
+<span class="command">theory</span> <span class="name">Order_Generator</span><br/>
+<span class="keyword">imports</span> <a href="Derive_Aux.html"><span class="name">Derive_Aux</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(*  Title:       Deriving class instances for datatypes
+    Author:      René Thiemann       &lt;rene.thiemann@uibk.ac.at&gt;
+    Maintainer:  René Thiemann
+    License:     LGPL
+*)</span></span></span></span></span><span>
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(*
+Copyright 2013 René Thiemann
+
+This file is part of IsaFoR/CeTA.
+
+IsaFoR/CeTA is free software: you can redistribute it and/or modify it under the
+terms of the GNU Lesser General Public License as published by the Free Software
+Foundation, either version 3 of the License, or (at your option) any later
+version.
+
+IsaFoR/CeTA is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License along
+with IsaFoR/CeTA. If not, see &lt;http://www.gnu.org/licenses/&gt;.
+*)</span></span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Generating linear orders for datatypes›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Order_Generator</span><span>
+</span><span class="keyword2"><span class="keyword">imports</span></span><span> 
+</span><span>  </span><span>Derive_Aux</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span>Introduction</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+
+The order generator registers itself at the derive-manager for the classes @{class ord},
+@{class order}, and @{class linorder}.
+To be more precise,
+it automatically generates the two functions @{term "(≤)"} and @{term "(&lt;)"} for some datatype 
+\texttt{dtype} and
+proves the following instantiations.
+
+\begin{itemize}
+\item \texttt{instantiation dtype :: (ord,\ldots,ord) ord}
+\item \texttt{instantiation dtype :: (order,\ldots,order) order}
+\item \texttt{instantiation dtype :: (linorder,\ldots,linorder) linorder}
+\end{itemize}
+
+All the non-recursive types that are used in the datatype must have similar instantiations.
+For recursive type-dependencies this is automatically generated.
+
+For example, for the \texttt{datatype tree = Leaf nat | Node "tree list"} we require that
+@{type nat} is already in @{class linorder}, whereas for @{type list} nothing is required, since for the 
+\texttt{tree}
+datatype the @{type list} is only used recursively.
+
+However, if we define \texttt{datatype tree = Leaf "nat list" | Node tree tree} then 
+@{type list} must
+provide the above instantiations.
+
+Note that when calling the generator for @{class linorder}, it will automatically also derive the instantiations 
+for @{class order}, which in turn invokes the generator for @{class ord}. 
+A later invokation of @{class linorder}
+after @{class order} or @{class ord} is not possible.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Implementation Notes"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+The generator uses the recursors from the datatype package to define a lexicographic order.
+E.g., for a declaration 
+\texttt{datatype 'a tree = Empty | Node "'a tree" 'a "'a tree"}
+this will semantically result in
+\begin{verbatim}
+(Empty &lt; Node _ _ _) = True
+(Node l1 l2 l3 &lt; Node r1 r2 r3) = 
+  (l1 &lt; r1 || l1 = r1 &amp;&amp; (l2 &lt; r2 || l2 = r2 &amp;&amp; l3 &lt; r3))
+(_ &lt; _) = False
+(l &lt;= r) = (l &lt; r || l = r)
+\end{verbatim}
+
+The desired properties (like @{term "x &lt; y ⟹ y &lt; z ⟹ x &lt; z"}) 
+of the orders are all proven using induction (with the induction theorem from the datatype on @{term x}),
+and afterwards there is a case distinction on the remaining variables, i.e., here @{term y} and @{term z}.
+If the constructors of @{term x}, @{term y}, and @{term z} are different always some basic tactic is invoked. 
+In the other case (identical constructors) for each property a dedicated tactic was designed.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Features and Limitations"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+The order generator has been developed mainly for datatypes without explicit mutual recursion. 
+For mutual recursive datatypes---like
+\texttt{datatype a = C b and b = D a a}---only
+for the first mentioned datatype---here \texttt{a}---the instantiations of the order-classes are
+derived.
+
+Indirect recursion like in \texttt{datatype tree = Leaf nat | Node "tree list"} should work 
+without problems.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Installing the generator"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>linear_cases</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"(x :: 'a :: linorder) = y ∨ x &lt; y ∨ y &lt; x"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">ML_file</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹order_generator.ML›</span></span></span><span> 
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div><div id="Hash_Generator">
+<div class="head"><h1>Theory Hash_Generator</h1>
+<span class="command">theory</span> <span class="name">Hash_Generator</span><br/>
+<span class="keyword">imports</span> <a href="HashCode.html"><span class="name">HashCode</span></a> <a href="Derive_Aux.html"><span class="name">Derive_Aux</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(*  Title:       Deriving class instances for datatypes
+    Author:      René Thiemann       &lt;rene.thiemann@uibk.ac.at&gt;
+    Maintainer:  René Thiemann
+    License:     LGPL
+*)</span></span></span></span></span><span>
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(*
+Copyright 2013 René Thiemann
+
+This file is part of IsaFoR/CeTA.
+
+IsaFoR/CeTA is free software: you can redistribute it and/or modify it under the
+terms of the GNU Lesser General Public License as published by the Free Software
+Foundation, either version 3 of the License, or (at your option) any later
+version.
+
+IsaFoR/CeTA is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License along
+with IsaFoR/CeTA. If not, see &lt;http://www.gnu.org/licenses/&gt;.
+*)</span></span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Hash functions›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Hash_Generator</span><span>
+</span><span class="keyword2"><span class="keyword">imports</span></span><span> 
+</span><span>  </span><span>Collections.HashCode</span><span>
+</span><span>  </span><span>Derive_Aux</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Introduction"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+The interface for hash-functions is defined in the class @{class hashable} which has been developed
+as part of the Isabelle Collection Framework \cite{rbt}. It requires a hash-function
+(@{const hashcode}), a bounded hash-function (@{const bounded_hashcode}),
+and a default hash-table size (@{const def_hashmap_size}).
+
+The @{const hashcode} function for each datatype are created by instantiating the recursors of that 
+datatype appropriately. E.g., for \texttt{datatype 'a test = C1 'a 'a | C2 "'a test list"} 
+we get a hash-function which is equivalent to 
+\begin{verbatim}
+hashcode (C1 a b) = c1 * hashcode a + c2 * hashcode b
+hashcode (C2 Nil) = c3
+hashcode (C2 (a # as)) = c4 * hashcode a + c5 * hashcode as
+\end{verbatim}
+where each \texttt{c$_{i}$} is a non-negative 32-bit number which is dependent on the
+datatype name, the constructor name, and the occurrence of the argument (i.e., 
+in the example \texttt{c1} and \texttt{c2} will usually be different numbers.)
+These parameters are used in linear combination with prime numbers to hopefully
+get some useful hash-function.
+
+The @{const bounded_hashcode} functions are constructed in the same way, except that after each
+arithmetic operation a modulo operation is performed.
+
+Finally, the default hash-table size is just set to 10, following Java's default
+hash-table constructor.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Features and Limitations"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+We get same limitation as for the order generator. 
+For mutual recursive datatypes, only
+for the first mentioned datatype the instantiations of the @{class hashable}-class are
+derived.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Installing the generator"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>hash_mod_lemma</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"1 &lt; (n :: nat) ⟹ x mod n &lt; n"</span></span></span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">ML_file</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹hash_generator.ML›</span></span></span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div><div id="Derive">
+<div class="head"><h1>Theory Derive</h1>
+<span class="command">theory</span> <span class="name">Derive</span><br/>
+<span class="keyword">imports</span> <a href="Order_Generator.html"><span class="name">Order_Generator</span></a> <a href="Hash_Generator.html"><span class="name">Hash_Generator</span></a> <a href="Countable_Generator.html"><span class="name">Countable_Generator</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(*  Title:       Deriving class instances for datatypes
+    Author:      René Thiemann       &lt;rene.thiemann@uibk.ac.at&gt;
+    Maintainer:  René Thiemann
+    License:     LGPL
+*)</span></span></span></span></span><span>
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(*
+Copyright 2013 René Thiemann
+
+This file is part of IsaFoR/CeTA.
+
+IsaFoR/CeTA is free software: you can redistribute it and/or modify it under the
+terms of the GNU Lesser General Public License as published by the Free Software
+Foundation, either version 3 of the License, or (at your option) any later
+version.
+
+IsaFoR/CeTA is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License along
+with IsaFoR/CeTA. If not, see &lt;http://www.gnu.org/licenses/&gt;.
+*)</span></span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Loading derive-commands›</span></span></span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Derive</span><span>
+</span><span class="keyword2"><span class="keyword">imports</span></span><span> 
+</span><span>  </span><span>Order_Generator</span><span>
+</span><span>  </span><span>Hash_Generator</span><span>
+</span><span>  </span><span>Deriving.Countable_Generator</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹
+We just load the commands to derive (linear) orders, hash-functions, and the
+command to show that a datatype is countable, so that now all of them are available.
+There are further generators available in the AFP entries of lightweight containers and Show.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">print_derives</span></span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div><div id="Derive_Examples">
+<div class="head"><h1>Theory Derive_Examples</h1>
+<span class="command">theory</span> <span class="name">Derive_Examples</span><br/>
+<span class="keyword">imports</span> <a href="Derive.html"><span class="name">Derive</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(*  Title:       Deriving class instances for datatypes
+    Author:      René Thiemann       &lt;rene.thiemann@uibk.ac.at&gt;
+    Maintainer:  René Thiemann
+    License:     LGPL
+*)</span></span></span></span></span><span>
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(*
+Copyright 2013 René Thiemann
+
+This file is part of IsaFoR/CeTA.
+
+IsaFoR/CeTA is free software: you can redistribute it and/or modify it under the
+terms of the GNU Lesser General Public License as published by the Free Software
+Foundation, either version 3 of the License, or (at your option) any later
+version.
+
+IsaFoR/CeTA is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License along
+with IsaFoR/CeTA. If not, see &lt;http://www.gnu.org/licenses/&gt;.
+*)</span></span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">section</span></span><span> </span><span>Examples</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Derive_Examples</span><span>
+</span><span class="keyword2"><span class="keyword">imports</span></span><span> 
+</span><span>  </span><span>Derive</span><span>
+</span><span>  </span><span>HOL.Rat</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Register standard existing types"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">derive</span></span><span> </span><span>linorder</span><span> </span><span>list</span><span> </span><span>sum</span><span> </span><span>prod</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Without nested recursion"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">datatype</span></span><span> </span><span class="tfree">'a</span><span> </span><span>bintree</span><span> </span><span class="delimiter">=</span><span> </span><span>BEmpty</span><span> </span><span class="delimiter">|</span><span> </span><span>BNode</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a bintree"</span></span></span><span> </span><span class="tfree">'a</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a bintree"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">derive</span></span><span> </span><span>linorder</span><span> </span><span>bintree</span><span>
+</span><span class="keyword1"><span class="command">derive</span></span><span> </span><span>hashable</span><span> </span><span>bintree</span><span>
+</span><span class="keyword1"><span class="command">derive</span></span><span> </span><span>countable</span><span> </span><span>bintree</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Using other datatypes"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">datatype</span></span><span> </span><span>nat_list_list</span><span> </span><span class="delimiter">=</span><span> </span><span>NNil</span><span> </span><span class="delimiter">|</span><span> </span><span>CCons</span><span> </span><span class="string"><span class="delete"><span class="delete">"nat list"</span></span></span><span> </span><span>nat_list_list</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">derive</span></span><span> </span><span>linorder</span><span> </span><span>nat_list_list</span><span>
+</span><span class="keyword1"><span class="command">derive</span></span><span> </span><span>hashable</span><span> </span><span>nat_list_list</span><span>
+</span><span class="keyword1"><span class="command">derive</span></span><span> </span><span>countable</span><span> </span><span>nat_list_list</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Explicit mutual recursion"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">datatype</span></span><span>
+</span><span>  </span><span class="tfree">'a</span><span> </span><span>mtree</span><span> </span><span class="delimiter">=</span><span> </span><span>MEmpty</span><span> </span><span class="delimiter">|</span><span> </span><span>MNode</span><span> </span><span class="tfree">'a</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a mtree_list"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span>
+</span><span>  </span><span class="tfree">'a</span><span> </span><span>mtree_list</span><span> </span><span class="delimiter">=</span><span> </span><span>MNil</span><span> </span><span class="delimiter">|</span><span> </span><span>MCons</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a mtree"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"'a mtree_list"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">derive</span></span><span> </span><span>linorder</span><span> </span><span>mtree</span><span>
+</span><span class="keyword1"><span class="command">derive</span></span><span> </span><span>hashable</span><span> </span><span>mtree</span><span>
+</span><span class="keyword1"><span class="command">derive</span></span><span> </span><span>countable</span><span> </span><span>mtree</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Implicit mutual recursion"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">datatype</span></span><span> </span><span class="tfree">'a</span><span> </span><span>tree</span><span> </span><span class="delimiter">=</span><span> </span><span>Empty</span><span> </span><span class="delimiter">|</span><span> </span><span>Node</span><span> </span><span class="tfree">'a</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a tree list"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">datatype_compat</span></span><span> </span><span>tree</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">derive</span></span><span> </span><span>linorder</span><span> </span><span>tree</span><span>
+</span><span class="keyword1"><span class="command">derive</span></span><span> </span><span>hashable</span><span> </span><span>tree</span><span>
+</span><span class="keyword1"><span class="command">derive</span></span><span> </span><span>countable</span><span> </span><span>tree</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">datatype</span></span><span> </span><span class="tfree">'a</span><span> </span><span>ttree</span><span> </span><span class="delimiter">=</span><span> </span><span>TEmpty</span><span> </span><span class="delimiter">|</span><span> </span><span>TNode</span><span> </span><span class="tfree">'a</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a ttree list tree"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">datatype_compat</span></span><span> </span><span>ttree</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">derive</span></span><span> </span><span>linorder</span><span> </span><span>ttree</span><span>
+</span><span class="keyword1"><span class="command">derive</span></span><span> </span><span>hashable</span><span> </span><span>ttree</span><span>
+</span><span class="keyword1"><span class="command">derive</span></span><span> </span><span>countable</span><span> </span><span>ttree</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Examples from IsaFoR"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">datatype</span></span><span> </span><span class="delimiter">(</span><span class="tfree">'f</span><span class="delimiter">,</span><span class="tfree">'v</span><span class="delimiter">)</span><span> </span><span class="string"><span class="delete"><span class="delete">"term"</span></span></span><span> </span><span class="delimiter">=</span><span> </span><span>Var</span><span> </span><span class="tfree">'v</span><span> </span><span class="delimiter">|</span><span> </span><span>Fun</span><span> </span><span class="tfree">'f</span><span> </span><span class="string"><span class="delete"><span class="delete">"('f,'v) term list"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">datatype_compat</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"term"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">datatype</span></span><span> </span><span class="delimiter">(</span><span class="tfree">'f</span><span class="delimiter">,</span><span> </span><span class="tfree">'l</span><span class="delimiter">)</span><span> </span><span>lab</span><span> </span><span class="delimiter">=</span><span>
+</span><span>  </span><span>Lab</span><span> </span><span class="string"><span class="delete"><span class="delete">"('f, 'l) lab"</span></span></span><span> </span><span class="tfree">'l</span><span>
+</span><span class="delimiter">|</span><span> </span><span>FunLab</span><span> </span><span class="string"><span class="delete"><span class="delete">"('f, 'l) lab"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"('f, 'l) lab list"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span>UnLab</span><span> </span><span class="tfree">'f</span><span>
+</span><span class="delimiter">|</span><span> </span><span>Sharp</span><span> </span><span class="string"><span class="delete"><span class="delete">"('f, 'l) lab"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">datatype_compat</span></span><span> </span><span>lab</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">derive</span></span><span> </span><span>linorder</span><span> </span><span class="string"><span class="delete"><span class="delete">"term"</span></span></span><span> </span><span>lab</span><span>
+</span><span class="keyword1"><span class="command">derive</span></span><span> </span><span>countable</span><span> </span><span class="string"><span class="delete"><span class="delete">"term"</span></span></span><span> </span><span>lab</span><span>
+</span><span class="keyword1"><span class="command">derive</span></span><span> </span><span>hashable</span><span> </span><span class="string"><span class="delete"><span class="delete">"term"</span></span></span><span> </span><span>lab</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"A complex datatype"</span></span></span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+The following datatype has nested indirect recursion, mutual recursion and
+uses other datatypes.
+›</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">datatype</span></span><span> </span><span class="delimiter">(</span><span class="tfree">'a</span><span class="delimiter">,</span><span> </span><span class="tfree">'b</span><span class="delimiter">)</span><span> </span><span>complex</span><span> </span><span class="delimiter">=</span><span> 
+</span><span>  </span><span>C1</span><span> </span><span>nat</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a ttree"</span></span></span><span> </span><span class="delimiter">|</span><span>
+</span><span>  </span><span>C2</span><span> </span><span class="string"><span class="delete"><span class="delete">"('a, 'b) complex list tree tree"</span></span></span><span> </span><span class="tfree">'b</span><span> </span><span class="string"><span class="delete"><span class="delete">"('a, 'b) complex"</span></span></span><span> </span><span class="string"><span class="delete"><span class="delete">"('a, 'b) complex2 ttree list"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="delimiter">(</span><span class="tfree">'a</span><span class="delimiter">,</span><span> </span><span class="tfree">'b</span><span class="delimiter">)</span><span> </span><span>complex2</span><span> </span><span class="delimiter">=</span><span> </span><span>D1</span><span> </span><span class="string"><span class="delete"><span class="delete">"('a, 'b) complex ttree"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">datatype_compat</span></span><span> </span><span>complex</span><span> </span><span>complex2</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">derive</span></span><span> </span><span>linorder</span><span> </span><span>complex</span><span>
+</span><span class="keyword1"><span class="command">derive</span></span><span> </span><span>hashable</span><span> </span><span>complex</span><span>
+</span><span class="keyword1"><span class="command">derive</span></span><span> </span><span>countable</span><span> </span><span>complex</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div>

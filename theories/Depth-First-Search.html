@@ -1,0 +1,268 @@
+<div id="DFS">
+<div class="head"><h1>Theory DFS</h1>
+<span class="command">theory</span> <span class="name">DFS</span><br/>
+<span class="keyword">imports</span> <a href="../../HOL/HOL/Main.html"><span class="name">Main</span></a><br/>
+</div>
+<div class="source">
+<pre class="source"><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(*  Title:      Depth-First Search
+    Author:     Toshiaki Nishihara and Yasuhiko Minamide
+    Maintainer: Yasuhiko Minamide &lt;minamide at cs.tsukuba.ac.jp&gt;
+*)</span></span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">section</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Depth-First Search"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>DFS</span><span>
+</span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>Main</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Definition of Graphs"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">typedecl</span></span><span> </span><span>node</span><span> 
+</span><span class="keyword1"><span class="command">type_synonym</span></span><span> </span><span>graph</span><span> </span><span class="delimiter">=</span><span> </span><span class="string"><span class="delete"><span class="delete">"(node * node) list"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">primrec</span></span><span> </span><span>nexts</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"[graph, node] ⇒ node list"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"nexts [] n = []"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span class="string"><span class="delete"><span class="delete">"nexts (e#es) n = (if fst e = n then snd e # nexts es n else nexts es n)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>nextss</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"[graph, node list] ⇒ node set"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"nextss g xs = set g `` set xs"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>nexts_set</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"y ∈ set (nexts g x) = ((x,y) ∈ set g)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>g</span><span class="delimiter">)</span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>nextss_Cons</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"nextss g (x#xs) = set (nexts g x) ∪ nextss g xs"</span></span></span><span> 
+</span><span>  </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>nextss_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span>Image_def</span><span> </span><span>nexts_set</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>reachable</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"[graph, node list] ⇒ node set"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"reachable g xs = (set g)<span class="hidden">⇧</span><sup>*</sup> `` set xs"</span></span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Depth-First Search with Stack"</span></span></span><span> 
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>nodes_of</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"graph ⇒ node set"</span></span></span><span>
+</span><span>  </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"nodes_of g = set (map fst g @ map snd g)"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"x ∉ nodes_of g ⟹ nexts g x = []"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>g</span><span class="delimiter">)</span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>nodes_of_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="delimiter">[</span><span>simp</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"finite (nodes_of g - set ys)"</span></span></span><span>  
+</span><span class="keyword1"><span class="command">proof</span></span><span class="delimiter">(</span><span>rule</span><span> </span><span>finite_subset</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"finite (nodes_of g)"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>nodes_of_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">function</span></span><span>
+</span><span>  </span><span>dfs</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"graph ⇒ node list ⇒ node list ⇒ node list"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span>dfs_base</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"dfs g [] ys = ys"</span></span></span><span>
+</span><span class="delimiter">|</span><span> </span><span>dfs_inductive</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"dfs g (x#xs) ys = (if List.member ys x then dfs g xs ys 
+                        else dfs g (nexts g x@xs) (x#ys))"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span>pat_completeness</span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">termination</span></span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>relation</span><span> </span><span class="string"><span class="delete"><span class="delete">"inv_image (finite_psubset &lt;*lex*&gt; less_than)  
+                   (λ(g,xs,ys). (nodes_of g - set ys, size xs))"</span></span></span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>auto</span><span class="delimiter">[</span><span>1</span><span class="delimiter">]</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>finite_psubset_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>case_tac</span><span>  </span><span class="string"><span class="delete"><span class="delete">"x ∈ nodes_of g"</span></span></span><span class="delimiter">)</span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>List.member_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+  \begin{itemize}
+  \item The second argument of \isatext{\isastyle{dfs}} is a stack of nodes that will be
+  visited.
+  \item The third argument of \isatext{\isastyle{dfs}} is a list of nodes that have
+  been visited already.
+  \end{itemize}
+›</span></span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Depth-First Search with Nested-Recursion"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">function</span></span><span>
+</span><span>  </span><span>dfs2</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"graph ⇒ node list ⇒ node list ⇒ node list"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="string"><span class="delete"><span class="delete">"dfs2 g [] ys = ys"</span></span></span><span>
+</span><span class="delimiter">|</span><span>  </span><span>dfs2_inductive</span><span class="delimiter">:</span><span> 
+</span><span>          </span><span class="string"><span class="delete"><span class="delete">"dfs2 g (x#xs) ys = (if List.member ys x then dfs2 g xs ys 
+                               else dfs2 g xs (dfs2 g (nexts g x) (x#ys)))"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span>pat_completeness</span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>dfs2_invariant</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"dfs2_dom (g, xs, ys) ⟹ set ys ⊆ set (dfs2 g xs ys)"</span></span></span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>g</span><span> </span><span>xs</span><span> </span><span>ys</span><span> </span><span>rule</span><span class="delimiter">:</span><span> </span><span>dfs2.pinduct</span><span class="delimiter">)</span><span> </span><span class="delimiter">(</span><span>force</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>dfs2.psimps</span><span class="delimiter">)</span><span class="delimiter">+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">termination</span></span><span> </span><span>dfs2</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>relation</span><span> </span><span class="string"><span class="delete"><span class="delete">"inv_image (finite_psubset &lt;*lex*&gt; less_than)  
+                   (λ(g,xs,ys). (nodes_of g - set ys, size xs))"</span></span></span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span>auto</span><span class="delimiter">[</span><span>1</span><span class="delimiter">]</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>simp_all</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>finite_psubset_def</span><span class="delimiter">)</span><span>
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>case_tac</span><span>  </span><span class="string"><span class="delete"><span class="delete">"x ∈ nodes_of g"</span></span></span><span class="delimiter">)</span><span> 
+</span><span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>List.member_def</span><span class="delimiter">)</span><span class="delimiter">[</span><span>2</span><span class="delimiter">]</span><span>
+</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>insert</span><span> </span><span>dfs2_invariant</span><span class="delimiter">)</span><span> </span><span>force</span><span>
+</span><span>
+</span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(*lemma dfs2_induct[induct type]:
+  assumes B: "⋀g ys. P g [] ys" and
+  H: "⋀g x xs ys.
+        ⟦¬ x mem ys ⟶ P g xs (dfs2 (g, nexts g x, x # ys));
+         ¬ x mem ys ⟶ P g (nexts g x) (x # ys); x mem ys ⟶ P g xs ys⟧
+         ⟹ P g (x # xs) ys"
+  shows "P u v w"
+
+proof (induct u v w rule: dfs2.induct)
+  case 1 show ?case by (rule B)
+next
+  case (2 g x xs ys)
+  show ?case
+  proof (rule H)
+    show "¬ x mem ys ⟶ P g xs (dfs2 (g, nexts g x, x # ys))"
+    proof 
+      assume *: "¬ x mem ys"
+      have "set (x#ys) ⊆ set (dfs2 (g, nexts g x, x # ys))"
+        by (rule dfs2_inv)
+      with 2 * show "P g xs (dfs2 (g, nexts g x, x # ys))"
+        by auto
+    qed
+  qed (rule 2)+
+qed
+*)</span></span></span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>dfs_app</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"dfs g (xs@ys) zs = dfs g ys (dfs g xs zs)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>g</span><span> </span><span>xs</span><span> </span><span>zs</span><span> </span><span>rule</span><span class="delimiter">:</span><span> </span><span>dfs.induct</span><span class="delimiter">)</span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"dfs2 g xs ys = dfs g xs ys"</span></span></span><span> 
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>g</span><span> </span><span>xs</span><span> </span><span>ys</span><span> </span><span>rule</span><span class="delimiter">:</span><span> </span><span>dfs2.induct</span><span class="delimiter">)</span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>dfs_app</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Basic Properties"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>visit_subset_dfs</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"set ys ⊆ set (dfs g xs ys)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>g</span><span> </span><span>xs</span><span> </span><span>ys</span><span> </span><span>rule</span><span class="delimiter">:</span><span> </span><span>dfs.induct</span><span class="delimiter">)</span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>next_subset_dfs</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"set xs ⊆ set (dfs g xs ys)"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span class="delimiter">(</span><span>induct</span><span> </span><span>g</span><span> </span><span>xs</span><span> </span><span>ys</span><span> </span><span>rule</span><span class="delimiter">:</span><span>dfs.induct</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span class="delimiter">(</span><span>2</span><span> </span><span>g</span><span> </span><span>x</span><span> </span><span>xs</span><span> </span><span>ys</span><span class="delimiter">)</span><span> 
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">proof</span></span><span class="delimiter">(</span><span>cases</span><span> </span><span class="string"><span class="delete"><span class="delete">"x ∈ set ys"</span></span></span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>True</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"set ys ⊆ set (dfs g xs ys)"</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>visit_subset_dfs</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">with</span></span><span> </span><span>2</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>True</span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>List.member_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>    </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>False</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"set (x#ys) ⊆ set (dfs g (nexts g x @ xs) (x#ys))"</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span class="delimiter">(</span><span>rule</span><span> </span><span>visit_subset_dfs</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">with</span></span><span> </span><span>2</span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span>False</span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span>
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>List.member_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span class="delimiter">(</span><span>simp</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>nextss_closed_dfs'</span><span class="delimiter">[</span><span>rule_format</span><span class="delimiter">]</span><span class="delimiter">:</span><span> 
+</span><span> </span><span class="string"><span class="delete"><span class="delete">"nextss g ys ⊆ set xs ∪ set ys ⟶ nextss g (dfs g xs ys) ⊆ set (dfs g xs ys)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span> </span><span>g</span><span> </span><span>xs</span><span> </span><span>ys</span><span> </span><span>rule</span><span class="delimiter">:</span><span>dfs.induct</span><span class="delimiter">,</span><span> </span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span>nextss_Cons</span><span> </span><span>List.member_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>nextss_closed_dfs</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"nextss g (dfs g xs []) ⊆ set (dfs g xs [])"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>nextss_closed_dfs'</span><span class="delimiter">,</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>nextss_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Image_closed_trancl</span><span class="delimiter">:</span><span> </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"r `` X ⊆ X"</span></span></span><span> </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"r<span class="hidden">⇧</span><sup>*</sup> `` X = X"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"r<span class="hidden">⇧</span><sup>*</sup> `` X ⊆ X"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">{</span></span><span>
+</span><span>      </span><span class="keyword3"><span class="command">fix</span></span><span> </span><span>x</span><span> </span><span>y</span><span>
+</span><span>      </span><span class="keyword3"><span class="command">assume</span></span><span> </span><span>y</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"y ∈ X"</span></span></span><span>
+</span><span>      </span><span class="keyword3"><span class="command">assume</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"(y,x) ∈ r<span class="hidden">⇧</span><sup>*</sup>"</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"x ∈ X"</span></span></span><span>
+</span><span>        </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>induct</span><span class="delimiter">)</span><span> </span><span class="delimiter">(</span><span>insert</span><span> </span><span>assms</span><span> </span><span>y</span><span class="delimiter">,</span><span> </span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>Image_def</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">}</span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>Image_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span> </span><span>auto</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>reachable_closed_dfs</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"reachable g xs ⊆ set(dfs g xs [])"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span> </span><span>-</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"reachable g xs ⊆ reachable g (dfs g xs [])"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>reachable_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>Image_mono</span><span class="delimiter">)</span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>next_subset_dfs</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">also</span></span><span> </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"… = set(dfs g xs [])"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>reachable_def</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>Image_closed_trancl</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">from</span></span><span> </span><span>nextss_closed_dfs</span><span>
+</span><span>    </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"set g `` set (dfs g xs []) ⊆ set (dfs g xs [])"</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>nextss_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">finally</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">.</span></span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>reachable_nexts</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"reachable g (nexts g x) ⊆ reachable g [x]"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>reachable_def</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>intro</span><span class="delimiter">:</span><span> </span><span>converse_rtrancl_into_rtrancl</span><span> </span><span>simp</span><span class="delimiter">:</span><span> </span><span>nexts_set</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>reachable_append</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"reachable g (xs @ ys) = reachable g xs ∪ reachable g ys"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>reachable_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>dfs_subset_reachable_visit_nodes</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"set (dfs g xs ys) ⊆ reachable g xs ∪ set ys"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span class="delimiter">(</span><span>induct</span><span> </span><span>g</span><span> </span><span>xs</span><span> </span><span>ys</span><span> </span><span>rule</span><span class="delimiter">:</span><span> </span><span>dfs.induct</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>1</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">then</span></span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>  </span><span class="keyword3"><span class="command">case</span></span><span> </span><span class="delimiter">(</span><span>2</span><span> </span><span>g</span><span> </span><span>x</span><span> </span><span>xs</span><span> </span><span>ys</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?case</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">proof</span></span><span> </span><span class="delimiter">(</span><span>cases</span><span> </span><span class="string"><span class="delete"><span class="delete">"x ∈ set ys"</span></span></span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>True</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">with</span></span><span> </span><span>2</span><span> </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"set (dfs g (x#xs) ys) ⊆ reachable g (x#xs) ∪ set ys"</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>reachable_def</span><span> </span><span>List.member_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">next</span></span><span>
+</span><span>    </span><span class="keyword3"><span class="command">case</span></span><span> </span><span>False</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"reachable g (nexts g x) ⊆ reachable g [x]"</span></span></span><span> 
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>reachable_nexts</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">hence</span></span><span> </span><span>a</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"reachable g (nexts g x @ xs) ⊆ reachable g (x#xs)"</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>reachable_append</span><span class="delimiter">,</span><span> </span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>reachable_def</span><span class="delimiter">)</span><span>
+</span><span>    </span><span class="keyword1"><span class="command">with</span></span><span> </span><span>False</span><span> </span><span>2</span><span>
+</span><span>    </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"set (dfs g (x#xs) ys) ⊆ reachable g (x#xs) ∪ set ys"</span></span></span><span>
+</span><span>      </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>auto</span><span> </span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>reachable_def</span><span> </span><span>List.member_def</span><span class="delimiter">)</span><span>
+</span><span>  </span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Correctness"</span></span></span><span>
+</span><span>    
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span>dfs_eq_reachable</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"set (dfs g xs []) = reachable g xs"</span></span></span><span>
+</span><span class="keyword1"><span class="command">proof</span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"set (dfs g xs []) ⊆ reachable g xs ∪ set []"</span></span></span><span>
+</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>rule</span><span> </span><span>dfs_subset_reachable_visit_nodes</span><span class="delimiter">[</span><span>of</span><span> </span><span>g</span><span> </span><span>xs</span><span> </span><span class="string"><span class="delete"><span class="delete">"[]"</span></span></span><span class="delimiter">]</span><span class="delimiter">)</span><span>
+</span><span> </span><span class="keyword3"><span class="command">thus</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"set (dfs g xs []) ⊆ reachable g xs"</span></span></span><span>
+</span><span>   </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>simp</span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span class="delimiter">(</span><span>rule</span><span> </span><span>reachable_closed_dfs</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">theorem</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"y ∈ set (dfs g [x] []) = ((x,y) ∈ (set g)<span class="hidden">⇧</span><sup>*</sup>)"</span></span></span><span>
+</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span class="delimiter">(</span><span>simp</span><span> </span><span>only</span><span class="delimiter">:</span><span>dfs_eq_reachable</span><span> </span><span>reachable_def</span><span class="delimiter">,</span><span> </span><span>auto</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">subsection</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Executable Code"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">consts</span></span><span> </span><span>Node</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"int ⇒ node"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">code_datatype</span></span><span> </span><span>Node</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">instantiation</span></span><span> </span><span>node</span><span> </span><span class="delimiter">::</span><span> </span><span>equal</span><span>
+</span><span class="keyword2"><span class="keyword">begin</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>equal_node</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"node ⇒ node ⇒ bool"</span></span></span><span>
+</span><span class="keyword2"><span class="keyword">where</span></span><span>
+</span><span>  </span><span class="delimiter">[</span><span>code</span><span> </span><span>del</span><span class="delimiter">]</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"equal_node = HOL.eq"</span></span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">instance</span></span><span> </span><span class="keyword1"><span class="command">proof</span></span><span>
+</span><span class="keyword1"><span class="command">qed</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>equal_node_def</span><span class="delimiter">)</span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">declare</span></span><span> </span><span class="delimiter">[</span><span class="delimiter">[</span><span>code</span><span> </span><span>abort</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"HOL.equal :: node ⇒ node ⇒ bool"</span></span></span><span class="delimiter">]</span><span class="delimiter">]</span><span>
+</span><span>
+</span><span class="keyword1"><span class="command">export_code</span></span><span> </span><span>dfs</span><span> </span><span>dfs2</span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>SML</span><span> </span><span class="keyword2"><span class="keyword">file</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹dfs.ML›</span></span></span><span>
+</span><span>
+</span><span class="keyword2"><span class="keyword">end</span></span><span>
+</span></pre>
+</div>
+</div>
