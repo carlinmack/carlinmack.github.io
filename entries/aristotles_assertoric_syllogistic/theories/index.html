@@ -68,12 +68,10 @@
 </header><div><main>
   
   <div id="AristotlesAssertoric">
-<div class="head"><h1>Theory AristotlesAssertoric</h1>
-<span class="command">theory</span> <span class="name">AristotlesAssertoric</span><br/>
-<span class="keyword">imports</span> <a href="../../HOL/HOL/Main.html"><span class="name">Main</span></a><br/>
+<div class="head">
+<h1>Theory AristotlesAssertoric</h1>
 </div>
-<div class="source">
-<pre class="source"><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(*
+<pre class="source"><span class="comment1">(*
 Title: Aristotle's Assertoric Syllogistic
 Author: Angeliki Koutsoukou-Argyraki, University of Cambridge.
 October 2019
@@ -86,199 +84,199 @@ In particular, we formalise the deductions in the Figures and after that we pres
 metatheoretical observation that all deductions in the Figures can in fact be reduced to either
 Barbara or Celarent. As the formal proofs prove to be straightforward, the interest of this entry 
 lies in illustrating the functionality of Isabelle and high efficiency of Sledgehammer for simple 
-exercises in philosophy.*)</span></span></span></span></span><span>
-</span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">section</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Aristotle's Assertoric Syllogistic›</span></span></span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>AristotlesAssertoric</span><span> 
-</span><span>  </span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>Main</span><span> 
-</span><span class="keyword2"><span class="keyword">begin</span></span><span>
-</span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">subsection</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Aristotelean Categorical Sentences›</span></span></span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹ Aristotle's universal, particular and indefinite predications (affirmations and denials)
+exercises in philosophy.*)</span>
+
+
+<span class="keyword1"><span class="command">section</span></span><span class="quoted"><span class="plain_text">‹Aristotle's Assertoric Syllogistic›</span></span>
+
+<span class="keyword1"><span class="command">theory</span></span> AristotlesAssertoric 
+  <span class="keyword2"><span class="keyword">imports</span></span> <a href="../../HOL/HOL/Main.html">Main</a> 
+<span class="keyword2"><span class="keyword">begin</span></span>
+
+
+<span class="keyword1"><span class="command">subsection</span></span><span class="quoted"><span class="plain_text">‹Aristotelean Categorical Sentences›</span></span>
+
+<span class="keyword1"><span class="command">text</span></span><span class="quoted"><span class="plain_text">‹ Aristotle's universal, particular and indefinite predications (affirmations and denials)
 are expressed here using a set theoretic formulation.
 Aristotle handles in the same way individual and general predications i.e. 
 he gives the same logical analysis to "Socrates is an animal" and "humans are animals".
 Here we define the general predication i.e. predications are defined as relations between sets.
 This has the benefit that individual predication can also be expressed as set membership (e.g. see
-the lemma SocratesMortal). ›</span></span></span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>universal_affirmation</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a set  ⇒'a set  ⇒ bool"</span></span></span><span>  </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">infixr</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Q"</span></span></span><span> </span><span>80</span><span class="delimiter">)</span><span>
-</span><span>  </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"A Q B ≡ ∀ b ∈ B . b ∈ A "</span></span></span><span> 
-</span><span>
-</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>universal_denial</span><span> </span><span class="delimiter">::</span><span>  </span><span class="string"><span class="delete"><span class="delete">"'a set  ⇒'a set   ⇒ bool"</span></span></span><span>  </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">infixr</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"E"</span></span></span><span> </span><span>80</span><span class="delimiter">)</span><span>
-</span><span>  </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"A E B ≡ ∀ b ∈ B. ( b ∉ A)  "</span></span></span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>particular_affirmation</span><span> </span><span class="delimiter">::</span><span>  </span><span class="string"><span class="delete"><span class="delete">" 'a set  ⇒'a set  ⇒ bool"</span></span></span><span>  </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">infixr</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"I"</span></span></span><span> </span><span>80</span><span class="delimiter">)</span><span>
-</span><span>  </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"A I B ≡ ∃ b ∈ B. ( b ∈ A) "</span></span></span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>particular_denial</span><span> </span><span class="delimiter">::</span><span>  </span><span class="string"><span class="delete"><span class="delete">"'a set  ⇒'a set ⇒ bool"</span></span></span><span>  </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">infixr</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Z"</span></span></span><span> </span><span>80</span><span class="delimiter">)</span><span>
-</span><span>  </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"A Z B ≡ ∃ b ∈ B. ( b ∉ A) "</span></span></span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹ The above four definitions are known as the "square of opposition".›</span></span></span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>indefinite_affirmation</span><span> </span><span class="delimiter">::</span><span>  </span><span class="string"><span class="delete"><span class="delete">" 'a set ⇒'a set ⇒ bool"</span></span></span><span>  </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">infixr</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"QI"</span></span></span><span> </span><span>80</span><span class="delimiter">)</span><span>
-</span><span>  </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"A QI B ≡(( ∀ b ∈ B. (b ∈ A)) ∨  (∃ b ∈ B. (b ∈ A))) "</span></span></span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span>indefinite_denial</span><span> </span><span class="delimiter">::</span><span>  </span><span class="string"><span class="delete"><span class="delete">"'a set  ⇒'a set ⇒ bool"</span></span></span><span>  </span><span class="delimiter">(</span><span class="keyword2"><span class="keyword">infixr</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"EZ"</span></span></span><span> </span><span>80</span><span class="delimiter">)</span><span>
-</span><span>  </span><span class="keyword2"><span class="keyword">where</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"A EZ  B ≡ (( ∀ b ∈ B. (b ∉ A)) ∨ (∃ b ∈ B. (b ∉ A)))  "</span></span></span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>aristo_conversion1</span><span> </span><span class="delimiter">:</span><span> 
-</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"A E B"</span></span></span><span> </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"B E A"</span></span></span><span>
-</span><span>  </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span> </span><span>universal_denial_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>aristo_conversion2</span><span> </span><span class="delimiter">:</span><span> 
-</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"A I B"</span></span></span><span> </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"B I A"</span></span></span><span>
-</span><span>  </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span>  </span><span>particular_affirmation_def</span><span>
-</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>aristo_conversion3</span><span> </span><span class="delimiter">:</span><span> </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"A Q B"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"B ≠{} "</span></span></span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"B I A"</span></span></span><span>
-</span><span>  </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span> 
-</span><span>  </span><span class="keyword1"><span class="command">unfolding</span></span><span> </span><span>universal_affirmation_def</span><span> </span><span>particular_affirmation_def</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Remark: Aristotle in general supposes that sets have to be nonempty. Indeed, we observe that 
+the lemma SocratesMortal). ›</span></span>
+
+<span class="keyword1"><span class="command">definition</span></span> <span class="entity">universal_affirmation</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="tfree">'a</span> set  <span class="main">⇒</span><span class="tfree">'a</span> set  <span class="main">⇒</span> bool"</span></span>  <span class="main">(</span><span class="keyword2"><span class="keyword">infixr</span></span> <span class="quoted">"<span class="keyword1">Q</span>"</span> 80<span class="main">)</span>
+  <span class="keyword2"><span class="keyword">where</span></span> <span class="quoted"><span class="quoted">"<span class="free"><span class="bound"><span class="entity">A</span></span></span> <span class="keyword1"><span class="free">Q</span></span> <span class="free"><span class="bound"><span class="entity">B</span></span></span> <span class="main">≡</span> <span class="main">∀</span> <span class="bound">b</span> <span class="main">∈</span> <span class="free"><span class="bound"><span class="entity">B</span></span></span> <span class="main">.</span> <span class="bound">b</span> <span class="main">∈</span> <span class="free"><span class="bound"><span class="entity">A</span></span></span> "</span></span> 
+
+<span class="keyword1"><span class="command">definition</span></span> <span class="entity">universal_denial</span> <span class="main">::</span>  <span class="quoted"><span class="quoted">"<span class="tfree">'a</span> set  <span class="main">⇒</span><span class="tfree">'a</span> set   <span class="main">⇒</span> bool"</span></span>  <span class="main">(</span><span class="keyword2"><span class="keyword">infixr</span></span> <span class="quoted">"<span class="keyword1">E</span>"</span> 80<span class="main">)</span>
+  <span class="keyword2"><span class="keyword">where</span></span> <span class="quoted"><span class="quoted">"<span class="free"><span class="bound"><span class="entity">A</span></span></span> <span class="keyword1"><span class="free">E</span></span> <span class="free"><span class="bound"><span class="entity">B</span></span></span> <span class="main">≡</span> <span class="main">∀</span> <span class="bound">b</span> <span class="main">∈</span> <span class="free"><span class="bound"><span class="entity">B</span></span></span><span class="main">.</span> <span class="main">(</span> <span class="bound">b</span> <span class="main">∉</span> <span class="free"><span class="bound"><span class="entity">A</span></span></span><span class="main">)</span>  "</span></span>
+
+<span class="keyword1"><span class="command">definition</span></span> <span class="entity">particular_affirmation</span> <span class="main">::</span>  <span class="quoted"><span class="quoted">" <span class="tfree">'a</span> set  <span class="main">⇒</span><span class="tfree">'a</span> set  <span class="main">⇒</span> bool"</span></span>  <span class="main">(</span><span class="keyword2"><span class="keyword">infixr</span></span> <span class="quoted">"<span class="keyword1">I</span>"</span> 80<span class="main">)</span>
+  <span class="keyword2"><span class="keyword">where</span></span> <span class="quoted"><span class="quoted">"<span class="free"><span class="bound"><span class="entity">A</span></span></span> <span class="keyword1"><span class="free">I</span></span> <span class="free"><span class="bound"><span class="entity">B</span></span></span> <span class="main">≡</span> <span class="main">∃</span> <span class="bound">b</span> <span class="main">∈</span> <span class="free"><span class="bound"><span class="entity">B</span></span></span><span class="main">.</span> <span class="main">(</span> <span class="bound">b</span> <span class="main">∈</span> <span class="free"><span class="bound"><span class="entity">A</span></span></span><span class="main">)</span> "</span></span>
+
+<span class="keyword1"><span class="command">definition</span></span> <span class="entity">particular_denial</span> <span class="main">::</span>  <span class="quoted"><span class="quoted">"<span class="tfree">'a</span> set  <span class="main">⇒</span><span class="tfree">'a</span> set <span class="main">⇒</span> bool"</span></span>  <span class="main">(</span><span class="keyword2"><span class="keyword">infixr</span></span> <span class="quoted">"<span class="keyword1">Z</span>"</span> 80<span class="main">)</span>
+  <span class="keyword2"><span class="keyword">where</span></span> <span class="quoted"><span class="quoted">"<span class="free"><span class="bound"><span class="entity">A</span></span></span> <span class="keyword1"><span class="free">Z</span></span> <span class="free"><span class="bound"><span class="entity">B</span></span></span> <span class="main">≡</span> <span class="main">∃</span> <span class="bound">b</span> <span class="main">∈</span> <span class="free"><span class="bound"><span class="entity">B</span></span></span><span class="main">.</span> <span class="main">(</span> <span class="bound">b</span> <span class="main">∉</span> <span class="free"><span class="bound"><span class="entity">A</span></span></span><span class="main">)</span> "</span></span>
+
+<span class="keyword1"><span class="command">text</span></span><span class="quoted"><span class="plain_text">‹ The above four definitions are known as the "square of opposition".›</span></span>
+
+<span class="keyword1"><span class="command">definition</span></span> <span class="entity">indefinite_affirmation</span> <span class="main">::</span>  <span class="quoted"><span class="quoted">" <span class="tfree">'a</span> set <span class="main">⇒</span><span class="tfree">'a</span> set <span class="main">⇒</span> bool"</span></span>  <span class="main">(</span><span class="keyword2"><span class="keyword">infixr</span></span> <span class="quoted">"<span class="keyword1">QI</span>"</span> 80<span class="main">)</span>
+  <span class="keyword2"><span class="keyword">where</span></span> <span class="quoted"><span class="quoted">"<span class="free"><span class="bound"><span class="entity">A</span></span></span> <span class="keyword1"><span class="free">QI</span></span> <span class="free"><span class="bound"><span class="entity">B</span></span></span> <span class="main">≡</span><span class="main">(</span><span class="main">(</span> <span class="main">∀</span> <span class="bound">b</span> <span class="main">∈</span> <span class="free"><span class="bound"><span class="entity">B</span></span></span><span class="main">.</span> <span class="main">(</span><span class="bound">b</span> <span class="main">∈</span> <span class="free"><span class="bound"><span class="entity">A</span></span></span><span class="main">)</span><span class="main">)</span> <span class="main">∨</span>  <span class="main">(</span><span class="main">∃</span> <span class="bound">b</span> <span class="main">∈</span> <span class="free"><span class="bound"><span class="entity">B</span></span></span><span class="main">.</span> <span class="main">(</span><span class="bound">b</span> <span class="main">∈</span> <span class="free"><span class="bound"><span class="entity">A</span></span></span><span class="main">)</span><span class="main">)</span><span class="main">)</span> "</span></span>
+
+<span class="keyword1"><span class="command">definition</span></span> <span class="entity">indefinite_denial</span> <span class="main">::</span>  <span class="quoted"><span class="quoted">"<span class="tfree">'a</span> set  <span class="main">⇒</span><span class="tfree">'a</span> set <span class="main">⇒</span> bool"</span></span>  <span class="main">(</span><span class="keyword2"><span class="keyword">infixr</span></span> <span class="quoted">"<span class="keyword1">EZ</span>"</span> 80<span class="main">)</span>
+  <span class="keyword2"><span class="keyword">where</span></span> <span class="quoted"><span class="quoted">"<span class="free"><span class="bound"><span class="entity">A</span></span></span> <span class="keyword1"><span class="free">EZ</span></span>  <span class="free"><span class="bound"><span class="entity">B</span></span></span> <span class="main">≡</span> <span class="main">(</span><span class="main">(</span> <span class="main">∀</span> <span class="bound">b</span> <span class="main">∈</span> <span class="free"><span class="bound"><span class="entity">B</span></span></span><span class="main">.</span> <span class="main">(</span><span class="bound">b</span> <span class="main">∉</span> <span class="free"><span class="bound"><span class="entity">A</span></span></span><span class="main">)</span><span class="main">)</span> <span class="main">∨</span> <span class="main">(</span><span class="main">∃</span> <span class="bound">b</span> <span class="main">∈</span> <span class="free"><span class="bound"><span class="entity">B</span></span></span><span class="main">.</span> <span class="main">(</span><span class="bound">b</span> <span class="main">∉</span> <span class="free"><span class="bound"><span class="entity">A</span></span></span><span class="main">)</span><span class="main">)</span><span class="main">)</span>  "</span></span>
+
+<span class="keyword1"><span class="command">lemma</span></span> aristo_conversion1 <span class="main">:</span> 
+  <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">A</span> <span class="keyword1">E</span> <span class="free">B</span>"</span></span> <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="free">B</span> <span class="keyword1">E</span> <span class="free">A</span>"</span></span>
+  <span class="keyword1"><span class="command">using</span></span> assms universal_denial_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">blast</span>
+
+<span class="keyword1"><span class="command">lemma</span></span> aristo_conversion2 <span class="main">:</span> 
+  <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">A</span> <span class="keyword1">I</span> <span class="free">B</span>"</span></span> <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="free">B</span> <span class="keyword1">I</span> <span class="free">A</span>"</span></span>
+  <span class="keyword1"><span class="command">using</span></span> assms <span class="keyword1"><span class="command">unfolding</span></span>  particular_affirmation_def
+  <span class="keyword1"><span class="command">by</span></span> <span class="operator">blast</span>
+
+<span class="keyword1"><span class="command">lemma</span></span> aristo_conversion3 <span class="main">:</span> <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">A</span> <span class="keyword1">Q</span> <span class="free">B</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"<span class="free">B</span> <span class="main">≠</span><span class="main">{}</span> "</span></span>  <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="free">B</span> <span class="keyword1">I</span> <span class="free">A</span>"</span></span>
+  <span class="keyword1"><span class="command">using</span></span> assms 
+  <span class="keyword1"><span class="command">unfolding</span></span> universal_affirmation_def particular_affirmation_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">blast</span>
+
+<span class="keyword1"><span class="command">text</span></span><span class="quoted"><span class="plain_text">‹Remark: Aristotle in general supposes that sets have to be nonempty. Indeed, we observe that 
  in many instances it is necessary to assume that the sets are nonempty,
- otherwise Isabelle's automation finds counterexamples.›</span></span></span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">subsection</span></span><span class="cartouche"><span class="delete"><span class="delete">‹The Deductions in the Figures ("Moods")›</span></span></span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹The medieval mnemonic names are used.›</span></span></span><span> 
-</span><span>
-</span><span class="keyword1"><span class="command">subsubsection</span></span><span class="cartouche"><span class="delete"><span class="delete">‹First Figure›</span></span></span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Barbara</span><span class="delimiter">:</span><span>
-</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"A Q B "</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"B Q C"</span></span></span><span> </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"A Q C"</span></span></span><span>
-</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>meson</span><span> </span><span>assms</span><span> </span><span>universal_affirmation_def</span><span class="delimiter">)</span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Celarent</span><span class="delimiter">:</span><span>
-</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"A E B "</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"B Q C"</span></span></span><span> </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"A E C"</span></span></span><span>
-</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>meson</span><span> </span><span>assms</span><span> </span><span>universal_affirmation_def</span><span> </span><span>universal_denial_def</span><span class="delimiter">)</span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Darii</span><span class="delimiter">:</span><span>
-</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span>  </span><span class="string"><span class="delete"><span class="delete">"A Q B"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"B I C"</span></span></span><span> </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"A I C"</span></span></span><span>
-</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>meson</span><span> </span><span>assms</span><span> </span><span>particular_affirmation_def</span><span> </span><span>universal_affirmation_def</span><span class="delimiter">)</span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Ferio</span><span class="delimiter">:</span><span>
-</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span>  </span><span class="string"><span class="delete"><span class="delete">"A E B"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"B I C"</span></span></span><span> </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"A Z C"</span></span></span><span>
-</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>meson</span><span> </span><span>assms</span><span> </span><span>particular_affirmation_def</span><span> </span><span>particular_denial_def</span><span> </span><span>universal_denial_def</span><span class="delimiter">)</span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">subsubsection</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Second Figure›</span></span></span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Cesare</span><span class="delimiter">:</span><span>
-</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span>  </span><span class="string"><span class="delete"><span class="delete">"A E B "</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"A Q C"</span></span></span><span> </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"B E C"</span></span></span><span>
-</span><span class="keyword1"><span class="command">using</span></span><span> </span><span>Celarent</span><span> </span><span>aristo_conversion1</span><span> </span><span>assms</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Camestres</span><span class="delimiter">:</span><span>
-</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span>  </span><span class="string"><span class="delete"><span class="delete">"A Q B "</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"A E C"</span></span></span><span> </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"B E C "</span></span></span><span>
-</span><span class="keyword1"><span class="command">using</span></span><span> </span><span>Cesare</span><span> </span><span>aristo_conversion1</span><span> </span><span>assms</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Festino</span><span class="delimiter">:</span><span>
-</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span>  </span><span class="string"><span class="delete"><span class="delete">"A E B "</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"A I C"</span></span></span><span> </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"B Z C "</span></span></span><span>
-</span><span class="keyword1"><span class="command">using</span></span><span> </span><span>Ferio</span><span> </span><span>aristo_conversion1</span><span> </span><span>assms</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Baroco</span><span class="delimiter">:</span><span>
-</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span>  </span><span class="string"><span class="delete"><span class="delete">"A Q B "</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"A Z C"</span></span></span><span> </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"B Z C   "</span></span></span><span>
-</span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>meson</span><span> </span><span>assms</span><span> </span><span>particular_denial_def</span><span> </span><span>universal_affirmation_def</span><span class="delimiter">)</span><span>
-</span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">subsubsection</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Third Figure›</span></span></span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Darapti</span><span class="delimiter">:</span><span>
-</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span>  </span><span class="string"><span class="delete"><span class="delete">"A Q C "</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"B Q C"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"C ≠{}"</span></span></span><span>   </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"A I B "</span></span></span><span>
-</span><span>  </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>Darii</span><span> </span><span>assms</span><span> </span><span class="keyword1"><span class="command">unfolding</span></span><span>  </span><span>universal_affirmation_def</span><span> </span><span>particular_affirmation_def</span><span>
-</span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Felapton</span><span class="delimiter">:</span><span>
-</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span>  </span><span class="string"><span class="delete"><span class="delete">"A E C"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"B Q C"</span></span></span><span>  </span><span class="keyword2"><span class="keyword">and</span></span><span>  </span><span class="string"><span class="delete"><span class="delete">"C ≠{}"</span></span></span><span>   </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"A Z B"</span></span></span><span>
-</span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>Festino</span><span> </span><span>aristo_conversion1</span><span> </span><span>aristo_conversion3</span><span> </span><span>assms</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Disamis</span><span class="delimiter">:</span><span>
-</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span>  </span><span class="string"><span class="delete"><span class="delete">"A I C"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"B Q C"</span></span></span><span> </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"A I B"</span></span></span><span>
-</span><span>  </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>Darii</span><span> </span><span>aristo_conversion2</span><span> </span><span>assms</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Datisi</span><span class="delimiter">:</span><span>
-</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span>  </span><span class="string"><span class="delete"><span class="delete">"A Q C"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"B I C"</span></span></span><span> </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"A I B"</span></span></span><span>
-</span><span>  </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>Disamis</span><span> </span><span>aristo_conversion2</span><span> </span><span>assms</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Bocardo</span><span class="delimiter">:</span><span>
-</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span>  </span><span class="string"><span class="delete"><span class="delete">"A Z C"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"B Q C"</span></span></span><span> </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"A Z B"</span></span></span><span>
-</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>meson</span><span> </span><span>assms</span><span> </span><span>particular_denial_def</span><span> </span><span>universal_affirmation_def</span><span class="delimiter">)</span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Ferison</span><span class="delimiter">:</span><span>  
-</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span>  </span><span class="string"><span class="delete"><span class="delete">"A E C "</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"B I C"</span></span></span><span> </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"A Z B   "</span></span></span><span>
-</span><span class="keyword1"><span class="command">using</span></span><span> </span><span>Ferio</span><span> </span><span>aristo_conversion2</span><span> </span><span>assms</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">subsubsection</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Examples›</span></span></span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Example of a deduction with general predication.›</span></span></span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>GreekMortal</span><span> </span><span class="delimiter">:</span><span> 
-</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span>  </span><span class="string"><span class="delete"><span class="delete">"Mortal Q Human"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Human Q Greek "</span></span></span><span>
-</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">" Mortal Q Greek "</span></span></span><span>
-</span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span> </span><span>Barbara</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>auto</span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Example of a deduction with individual predication.›</span></span></span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>SocratesMortal</span><span class="delimiter">:</span><span>
-</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Socrates ∈ Human "</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Mortal Q Human"</span></span></span><span>  
-</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"Socrates ∈ Mortal "</span></span></span><span> 
-</span><span class="keyword1"><span class="command">using</span></span><span> </span><span>assms</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>universal_affirmation_def</span><span class="delimiter">)</span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">subsection</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Metatheoretical comments›</span></span></span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹The following are presented to demonstrate one of Aristotle's metatheoretical
+ otherwise Isabelle's automation finds counterexamples.›</span></span>
+
+<span class="keyword1"><span class="command">subsection</span></span><span class="quoted"><span class="plain_text">‹The Deductions in the Figures ("Moods")›</span></span>
+
+<span class="keyword1"><span class="command">text</span></span><span class="quoted"><span class="plain_text">‹The medieval mnemonic names are used.›</span></span> 
+
+<span class="keyword1"><span class="command">subsubsection</span></span><span class="quoted"><span class="plain_text">‹First Figure›</span></span>
+
+<span class="keyword1"><span class="command">lemma</span></span> Barbara<span class="main">:</span>
+  <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">A</span> <span class="keyword1">Q</span> <span class="free">B</span> "</span></span> <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"<span class="free">B</span> <span class="keyword1">Q</span> <span class="free">C</span>"</span></span> <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="free">A</span> <span class="keyword1">Q</span> <span class="free">C</span>"</span></span>
+<span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">meson</span> assms universal_affirmation_def<span class="main">)</span>
+
+<span class="keyword1"><span class="command">lemma</span></span> Celarent<span class="main">:</span>
+  <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">A</span> <span class="keyword1">E</span> <span class="free">B</span> "</span></span> <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"<span class="free">B</span> <span class="keyword1">Q</span> <span class="free">C</span>"</span></span> <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="free">A</span> <span class="keyword1">E</span> <span class="free">C</span>"</span></span>
+<span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">meson</span> assms universal_affirmation_def universal_denial_def<span class="main">)</span>
+
+<span class="keyword1"><span class="command">lemma</span></span> Darii<span class="main">:</span>
+  <span class="keyword2"><span class="keyword">assumes</span></span>  <span class="quoted"><span class="quoted">"<span class="free">A</span> <span class="keyword1">Q</span> <span class="free">B</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"<span class="free">B</span> <span class="keyword1">I</span> <span class="free">C</span>"</span></span> <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="free">A</span> <span class="keyword1">I</span> <span class="free">C</span>"</span></span>
+<span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">meson</span> assms particular_affirmation_def universal_affirmation_def<span class="main">)</span>
+
+<span class="keyword1"><span class="command">lemma</span></span> Ferio<span class="main">:</span>
+  <span class="keyword2"><span class="keyword">assumes</span></span>  <span class="quoted"><span class="quoted">"<span class="free">A</span> <span class="keyword1">E</span> <span class="free">B</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"<span class="free">B</span> <span class="keyword1">I</span> <span class="free">C</span>"</span></span> <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="free">A</span> <span class="keyword1">Z</span> <span class="free">C</span>"</span></span>
+<span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">meson</span> assms particular_affirmation_def particular_denial_def universal_denial_def<span class="main">)</span>
+
+<span class="keyword1"><span class="command">subsubsection</span></span><span class="quoted"><span class="plain_text">‹Second Figure›</span></span>
+
+<span class="keyword1"><span class="command">lemma</span></span> Cesare<span class="main">:</span>
+  <span class="keyword2"><span class="keyword">assumes</span></span>  <span class="quoted"><span class="quoted">"<span class="free">A</span> <span class="keyword1">E</span> <span class="free">B</span> "</span></span> <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"<span class="free">A</span> <span class="keyword1">Q</span> <span class="free">C</span>"</span></span> <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="free">B</span> <span class="keyword1">E</span> <span class="free">C</span>"</span></span>
+<span class="keyword1"><span class="command">using</span></span> Celarent aristo_conversion1 assms <span class="keyword1"><span class="command">by</span></span> <span class="operator">blast</span>
+
+<span class="keyword1"><span class="command">lemma</span></span> Camestres<span class="main">:</span>
+  <span class="keyword2"><span class="keyword">assumes</span></span>  <span class="quoted"><span class="quoted">"<span class="free">A</span> <span class="keyword1">Q</span> <span class="free">B</span> "</span></span> <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"<span class="free">A</span> <span class="keyword1">E</span> <span class="free">C</span>"</span></span> <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="free">B</span> <span class="keyword1">E</span> <span class="free">C</span> "</span></span>
+<span class="keyword1"><span class="command">using</span></span> Cesare aristo_conversion1 assms <span class="keyword1"><span class="command">by</span></span> <span class="operator">blast</span>
+
+<span class="keyword1"><span class="command">lemma</span></span> Festino<span class="main">:</span>
+  <span class="keyword2"><span class="keyword">assumes</span></span>  <span class="quoted"><span class="quoted">"<span class="free">A</span> <span class="keyword1">E</span> <span class="free">B</span> "</span></span> <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"<span class="free">A</span> <span class="keyword1">I</span> <span class="free">C</span>"</span></span> <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="free">B</span> <span class="keyword1">Z</span> <span class="free">C</span> "</span></span>
+<span class="keyword1"><span class="command">using</span></span> Ferio aristo_conversion1 assms <span class="keyword1"><span class="command">by</span></span> <span class="operator">blast</span>
+
+<span class="keyword1"><span class="command">lemma</span></span> Baroco<span class="main">:</span>
+  <span class="keyword2"><span class="keyword">assumes</span></span>  <span class="quoted"><span class="quoted">"<span class="free">A</span> <span class="keyword1">Q</span> <span class="free">B</span> "</span></span> <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"<span class="free">A</span> <span class="keyword1">Z</span> <span class="free">C</span>"</span></span> <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="free">B</span> <span class="keyword1">Z</span> <span class="free">C</span>   "</span></span>
+<span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">meson</span> assms particular_denial_def universal_affirmation_def<span class="main">)</span>
+
+
+<span class="keyword1"><span class="command">subsubsection</span></span><span class="quoted"><span class="plain_text">‹Third Figure›</span></span>
+
+<span class="keyword1"><span class="command">lemma</span></span> Darapti<span class="main">:</span>
+  <span class="keyword2"><span class="keyword">assumes</span></span>  <span class="quoted"><span class="quoted">"<span class="free">A</span> <span class="keyword1">Q</span> <span class="free">C</span> "</span></span> <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"<span class="free">B</span> <span class="keyword1">Q</span> <span class="free">C</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"<span class="free">C</span> <span class="main">≠</span><span class="main">{}</span>"</span></span>   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="free">A</span> <span class="keyword1">I</span> <span class="free">B</span> "</span></span>
+  <span class="keyword1"><span class="command">using</span></span> Darii assms <span class="keyword1"><span class="command">unfolding</span></span>  universal_affirmation_def particular_affirmation_def
+  <span class="keyword1"><span class="command">by</span></span> <span class="operator">blast</span>
+
+<span class="keyword1"><span class="command">lemma</span></span> Felapton<span class="main">:</span>
+  <span class="keyword2"><span class="keyword">assumes</span></span>  <span class="quoted"><span class="quoted">"<span class="free">A</span> <span class="keyword1">E</span> <span class="free">C</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"<span class="free">B</span> <span class="keyword1">Q</span> <span class="free">C</span>"</span></span>  <span class="keyword2"><span class="keyword">and</span></span>  <span class="quoted"><span class="quoted">"<span class="free">C</span> <span class="main">≠</span><span class="main">{}</span>"</span></span>   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="free">A</span> <span class="keyword1">Z</span> <span class="free">B</span>"</span></span>
+ <span class="keyword1"><span class="command">using</span></span> Festino aristo_conversion1 aristo_conversion3 assms <span class="keyword1"><span class="command">by</span></span> <span class="operator">blast</span>
+
+<span class="keyword1"><span class="command">lemma</span></span> Disamis<span class="main">:</span>
+  <span class="keyword2"><span class="keyword">assumes</span></span>  <span class="quoted"><span class="quoted">"<span class="free">A</span> <span class="keyword1">I</span> <span class="free">C</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"<span class="free">B</span> <span class="keyword1">Q</span> <span class="free">C</span>"</span></span> <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="free">A</span> <span class="keyword1">I</span> <span class="free">B</span>"</span></span>
+  <span class="keyword1"><span class="command">using</span></span> Darii aristo_conversion2 assms <span class="keyword1"><span class="command">by</span></span> <span class="operator">blast</span>
+
+<span class="keyword1"><span class="command">lemma</span></span> Datisi<span class="main">:</span>
+  <span class="keyword2"><span class="keyword">assumes</span></span>  <span class="quoted"><span class="quoted">"<span class="free">A</span> <span class="keyword1">Q</span> <span class="free">C</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"<span class="free">B</span> <span class="keyword1">I</span> <span class="free">C</span>"</span></span> <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="free">A</span> <span class="keyword1">I</span> <span class="free">B</span>"</span></span>
+  <span class="keyword1"><span class="command">using</span></span> Disamis aristo_conversion2 assms <span class="keyword1"><span class="command">by</span></span> <span class="operator">blast</span>
+
+<span class="keyword1"><span class="command">lemma</span></span> Bocardo<span class="main">:</span>
+  <span class="keyword2"><span class="keyword">assumes</span></span>  <span class="quoted"><span class="quoted">"<span class="free">A</span> <span class="keyword1">Z</span> <span class="free">C</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"<span class="free">B</span> <span class="keyword1">Q</span> <span class="free">C</span>"</span></span> <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="free">A</span> <span class="keyword1">Z</span> <span class="free">B</span>"</span></span>
+ <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">meson</span> assms particular_denial_def universal_affirmation_def<span class="main">)</span>
+
+<span class="keyword1"><span class="command">lemma</span></span> Ferison<span class="main">:</span>  
+  <span class="keyword2"><span class="keyword">assumes</span></span>  <span class="quoted"><span class="quoted">"<span class="free">A</span> <span class="keyword1">E</span> <span class="free">C</span> "</span></span> <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"<span class="free">B</span> <span class="keyword1">I</span> <span class="free">C</span>"</span></span> <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="free">A</span> <span class="keyword1">Z</span> <span class="free">B</span>   "</span></span>
+<span class="keyword1"><span class="command">using</span></span> Ferio aristo_conversion2 assms <span class="keyword1"><span class="command">by</span></span> <span class="operator">blast</span>
+
+<span class="keyword1"><span class="command">subsubsection</span></span><span class="quoted"><span class="plain_text">‹Examples›</span></span>
+
+<span class="keyword1"><span class="command">text</span></span><span class="quoted"><span class="plain_text">‹Example of a deduction with general predication.›</span></span>
+
+<span class="keyword1"><span class="command">lemma</span></span> GreekMortal <span class="main">:</span> 
+  <span class="keyword2"><span class="keyword">assumes</span></span>  <span class="quoted"><span class="quoted">"<span class="free">Mortal</span> <span class="keyword1">Q</span> <span class="free">Human</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"<span class="free">Human</span> <span class="keyword1">Q</span> <span class="free">Greek</span> "</span></span>
+  <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">" <span class="free">Mortal</span> <span class="keyword1">Q</span> <span class="free">Greek</span> "</span></span>
+<span class="keyword1"><span class="command">using</span></span> assms Barbara <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
+
+<span class="keyword1"><span class="command">text</span></span><span class="quoted"><span class="plain_text">‹Example of a deduction with individual predication.›</span></span>
+
+<span class="keyword1"><span class="command">lemma</span></span> SocratesMortal<span class="main">:</span>
+  <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">Socrates</span> <span class="main">∈</span> <span class="free">Human</span> "</span></span> <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"<span class="free">Mortal</span> <span class="keyword1">Q</span> <span class="free">Human</span>"</span></span>  
+  <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="free">Socrates</span> <span class="main">∈</span> <span class="free">Mortal</span> "</span></span> 
+<span class="keyword1"><span class="command">using</span></span> assms <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> universal_affirmation_def<span class="main">)</span>
+
+<span class="keyword1"><span class="command">subsection</span></span><span class="quoted"><span class="plain_text">‹Metatheoretical comments›</span></span>
+
+<span class="keyword1"><span class="command">text</span></span><span class="quoted"><span class="plain_text">‹The following are presented to demonstrate one of Aristotle's metatheoretical
 explorations. Namely, Aristotle's metatheorem that:
 "All deductions in all three Figures can eventually be reduced to either Barbara or Celarent"
-is demonstrated by the proofs below and by considering the proofs from the previous subsection. ›</span></span></span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Darii_reducedto_Camestres</span><span class="delimiter">:</span><span>  
-</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"A Q B "</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"B I C"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"A E C  "</span></span></span><span> </span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(*assms, concl. of Darii  and A E C *)</span></span></span></span></span><span>
-</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"A I C"</span></span></span><span>
-</span><span class="keyword1"><span class="command">proof</span></span><span>-</span><span>
-</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"B E C"</span></span></span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>Camestres</span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹ A Q B   ›</span></span></span><span>  </span><span class="cartouche"><span class="delete"><span class="delete">‹A E C›</span></span></span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
-</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹ B I C ›</span></span></span><span>   </span><span class="cartouche"><span class="delete"><span class="delete">‹B E C›</span></span></span><span> 
-</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>particular_affirmation_def</span><span> </span><span>universal_denial_def</span><span class="delimiter">)</span><span>
-</span><span class="keyword1"><span class="command">qed</span></span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹It is already evident from the proofs in the previous subsection that:
+is demonstrated by the proofs below and by considering the proofs from the previous subsection. ›</span></span>
+
+<span class="keyword1"><span class="command">lemma</span></span> Darii_reducedto_Camestres<span class="main">:</span>  
+  <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">A</span> <span class="keyword1">Q</span> <span class="free">B</span> "</span></span> <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"<span class="free">B</span> <span class="keyword1">I</span> <span class="free">C</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"<span class="free">A</span> <span class="keyword1">E</span> <span class="free">C</span>  "</span></span> <span class="comment1">(*assms, concl. of Darii  and A E C *)</span>
+  <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="free">A</span> <span class="keyword1">I</span> <span class="free">C</span>"</span></span>
+<span class="keyword1"><span class="command">proof</span></span><span class="operator">-</span>
+  <span class="keyword1"><span class="command">have</span></span> <span class="quoted"><span class="quoted">"<span class="free">B</span> <span class="keyword1">E</span> <span class="free">C</span>"</span></span> <span class="keyword1"><span class="command">using</span></span> Camestres <span class="quoted"><span class="quoted">‹ <span class="free">A</span> <span class="keyword1">Q</span> <span class="free">B</span>   ›</span></span>  <span class="quoted"><span class="quoted">‹<span class="free">A</span> <span class="keyword1">E</span> <span class="free">C</span>›</span></span>    <span class="keyword1"><span class="command">by</span></span> <span class="operator">blast</span>
+  <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span> <span class="keyword1"><span class="command">using</span></span> <span class="quoted"><span class="quoted">‹ <span class="free">B</span> <span class="keyword1">I</span> <span class="free">C</span> ›</span></span>   <span class="quoted"><span class="quoted">‹<span class="free">B</span> <span class="keyword1">E</span> <span class="free">C</span>›</span></span> 
+    <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> particular_affirmation_def universal_denial_def<span class="main">)</span>
+<span class="keyword1"><span class="command">qed</span></span>
+
+<span class="keyword1"><span class="command">text</span></span><span class="quoted"><span class="plain_text">‹It is already evident from the proofs in the previous subsection that:
 
 Camestres can be reduced to Cesare.
 
 Cesare can be reduced to Celarent.
 
-Festino can be reduced to Ferio.›</span></span></span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Ferio_reducedto_Cesare</span><span class="delimiter">:</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span>
-</span><span>  </span><span class="string"><span class="delete"><span class="delete">"A E B "</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"B I C"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"A Q C  "</span></span></span><span> </span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(*assms, concl. of Ferio  and A Q C *)</span></span></span></span></span><span>
-</span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"A Z C"</span></span></span><span>
-</span><span> </span><span class="keyword1"><span class="command">proof</span></span><span>-</span><span>
-</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"B E C"</span></span></span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>Cesare</span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹A E B ›</span></span></span><span>  </span><span class="cartouche"><span class="delete"><span class="delete">‹A Q C›</span></span></span><span>  </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
-</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">using</span></span><span>  </span><span class="cartouche"><span class="delete"><span class="delete">‹B I C ›</span></span></span><span>  </span><span class="cartouche"><span class="delete"><span class="delete">‹B E C›</span></span></span><span>
-</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>particular_affirmation_def</span><span> </span><span>universal_denial_def</span><span class="delimiter">)</span><span>
-</span><span class="keyword1"><span class="command">qed</span></span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Baroco_reducedto_Barbara</span><span> </span><span class="delimiter">:</span><span>
-</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"A Q B "</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">" A Z C  "</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">" B Q C "</span></span></span><span> 
-</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"B Z C"</span></span></span><span> </span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(*assms , concl. of Baroco and  B Q C *)</span></span></span></span></span><span>
-</span><span class="keyword1"><span class="command">proof</span></span><span>-</span><span>
-</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"A Q C"</span></span></span><span> </span><span class="keyword1"><span class="command">using</span></span><span>  </span><span class="cartouche"><span class="delete"><span class="delete">‹A Q B ›</span></span></span><span>  </span><span class="cartouche"><span class="delete"><span class="delete">‹ B Q C ›</span></span></span><span> </span><span>Barbara</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
-</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">using</span></span><span>  </span><span class="cartouche"><span class="delete"><span class="delete">‹A Q C›</span></span></span><span>  </span><span class="cartouche"><span class="delete"><span class="delete">‹ A Z C ›</span></span></span><span>
-</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>particular_denial_def</span><span> </span><span>universal_affirmation_def</span><span class="delimiter">)</span><span>
-</span><span class="keyword1"><span class="command">qed</span></span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">lemma</span></span><span> </span><span>Bocardo_reducedto_Barbara</span><span> </span><span class="delimiter">:</span><span>
-</span><span>  </span><span class="keyword2"><span class="keyword">assumes</span></span><span> </span><span class="string"><span class="delete"><span class="delete">" A Z C"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"B Q C"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"A Q B"</span></span></span><span> 
-</span><span>  </span><span class="keyword2"><span class="keyword">shows</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"A Z B"</span></span></span><span> </span><span class="comment"><span class="delete"><span class="delete"><span class="delete"><span class="delete">(*assms, concl of Bocardo and A Q B *)</span></span></span></span></span><span>
-</span><span class="keyword1"><span class="command">proof</span></span><span>-</span><span>
-</span><span>  </span><span class="keyword1"><span class="command">have</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"A Q C"</span></span></span><span> </span><span class="keyword1"><span class="command">using</span></span><span>  </span><span class="cartouche"><span class="delete"><span class="delete">‹B Q C›</span></span></span><span>  </span><span class="cartouche"><span class="delete"><span class="delete">‹ A Q B›</span></span></span><span> </span><span class="keyword1"><span class="command">using</span></span><span> </span><span>Barbara</span><span> </span><span class="keyword1"><span class="command">by</span></span><span> </span><span>blast</span><span>
-</span><span>  </span><span class="keyword3"><span class="command">show</span></span><span> </span><span class="var">?thesis</span><span> </span><span class="keyword1"><span class="command">using</span></span><span>  </span><span class="cartouche"><span class="delete"><span class="delete">‹A Q C›</span></span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹ A Z C›</span></span></span><span> 
-</span><span>    </span><span class="keyword1"><span class="command">by</span></span><span> </span><span class="delimiter">(</span><span>simp</span><span> </span><span>add</span><span class="delimiter">:</span><span> </span><span>particular_denial_def</span><span> </span><span>universal_affirmation_def</span><span class="delimiter">)</span><span>
-</span><span class="keyword1"><span class="command">qed</span></span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Finally, it is already evident from the proofs in the previous subsection that :
+Festino can be reduced to Ferio.›</span></span>
+
+<span class="keyword1"><span class="command">lemma</span></span> Ferio_reducedto_Cesare<span class="main">:</span>  <span class="keyword2"><span class="keyword">assumes</span></span>
+  <span class="quoted"><span class="quoted">"<span class="free">A</span> <span class="keyword1">E</span> <span class="free">B</span> "</span></span> <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"<span class="free">B</span> <span class="keyword1">I</span> <span class="free">C</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"<span class="free">A</span> <span class="keyword1">Q</span> <span class="free">C</span>  "</span></span> <span class="comment1">(*assms, concl. of Ferio  and A Q C *)</span>
+<span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="free">A</span> <span class="keyword1">Z</span> <span class="free">C</span>"</span></span>
+ <span class="keyword1"><span class="command">proof</span></span><span class="operator">-</span>
+  <span class="keyword1"><span class="command">have</span></span> <span class="quoted"><span class="quoted">"<span class="free">B</span> <span class="keyword1">E</span> <span class="free">C</span>"</span></span> <span class="keyword1"><span class="command">using</span></span> Cesare <span class="quoted"><span class="quoted">‹<span class="free">A</span> <span class="keyword1">E</span> <span class="free">B</span> ›</span></span>  <span class="quoted"><span class="quoted">‹<span class="free">A</span> <span class="keyword1">Q</span> <span class="free">C</span>›</span></span>  <span class="keyword1"><span class="command">by</span></span> <span class="operator">blast</span>
+  <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span> <span class="keyword1"><span class="command">using</span></span>  <span class="quoted"><span class="quoted">‹<span class="free">B</span> <span class="keyword1">I</span> <span class="free">C</span> ›</span></span>  <span class="quoted"><span class="quoted">‹<span class="free">B</span> <span class="keyword1">E</span> <span class="free">C</span>›</span></span>
+    <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> particular_affirmation_def universal_denial_def<span class="main">)</span>
+<span class="keyword1"><span class="command">qed</span></span>
+
+<span class="keyword1"><span class="command">lemma</span></span> Baroco_reducedto_Barbara <span class="main">:</span>
+  <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">A</span> <span class="keyword1">Q</span> <span class="free">B</span> "</span></span> <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">" <span class="free">A</span> <span class="keyword1">Z</span> <span class="free">C</span>  "</span></span> <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">" <span class="free">B</span> <span class="keyword1">Q</span> <span class="free">C</span> "</span></span> 
+  <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="free">B</span> <span class="keyword1">Z</span> <span class="free">C</span>"</span></span> <span class="comment1">(*assms , concl. of Baroco and  B Q C *)</span>
+<span class="keyword1"><span class="command">proof</span></span><span class="operator">-</span>
+  <span class="keyword1"><span class="command">have</span></span> <span class="quoted"><span class="quoted">"<span class="free">A</span> <span class="keyword1">Q</span> <span class="free">C</span>"</span></span> <span class="keyword1"><span class="command">using</span></span>  <span class="quoted"><span class="quoted">‹<span class="free">A</span> <span class="keyword1">Q</span> <span class="free">B</span> ›</span></span>  <span class="quoted"><span class="quoted">‹ <span class="free">B</span> <span class="keyword1">Q</span> <span class="free">C</span> ›</span></span> Barbara <span class="keyword1"><span class="command">by</span></span> <span class="operator">blast</span>
+  <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span> <span class="keyword1"><span class="command">using</span></span>  <span class="quoted"><span class="quoted">‹<span class="free">A</span> <span class="keyword1">Q</span> <span class="free">C</span>›</span></span>  <span class="quoted"><span class="quoted">‹ <span class="free">A</span> <span class="keyword1">Z</span> <span class="free">C</span> ›</span></span>
+    <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> particular_denial_def universal_affirmation_def<span class="main">)</span>
+<span class="keyword1"><span class="command">qed</span></span>
+
+<span class="keyword1"><span class="command">lemma</span></span> Bocardo_reducedto_Barbara <span class="main">:</span>
+  <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">" <span class="free">A</span> <span class="keyword1">Z</span> <span class="free">C</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"<span class="free">B</span> <span class="keyword1">Q</span> <span class="free">C</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"<span class="free">A</span> <span class="keyword1">Q</span> <span class="free">B</span>"</span></span> 
+  <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="free">A</span> <span class="keyword1">Z</span> <span class="free">B</span>"</span></span> <span class="comment1">(*assms, concl of Bocardo and A Q B *)</span>
+<span class="keyword1"><span class="command">proof</span></span><span class="operator">-</span>
+  <span class="keyword1"><span class="command">have</span></span> <span class="quoted"><span class="quoted">"<span class="free">A</span> <span class="keyword1">Q</span> <span class="free">C</span>"</span></span> <span class="keyword1"><span class="command">using</span></span>  <span class="quoted"><span class="quoted">‹<span class="free">B</span> <span class="keyword1">Q</span> <span class="free">C</span>›</span></span>  <span class="quoted"><span class="quoted">‹ <span class="free">A</span> <span class="keyword1">Q</span> <span class="free">B</span>›</span></span> <span class="keyword1"><span class="command">using</span></span> Barbara <span class="keyword1"><span class="command">by</span></span> <span class="operator">blast</span>
+  <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span> <span class="keyword1"><span class="command">using</span></span>  <span class="quoted"><span class="quoted">‹<span class="free">A</span> <span class="keyword1">Q</span> <span class="free">C</span>›</span></span> <span class="quoted"><span class="quoted">‹ <span class="free">A</span> <span class="keyword1">Z</span> <span class="free">C</span>›</span></span> 
+    <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> particular_denial_def universal_affirmation_def<span class="main">)</span>
+<span class="keyword1"><span class="command">qed</span></span>
+
+<span class="keyword1"><span class="command">text</span></span><span class="quoted"><span class="plain_text">‹Finally, it is already evident from the proofs in the previous subsection that :
 
  Darapti can be reduced to Darii.
 
@@ -288,9 +286,9 @@ Festino can be reduced to Ferio.›</span></span></span><span>
 
  Datisi can be reduced to Disamis. 
 
- Ferison can be reduced to Ferio. ›</span></span></span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹In conclusion, the aforementioned deductions have thus been shown to be reduced to either 
+ Ferison can be reduced to Ferio. ›</span></span>
+
+<span class="keyword1"><span class="command">text</span></span><span class="quoted"><span class="plain_text">‹In conclusion, the aforementioned deductions have thus been shown to be reduced to either 
 Barbara or Celarent as follows:
 
 Baroco  $\Rightarrow$ Barbara 
@@ -304,24 +302,23 @@ Datisi $\Rightarrow$ Disamis $\Rightarrow$ Darii $\Rightarrow$ Camestres $\Right
 Darapti $\Rightarrow$ Darii 
 
 Ferison $\Rightarrow$ Ferio 
-›</span></span></span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">subsection</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Acknowledgements›</span></span></span><span>
-</span><span> 
-</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹A.K.-A. was supported by the ERC Advanced Grant ALEXANDRIA (Project 742178)
+›</span></span>
+
+<span class="keyword1"><span class="command">subsection</span></span><span class="quoted"><span class="plain_text">‹Acknowledgements›</span></span>
+ 
+<span class="keyword1"><span class="command">text</span></span><span class="quoted"><span class="plain_text">‹A.K.-A. was supported by the ERC Advanced Grant ALEXANDRIA (Project 742178)
  funded by the European Research Council and led by Professor Lawrence Paulson
- at the University of Cambridge, UK. Thanks to Wenda Li.›</span></span></span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">subsection</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Bibliography›</span></span></span><span>
-</span><span class="keyword1"><span class="command">text</span></span><span class="cartouche"><span class="delete"><span class="delete">‹Smith, Robin, "Aristotle’s Logic", 
+ at the University of Cambridge, UK. Thanks to Wenda Li.›</span></span>
+
+<span class="keyword1"><span class="command">subsection</span></span><span class="quoted"><span class="plain_text">‹Bibliography›</span></span>
+<span class="keyword1"><span class="command">text</span></span><span class="quoted"><span class="plain_text">‹Smith, Robin, "Aristotle’s Logic", 
 The Stanford Encyclopedia of Philosophy (Summer 2019 Edition),
-Edward N. Zalta (ed.), URL = @{url "https://plato.stanford.edu/archives/sum2019/entries/aristotle-logic/"}
-›</span></span></span><span>
-</span><span>
-</span><span class="keyword2"><span class="keyword">end</span></span><span>
-</span><span>
-</span></pre>
-</div>
+Edward N. Zalta (ed.), URL = <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><span class="antiquote">@{</span></span><span class="operator"><span class="operator">url</span></span> "https://plato.stanford.edu/archives/sum2019/entries/aristotle-logic/"<span class="antiquote"><span class="antiquote">}</span></span></span></span>
+›</span></span>
+
+<span class="keyword2"><span class="keyword">end</span></span>
+
+</pre>
 </div>
   
 </main>

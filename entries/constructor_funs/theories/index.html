@@ -36,6 +36,7 @@
     <hr>
     <ul>
       <a href="#Constructor_Funs"><li>Constructor_Funs</li></a>
+      <a href="#files%2fconstructor_funs.ML"><li>files/constructor_funs.ML</li></a>
       <a href="#Test_Constructor_Funs"><li>Test_Constructor_Funs</li></a>
     </ul>
   </div>
@@ -69,118 +70,300 @@
 </header><div><main>
   
   <div id="Constructor_Funs">
-<div class="head"><h1>Theory Constructor_Funs</h1>
-<span class="command">theory</span> <span class="name">Constructor_Funs</span><br/>
-<span class="keyword">imports</span> <a href="../../HOL/HOL/Main.html"><span class="name">Main</span></a><br/>
+<div class="head">
+<h1>Theory Constructor_Funs</h1>
 </div>
-<div class="source">
-<pre class="source"><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Introduction›</span></span></span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Constructor_Funs</span><span>
-</span><span>  </span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>Main</span><span>
-</span><span>  </span><span class="keyword2"><span class="keyword">keywords</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"constructor_funs"</span></span></span><span> </span><span class="delimiter">::</span><span> </span><span>thy_decl</span><span>
-</span><span class="keyword2"><span class="keyword">begin</span></span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+<pre class="source"><span class="keyword1"><span class="command">section</span></span> <span class="quoted"><span class="plain_text">‹Introduction›</span></span>
+
+<span class="keyword1"><span class="command">theory</span></span> Constructor_Funs
+  <span class="keyword2"><span class="keyword">imports</span></span> <a href="../../HOL/HOL/Main.html">Main</a>
+  <span class="keyword2"><span class="keyword">keywords</span></span> <span class="quoted">"constructor_funs"</span> <span class="main">::</span> thy_decl
+<span class="keyword2"><span class="keyword">begin</span></span>
+
+<span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹
   Importing this theory adds a preprocessing step to the code generator: All datatype constructors
   are replaced by functions, and all constructor calls are replaced by function calls. For example,
-  for the @{const Suc} constructor of @{const nat}, a new constant with the same type and the
-  definition @{term ‹suc' n = Suc n›} is created. Then, all instances of @{const Suc} (except for
+  for the <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><span class="antiquote">@{</span></span><span class="operator"><span class="operator">const</span></span> Suc<span class="antiquote"><span class="antiquote">}</span></span></span></span> constructor of <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><span class="antiquote">@{</span></span><span class="operator"><span class="operator">const</span></span> nat<span class="antiquote"><span class="antiquote">}</span></span></span></span>, a new constant with the same type and the
+  definition <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><span class="antiquote">@{</span></span><span class="operator"><span class="operator">term</span></span> <span class="quoted"><span class="quoted">‹<span class="free"><span class="free">suc'</span></span> <span class="free"><span class="free">n</span></span> <span class="main"><span class="main">=</span></span> Suc <span class="free"><span class="free">n</span></span>›</span></span><span class="antiquote"><span class="antiquote">}</span></span></span></span> is created. Then, all instances of <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><span class="antiquote">@{</span></span><span class="operator"><span class="operator">const</span></span> Suc<span class="antiquote"><span class="antiquote">}</span></span></span></span> (except for
   in the constructor functions themselves) are replaced. Note that the constructor functions are
   defined in eta-long form.
 
-  Note that this does not affect constructors declared by @{command code_datatype}, only
-  @{command datatype} (and @{command free_constructors}).
+  Note that this does not affect constructors declared by <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><span class="antiquote">@{</span></span><span class="operator"><span class="operator">command</span></span> code_datatype<span class="antiquote"><span class="antiquote">}</span></span></span></span>, only
+  <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><span class="antiquote">@{</span></span><span class="operator"><span class="operator">command</span></span> datatype<span class="antiquote"><span class="antiquote">}</span></span></span></span> (and <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><span class="antiquote">@{</span></span><span class="operator"><span class="operator">command</span></span> free_constructors<span class="antiquote"><span class="antiquote">}</span></span></span></span>).
 
   The motivation for doing this is to avoid target-specific lambda-insertion by the code generator.
   In some target languages, constructors cannot be used as functions. As a consequence, terms like
-  @{term ‹map Suc xs›} have to be printed as ‹map (fn x =&gt; Suc x) xs)›. This entails generation of
+  <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><span class="antiquote">@{</span></span><span class="operator"><span class="operator">term</span></span> <span class="quoted"><span class="quoted">‹map Suc <span class="free"><span class="free">xs</span></span>›</span></span><span class="antiquote"><span class="antiquote">}</span></span></span></span> have to be printed as <span class="antiquoted"><span class="raw_text"><span class="antiquoted"><span class="raw_text"><span class="operator"><span class="operator">‹</span></span>map (fn x =&gt; Suc x) xs)›</span></span></span></span>. This entails generation of
   fresh names outside of the proof kernel. The transformation provided by this theory ensures that
   all constructor calls are fully saturated. This makes supporting target languages that forbid
   partially-applied constructor calls much easier.
 
   The obvious downside is that this construction will usually degrade performance of generated code.
   To some extent, an optimising compiler that performs inlining can alleviate that.
-›</span></span></span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Setup›</span></span></span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">ML_file</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹constructor_funs.ML›</span></span></span><span>
-</span><span class="keyword1"><span class="command">setup</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Constructor_Funs.setup›</span></span></span><span>
-</span><span>
-</span><span class="keyword2"><span class="keyword">end</span></span><span>
-</span></pre>
+›</span></span>
+
+<span class="keyword1"><span class="command">section</span></span> <span class="quoted"><span class="plain_text">‹Setup›</span></span>
+
+<span class="keyword1"><span class="command">ML_file</span></span> <span class="quoted">‹constructor_funs.ML›</span>
+<span class="keyword1"><span class="command">setup</span></span> <span class="quoted">‹<span class="entity">Constructor_Funs.setup</span>›</span>
+
+<span class="keyword2"><span class="keyword">end</span></span>
+</pre>
+</div><div id="files/constructor_funs.ML">
+<div class="head">
+<h1>File ‹constructor_funs.ML›</h1>
 </div>
+<pre class="source"><span class="keyword1"><span class="keyword">signature</span></span> <span class="entity">CONSTRUCTOR_FUNS</span> <span class="main">=</span> <span class="keyword2"><span class="keyword">sig</span></span>
+  <span class="keyword1"><span class="keyword">val</span></span> mk_funs<span class="main">:</span> <span class="entity">Ctr_Sugar.ctr_sugar</span> <span class="main">-&gt;</span> local_theory <span class="main">-&gt;</span> local_theory
+  <span class="keyword1"><span class="keyword">val</span></span> mk_funs_typ<span class="main">:</span> typ <span class="main">-&gt;</span> local_theory <span class="main">-&gt;</span> local_theory
+  <span class="keyword1"><span class="keyword">val</span></span> mk_funs_cmd<span class="main">:</span> string <span class="main">-&gt;</span> local_theory <span class="main">-&gt;</span> local_theory
+
+  <span class="keyword1"><span class="keyword">val</span></span> enabled<span class="main">:</span> bool Config.T
+
+  <span class="keyword1"><span class="keyword">val</span></span> conv<span class="main">:</span> <span class="entity">Proof.context</span> <span class="main">-&gt;</span> conv
+
+  <span class="keyword1"><span class="keyword">val</span></span> constructor_funs_plugin<span class="main">:</span> string
+  <span class="keyword1"><span class="keyword">val</span></span> setup<span class="main">:</span> theory <span class="main">-&gt;</span> theory
+<span class="keyword2"><span class="keyword">end</span></span>
+
+<span class="keyword1"><span class="keyword">structure</span></span> <span class="entity">Constructor_Funs</span> <span class="main">:</span> <span class="entity">CONSTRUCTOR_FUNS</span> <span class="main">=</span> <span class="keyword2"><span class="keyword">struct</span></span>
+
+<span class="keyword1"><span class="keyword">val</span></span> <span class="entity">enabled</span> <span class="main">=</span> <span class="entity">Attrib.setup_config_bool</span> <span class="antiquoted"><span class="entity"><span class="antiquote">@{</span><span class="operator">binding</span> "constructor_funs"<span class="antiquote">}</span></span></span> <span class="main">(</span>K false<span class="main">)</span>
+
+<span class="keyword1"><span class="keyword">structure</span></span> <span class="entity">Data</span> <span class="main">=</span> Generic_Data
+<span class="main">(</span>
+  <span class="keyword1"><span class="keyword">type</span></span> <span class="entity">T</span> <span class="main">=</span> term list * <span class="main">(</span>int * thm<span class="main">)</span> list * Symtab.set
+  <span class="keyword1"><span class="keyword">val</span></span> <span class="entity">empty</span> <span class="main">=</span> <span class="main">(</span><span class="main">[</span><span class="main">]</span><span class="main">,</span> <span class="main">[</span><span class="main">]</span><span class="main">,</span> Symtab.empty<span class="main">)</span>
+  <span class="keyword1"><span class="keyword">fun</span></span> <span class="entity">merge</span> <span class="main">(</span><span class="main">(</span><span class="entity">ts1</span><span class="main">,</span> <span class="entity">unfolds1</span><span class="main">,</span> <span class="entity">s1</span><span class="main">)</span><span class="main">,</span> <span class="main">(</span><span class="entity">ts2</span><span class="main">,</span> <span class="entity">unfolds2</span><span class="main">,</span> <span class="entity">s2</span><span class="main">)</span><span class="main">)</span> <span class="main">=</span>
+    <span class="main">(</span><span class="entity">ts1</span> @ <span class="entity">ts2</span><span class="main">,</span> <span class="entity">unfolds1</span> @ <span class="entity">unfolds2</span><span class="main">,</span> Symtab.merge <span class="keyword1"><span class="keyword">op</span></span> <span class="main">=</span> <span class="main">(</span><span class="entity">s1</span><span class="main">,</span> <span class="entity">s2</span><span class="main">)</span><span class="main">)</span>
+  <span class="keyword1"><span class="keyword">val</span></span> <span class="entity">extend</span> <span class="main">=</span> I
+<span class="main">)</span>
+
+<span class="keyword1"><span class="keyword">fun</span></span> <span class="entity">lenient_unvarify</span> <span class="entity">t</span> <span class="main">=</span>
+  <span class="comment1">(* type variables in records are not schematic *)</span>
+  Logic.unvarify_global <span class="entity">t</span>
+    <span class="keyword3"><span class="keyword">handle</span></span> TERM <span class="main">_</span> <span class="main">=&gt;</span> <span class="entity">t</span>
+
+<span class="keyword1"><span class="keyword">fun</span></span> <span class="entity">mk_funs</span> <span class="main">{</span><span class="entity">T</span><span class="main">,</span> <span class="entity">ctrs</span><span class="main">,</span> <span class="main">...</span><span class="main">}</span> <span class="entity">lthy</span> <span class="main">=</span>
+  <span class="keyword2"><span class="keyword">let</span></span>
+    <span class="keyword1"><span class="keyword">val</span></span> <span class="entity">typ_name</span> <span class="main">=</span> fst <span class="main">(</span>dest_Type <span class="entity">T</span><span class="main">)</span>
+
+    <span class="keyword1"><span class="keyword">fun</span></span> <span class="entity">mk_fun</span> <span class="entity">ctr</span> <span class="entity">lthy</span> <span class="main">=</span>
+      <span class="keyword2"><span class="keyword">let</span></span>
+        <span class="keyword1"><span class="keyword">val</span></span> <span class="main">(</span><span class="entity">name</span><span class="main">,</span> <span class="entity">typ</span><span class="main">)</span> <span class="main">=</span> dest_Const <span class="main">(</span><span class="entity">lenient_unvarify</span> <span class="entity">ctr</span><span class="main">)</span>
+        <span class="keyword1"><span class="keyword">val</span></span> <span class="main">(</span><span class="entity">typs</span><span class="main">,</span> <span class="main">_</span><span class="main">)</span> <span class="main">=</span> strip_type <span class="entity">typ</span>
+        <span class="keyword1"><span class="keyword">val</span></span> <span class="entity">len</span> <span class="main">=</span> length <span class="entity">typs</span>
+      <span class="keyword2"><span class="keyword">in</span></span>
+        <span class="keyword2"><span class="keyword">if</span></span> <span class="entity">len</span> &gt; <span class="inner_numeral">0</span> <span class="keyword2"><span class="keyword">then</span></span>
+          <span class="keyword2"><span class="keyword">let</span></span>
+            <span class="keyword1"><span class="keyword">val</span></span> <span class="entity">base_name</span> <span class="main">=</span> Long_Name.base_name <span class="entity">name</span>
+            <span class="keyword1"><span class="keyword">val</span></span> <span class="entity">binding</span> <span class="main">=</span> Binding.name <span class="entity">base_name</span>
+            <span class="keyword1"><span class="keyword">val</span></span> <span class="entity">args</span> <span class="main">=</span> Name.invent_names <span class="main">(</span>Name.make_context <span class="main">[</span><span class="entity">base_name</span><span class="main">]</span><span class="main">)</span> Name.uu <span class="entity">typs</span> |&gt; map Free
+            <span class="keyword1"><span class="keyword">val</span></span> <span class="entity">lhs</span> <span class="main">=</span> list_comb <span class="main">(</span>Free <span class="main">(</span><span class="entity">base_name</span><span class="main">,</span> <span class="entity">typ</span><span class="main">)</span><span class="main">,</span> <span class="entity">args</span><span class="main">)</span>
+            <span class="keyword1"><span class="keyword">val</span></span> <span class="entity">rhs</span> <span class="main">=</span> list_comb <span class="main">(</span>Const <span class="main">(</span><span class="entity">name</span><span class="main">,</span> <span class="entity">typ</span><span class="main">)</span><span class="main">,</span> <span class="entity">args</span><span class="main">)</span>
+            <span class="keyword1"><span class="keyword">val</span></span> <span class="entity">def</span> <span class="main">=</span> Logic.mk_equals <span class="main">(</span><span class="entity">lhs</span><span class="main">,</span> <span class="entity">rhs</span><span class="main">)</span>
+            <span class="keyword1"><span class="keyword">val</span></span> <span class="main">(</span><span class="main">(</span><span class="entity">term</span><span class="main">,</span> <span class="main">(</span><span class="main">_</span><span class="main">,</span> <span class="entity">def_thm</span><span class="main">)</span><span class="main">)</span><span class="main">,</span> <span class="entity">lthy'</span><span class="main">)</span> <span class="main">=</span>
+              <span class="entity">Specification.definition</span> NONE <span class="main">[</span><span class="main">]</span> <span class="main">[</span><span class="main">]</span> <span class="main">(</span><span class="main">(</span><span class="entity">binding</span><span class="main">,</span> <span class="main">[</span><span class="main">]</span><span class="main">)</span><span class="main">,</span> <span class="entity">def</span><span class="main">)</span> <span class="entity">lthy</span>
+            <span class="keyword1"><span class="keyword">val</span></span> <span class="entity">unfold_thm</span> <span class="main">=</span> <span class="antiquoted"><span class="entity"><span class="antiquote">@{</span><span class="operator">thm</span> Pure.symmetric<span class="antiquote">}</span></span></span> OF <span class="main">[</span>Local_Defs.abs_def_rule <span class="entity">lthy'</span> <span class="entity">def_thm</span><span class="main">]</span>
+          <span class="keyword2"><span class="keyword">in</span></span>
+            <span class="main">(</span>SOME <span class="main">(</span><span class="entity">term</span><span class="main">,</span> <span class="main">(</span><span class="entity">len</span><span class="main">,</span> <span class="entity">unfold_thm</span><span class="main">)</span><span class="main">)</span><span class="main">,</span> <span class="entity">lthy'</span><span class="main">)</span>
+          <span class="keyword2"><span class="keyword">end</span></span>
+        <span class="keyword2"><span class="keyword">else</span></span>
+          <span class="main">(</span>NONE<span class="main">,</span> <span class="entity">lthy</span><span class="main">)</span>
+      <span class="keyword2"><span class="keyword">end</span></span>
+
+    <span class="keyword1"><span class="keyword">fun</span></span> <span class="entity">morph_unfold</span> <span class="entity">phi</span> <span class="main">(</span><span class="entity">len</span><span class="main">,</span> <span class="entity">thm</span><span class="main">)</span> <span class="main">=</span> <span class="main">(</span><span class="entity">len</span><span class="main">,</span> Morphism.thm <span class="entity">phi</span> <span class="entity">thm</span><span class="main">)</span>
+
+    <span class="keyword1"><span class="keyword">fun</span></span> <span class="entity">upd</span> <span class="main">(</span><span class="entity">ts'</span><span class="main">,</span> <span class="entity">unfolds'</span><span class="main">)</span> <span class="main">=</span>
+      Local_Theory.declaration <span class="main">{</span>syntax <span class="main">=</span> false<span class="main">,</span> pervasive <span class="main">=</span> true<span class="main">}</span>
+        <span class="main">(</span><span class="keyword1"><span class="keyword">fn</span></span> <span class="entity">phi</span> <span class="main">=&gt;</span>
+          Data.map <span class="main">(</span><span class="keyword1"><span class="keyword">fn</span></span> <span class="main">(</span><span class="entity">ts</span><span class="main">,</span> <span class="entity">unfolds</span><span class="main">,</span> <span class="entity">s</span><span class="main">)</span> <span class="main">=&gt;</span>
+            <span class="main">(</span>map <span class="main">(</span>Morphism.term <span class="entity">phi</span><span class="main">)</span> <span class="entity">ts'</span> @ <span class="entity">ts</span><span class="main">,</span>
+             map <span class="main">(</span><span class="entity">morph_unfold</span> <span class="entity">phi</span><span class="main">)</span> <span class="entity">unfolds'</span> @ <span class="entity">unfolds</span><span class="main">,</span>
+             Symtab.update_new <span class="main">(</span><span class="entity">typ_name</span><span class="main">,</span> <span class="main">(</span><span class="main">)</span><span class="main">)</span> <span class="entity">s</span><span class="main">)</span><span class="main">)</span><span class="main">)</span>
+
+    <span class="keyword1"><span class="keyword">val</span></span> <span class="entity">exists</span> <span class="main">=</span> Symtab.defined <span class="main">(</span><span class="main">#</span><span class="inner_numeral">3</span> <span class="main">(</span>Data.get <span class="main">(</span>Context.Proof <span class="entity">lthy</span><span class="main">)</span><span class="main">)</span><span class="main">)</span> <span class="entity">typ_name</span>
+    <span class="keyword1"><span class="keyword">val</span></span> <span class="entity">warn</span> <span class="main">=</span> Pretty.separate <span class="inner_quoted">""</span> <span class="main">[</span>Syntax.pretty_typ <span class="entity">lthy</span> <span class="entity">T</span><span class="main">,</span> Pretty.str <span class="inner_quoted">"already processed"</span><span class="main">]</span>
+      |&gt; Pretty.block
+    <span class="keyword1"><span class="keyword">val</span></span> <span class="main">_</span> <span class="main">=</span> <span class="keyword2"><span class="keyword">if</span></span> <span class="entity">exists</span> <span class="keyword2"><span class="keyword">then</span></span> warning <span class="main">(</span>Pretty.string_of <span class="entity">warn</span><span class="main">)</span> <span class="keyword2"><span class="keyword">else</span></span> <span class="main">(</span><span class="main">)</span>
+  <span class="keyword2"><span class="keyword">in</span></span>
+    <span class="keyword2"><span class="keyword">if</span></span> <span class="entity">exists</span> <span class="keyword2"><span class="keyword">then</span></span>
+      <span class="entity">lthy</span>
+    <span class="keyword2"><span class="keyword">else</span></span>
+      <span class="main">(</span>snd o Local_Theory.begin_nested<span class="main">)</span> <span class="entity">lthy</span>
+      |&gt; Proof_Context.concealed
+      |&gt; Local_Theory.map_background_naming
+          <span class="main">(</span>Name_Space.mandatory_path <span class="entity">typ_name</span> #&gt; Name_Space.mandatory_path <span class="inner_quoted">"constructor_fun"</span><span class="main">)</span>
+      |&gt; fold_map <span class="entity">mk_fun</span> <span class="entity">ctrs</span>
+      |&gt;&gt; map_filter I |&gt;&gt; split_list
+      |-&gt; <span class="entity">upd</span>
+      |&gt; Local_Theory.end_nested
+    <span class="keyword2"><span class="keyword">end</span></span>
+
+<span class="keyword1"><span class="keyword">fun</span></span> <span class="entity">mk_funs_typ</span> <span class="entity">typ</span> <span class="entity">lthy</span> <span class="main">=</span>
+  <span class="entity">mk_funs</span> <span class="main">(</span>the <span class="main">(</span><span class="entity">Ctr_Sugar.ctr_sugar_of</span> <span class="entity">lthy</span> <span class="main">(</span>fst <span class="main">(</span>dest_Type <span class="entity">typ</span><span class="main">)</span><span class="main">)</span><span class="main">)</span><span class="main">)</span> <span class="entity">lthy</span>
+
+<span class="keyword1"><span class="keyword">fun</span></span> <span class="entity">mk_funs_cmd</span> <span class="entity">s</span> <span class="entity">lthy</span> <span class="main">=</span>
+  <span class="entity">mk_funs_typ</span> <span class="main">(</span>Proof_Context.read_type_name <span class="main">{</span>proper <span class="main">=</span> true<span class="main">,</span> strict <span class="main">=</span> false<span class="main">}</span> <span class="entity">lthy</span> <span class="entity">s</span><span class="main">)</span> <span class="entity">lthy</span>
+
+<span class="keyword1"><span class="keyword">fun</span></span> <span class="entity">comb_conv</span> <span class="entity">ctxt</span> <span class="entity">cv1</span> <span class="entity">cv2</span> <span class="entity">ct</span> <span class="main">=</span>
+  <span class="keyword2"><span class="keyword">let</span></span>
+    <span class="keyword1"><span class="keyword">val</span></span> <span class="main">(</span><span class="entity">f</span><span class="main">,</span> <span class="entity">xs</span><span class="main">)</span> <span class="main">=</span> strip_comb <span class="main">(</span>Thm.term_of <span class="entity">ct</span><span class="main">)</span>
+    <span class="keyword1"><span class="keyword">val</span></span> <span class="entity">f</span> <span class="main">=</span> Thm.cterm_of <span class="entity">ctxt</span> <span class="entity">f</span>
+    <span class="keyword1"><span class="keyword">val</span></span> <span class="entity">xs</span> <span class="main">=</span> map <span class="main">(</span>Thm.cterm_of <span class="entity">ctxt</span><span class="main">)</span> <span class="entity">xs</span>
+    <span class="keyword1"><span class="keyword">val</span></span> <span class="entity">f'</span> <span class="main">=</span> <span class="entity">cv1</span> <span class="entity">f</span>
+    <span class="keyword1"><span class="keyword">val</span></span> <span class="entity">xs'</span> <span class="main">=</span> map <span class="entity">cv2</span> <span class="entity">xs</span>
+  <span class="keyword2"><span class="keyword">in</span></span>
+    fold <span class="main">(</span><span class="keyword1"><span class="keyword">fn</span></span> <span class="entity">x</span> <span class="main">=&gt;</span> <span class="keyword1"><span class="keyword">fn</span></span> <span class="entity">f</span> <span class="main">=&gt;</span> Thm.combination <span class="entity">f</span> <span class="entity">x</span><span class="main">)</span> <span class="entity">xs'</span> <span class="entity">f'</span>
+  <span class="keyword2"><span class="keyword">end</span></span>
+
+<span class="keyword1"><span class="keyword">fun</span></span> <span class="entity">conv</span> <span class="entity">ctxt</span> <span class="main">=</span>
+  <span class="keyword2"><span class="keyword">let</span></span>
+    <span class="keyword1"><span class="keyword">val</span></span> <span class="main">(</span><span class="main">_</span><span class="main">,</span> <span class="entity">unfolds</span><span class="main">,</span> <span class="main">_</span><span class="main">)</span> <span class="main">=</span> Data.get <span class="main">(</span>Context.Proof <span class="entity">ctxt</span><span class="main">)</span>
+    <span class="keyword1"><span class="keyword">val</span></span> <span class="entity">unfolds</span> <span class="main">=</span> map <span class="main">(</span>apsnd <span class="main">(</span>Thm.transfer' <span class="entity">ctxt</span><span class="main">)</span><span class="main">)</span> <span class="entity">unfolds</span>
+
+    <span class="keyword1"><span class="keyword">fun</span></span> <span class="entity">full_conv</span> <span class="entity">ct</span> <span class="main">=</span>
+      <span class="keyword2"><span class="keyword">let</span></span>
+        <span class="keyword1"><span class="keyword">val</span></span> <span class="main">(</span><span class="main">_</span><span class="main">,</span> <span class="entity">xs</span><span class="main">)</span> <span class="main">=</span> strip_comb <span class="main">(</span>Thm.term_of <span class="entity">ct</span><span class="main">)</span>
+        <span class="keyword1"><span class="keyword">val</span></span> <span class="entity">actual_len</span> <span class="main">=</span> length <span class="entity">xs</span>
+
+        <span class="keyword1"><span class="keyword">fun</span></span> <span class="entity">head_conv</span> <span class="entity">ct</span> <span class="main">=</span>
+          <span class="keyword2"><span class="keyword">let</span></span>
+            <span class="keyword1"><span class="keyword">fun</span></span> <span class="entity">can_rewrite</span> <span class="main">(</span><span class="entity">len</span><span class="main">,</span> <span class="entity">thm</span><span class="main">)</span> <span class="main">=</span> Option.map <span class="main">(</span>pair <span class="entity">len</span><span class="main">)</span> <span class="main">(</span>try <span class="main">(</span>Conv.rewr_conv <span class="entity">thm</span><span class="main">)</span> <span class="entity">ct</span><span class="main">)</span>
+            <span class="keyword1"><span class="keyword">val</span></span> <span class="main">_</span> <span class="main">=</span> get_first <span class="entity">can_rewrite</span> <span class="entity">unfolds</span>
+          <span class="keyword2"><span class="keyword">in</span></span>
+            <span class="keyword2"><span class="keyword">case</span></span> get_first <span class="entity">can_rewrite</span> <span class="entity">unfolds</span> <span class="keyword2"><span class="keyword">of</span></span>
+              NONE <span class="main">=&gt;</span> Conv.all_conv <span class="entity">ct</span>
+            <span class="main">|</span> SOME <span class="main">(</span><span class="entity">target_len</span><span class="main">,</span> <span class="entity">thm</span><span class="main">)</span> <span class="main">=&gt;</span>
+                <span class="keyword2"><span class="keyword">if</span></span> <span class="entity">target_len</span> <span class="main">=</span> <span class="entity">actual_len</span> <span class="keyword2"><span class="keyword">then</span></span>
+                  Conv.all_conv <span class="entity">ct</span>
+                <span class="keyword2"><span class="keyword">else</span></span>
+                  <span class="entity">thm</span>
+          <span class="keyword2"><span class="keyword">end</span></span>
+      <span class="keyword2"><span class="keyword">in</span></span>
+        <span class="entity">comb_conv</span> <span class="entity">ctxt</span> <span class="entity">head_conv</span> <span class="entity">full_conv</span> <span class="entity">ct</span>
+      <span class="keyword2"><span class="keyword">end</span></span>
+  <span class="keyword2"><span class="keyword">in</span></span>
+    <span class="entity">full_conv</span>
+  <span class="keyword2"><span class="keyword">end</span></span>
+
+<span class="keyword1"><span class="keyword">fun</span></span> <span class="entity">functrans</span> <span class="entity">ctxt</span> <span class="entity">thms</span> <span class="main">=</span>
+  <span class="keyword2"><span class="keyword">let</span></span>
+    <span class="keyword1"><span class="keyword">val</span></span> <span class="main">(</span><span class="entity">consts</span><span class="main">,</span> <span class="main">_</span><span class="main">,</span> <span class="main">_</span><span class="main">)</span> <span class="main">=</span> Data.get <span class="main">(</span>Context.Proof <span class="entity">ctxt</span><span class="main">)</span>
+    <span class="keyword1"><span class="keyword">val</span></span> <span class="entity">conv</span> <span class="main">=</span> Conv.arg_conv <span class="main">(</span><span class="entity">conv</span> <span class="entity">ctxt</span><span class="main">)</span>
+
+    <span class="keyword1"><span class="keyword">fun</span></span> <span class="entity">apply_conv</span> <span class="entity">thm</span> <span class="main">=</span>
+      <span class="keyword2"><span class="keyword">let</span></span>
+        <span class="keyword1"><span class="keyword">val</span></span> <span class="entity">thm'</span> <span class="main">=</span> Conv.fconv_rule <span class="entity">conv</span> <span class="entity">thm</span>
+        <span class="keyword1"><span class="keyword">val</span></span> <span class="entity">prop</span> <span class="main">=</span> Thm.prop_of <span class="entity">thm</span>
+
+        <span class="keyword1"><span class="keyword">val</span></span> <span class="entity">head</span> <span class="main">=</span> Logic.dest_equals <span class="entity">prop</span> |&gt; fst |&gt; strip_comb |&gt; fst
+        <span class="keyword1"><span class="keyword">val</span></span> <span class="entity">protected</span> <span class="main">=</span>
+          exists <span class="main">(</span><span class="keyword1"><span class="keyword">fn</span></span> <span class="entity">const</span> <span class="main">=&gt;</span> Pattern.matches <span class="main">(</span>Proof_Context.theory_of <span class="entity">ctxt</span><span class="main">)</span> <span class="main">(</span><span class="entity">const</span><span class="main">,</span> <span class="entity">head</span><span class="main">)</span><span class="main">)</span> <span class="entity">consts</span>
+      <span class="keyword2"><span class="keyword">in</span></span>
+        <span class="keyword2"><span class="keyword">if</span></span> <span class="entity">protected</span> <span class="keyword1"><span class="keyword">orelse</span></span> Thm.prop_of <span class="entity">thm</span> aconv Thm.prop_of <span class="entity">thm'</span> <span class="keyword2"><span class="keyword">then</span></span>
+          <span class="main">(</span>false<span class="main">,</span> <span class="entity">thm</span><span class="main">)</span>
+        <span class="keyword2"><span class="keyword">else</span></span>
+          <span class="main">(</span>true<span class="main">,</span> <span class="entity">thm'</span><span class="main">)</span>
+      <span class="keyword2"><span class="keyword">end</span></span>
+
+    <span class="keyword1"><span class="keyword">val</span></span> <span class="main">(</span><span class="entity">changeds</span><span class="main">,</span> <span class="entity">thms'</span><span class="main">)</span> <span class="main">=</span> split_list <span class="main">(</span>map <span class="entity">apply_conv</span> <span class="entity">thms</span><span class="main">)</span>
+  <span class="keyword2"><span class="keyword">in</span></span>
+    <span class="keyword2"><span class="keyword">if</span></span> exists I <span class="entity">changeds</span> <span class="keyword2"><span class="keyword">then</span></span>
+      SOME <span class="entity">thms'</span>
+    <span class="keyword2"><span class="keyword">else</span></span>
+      NONE
+  <span class="keyword2"><span class="keyword">end</span></span>
+
+<span class="keyword1"><span class="keyword">val</span></span> <span class="entity">code_functrans</span> <span class="main">=</span> <span class="entity">Code_Preproc.simple_functrans</span> <span class="main">(</span><span class="keyword1"><span class="keyword">fn</span></span> <span class="entity">ctxt</span> <span class="main">=&gt;</span>
+  <span class="keyword2"><span class="keyword">if</span></span> Config.get <span class="entity">ctxt</span> <span class="entity">enabled</span> <span class="keyword2"><span class="keyword">then</span></span>
+    <span class="entity">functrans</span> <span class="entity">ctxt</span>
+  <span class="keyword2"><span class="keyword">else</span></span>
+    K NONE<span class="main">)</span>
+
+<span class="keyword1"><span class="keyword">val</span></span> <span class="entity">constructor_funs_plugin</span> <span class="main">=</span>
+  <span class="entity">Plugin_Name.declare_setup</span> <span class="antiquoted"><span class="entity"><span class="antiquote">@{</span><span class="operator">binding</span> constructor_funs<span class="antiquote">}</span></span></span>
+
+<span class="comment1">(** setup **)</span>
+
+<span class="keyword1"><span class="keyword">val</span></span> <span class="main">_</span> <span class="main">=</span>
+  <span class="entity">Outer_Syntax.local_theory</span>
+    <span class="antiquoted"><span class="entity"><span class="antiquote">@{</span><span class="operator">command_keyword</span> "<span class="keyword1">constructor_funs</span>"<span class="antiquote">}</span></span></span>
+    <span class="inner_quoted">"defines constructor functions for a datatype and sets up the code generator"</span>
+    <span class="main">(</span>Scan.repeat1 Args.embedded_inner_syntax &gt;&gt; fold <span class="entity">mk_funs_cmd</span><span class="main">)</span>
+
+<span class="keyword1"><span class="keyword">val</span></span> <span class="entity">setup</span> <span class="main">=</span>
+  <span class="entity">Code_Preproc.add_functrans</span> <span class="main">(</span><span class="inner_quoted">"constructor_funs"</span><span class="main">,</span> <span class="entity">code_functrans</span><span class="main">)</span>
+  #&gt; <span class="entity">Ctr_Sugar.ctr_sugar_interpretation</span> <span class="entity">constructor_funs_plugin</span> <span class="main">(</span><span class="entity">mk_funs_typ</span> o <span class="main">#</span>T<span class="main">)</span>
+
+<span class="keyword2"><span class="keyword">end</span></span></pre>
 </div><div id="Test_Constructor_Funs">
-<div class="head"><h1>Theory Test_Constructor_Funs</h1>
-<span class="command">theory</span> <span class="name">Test_Constructor_Funs</span><br/>
-<span class="keyword">imports</span> <a href="Constructor_Funs.html"><span class="name">Constructor_Funs</span></a><br/>
+<div class="head">
+<h1>Theory Test_Constructor_Funs</h1>
 </div>
-<div class="source">
-<pre class="source"><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Usage›</span></span></span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">theory</span></span><span> </span><span>Test_Constructor_Funs</span><span>
-</span><span class="keyword2"><span class="keyword">imports</span></span><span> </span><span>Constructor_Funs</span><span>
-</span><span class="keyword2"><span class="keyword">begin</span></span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
-  This entry provides a @{command datatype} plugin and a separate command.
+<pre class="source"><span class="keyword1"><span class="command">section</span></span> <span class="quoted"><span class="plain_text">‹Usage›</span></span>
+
+<span class="keyword1"><span class="command">theory</span></span> Test_Constructor_Funs
+<span class="keyword2"><span class="keyword">imports</span></span> <a href="Constructor_Funs.html">Constructor_Funs</a>
+<span class="keyword2"><span class="keyword">begin</span></span>
+
+<span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹
+  This entry provides a <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><span class="antiquote">@{</span></span><span class="operator"><span class="operator">command</span></span> datatype<span class="antiquote"><span class="antiquote">}</span></span></span></span> plugin and a separate command.
   The plugin runs by default on all defined datatypes, but it can be disabled individually:
-›</span></span></span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">datatype</span></span><span> </span><span class="delimiter">(</span><span>plugins</span><span> </span><span>del</span><span class="delimiter">:</span><span> </span><span class="string"><span class="delete"><span class="delete">"constructor_funs"</span></span></span><span class="delimiter">)</span><span> </span><span class="tfree">'a</span><span> </span><span>tree</span><span> </span><span class="delimiter">=</span><span> </span><span>Node</span><span> </span><span class="delimiter">|</span><span> </span><span>Fork</span><span> </span><span class="tfree">'a</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a tree list"</span></span></span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">context</span></span><span> </span><span class="keyword2"><span class="keyword">begin</span></span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
-  The @{command constructor_funs} command can be used to add constructor functions if the plugin has
+›</span></span>
+
+<span class="keyword1"><span class="command">datatype</span></span> <span class="main">(</span><span class="quasi_keyword">plugins</span> <span class="quasi_keyword">del</span><span class="main">:</span> <span class="quoted">"constructor_funs"</span><span class="main">)</span> <span class="tfree">'a</span> tree <span class="main">=</span> Node <span class="main">|</span> Fork <span class="tfree"><span class="quoted"><span class="tfree">'a</span></span></span> <span class="quoted"><span class="quoted">"<span class="tfree">'a</span> tree list"</span></span>
+
+<span class="keyword1"><span class="command">context</span></span> <span class="keyword2"><span class="keyword">begin</span></span>
+
+<span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹
+  The <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><span class="antiquote">@{</span></span><span class="operator"><span class="operator">command</span></span> constructor_funs<span class="antiquote"><span class="antiquote">}</span></span></span></span> command can be used to add constructor functions if the plugin has
   been disabled during datatype definition.
-›</span></span></span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">constructor_funs</span></span><span> </span><span>tree</span><span>
-</span><span>
-</span><span class="keyword2"><span class="keyword">end</span></span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Records are supported.›</span></span></span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">record</span></span><span> </span><span class="tfree">'a</span><span> </span><span>meep</span><span> </span><span class="delimiter">=</span><span>
-</span><span>  </span><span>field1</span><span> </span><span class="delimiter">::</span><span> </span><span class="tfree">'a</span><span>
-</span><span>  </span><span>field2</span><span> </span><span class="delimiter">::</span><span> </span><span>nat</span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Nested and mutual recursion are supported.›</span></span></span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">datatype</span></span><span>
-</span><span>  </span><span class="tfree">'a</span><span> </span><span>mlist1</span><span> </span><span class="delimiter">=</span><span> </span><span>MNil1</span><span> </span><span class="delimiter">|</span><span> </span><span>MCons1</span><span> </span><span class="tfree">'a</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a mlist2"</span></span></span><span> </span><span class="keyword2"><span class="keyword">and</span></span><span>
-</span><span>  </span><span class="tfree">'a</span><span> </span><span>mlist2</span><span> </span><span class="delimiter">=</span><span> </span><span>MNil2</span><span> </span><span class="delimiter">|</span><span> </span><span>MCons2</span><span> </span><span class="tfree">'a</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a mlist1"</span></span></span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">section</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹Examples›</span></span></span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">datatype</span></span><span> </span><span class="tfree">'a</span><span> </span><span>seq</span><span> </span><span class="delimiter">=</span><span> </span><span>Nil</span><span> </span><span class="delimiter">|</span><span> </span><span>Cons</span><span> </span><span class="tfree">'a</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a seq"</span></span></span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>app</span><span> </span><span class="delimiter">::</span><span> </span><span class="string"><span class="delete"><span class="delete">"'a seq ⇒ 'a seq ⇒ 'a seq"</span></span></span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
-</span><span class="string"><span class="delete"><span class="delete">"app Nil ys = ys"</span></span></span><span> </span><span class="delimiter">|</span><span>
-</span><span class="string"><span class="delete"><span class="delete">"app (Cons x xs) ys = Cons x (app xs ys)"</span></span></span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">fun</span></span><span> </span><span>map</span><span> </span><span class="keyword2"><span class="keyword">where</span></span><span>
-</span><span class="string"><span class="delete"><span class="delete">"map _ Nil = Nil"</span></span></span><span> </span><span class="delimiter">|</span><span>
-</span><span class="string"><span class="delete"><span class="delete">"map f (Cons x xs) = Cons (f x) (map f xs)"</span></span></span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">definition</span></span><span> </span><span class="string"><span class="delete"><span class="delete">"bla = map (Cons True) Nil"</span></span></span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">text</span></span><span> </span><span class="cartouche"><span class="delete"><span class="delete">‹
+›</span></span>
+
+<span class="keyword1"><span class="command">constructor_funs</span></span> tree
+
+<span class="keyword2"><span class="keyword">end</span></span>
+
+<span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹Records are supported.›</span></span>
+
+<span class="keyword1"><span class="command">record</span></span> <span class="tfree">'a</span> meep <span class="main">=</span>
+  field1 <span class="main">::</span> <span class="tfree"><span class="quoted"><span class="tfree">'a</span></span></span>
+  field2 <span class="main">::</span> <span class="quoted">nat</span>
+
+<span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹Nested and mutual recursion are supported.›</span></span>
+
+<span class="keyword1"><span class="command">datatype</span></span>
+  <span class="tfree">'a</span> mlist1 <span class="main">=</span> MNil1 <span class="main">|</span> MCons1 <span class="tfree"><span class="quoted"><span class="tfree">'a</span></span></span> <span class="quoted"><span class="quoted">"<span class="tfree">'a</span> mlist2"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
+  <span class="tfree">'a</span> mlist2 <span class="main">=</span> MNil2 <span class="main">|</span> MCons2 <span class="tfree"><span class="quoted"><span class="tfree">'a</span></span></span> <span class="quoted"><span class="quoted">"<span class="tfree">'a</span> mlist1"</span></span>
+
+<span class="keyword1"><span class="command">section</span></span> <span class="quoted"><span class="plain_text">‹Examples›</span></span>
+
+<span class="keyword1"><span class="command">datatype</span></span> <span class="tfree">'a</span> seq <span class="main">=</span> Nil <span class="main">|</span> Cons <span class="tfree"><span class="quoted"><span class="tfree">'a</span></span></span> <span class="quoted"><span class="quoted">"<span class="tfree">'a</span> seq"</span></span>
+
+<span class="keyword1"><span class="command">fun</span></span> <span class="entity">app</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="tfree">'a</span> seq <span class="main">⇒</span> <span class="tfree">'a</span> seq <span class="main">⇒</span> <span class="tfree">'a</span> seq"</span></span> <span class="keyword2"><span class="keyword">where</span></span>
+<span class="quoted"><span class="quoted">"<span class="free">app</span> Nil <span class="free"><span class="bound"><span class="entity">ys</span></span></span> <span class="main">=</span> <span class="free"><span class="bound"><span class="entity">ys</span></span></span>"</span></span> <span class="main">|</span>
+<span class="quoted"><span class="quoted">"<span class="free">app</span> <span class="main">(</span>Cons <span class="free"><span class="bound"><span class="entity">x</span></span></span> <span class="free"><span class="bound"><span class="entity">xs</span></span></span><span class="main">)</span> <span class="free"><span class="bound"><span class="entity">ys</span></span></span> <span class="main">=</span> Cons <span class="free"><span class="bound"><span class="entity">x</span></span></span> <span class="main">(</span><span class="free">app</span> <span class="free"><span class="bound"><span class="entity">xs</span></span></span> <span class="free"><span class="bound"><span class="entity">ys</span></span></span><span class="main">)</span>"</span></span>
+
+<span class="keyword1"><span class="command">fun</span></span> <span class="entity">map</span> <span class="keyword2"><span class="keyword">where</span></span>
+<span class="quoted"><span class="quoted">"<span class="free">map</span> <span class="main"><span class="bound"><span class="entity">_</span></span></span> Nil <span class="main">=</span> Nil"</span></span> <span class="main">|</span>
+<span class="quoted"><span class="quoted">"<span class="free">map</span> <span class="free"><span class="bound"><span class="entity">f</span></span></span> <span class="main">(</span>Cons <span class="free"><span class="bound"><span class="entity">x</span></span></span> <span class="free"><span class="bound"><span class="entity">xs</span></span></span><span class="main">)</span> <span class="main">=</span> Cons <span class="main">(</span><span class="free"><span class="bound"><span class="entity">f</span></span></span> <span class="free"><span class="bound"><span class="entity">x</span></span></span><span class="main">)</span> <span class="main">(</span><span class="free">map</span> <span class="free"><span class="bound"><span class="entity">f</span></span></span> <span class="free"><span class="bound"><span class="entity">xs</span></span></span><span class="main">)</span>"</span></span>
+
+<span class="keyword1"><span class="command">definition</span></span> <span class="quoted"><span class="quoted">"<span class="free">bla</span> <span class="main">=</span> map <span class="main">(</span>Cons True<span class="main">)</span> Nil"</span></span>
+
+<span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹
   The generated code never calls constructors directly, but only through regular functions. These
   functions are defined in eta-long form.
-›</span></span></span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">declare</span></span><span> </span><span class="delimiter">[</span><span class="delimiter">[</span><span class="string"><span class="delete"><span class="delete">"constructor_funs"</span></span></span><span class="delimiter">]</span><span class="delimiter">]</span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">export_code</span></span><span> </span><span>app</span><span> </span><span>bla</span><span> </span><span>plus_nat_inst.plus_nat</span><span> </span><span class="keyword2"><span class="keyword">in</span></span><span> </span><span>SML</span><span>
-</span><span>
-</span><span class="keyword1"><span class="command">export_code</span></span><span> </span><span>app</span><span> </span><span>bla</span><span> </span><span>plus_nat_inst.plus_nat</span><span> </span><span class="keyword2"><span class="keyword">checking</span></span><span> </span><span>SML</span><span> </span><span>Scala</span><span>
-</span><span>
-</span><span class="keyword2"><span class="keyword">end</span></span><span>
-</span></pre>
-</div>
+›</span></span>
+
+<span class="keyword1"><span class="command">declare</span></span> <span class="main">[</span><span class="main">[</span><span class="quoted"><span class="operator">"constructor_funs"</span></span><span class="main">]</span><span class="main">]</span>
+
+<span class="keyword1"><span class="command">export_code</span></span> <span class="quoted"><span class="quoted">app</span></span> <span class="quoted"><span class="quoted">bla</span></span> <span class="quoted"><span class="quoted">plus_nat_inst.plus_nat</span></span> <span class="keyword2"><span class="keyword">in</span></span> SML
+
+<span class="keyword1"><span class="command">export_code</span></span> <span class="quoted"><span class="quoted">app</span></span> <span class="quoted"><span class="quoted">bla</span></span> <span class="quoted"><span class="quoted">plus_nat_inst.plus_nat</span></span> <span class="keyword2"><span class="keyword">checking</span></span> SML Scala
+
+<span class="keyword2"><span class="keyword">end</span></span>
+</pre>
 </div>
   
 </main>
