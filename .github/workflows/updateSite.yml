@@ -1,0 +1,54 @@
+name: Update Site
+
+on:
+  schedule:
+  - cron: "0 16 * * *"
+    
+  workflow_dispatch:
+
+jobs:
+  checkIfNew:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@main
+      - name: Check if metadata has been modified
+        run: |
+          echo "A little less ${message}"
+          echo "A little more action"
+          exit 1
+
+  getNew:
+    needs: checkIfNew
+    runs-on: ubuntu-latest
+    steps:
+      - name:
+
+  siteGen:
+    needs: getNew
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@main
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+    
+      - name: Run plot.py
+        run: python plot.py
+        
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v5
+        with:
+          author_name: github-actions
+          author_email: 41898282+github-actions[bot]@users.noreply.github.com
+          message: "Update plots"
+          add: "-u"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
