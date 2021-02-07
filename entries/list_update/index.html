@@ -1,123 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1"><title>Analysis of List Update Algorithms - Archive of Formal Proofs</title><meta property="og:title" content="Analysis of List Update Algorithms" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="/entries/list_update/" />
-<meta property="og:image" content="/images/afp.png"/>
-<meta property="article:published_time" content="2016-02-17T00:00:00+00:00" />
-<meta property="article:modified_time" content="2016-02-17T00:00:00+00:00" /><meta property="og:site_name" content="Archive of Formal Proofs" />
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="/images/afp.png"/>
-
-<meta name="twitter:title" content="Analysis of List Update Algorithms"/>
-<meta name="twitter:description" content=""/>
-
-  
-  
-  <link rel="stylesheet" type="text/css" href="/css/front.min.css" integrity="sha256-QUoTd2RQ4/P7SQKKOG301QYvQ7o2&#43;3qwXOJptpPXM0E=">
-  <link rel="icon" href="/images/favicon.ico" type="image/icon">
-    <script>
-      MathJax = {
-        tex: {
-          inlineMath: [['$', '$'], ['\\(', '\\)']]
-        },
-        processEscapes: true,
-        svg: {
-          fontCache: 'global'
-        }
-      };
-    </script>
-    
-    <script id="MathJax-script" async src="/js/mathjax/es5/tex-mml-chtml.js"></script>
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/script.js"></script>
-  
-  <script src="/js/flexsearch.min.js"></script><script src="/js/header-search.js"></script></head>
-
-<body class="mathjax_ignore">
-  <aside>
-    <div>
-  <div>
-    <a href="/">
-      <img src="/images/afp.png" alt='Logo of the Archive of Formal Proofs'
-        class="logo">
-    </a>
-    <ul>
-      <a href="/"><li >Home</li></a>
-      <a href="/topics/"><li >Topics</li></a>
-      <a href="/download/"><li >Download</li></a>
-      <a href="/help/"><li >Help</li></a>
-      <a href="/statistics/"><li >Statistics</li></a>
-      <a href="/about/"><li >About</li></a>
-    </ul>
-  </div>
-  <ul>
-    <a href="/contribution/"><li >Contribution</li></a>
-  </ul>
-</div>
-  </aside>
-
-  <div class='content entries'><header>
-  <form action="/%20search">
-  <div class='form-container'>
-    <input id="searchInput" type="search" size="31" maxlength="255" value=""><button
-      id="searchButton" type="button"><img src="/images/search.svg" alt="Search" /></button>
-    <div id="searchInputautocomplete-list" style="display: none">
-      <div></div>
-    </div>
-  </div>
-  </form>
-  
-  <h1 ><span class='first'>A</span>nalysis of <span class='first'>L</span>ist <span class='first'>U</span>pdate <span class='first'>A</span>lgorithms
-  </h1>
-  <div>
-  
-    <p><a href="/authors/maximilian-p.l.-haslbeck">Maximilian P.L. Haslbeck</a> and <a href="/authors/tobias-nipkow">Tobias Nipkow</a>
-    </p>
-  
-  
-    <p class="date">17 February 2016</p>
-  
-  </div>
-</header><div><main>
-  <h3>Abstract</h3>
-
-  <p class="abstract mathjax_process"><p>
-These theories formalize the quantitative analysis of a number of classical algorithms for the list update problem: 2-competitiveness of move-to-front, the lower bound of 2 for the competitiveness of deterministic list update algorithms and 1.6-competitiveness of the randomized COMB algorithm, the best randomized list update algorithm known to date.
+<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Analysis of List Update Algorithms - Archive of Formal Proofs</title><meta property="og:title" content="Analysis of List Update Algorithms"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/list_update/"><meta property="article:published_time" content="2016-02-17T00:00:00+00:00"><meta property="article:modified_time" content="2016-02-17T00:00:00+00:00"><meta name=twitter:card content="summary"><meta name=twitter:title content="Analysis of List Update Algorithms"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css integrity="sha256-QUoTd2RQ4/P7SQKKOG301QYvQ7o2+3qwXOJptpPXM0E="><link rel=icon href=/images/favicon.ico type=image/icon><script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]},processEscapes:true,svg:{fontCache:'global'}};</script><script id=MathJax-script async src=/js/mathjax/es5/tex-mml-chtml.js></script><script src=/js/jquery.min.js></script><script src=/js/script.js></script><script src=/js/flexsearch.min.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><a href=/><li>Home</li></a><a href=/topics/><li>Topics</li></a><a href=/download/><li>Download</li></a><a href=/help/><li>Help</li></a><a href=/statistics/><li>Statistics</li></a><a href=/about/><li>About</li></a></ul></div><ul><a href=/contribution/><li>Contribution</li></a></ul></div></aside><div class="content entries"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255><button id=searchButton type=button><img src=/images/search.svg alt=Search></button><div id=searchInputautocomplete-list style=display:none><div></div></div></div></form><h1><span class=first>A</span>nalysis of <span class=first>L</span>ist <span class=first>U</span>pdate <span class=first>A</span>lgorithms</h1><div><p><a href=/authors/maximilian-p.l.-haslbeck>Maximilian P.L. Haslbeck</a> and <a href=/authors/tobias-nipkow>Tobias Nipkow</a></p><p class=date>17 February 2016</p></div></header><div><main><h3>Abstract</h3><p class="abstract mathjax_process"><p>These theories formalize the quantitative analysis of a number of classical algorithms for the list update problem: 2-competitiveness of move-to-front, the lower bound of 2 for the competitiveness of deterministic list update algorithms and 1.6-competitiveness of the randomized COMB algorithm, the best randomized list update algorithm known to date.
 The material is based on the first two chapters of <i>Online Computation
-and Competitive Analysis</i> by Borodin and El-Yaniv.
-</p>
-<p>
-For an informal description see the FSTTCS 2016 publication
-<a href="http://www21.in.tum.de/~nipkow/pubs/fsttcs16.html">Verified Analysis of List Update Algorithms</a>
-by Haslbeck and Nipkow.
-</p></p><a href="http://isa-afp.org/LICENSE">BSD License</a><h3>Depends On</h3>
-    <p><a href="/entries/list-index">List-Index</a> and <a href="/entries/regular-sets">Regular-Sets</a></p><h3>Related Entries</h3>
-  <p><a href="/entries/quick_sort_cost">Quick_Sort_Cost</a></p><h3>Theories</h3>
-  <ul><li><a href="theories/#BIT">BIT</a></li><li><a href="theories/#BIT_2comp_on2">BIT_2comp_on2</a></li><li><a href="theories/#BIT_pairwise">BIT_pairwise</a></li><li><a href="theories/#Bit_Strings">Bit_Strings</a></li><li><a href="theories/#Comb">Comb</a></li><li><a href="theories/#Competitive_Analysis">Competitive_Analysis</a></li><li><a href="theories/#Inversion">Inversion</a></li><li><a href="theories/#List_Factoring">List_Factoring</a></li><li><a href="theories/#Move_to_Front">Move_to_Front</a></li><li><a href="theories/#MTF2_Effects">MTF2_Effects</a></li><li><a href="theories/#On_Off">On_Off</a></li><li><a href="theories/#OPT2">OPT2</a></li><li><a href="theories/#Partial_Cost_Model">Partial_Cost_Model</a></li><li><a href="theories/#Phase_Partitioning">Phase_Partitioning</a></li><li><a href="theories/#Prob_Theory">Prob_Theory</a></li><li><a href="theories/#RExp_Var">RExp_Var</a></li><li><a href="theories/#Swaps">Swaps</a></li><li><a href="theories/#TS">TS</a></li></ul></main>
-
-<nav class='links'>
-  <a class='popUpButton' href="#citePopUp">Cite</a>
-  <a class='popUpButton' href="#downloadPopUp">Download</a>
-  <h4>PDFs</h4>
-  <a href="https://www.isa-afp.org/browser_info/current/AFP/List_Update/outline.pdf">Proof
-    outline</a>
-  <a href="https://www.isa-afp.org/browser_info/current/AFP/List_Update/document.pdf">Proof
-    document</a>
-  <a href="https://www.isa-afp.org/browser_info/current/AFP/List_Update/session_graph.pdf">Dependencies</a>
-</nav>
-
-<div id="citePopUp" class="overlay">
-  <a class="cancel" href="#"></a>
-  <div class="popup">
-    <h2>Cite</h2>
-    <a class="close" href="#">&times;</a>
-    <div>
-      <pre>@article{List_Update-AFP,
+and Competitive Analysis</i> by Borodin and El-Yaniv.</p><p>For an informal description see the FSTTCS 2016 publication
+<a href=http://www21.in.tum.de/~nipkow/pubs/fsttcs16.html>Verified Analysis of List Update Algorithms</a>
+by Haslbeck and Nipkow.</p></p><a href=http://isa-afp.org/LICENSE>BSD License</a><h3>Depends On</h3><p><a href=/entries/list-index>List-Index</a> and <a href=/entries/regular-sets>Regular-Sets</a></p><h3>Related Entries</h3><p><a href=/entries/quick_sort_cost>Quick_Sort_Cost</a></p><h3>Theories</h3><ul><li><a href=theories/#BIT>BIT</a></li><li><a href=theories/#BIT_2comp_on2>BIT_2comp_on2</a></li><li><a href=theories/#BIT_pairwise>BIT_pairwise</a></li><li><a href=theories/#Bit_Strings>Bit_Strings</a></li><li><a href=theories/#Comb>Comb</a></li><li><a href=theories/#Competitive_Analysis>Competitive_Analysis</a></li><li><a href=theories/#Inversion>Inversion</a></li><li><a href=theories/#List_Factoring>List_Factoring</a></li><li><a href=theories/#Move_to_Front>Move_to_Front</a></li><li><a href=theories/#MTF2_Effects>MTF2_Effects</a></li><li><a href=theories/#On_Off>On_Off</a></li><li><a href=theories/#OPT2>OPT2</a></li><li><a href=theories/#Partial_Cost_Model>Partial_Cost_Model</a></li><li><a href=theories/#Phase_Partitioning>Phase_Partitioning</a></li><li><a href=theories/#Prob_Theory>Prob_Theory</a></li><li><a href=theories/#RExp_Var>RExp_Var</a></li><li><a href=theories/#Swaps>Swaps</a></li><li><a href=theories/#TS>TS</a></li></ul></main><nav class=links><a class=popUpButton href=#citePopUp>Cite</a>
+<a class=popUpButton href=#downloadPopUp>Download</a><h4>PDFs</h4><a href=https://www.isa-afp.org/browser_info/current/AFP/List_Update/outline.pdf>Proof
+outline</a>
+<a href=https://www.isa-afp.org/browser_info/current/AFP/List_Update/document.pdf>Proof
+document</a>
+<a href=https://www.isa-afp.org/browser_info/current/AFP/List_Update/session_graph.pdf>Dependencies</a></nav><div id=citePopUp class=overlay><a class=cancel href=#></a><div class=popup><h2>Cite</h2><a class=close href=#>&#215;</a><div><pre>@article{List_Update-AFP,
         author  = {Maximilian P.L. Haslbeck and Tobias Nipkow},
         title   = {Analysis of List Update Algorithms},
         journal = {Archive of Formal Proofs},
@@ -126,52 +16,12 @@ by Haslbeck and Nipkow.
         note    = {\url{http://isa-afp.org/entries/List_Update.html},
                   Formal proof development},
         ISSN    = {2150-914x},
-      }</pre>
-      <button>Copy</button> <button>Download</button>
-    </div>
-  </div>
-</div>
-
-<div id="downloadPopUp" class="overlay">
-  <a class="cancel" href="#"></a>
-  <div class="popup">
-    <h2>Download</h2>
-    <a class="close" href="#">&times;</a>
-    <a href="https://isa-afp.org/release/afp-List_Update-current.tar.gz" download>Download latest</a>
-    <p>Older releases:</p>
-    <ul><li>Isabelle2019:
-        <a href="https://isa-afp.org/release/afp-List_Update-2019-06-11.tar.gz">
-          afp-List_Update-2019-06-11.tar.gz
-        </a>
-      </li><li>Isabelle2018:
-        <a href="https://isa-afp.org/release/afp-List_Update-2018-08-16.tar.gz">
-          afp-List_Update-2018-08-16.tar.gz
-        </a>
-      </li><li>Isabelle2017:
-        <a href="https://isa-afp.org/release/afp-List_Update-2017-10-10.tar.gz">
-          afp-List_Update-2017-10-10.tar.gz
-        </a>
-      </li><li>Isabelle2016-1:
-        <a href="https://isa-afp.org/release/afp-List_Update-2016-12-17.tar.gz">
-          afp-List_Update-2016-12-17.tar.gz
-        </a>
-      </li><li>Isabelle2016:
-        <a href="https://isa-afp.org/release/afp-List_Update-2016-10-15.tar.gz">
-          afp-List_Update-2016-10-15.tar.gz
-        </a>
-      </li><li>Isabelle2016:
-        <a href="https://isa-afp.org/release/afp-List_Update-2016-02-23.tar.gz">
-          afp-List_Update-2016-02-23.tar.gz
-        </a>
-      </li><li>Isabelle2016:
-        <a href="https://isa-afp.org/release/afp-List_Update-2016-02-22.tar.gz">
-          afp-List_Update-2016-02-22.tar.gz
-        </a>
-      </li></ul>
-  </div>
-</div>
-    </div>
-  </div>
-</body>
-
-</html>
+      }</pre><button>Copy</button> <button>Download</button></div></div></div><div id=downloadPopUp class=overlay><a class=cancel href=#></a><div class=popup><h2>Download</h2><a class=close href=#>&#215;</a>
+<a href=https://isa-afp.org/release/afp-List_Update-current.tar.gz download>Download latest</a><p>Older releases:</p><ul><li>Isabelle2019:
+<a href=https://isa-afp.org/release/afp-List_Update-2019-06-11.tar.gz>afp-List_Update-2019-06-11.tar.gz</a></li><li>Isabelle2018:
+<a href=https://isa-afp.org/release/afp-List_Update-2018-08-16.tar.gz>afp-List_Update-2018-08-16.tar.gz</a></li><li>Isabelle2017:
+<a href=https://isa-afp.org/release/afp-List_Update-2017-10-10.tar.gz>afp-List_Update-2017-10-10.tar.gz</a></li><li>Isabelle2016-1:
+<a href=https://isa-afp.org/release/afp-List_Update-2016-12-17.tar.gz>afp-List_Update-2016-12-17.tar.gz</a></li><li>Isabelle2016:
+<a href=https://isa-afp.org/release/afp-List_Update-2016-10-15.tar.gz>afp-List_Update-2016-10-15.tar.gz</a></li><li>Isabelle2016:
+<a href=https://isa-afp.org/release/afp-List_Update-2016-02-23.tar.gz>afp-List_Update-2016-02-23.tar.gz</a></li><li>Isabelle2016:
+<a href=https://isa-afp.org/release/afp-List_Update-2016-02-22.tar.gz>afp-List_Update-2016-02-22.tar.gz</a></li></ul></div></div></div></div></body></html>

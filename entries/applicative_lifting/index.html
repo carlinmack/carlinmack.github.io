@@ -1,127 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1"><title>Applicative Lifting - Archive of Formal Proofs</title><meta property="og:title" content="Applicative Lifting" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="/entries/applicative_lifting/" />
-<meta property="og:image" content="/images/afp.png"/>
-<meta property="article:published_time" content="2015-12-22T00:00:00+00:00" />
-<meta property="article:modified_time" content="2015-12-22T00:00:00+00:00" /><meta property="og:site_name" content="Archive of Formal Proofs" />
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="/images/afp.png"/>
-
-<meta name="twitter:title" content="Applicative Lifting"/>
-<meta name="twitter:description" content=""/>
-
-  
-  
-  <link rel="stylesheet" type="text/css" href="/css/front.min.css" integrity="sha256-QUoTd2RQ4/P7SQKKOG301QYvQ7o2&#43;3qwXOJptpPXM0E=">
-  <link rel="icon" href="/images/favicon.ico" type="image/icon">
-    <script>
-      MathJax = {
-        tex: {
-          inlineMath: [['$', '$'], ['\\(', '\\)']]
-        },
-        processEscapes: true,
-        svg: {
-          fontCache: 'global'
-        }
-      };
-    </script>
-    
-    <script id="MathJax-script" async src="/js/mathjax/es5/tex-mml-chtml.js"></script>
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/script.js"></script>
-  
-  <script src="/js/flexsearch.min.js"></script><script src="/js/header-search.js"></script></head>
-
-<body class="mathjax_ignore">
-  <aside>
-    <div>
-  <div>
-    <a href="/">
-      <img src="/images/afp.png" alt='Logo of the Archive of Formal Proofs'
-        class="logo">
-    </a>
-    <ul>
-      <a href="/"><li >Home</li></a>
-      <a href="/topics/"><li >Topics</li></a>
-      <a href="/download/"><li >Download</li></a>
-      <a href="/help/"><li >Help</li></a>
-      <a href="/statistics/"><li >Statistics</li></a>
-      <a href="/about/"><li >About</li></a>
-    </ul>
-  </div>
-  <ul>
-    <a href="/contribution/"><li >Contribution</li></a>
-  </ul>
-</div>
-  </aside>
-
-  <div class='content entries'><header>
-  <form action="/%20search">
-  <div class='form-container'>
-    <input id="searchInput" type="search" size="31" maxlength="255" value=""><button
-      id="searchButton" type="button"><img src="/images/search.svg" alt="Search" /></button>
-    <div id="searchInputautocomplete-list" style="display: none">
-      <div></div>
-    </div>
-  </div>
-  </form>
-  
-  <h1 ><span class='first'>A</span>pplicative <span class='first'>L</span>ifting
-  </h1>
-  <div>
-  
-    <p><a href="/authors/andreas-lochbihler">Andreas Lochbihler</a> and <a href="/authors/joshua-schneider">Joshua Schneider</a>
-    </p>
-  
-  
-    <p class="date">22 December 2015</p>
-  
-  </div>
-</header><div><main>
-  <h3>Abstract</h3>
-
-  <p class="abstract mathjax_process">Applicative functors augment computations with effects by lifting function application to types which model the effects.  As the structure of the computation cannot depend on the effects, applicative expressions can be analysed statically.  This allows us to lift universally quantified equations to the effectful types, as observed by Hinze. Thus, equational reasoning over effectful computations can be reduced to pure types.
-</p><p>
-This entry provides a package for registering applicative functors and two proof methods for lifting of equations over applicative functors. The first method normalises applicative expressions according to the laws of applicative functors. This way, equations whose two sides contain the same list of variables can be lifted to every applicative functor.
-</p><p>
-To lift larger classes of equations, the second method exploits a number of additional properties (e.g., commutativity of effects) provided the properties have been declared for the concrete applicative functor at hand upon registration.
-</p><p>
-We declare several types from the Isabelle library as applicative functors and illustrate the use of the methods with two examples: the lifting of the arithmetic type class hierarchy to streams and the verification of a relabelling function on binary trees. We also formalise and verify the normalisation algorithm used by the first proof method.
-</p></p><a href="http://isa-afp.org/LICENSE">BSD License</a><h3>Change history</h3>
-
-  <p>[2016-03-03] added formalisation of lifting with combinators&lt;br&gt;
+<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Applicative Lifting - Archive of Formal Proofs</title><meta property="og:title" content="Applicative Lifting"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/applicative_lifting/"><meta property="article:published_time" content="2015-12-22T00:00:00+00:00"><meta property="article:modified_time" content="2015-12-22T00:00:00+00:00"><meta name=twitter:card content="summary"><meta name=twitter:title content="Applicative Lifting"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css integrity="sha256-QUoTd2RQ4/P7SQKKOG301QYvQ7o2+3qwXOJptpPXM0E="><link rel=icon href=/images/favicon.ico type=image/icon><script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]},processEscapes:true,svg:{fontCache:'global'}};</script><script id=MathJax-script async src=/js/mathjax/es5/tex-mml-chtml.js></script><script src=/js/jquery.min.js></script><script src=/js/script.js></script><script src=/js/flexsearch.min.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><a href=/><li>Home</li></a><a href=/topics/><li>Topics</li></a><a href=/download/><li>Download</li></a><a href=/help/><li>Help</li></a><a href=/statistics/><li>Statistics</li></a><a href=/about/><li>About</li></a></ul></div><ul><a href=/contribution/><li>Contribution</li></a></ul></div></aside><div class="content entries"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255><button id=searchButton type=button><img src=/images/search.svg alt=Search></button><div id=searchInputautocomplete-list style=display:none><div></div></div></div></form><h1><span class=first>A</span>pplicative <span class=first>L</span>ifting</h1><div><p><a href=/authors/andreas-lochbihler>Andreas Lochbihler</a> and <a href=/authors/joshua-schneider>Joshua Schneider</a></p><p class=date>22 December 2015</p></div></header><div><main><h3>Abstract</h3><p class="abstract mathjax_process">Applicative functors augment computations with effects by lifting function application to types which model the effects. As the structure of the computation cannot depend on the effects, applicative expressions can be analysed statically. This allows us to lift universally quantified equations to the effectful types, as observed by Hinze. Thus, equational reasoning over effectful computations can be reduced to pure types.</p><p>This entry provides a package for registering applicative functors and two proof methods for lifting of equations over applicative functors. The first method normalises applicative expressions according to the laws of applicative functors. This way, equations whose two sides contain the same list of variables can be lifted to every applicative functor.</p><p>To lift larger classes of equations, the second method exploits a number of additional properties (e.g., commutativity of effects) provided the properties have been declared for the concrete applicative functor at hand upon registration.</p><p>We declare several types from the Isabelle library as applicative functors and illustrate the use of the methods with two examples: the lifting of the arithmetic type class hierarchy to streams and the verification of a relabelling function on binary trees. We also formalise and verify the normalisation algorithm used by the first proof method.</p></p><a href=http://isa-afp.org/LICENSE>BSD License</a><h3>Change history</h3><p>[2016-03-03] added formalisation of lifting with combinators&lt;br>
 [2016-06-10]
 implemented automatic derivation of lifted combinator reductions;
 support arbitrary lifted relations using relators;
 improved compatibility with locale interpretation
-(revision ec336f354f37)&lt;br&gt;</p><h3>Used by</h3>
-    <p><a href="/entries/locally-nameless-sigma/">Locally-Nameless-Sigma</a>, <a href="/entries/free-groups/">Free-Groups</a>, <a href="/entries/stern_brocot/">Stern_Brocot</a> and <a href="/entries/crypthol/">CryptHOL</a></p><h3>Theories</h3>
-  <ul><li><a href="theories/#Abstract_AF">Abstract_AF</a></li><li><a href="theories/#Applicative">Applicative</a></li><li><a href="theories/#Applicative_DNEList">Applicative_DNEList</a></li><li><a href="theories/#Applicative_Environment">Applicative_Environment</a></li><li><a href="theories/#Applicative_Environment_Algebra">Applicative_Environment_Algebra</a></li><li><a href="theories/#Applicative_Examples">Applicative_Examples</a></li><li><a href="theories/#Applicative_Filter">Applicative_Filter</a></li><li><a href="theories/#Applicative_Functor">Applicative_Functor</a></li><li><a href="theories/#Applicative_List">Applicative_List</a></li><li><a href="theories/#Applicative_Monoid">Applicative_Monoid</a></li><li><a href="theories/#Applicative_Open_State">Applicative_Open_State</a></li><li><a href="theories/#Applicative_Option">Applicative_Option</a></li><li><a href="theories/#Applicative_PMF">Applicative_PMF</a></li><li><a href="theories/#Applicative_Probability_List">Applicative_Probability_List</a></li><li><a href="theories/#Applicative_Set">Applicative_Set</a></li><li><a href="theories/#Applicative_Star">Applicative_Star</a></li><li><a href="theories/#Applicative_State">Applicative_State</a></li><li><a href="theories/#Applicative_Stream">Applicative_Stream</a></li><li><a href="theories/#Applicative_Sum">Applicative_Sum</a></li><li><a href="theories/#Applicative_Test">Applicative_Test</a></li><li><a href="theories/#Applicative_Vector">Applicative_Vector</a></li><li><a href="theories/#Beta_Eta">Beta_Eta</a></li><li><a href="theories/#Combinators">Combinators</a></li><li><a href="theories/#Idiomatic_Terms">Idiomatic_Terms</a></li><li><a href="theories/#Joinable">Joinable</a></li><li><a href="theories/#Stream_Algebra">Stream_Algebra</a></li><li><a href="theories/#Tree_Relabelling">Tree_Relabelling</a></li></ul></main>
-
-<nav class='links'>
-  <a class='popUpButton' href="#citePopUp">Cite</a>
-  <a class='popUpButton' href="#downloadPopUp">Download</a>
-  <h4>PDFs</h4>
-  <a href="https://www.isa-afp.org/browser_info/current/AFP/Applicative_Lifting/outline.pdf">Proof
-    outline</a>
-  <a href="https://www.isa-afp.org/browser_info/current/AFP/Applicative_Lifting/document.pdf">Proof
-    document</a>
-  <a href="https://www.isa-afp.org/browser_info/current/AFP/Applicative_Lifting/session_graph.pdf">Dependencies</a>
-</nav>
-
-<div id="citePopUp" class="overlay">
-  <a class="cancel" href="#"></a>
-  <div class="popup">
-    <h2>Cite</h2>
-    <a class="close" href="#">&times;</a>
-    <div>
-      <pre>@article{Applicative_Lifting-AFP,
+(revision ec336f354f37)&lt;br></p><h3>Used by</h3><p><a href=/entries/locally-nameless-sigma/>Locally-Nameless-Sigma</a>, <a href=/entries/free-groups/>Free-Groups</a>, <a href=/entries/stern_brocot/>Stern_Brocot</a> and <a href=/entries/crypthol/>CryptHOL</a></p><h3>Theories</h3><ul><li><a href=theories/#Abstract_AF>Abstract_AF</a></li><li><a href=theories/#Applicative>Applicative</a></li><li><a href=theories/#Applicative_DNEList>Applicative_DNEList</a></li><li><a href=theories/#Applicative_Environment>Applicative_Environment</a></li><li><a href=theories/#Applicative_Environment_Algebra>Applicative_Environment_Algebra</a></li><li><a href=theories/#Applicative_Examples>Applicative_Examples</a></li><li><a href=theories/#Applicative_Filter>Applicative_Filter</a></li><li><a href=theories/#Applicative_Functor>Applicative_Functor</a></li><li><a href=theories/#Applicative_List>Applicative_List</a></li><li><a href=theories/#Applicative_Monoid>Applicative_Monoid</a></li><li><a href=theories/#Applicative_Open_State>Applicative_Open_State</a></li><li><a href=theories/#Applicative_Option>Applicative_Option</a></li><li><a href=theories/#Applicative_PMF>Applicative_PMF</a></li><li><a href=theories/#Applicative_Probability_List>Applicative_Probability_List</a></li><li><a href=theories/#Applicative_Set>Applicative_Set</a></li><li><a href=theories/#Applicative_Star>Applicative_Star</a></li><li><a href=theories/#Applicative_State>Applicative_State</a></li><li><a href=theories/#Applicative_Stream>Applicative_Stream</a></li><li><a href=theories/#Applicative_Sum>Applicative_Sum</a></li><li><a href=theories/#Applicative_Test>Applicative_Test</a></li><li><a href=theories/#Applicative_Vector>Applicative_Vector</a></li><li><a href=theories/#Beta_Eta>Beta_Eta</a></li><li><a href=theories/#Combinators>Combinators</a></li><li><a href=theories/#Idiomatic_Terms>Idiomatic_Terms</a></li><li><a href=theories/#Joinable>Joinable</a></li><li><a href=theories/#Stream_Algebra>Stream_Algebra</a></li><li><a href=theories/#Tree_Relabelling>Tree_Relabelling</a></li></ul></main><nav class=links><a class=popUpButton href=#citePopUp>Cite</a>
+<a class=popUpButton href=#downloadPopUp>Download</a><h4>PDFs</h4><a href=https://www.isa-afp.org/browser_info/current/AFP/Applicative_Lifting/outline.pdf>Proof
+outline</a>
+<a href=https://www.isa-afp.org/browser_info/current/AFP/Applicative_Lifting/document.pdf>Proof
+document</a>
+<a href=https://www.isa-afp.org/browser_info/current/AFP/Applicative_Lifting/session_graph.pdf>Dependencies</a></nav><div id=citePopUp class=overlay><a class=cancel href=#></a><div class=popup><h2>Cite</h2><a class=close href=#>&#215;</a><div><pre>@article{Applicative_Lifting-AFP,
         author  = {Andreas Lochbihler and Joshua Schneider},
         title   = {Applicative Lifting},
         journal = {Archive of Formal Proofs},
@@ -130,48 +17,11 @@ improved compatibility with locale interpretation
         note    = {\url{http://isa-afp.org/entries/Applicative_Lifting.html},
                   Formal proof development},
         ISSN    = {2150-914x},
-      }</pre>
-      <button>Copy</button> <button>Download</button>
-    </div>
-  </div>
-</div>
-
-<div id="downloadPopUp" class="overlay">
-  <a class="cancel" href="#"></a>
-  <div class="popup">
-    <h2>Download</h2>
-    <a class="close" href="#">&times;</a>
-    <a href="https://isa-afp.org/release/afp-Applicative_Lifting-current.tar.gz" download>Download latest</a>
-    <p>Older releases:</p>
-    <ul><li>Isabelle2019:
-        <a href="https://isa-afp.org/release/afp-Applicative_Lifting-2019-06-11.tar.gz">
-          afp-Applicative_Lifting-2019-06-11.tar.gz
-        </a>
-      </li><li>Isabelle2018:
-        <a href="https://isa-afp.org/release/afp-Applicative_Lifting-2018-08-16.tar.gz">
-          afp-Applicative_Lifting-2018-08-16.tar.gz
-        </a>
-      </li><li>Isabelle2017:
-        <a href="https://isa-afp.org/release/afp-Applicative_Lifting-2017-10-10.tar.gz">
-          afp-Applicative_Lifting-2017-10-10.tar.gz
-        </a>
-      </li><li>Isabelle2016-1:
-        <a href="https://isa-afp.org/release/afp-Applicative_Lifting-2016-12-17.tar.gz">
-          afp-Applicative_Lifting-2016-12-17.tar.gz
-        </a>
-      </li><li>Isabelle2016:
-        <a href="https://isa-afp.org/release/afp-Applicative_Lifting-2016-02-22.tar.gz">
-          afp-Applicative_Lifting-2016-02-22.tar.gz
-        </a>
-      </li><li>Isabelle2015:
-        <a href="https://isa-afp.org/release/afp-Applicative_Lifting-2015-12-22.tar.gz">
-          afp-Applicative_Lifting-2015-12-22.tar.gz
-        </a>
-      </li></ul>
-  </div>
-</div>
-    </div>
-  </div>
-</body>
-
-</html>
+      }</pre><button>Copy</button> <button>Download</button></div></div></div><div id=downloadPopUp class=overlay><a class=cancel href=#></a><div class=popup><h2>Download</h2><a class=close href=#>&#215;</a>
+<a href=https://isa-afp.org/release/afp-Applicative_Lifting-current.tar.gz download>Download latest</a><p>Older releases:</p><ul><li>Isabelle2019:
+<a href=https://isa-afp.org/release/afp-Applicative_Lifting-2019-06-11.tar.gz>afp-Applicative_Lifting-2019-06-11.tar.gz</a></li><li>Isabelle2018:
+<a href=https://isa-afp.org/release/afp-Applicative_Lifting-2018-08-16.tar.gz>afp-Applicative_Lifting-2018-08-16.tar.gz</a></li><li>Isabelle2017:
+<a href=https://isa-afp.org/release/afp-Applicative_Lifting-2017-10-10.tar.gz>afp-Applicative_Lifting-2017-10-10.tar.gz</a></li><li>Isabelle2016-1:
+<a href=https://isa-afp.org/release/afp-Applicative_Lifting-2016-12-17.tar.gz>afp-Applicative_Lifting-2016-12-17.tar.gz</a></li><li>Isabelle2016:
+<a href=https://isa-afp.org/release/afp-Applicative_Lifting-2016-02-22.tar.gz>afp-Applicative_Lifting-2016-02-22.tar.gz</a></li><li>Isabelle2015:
+<a href=https://isa-afp.org/release/afp-Applicative_Lifting-2015-12-22.tar.gz>afp-Applicative_Lifting-2015-12-22.tar.gz</a></li></ul></div></div></div></div></body></html>
