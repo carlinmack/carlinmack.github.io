@@ -12,7 +12,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-        
+        with:
+          path: carlinmack.github.io
+
       - name: Set up Python 3.8
         uses: actions/setup-python@v2
         with:
@@ -22,23 +24,32 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r .github/requirements.txt
-        
+
       - name: Check if metadata has been modified
         run: |
           cd .github
           python checkMetadata.py
+          cd ..
 
-      - name: Catch if not caught
-        run: |
-          echo "A little less ${message}"
-          echo "A little more action"
-          exit 1
+      - name: Checkout private tools
+        uses: actions/checkout@v2
+        with:
+          repository: carlinmack/afp
+          token: ${{ secrets.GitHub_PAT }} # `GitHub_PAT` is a secret that contains your PAT
+          path: afp
 
       - name: Download metadata/ and thys/
-        uses: actions/checkout@main
+        run: |
+          wget https://foss.heptapod.net/isa-afp/afp-devel/-/archive/branch/default/afp-devel-branch-default.tar.gz?path=thys &&
+          tar -xvfz afp-devel-branch-default.tar.gz
+          wget https://foss.heptapod.net/isa-afp/afp-devel/-/raw/branch/default/metadata/metadata
 
       - name: Overwrite repo files
-        uses: actions/checkout@main
+        run: |
+          mv thys afp/src/afp-devel/thys
+          mv metadata afp/src/afp-devel/metadata/metadata
+          cd afp
+          ls
 
       - name: Commit changes
         uses: EndBug/add-and-commit@v5
@@ -52,16 +63,22 @@ jobs:
 
       - name: Install dependencies
         run: |
+          cd src/afp-devel/admin
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
       - name: Set up Hugo
-        uses: actions/setup-python@v2
+        uses: peaceiris/actions-hugo@v2
         with:
-          python-version: 3.8
+          hugo-version: "0.80"
+          extended: true
 
-      - name: Generate new site
-        run: python plot.py
+      - name: Build
+        run: |
+          hugo --minify
+          ls /
+          mv ../web ../../../../carlinmack.github.io
+          cd ../../../../carlinmack.github.io
 
       - name: Commit changes
         uses: EndBug/add-and-commit@v5
@@ -72,3 +89,6 @@ jobs:
           add: "-u"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Reverse SHA
+        run: rev .github/Last-Modified-SHA.txt > .github/Last-Modified-SHA.txt
