@@ -40,13 +40,13 @@ jobs:
 
       - name: Download metadata/ and thys/
         run: |
-          wget https://foss.heptapod.net/isa-afp/afp-devel/-/archive/branch/default/afp-devel-branch-default.tar.gz?path=thys &&
-          tar -xvfz afp-devel-branch-default.tar.gz
+          wget https://foss.heptapod.net/isa-afp/afp-devel/-/archive/branch/default/afp-devel-branch-default.tar.gz?path=thys -O thys.tar.gz &&
+          tar -xf thys.tar.gz
           wget https://foss.heptapod.net/isa-afp/afp-devel/-/raw/branch/default/metadata/metadata
 
       - name: Overwrite repo files
         run: |
-          mv thys afp/src/afp-devel/thys
+          mv afp-devel-branch-default-thys/thys afp/src/afp-devel/thys
           mv metadata afp/src/afp-devel/metadata/metadata
 
       - name: Commit changes
