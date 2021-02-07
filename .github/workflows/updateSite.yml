@@ -70,7 +70,7 @@ jobs:
       - name: Set up Hugo
         uses: peaceiris/actions-hugo@v2
         with:
-          hugo-version: "0.80"
+          hugo-version: "latest"
           extended: true
 
       - name: Build
@@ -79,6 +79,9 @@ jobs:
           hugo --minify
           ls /
           mv afp/src/afp-devel/admin/web carlinmack.github.io
+
+      - name: Reverse SHA
+        run: rev .github/Last-Modified-SHA.txt > .github/Last-Modified-SHA.txt
 
       - name: Commit changes
         uses: EndBug/add-and-commit@v5
@@ -90,6 +93,3 @@ jobs:
           branch: "main"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Reverse SHA
-        run: rev .github/Last-Modified-SHA.txt > .github/Last-Modified-SHA.txt
