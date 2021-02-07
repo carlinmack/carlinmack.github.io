@@ -46,8 +46,9 @@ jobs:
 
       - name: Overwrite repo files
         run: |
-          mv afp-devel-branch-default-thys/thys afp/src/afp-devel/thys
-          mv metadata afp/src/afp-devel/metadata/metadata
+          rm -rf afp/src/afp-devel/thys
+          mv afp-devel-branch-default-thys/thys afp/src/afp-devel/
+          mv -f metadata afp/src/afp-devel/metadata/metadata
 
       - name: Commit changes
         uses: EndBug/add-and-commit@v5
