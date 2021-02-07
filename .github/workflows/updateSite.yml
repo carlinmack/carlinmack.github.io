@@ -22,14 +22,14 @@ jobs:
 
       - name: Install dependencies
         run: |
+          cd carlinmack.github.io/.github
           python -m pip install --upgrade pip
-          pip install -r .github/requirements.txt
+          pip install -r requirements.txt
 
       - name: Check if metadata has been modified
         run: |
-          cd .github
+          cd carlinmack.github.io/.github
           python checkMetadata.py
-          cd ..
 
       - name: Checkout private tools
         uses: actions/checkout@v2
@@ -48,8 +48,6 @@ jobs:
         run: |
           mv thys afp/src/afp-devel/thys
           mv metadata afp/src/afp-devel/metadata/metadata
-          cd afp
-          ls
 
       - name: Commit changes
         uses: EndBug/add-and-commit@v5
@@ -58,12 +56,13 @@ jobs:
           author_email: 41898282+github-actions[bot]@users.noreply.github.com
           message: "Update metadata and thys"
           add: "."
+          cwd: 'afp'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install dependencies
         run: |
-          cd src/afp-devel/admin
+          cd afp/src/afp-devel/admin
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
@@ -75,10 +74,10 @@ jobs:
 
       - name: Build
         run: |
+          cd afp/src/afp-devel/admin/hugo
           hugo --minify
           ls /
-          mv ../web ../../../../carlinmack.github.io
-          cd ../../../../carlinmack.github.io
+          mv afp/src/afp-devel/admin/web carlinmack.github.io
 
       - name: Commit changes
         uses: EndBug/add-and-commit@v5
@@ -87,6 +86,7 @@ jobs:
           author_email: 41898282+github-actions[bot]@users.noreply.github.com
           message: "Update plots"
           add: "-u"
+          cwd: 'carlinmack.github.io'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
