@@ -15,6 +15,4 @@ if prevLastModifiedSha == lastModifiedSha:
     sys.exit(1)
 else:
     with open("Last-Modified-SHA.txt", "w") as file:
-        # reverse SHA so that we can restart the action if it fails before completion
-        reversedSha = lastModifiedSha[::-1]
-        file.write(reversedSha)
+        file.write(lastModifiedSha)
