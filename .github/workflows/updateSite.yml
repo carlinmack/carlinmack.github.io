@@ -49,10 +49,12 @@ jobs:
           rm -rf afp/src/afp-devel/thys
           mv afp-devel-branch-default-thys/thys afp/src/afp-devel/
           mv -f metadata afp/src/afp-devel/metadata/metadata
-          
-      - name: Run exportMetadata.py
+
+      - name: Install dependencies and run exportMetadata.py
         run: |
           cd afp/src/afp-devel/admin
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
           python exportMetadata.py
 
       - name: Commit changes
@@ -65,12 +67,6 @@ jobs:
           cwd: "afp"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Install dependencies
-        run: |
-          cd afp/src/afp-devel/admin
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
 
       - name: Set up Hugo
         uses: peaceiris/actions-hugo@v2
