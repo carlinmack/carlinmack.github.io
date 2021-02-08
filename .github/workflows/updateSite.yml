@@ -49,6 +49,11 @@ jobs:
           rm -rf afp/src/afp-devel/thys
           mv afp-devel-branch-default-thys/thys afp/src/afp-devel/
           mv -f metadata afp/src/afp-devel/metadata/metadata
+          
+      - name: Run exportMetadata.py
+        run: |
+          cd afp/src/afp-devel/admin
+          python exportMetadata.py
 
       - name: Commit changes
         uses: EndBug/add-and-commit@v5
@@ -77,9 +82,6 @@ jobs:
         run: |
           cd afp/src/afp-devel/admin/hugo
           hugo --minify --destination $GITHUB_WORKSPACE/carlinmack.github.io/
-
-      - name: Reverse SHA
-        run: rev carlinmack.github.io/.github/Last-Modified-SHA.txt > carlinmack.github.io/.github/Last-Modified-SHA.txt
 
       - name: Commit changes
         uses: EndBug/add-and-commit@v5
