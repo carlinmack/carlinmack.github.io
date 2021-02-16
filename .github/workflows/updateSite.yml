@@ -5,6 +5,9 @@ on:
     - cron: "0 16 * * *"
 
   workflow_dispatch:
+    inputs:
+      description: "Force"
+      default: False
 
 jobs:
   updateSite:
@@ -27,6 +30,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Check if metadata has been modified
+        if: ${{ !(github.event.inputs.force) }}
         run: |
           cd carlinmack.github.io/.github
           python checkMetadata.py
