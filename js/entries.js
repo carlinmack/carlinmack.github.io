@@ -9,5 +9,5 @@ document.addEventListener("DOMContentLoaded", function () {
     var blob = new Blob([content], { type: "text/plain" });
     var url = URL.createObjectURL(blob);
     a.setAttribute("href", url);
-    a.setAttribute("download", filename + ".txt");
+    a.setAttribute("download", filename + ".bib");
 });

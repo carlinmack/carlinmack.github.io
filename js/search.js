@@ -233,7 +233,7 @@ function populateResults(results, searchQuery, indices, all = false) {
         var findFacts = document.getElementById("findFacts");
         if (!findFacts) {
             // create FindFacts results table
-            findFactsTable = '<div id="findFacts"><h2>FindFacts Results</h2><div';
+            findFactsTable = '<div id="findFacts"><h3>FindFacts Results</h3><div';
             findFactsTable += ' id="find-facts-results">...</div></div>';
             document
                 .getElementById("authorTopic")
@@ -245,11 +245,9 @@ function populateResults(results, searchQuery, indices, all = false) {
 
     const resultsTable = document.getElementById("search-results");
 
-    setInnerHTMLOfID("search-results", "<h2>Entries</h2>");
+    setInnerHTMLOfID("search-results", "<h3>Entries</h3>");
 
     var limit = all ? results.length : 15;
-    var templateDefinition = document.getElementById("search-result-template")
-        .innerHTML;
 
     results.slice(0, limit).forEach(function (value, resultKey) {
         var topicHrefs = value.topics
@@ -263,24 +261,30 @@ function populateResults(results, searchQuery, indices, all = false) {
             topics[key] = "<a href=" + topicHrefs[key] + ">" + value + "</a>";
         });
 
-        var topicString;
-        if (topics.length <= 2) {
-            topicString = topics.join(" and ");
-        } else {
-            topicString =
-                topics.slice(0, -1).join(", ") + " and " + topics[topics.length - 1];
-        }
+        var topicString = niceList(topics);
+        var authorString = niceList(value.authors);
 
-        // pull template from hugo template definition
-        // replace values
-        var output = render(templateDefinition, {
-            key: resultKey,
-            title: value.title,
-            link: value.shortname.toLowerCase(),
-            topics: topicString,
-            shortname: value.shortname,
-            abstract: value.abstract,
-        });
+        var title = value.title;
+        var link = value.shortname.toLowerCase();
+        var shortname = value.shortname;
+        var abstract = value.abstract;
+        var usedBy = value.usedBy;
+        var year = value.date.substring(0, 4);
+
+        var output = `<div id="summary-${resultKey}">
+  <div class='title'>
+    <a href="/entries/${link}">${title}</a>
+    <a download href="https://isa-afp.org/release/afp-${shortname}-current.tar.gz">Download</a>
+  </div>
+  <div class='subtitle'>
+    ${authorString ? `<p>${authorString}</p>` : ""}
+    ${year ? `<p>${year}</p>` : ""}
+  </div>
+  <p>${abstract}</p>
+    ${usedBy ? `<span>Used by <a href="/dependencies/${link}">${usedBy}</a> |</span>` : ""} ${
+            topicString ? `<span>${topicString}</span>` : ""
+        }
+</div>`;
 
         resultsTable.insertAdjacentHTML("beforeend", output);
     });
@@ -302,31 +306,14 @@ function populateResults(results, searchQuery, indices, all = false) {
 
     new Mark(resultsTable).mark(searchQuery);
 
-    function render(templateString, data) {
-        var conditionalMatches, conditionalPattern, copy;
-        conditionalPattern = /\$\{\s*isset ([a-zA-Z]*) \s*\}(.*)\$\{\s*end\s*}/g;
-        // since loop below depends on re.lastInxdex, we use a copy to capture any manipulations whilst inside the loop
-        copy = templateString;
-        while (
-            (conditionalMatches = conditionalPattern.exec(templateString)) !== null
-        ) {
-            if (data[conditionalMatches[1]]) {
-                // valid key, remove conditionals, leave contents.
-                copy = copy.replace(conditionalMatches[0], conditionalMatches[2]);
-            } else {
-                // not valid, remove entire section
-                copy = copy.replace(conditionalMatches[0], "");
-            }
+    function niceList(topics) {
+        if (topics.length <= 2) {
+            topicString = topics.join(" and ");
+        } else {
+            topicString =
+                topics.slice(0, -1).join(", ") + " and " + topics[topics.length - 1];
         }
-        templateString = copy;
-        // now any conditionals removed we can do simple substitution
-        var key, find, re;
-        for (key in data) {
-            find = "\\$\\{\\s*" + key + "\\s*\\}";
-            re = new RegExp(find, "g");
-            templateString = templateString.replace(re, data[key]);
-        }
-        return templateString;
+        return topicString;
     }
 }
 
@@ -338,12 +325,14 @@ function hideFindFacts() {
 }
 
 function populateSmallResults(results, searchQuery, key, indices, all = false) {
+    const maxResults = 5;
+
     var resultsTable = document.getElementById(key + "-results");
     var name = key[0].toUpperCase() + key.substring(1) + "s";
 
     if (!resultsTable) {
         var base = '<div id="' + key + '-results">';
-        base += "<h2>" + name + "</h2>";
+        base += "<h3>" + name + "</h3>";
 
         document.getElementById("authorTopic").insertAdjacentHTML("beforeend", base);
         resultsTable = document.getElementById(key + "-results");
@@ -351,20 +340,21 @@ function populateSmallResults(results, searchQuery, key, indices, all = false) {
         setInnerHTMLOfID(key + "-results", '<td class="head">' + name + "</div>");
     }
 
-    var limit = all ? results.length : 2;
-    var list = document.createElement("p");
+    var limit = all ? results.length : maxResults;
+    var list = document.createElement("ul");
 
     results.slice(0, limit).forEach((result, resultKey) => {
+        var listElement = document.createElement("li");
         var anchor = document.createElement("a");
         anchor.href = result.link;
         anchor.innerHTML = result.name;
-        list.appendChild(anchor);
-        if (resultKey != results.length - 1) list.append(", ");
+        listElement.appendChild(anchor);
+        list.appendChild(listElement);
     });
 
     resultsTable.insertAdjacentElement("beforeend", list);
 
-    if (results.length > 2 && !all) {
+    if (results.length > maxResults && !all) {
         var btn = document.createElement("button");
         btn.innerHTML = "Show all";
 
@@ -375,8 +365,8 @@ function populateSmallResults(results, searchQuery, key, indices, all = false) {
 
             populateSmallResults(entryResults, searchQuery, key, indices, true);
         });
-
-        resultsTable.appendChild(btn);
+        
+        resultsTable.insertAdjacentElement("beforeend", btn);
     }
 
     new Mark(resultsTable).mark(searchQuery);
@@ -390,16 +380,21 @@ function populateFindFactsResults(searchTerm, data) {
         urlPrefix += searchTerm + '","facets":{"Kind":["';
         const urlSuffix = '"]}}';
 
-        links = [];
+        var list = document.createElement("ul");
 
         Object.entries(data).forEach(([name, count]) => {
-            let value =
-                "<a href='" + urlPrefix + name + urlSuffix + "' target='_blank' ";
-            value += "rel='noreferrer noopener' >" + count + " " + name + "s</a>";
-            links.push(value);
+            var listElement = document.createElement("li");
+            var anchor = document.createElement("a");
+            anchor.href = urlPrefix + name + urlSuffix;
+            anchor.target = "_blank";
+            anchor.rel = "noreferrer noopener";
+            anchor.innerHTML = count + " " + name + "s";
+            listElement.appendChild(anchor);
+            list.appendChild(listElement);
         });
 
-        setInnerHTMLOfID("find-facts-results", links.join(", "));
+        setInnerHTMLOfID("find-facts-results", "");
+        resultsElement.insertAdjacentElement("beforeend", list);
     } else {
         setInnerHTMLOfID("find-facts-results", "No results");
     }
