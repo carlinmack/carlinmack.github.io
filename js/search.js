@@ -280,7 +280,7 @@ function populateResults(results, searchQuery, indices, all = false) {
     ${authorString ? `<p>${authorString}</p>` : ""}
     ${year ? `<p>${year}</p>` : ""}
   </div>
-  <p>${abstract}</p>
+  <div class="abstract mathjax_process">${abstract}</div>
     ${usedBy ? `<span>Used by <a href="/dependencies/${link}">${usedBy}</a> |</span>` : ""} ${
             topicString ? `<span>${topicString}</span>` : ""
         }
