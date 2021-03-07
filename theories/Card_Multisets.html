@@ -13,7 +13,7 @@
 
 <span class="keyword1"><span class="command">subsection</span></span> <span class="quoted"><span class="plain_text">‹Additions to Multiset Theory›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> mset_set_set_mset_subseteq<span class="main">:</span>
+<span class="keyword1" id="Card_Multisets-mset_set_set_mset_subseteq"><span class="command">lemma</span></span> mset_set_set_mset_subseteq<span class="main">:</span>
   <span class="quoted"><span class="quoted">"mset_set <span class="main">(</span>set_mset <span class="free">M</span><span class="main">)</span> <span class="main">⊆#</span> <span class="free">M</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">induct</span> <span class="quoted"><span class="free">M</span></span><span class="main">)</span>
   <span class="keyword3"><span class="command">case</span></span> empty
@@ -35,18 +35,18 @@
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> size_mset_set_eq_card<span class="main">:</span>
+<span class="keyword1" id="Card_Multisets-size_mset_set_eq_card"><span class="command">lemma</span></span> size_mset_set_eq_card<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"finite <span class="free">A</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"size <span class="main">(</span>mset_set <span class="free">A</span><span class="main">)</span> <span class="main">=</span> card <span class="free">A</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">induct</span> <span class="quoted"><span class="free">A</span></span><span class="main">)</span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> card_set_mset_leq<span class="main">:</span>
+<span class="keyword1" id="Card_Multisets-card_set_mset_leq"><span class="command">lemma</span></span> card_set_mset_leq<span class="main">:</span>
   <span class="quoted"><span class="quoted">"card <span class="main">(</span>set_mset <span class="free">M</span><span class="main">)</span> <span class="main">≤</span> size <span class="free">M</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">induct</span> <span class="quoted"><span class="free">M</span></span><span class="main">)</span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> card_insert_le_m1<span class="main">)</span>
 
 <span class="keyword1"><span class="command">subsection</span></span> <span class="quoted"><span class="plain_text">‹Lemma to Enumerate Sets of Multisets›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> set_of_multisets_eq<span class="main">:</span>
+<span class="keyword1" id="Card_Multisets-set_of_multisets_eq"><span class="command">lemma</span></span> set_of_multisets_eq<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">x</span> <span class="main">∉</span> <span class="free">A</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">{</span><span class="bound">M</span><span class="main">.</span> set_mset <span class="bound">M</span> <span class="main">⊆</span> insert <span class="free">x</span> <span class="free">A</span> <span class="main">∧</span> size <span class="bound">M</span> <span class="main">=</span> Suc <span class="free">k</span><span class="main">}</span> <span class="main">=</span>
     <span class="main">{</span><span class="bound">M</span><span class="main">.</span> set_mset <span class="bound">M</span> <span class="main">⊆</span> <span class="free">A</span> <span class="main">∧</span> size <span class="bound">M</span> <span class="main">=</span> Suc <span class="free">k</span><span class="main">}</span> <span class="main">∪</span>
@@ -91,7 +91,7 @@
 <span class="main">|</span> <span class="quoted"><span class="quoted">"<span class="free">R</span> <span class="main">{}</span> <span class="free"><span class="bound"><span class="entity">k</span></span></span>"</span></span>
 <span class="main">|</span> <span class="quoted"><span class="quoted">"finite <span class="free"><span class="bound"><span class="entity">A</span></span></span> <span class="main">⟹</span> <span class="free"><span class="bound"><span class="entity">x</span></span></span> <span class="main">∉</span> <span class="free"><span class="bound"><span class="entity">A</span></span></span> <span class="main">⟹</span> <span class="free">R</span> <span class="free"><span class="bound"><span class="entity">A</span></span></span> <span class="main">(</span>Suc <span class="free"><span class="bound"><span class="entity">k</span></span></span><span class="main">)</span> <span class="main">⟹</span> <span class="free">R</span> <span class="main">(</span>insert <span class="free"><span class="bound"><span class="entity">x</span></span></span> <span class="free"><span class="bound"><span class="entity">A</span></span></span><span class="main">)</span> <span class="free"><span class="bound"><span class="entity">k</span></span></span> <span class="main">⟹</span> <span class="free">R</span> <span class="main">(</span>insert <span class="free"><span class="bound"><span class="entity">x</span></span></span> <span class="free"><span class="bound"><span class="entity">A</span></span></span><span class="main">)</span> <span class="main">(</span>Suc <span class="free"><span class="bound"><span class="entity">k</span></span></span><span class="main">)</span>"</span></span>
 
-<span class="keyword2"><span class="keyword">private</span></span> <span class="keyword1"><span class="command">lemma</span></span> R_eq_finite<span class="main">:</span>
+<span class="keyword2"><span class="keyword">private</span></span> <span class="keyword1" id="Card_Multisets-R_eq_finite"><span class="command">lemma</span></span> R_eq_finite<span class="main">:</span>
   <span class="quoted"><span class="quoted">"R <span class="free">A</span> <span class="free">k</span> <span class="main">⟷</span> finite <span class="free">A</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span>
   <span class="keyword3"><span class="command">assume</span></span> <span class="quoted"><span class="quoted">"R <span class="free">A</span> <span class="free">k</span>"</span></span>
@@ -117,7 +117,7 @@
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> finite_set_and_nat_induct<span class="main">[</span><span class="operator">consumes</span> 1<span class="main">,</span> <span class="operator">case_names</span> zero empty step<span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Card_Multisets-finite_set_and_nat_induct"><span class="command">lemma</span></span> finite_set_and_nat_induct<span class="main">[</span><span class="operator">consumes</span> 1<span class="main">,</span> <span class="operator">case_names</span> zero empty step<span class="main">]</span><span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"finite <span class="free">A</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="main">⋀</span><span class="bound">A</span><span class="main">.</span> finite <span class="bound">A</span> <span class="main">⟹</span> <span class="free">P</span> <span class="bound">A</span> <span class="main">0</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="main">⋀</span><span class="bound">k</span><span class="main">.</span> <span class="free">P</span> <span class="main">{}</span> <span class="bound">k</span>"</span></span>
@@ -132,7 +132,7 @@
 
 <span class="keyword1"><span class="command">subsection</span></span> <span class="quoted"><span class="plain_text">‹Finiteness of Sets of Multisets›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> finite_multisets<span class="main">:</span>
+<span class="keyword1" id="Card_Multisets-finite_multisets"><span class="command">lemma</span></span> finite_multisets<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"finite <span class="free">A</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"finite <span class="main">{</span><span class="bound">M</span><span class="main">.</span> set_mset <span class="bound">M</span> <span class="main">⊆</span> <span class="free">A</span> <span class="main">∧</span> size <span class="bound">M</span> <span class="main">=</span> <span class="free">k</span><span class="main">}</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms
@@ -150,7 +150,7 @@
 
 <span class="keyword1"><span class="command">subsection</span></span> <span class="quoted"><span class="plain_text">‹Cardinality of Multisets›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> card_multisets<span class="main">:</span>
+<span class="keyword1" id="Card_Multisets-card_multisets"><span class="command">lemma</span></span> card_multisets<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"finite <span class="free">A</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"card <span class="main">{</span><span class="bound">M</span><span class="main">.</span> set_mset <span class="bound">M</span> <span class="main">⊆</span> <span class="free">A</span> <span class="main">∧</span> size <span class="bound">M</span> <span class="main">=</span> <span class="free">k</span><span class="main">}</span> <span class="main">=</span> <span class="main">(</span>card <span class="free">A</span> <span class="main">+</span> <span class="free">k</span> <span class="main">-</span> <span class="main">1</span><span class="main">)</span> <span class="keyword1">choose</span> <span class="free">k</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms
@@ -187,7 +187,7 @@
   <span class="keyword1"><span class="command">finally</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?case</span></span></span> <span class="keyword1"><span class="command">.</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> card_too_small_multisets_covering_set<span class="main">:</span>
+<span class="keyword1" id="Card_Multisets-card_too_small_multisets_covering_set"><span class="command">lemma</span></span> card_too_small_multisets_covering_set<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"finite <span class="free">A</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">k</span> <span class="main">&lt;</span> card <span class="free">A</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"card <span class="main">{</span><span class="bound">M</span><span class="main">.</span> set_mset <span class="bound">M</span> <span class="main">=</span> <span class="free">A</span> <span class="main">∧</span> size <span class="bound">M</span> <span class="main">=</span> <span class="free">k</span><span class="main">}</span> <span class="main">=</span> <span class="main">0</span>"</span></span>
@@ -197,7 +197,7 @@
   <span class="keyword1"><span class="command">from</span></span> this <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span> <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">metis</span> card.empty<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> card_multisets_covering_set<span class="main">:</span>
+<span class="keyword1" id="Card_Multisets-card_multisets_covering_set"><span class="command">lemma</span></span> card_multisets_covering_set<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"finite <span class="free">A</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"card <span class="free">A</span> <span class="main">≤</span> <span class="free">k</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"card <span class="main">{</span><span class="bound">M</span><span class="main">.</span> set_mset <span class="bound">M</span> <span class="main">=</span> <span class="free">A</span> <span class="main">∧</span> size <span class="bound">M</span> <span class="main">=</span> <span class="free">k</span><span class="main">}</span> <span class="main">=</span> <span class="main">(</span><span class="free">k</span> <span class="main">-</span> <span class="main">1</span><span class="main">)</span> <span class="keyword1">choose</span> <span class="main">(</span><span class="free">k</span> <span class="main">-</span> card <span class="free">A</span><span class="main">)</span>"</span></span>

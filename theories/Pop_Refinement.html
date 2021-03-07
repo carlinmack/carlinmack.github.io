@@ -172,7 +172,7 @@ if the expression contains a variable not in the environment.›</span></span>
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹Evaluating a well-formed expression never yields an error,
 if the environment matches the context.›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> eval_wfe<span class="main">:</span>
+<span class="keyword1" id="First_Example-eval_wfe"><span class="command">lemma</span></span> eval_wfe<span class="main">:</span>
   <span class="quoted"><span class="quoted">"wfe <span class="free">Γ</span> <span class="free">e</span> <span class="main">⟹</span> match <span class="free">ℰ</span> <span class="free">Γ</span> <span class="main">⟹</span> eval <span class="free">ℰ</span> <span class="free">e</span> <span class="main">≠</span> None"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">induct</span> <span class="quoted"><span class="free">e</span></span><span class="main"><span class="keyword3">,</span></span> <span class="operator">auto</span> <span class="quasi_keyword">simp</span><span class="main"><span class="main">:</span></span> match_def mul_opt_def add_opt_def<span class="main">)</span>
 
@@ -186,7 +186,7 @@ are the ones that match the context of the program.›</span></span>
 in an environment of the program
 never yields an error.›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> eval_wfp<span class="main">:</span>
+<span class="keyword1" id="First_Example-eval_wfp"><span class="command">lemma</span></span> eval_wfp<span class="main">:</span>
   <span class="quoted"><span class="quoted">"wfp <span class="free">p</span> <span class="main">⟹</span> <span class="free">ℰ</span> <span class="main">∈</span> envs <span class="free">p</span> <span class="main">⟹</span> eval <span class="free">ℰ</span> <span class="main">(</span>body <span class="free">p</span><span class="main">)</span> <span class="main">≠</span> None"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">metis</span> envs_def eval_wfe mem_Collect_eq wfp_def<span class="main">)</span>
 
@@ -212,14 +212,14 @@ or the evaluation of the body yields an error.›</span></span>
 with the same number of values as the number of parameters
 never yields an error.›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> supply_wfp<span class="main">:</span> <span class="quoted"><span class="quoted">"
+<span class="keyword1" id="First_Example-supply_wfp"><span class="command">lemma</span></span> supply_wfp<span class="main">:</span> <span class="quoted"><span class="quoted">"
   wfp <span class="free">p</span> <span class="main">⟹</span>
   length <span class="free">us</span> <span class="main">=</span> length <span class="main">(</span>para <span class="free">p</span><span class="main">)</span> <span class="main">⟹</span>
   <span class="main">∃</span><span class="bound">ℰ</span> <span class="main">∈</span> envs <span class="free">p</span><span class="main">.</span> supply <span class="free">p</span> <span class="free">us</span> <span class="main">=</span> Some <span class="bound">ℰ</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span>
  <span class="quasi_keyword">simp</span><span class="main"><span class="main">:</span></span> wfp_def supply_def envs_def ctxt_def match_def <span class="quasi_keyword">split</span><span class="main"><span class="main">:</span></span> option.split<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> exec_wfp<span class="main">:</span>
+<span class="keyword1" id="First_Example-exec_wfp"><span class="command">lemma</span></span> exec_wfp<span class="main">:</span>
   <span class="quoted"><span class="quoted">"wfp <span class="free">p</span> <span class="main">⟹</span> length <span class="free">us</span> <span class="main">=</span> length <span class="main">(</span>para <span class="free">p</span><span class="main">)</span> <span class="main">⟹</span> exec <span class="free">p</span> <span class="free">us</span> <span class="main">≠</span> None"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">metis</span> eval_wfp exec_def option.simps<span class="main"><span class="main">(</span></span>5<span class="main"><span class="main">)</span></span> supply_wfp<span class="main">)</span>
 
@@ -314,7 +314,7 @@ and the execution of the program to the evaluation of the body.›</span></span>
 <span class="keyword1"><span class="command">abbreviation</span></span> <span class="entity">ℰ<span class="hidden">⇩</span><sub>x</sub><span class="hidden">⇩</span><sub>y</sub></span> <span class="main">::</span> <span class="quoted"><span class="quoted">"nat <span class="main">⇒</span> nat <span class="main">⇒</span> env"</span></span>
 <span class="keyword2"><span class="keyword">where</span></span> <span class="quoted"><span class="quoted">"<span class="free">ℰ<span class="hidden">⇩</span><sub>x</sub><span class="hidden">⇩</span><sub>y</sub></span> <span class="free"><span class="bound"><span class="entity">x</span></span></span> <span class="free"><span class="bound"><span class="entity">y</span></span></span> <span class="main">≡</span> <span class="main">[</span><span class="inner_quoted">''x''</span> <span class="main">↦</span> <span class="free"><span class="bound"><span class="entity">x</span></span></span><span class="main">,</span> <span class="inner_quoted">''y''</span> <span class="main">↦</span> <span class="free"><span class="bound"><span class="entity">y</span></span></span><span class="main">]</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> reduce_prog_to_body<span class="main">:</span> <span class="quoted"><span class="quoted">"
+<span class="keyword1" id="First_Example-reduce_prog_to_body"><span class="command">lemma</span></span> reduce_prog_to_body<span class="main">:</span> <span class="quoted"><span class="quoted">"
   para <span class="free">p</span> <span class="main">=</span> <span class="main">[</span><span class="inner_quoted">''x''</span><span class="main">,</span> <span class="inner_quoted">''y''</span><span class="main">]</span> <span class="main">⟹</span>
   wfp <span class="free">p</span> <span class="main">=</span> wfe Γ<span class="hidden">⇩</span><sub>x</sub><span class="hidden">⇩</span><sub>y</sub> <span class="main">(</span>body <span class="free">p</span><span class="main">)</span> <span class="main">∧</span>
   exec <span class="free">p</span> <span class="main">[</span><span class="free">x</span><span class="main">,</span> <span class="free">y</span><span class="main">]</span> <span class="main">=</span> eval <span class="main">(</span>ℰ<span class="hidden">⇩</span><sub>x</sub><span class="hidden">⇩</span><sub>y</sub> <span class="free">x</span> <span class="free">y</span><span class="main">)</span> <span class="main">(</span>body <span class="free">p</span><span class="main">)</span>"</span></span>
@@ -332,7 +332,7 @@ to reduce the cost of the program to the cost of the body,
   <span class="main">(</span><span class="main">∀</span><span class="bound">x</span> <span class="bound">y</span><span class="main">.</span> eval <span class="main">(</span>ℰ<span class="hidden">⇩</span><sub>x</sub><span class="hidden">⇩</span><sub>y</sub> <span class="bound">x</span> <span class="bound">y</span><span class="main">)</span> <span class="main">(</span>body <span class="free"><span class="bound"><span class="entity">p</span></span></span><span class="main">)</span> <span class="main">=</span> Some <span class="main">(</span>f <span class="bound">x</span> <span class="bound">y</span><span class="main">)</span><span class="main">)</span> <span class="main">∧</span>
   coste <span class="main">(</span>body <span class="free"><span class="bound"><span class="entity">p</span></span></span><span class="main">)</span> <span class="main">≤</span> <span class="numeral">3</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> step_1_correct<span class="main">:</span>
+<span class="keyword1" id="First_Example-step_1_correct"><span class="command">lemma</span></span> step_1_correct<span class="main">:</span>
  <span class="quoted"><span class="quoted">"spec<span class="hidden">⇩</span><sub>1</sub> <span class="free">p</span> <span class="main">⟹</span> spec<span class="hidden">⇩</span><sub>0</sub> <span class="free">p</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span><span class="main"><span class="main">:</span></span> spec<span class="hidden">⇩</span><sub>1</sub>_def spec<span class="hidden">⇩</span><sub>0</sub>_def reduce_prog_to_body costp_def<span class="main">)</span>
 
@@ -372,7 +372,7 @@ so that they can be simplified in the next refinement step,
     <span class="main">(</span><span class="main">∀</span><span class="bound">x</span> <span class="bound">y</span><span class="main">.</span> eval <span class="main">(</span>ℰ<span class="hidden">⇩</span><sub>x</sub><span class="hidden">⇩</span><sub>y</sub> <span class="bound">x</span> <span class="bound">y</span><span class="main">)</span> <span class="main">(</span>body <span class="free"><span class="bound"><span class="entity">p</span></span></span><span class="main">)</span> <span class="main">=</span> Some <span class="main">(</span>f <span class="bound">x</span> <span class="bound">y</span><span class="main">)</span><span class="main">)</span> <span class="main">∧</span>
     coste <span class="main">(</span>body <span class="free"><span class="bound"><span class="entity">p</span></span></span><span class="main">)</span> <span class="main">≤</span> <span class="numeral">3</span><span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> step_2_correct<span class="main">:</span>
+<span class="keyword1" id="First_Example-step_2_correct"><span class="command">lemma</span></span> step_2_correct<span class="main">:</span>
  <span class="quoted"><span class="quoted">"spec<span class="hidden">⇩</span><sub>2</sub> <span class="free">p</span> <span class="main">⟹</span> spec<span class="hidden">⇩</span><sub>1</sub> <span class="free">p</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span><span class="main"><span class="main">:</span></span> spec<span class="hidden">⇩</span><sub>2</sub>_def spec<span class="hidden">⇩</span><sub>1</sub>_def<span class="main">)</span>
 
@@ -387,7 +387,7 @@ of the constraints in <span class="antiquoted"><span class="antiquoted"><span cl
 reduces the well-formedness, evaluation, and cost of the body
 to the well-formedness, evaluation, and cost of the addends.›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> reduce_body_to_addends<span class="main">:</span> <span class="quoted"><span class="quoted">"
+<span class="keyword1" id="First_Example-reduce_body_to_addends"><span class="command">lemma</span></span> reduce_body_to_addends<span class="main">:</span> <span class="quoted"><span class="quoted">"
   body <span class="free">p</span> <span class="main">=</span> Add <span class="free">e<span class="hidden">⇩</span><sub>1</sub></span> <span class="free">e<span class="hidden">⇩</span><sub>2</sub></span> <span class="main">⟹</span>
   wfe Γ<span class="hidden">⇩</span><sub>x</sub><span class="hidden">⇩</span><sub>y</sub> <span class="main">(</span>body <span class="free">p</span><span class="main">)</span> <span class="main">=</span> <span class="main">(</span>wfe Γ<span class="hidden">⇩</span><sub>x</sub><span class="hidden">⇩</span><sub>y</sub> <span class="free">e<span class="hidden">⇩</span><sub>1</sub></span> <span class="main">∧</span> wfe Γ<span class="hidden">⇩</span><sub>x</sub><span class="hidden">⇩</span><sub>y</sub> <span class="free">e<span class="hidden">⇩</span><sub>2</sub></span><span class="main">)</span> <span class="main">∧</span>
   eval <span class="main">(</span>ℰ<span class="hidden">⇩</span><sub>x</sub><span class="hidden">⇩</span><sub>y</sub> <span class="free">x</span> <span class="free">y</span><span class="main">)</span> <span class="main">(</span>body <span class="free">p</span><span class="main">)</span> <span class="main">=</span> eval <span class="main">(</span>ℰ<span class="hidden">⇩</span><sub>x</sub><span class="hidden">⇩</span><sub>y</sub> <span class="free">x</span> <span class="free">y</span><span class="main">)</span> <span class="free">e<span class="hidden">⇩</span><sub>1</sub></span> <span class="main">⊕</span> eval <span class="main">(</span>ℰ<span class="hidden">⇩</span><sub>x</sub><span class="hidden">⇩</span><sub>y</sub> <span class="free">x</span> <span class="free">y</span><span class="main">)</span> <span class="free">e<span class="hidden">⇩</span><sub>2</sub></span> <span class="main">∧</span>
@@ -408,7 +408,7 @@ and arithmetic simplification,
     <span class="main">(</span><span class="main">∀</span><span class="bound">x</span> <span class="bound">y</span><span class="main">.</span> eval <span class="main">(</span>ℰ<span class="hidden">⇩</span><sub>x</sub><span class="hidden">⇩</span><sub>y</sub> <span class="bound">x</span> <span class="bound">y</span><span class="main">)</span> <span class="bound">e<span class="hidden">⇩</span><sub>1</sub></span> <span class="main">⊕</span> eval <span class="main">(</span>ℰ<span class="hidden">⇩</span><sub>x</sub><span class="hidden">⇩</span><sub>y</sub> <span class="bound">x</span> <span class="bound">y</span><span class="main">)</span> <span class="bound">e<span class="hidden">⇩</span><sub>2</sub></span> <span class="main">=</span> Some <span class="main">(</span>f <span class="bound">x</span> <span class="bound">y</span><span class="main">)</span><span class="main">)</span> <span class="main">∧</span>
     coste <span class="bound">e<span class="hidden">⇩</span><sub>1</sub></span> <span class="main">+</span> coste <span class="bound">e<span class="hidden">⇩</span><sub>2</sub></span> <span class="main">≤</span> <span class="numeral">2</span><span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> step_3_correct<span class="main">:</span>
+<span class="keyword1" id="First_Example-step_3_correct"><span class="command">lemma</span></span> step_3_correct<span class="main">:</span>
   <span class="quoted"><span class="quoted">"spec<span class="hidden">⇩</span><sub>3</sub> <span class="free">p</span> <span class="main">⟹</span> spec<span class="hidden">⇩</span><sub>2</sub> <span class="free">p</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span><span class="main"><span class="main">:</span></span> spec<span class="hidden">⇩</span><sub>3</sub>_def spec<span class="hidden">⇩</span><sub>2</sub>_def<span class="main">)</span>
 <span class="comment1">― ‹No need to use <span class="antiquoted"><span class="antiquote">@{</span><span class="operator">text</span> <span class="raw_text">reduce_body_to_addends</span><span class="antiquote">}</span></span> explicitly,›</span>
@@ -440,7 +440,7 @@ and split <span class="antiquoted"><span class="antiquoted"><span class="antiquo
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹To avoid the blind alley,
 the definition of <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><span class="antiquote">@{</span></span><span class="operator"><span class="operator">const</span></span> f<span class="antiquote"><span class="antiquote">}</span></span></span></span> is rephrased as follows.›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> f_rephrased<span class="main">:</span>
+<span class="keyword1" id="First_Example-f_rephrased"><span class="command">lemma</span></span> f_rephrased<span class="main">:</span>
   <span class="quoted"><span class="quoted">"f <span class="free">x</span> <span class="free">y</span> <span class="main">=</span> <span class="free">x</span> <span class="main">+</span> <span class="main">(</span><span class="numeral">2</span> <span class="main">*</span> <span class="free">x</span> <span class="main">+</span> <span class="numeral">2</span> <span class="main">*</span> <span class="free">y</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span><span class="main"><span class="main">:</span></span> f_def<span class="main">)</span>
 
@@ -462,7 +462,7 @@ it only uses operations supported by the language.›</span></span>
     <span class="main">(</span><span class="main">∀</span><span class="bound">x</span> <span class="bound">y</span><span class="main">.</span> eval <span class="main">(</span>ℰ<span class="hidden">⇩</span><sub>x</sub><span class="hidden">⇩</span><sub>y</sub> <span class="bound">x</span> <span class="bound">y</span><span class="main">)</span> <span class="bound">e<span class="hidden">⇩</span><sub>2</sub></span> <span class="main">=</span> Some <span class="main">(</span><span class="numeral">2</span> <span class="main">*</span> <span class="bound">x</span> <span class="main">+</span> <span class="numeral">2</span> <span class="main">*</span> <span class="bound">y</span><span class="main">)</span><span class="main">)</span> <span class="main">∧</span>
     coste <span class="bound">e<span class="hidden">⇩</span><sub>1</sub></span> <span class="main">+</span> coste <span class="bound">e<span class="hidden">⇩</span><sub>2</sub></span> <span class="main">≤</span> <span class="numeral">2</span><span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> step_4_correct<span class="main">:</span>
+<span class="keyword1" id="First_Example-step_4_correct"><span class="command">lemma</span></span> step_4_correct<span class="main">:</span>
   <span class="quoted"><span class="quoted">"spec<span class="hidden">⇩</span><sub>4</sub> <span class="free">p</span> <span class="main">⟹</span> spec<span class="hidden">⇩</span><sub>3</sub> <span class="free">p</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span><span class="main"><span class="main">:</span></span> spec<span class="hidden">⇩</span><sub>4</sub>_def spec<span class="hidden">⇩</span><sub>3</sub>_def add_opt_def f_rephrased<span class="main">)</span>
 
@@ -486,7 +486,7 @@ Using the latter as <span class="antiquoted"><span class="antiquoted"><span clas
 the third-to-last conjunct in <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><span class="antiquote">@{</span></span><span class="operator"><span class="operator">const</span></span> spec<span class="hidden">⇩</span><sub>4</sub><span class="antiquote"><span class="antiquote">}</span></span></span></span> is satisfied;
 the expression is well-formed and has cost 0.›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> first_addend<span class="main">:</span> <span class="quoted"><span class="quoted">"
+<span class="keyword1" id="First_Example-first_addend"><span class="command">lemma</span></span> first_addend<span class="main">:</span> <span class="quoted"><span class="quoted">"
   <span class="free">e<span class="hidden">⇩</span><sub>1</sub></span> <span class="main">=</span> Var <span class="inner_quoted">''x''</span> <span class="main">⟹</span>
   eval <span class="main">(</span>ℰ<span class="hidden">⇩</span><sub>x</sub><span class="hidden">⇩</span><sub>y</sub> <span class="free">x</span> <span class="free">y</span><span class="main">)</span> <span class="free">e<span class="hidden">⇩</span><sub>1</sub></span> <span class="main">=</span> Some <span class="free">x</span> <span class="main">∧</span>
   wfe Γ<span class="hidden">⇩</span><sub>x</sub><span class="hidden">⇩</span><sub>y</sub> <span class="free">e<span class="hidden">⇩</span><sub>1</sub></span> <span class="main">∧</span>
@@ -506,7 +506,7 @@ and simplifying,
     <span class="main">(</span><span class="main">∀</span><span class="bound">x</span> <span class="bound">y</span><span class="main">.</span> eval <span class="main">(</span>ℰ<span class="hidden">⇩</span><sub>x</sub><span class="hidden">⇩</span><sub>y</sub> <span class="bound">x</span> <span class="bound">y</span><span class="main">)</span> <span class="bound">e<span class="hidden">⇩</span><sub>2</sub></span> <span class="main">=</span> Some <span class="main">(</span><span class="numeral">2</span> <span class="main">*</span> <span class="bound">x</span> <span class="main">+</span> <span class="numeral">2</span> <span class="main">*</span> <span class="bound">y</span><span class="main">)</span><span class="main">)</span> <span class="main">∧</span>
     coste <span class="bound">e<span class="hidden">⇩</span><sub>2</sub></span> <span class="main">≤</span> <span class="numeral">2</span><span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> step_5_correct<span class="main">:</span>
+<span class="keyword1" id="First_Example-step_5_correct"><span class="command">lemma</span></span> step_5_correct<span class="main">:</span>
   <span class="quoted"><span class="quoted">"spec<span class="hidden">⇩</span><sub>5</sub> <span class="free">p</span> <span class="main">⟹</span> spec<span class="hidden">⇩</span><sub>4</sub> <span class="free">p</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span><span class="main"><span class="main">:</span></span> spec<span class="hidden">⇩</span><sub>5</sub>_def spec<span class="hidden">⇩</span><sub>4</sub>_def<span class="main">)</span>
 <span class="comment1">― ‹No need to use <span class="antiquoted"><span class="antiquote">@{</span><span class="operator">text</span> <span class="raw_text">first_addend</span><span class="antiquote">}</span></span> explicitly,›</span>
@@ -530,7 +530,7 @@ but the last conjunct is not.
 The following factorization of the shallowly embedded expression
 leads to a reduced cost of the corresponding deeply embedded expression.›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> factorization<span class="main">:</span>
+<span class="keyword1" id="First_Example-factorization"><span class="command">lemma</span></span> factorization<span class="main">:</span>
   <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="numeral">2</span><span class="main">::</span>nat<span class="main">)</span> <span class="main">*</span> <span class="free">x</span> <span class="main">+</span> <span class="numeral">2</span> <span class="main">*</span> <span class="free">y</span> <span class="main">=</span> <span class="numeral">2</span> <span class="main">*</span> <span class="main">(</span><span class="free">x</span> <span class="main">+</span> <span class="free">y</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
@@ -542,7 +542,7 @@ satisfies the second-to-last conjunct of <span class="antiquoted"><span class="a
 is well-formed,
 and has cost 2.›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> second_addend<span class="main">:</span> <span class="quoted"><span class="quoted">"
+<span class="keyword1" id="First_Example-second_addend"><span class="command">lemma</span></span> second_addend<span class="main">:</span> <span class="quoted"><span class="quoted">"
   <span class="free">e<span class="hidden">⇩</span><sub>2</sub></span> <span class="main">=</span> Double <span class="main">(</span>Add <span class="main">(</span>Var <span class="inner_quoted">''x''</span><span class="main">)</span> <span class="main">(</span>Var <span class="inner_quoted">''y''</span><span class="main">)</span><span class="main">)</span> <span class="main">⟹</span>
   eval <span class="main">(</span>ℰ<span class="hidden">⇩</span><sub>x</sub><span class="hidden">⇩</span><sub>y</sub> <span class="free">x</span> <span class="free">y</span><span class="main">)</span> <span class="free">e<span class="hidden">⇩</span><sub>2</sub></span> <span class="main">=</span> Some <span class="main">(</span><span class="numeral">2</span> <span class="main">*</span> <span class="free">x</span> <span class="main">+</span> <span class="numeral">2</span> <span class="main">*</span> <span class="free">y</span><span class="main">)</span> <span class="main">∧</span>
   wfe Γ<span class="hidden">⇩</span><sub>x</sub><span class="hidden">⇩</span><sub>y</sub> <span class="free">e<span class="hidden">⇩</span><sub>2</sub></span> <span class="main">∧</span>
@@ -561,7 +561,7 @@ and simplifying,
   para <span class="free"><span class="bound"><span class="entity">p</span></span></span> <span class="main">=</span> <span class="main">[</span><span class="inner_quoted">''x''</span><span class="main">,</span> <span class="inner_quoted">''y''</span><span class="main">]</span> <span class="main">∧</span>
   body <span class="free"><span class="bound"><span class="entity">p</span></span></span> <span class="main">=</span> Add <span class="main">(</span>Var <span class="inner_quoted">''x''</span><span class="main">)</span> <span class="main">(</span>Double <span class="main">(</span>Add <span class="main">(</span>Var <span class="inner_quoted">''x''</span><span class="main">)</span> <span class="main">(</span>Var <span class="inner_quoted">''y''</span><span class="main">)</span><span class="main">)</span><span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> step_6_correct<span class="main">:</span>
+<span class="keyword1" id="First_Example-step_6_correct"><span class="command">lemma</span></span> step_6_correct<span class="main">:</span>
   <span class="quoted"><span class="quoted">"spec<span class="hidden">⇩</span><sub>6</sub> <span class="free">p</span> <span class="main">⟹</span> spec<span class="hidden">⇩</span><sub>5</sub> <span class="free">p</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> spec<span class="hidden">⇩</span><sub>6</sub>_def spec<span class="hidden">⇩</span><sub>5</sub>_def second_addend <span class="quasi_keyword">simp</span> <span class="quasi_keyword">del</span><span class="main"><span class="main">:</span></span> eval.simps<span class="main">)</span>
 
@@ -587,7 +587,7 @@ is refined to characterize a unique program in explicit syntactic form.›</span
 <span class="keyword1"><span class="command">definition</span></span> <span class="entity">spec<span class="hidden">⇩</span><sub>7</sub></span> <span class="main">::</span> <span class="quoted"><span class="quoted">"prog <span class="main">⇒</span> bool"</span></span>
 <span class="keyword2"><span class="keyword">where</span></span> <span class="quoted"><span class="quoted">"<span class="free">spec<span class="hidden">⇩</span><sub>7</sub></span> <span class="free"><span class="bound"><span class="entity">p</span></span></span> <span class="main">≡</span> <span class="free"><span class="bound"><span class="entity">p</span></span></span> <span class="main">=</span> p<span class="hidden">⇩</span><sub>0</sub>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> step_7_correct<span class="main">:</span>
+<span class="keyword1" id="First_Example-step_7_correct"><span class="command">lemma</span></span> step_7_correct<span class="main">:</span>
   <span class="quoted"><span class="quoted">"spec<span class="hidden">⇩</span><sub>7</sub> <span class="free">p</span> <span class="main">⟹</span> spec<span class="hidden">⇩</span><sub>6</sub> <span class="free">p</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span><span class="main"><span class="main">:</span></span> spec<span class="hidden">⇩</span><sub>7</sub>_def spec<span class="hidden">⇩</span><sub>6</sub>_def<span class="main">)</span>
 
@@ -595,7 +595,7 @@ is refined to characterize a unique program in explicit syntactic form.›</span
 The program witnesses the consistency of the requirements,
 i.e.\ the fact that <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><span class="antiquote">@{</span></span><span class="operator"><span class="operator">const</span></span> spec<span class="hidden">⇩</span><sub>0</sub><span class="antiquote"><span class="antiquote">}</span></span></span></span> is not always false.›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> p<span class="hidden">⇩</span><sub>0</sub>_sat_spec<span class="hidden">⇩</span><sub>0</sub><span class="main">:</span>
+<span class="keyword1" id="First_Example-p"><span class="command">lemma</span></span> p<span class="hidden">⇩</span><sub>0</sub>_sat_spec<span class="hidden">⇩</span><sub>0</sub><span class="main">:</span>
   <span class="quoted"><span class="quoted">"spec<span class="hidden">⇩</span><sub>0</sub> p<span class="hidden">⇩</span><sub>0</sub>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">metis</span>
  step_1_correct
@@ -844,7 +844,7 @@ if the expression contains a variable not in the state.›</span></span>
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹Evaluating a well-formed expression never yields an error,
 if the state matches the context.›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> eval_wfe<span class="main">:</span>
+<span class="keyword1" id="Second_Example-eval_wfe"><span class="command">lemma</span></span> eval_wfe<span class="main">:</span>
   <span class="quoted"><span class="quoted">"wfe <span class="free">Γ</span> <span class="free">e</span> <span class="main">⟹</span> match <span class="free">σ</span> <span class="free">Γ</span> <span class="main">⟹</span> eval <span class="free">σ</span> <span class="free">e</span> <span class="main">≠</span> None"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">induct</span> <span class="quoted"><span class="free">e</span></span><span class="main"><span class="keyword3">,</span></span> <span class="operator">auto</span> <span class="quasi_keyword">simp</span><span class="main"><span class="main">:</span></span> match_def add_opt_def<span class="main">)</span>
 
@@ -894,7 +894,7 @@ where a result is either a new state or an error.›</span></span>
 
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹The execution of any statement in any state always yields a result.›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> exec_always<span class="main">:</span>
+<span class="keyword1" id="Second_Example-exec_always"><span class="command">lemma</span></span> exec_always<span class="main">:</span>
   <span class="quoted"><span class="quoted">"<span class="main">∃</span><span class="bound">ρ</span><span class="main">.</span> <span class="free">s</span> <span class="main">⊳</span> <span class="free">σ</span> <span class="main">↝</span> <span class="bound">ρ</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">induct</span> <span class="quoted"><span class="free">s</span></span> <span class="quasi_keyword">arbitrary</span><span class="main"><span class="main">:</span></span> <span class="quoted"><span class="free">σ</span></span><span class="main">)</span>
   <span class="keyword3"><span class="command">case</span></span> Assign
@@ -920,7 +920,7 @@ where a result is either a new state or an error.›</span></span>
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹Executing a well-formed statement in a state that matches the context
 never yields an error and always yields states that match the context.›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> exec_wfs_match<span class="main">:</span>
+<span class="keyword1" id="Second_Example-exec_wfs_match"><span class="command">lemma</span></span> exec_wfs_match<span class="main">:</span>
   <span class="quoted"><span class="quoted">"wfs <span class="free">Γ</span> <span class="free">s</span> <span class="main">⟹</span> match <span class="free">σ</span> <span class="free">Γ</span> <span class="main">⟹</span> <span class="free">s</span> <span class="main">⊳</span> <span class="free">σ</span> <span class="main">↝</span> Some <span class="free">σ'</span> <span class="main">⟹</span> match <span class="free">σ'</span> <span class="free">Γ</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">induct</span> <span class="quoted"><span class="free">s</span></span> <span class="quasi_keyword">arbitrary</span><span class="main"><span class="main">:</span></span> <span class="quoted"><span class="free">σ</span></span> <span class="quoted"><span class="free">σ'</span></span><span class="main">)</span>
   <span class="keyword3"><span class="command">case</span></span> <span class="main">(</span>Assign <span class="skolem">v</span> <span class="skolem">e</span><span class="main">)</span>
@@ -959,7 +959,7 @@ never yields an error and always yields states that match the context.›</span>
   <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">metis</span> wfs.simps<span class="main"><span class="main">(</span></span>4<span class="main"><span class="main">)</span></span><span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> exec_wfs_no_error<span class="main">:</span>
+<span class="keyword1" id="Second_Example-exec_wfs_no_error"><span class="command">lemma</span></span> exec_wfs_no_error<span class="main">:</span>
   <span class="quoted"><span class="quoted">"wfs <span class="free">Γ</span> <span class="free">s</span> <span class="main">⟹</span> match <span class="free">σ</span> <span class="free">Γ</span> <span class="main">⟹</span> <span class="main">¬</span> <span class="main">(</span><span class="free">s</span> <span class="main">⊳</span> <span class="free">σ</span> <span class="main">↝</span> None<span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">induct</span> <span class="quoted"><span class="free">s</span></span> <span class="quasi_keyword">arbitrary</span><span class="main"><span class="main">:</span></span> <span class="quoted"><span class="free">σ</span></span><span class="main">)</span>
   <span class="keyword3"><span class="command">case</span></span> <span class="main">(</span>Assign <span class="skolem">v</span> <span class="skolem">e</span><span class="main">)</span>
@@ -997,7 +997,7 @@ never yields an error and always yields states that match the context.›</span>
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> exec_wfs_always_match<span class="main">:</span>
+<span class="keyword1" id="Second_Example-exec_wfs_always_match"><span class="command">lemma</span></span> exec_wfs_always_match<span class="main">:</span>
   <span class="quoted"><span class="quoted">"wfs <span class="free">Γ</span> <span class="free">s</span> <span class="main">⟹</span> match <span class="free">σ</span> <span class="free">Γ</span> <span class="main">⟹</span> <span class="main">∃</span><span class="bound">σ'</span><span class="main">.</span> <span class="free">s</span> <span class="main">⊳</span> <span class="free">σ</span> <span class="main">↝</span> Some <span class="bound">σ'</span> <span class="main">∧</span> match <span class="bound">σ'</span> <span class="free">Γ</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">metis</span> exec_always exec_wfs_match exec_wfs_no_error option.exhaust<span class="main">)</span>
 
@@ -1010,15 +1010,15 @@ are the ones that match the context of the program.›</span></span>
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹Executing the body of a well-formed program in a state of the program
 always yields some state of the program, and never an error.›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> exec_wfp_no_error<span class="main">:</span>
+<span class="keyword1" id="Second_Example-exec_wfp_no_error"><span class="command">lemma</span></span> exec_wfp_no_error<span class="main">:</span>
   <span class="quoted"><span class="quoted">"wfp <span class="free">p</span> <span class="main">⟹</span> <span class="free">σ</span> <span class="main">∈</span> states <span class="free">p</span> <span class="main">⟹</span> <span class="main">¬</span> <span class="main">(</span>body <span class="free">p</span> <span class="main">⊳</span> <span class="free">σ</span> <span class="main">↝</span> None<span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">metis</span> exec_wfs_no_error mem_Collect_eq states_def wfp_def<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> exec_wfp_in_states<span class="main">:</span>
+<span class="keyword1" id="Second_Example-exec_wfp_in_states"><span class="command">lemma</span></span> exec_wfp_in_states<span class="main">:</span>
   <span class="quoted"><span class="quoted">"wfp <span class="free">p</span> <span class="main">⟹</span> <span class="free">σ</span> <span class="main">∈</span> states <span class="free">p</span> <span class="main">⟹</span> body <span class="free">p</span> <span class="main">⊳</span> <span class="free">σ</span> <span class="main">↝</span> Some <span class="free">σ'</span> <span class="main">⟹</span> <span class="free">σ'</span> <span class="main">∈</span> states <span class="free">p</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">metis</span> exec_wfs_match mem_Collect_eq states_def wfp_def<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> exec_wfp_always_in_states<span class="main">:</span>
+<span class="keyword1" id="Second_Example-exec_wfp_always_in_states"><span class="command">lemma</span></span> exec_wfp_always_in_states<span class="main">:</span>
   <span class="quoted"><span class="quoted">"wfp <span class="free">p</span> <span class="main">⟹</span> <span class="free">σ</span> <span class="main">∈</span> states <span class="free">p</span> <span class="main">⟹</span> <span class="main">∃</span><span class="bound">σ'</span><span class="main">.</span> body <span class="free">p</span> <span class="main">⊳</span> <span class="free">σ</span> <span class="main">↝</span> Some <span class="bound">σ'</span> <span class="main">∧</span> <span class="bound">σ'</span> <span class="main">∈</span> states <span class="free">p</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">metis</span> exec_always exec_wfp_in_states exec_wfp_no_error option.exhaust<span class="main">)</span>
 
@@ -1211,7 +1211,7 @@ is the high output.
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹The requirements in <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><span class="antiquote">@{</span></span><span class="operator"><span class="operator">const</span></span> spec<span class="hidden">⇩</span><sub>0</sub><span class="antiquote"><span class="antiquote">}</span></span></span></span> imply that
 the set of traces of the target program satisfies GNI.›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> spec<span class="hidden">⇩</span><sub>0</sub>_GNI<span class="main">:</span>
+<span class="keyword1" id="Second_Example-spec"><span class="command">lemma</span></span> spec<span class="hidden">⇩</span><sub>0</sub>_GNI<span class="main">:</span>
   <span class="quoted"><span class="quoted">"spec<span class="hidden">⇩</span><sub>0</sub> <span class="free">p</span> <span class="main">⟹</span> GNI <span class="main">(</span>traces <span class="free">p</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span><span class="main"><span class="main">:</span></span> Target.GNI_def<span class="main">)</span>
   <span class="keyword3"><span class="command">assume</span></span> Spec<span class="main">:</span> <span class="quoted"><span class="quoted">"spec<span class="hidden">⇩</span><sub>0</sub> <span class="free">p</span>"</span></span>
@@ -1343,7 +1343,7 @@ in a certain order.›</span></span>
 <span class="keyword2"><span class="keyword">where</span></span> <span class="quoted"><span class="quoted">"<span class="free">vars<span class="hidden">⇩</span><sub>0</sub></span> <span class="main">≡</span> <span class="main">[</span><span class="inner_quoted">''lowIn''</span><span class="main">,</span> <span class="inner_quoted">''lowOut''</span><span class="main">,</span> <span class="inner_quoted">''highIn''</span><span class="main">,</span> <span class="inner_quoted">''highOut''</span><span class="main">]</span>"</span></span>
 <span class="comment1">― ‹The order of the variables in the list is arbitrary.›</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> vars<span class="hidden">⇩</span><sub>0</sub>_correct<span class="main">:</span>
+<span class="keyword1" id="Second_Example-vars"><span class="command">lemma</span></span> vars<span class="hidden">⇩</span><sub>0</sub>_correct<span class="main">:</span>
   <span class="quoted"><span class="quoted">"vars <span class="free">p</span> <span class="main">=</span> vars<span class="hidden">⇩</span><sub>0</sub> <span class="main">⟹</span> io_vars <span class="free">p</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span><span class="main"><span class="main">:</span></span> io_vars_def ctxt_def<span class="main">)</span>
 
@@ -1354,7 +1354,7 @@ to the well-formedness of the body.›</span></span>
 <span class="keyword1"><span class="command">abbreviation</span></span> <span class="entity">Γ<span class="hidden">⇩</span><sub>0</sub></span> <span class="main">::</span> <span class="quoted">ctxt</span>
 <span class="keyword2"><span class="keyword">where</span></span> <span class="quoted"><span class="quoted">"<span class="free">Γ<span class="hidden">⇩</span><sub>0</sub></span> <span class="main">≡</span> <span class="main">{</span><span class="inner_quoted">''lowIn''</span><span class="main">,</span> <span class="inner_quoted">''lowOut''</span><span class="main">,</span> <span class="inner_quoted">''highIn''</span><span class="main">,</span> <span class="inner_quoted">''highOut''</span><span class="main">}</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> reduce_wf_prog_to_body<span class="main">:</span>
+<span class="keyword1" id="Second_Example-reduce_wf_prog_to_body"><span class="command">lemma</span></span> reduce_wf_prog_to_body<span class="main">:</span>
   <span class="quoted"><span class="quoted">"vars <span class="free">p</span> <span class="main">=</span> vars<span class="hidden">⇩</span><sub>0</sub> <span class="main">⟹</span> wfp <span class="free">p</span> <span class="main">⟷</span> wfs Γ<span class="hidden">⇩</span><sub>0</sub> <span class="main">(</span>body <span class="free">p</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span><span class="main"><span class="main">:</span></span> wfp_def ctxt_def<span class="main">)</span>
 
@@ -1372,7 +1372,7 @@ with <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><
     body <span class="free"><span class="bound"><span class="entity">p</span></span></span> <span class="main">⊳</span> <span class="bound">σ</span> <span class="main">↝</span> Some <span class="bound">σ'</span> <span class="main">⟶</span>
     the <span class="main">(</span><span class="bound">σ'</span> <span class="inner_quoted">''lowOut''</span><span class="main">)</span> <span class="main">=</span> the <span class="main">(</span><span class="bound">σ</span> <span class="inner_quoted">''lowIn''</span><span class="main">)</span> <span class="main">+</span> <span class="main">1</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> low_proc_non0<span class="hidden">⇩</span><sub>1</sub>_correct<span class="main">:</span>
+<span class="keyword1" id="Second_Example-low_proc_non0"><span class="command">lemma</span></span> low_proc_non0<span class="hidden">⇩</span><sub>1</sub>_correct<span class="main">:</span>
   <span class="quoted"><span class="quoted">"vars <span class="free">p</span> <span class="main">=</span> vars<span class="hidden">⇩</span><sub>0</sub> <span class="main">⟹</span> low_proc_non0<span class="hidden">⇩</span><sub>1</sub> <span class="free">p</span> <span class="main">⟷</span> low_proc_non0 <span class="free">p</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span><span class="main"><span class="main">:</span></span> low_proc_non0<span class="hidden">⇩</span><sub>1</sub>_def low_proc_non0_def states_def ctxt_def<span class="main">)</span>
 
@@ -1383,7 +1383,7 @@ with <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><
     the <span class="main">(</span><span class="bound">σ</span> <span class="inner_quoted">''lowIn''</span><span class="main">)</span> <span class="main">=</span> <span class="main">0</span> <span class="main">⟶</span>
     <span class="main">(</span><span class="main">∃</span><span class="bound">σ'</span><span class="main">.</span> body <span class="free"><span class="bound"><span class="entity">p</span></span></span> <span class="main">⊳</span> <span class="bound">σ</span> <span class="main">↝</span> Some <span class="bound">σ'</span> <span class="main">∧</span> the <span class="main">(</span><span class="bound">σ'</span> <span class="inner_quoted">''lowOut''</span><span class="main">)</span> <span class="main">=</span> <span class="bound">u</span><span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> low_proc_0<span class="hidden">⇩</span><sub>1</sub>_correct<span class="main">:</span>
+<span class="keyword1" id="Second_Example-low_proc_0"><span class="command">lemma</span></span> low_proc_0<span class="hidden">⇩</span><sub>1</sub>_correct<span class="main">:</span>
   <span class="quoted"><span class="quoted">"vars <span class="free">p</span> <span class="main">=</span> vars<span class="hidden">⇩</span><sub>0</sub> <span class="main">⟹</span> low_proc_0<span class="hidden">⇩</span><sub>1</sub> <span class="free">p</span> <span class="main">⟷</span> low_proc_0 <span class="free">p</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span><span class="main"><span class="main">:</span></span> low_proc_0<span class="hidden">⇩</span><sub>1</sub>_def low_proc_0_def states_def ctxt_def<span class="main">)</span>
 
@@ -1394,7 +1394,7 @@ with <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><
     body <span class="free"><span class="bound"><span class="entity">p</span></span></span> <span class="main">⊳</span> <span class="bound">σ</span> <span class="main">↝</span> Some <span class="bound">σ'</span> <span class="main">⟶</span>
     the <span class="main">(</span><span class="bound">σ'</span> <span class="inner_quoted">''highOut''</span><span class="main">)</span> <span class="main">≥</span> the <span class="main">(</span><span class="bound">σ</span> <span class="inner_quoted">''lowIn''</span><span class="main">)</span> <span class="main">+</span> the <span class="main">(</span><span class="bound">σ</span> <span class="inner_quoted">''highIn''</span><span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> high_proc<span class="hidden">⇩</span><sub>1</sub>_correct<span class="main">:</span>
+<span class="keyword1" id="Second_Example-high_proc"><span class="command">lemma</span></span> high_proc<span class="hidden">⇩</span><sub>1</sub>_correct<span class="main">:</span>
   <span class="quoted"><span class="quoted">"vars <span class="free">p</span> <span class="main">=</span> vars<span class="hidden">⇩</span><sub>0</sub> <span class="main">⟹</span> high_proc<span class="hidden">⇩</span><sub>1</sub> <span class="free">p</span> <span class="main">⟷</span> high_proc <span class="free">p</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span><span class="main"><span class="main">:</span></span> high_proc<span class="hidden">⇩</span><sub>1</sub>_def high_proc_def states_def ctxt_def<span class="main">)</span>
 
@@ -1409,7 +1409,7 @@ the refinement of <span class="antiquoted"><span class="antiquoted"><span class=
   low_proc_0<span class="hidden">⇩</span><sub>1</sub> <span class="free"><span class="bound"><span class="entity">p</span></span></span> <span class="main">∧</span>
   high_proc<span class="hidden">⇩</span><sub>1</sub> <span class="free"><span class="bound"><span class="entity">p</span></span></span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> step_1_correct<span class="main">:</span>
+<span class="keyword1" id="Second_Example-step_1_correct"><span class="command">lemma</span></span> step_1_correct<span class="main">:</span>
   <span class="quoted"><span class="quoted">"spec<span class="hidden">⇩</span><sub>1</sub> <span class="free">p</span> <span class="main">⟹</span> spec<span class="hidden">⇩</span><sub>0</sub> <span class="free">p</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span><span class="main"><span class="main">:</span></span>
   spec<span class="hidden">⇩</span><sub>1</sub>_def spec<span class="hidden">⇩</span><sub>0</sub>_def
@@ -1435,7 +1435,7 @@ one to compute the low output and one to compute the high output.›</span></spa
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹The splitting reduces the well-formedness of the body
 to the well-formedness of the two statements.›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> reduce_wf_body_to_stmts<span class="main">:</span>
+<span class="keyword1" id="Second_Example-reduce_wf_body_to_stmts"><span class="command">lemma</span></span> reduce_wf_body_to_stmts<span class="main">:</span>
   <span class="quoted"><span class="quoted">"body_split <span class="free">p</span> <span class="free">s<span class="hidden">⇩</span><sub>L</sub></span> <span class="free">s<span class="hidden">⇩</span><sub>H</sub></span> <span class="main">⟹</span> wfs Γ<span class="hidden">⇩</span><sub>0</sub> <span class="main">(</span>body <span class="free">p</span><span class="main">)</span> <span class="main">⟷</span> wfs Γ<span class="hidden">⇩</span><sub>0</sub> <span class="free">s<span class="hidden">⇩</span><sub>L</sub></span> <span class="main">∧</span> wfs Γ<span class="hidden">⇩</span><sub>0</sub> <span class="free">s<span class="hidden">⇩</span><sub>H</sub></span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span><span class="main"><span class="main">:</span></span> body_split_def<span class="main">)</span>
 
@@ -1486,7 +1486,7 @@ Since <span class="antiquoted"><span class="antiquoted"><span class="antiquote">
     <span class="free"><span class="bound"><span class="entity">s<span class="hidden">⇩</span><sub>H</sub></span></span></span> <span class="main">⊳</span> <span class="bound">σ</span> <span class="main">↝</span> Some <span class="bound">σ'</span> <span class="main">⟶</span>
     the <span class="main">(</span><span class="bound">σ'</span> <span class="inner_quoted">''lowOut''</span><span class="main">)</span> <span class="main">=</span> the <span class="main">(</span><span class="bound">σ</span> <span class="inner_quoted">''lowOut''</span><span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> proc<span class="hidden">⇩</span><sub>2</sub>_correct<span class="main">:</span>
+<span class="keyword1" id="Second_Example-proc"><span class="command">lemma</span></span> proc<span class="hidden">⇩</span><sub>2</sub>_correct<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> Body<span class="main">:</span> <span class="quoted"><span class="quoted">"body_split <span class="free">p</span> <span class="free">s<span class="hidden">⇩</span><sub>L</sub></span> <span class="free">s<span class="hidden">⇩</span><sub>H</sub></span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> WfLow<span class="main">:</span> <span class="quoted"><span class="quoted">"wfs Γ<span class="hidden">⇩</span><sub>0</sub> <span class="free">s<span class="hidden">⇩</span><sub>L</sub></span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> WfHigh<span class="main">:</span> <span class="quoted"><span class="quoted">"wfs Γ<span class="hidden">⇩</span><sub>0</sub> <span class="free">s<span class="hidden">⇩</span><sub>H</sub></span>"</span></span>
@@ -1585,7 +1585,7 @@ and the refined well-formedness and processing constraints.›</span></span>
     high_proc<span class="hidden">⇩</span><sub>2</sub> <span class="bound">s<span class="hidden">⇩</span><sub>H</sub></span> <span class="main">∧</span>
     high_proc_no_low_output_change <span class="bound">s<span class="hidden">⇩</span><sub>H</sub></span><span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> step_2_correct<span class="main">:</span>
+<span class="keyword1" id="Second_Example-step_2_correct"><span class="command">lemma</span></span> step_2_correct<span class="main">:</span>
   <span class="quoted"><span class="quoted">"spec<span class="hidden">⇩</span><sub>2</sub> <span class="free">p</span> <span class="main">⟹</span> spec<span class="hidden">⇩</span><sub>1</sub> <span class="free">p</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span><span class="main"><span class="main">:</span></span> spec<span class="hidden">⇩</span><sub>2</sub>_def spec<span class="hidden">⇩</span><sub>1</sub>_def reduce_wf_body_to_stmts proc<span class="hidden">⇩</span><sub>2</sub>_correct<span class="main">)</span>
 
@@ -1608,11 +1608,11 @@ and stores 1 plus <span class="antiquoted"><span class="antiquoted"><span class=
     <span class="main">(</span>Random <span class="inner_quoted">''lowOut''</span><span class="main">)</span>
     <span class="main">(</span>Assign <span class="inner_quoted">''lowOut''</span> <span class="main">(</span>Add <span class="main">(</span>Var <span class="inner_quoted">''lowIn''</span><span class="main">)</span> <span class="main">(</span>Const <span class="main">1</span><span class="main">)</span><span class="main">)</span><span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> wfs_s<span class="hidden">⇩</span><sub>L</sub><span class="hidden">⇩</span><sub>0</sub><span class="main">:</span>
+<span class="keyword1" id="Second_Example-wfs_s"><span class="command">lemma</span></span> wfs_s<span class="hidden">⇩</span><sub>L</sub><span class="hidden">⇩</span><sub>0</sub><span class="main">:</span>
   <span class="quoted"><span class="quoted">"wfs Γ<span class="hidden">⇩</span><sub>0</sub> s<span class="hidden">⇩</span><sub>L</sub><span class="hidden">⇩</span><sub>0</sub>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> low_proc_non0_s<span class="hidden">⇩</span><sub>L</sub><span class="hidden">⇩</span><sub>0</sub><span class="main">:</span>
+<span class="keyword1" id="Second_Example-low_proc_non0_s"><span class="command">lemma</span></span> low_proc_non0_s<span class="hidden">⇩</span><sub>L</sub><span class="hidden">⇩</span><sub>0</sub><span class="main">:</span>
   <span class="quoted"><span class="quoted">"low_proc_non0<span class="hidden">⇩</span><sub>2</sub> s<span class="hidden">⇩</span><sub>L</sub><span class="hidden">⇩</span><sub>0</sub>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span> <span class="quasi_keyword">only</span><span class="main"><span class="main">:</span></span> low_proc_non0<span class="hidden">⇩</span><sub>2</sub>_def<span class="main">)</span>
   <span class="keyword3"><span class="command">fix</span></span> <span class="skolem">σ</span> <span class="skolem">σ'</span>
@@ -1628,7 +1628,7 @@ and stores 1 plus <span class="antiquoted"><span class="antiquoted"><span class=
   <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span><span class="main"><span class="main">:</span></span> match_def add_opt_def <span class="quasi_keyword">split</span><span class="main"><span class="main">:</span></span> option.split<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> low_proc_0_s<span class="hidden">⇩</span><sub>L</sub><span class="hidden">⇩</span><sub>0</sub><span class="main">:</span>
+<span class="keyword1" id="Second_Example-low_proc_0_s"><span class="command">lemma</span></span> low_proc_0_s<span class="hidden">⇩</span><sub>L</sub><span class="hidden">⇩</span><sub>0</sub><span class="main">:</span>
   <span class="quoted"><span class="quoted">"low_proc_0<span class="hidden">⇩</span><sub>2</sub> s<span class="hidden">⇩</span><sub>L</sub><span class="hidden">⇩</span><sub>0</sub>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span> <span class="quasi_keyword">only</span><span class="main"><span class="main">:</span></span> low_proc_0<span class="hidden">⇩</span><sub>2</sub>_def<span class="main">)</span>
   <span class="keyword3"><span class="command">fix</span></span> <span class="skolem">σ</span> <span class="skolem">u</span>
@@ -1650,7 +1650,7 @@ and stores 1 plus <span class="antiquoted"><span class="antiquoted"><span class=
   <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">metis</span> ExecCondTrue eval.simps<span class="main"><span class="main">(</span></span>1<span class="main"><span class="main">)</span></span> eval.simps<span class="main"><span class="main">(</span></span>2<span class="main"><span class="main">)</span></span><span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> low_proc_no_input_change_s<span class="hidden">⇩</span><sub>L</sub><span class="hidden">⇩</span><sub>0</sub><span class="main">:</span>
+<span class="keyword1" id="Second_Example-low_proc_no_input_change_s"><span class="command">lemma</span></span> low_proc_no_input_change_s<span class="hidden">⇩</span><sub>L</sub><span class="hidden">⇩</span><sub>0</sub><span class="main">:</span>
   <span class="quoted"><span class="quoted">"low_proc_no_input_change s<span class="hidden">⇩</span><sub>L</sub><span class="hidden">⇩</span><sub>0</sub>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">unfold</span> low_proc_no_input_change_def<span class="main"><span class="keyword3">,</span></span> <span class="operator">clarify</span><span class="main">)</span>
   <span class="keyword3"><span class="command">fix</span></span> <span class="skolem">σ</span> <span class="skolem">σ'</span>
@@ -1677,7 +1677,7 @@ by simplification using the definition of <span class="antiquoted"><span class="
     high_proc<span class="hidden">⇩</span><sub>2</sub> <span class="bound">s<span class="hidden">⇩</span><sub>H</sub></span> <span class="main">∧</span>
     high_proc_no_low_output_change <span class="bound">s<span class="hidden">⇩</span><sub>H</sub></span><span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> step_3_correct<span class="main">:</span>
+<span class="keyword1" id="Second_Example-step_3_correct"><span class="command">lemma</span></span> step_3_correct<span class="main">:</span>
   <span class="quoted"><span class="quoted">"spec<span class="hidden">⇩</span><sub>3</sub> <span class="free">p</span> <span class="main">⟹</span> spec<span class="hidden">⇩</span><sub>2</sub> <span class="free">p</span>"</span></span>
 <span class="keyword1"><span class="command">unfolding</span></span> spec<span class="hidden">⇩</span><sub>3</sub>_def spec<span class="hidden">⇩</span><sub>2</sub>_def
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">metis</span>
@@ -1706,7 +1706,7 @@ A simple way is to pick the sum of the low and high inputs:
     <span class="free"><span class="bound"><span class="entity">s<span class="hidden">⇩</span><sub>H</sub></span></span></span> <span class="main">⊳</span> <span class="bound">σ</span> <span class="main">↝</span> Some <span class="bound">σ'</span> <span class="main">⟶</span>
     the <span class="main">(</span><span class="bound">σ'</span> <span class="inner_quoted">''highOut''</span><span class="main">)</span> <span class="main">=</span> the <span class="main">(</span><span class="bound">σ</span> <span class="inner_quoted">''lowIn''</span><span class="main">)</span> <span class="main">+</span> the <span class="main">(</span><span class="bound">σ</span> <span class="inner_quoted">''highIn''</span><span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> high_proc<span class="hidden">⇩</span><sub>4</sub>_correct<span class="main">:</span>
+<span class="keyword1" id="Second_Example-high_proc"><span class="command">lemma</span></span> high_proc<span class="hidden">⇩</span><sub>4</sub>_correct<span class="main">:</span>
   <span class="quoted"><span class="quoted">"high_proc<span class="hidden">⇩</span><sub>4</sub> <span class="free">s<span class="hidden">⇩</span><sub>H</sub></span> <span class="main">⟹</span> high_proc<span class="hidden">⇩</span><sub>2</sub> <span class="free">s<span class="hidden">⇩</span><sub>H</sub></span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span><span class="main"><span class="main">:</span></span> high_proc<span class="hidden">⇩</span><sub>4</sub>_def high_proc<span class="hidden">⇩</span><sub>2</sub>_def<span class="main">)</span>
 
@@ -1722,7 +1722,7 @@ by substituting the refined processing constraint on <span class="antiquoted"><s
     high_proc<span class="hidden">⇩</span><sub>4</sub> <span class="bound">s<span class="hidden">⇩</span><sub>H</sub></span> <span class="main">∧</span>
     high_proc_no_low_output_change <span class="bound">s<span class="hidden">⇩</span><sub>H</sub></span><span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> step_4_correct<span class="main">:</span>
+<span class="keyword1" id="Second_Example-step_4_correct"><span class="command">lemma</span></span> step_4_correct<span class="main">:</span>
   <span class="quoted"><span class="quoted">"spec<span class="hidden">⇩</span><sub>4</sub> <span class="free">p</span> <span class="main">⟹</span> spec<span class="hidden">⇩</span><sub>3</sub> <span class="free">p</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span><span class="main"><span class="main">:</span></span> spec<span class="hidden">⇩</span><sub>4</sub>_def spec<span class="hidden">⇩</span><sub>3</sub>_def high_proc<span class="hidden">⇩</span><sub>4</sub>_correct<span class="main">)</span>
 
@@ -1739,11 +1739,11 @@ into <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><
 <span class="keyword1"><span class="command">abbreviation</span></span> <span class="entity">s<span class="hidden">⇩</span><sub>H</sub><span class="hidden">⇩</span><sub>0</sub></span> <span class="main">::</span> <span class="quoted">stmt</span>
 <span class="keyword2"><span class="keyword">where</span></span> <span class="quoted"><span class="quoted">"<span class="free">s<span class="hidden">⇩</span><sub>H</sub><span class="hidden">⇩</span><sub>0</sub></span> <span class="main">≡</span> Assign <span class="inner_quoted">''highOut''</span> <span class="main">(</span>Add <span class="main">(</span>Var <span class="inner_quoted">''lowIn''</span><span class="main">)</span> <span class="main">(</span>Var <span class="inner_quoted">''highIn''</span><span class="main">)</span><span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> wfs_s<span class="hidden">⇩</span><sub>H</sub><span class="hidden">⇩</span><sub>0</sub><span class="main">:</span>
+<span class="keyword1" id="Second_Example-wfs_s"><span class="command">lemma</span></span> wfs_s<span class="hidden">⇩</span><sub>H</sub><span class="hidden">⇩</span><sub>0</sub><span class="main">:</span>
   <span class="quoted"><span class="quoted">"wfs Γ<span class="hidden">⇩</span><sub>0</sub> s<span class="hidden">⇩</span><sub>H</sub><span class="hidden">⇩</span><sub>0</sub>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> high_proc<span class="hidden">⇩</span><sub>4</sub>_s<span class="hidden">⇩</span><sub>H</sub><span class="hidden">⇩</span><sub>0</sub><span class="main">:</span>
+<span class="keyword1" id="Second_Example-high_proc"><span class="command">lemma</span></span> high_proc<span class="hidden">⇩</span><sub>4</sub>_s<span class="hidden">⇩</span><sub>H</sub><span class="hidden">⇩</span><sub>0</sub><span class="main">:</span>
   <span class="quoted"><span class="quoted">"high_proc<span class="hidden">⇩</span><sub>4</sub> s<span class="hidden">⇩</span><sub>H</sub><span class="hidden">⇩</span><sub>0</sub>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span><span class="main"><span class="main">:</span></span> high_proc<span class="hidden">⇩</span><sub>4</sub>_def<span class="main">)</span>
   <span class="keyword3"><span class="command">fix</span></span> <span class="skolem">σ</span> <span class="skolem">σ'</span>
@@ -1757,7 +1757,7 @@ into <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><
   <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span><span class="main"><span class="main">:</span></span> match_def add_opt_def <span class="quasi_keyword">split</span><span class="main"><span class="main">:</span></span> option.split<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> high_proc_no_low_output_change_s<span class="hidden">⇩</span><sub>H</sub><span class="hidden">⇩</span><sub>0</sub><span class="main">:</span>
+<span class="keyword1" id="Second_Example-high_proc_no_low_output_change_s"><span class="command">lemma</span></span> high_proc_no_low_output_change_s<span class="hidden">⇩</span><sub>H</sub><span class="hidden">⇩</span><sub>0</sub><span class="main">:</span>
   <span class="quoted"><span class="quoted">"high_proc_no_low_output_change s<span class="hidden">⇩</span><sub>H</sub><span class="hidden">⇩</span><sub>0</sub>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span><span class="main"><span class="main">:</span></span> high_proc_no_low_output_change_def <span class="quasi_keyword">elim</span><span class="main"><span class="main">:</span></span> exec.cases<span class="main">)</span>
 
@@ -1767,7 +1767,7 @@ by simplification using the definition of <span class="antiquoted"><span class="
 <span class="keyword1"><span class="command">definition</span></span> <span class="entity">spec<span class="hidden">⇩</span><sub>5</sub></span> <span class="main">::</span> <span class="quoted"><span class="quoted">"prog <span class="main">⇒</span> bool"</span></span>
 <span class="keyword2"><span class="keyword">where</span></span> <span class="quoted"><span class="quoted">"<span class="free">spec<span class="hidden">⇩</span><sub>5</sub></span> <span class="free"><span class="bound"><span class="entity">p</span></span></span> <span class="main">≡</span> vars <span class="free"><span class="bound"><span class="entity">p</span></span></span> <span class="main">=</span> vars<span class="hidden">⇩</span><sub>0</sub> <span class="main">∧</span> body_split <span class="free"><span class="bound"><span class="entity">p</span></span></span> s<span class="hidden">⇩</span><sub>L</sub><span class="hidden">⇩</span><sub>0</sub> s<span class="hidden">⇩</span><sub>H</sub><span class="hidden">⇩</span><sub>0</sub>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> step_5_correct<span class="main">:</span>
+<span class="keyword1" id="Second_Example-step_5_correct"><span class="command">lemma</span></span> step_5_correct<span class="main">:</span>
   <span class="quoted"><span class="quoted">"spec<span class="hidden">⇩</span><sub>5</sub> <span class="free">p</span> <span class="main">⟹</span> spec<span class="hidden">⇩</span><sub>4</sub> <span class="free">p</span>"</span></span>
 <span class="keyword1"><span class="command">unfolding</span></span> spec<span class="hidden">⇩</span><sub>5</sub>_def spec<span class="hidden">⇩</span><sub>4</sub>_def
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">metis</span> wfs_s<span class="hidden">⇩</span><sub>H</sub><span class="hidden">⇩</span><sub>0</sub> high_proc<span class="hidden">⇩</span><sub>4</sub>_s<span class="hidden">⇩</span><sub>H</sub><span class="hidden">⇩</span><sub>0</sub> high_proc_no_low_output_change_s<span class="hidden">⇩</span><sub>H</sub><span class="hidden">⇩</span><sub>0</sub><span class="main">)</span>
@@ -1786,7 +1786,7 @@ is refined to characterize a unique program in explicit syntactic form.›</span
 <span class="keyword1"><span class="command">definition</span></span> <span class="entity">spec<span class="hidden">⇩</span><sub>6</sub></span> <span class="main">::</span> <span class="quoted"><span class="quoted">"prog <span class="main">⇒</span> bool"</span></span>
 <span class="keyword2"><span class="keyword">where</span></span> <span class="quoted"><span class="quoted">"<span class="free">spec<span class="hidden">⇩</span><sub>6</sub></span> <span class="free"><span class="bound"><span class="entity">p</span></span></span> <span class="main">≡</span> <span class="free"><span class="bound"><span class="entity">p</span></span></span> <span class="main">=</span> p<span class="hidden">⇩</span><sub>0</sub>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> step_6_correct<span class="main">:</span>
+<span class="keyword1" id="Second_Example-step_6_correct"><span class="command">lemma</span></span> step_6_correct<span class="main">:</span>
   <span class="quoted"><span class="quoted">"spec<span class="hidden">⇩</span><sub>6</sub> <span class="free">p</span> <span class="main">⟹</span> spec<span class="hidden">⇩</span><sub>5</sub> <span class="free">p</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span><span class="main"><span class="main">:</span></span> spec<span class="hidden">⇩</span><sub>6</sub>_def spec<span class="hidden">⇩</span><sub>5</sub>_def body_split_def<span class="main">)</span>
 
@@ -1794,7 +1794,7 @@ is refined to characterize a unique program in explicit syntactic form.›</span
 The program witnesses the consistency of the requirements,
 i.e.\ the fact that <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><span class="antiquote">@{</span></span><span class="operator"><span class="operator">const</span></span> spec<span class="hidden">⇩</span><sub>0</sub><span class="antiquote"><span class="antiquote">}</span></span></span></span> is not always false.›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> p<span class="hidden">⇩</span><sub>0</sub>_sat_spec<span class="hidden">⇩</span><sub>0</sub><span class="main">:</span>
+<span class="keyword1" id="Second_Example-p"><span class="command">lemma</span></span> p<span class="hidden">⇩</span><sub>0</sub>_sat_spec<span class="hidden">⇩</span><sub>0</sub><span class="main">:</span>
   <span class="quoted"><span class="quoted">"spec<span class="hidden">⇩</span><sub>0</sub> p<span class="hidden">⇩</span><sub>0</sub>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">metis</span>
  step_1_correct

@@ -44,7 +44,7 @@ be applied to sets of clauses obtained by grounding first-order clauses).›</sp
   <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="free">complement</span> <span class="main">(</span>Pos <span class="free"><span class="bound"><span class="entity">A</span></span></span><span class="main">)</span><span class="main">)</span> <span class="main">=</span> <span class="main">(</span>Neg <span class="free"><span class="bound"><span class="entity">A</span></span></span><span class="main">)</span>"</span></span> <span class="main">|</span> 
   <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="free">complement</span> <span class="main">(</span>Neg <span class="free"><span class="bound"><span class="entity">A</span></span></span><span class="main">)</span><span class="main">)</span> <span class="main">=</span> <span class="main">(</span>Pos <span class="free"><span class="bound"><span class="entity">A</span></span></span><span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> atom_property <span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">A</span> <span class="main">=</span> <span class="main">(</span>atom <span class="free">L</span><span class="main">)</span> <span class="main">⟹</span> <span class="main">(</span><span class="free">L</span> <span class="main">=</span> <span class="main">(</span>Pos <span class="free">A</span><span class="main">)</span> <span class="main">∨</span> <span class="free">L</span> <span class="main">=</span> <span class="main">(</span>Neg <span class="free">A</span><span class="main">)</span><span class="main">)</span>"</span></span>
+<span class="keyword1" id="Propositional_Resolution-atom_property"><span class="command">lemma</span></span> atom_property <span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">A</span> <span class="main">=</span> <span class="main">(</span>atom <span class="free">L</span><span class="main">)</span> <span class="main">⟹</span> <span class="main">(</span><span class="free">L</span> <span class="main">=</span> <span class="main">(</span>Pos <span class="free">A</span><span class="main">)</span> <span class="main">∨</span> <span class="free">L</span> <span class="main">=</span> <span class="main">(</span>Neg <span class="free">A</span><span class="main">)</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">metis</span> atom.elims<span class="main">)</span>
 
 <span class="keyword1"><span class="command">fun</span></span> <span class="entity">positive</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="tfree">'at</span> Literal <span class="main">⇒</span> bool"</span></span>
@@ -72,10 +72,10 @@ hold for infinite clauses).›</span></span>
 <span class="keyword1"><span class="command">fun</span></span> <span class="entity">atoms_formula</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="tfree">'at</span> Formula <span class="main">⇒</span> <span class="tfree">'at</span> set"</span></span>
   <span class="keyword2"><span class="keyword">where</span></span> <span class="quoted"><span class="quoted">"<span class="free">atoms_formula</span> <span class="free"><span class="bound"><span class="entity">S</span></span></span> <span class="main">=</span> <span class="main">{</span> <span class="bound">A</span><span class="main">.</span> <span class="main">∃</span><span class="bound">C</span><span class="main">.</span> <span class="bound">C</span> <span class="main">∈</span> <span class="free"><span class="bound"><span class="entity">S</span></span></span> <span class="main">∧</span> <span class="bound">A</span> <span class="main">∈</span> atoms_clause<span class="main">(</span><span class="bound">C</span><span class="main">)</span> <span class="main">}</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> atoms_formula_subset<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">S1</span> <span class="main">⊆</span> <span class="free">S2</span> <span class="main">⟹</span> atoms_formula <span class="free">S1</span> <span class="main">⊆</span> atoms_formula <span class="free">S2</span>"</span></span>
+<span class="keyword1" id="Propositional_Resolution-atoms_formula_subset"><span class="command">lemma</span></span> atoms_formula_subset<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">S1</span> <span class="main">⊆</span> <span class="free">S2</span> <span class="main">⟹</span> atoms_formula <span class="free">S1</span> <span class="main">⊆</span> atoms_formula <span class="free">S2</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> atoms_formula_union<span class="main">:</span> <span class="quoted"><span class="quoted">"atoms_formula <span class="main">(</span><span class="free">S1</span> <span class="main">∪</span> <span class="free">S2</span><span class="main">)</span> <span class="main">=</span> atoms_formula <span class="free">S1</span> <span class="main">∪</span> atoms_formula <span class="free">S2</span>"</span></span>
+<span class="keyword1" id="Propositional_Resolution-atoms_formula_union"><span class="command">lemma</span></span> atoms_formula_union<span class="main">:</span> <span class="quoted"><span class="quoted">"atoms_formula <span class="main">(</span><span class="free">S1</span> <span class="main">∪</span> <span class="free">S2</span><span class="main">)</span> <span class="main">=</span> atoms_formula <span class="free">S1</span> <span class="main">∪</span> atoms_formula <span class="free">S2</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹The following predicate is useful to state that every clause in a set fulfills 
@@ -90,7 +90,7 @@ some property.›</span></span>
 <span class="keyword2"><span class="keyword">where</span></span>
     <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="free">literal_ordering</span> <span class="free"><span class="bound"><span class="entity">L1</span></span></span> <span class="free"><span class="bound"><span class="entity">L2</span></span></span><span class="main">)</span> <span class="main">=</span> <span class="main">(</span><span class="main">(</span>atom <span class="free"><span class="bound"><span class="entity">L1</span></span></span><span class="main">,</span>atom <span class="free"><span class="bound"><span class="entity">L2</span></span></span><span class="main">)</span> <span class="main">∈</span> <span class="free">atom_ordering</span><span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> literal_ordering_trans <span class="main">:</span> 
+<span class="keyword1" id="Propositional_Resolution-literal_ordering_trans"><span class="command">lemma</span></span> literal_ordering_trans <span class="main">:</span> 
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"literal_ordering <span class="free">A</span> <span class="free">B</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"literal_ordering <span class="free">B</span> <span class="free">C</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"literal_ordering <span class="free">A</span> <span class="free">C</span>"</span></span>
@@ -130,7 +130,7 @@ some basic properties.›</span></span>
 <span class="keyword2"><span class="keyword">where</span></span>
   <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="free">entails</span> <span class="free"><span class="bound"><span class="entity">S</span></span></span> <span class="free"><span class="bound"><span class="entity">C</span></span></span><span class="main">)</span> <span class="main">≡</span> <span class="main">(</span><span class="main">∀</span><span class="bound">I</span><span class="main">.</span> <span class="main">(</span>validate_formula <span class="bound">I</span> <span class="free"><span class="bound"><span class="entity">S</span></span></span><span class="main">)</span> <span class="main">⟶</span> <span class="main">(</span>validate_clause <span class="bound">I</span> <span class="free"><span class="bound"><span class="entity">C</span></span></span><span class="main">)</span><span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> entails_member<span class="main">:</span>
+<span class="keyword1" id="Propositional_Resolution-entails_member"><span class="command">lemma</span></span> entails_member<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">C</span> <span class="main">∈</span> <span class="free">S</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"entails <span class="free">S</span> <span class="free">C</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms <span class="keyword1"><span class="command">unfolding</span></span> entails_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
@@ -141,33 +141,33 @@ some basic properties.›</span></span>
 <span class="keyword1"><span class="command">definition</span></span> <span class="entity">equivalent</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="tfree">'at</span> Formula <span class="main">⇒</span> <span class="tfree">'at</span> Formula <span class="main">⇒</span> bool"</span></span>
   <span class="keyword2"><span class="keyword">where</span></span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="free">equivalent</span> <span class="free"><span class="bound"><span class="entity">S1</span></span></span> <span class="free"><span class="bound"><span class="entity">S2</span></span></span><span class="main">)</span> <span class="main">=</span> <span class="main">(</span>entails_formula <span class="free"><span class="bound"><span class="entity">S1</span></span></span> <span class="free"><span class="bound"><span class="entity">S2</span></span></span> <span class="main">∧</span> entails_formula <span class="free"><span class="bound"><span class="entity">S2</span></span></span> <span class="free"><span class="bound"><span class="entity">S1</span></span></span><span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> equivalent_symmetric<span class="main">:</span> <span class="quoted"><span class="quoted">"equivalent <span class="free">S1</span> <span class="free">S2</span> <span class="main">⟹</span> equivalent <span class="free">S2</span> <span class="free">S1</span>"</span></span>
+<span class="keyword1" id="Propositional_Resolution-equivalent_symmetric"><span class="command">lemma</span></span> equivalent_symmetric<span class="main">:</span> <span class="quoted"><span class="quoted">"equivalent <span class="free">S1</span> <span class="free">S2</span> <span class="main">⟹</span> equivalent <span class="free">S2</span> <span class="free">S1</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> equivalent_def<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> entailment_implies_validity<span class="main">:</span>
+<span class="keyword1" id="Propositional_Resolution-entailment_implies_validity"><span class="command">lemma</span></span> entailment_implies_validity<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"entails_formula <span class="free">S1</span> <span class="free">S2</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"validate_formula <span class="free">I</span> <span class="free">S1</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"validate_formula <span class="free">I</span> <span class="free">S2</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms entails_def entails_formula_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> validity_implies_entailment<span class="main">:</span>
+<span class="keyword1" id="Propositional_Resolution-validity_implies_entailment"><span class="command">lemma</span></span> validity_implies_entailment<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="main">∀</span><span class="bound">I</span><span class="main">.</span> validate_formula <span class="bound">I</span> <span class="free">S1</span> <span class="main">⟶</span> validate_formula <span class="bound">I</span> <span class="free">S2</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"entails_formula <span class="free">S1</span> <span class="free">S2</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">meson</span> assms entails_def entails_formula_def validate_formula.elims<span class="main"><span class="main">(</span></span>2<span class="main"><span class="main">)</span></span><span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> entails_transitive<span class="main">:</span>
+<span class="keyword1" id="Propositional_Resolution-entails_transitive"><span class="command">lemma</span></span> entails_transitive<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"entails_formula <span class="free">S1</span> <span class="free">S2</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"entails_formula <span class="free">S2</span> <span class="free">S3</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"entails_formula <span class="free">S1</span> <span class="free">S3</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">meson</span> assms entailment_implies_validity validity_implies_entailment<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> equivalent_transitive<span class="main">:</span>
+<span class="keyword1" id="Propositional_Resolution-equivalent_transitive"><span class="command">lemma</span></span> equivalent_transitive<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"equivalent <span class="free">S1</span> <span class="free">S2</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"equivalent <span class="free">S2</span> <span class="free">S3</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"equivalent <span class="free">S1</span> <span class="free">S3</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms entails_transitive equivalent_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> entailment_subset <span class="main">:</span>
+<span class="keyword1" id="Propositional_Resolution-entailment_subset"><span class="command">lemma</span></span> entailment_subset <span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">S2</span> <span class="main">⊆</span> <span class="free">S1</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"entails_formula <span class="free">S1</span> <span class="free">S2</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
@@ -177,7 +177,7 @@ some basic properties.›</span></span>
     <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">meson</span> assms entails_formula_def rev_subsetD<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> entailed_formula_entails_implicates<span class="main">:</span>
+<span class="keyword1" id="Propositional_Resolution-entailed_formula_entails_implicates"><span class="command">lemma</span></span> entailed_formula_entails_implicates<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"entails_formula <span class="free">S1</span> <span class="free">S2</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"entails <span class="free">S2</span> <span class="free">C</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"entails <span class="free">S1</span> <span class="free">C</span>"</span></span>
@@ -206,7 +206,7 @@ from a given clause set (in one step).›</span></span>
   <span class="keyword2"><span class="keyword">where</span></span> <span class="quoted"><span class="quoted">"<span class="free">derived_clauses_are_finite</span> <span class="free"><span class="bound"><span class="entity">R</span></span></span> <span class="main">=</span> 
     <span class="main">(</span><span class="main">∀</span><span class="bound">P1</span> <span class="bound">P2</span> <span class="bound">C</span><span class="main">.</span> <span class="main">(</span>finite <span class="bound">P1</span> <span class="main">⟶</span> finite <span class="bound">P2</span> <span class="main">⟶</span> <span class="main">(</span><span class="free"><span class="bound"><span class="entity">R</span></span></span> <span class="bound">P1</span> <span class="bound">P2</span> <span class="bound">C</span><span class="main">)</span> <span class="main">⟶</span> finite <span class="bound">C</span><span class="main">)</span><span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> less_restrictive_and_finite <span class="main">:</span>
+<span class="keyword1" id="Propositional_Resolution-less_restrictive_and_finite"><span class="command">lemma</span></span> less_restrictive_and_finite <span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"less_restrictive <span class="free">R1</span> <span class="free">R2</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"derived_clauses_are_finite <span class="free">R1</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"derived_clauses_are_finite <span class="free">R2</span>"</span></span>
@@ -231,18 +231,18 @@ a total function.›</span></span>
   <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="free">resolvent_upon</span> <span class="free"><span class="bound"><span class="entity">P1</span></span></span> <span class="free"><span class="bound"><span class="entity">P2</span></span></span> <span class="free"><span class="bound"><span class="entity">A</span></span></span><span class="main">)</span> <span class="main">=</span>
       <span class="main">(</span> <span class="main">(</span><span class="free"><span class="bound"><span class="entity">P1</span></span></span> <span class="main">-</span> <span class="main">{</span> Pos <span class="free"><span class="bound"><span class="entity">A</span></span></span><span class="main">}</span><span class="main">)</span> <span class="main">∪</span> <span class="main">(</span> <span class="free"><span class="bound"><span class="entity">P2</span></span></span> <span class="main">-</span> <span class="main">{</span> Neg <span class="free"><span class="bound"><span class="entity">A</span></span></span> <span class="main">}</span><span class="main">)</span><span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> resolvent_upon_is_resolvent <span class="main">:</span> 
+<span class="keyword1" id="Propositional_Resolution-resolvent_upon_is_resolvent"><span class="command">lemma</span></span> resolvent_upon_is_resolvent <span class="main">:</span> 
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"Pos <span class="free">A</span> <span class="main">∈</span> <span class="free">P1</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"Neg <span class="free">A</span> <span class="main">∈</span> <span class="free">P2</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"resolvent <span class="free">P1</span> <span class="free">P2</span> <span class="main">(</span>resolvent_upon <span class="free">P1</span> <span class="free">P2</span> <span class="free">A</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms <span class="keyword1"><span class="command">unfolding</span></span> resolvent_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> resolvent_is_resolvent_upon <span class="main">:</span> 
+<span class="keyword1" id="Propositional_Resolution-resolvent_is_resolvent_upon"><span class="command">lemma</span></span> resolvent_is_resolvent_upon <span class="main">:</span> 
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"resolvent <span class="free">P1</span> <span class="free">P2</span> <span class="free">C</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">∃</span><span class="bound">A</span><span class="main">.</span> <span class="free">C</span> <span class="main">=</span> resolvent_upon <span class="free">P1</span> <span class="free">P2</span> <span class="bound">A</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms <span class="keyword1"><span class="command">unfolding</span></span> resolvent_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> resolvent_is_finite <span class="main">:</span>
+<span class="keyword1" id="Propositional_Resolution-resolvent_is_finite"><span class="command">lemma</span></span> resolvent_is_finite <span class="main">:</span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"derived_clauses_are_finite resolvent"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">rule</span> ccontr<span class="main">)</span>
   <span class="keyword3"><span class="command">assume</span></span> <span class="quoted"><span class="quoted">"<span class="main">¬</span>derived_clauses_are_finite resolvent"</span></span>
@@ -270,7 +270,7 @@ more restrictive than unrestricted resolution.›</span></span>
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹We now show that the maximal literal of the resolvent is always smaller than those of 
 the premises.›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> resolution_and_max_literal <span class="main">:</span> 
+<span class="keyword1" id="Propositional_Resolution-resolution_and_max_literal"><span class="command">lemma</span></span> resolution_and_max_literal <span class="main">:</span> 
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">R</span> <span class="main">=</span> resolvent_upon <span class="free">P1</span> <span class="free">P2</span> <span class="free">A</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"strictly_maximal_literal <span class="free">P1</span> <span class="main">(</span>Pos <span class="free">A</span><span class="main">)</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"strictly_maximal_literal <span class="free">P2</span> <span class="main">(</span>Neg <span class="free">A</span><span class="main">)</span>"</span></span>
@@ -316,20 +316,20 @@ apply.›</span></span>
           <span class="main">(</span> <span class="main">(</span><span class="main">(</span>strictly_maximal_literal <span class="free"><span class="bound"><span class="entity">P2</span></span></span> <span class="main">(</span>Neg <span class="bound">A</span><span class="main">)</span><span class="main">)</span> <span class="main">∧</span> <span class="main">(</span>selected_part <span class="free"><span class="bound"><span class="entity">Sel</span></span></span> <span class="free"><span class="bound"><span class="entity">P2</span></span></span><span class="main">)</span> <span class="main">=</span> <span class="main">{}</span><span class="main">)</span> 
           <span class="main">∨</span> <span class="main">(</span>strictly_maximal_literal <span class="main">(</span>selected_part <span class="free"><span class="bound"><span class="entity">Sel</span></span></span> <span class="free"><span class="bound"><span class="entity">P2</span></span></span><span class="main">)</span> <span class="main">(</span>Neg <span class="bound">A</span><span class="main">)</span><span class="main">)</span><span class="main">)</span><span class="main">)</span><span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ordered_resolvent_is_resolvent <span class="main">:</span> <span class="quoted"><span class="quoted">"less_restrictive resolvent ordered_resolvent"</span></span>
+<span class="keyword1" id="Propositional_Resolution-ordered_resolvent_is_resolvent"><span class="command">lemma</span></span> ordered_resolvent_is_resolvent <span class="main">:</span> <span class="quoted"><span class="quoted">"less_restrictive resolvent ordered_resolvent"</span></span>
 <span class="keyword1"><span class="command">using</span></span> less_restrictive_def ordered_resolvent_def resolvent_upon_is_resolvent strictly_maximal_literal_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹The next lemma states that ordered resolution with selection coincides with ordered 
 resolution if the selected part is empty.›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ordered_sel_resolvent_is_ordered_resolvent <span class="main">:</span> 
+<span class="keyword1" id="Propositional_Resolution-ordered_sel_resolvent_is_ordered_resolvent"><span class="command">lemma</span></span> ordered_sel_resolvent_is_ordered_resolvent <span class="main">:</span> 
  <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"ordered_resolvent <span class="free">P1</span> <span class="free">P2</span> <span class="free">C</span>"</span></span>
  <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"selected_part <span class="free">Sel</span> <span class="free">P1</span> <span class="main">=</span> <span class="main">{}</span>"</span></span>
  <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"selected_part <span class="free">Sel</span> <span class="free">P2</span> <span class="main">=</span> <span class="main">{}</span>"</span></span>
  <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"ordered_sel_resolvent <span class="free">Sel</span> <span class="free">P1</span> <span class="free">P2</span> <span class="free">C</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms ordered_resolvent_def ordered_sel_resolvent_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ordered_resolvent_upon_is_resolvent <span class="main">:</span> 
+<span class="keyword1" id="Propositional_Resolution-ordered_resolvent_upon_is_resolvent"><span class="command">lemma</span></span> ordered_resolvent_upon_is_resolvent <span class="main">:</span> 
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"strictly_maximal_literal <span class="free">P1</span> <span class="main">(</span>Pos <span class="free">A</span><span class="main">)</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"strictly_maximal_literal <span class="free">P2</span> <span class="main">(</span>Neg <span class="free">A</span><span class="main">)</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"ordered_resolvent <span class="free">P1</span> <span class="free">P2</span> <span class="main">(</span>resolvent_upon <span class="free">P1</span> <span class="free">P2</span> <span class="free">A</span><span class="main">)</span>"</span></span>
@@ -352,7 +352,7 @@ interpretation. Note that ordering restrictions still apply, although they are r
       <span class="main">(</span><span class="main">(</span>validated_part <span class="free"><span class="bound"><span class="entity">I</span></span></span> <span class="free"><span class="bound"><span class="entity">P1</span></span></span><span class="main">)</span> <span class="main">=</span> <span class="main">{}</span>  <span class="main">∧</span> <span class="main">(</span>strictly_maximal_literal <span class="free"><span class="bound"><span class="entity">P1</span></span></span> <span class="bound">L</span><span class="main">)</span><span class="main">)</span>
       <span class="main">∧</span> <span class="main">(</span>strictly_maximal_literal <span class="main">(</span>validated_part <span class="free"><span class="bound"><span class="entity">I</span></span></span> <span class="free"><span class="bound"><span class="entity">P2</span></span></span><span class="main">)</span> <span class="main">(</span>complement <span class="bound">L</span><span class="main">)</span><span class="main">)</span><span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ordered_model_resolvent_is_resolvent <span class="main">:</span> <span class="quoted"><span class="quoted">"less_restrictive resolvent <span class="main">(</span>ordered_model_resolvent <span class="free">I</span><span class="main">)</span>"</span></span>
+<span class="keyword1" id="Propositional_Resolution-ordered_model_resolvent_is_resolvent"><span class="command">lemma</span></span> ordered_model_resolvent_is_resolvent <span class="main">:</span> <span class="quoted"><span class="quoted">"less_restrictive resolvent <span class="main">(</span>ordered_model_resolvent <span class="free">I</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">rule</span> ccontr<span class="main">)</span>
   <span class="keyword3"><span class="command">assume</span></span> <span class="quoted"><span class="quoted">"<span class="main">¬</span> less_restrictive resolvent <span class="main">(</span>ordered_model_resolvent <span class="free">I</span><span class="main">)</span>"</span></span>
   <span class="keyword1"><span class="command">then</span></span> <span class="keyword3"><span class="command">obtain</span></span> <span class="skolem"><span class="skolem">P1</span></span> <span class="skolem"><span class="skolem">P2</span></span> <span class="skolem"><span class="skolem">C</span></span> <span class="keyword2"><span class="keyword">where</span></span> <span class="quoted"><span class="quoted">"ordered_model_resolvent <span class="free">I</span> <span class="skolem">P1</span> <span class="skolem">P2</span> <span class="skolem">C</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"<span class="main">¬</span>resolvent <span class="skolem">P1</span> <span class="skolem">P2</span> <span class="skolem">C</span>"</span></span> 
@@ -382,7 +382,7 @@ interpretation. Note that ordering restrictions still apply, although they are r
   <span class="keyword2"><span class="keyword">where</span></span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="free">unit_resolvent</span> <span class="free"><span class="bound"><span class="entity">P1</span></span></span> <span class="free"><span class="bound"><span class="entity">P2</span></span></span> <span class="free"><span class="bound"><span class="entity">C</span></span></span><span class="main">)</span> <span class="main">=</span>  <span class="main">(</span><span class="main">(</span><span class="main">∃</span><span class="bound">L</span><span class="main">.</span> <span class="main">(</span><span class="free"><span class="bound"><span class="entity">C</span></span></span> <span class="main">=</span> <span class="main">(</span> <span class="main">(</span><span class="free"><span class="bound"><span class="entity">P1</span></span></span> <span class="main">-</span> <span class="main">{</span> <span class="bound">L</span><span class="main">}</span><span class="main">)</span> <span class="main">∪</span> <span class="main">(</span> <span class="free"><span class="bound"><span class="entity">P2</span></span></span> <span class="main">-</span> <span class="main">{</span> complement <span class="bound">L</span> <span class="main">}</span><span class="main">)</span><span class="main">)</span><span class="main">)</span>
       <span class="main">∧</span> <span class="bound">L</span> <span class="main">∈</span> <span class="free"><span class="bound"><span class="entity">P1</span></span></span> <span class="main">∧</span> <span class="main">(</span>complement <span class="bound">L</span><span class="main">)</span> <span class="main">∈</span> <span class="free"><span class="bound"><span class="entity">P2</span></span></span><span class="main">)</span> <span class="main">∧</span> Unit <span class="free"><span class="bound"><span class="entity">P1</span></span></span><span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> unit_resolvent_is_resolvent <span class="main">:</span> <span class="quoted"><span class="quoted">"less_restrictive resolvent unit_resolvent"</span></span>
+<span class="keyword1" id="Propositional_Resolution-unit_resolvent_is_resolvent"><span class="command">lemma</span></span> unit_resolvent_is_resolvent <span class="main">:</span> <span class="quoted"><span class="quoted">"less_restrictive resolvent unit_resolvent"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">rule</span> ccontr<span class="main">)</span>
   <span class="keyword3"><span class="command">assume</span></span> <span class="quoted"><span class="quoted">"<span class="main">¬</span> less_restrictive resolvent unit_resolvent"</span></span>
   <span class="keyword1"><span class="command">then</span></span> <span class="keyword3"><span class="command">obtain</span></span> <span class="skolem"><span class="skolem">P1</span></span> <span class="skolem"><span class="skolem">P2</span></span> <span class="skolem"><span class="skolem">C</span></span> <span class="keyword2"><span class="keyword">where</span></span> <span class="quoted"><span class="quoted">"unit_resolvent <span class="skolem">P1</span> <span class="skolem">P2</span> <span class="skolem">C</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"<span class="main">¬</span>resolvent <span class="skolem">P1</span> <span class="skolem">P2</span> <span class="skolem">C</span>"</span></span> 
@@ -409,7 +409,7 @@ ordering restrictions apply.›</span></span>
 <span class="keyword2"><span class="keyword">where</span></span> 
   <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="free">negative_part</span> <span class="free"><span class="bound"><span class="entity">C</span></span></span><span class="main">)</span> <span class="main">=</span> <span class="main">{</span> <span class="bound">L</span><span class="main">.</span> <span class="main">(</span><span class="main">∃</span><span class="bound">A</span><span class="main">.</span> <span class="bound">L</span> <span class="main">=</span> Neg <span class="bound">A</span><span class="main">)</span> <span class="main">∧</span> <span class="bound">L</span> <span class="main">∈</span> <span class="free"><span class="bound"><span class="entity">C</span></span></span> <span class="main">}</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> decomposition_clause_pos_neg <span class="main">:</span>
+<span class="keyword1" id="Propositional_Resolution-decomposition_clause_pos_neg"><span class="command">lemma</span></span> decomposition_clause_pos_neg <span class="main">:</span>
   <span class="quoted"><span class="quoted">"<span class="free">C</span> <span class="main">=</span> <span class="main">(</span>negative_part <span class="free">C</span><span class="main">)</span> <span class="main">∪</span> <span class="main">(</span>positive_part <span class="free">C</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span>
   <span class="keyword3"><span class="command">show</span></span> <span class="quoted"><span class="quoted">"<span class="free">C</span> <span class="main">⊆</span> <span class="main">(</span>negative_part <span class="free">C</span><span class="main">)</span> <span class="main">∪</span> <span class="main">(</span>positive_part <span class="free">C</span><span class="main">)</span>"</span></span>
@@ -447,7 +447,7 @@ ordering restrictions apply.›</span></span>
       <span class="main">(</span><span class="main">(</span>positive_part <span class="free"><span class="bound"><span class="entity">P1</span></span></span><span class="main">)</span> <span class="main">=</span> <span class="main">{}</span>  <span class="main">∧</span> <span class="main">(</span>strictly_maximal_literal <span class="free"><span class="bound"><span class="entity">P1</span></span></span> <span class="bound">L</span><span class="main">)</span><span class="main">)</span>
       <span class="main">∧</span> <span class="main">(</span>strictly_maximal_literal <span class="main">(</span>positive_part <span class="free"><span class="bound"><span class="entity">P2</span></span></span><span class="main">)</span> <span class="main">(</span>complement <span class="bound">L</span><span class="main">)</span><span class="main">)</span><span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> positive_resolvent_is_resolvent <span class="main">:</span> <span class="quoted"><span class="quoted">"less_restrictive resolvent ordered_positive_resolvent"</span></span>
+<span class="keyword1" id="Propositional_Resolution-positive_resolvent_is_resolvent"><span class="command">lemma</span></span> positive_resolvent_is_resolvent <span class="main">:</span> <span class="quoted"><span class="quoted">"less_restrictive resolvent ordered_positive_resolvent"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">rule</span> ccontr<span class="main">)</span>
   <span class="keyword3"><span class="command">assume</span></span> <span class="quoted"><span class="quoted">"<span class="main">¬</span> less_restrictive resolvent ordered_positive_resolvent"</span></span>
   <span class="keyword1"><span class="command">then</span></span> <span class="keyword3"><span class="command">obtain</span></span> <span class="skolem"><span class="skolem">P1</span></span> <span class="skolem"><span class="skolem">P2</span></span> <span class="skolem"><span class="skolem">C</span></span> <span class="keyword2"><span class="keyword">where</span></span> <span class="quoted"><span class="quoted">"ordered_positive_resolvent <span class="skolem">P1</span> <span class="skolem">P2</span> <span class="skolem">C</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"<span class="main">¬</span>resolvent <span class="skolem">P1</span> <span class="skolem">P2</span> <span class="skolem">C</span>"</span></span> 
@@ -466,7 +466,7 @@ ordering restrictions apply.›</span></span>
   <span class="keyword1"><span class="command">from</span></span> this <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">‹<span class="main">¬</span><span class="main">(</span>resolvent <span class="skolem">P2</span> <span class="skolem">P1</span> <span class="skolem">C</span><span class="main">)</span>›</span></span> <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">‹<span class="main">¬</span><span class="main">(</span>resolvent <span class="skolem">P1</span> <span class="skolem">P2</span> <span class="skolem">C</span><span class="main">)</span>›</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="quoted"><span class="quoted">"False"</span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> negative_resolvent_is_resolvent <span class="main">:</span> <span class="quoted"><span class="quoted">"less_restrictive resolvent ordered_negative_resolvent"</span></span>
+<span class="keyword1" id="Propositional_Resolution-negative_resolvent_is_resolvent"><span class="command">lemma</span></span> negative_resolvent_is_resolvent <span class="main">:</span> <span class="quoted"><span class="quoted">"less_restrictive resolvent ordered_negative_resolvent"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">rule</span> ccontr<span class="main">)</span>
   <span class="keyword3"><span class="command">assume</span></span> <span class="quoted"><span class="quoted">"<span class="main">¬</span> less_restrictive resolvent ordered_negative_resolvent"</span></span>
   <span class="keyword1"><span class="command">then</span></span> <span class="keyword3"><span class="command">obtain</span></span> <span class="skolem"><span class="skolem">P1</span></span> <span class="skolem"><span class="skolem">P2</span></span> <span class="skolem"><span class="skolem">C</span></span> <span class="keyword2"><span class="keyword">where</span></span> <span class="quoted"><span class="quoted">"<span class="main">(</span>ordered_negative_resolvent <span class="skolem">P1</span> <span class="skolem">P2</span> <span class="skolem">C</span><span class="main">)</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"<span class="main">¬</span><span class="main">(</span>resolvent <span class="skolem">P1</span> <span class="skolem">P2</span> <span class="skolem">C</span><span class="main">)</span>"</span></span> 
@@ -510,31 +510,31 @@ ordering restrictions apply.›</span></span>
 
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹We first establish some basic syntactic properties.›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> tautology_monotonous <span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">(</span>tautology <span class="free">C</span><span class="main">)</span> <span class="main">⟹</span> <span class="main">(</span><span class="free">C</span> <span class="main">⊆</span> <span class="free">D</span><span class="main">)</span> <span class="main">⟹</span> <span class="main">(</span>tautology <span class="free">D</span><span class="main">)</span>"</span></span>
+<span class="keyword1" id="Propositional_Resolution-tautology_monotonous"><span class="command">lemma</span></span> tautology_monotonous <span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">(</span>tautology <span class="free">C</span><span class="main">)</span> <span class="main">⟹</span> <span class="main">(</span><span class="free">C</span> <span class="main">⊆</span> <span class="free">D</span><span class="main">)</span> <span class="main">⟹</span> <span class="main">(</span>tautology <span class="free">D</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">unfolding</span></span> tautology_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> simplify_involutive<span class="main">:</span>
+<span class="keyword1" id="Propositional_Resolution-simplify_involutive"><span class="command">lemma</span></span> simplify_involutive<span class="main">:</span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"simplify <span class="main">(</span>simplify <span class="free">S</span><span class="main">)</span> <span class="main">=</span> <span class="main">(</span>simplify <span class="free">S</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
   <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span> <span class="keyword1"><span class="command">unfolding</span></span> simplify_def strictly_redundant_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> simplify_finite<span class="main">:</span>
+<span class="keyword1" id="Propositional_Resolution-simplify_finite"><span class="command">lemma</span></span> simplify_finite<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"all_fulfill finite <span class="free">S</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"all_fulfill finite <span class="main">(</span>simplify <span class="free">S</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms all_fulfill_def simplify_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> atoms_formula_simplify<span class="main">:</span>
+<span class="keyword1" id="Propositional_Resolution-atoms_formula_simplify"><span class="command">lemma</span></span> atoms_formula_simplify<span class="main">:</span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"atoms_formula <span class="main">(</span>simplify <span class="free">S</span><span class="main">)</span> <span class="main">⊆</span> atoms_formula <span class="free">S</span>"</span></span>
 <span class="keyword1"><span class="command">unfolding</span></span> simplify_def <span class="keyword1"><span class="command">using</span></span> atoms_formula_subset <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> subsumption_preserves_redundancy <span class="main">:</span>
+<span class="keyword1" id="Propositional_Resolution-subsumption_preserves_redundancy"><span class="command">lemma</span></span> subsumption_preserves_redundancy <span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"redundant <span class="free">C</span> <span class="free">S</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"subsumes <span class="free">C</span> <span class="free">D</span>"</span></span> 
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"redundant <span class="free">D</span> <span class="free">S</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms tautology_monotonous <span class="keyword1"><span class="command">unfolding</span></span> redundant_def subsumes_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">blast</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> subsumption_and_max_literal <span class="main">:</span> 
+<span class="keyword1" id="Propositional_Resolution-subsumption_and_max_literal"><span class="command">lemma</span></span> subsumption_and_max_literal <span class="main">:</span> 
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"subsumes <span class="free">C1</span> <span class="free">C2</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"strictly_maximal_literal <span class="free">C1</span> <span class="free">L1</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"strictly_maximal_literal <span class="free">C2</span> <span class="free">L2</span>"</span></span>
@@ -560,13 +560,13 @@ ordering restrictions apply.›</span></span>
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> superset_preserves_redundancy<span class="main">:</span> 
+<span class="keyword1" id="Propositional_Resolution-superset_preserves_redundancy"><span class="command">lemma</span></span> superset_preserves_redundancy<span class="main">:</span> 
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"redundant <span class="free">C</span> <span class="free">S</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">S</span> <span class="main">⊆</span> <span class="free">S'</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"redundant <span class="free">C</span> <span class="free">S'</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms <span class="keyword1"><span class="command">unfolding</span></span> redundant_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">blast</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> superset_preserves_strict_redundancy<span class="main">:</span> 
+<span class="keyword1" id="Propositional_Resolution-superset_preserves_strict_redundancy"><span class="command">lemma</span></span> superset_preserves_strict_redundancy<span class="main">:</span> 
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"strictly_redundant <span class="free">C</span> <span class="free">S</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">S</span> <span class="main">⊆</span> <span class="free">SS</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"strictly_redundant <span class="free">C</span> <span class="free">SS</span>"</span></span>
@@ -575,31 +575,31 @@ ordering restrictions apply.›</span></span>
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹The following lemmas relate the above notions with that of semantic entailment and thus 
 establish the soundness of redundancy elimination rules.›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> tautologies_are_valid <span class="main">:</span> 
+<span class="keyword1" id="Propositional_Resolution-tautologies_are_valid"><span class="command">lemma</span></span> tautologies_are_valid <span class="main">:</span> 
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"tautology <span class="free">C</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"validate_clause <span class="free">I</span> <span class="free">C</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">meson</span> assms tautology_def validate_clause.simps validate_literal.simps<span class="main"><span class="main">(</span></span>1<span class="main"><span class="main">)</span></span> 
     validate_literal.simps<span class="main"><span class="main">(</span></span>2<span class="main"><span class="main">)</span></span><span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> subsumption_and_semantics <span class="main">:</span> 
+<span class="keyword1" id="Propositional_Resolution-subsumption_and_semantics"><span class="command">lemma</span></span> subsumption_and_semantics <span class="main">:</span> 
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"subsumes <span class="free">C</span> <span class="free">D</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"validate_clause <span class="free">I</span> <span class="free">C</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"validate_clause <span class="free">I</span> <span class="free">D</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms <span class="keyword1"><span class="command">unfolding</span></span> subsumes_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> redundancy_and_semantics <span class="main">:</span> 
+<span class="keyword1" id="Propositional_Resolution-redundancy_and_semantics"><span class="command">lemma</span></span> redundancy_and_semantics <span class="main">:</span> 
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"redundant <span class="free">C</span> <span class="free">S</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"validate_formula <span class="free">I</span> <span class="free">S</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"validate_clause <span class="free">I</span> <span class="free">C</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> 
 <span class="main">(</span><span class="operator">meson</span> assms redundant_def subsumption_and_semantics tautologies_are_valid validate_formula.elims<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> redundancy_implies_entailment<span class="main">:</span>
+<span class="keyword1" id="Propositional_Resolution-redundancy_implies_entailment"><span class="command">lemma</span></span> redundancy_implies_entailment<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"redundant <span class="free">C</span> <span class="free">S</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"entails <span class="free">S</span> <span class="free">C</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms entails_def redundancy_and_semantics <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> simplify_and_membership <span class="main">:</span>
+<span class="keyword1" id="Propositional_Resolution-simplify_and_membership"><span class="command">lemma</span></span> simplify_and_membership <span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"all_fulfill finite <span class="free">S</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">T</span> <span class="main">=</span> simplify <span class="free">S</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">C</span> <span class="main">∈</span> <span class="free">S</span>"</span></span>
@@ -657,13 +657,13 @@ establish the soundness of redundancy elimination rules.›</span></span>
   <span class="keyword1"><span class="command">from</span></span> this <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">‹<span class="free">C</span> <span class="main">∈</span> <span class="free">S</span>›</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> simplify_preserves_redundancy<span class="main">:</span> 
+<span class="keyword1" id="Propositional_Resolution-simplify_preserves_redundancy"><span class="command">lemma</span></span> simplify_preserves_redundancy<span class="main">:</span> 
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"all_fulfill finite <span class="free">S</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"redundant <span class="free">C</span> <span class="free">S</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"redundant <span class="free">C</span> <span class="main">(</span>simplify <span class="free">S</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">meson</span> assms redundant_def simplify_and_membership subsumption_preserves_redundancy<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> simplify_preserves_strict_redundancy<span class="main">:</span> 
+<span class="keyword1" id="Propositional_Resolution-simplify_preserves_strict_redundancy"><span class="command">lemma</span></span> simplify_preserves_strict_redundancy<span class="main">:</span> 
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"all_fulfill finite <span class="free">S</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"strictly_redundant <span class="free">C</span> <span class="free">S</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"strictly_redundant <span class="free">C</span> <span class="main">(</span>simplify <span class="free">S</span><span class="main">)</span>"</span></span>
@@ -681,14 +681,14 @@ establish the soundness of redundancy elimination rules.›</span></span>
     <span class="keyword1"><span class="command">unfolding</span></span> strictly_redundant_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> simplify_preserves_semantic <span class="main">:</span> 
+<span class="keyword1" id="Propositional_Resolution-simplify_preserves_semantic"><span class="command">lemma</span></span> simplify_preserves_semantic <span class="main">:</span> 
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">T</span> <span class="main">=</span> simplify <span class="free">S</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"all_fulfill finite <span class="free">S</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"validate_formula <span class="free">I</span> <span class="free">S</span> <span class="main">⟷</span> validate_formula <span class="free">I</span> <span class="free">T</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">metis</span> <span class="main"><span class="main">(</span></span>mono_tags<span class="main"><span class="main">,</span></span> lifting<span class="main"><span class="main">)</span></span> assms mem_Collect_eq redundancy_and_semantics simplify_and_membership 
     simplify_def validate_formula.simps<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> simplify_preserves_equivalence <span class="main">:</span> 
+<span class="keyword1" id="Propositional_Resolution-simplify_preserves_equivalence"><span class="command">lemma</span></span> simplify_preserves_equivalence <span class="main">:</span> 
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">T</span> <span class="main">=</span> simplify <span class="free">S</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"all_fulfill finite <span class="free">S</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"equivalent <span class="free">S</span> <span class="free">T</span>"</span></span>
@@ -699,11 +699,11 @@ establish the soundness of redundancy elimination rules.›</span></span>
 <span class="keyword1"><span class="command">definition</span></span> <span class="entity">non_redundant</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="tfree">'at</span> Formula <span class="main">⇒</span> bool"</span></span>
   <span class="keyword2"><span class="keyword">where</span></span> <span class="quoted"><span class="quoted">"<span class="free">non_redundant</span> <span class="free"><span class="bound"><span class="entity">S</span></span></span> <span class="main">=</span> <span class="main">(</span><span class="main">∀</span><span class="bound">C</span><span class="main">.</span> <span class="main">(</span><span class="bound">C</span> <span class="main">∈</span> <span class="free"><span class="bound"><span class="entity">S</span></span></span> <span class="main">⟶</span> <span class="main">¬</span>strictly_redundant <span class="bound">C</span> <span class="free"><span class="bound"><span class="entity">S</span></span></span><span class="main">)</span><span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> simplify_non_redundant<span class="main">:</span>
+<span class="keyword1" id="Propositional_Resolution-simplify_non_redundant"><span class="command">lemma</span></span> simplify_non_redundant<span class="main">:</span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"non_redundant <span class="main">(</span>simplify <span class="free">S</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> non_redundant_def simplify_def strictly_redundant_def<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> deducible_clause_preserve_redundancy<span class="main">:</span>
+<span class="keyword1" id="Propositional_Resolution-deducible_clause_preserve_redundancy"><span class="command">lemma</span></span> deducible_clause_preserve_redundancy<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"redundant <span class="free">C</span> <span class="free">S</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"redundant <span class="free">C</span> <span class="main">(</span>add_all_deducible_clauses <span class="free">R</span> <span class="free">S</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms superset_preserves_redundancy <span class="keyword1"><span class="command">by</span></span> <span class="operator">fastforce</span>
@@ -722,23 +722,23 @@ establish the soundness of redundancy elimination rules.›</span></span>
 <span class="keyword1"><span class="command">definition</span></span> <span class="entity">rename_formula</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="tfree">'at</span> set <span class="main">⇒</span> <span class="tfree">'at</span> Formula <span class="main">⇒</span> <span class="tfree">'at</span> Formula"</span></span>
 <span class="keyword2"><span class="keyword">where</span></span> <span class="quoted"><span class="quoted">"<span class="free">rename_formula</span> <span class="free"><span class="bound"><span class="entity">A</span></span></span> <span class="free"><span class="bound"><span class="entity">S</span></span></span> <span class="main">=</span> <span class="main">{</span><span class="bound">C</span><span class="main">.</span> <span class="main">∃</span><span class="bound">CC</span><span class="main">.</span> <span class="bound">CC</span> <span class="main">∈</span> <span class="free"><span class="bound"><span class="entity">S</span></span></span> <span class="main">∧</span> <span class="bound">C</span> <span class="main">=</span> <span class="main">(</span>rename_clause <span class="free"><span class="bound"><span class="entity">A</span></span></span> <span class="bound">CC</span><span class="main">)</span><span class="main">}</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> inverse_renaming <span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">(</span>rename_literal <span class="free">A</span> <span class="main">(</span>rename_literal <span class="free">A</span> <span class="free">L</span><span class="main">)</span><span class="main">)</span> <span class="main">=</span> <span class="free">L</span>"</span></span>
+<span class="keyword1" id="Propositional_Resolution-inverse_renaming"><span class="command">lemma</span></span> inverse_renaming <span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">(</span>rename_literal <span class="free">A</span> <span class="main">(</span>rename_literal <span class="free">A</span> <span class="free">L</span><span class="main">)</span><span class="main">)</span> <span class="main">=</span> <span class="free">L</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
   <span class="keyword3"><span class="command">obtain</span></span> <span class="skolem"><span class="skolem">A</span></span> <span class="keyword2"><span class="keyword">where</span></span> at<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">L</span> <span class="main">=</span> <span class="main">(</span>Pos <span class="skolem">A</span><span class="main">)</span> <span class="main">∨</span> <span class="free">L</span> <span class="main">=</span> <span class="main">(</span>Neg <span class="skolem">A</span><span class="main">)</span>"</span></span> <span class="keyword1"><span class="command">using</span></span> Literal.exhaust <span class="main">[</span><span class="operator">of</span> <span class="quoted"><span class="free">L</span></span> <span class="main">]</span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
   <span class="keyword1"><span class="command">from</span></span> at <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span> <span class="keyword1"><span class="command">unfolding</span></span> rename_literal_def  <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> inverse_clause_renaming <span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">(</span>rename_clause <span class="free">A</span> <span class="main">(</span>rename_clause <span class="free">A</span> <span class="free">L</span><span class="main">)</span><span class="main">)</span> <span class="main">=</span> <span class="free">L</span>"</span></span>
+<span class="keyword1" id="Propositional_Resolution-inverse_clause_renaming"><span class="command">lemma</span></span> inverse_clause_renaming <span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">(</span>rename_clause <span class="free">A</span> <span class="main">(</span>rename_clause <span class="free">A</span> <span class="free">L</span><span class="main">)</span><span class="main">)</span> <span class="main">=</span> <span class="free">L</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
   <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span> <span class="keyword1"><span class="command">using</span></span> inverse_renaming <span class="keyword1"><span class="command">unfolding</span></span> rename_clause_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> inverse_formula_renaming <span class="main">:</span> <span class="quoted"><span class="quoted">"rename_formula <span class="free">A</span> <span class="main">(</span>rename_formula <span class="free">A</span> <span class="free">L</span><span class="main">)</span> <span class="main">=</span> <span class="free">L</span>"</span></span>
+<span class="keyword1" id="Propositional_Resolution-inverse_formula_renaming"><span class="command">lemma</span></span> inverse_formula_renaming <span class="main">:</span> <span class="quoted"><span class="quoted">"rename_formula <span class="free">A</span> <span class="main">(</span>rename_formula <span class="free">A</span> <span class="free">L</span><span class="main">)</span> <span class="main">=</span> <span class="free">L</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
   <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span> <span class="keyword1"><span class="command">using</span></span> inverse_clause_renaming <span class="keyword1"><span class="command">unfolding</span></span> rename_formula_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> renaming_preserves_cardinality <span class="main">:</span>
+<span class="keyword1" id="Propositional_Resolution-renaming_preserves_cardinality"><span class="command">lemma</span></span> renaming_preserves_cardinality <span class="main">:</span>
   <span class="quoted"><span class="quoted">"card <span class="main">(</span>rename_clause <span class="free">A</span> <span class="free">C</span><span class="main">)</span> <span class="main">=</span> card <span class="free">C</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
   <span class="keyword1"><span class="command">have</span></span> im<span class="main">:</span> <span class="quoted"><span class="quoted">"rename_clause <span class="free">A</span> <span class="free">C</span> <span class="main">=</span> <span class="main">(</span>rename_literal <span class="free">A</span><span class="main">)</span> <span class="main">`</span> <span class="free">C</span>"</span></span> <span class="keyword1"><span class="command">unfolding</span></span> rename_clause_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
@@ -746,7 +746,7 @@ establish the soundness of redundancy elimination rules.›</span></span>
   <span class="keyword1"><span class="command">from</span></span> this <span class="keyword2"><span class="keyword">and</span></span> im <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span> <span class="keyword1"><span class="command">using</span></span> card_image <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> renaming_preserves_literal_order <span class="main">:</span>
+<span class="keyword1" id="Propositional_Resolution-renaming_preserves_literal_order"><span class="command">lemma</span></span> renaming_preserves_literal_order <span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"literal_ordering <span class="free">L1</span> <span class="free">L2</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"literal_ordering <span class="main">(</span>rename_literal <span class="free">A</span> <span class="free">L1</span><span class="main">)</span> <span class="main">(</span>rename_literal <span class="free">A</span> <span class="free">L2</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
@@ -755,17 +755,17 @@ establish the soundness of redundancy elimination rules.›</span></span>
   <span class="keyword1"><span class="command">from</span></span> assms <span class="keyword2"><span class="keyword">and</span></span> at1 <span class="keyword2"><span class="keyword">and</span></span> at2 <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span> <span class="keyword1"><span class="command">unfolding</span></span> rename_literal_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> inverse_renaming_preserves_literal_order <span class="main">:</span>
+<span class="keyword1" id="Propositional_Resolution-inverse_renaming_preserves_literal_order"><span class="command">lemma</span></span> inverse_renaming_preserves_literal_order <span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span>  <span class="quoted"><span class="quoted">"literal_ordering <span class="main">(</span>rename_literal <span class="free">A</span> <span class="free">L1</span><span class="main">)</span> <span class="main">(</span>rename_literal <span class="free">A</span> <span class="free">L2</span><span class="main">)</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"literal_ordering <span class="free">L1</span> <span class="free">L2</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">metis</span> assms inverse_renaming renaming_preserves_literal_order<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> renaming_is_injective<span class="main">:</span>
+<span class="keyword1" id="Propositional_Resolution-renaming_is_injective"><span class="command">lemma</span></span> renaming_is_injective<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"rename_literal <span class="free">A</span> <span class="free">L1</span> <span class="main">=</span> rename_literal <span class="free">A</span> <span class="free">L2</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="free">L1</span> <span class="main">=</span> <span class="free">L2</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">metis</span> <span class="main"><span class="main">(</span></span>no_types<span class="main"><span class="main">)</span></span> assms inverse_renaming<span class="main">)</span>
   
-<span class="keyword1"><span class="command">lemma</span></span> renaming_preserves_strictly_maximal_literal <span class="main">:</span>
+<span class="keyword1" id="Propositional_Resolution-renaming_preserves_strictly_maximal_literal"><span class="command">lemma</span></span> renaming_preserves_strictly_maximal_literal <span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"strictly_maximal_literal <span class="free">C</span> <span class="free">L</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"strictly_maximal_literal <span class="main">(</span>rename_clause <span class="free">A</span> <span class="free">C</span><span class="main">)</span> <span class="main">(</span>rename_literal <span class="free">A</span> <span class="free">L</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
@@ -791,7 +791,7 @@ establish the soundness of redundancy elimination rules.›</span></span>
     <span class="keyword1"><span class="command">unfolding</span></span> strictly_maximal_literal_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> renaming_and_selected_part <span class="main">:</span>
+<span class="keyword1" id="Propositional_Resolution-renaming_and_selected_part"><span class="command">lemma</span></span> renaming_and_selected_part <span class="main">:</span>
   <span class="quoted"><span class="quoted">"selected_part UNIV <span class="free">C</span> <span class="main">=</span> rename_clause <span class="free">Sel</span> <span class="main">(</span>validated_part <span class="free">Sel</span> <span class="main">(</span>rename_clause <span class="free">Sel</span> <span class="free">C</span><span class="main">)</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span>  
   <span class="keyword3"><span class="command">show</span></span> <span class="quoted"><span class="quoted">"selected_part UNIV <span class="free">C</span> <span class="main">⊆</span> rename_clause <span class="free">Sel</span> <span class="main">(</span>validated_part <span class="free">Sel</span> <span class="main">(</span>rename_clause <span class="free">Sel</span> <span class="free">C</span><span class="main">)</span><span class="main">)</span>"</span></span>
@@ -865,7 +865,7 @@ establish the soundness of redundancy elimination rules.›</span></span>
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> renaming_preserves_tautology<span class="main">:</span>
+<span class="keyword1" id="Propositional_Resolution-renaming_preserves_tautology"><span class="command">lemma</span></span> renaming_preserves_tautology<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"tautology <span class="free">C</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"tautology <span class="main">(</span>rename_clause <span class="free">Sel</span> <span class="free">C</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
@@ -895,10 +895,10 @@ establish the soundness of redundancy elimination rules.›</span></span>
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> rename_union <span class="main">:</span> <span class="quoted"><span class="quoted">"rename_clause <span class="free">Sel</span> <span class="main">(</span><span class="free">C</span> <span class="main">∪</span> <span class="free">D</span><span class="main">)</span> <span class="main">=</span> rename_clause <span class="free">Sel</span> <span class="free">C</span> <span class="main">∪</span> rename_clause <span class="free">Sel</span> <span class="free">D</span>"</span></span>
+<span class="keyword1" id="Propositional_Resolution-rename_union"><span class="command">lemma</span></span> rename_union <span class="main">:</span> <span class="quoted"><span class="quoted">"rename_clause <span class="free">Sel</span> <span class="main">(</span><span class="free">C</span> <span class="main">∪</span> <span class="free">D</span><span class="main">)</span> <span class="main">=</span> rename_clause <span class="free">Sel</span> <span class="free">C</span> <span class="main">∪</span> rename_clause <span class="free">Sel</span> <span class="free">D</span>"</span></span>
 <span class="keyword1"><span class="command">unfolding</span></span> rename_clause_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> renaming_set_minus_subset <span class="main">:</span> 
+<span class="keyword1" id="Propositional_Resolution-renaming_set_minus_subset"><span class="command">lemma</span></span> renaming_set_minus_subset <span class="main">:</span> 
   <span class="quoted"><span class="quoted">"rename_clause <span class="free">Sel</span> <span class="main">(</span><span class="free">C</span> <span class="main">-</span> <span class="main">{</span> <span class="free">L</span> <span class="main">}</span><span class="main">)</span> <span class="main">⊆</span> rename_clause <span class="free">Sel</span> <span class="free">C</span> <span class="main">-</span> <span class="main">{</span>rename_literal <span class="free">Sel</span> <span class="free">L</span> <span class="main">}</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> 
     <span class="keyword3"><span class="command">fix</span></span> <span class="skolem">x</span> <span class="keyword3"><span class="command">assume</span></span> <span class="quoted"><span class="quoted">"<span class="skolem">x</span> <span class="main">∈</span> rename_clause <span class="free">Sel</span> <span class="main">(</span><span class="free">C</span> <span class="main">-</span> <span class="main">{</span> <span class="free">L</span> <span class="main">}</span><span class="main">)</span>"</span></span>
@@ -917,7 +917,7 @@ establish the soundness of redundancy elimination rules.›</span></span>
       <span class="keyword3"><span class="command">show</span></span> <span class="quoted"><span class="quoted">"<span class="skolem">x</span> <span class="main">∈</span> <span class="main">(</span>rename_clause <span class="free">Sel</span> <span class="free">C</span><span class="main">)</span> <span class="main">-</span> <span class="main">{</span>rename_literal <span class="free">Sel</span> <span class="free">L</span> <span class="main">}</span>"</span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> renaming_set_minus <span class="main">:</span> <span class="quoted"><span class="quoted">"rename_clause <span class="free">Sel</span> <span class="main">(</span><span class="free">C</span> <span class="main">-</span> <span class="main">{</span> <span class="free">L</span> <span class="main">}</span><span class="main">)</span> 
+<span class="keyword1" id="Propositional_Resolution-renaming_set_minus"><span class="command">lemma</span></span> renaming_set_minus <span class="main">:</span> <span class="quoted"><span class="quoted">"rename_clause <span class="free">Sel</span> <span class="main">(</span><span class="free">C</span> <span class="main">-</span> <span class="main">{</span> <span class="free">L</span> <span class="main">}</span><span class="main">)</span> 
   <span class="main">=</span> <span class="main">(</span>rename_clause <span class="free">Sel</span> <span class="free">C</span><span class="main">)</span> <span class="main">-</span> <span class="main">{</span>rename_literal <span class="free">Sel</span> <span class="free">L</span> <span class="main">}</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> 
   <span class="keyword3"><span class="command">show</span></span> <span class="quoted"><span class="quoted">"rename_clause <span class="free">Sel</span> <span class="main">(</span><span class="free">C</span> <span class="main">-</span> <span class="main">{</span> <span class="free">L</span> <span class="main">}</span><span class="main">)</span> <span class="main">⊆</span>  <span class="main">(</span>rename_clause <span class="free">Sel</span> <span class="free">C</span><span class="main">)</span> <span class="main">-</span> <span class="main">{</span>rename_literal <span class="free">Sel</span> <span class="free">L</span> <span class="main">}</span>"</span></span>
@@ -944,7 +944,7 @@ establish the soundness of redundancy elimination rules.›</span></span>
 <span class="keyword2"><span class="keyword">where</span></span> 
   <span class="quoted"><span class="quoted">"<span class="free">rename_interpretation</span> <span class="free"><span class="bound"><span class="entity">Sel</span></span></span> <span class="free"><span class="bound"><span class="entity">I</span></span></span> <span class="main">=</span> <span class="main">{</span> <span class="bound">A</span><span class="main">.</span> <span class="main">(</span><span class="bound">A</span> <span class="main">∈</span> <span class="free"><span class="bound"><span class="entity">I</span></span></span> <span class="main">∧</span> <span class="bound">A</span> <span class="main">∉</span> <span class="free"><span class="bound"><span class="entity">Sel</span></span></span><span class="main">)</span> <span class="main">}</span> <span class="main">∪</span> <span class="main">{</span> <span class="bound">A</span><span class="main">.</span> <span class="main">(</span><span class="bound">A</span> <span class="main">∉</span> <span class="free"><span class="bound"><span class="entity">I</span></span></span> <span class="main">∧</span> <span class="bound">A</span> <span class="main">∈</span> <span class="free"><span class="bound"><span class="entity">Sel</span></span></span><span class="main">)</span> <span class="main">}</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> renaming_preserves_semantic <span class="main">:</span>
+<span class="keyword1" id="Propositional_Resolution-renaming_preserves_semantic"><span class="command">lemma</span></span> renaming_preserves_semantic <span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"validate_literal <span class="free">I</span> <span class="free">L</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"validate_literal <span class="main">(</span>rename_interpretation <span class="free">Sel</span> <span class="free">I</span><span class="main">)</span> <span class="main">(</span>rename_literal <span class="free">Sel</span> <span class="free">L</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
@@ -989,7 +989,7 @@ establish the soundness of redundancy elimination rules.›</span></span>
    <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> renaming_preserves_satisfiability<span class="main">:</span>
+<span class="keyword1" id="Propositional_Resolution-renaming_preserves_satisfiability"><span class="command">lemma</span></span> renaming_preserves_satisfiability<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"satisfiable <span class="free">S</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"satisfiable <span class="main">(</span>rename_formula <span class="free">Sel</span> <span class="free">S</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
@@ -1010,7 +1010,7 @@ establish the soundness of redundancy elimination rules.›</span></span>
   <span class="keyword1"><span class="command">from</span></span> this <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span> <span class="keyword1"><span class="command">unfolding</span></span> satisfiable_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> renaming_preserves_subsumption<span class="main">:</span>
+<span class="keyword1" id="Propositional_Resolution-renaming_preserves_subsumption"><span class="command">lemma</span></span> renaming_preserves_subsumption<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"subsumes <span class="free">C</span> <span class="free">D</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"subsumes <span class="main">(</span>rename_clause <span class="free">Sel</span> <span class="free">C</span><span class="main">)</span> <span class="main">(</span>rename_clause <span class="free">Sel</span> <span class="free">D</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms <span class="keyword1"><span class="command">unfolding</span></span> subsumes_def rename_clause_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
@@ -1025,7 +1025,7 @@ We first introduce an abstract notion of soundness.›</span></span>
   <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="free">Sound</span> <span class="free"><span class="bound"><span class="entity">Rule</span></span></span><span class="main">)</span> <span class="main">≡</span> <span class="main">∀</span><span class="bound">I</span> <span class="bound">P1</span> <span class="bound">P2</span> <span class="bound">C</span><span class="main">.</span> <span class="main">(</span><span class="free"><span class="bound"><span class="entity">Rule</span></span></span> <span class="bound">P1</span> <span class="bound">P2</span> <span class="bound">C</span> <span class="main">⟶</span> <span class="main">(</span>validate_clause <span class="bound">I</span> <span class="bound">P1</span><span class="main">)</span> <span class="main">⟶</span> <span class="main">(</span>validate_clause <span class="bound">I</span> <span class="bound">P2</span><span class="main">)</span> 
     <span class="main">⟶</span> <span class="main">(</span>validate_clause <span class="bound">I</span> <span class="bound">C</span><span class="main">)</span><span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> soundness_and_entailment <span class="main">:</span>
+<span class="keyword1" id="Propositional_Resolution-soundness_and_entailment"><span class="command">lemma</span></span> soundness_and_entailment <span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"Sound <span class="free">Rule</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">Rule</span> <span class="free">P1</span> <span class="free">P2</span> <span class="free">C</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">P1</span> <span class="main">∈</span> <span class="free">S</span>"</span></span>
@@ -1033,7 +1033,7 @@ We first introduce an abstract notion of soundness.›</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"entails <span class="free">S</span> <span class="free">C</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> Sound_def assms entails_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> all_deducible_sound<span class="main">:</span>
+<span class="keyword1" id="Propositional_Resolution-all_deducible_sound"><span class="command">lemma</span></span> all_deducible_sound<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"Sound <span class="free">R</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"entails_formula <span class="free">S</span> <span class="main">(</span>all_deducible_clauses <span class="free">R</span> <span class="free">S</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">rule</span> ccontr<span class="main">)</span>
@@ -1046,7 +1046,7 @@ We first introduce an abstract notion of soundness.›</span></span>
     <span class="keyword3"><span class="command">show</span></span> <span class="quoted"><span class="quoted">"False"</span></span> <span class="keyword1"><span class="command">using</span></span> soundness_and_entailment <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> add_all_deducible_sound<span class="main">:</span>
+<span class="keyword1" id="Propositional_Resolution-add_all_deducible_sound"><span class="command">lemma</span></span> add_all_deducible_sound<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"Sound <span class="free">R</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"entails_formula <span class="free">S</span> <span class="main">(</span>add_all_deducible_clauses <span class="free">R</span> <span class="free">S</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">metis</span> UnE add_all_deducible_clauses.simps all_deducible_sound assms 
@@ -1054,7 +1054,7 @@ We first introduce an abstract notion of soundness.›</span></span>
 
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹If a rule is more restrictive than a sound rule then it is necessarily sound.›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> less_restrictive_correct<span class="main">:</span>
+<span class="keyword1" id="Propositional_Resolution-less_restrictive_correct"><span class="command">lemma</span></span> less_restrictive_correct<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"less_restrictive <span class="free">R1</span> <span class="free">R2</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"Sound <span class="free">R1</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"Sound <span class="free">R2</span>"</span></span>
@@ -1129,13 +1129,13 @@ contains the empty clause.›</span></span>
 under more restrictive rules, which entails that if a rule is less restrictive than a complete rule 
 then it is also complete.›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> less_restrictive_saturated<span class="main">:</span>
+<span class="keyword1" id="Propositional_Resolution-less_restrictive_saturated"><span class="command">lemma</span></span> less_restrictive_saturated<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"less_restrictive <span class="free">R1</span> <span class="free">R2</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"saturated_binary_rule <span class="free">R1</span> <span class="free">S</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"saturated_binary_rule <span class="free">R2</span> <span class="free">S</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms <span class="keyword1"><span class="command">unfolding</span></span> less_restrictive_def Complete_def saturated_binary_rule_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">blast</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> less_restrictive_complete<span class="main">:</span>
+<span class="keyword1" id="Propositional_Resolution-less_restrictive_complete"><span class="command">lemma</span></span> less_restrictive_complete<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"less_restrictive <span class="free">R1</span> <span class="free">R2</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"Complete <span class="free">R2</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"Complete <span class="free">R1</span>"</span></span>
@@ -1169,7 +1169,7 @@ The auxiliary function is defined by induction on the set of atoms.
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹We first prove that the canonic interpretation validates every clause 
 having a positive strictly maximal literal›</span></span>
  
-<span class="keyword1"><span class="command">lemma</span></span> int_validate_cl_with_pos_max <span class="main">:</span> 
+<span class="keyword1" id="Propositional_Resolution-int_validate_cl_with_pos_max"><span class="command">lemma</span></span> int_validate_cl_with_pos_max <span class="main">:</span> 
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"strictly_maximal_literal <span class="free">C</span> <span class="main">(</span>Pos <span class="free">A</span><span class="main">)</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">C</span> <span class="main">∈</span> <span class="free">S</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"validate_clause <span class="main">(</span>canonic_int_ordered <span class="free">S</span><span class="main">)</span> <span class="free">C</span>"</span></span>
@@ -1215,7 +1215,7 @@ having a positive strictly maximal literal›</span></span>
     <span class="keyword1"><span class="command">with</span></span> <span class="quoted"><span class="quoted">‹Pos <span class="skolem">B</span> <span class="main">∈</span> <span class="free">C</span>›</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="quoted"><span class="quoted">"<span class="var">?thesis</span>"</span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> strictly_maximal_literal_exists <span class="main">:</span> 
+<span class="keyword1" id="Propositional_Resolution-strictly_maximal_literal_exists"><span class="command">lemma</span></span> strictly_maximal_literal_exists <span class="main">:</span> 
 
   <span class="quoted"><span class="quoted">"<span class="main">∀</span><span class="bound">C</span><span class="main">.</span> <span class="main">(</span><span class="main">(</span><span class="main">(</span>finite <span class="bound">C</span><span class="main">)</span> <span class="main">∧</span> <span class="main">(</span>card <span class="bound">C</span><span class="main">)</span> <span class="main">=</span> <span class="free">n</span> <span class="main">∧</span> <span class="free">n</span> <span class="main">≠</span> <span class="main">0</span> <span class="main">∧</span> <span class="main">(</span><span class="main">¬</span> <span class="main">(</span>tautology <span class="bound">C</span><span class="main">)</span><span class="main">)</span><span class="main">)</span><span class="main">)</span> 
     <span class="main">⟶</span> <span class="main">(</span><span class="main">∃</span><span class="bound">A</span><span class="main">.</span> <span class="main">(</span>strictly_maximal_literal <span class="bound">C</span> <span class="bound">A</span><span class="main">)</span><span class="main">)</span>"</span></span> <span class="main">(</span><span class="keyword2"><span class="keyword">is</span></span> <span class="quoted"><span class="quoted">"<span class="var">?P</span> <span class="free">n</span>"</span></span><span class="main">)</span>
@@ -1294,7 +1294,7 @@ having a positive strictly maximal literal›</span></span>
 
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹We then deduce that all clauses are validated.›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> canonic_int_validates_all_clauses <span class="main">:</span> 
+<span class="keyword1" id="Propositional_Resolution-canonic_int_validates_all_clauses"><span class="command">lemma</span></span> canonic_int_validates_all_clauses <span class="main">:</span> 
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"saturated_binary_rule ordered_resolvent <span class="free">S</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"all_fulfill finite <span class="free">S</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="main">{}</span> <span class="main">∉</span> <span class="free">S</span>"</span></span>
@@ -1487,7 +1487,7 @@ clauses with non empty selected part.›</span></span>
 
 <span class="keyword1"><span class="command">definition</span></span> <span class="quoted"><span class="quoted">"<span class="free">empty_selected_part</span> <span class="free"><span class="bound"><span class="entity">Sel</span></span></span> <span class="free"><span class="bound"><span class="entity">S</span></span></span> <span class="main">=</span> <span class="main">{</span> <span class="bound">C</span><span class="main">.</span> <span class="bound">C</span> <span class="main">∈</span> <span class="free"><span class="bound"><span class="entity">S</span></span></span> <span class="main">∧</span> <span class="main">(</span>selected_part <span class="free"><span class="bound"><span class="entity">Sel</span></span></span> <span class="bound">C</span><span class="main">)</span> <span class="main">=</span> <span class="main">{}</span> <span class="main">}</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> saturated_ordered_sel_res_empty_sel <span class="main">:</span> 
+<span class="keyword1" id="Propositional_Resolution-saturated_ordered_sel_res_empty_sel"><span class="command">lemma</span></span> saturated_ordered_sel_res_empty_sel <span class="main">:</span> 
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"saturated_binary_rule <span class="main">(</span>ordered_sel_resolvent <span class="free">Sel</span><span class="main">)</span> <span class="free">S</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"saturated_binary_rule ordered_resolvent <span class="main">(</span>empty_selected_part <span class="free">Sel</span> <span class="free">S</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
@@ -1538,12 +1538,12 @@ clauses with non empty selected part.›</span></span>
       <span class="main">∧</span> <span class="main">(</span> <span class="main">(</span><span class="main">(</span>strictly_maximal_literal <span class="free"><span class="bound"><span class="entity">P2</span></span></span> <span class="main">(</span>Neg <span class="free"><span class="bound"><span class="entity">A</span></span></span><span class="main">)</span><span class="main">)</span> <span class="main">∧</span> <span class="main">(</span>selected_part <span class="free"><span class="bound"><span class="entity">Sel</span></span></span> <span class="free"><span class="bound"><span class="entity">P2</span></span></span><span class="main">)</span> <span class="main">=</span> <span class="main">{}</span><span class="main">)</span>
          <span class="main">∨</span> <span class="main">(</span>strictly_maximal_literal <span class="main">(</span>selected_part <span class="free"><span class="bound"><span class="entity">Sel</span></span></span> <span class="free"><span class="bound"><span class="entity">P2</span></span></span><span class="main">)</span> <span class="main">(</span>Neg <span class="free"><span class="bound"><span class="entity">A</span></span></span><span class="main">)</span><span class="main">)</span><span class="main">)</span><span class="main">)</span><span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ordered_sel_resolvent_upon_is_resolvent<span class="main">:</span>
+<span class="keyword1" id="Propositional_Resolution-ordered_sel_resolvent_upon_is_resolvent"><span class="command">lemma</span></span> ordered_sel_resolvent_upon_is_resolvent<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"ordered_sel_resolvent_upon <span class="free">Sel</span> <span class="free">P1</span> <span class="free">P2</span> <span class="free">C</span> <span class="free">A</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"ordered_sel_resolvent <span class="free">Sel</span> <span class="free">P1</span> <span class="free">P2</span> <span class="free">C</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms <span class="keyword1"><span class="command">unfolding</span></span> ordered_sel_resolvent_upon_def <span class="keyword2"><span class="keyword">and</span></span> ordered_sel_resolvent_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> resolution_decreases_selected_part<span class="main">:</span>
+<span class="keyword1" id="Propositional_Resolution-resolution_decreases_selected_part"><span class="command">lemma</span></span> resolution_decreases_selected_part<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"ordered_sel_resolvent_upon <span class="free">Sel</span> <span class="free">P1</span> <span class="free">P2</span> <span class="free">C</span> <span class="free">A</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"Neg <span class="free">A</span> <span class="main">∈</span> <span class="free">P2</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"finite <span class="free">P1</span>"</span></span>
@@ -1583,7 +1583,7 @@ clauses with non empty selected part.›</span></span>
   <span class="keyword1"><span class="command">from</span></span> this <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">‹card <span class="main">(</span>selected_part <span class="free">Sel</span> <span class="free">P2</span><span class="main">)</span> <span class="main">=</span> Suc <span class="free">n</span>›</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> canonic_int_validates_all_clauses_sel <span class="main">:</span> 
+<span class="keyword1" id="Propositional_Resolution-canonic_int_validates_all_clauses_sel"><span class="command">lemma</span></span> canonic_int_validates_all_clauses_sel <span class="main">:</span> 
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"saturated_binary_rule <span class="main">(</span>ordered_sel_resolvent <span class="free">Sel</span><span class="main">)</span> <span class="free">S</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"all_fulfill finite <span class="free">S</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="main">{}</span> <span class="main">∉</span> <span class="free">S</span>"</span></span>
@@ -1781,7 +1781,7 @@ clauses with non empty selected part.›</span></span>
 where all negative literals are selected, which immediately entails the refutational completeness 
 of model resolution.›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ordered_res_with_selection_is_model_res <span class="main">:</span>
+<span class="keyword1" id="Propositional_Resolution-ordered_res_with_selection_is_model_res"><span class="command">lemma</span></span> ordered_res_with_selection_is_model_res <span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"ordered_sel_resolvent UNIV <span class="free">P1</span> <span class="free">P2</span> <span class="free">C</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"ordered_model_resolvent <span class="free">Sel</span> <span class="main">(</span>rename_clause <span class="free">Sel</span> <span class="free">P1</span><span class="main">)</span> <span class="main">(</span>rename_clause <span class="free">Sel</span> <span class="free">P2</span><span class="main">)</span> 
             <span class="main">(</span>rename_clause <span class="free">Sel</span> <span class="free">C</span><span class="main">)</span>"</span></span>
@@ -1902,28 +1902,28 @@ of model resolution.›</span></span>
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹We show that positive and negative resolution simulate model resolution 
 with some specific interpretation. Then completeness follows from previous results.›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> empty_interpretation_validate <span class="main">:</span>
+<span class="keyword1" id="Propositional_Resolution-empty_interpretation_validate"><span class="command">lemma</span></span> empty_interpretation_validate <span class="main">:</span>
   <span class="quoted"><span class="quoted">"validate_literal <span class="main">{}</span> <span class="free">L</span> <span class="main">=</span> <span class="main">(</span><span class="main">∃</span><span class="bound">A</span><span class="main">.</span> <span class="main">(</span><span class="free">L</span> <span class="main">=</span> Neg <span class="bound">A</span><span class="main">)</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">meson</span> empty_iff validate_literal.elims<span class="main"><span class="main">(</span></span>2<span class="main"><span class="main">)</span></span> validate_literal.simps<span class="main"><span class="main">(</span></span>2<span class="main"><span class="main">)</span></span><span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> universal_interpretation_validate <span class="main">:</span>
+<span class="keyword1" id="Propositional_Resolution-universal_interpretation_validate"><span class="command">lemma</span></span> universal_interpretation_validate <span class="main">:</span>
   <span class="quoted"><span class="quoted">"validate_literal UNIV <span class="free">L</span> <span class="main">=</span> <span class="main">(</span><span class="main">∃</span><span class="bound">A</span><span class="main">.</span> <span class="main">(</span><span class="free">L</span> <span class="main">=</span> Pos <span class="bound">A</span><span class="main">)</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">meson</span> UNIV_I validate_literal.elims<span class="main"><span class="main">(</span></span>2<span class="main"><span class="main">)</span></span> validate_literal.simps<span class="main"><span class="main">(</span></span>1<span class="main"><span class="main">)</span></span><span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> negative_part_lemma<span class="main">:</span>
+<span class="keyword1" id="Propositional_Resolution-negative_part_lemma"><span class="command">lemma</span></span> negative_part_lemma<span class="main">:</span>
   <span class="quoted"><span class="quoted">"<span class="main">(</span>negative_part <span class="free">C</span><span class="main">)</span> <span class="main">=</span> <span class="main">(</span>validated_part <span class="main">{}</span> <span class="free">C</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">unfolding</span></span> negative_part_def validated_part_def <span class="keyword1"><span class="command">using</span></span> empty_interpretation_validate <span class="keyword1"><span class="command">by</span></span> <span class="operator">blast</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> positive_part_lemma<span class="main">:</span>
+<span class="keyword1" id="Propositional_Resolution-positive_part_lemma"><span class="command">lemma</span></span> positive_part_lemma<span class="main">:</span>
   <span class="quoted"><span class="quoted">"<span class="main">(</span>positive_part <span class="free">C</span><span class="main">)</span> <span class="main">=</span> <span class="main">(</span>validated_part UNIV <span class="free">C</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">unfolding</span></span> positive_part_def validated_part_def <span class="keyword1"><span class="command">using</span></span> universal_interpretation_validate <span class="keyword1"><span class="command">by</span></span> <span class="operator">blast</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> negative_resolvent_is_model_res<span class="main">:</span>
+<span class="keyword1" id="Propositional_Resolution-negative_resolvent_is_model_res"><span class="command">lemma</span></span> negative_resolvent_is_model_res<span class="main">:</span>
   <span class="quoted"><span class="quoted">"less_restrictive ordered_negative_resolvent <span class="main">(</span>ordered_model_resolvent UNIV<span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">unfolding</span></span> ordered_negative_resolvent_def ordered_model_resolvent_def  less_restrictive_def 
   <span class="keyword1"><span class="command">using</span></span> positive_part_lemma <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> positive_resolvent_is_model_res<span class="main">:</span>
+<span class="keyword1" id="Propositional_Resolution-positive_resolvent_is_model_res"><span class="command">lemma</span></span> positive_resolvent_is_model_res<span class="main">:</span>
   <span class="quoted"><span class="quoted">"less_restrictive ordered_positive_resolvent <span class="main">(</span>ordered_model_resolvent <span class="main">{}</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">unfolding</span></span> ordered_positive_resolvent_def ordered_model_resolvent_def less_restrictive_def 
   <span class="keyword1"><span class="command">using</span></span> negative_part_lemma <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
@@ -2047,7 +2047,7 @@ the clauses that are generated and never deleted.›</span></span>
 <span class="keyword1"><span class="command">theorem</span></span> unit_resolvent_is_finite <span class="main">:</span> <span class="quoted"><span class="quoted">"derived_clauses_are_finite unit_resolvent"</span></span>
 <span class="keyword1"><span class="command">using</span></span> less_restrictive_and_finite unit_resolvent_is_resolvent resolvent_is_finite <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> all_deducible_clauses_are_finite<span class="main">:</span>
+<span class="keyword1" id="Propositional_Resolution-all_deducible_clauses_are_finite"><span class="command">lemma</span></span> all_deducible_clauses_are_finite<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"derived_clauses_are_finite <span class="free">R</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"all_fulfill finite <span class="free">S</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"all_fulfill finite <span class="main">(</span>all_deducible_clauses <span class="free">R</span> <span class="free">S</span><span class="main">)</span>"</span></span>
@@ -2065,7 +2065,7 @@ the clauses that are generated and never deleted.›</span></span>
 
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹This entails that all the clauses occurring in the sets in the sequence are finite.›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> all_inferred_clause_sets_are_finite<span class="main">:</span> 
+<span class="keyword1" id="Propositional_Resolution-all_inferred_clause_sets_are_finite"><span class="command">lemma</span></span> all_inferred_clause_sets_are_finite<span class="main">:</span> 
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"derived_clauses_are_finite <span class="free">R</span>"</span></span> 
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"all_fulfill finite <span class="free">S</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"all_fulfill finite <span class="main">(</span>inferred_clause_sets <span class="free">R</span> <span class="free">S</span> <span class="free">N</span><span class="main">)</span>"</span></span>
@@ -2084,7 +2084,7 @@ the clauses that are generated and never deleted.›</span></span>
     <span class="keyword1"><span class="command">using</span></span> simplify_finite <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>  
 
-<span class="keyword1"><span class="command">lemma</span></span> add_all_deducible_clauses_finite<span class="main">:</span> 
+<span class="keyword1" id="Propositional_Resolution-add_all_deducible_clauses_finite"><span class="command">lemma</span></span> add_all_deducible_clauses_finite<span class="main">:</span> 
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"derived_clauses_are_finite <span class="free">R</span>"</span></span> 
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"all_fulfill finite <span class="free">S</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"all_fulfill finite <span class="main">(</span>add_all_deducible_clauses <span class="free">R</span> <span class="main">(</span>inferred_clause_sets <span class="free">R</span> <span class="free">S</span> <span class="free">N</span><span class="main">)</span><span class="main">)</span>"</span></span>
@@ -2098,7 +2098,7 @@ the clauses that are generated and never deleted.›</span></span>
 
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹We show that the set of redundant clauses can only increase.›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> sequence_of_inferred_clause_sets_is_monotonous<span class="main">:</span> 
+<span class="keyword1" id="Propositional_Resolution-sequence_of_inferred_clause_sets_is_monotonous"><span class="command">lemma</span></span> sequence_of_inferred_clause_sets_is_monotonous<span class="main">:</span> 
  <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"derived_clauses_are_finite <span class="free">R</span>"</span></span>
  <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"all_fulfill finite <span class="free">S</span>"</span></span>
  <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">∀</span><span class="bound">C</span><span class="main">.</span> redundant <span class="bound">C</span> <span class="main">(</span>inferred_clause_sets <span class="free">R</span> <span class="free">S</span> <span class="free">N</span><span class="main">)</span> 
@@ -2127,7 +2127,7 @@ the clauses that are generated and never deleted.›</span></span>
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹We show that non-persistent clauses are strictly redundant in some element of the 
 sequence.›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> non_persistent_clauses_are_redundant<span class="main">:</span>
+<span class="keyword1" id="Propositional_Resolution-non_persistent_clauses_are_redundant"><span class="command">lemma</span></span> non_persistent_clauses_are_redundant<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">D</span> <span class="main">∈</span> inferred_clause_sets <span class="free">R</span> <span class="free">S</span> <span class="free">N</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">D</span> <span class="main">∉</span> saturation <span class="free">R</span> <span class="free">S</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"all_fulfill finite <span class="free">S</span>"</span></span>
@@ -2173,7 +2173,7 @@ sequence.›</span></span>
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹This entails that the clauses that are redundant in some set in the sequence are also 
 redundant in the set of persistent clauses.›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> persistent_clauses_subsume_redundant_clauses<span class="main">:</span>
+<span class="keyword1" id="Propositional_Resolution-persistent_clauses_subsume_redundant_clauses"><span class="command">lemma</span></span> persistent_clauses_subsume_redundant_clauses<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"redundant <span class="free">C</span> <span class="main">(</span>inferred_clause_sets <span class="free">R</span> <span class="free">S</span> <span class="free">N</span><span class="main">)</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"all_fulfill finite <span class="free">S</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"derived_clauses_are_finite <span class="free">R</span>"</span></span>
@@ -2401,7 +2401,7 @@ clause set necessarily contains a clause subsuming the implicate.›</span></spa
 <span class="keyword2"><span class="keyword">where</span></span>
   <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="free">partial_evaluation</span> <span class="free"><span class="bound"><span class="entity">S</span></span></span> <span class="free"><span class="bound"><span class="entity">C</span></span></span><span class="main">)</span> <span class="main">=</span> <span class="main">{</span> <span class="bound">E</span><span class="main">.</span> <span class="main">∃</span><span class="bound">D</span><span class="main">.</span> <span class="bound">D</span> <span class="main">∈</span> <span class="free"><span class="bound"><span class="entity">S</span></span></span> <span class="main">∧</span> <span class="bound">E</span> <span class="main">=</span> <span class="bound">D</span><span class="main">-</span><span class="free"><span class="bound"><span class="entity">C</span></span></span> <span class="main">∧</span> <span class="main">¬</span><span class="main">(</span><span class="main">∃</span><span class="bound">L</span><span class="main">.</span> <span class="main">(</span><span class="bound">L</span> <span class="main">∈</span> <span class="free"><span class="bound"><span class="entity">C</span></span></span><span class="main">)</span> <span class="main">∧</span> <span class="main">(</span>complement <span class="bound">L</span><span class="main">)</span> <span class="main">∈</span> <span class="bound">D</span><span class="main">)</span><span class="main">}</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> partial_evaluation_is_saturated <span class="main">:</span> 
+<span class="keyword1" id="Prime_Implicates-partial_evaluation_is_saturated"><span class="command">lemma</span></span> partial_evaluation_is_saturated <span class="main">:</span> 
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"saturated_binary_rule resolvent <span class="free">S</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"saturated_binary_rule ordered_resolvent <span class="main">(</span>partial_evaluation <span class="free">S</span> <span class="free">C</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">rule</span> ccontr<span class="main">)</span>
@@ -2447,7 +2447,7 @@ clause set necessarily contains a clause subsuming the implicate.›</span></spa
     <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> evaluation_wrt_implicate_is_unsat <span class="main">:</span> 
+<span class="keyword1" id="Prime_Implicates-evaluation_wrt_implicate_is_unsat"><span class="command">lemma</span></span> evaluation_wrt_implicate_is_unsat <span class="main">:</span> 
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"entails <span class="free">S</span> <span class="free">C</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="main">¬</span>tautology <span class="free">C</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">¬</span>satisfiable <span class="main">(</span>partial_evaluation <span class="free">S</span> <span class="free">C</span><span class="main">)</span>"</span></span>
@@ -2496,22 +2496,22 @@ clause set necessarily contains a clause subsuming the implicate.›</span></spa
     <span class="keyword1"><span class="command">unfolding</span></span> entails_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> entailment_and_implicates<span class="main">:</span>
+<span class="keyword1" id="Prime_Implicates-entailment_and_implicates"><span class="command">lemma</span></span> entailment_and_implicates<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"entails_formula <span class="free">S1</span> <span class="free">S2</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"implicates <span class="free">S2</span> <span class="main">⊆</span> implicates <span class="free">S1</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms entailed_formula_entails_implicates implicates_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> equivalence_and_implicates<span class="main">:</span>
+<span class="keyword1" id="Prime_Implicates-equivalence_and_implicates"><span class="command">lemma</span></span> equivalence_and_implicates<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"equivalent <span class="free">S1</span> <span class="free">S2</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"implicates <span class="free">S1</span> <span class="main">=</span> implicates <span class="free">S2</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms entailment_and_implicates equivalent_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">blast</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> equivalence_and_prime_implicates<span class="main">:</span>
+<span class="keyword1" id="Prime_Implicates-equivalence_and_prime_implicates"><span class="command">lemma</span></span> equivalence_and_prime_implicates<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"equivalent <span class="free">S1</span> <span class="free">S2</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"prime_implicates <span class="free">S1</span> <span class="main">=</span> prime_implicates <span class="free">S2</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms equivalence_and_implicates prime_implicates_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> unrestricted_resolution_is_deductive_complete <span class="main">:</span> 
+<span class="keyword1" id="Prime_Implicates-unrestricted_resolution_is_deductive_complete"><span class="command">lemma</span></span> unrestricted_resolution_is_deductive_complete <span class="main">:</span> 
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"saturated_binary_rule resolvent <span class="free">S</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"all_fulfill finite <span class="free">S</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">C</span> <span class="main">∈</span> implicates <span class="free">S</span>"</span></span>
@@ -2537,7 +2537,7 @@ clause set necessarily contains a clause subsuming the implicate.›</span></spa
   <span class="keyword1"><span class="command">then</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span> <span class="keyword1"><span class="command">unfolding</span></span> redundant_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> prime_implicates_generation_correct <span class="main">:</span>
+<span class="keyword1" id="Prime_Implicates-prime_implicates_generation_correct"><span class="command">lemma</span></span> prime_implicates_generation_correct <span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"saturated_binary_rule resolvent <span class="free">S</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"non_redundant <span class="free">S</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"all_fulfill finite <span class="free">S</span>"</span></span>
@@ -2614,7 +2614,7 @@ generation algorithms.›</span></span>
 <span class="keyword1"><span class="command">definition</span></span> <span class="entity">all_resolvents_upon</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="tfree">'at</span> Formula <span class="main">⇒</span> <span class="tfree">'at</span> <span class="main">⇒</span> <span class="tfree">'at</span> Formula"</span></span>
  <span class="keyword2"><span class="keyword">where</span></span>  <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="free">all_resolvents_upon</span> <span class="free"><span class="bound"><span class="entity">S</span></span></span> <span class="free"><span class="bound"><span class="entity">A</span></span></span><span class="main">)</span> <span class="main">=</span> <span class="main">{</span> <span class="bound">C</span><span class="main">.</span> <span class="main">∃</span><span class="bound">P1</span> <span class="bound">P2</span><span class="main">.</span> <span class="bound">P1</span> <span class="main">∈</span> <span class="free"><span class="bound"><span class="entity">S</span></span></span> <span class="main">∧</span> <span class="bound">P2</span> <span class="main">∈</span> <span class="free"><span class="bound"><span class="entity">S</span></span></span> <span class="main">∧</span> <span class="bound">C</span> <span class="main">=</span> <span class="main">(</span>resolvent_upon <span class="bound">P1</span> <span class="bound">P2</span> <span class="free"><span class="bound"><span class="entity">A</span></span></span><span class="main">)</span> <span class="main">}</span>"</span></span> 
 
-<span class="keyword1"><span class="command">lemma</span></span> resolvent_upon_correct<span class="main">:</span>
+<span class="keyword1" id="Prime_Implicates-resolvent_upon_correct"><span class="command">lemma</span></span> resolvent_upon_correct<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">P1</span> <span class="main">∈</span> <span class="free">S</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">P2</span> <span class="main">∈</span> <span class="free">S</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">C</span> <span class="main">=</span> resolvent_upon <span class="free">P1</span> <span class="free">P2</span> <span class="free">A</span>"</span></span>
@@ -2633,12 +2633,12 @@ generation algorithms.›</span></span>
   <span class="keyword1"><span class="command">then</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span> <span class="keyword1"><span class="command">using</span></span> redundancy_implies_entailment <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> all_resolvents_upon_is_finite<span class="main">:</span>
+<span class="keyword1" id="Prime_Implicates-all_resolvents_upon_is_finite"><span class="command">lemma</span></span> all_resolvents_upon_is_finite<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"all_fulfill finite <span class="free">S</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"all_fulfill finite <span class="main">(</span><span class="free">S</span> <span class="main">∪</span> <span class="main">(</span>all_resolvents_upon <span class="free">S</span> <span class="free">A</span><span class="main">)</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms <span class="keyword1"><span class="command">unfolding</span></span> all_fulfill_def all_resolvents_upon_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> atoms_formula_resolvents<span class="main">:</span>
+<span class="keyword1" id="Prime_Implicates-atoms_formula_resolvents"><span class="command">lemma</span></span> atoms_formula_resolvents<span class="main">:</span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"atoms_formula <span class="main">(</span>all_resolvents_upon <span class="free">S</span> <span class="free">A</span><span class="main">)</span> <span class="main">⊆</span>  atoms_formula <span class="free">S</span>"</span></span>
 <span class="keyword1"><span class="command">unfolding</span></span> all_resolvents_upon_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
@@ -2652,7 +2652,7 @@ generation algorithms.›</span></span>
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹We show that the resolvent of two redundant clauses in a partially saturated set 
 is itself redundant.›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> resolvent_upon_and_partial_saturation <span class="main">:</span>
+<span class="keyword1" id="Prime_Implicates-resolvent_upon_and_partial_saturation"><span class="command">lemma</span></span> resolvent_upon_and_partial_saturation <span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"redundant <span class="free">P1</span> <span class="free">S</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"redundant <span class="free">P2</span> <span class="free">S</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"partial_saturation <span class="free">S</span> <span class="free">A</span> <span class="main">(</span><span class="free">S</span> <span class="main">∪</span> <span class="free">R</span><span class="main">)</span>"</span></span>
@@ -2725,7 +2725,7 @@ the resolvent and the inference is thus redundant (this trick is useful to simpl
 <span class="keyword2"><span class="keyword">where</span></span> 
   <span class="quoted"><span class="quoted">"<span class="free">in_all_resolvents_upon</span> <span class="free"><span class="bound"><span class="entity">S</span></span></span> <span class="free"><span class="bound"><span class="entity">A</span></span></span> <span class="free"><span class="bound"><span class="entity">C</span></span></span> <span class="main">=</span> <span class="main">(</span><span class="main">∃</span> <span class="bound">P1</span> <span class="bound">P2</span><span class="main">.</span> <span class="main">(</span><span class="bound">P1</span> <span class="main">∈</span> <span class="free"><span class="bound"><span class="entity">S</span></span></span> <span class="main">∧</span> <span class="bound">P2</span> <span class="main">∈</span> <span class="free"><span class="bound"><span class="entity">S</span></span></span> <span class="main">∧</span> <span class="free"><span class="bound"><span class="entity">C</span></span></span> <span class="main">=</span> resolvent_upon <span class="bound">P1</span> <span class="bound">P2</span> <span class="free"><span class="bound"><span class="entity">A</span></span></span><span class="main">)</span><span class="main">)</span>"</span></span>
  
-<span class="keyword1"><span class="command">lemma</span></span> every_clause_is_a_resolvent<span class="main">:</span>
+<span class="keyword1" id="Prime_Implicates-every_clause_is_a_resolvent"><span class="command">lemma</span></span> every_clause_is_a_resolvent<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"all_fulfill <span class="main">(</span>in_all_resolvents_upon <span class="free">S</span> <span class="free">A</span><span class="main">)</span> <span class="free">R</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"all_fulfill <span class="main">(</span><span class="main">λ</span><span class="bound">x</span><span class="main">.</span> <span class="main">¬</span><span class="main">(</span>tautology <span class="bound">x</span><span class="main">)</span><span class="main">)</span> <span class="free">S</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">P1</span> <span class="main">∈</span> <span class="free">S</span> <span class="main">∪</span> <span class="free">R</span>"</span></span>
@@ -2745,7 +2745,7 @@ the resolvent and the inference is thus redundant (this trick is useful to simpl
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹We show that if a formula is partially saturated then it stays so when new resolvents 
 are added in the set.›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> partial_saturation_is_preserved <span class="main">:</span>
+<span class="keyword1" id="Prime_Implicates-partial_saturation_is_preserved"><span class="command">lemma</span></span> partial_saturation_is_preserved <span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"partial_saturation <span class="free">S</span> <span class="free">E1</span> <span class="free">S</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"partial_saturation <span class="free">S</span> <span class="free">E2</span> <span class="main">(</span><span class="free">S</span> <span class="main">∪</span> <span class="free">R</span><span class="main">)</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"all_fulfill <span class="main">(</span><span class="main">λ</span><span class="bound">x</span><span class="main">.</span> <span class="main">¬</span><span class="main">(</span>tautology <span class="bound">x</span><span class="main">)</span><span class="main">)</span> <span class="free">S</span>"</span></span>
@@ -2783,7 +2783,7 @@ are added in the set.›</span></span>
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹The next lemma shows that the clauses inferred by applying the resolution rule
  upon a given atom contain no occurrence of this atom, unless the inference is redundant.›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> resolvents_do_not_contain_atom <span class="main">:</span>
+<span class="keyword1" id="Prime_Implicates-resolvents_do_not_contain_atom"><span class="command">lemma</span></span> resolvents_do_not_contain_atom <span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="main">¬</span> tautology <span class="free">P1</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="main">¬</span> tautology <span class="free">P2</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">C</span> <span class="main">=</span> resolvent_upon <span class="free">P1</span> <span class="free">P2</span> <span class="free">E2</span>"</span></span>
@@ -2820,7 +2820,7 @@ are added in the set.›</span></span>
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹The next lemma shows that partial saturation can be ensured by computing all 
 (non-redundant) resolvents upon the considered atom.›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ensures_partial_saturation <span class="main">:</span>
+<span class="keyword1" id="Prime_Implicates-ensures_partial_saturation"><span class="command">lemma</span></span> ensures_partial_saturation <span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"partial_saturation <span class="free">S</span> <span class="free">E2</span> <span class="main">(</span><span class="free">S</span> <span class="main">∪</span> <span class="free">R</span><span class="main">)</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"all_fulfill <span class="main">(</span><span class="main">λ</span><span class="bound">x</span><span class="main">.</span> <span class="main">¬</span><span class="main">(</span>tautology <span class="bound">x</span><span class="main">)</span><span class="main">)</span> <span class="free">S</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"all_fulfill <span class="main">(</span>in_all_resolvents_upon <span class="free">S</span> <span class="free">E2</span><span class="main">)</span> <span class="free">R</span>"</span></span>
@@ -2878,7 +2878,7 @@ are added in the set.›</span></span>
     <span class="keyword3"><span class="command">show</span></span> <span class="quoted"><span class="quoted">"False"</span></span> <span class="keyword1"><span class="command">unfolding</span></span> redundant_def partial_saturation_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> resolvents_preserve_equivalence<span class="main">:</span>
+<span class="keyword1" id="Prime_Implicates-resolvents_preserve_equivalence"><span class="command">lemma</span></span> resolvents_preserve_equivalence<span class="main">:</span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"equivalent <span class="free">S</span> <span class="main">(</span><span class="free">S</span> <span class="main">∪</span> <span class="main">(</span>all_resolvents_upon <span class="free">S</span> <span class="free">A</span><span class="main">)</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
   <span class="keyword1"><span class="command">have</span></span> <span class="quoted"><span class="quoted">"<span class="free">S</span> <span class="main">⊆</span> <span class="main">(</span><span class="free">S</span> <span class="main">∪</span> <span class="main">(</span>all_resolvents_upon <span class="free">S</span> <span class="free">A</span><span class="main">)</span><span class="main">)</span>"</span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
@@ -2912,7 +2912,7 @@ each atom successively. Simplification rules are applied at each iteration step.
 
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹The following lemma states that partial saturation is preserved by simplification.›</span></span>
  
-<span class="keyword1"><span class="command">lemma</span></span> redundancy_implies_partial_saturation<span class="main">:</span>
+<span class="keyword1" id="Prime_Implicates-redundancy_implies_partial_saturation"><span class="command">lemma</span></span> redundancy_implies_partial_saturation<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"partial_saturation <span class="free">S1</span> <span class="free">A</span> <span class="free">S1</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">S2</span> <span class="main">⊆</span> <span class="free">S1</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"all_fulfill <span class="main">(</span><span class="main">λ</span><span class="bound">x</span><span class="main">.</span> redundant <span class="bound">x</span> <span class="free">S2</span><span class="main">)</span> <span class="free">S1</span>"</span></span>

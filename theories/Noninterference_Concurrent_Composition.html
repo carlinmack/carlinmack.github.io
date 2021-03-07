@@ -58,28 +58,28 @@ former result since <span class="antiquoted"><span class="antiquoted"><span clas
 \null
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> sinks_aux_elem <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-sinks_aux_elem"><span class="command">lemma</span></span> sinks_aux_elem <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="free">u</span> <span class="main">∈</span> sinks_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span> <span class="main">⟶</span> <span class="free">u</span> <span class="main">∈</span> <span class="free">U</span> <span class="main">∨</span> <span class="main">(</span><span class="main">∃</span><span class="bound">x</span> <span class="main">∈</span> set <span class="free">xs</span><span class="main">.</span> <span class="free">u</span> <span class="main">=</span> <span class="free">D</span> <span class="bound">x</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">induction</span> <span class="quoted"><span class="free">xs</span></span> <span class="quasi_keyword">rule</span><span class="main"><span class="main">:</span></span> rev_induct<span class="main"><span class="keyword3">,</span></span> <span class="operator">simp_all</span><span class="main"><span class="keyword3">,</span></span> <span class="operator">blast</span><span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_ref_aux_cons<span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-ipurge_ref_aux_cons"><span class="command">lemma</span></span> ipurge_ref_aux_cons<span class="main">:</span>
  <span class="quoted"><span class="quoted">"ipurge_ref_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="main">(</span><span class="free">x</span> <span class="main">#</span> <span class="free">xs</span><span class="main">)</span> <span class="free">X</span> <span class="main">=</span> ipurge_ref_aux <span class="free">I</span> <span class="free">D</span> <span class="main">(</span>sinks_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="main">[</span><span class="free">x</span><span class="main">]</span><span class="main">)</span> <span class="free">xs</span> <span class="free">X</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">subgoal_tac</span> <span class="quoted"><span class="quoted">"<span class="free">x</span> <span class="main">#</span> <span class="free">xs</span> <span class="main">=</span> <span class="main">[</span><span class="free">x</span><span class="main">]</span> <span class="main">@</span> <span class="free">xs</span>"</span></span><span class="main"><span class="keyword3">,</span></span> <span class="operator">simp</span> <span class="quasi_keyword">only</span><span class="main"><span class="main">:</span></span> ipurge_ref_aux_append<span class="main"><span class="keyword3">,</span></span> <span class="operator">simp</span><span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> process_rule_1_futures<span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-process_rule_1_futures"><span class="command">lemma</span></span> process_rule_1_futures<span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="free">xs</span> <span class="main">∈</span> traces <span class="free">P</span> <span class="main">⟹</span> <span class="main">(</span><span class="main">[]</span><span class="main">,</span> <span class="main">{}</span><span class="main">)</span> <span class="main">∈</span> futures <span class="free">P</span> <span class="free">xs</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> futures_def<span class="main"><span class="keyword3">,</span></span> <span class="operator">rule</span> traces_failures<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> process_rule_3_futures<span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-process_rule_3_futures"><span class="command">lemma</span></span> process_rule_3_futures<span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="free">ys</span><span class="main">,</span> <span class="free">Y</span><span class="main">)</span> <span class="main">∈</span> futures <span class="free">P</span> <span class="free">xs</span> <span class="main">⟹</span> <span class="free">Y'</span> <span class="main">⊆</span> <span class="free">Y</span> <span class="main">⟹</span> <span class="main">(</span><span class="free">ys</span><span class="main">,</span> <span class="free">Y'</span><span class="main">)</span> <span class="main">∈</span> futures <span class="free">P</span> <span class="free">xs</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> futures_def<span class="main"><span class="keyword3">,</span></span> <span class="operator">rule</span> process_rule_3<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> process_rule_4_futures<span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-process_rule_4_futures"><span class="command">lemma</span></span> process_rule_4_futures<span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="free">ys</span><span class="main">,</span> <span class="free">Y</span><span class="main">)</span> <span class="main">∈</span> futures <span class="free">P</span> <span class="free">xs</span> <span class="main">⟹</span>
     <span class="main">(</span><span class="free">ys</span> <span class="main">@</span> <span class="main">[</span><span class="free">x</span><span class="main">]</span><span class="main">,</span> <span class="main">{}</span><span class="main">)</span> <span class="main">∈</span> futures <span class="free">P</span> <span class="free">xs</span> <span class="main">∨</span> <span class="main">(</span><span class="free">ys</span><span class="main">,</span> insert <span class="free">x</span> <span class="free">Y</span><span class="main">)</span> <span class="main">∈</span> futures <span class="free">P</span> <span class="free">xs</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> futures_def<span class="main"><span class="keyword3">,</span></span> <span class="operator">subst</span> append_assoc <span class="main"><span class="main">[</span></span><span class="operator">symmetric</span><span class="main"><span class="main">]</span></span><span class="main"><span class="keyword3">,</span></span> <span class="operator">rule</span> process_rule_4<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> process_rule_5_general <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-process_rule_5_general"><span class="command">lemma</span></span> process_rule_5_general <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="free">xs</span> <span class="main">∈</span> divergences <span class="free">P</span> <span class="main">⟶</span> <span class="free">xs</span> <span class="main">@</span> <span class="free">ys</span> <span class="main">∈</span> divergences <span class="free">P</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">induction</span> <span class="quoted"><span class="free">ys</span></span> <span class="quasi_keyword">rule</span><span class="main"><span class="main">:</span></span> rev_induct<span class="main"><span class="keyword3">,</span></span> <span class="operator">simp</span><span class="main"><span class="keyword3">,</span></span> <span class="operator">rule</span> impI<span class="main"><span class="keyword3">,</span></span> <span class="operator">simp</span><span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span> <span class="main">(</span><span class="operator">subst</span> append_assoc <span class="main"><span class="main">[</span></span><span class="operator">symmetric</span><span class="main"><span class="main">]</span></span><span class="main"><span class="keyword3">,</span></span> <span class="operator">rule</span> process_rule_5<span class="main">)</span>
@@ -101,16 +101,16 @@ indeed enjoy their respective characteristic properties as defined in \cite{R1}.
 <span class="keyword1"><span class="command">definition</span></span> <span class="entity">after</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="tfree">'a</span> process <span class="main">⇒</span> <span class="tfree">'a</span> list <span class="main">⇒</span> <span class="tfree">'a</span> process"</span></span> <span class="main">(</span><span class="keyword2"><span class="keyword">infixl</span></span> <span class="quoted">"<span class="keyword1">∖</span>"</span> 64<span class="main">)</span> <span class="keyword2"><span class="keyword">where</span></span>
 <span class="quoted"><span class="quoted">"<span class="free"><span class="bound"><span class="entity">P</span></span></span> <span class="main"><span class="free">∖</span></span> <span class="free"><span class="bound"><span class="entity">xs</span></span></span> <span class="main">≡</span> Abs_process <span class="main">(</span>futures <span class="free"><span class="bound"><span class="entity">P</span></span></span> <span class="free"><span class="bound"><span class="entity">xs</span></span></span><span class="main">,</span> future_divergences <span class="free"><span class="bound"><span class="entity">P</span></span></span> <span class="free"><span class="bound"><span class="entity">xs</span></span></span><span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> process_rule_5_futures<span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-process_rule_5_futures"><span class="command">lemma</span></span> process_rule_5_futures<span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="free">ys</span> <span class="main">∈</span> future_divergences <span class="free">P</span> <span class="free">xs</span> <span class="main">⟹</span> <span class="free">ys</span> <span class="main">@</span> <span class="main">[</span><span class="free">x</span><span class="main">]</span> <span class="main">∈</span> future_divergences <span class="free">P</span> <span class="free">xs</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> future_divergences_def<span class="main"><span class="keyword3">,</span></span> <span class="operator">subst</span> append_assoc <span class="main"><span class="main">[</span></span><span class="operator">symmetric</span><span class="main"><span class="main">]</span></span><span class="main"><span class="keyword3">,</span></span>
  <span class="operator">rule</span> process_rule_5<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> process_rule_6_futures<span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-process_rule_6_futures"><span class="command">lemma</span></span> process_rule_6_futures<span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="free">ys</span> <span class="main">∈</span> future_divergences <span class="free">P</span> <span class="free">xs</span> <span class="main">⟹</span> <span class="main">(</span><span class="free">ys</span><span class="main">,</span> <span class="free">Y</span><span class="main">)</span> <span class="main">∈</span> futures <span class="free">P</span> <span class="free">xs</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> futures_def future_divergences_def<span class="main"><span class="keyword3">,</span></span> <span class="operator">rule</span> process_rule_6<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> after_rep<span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-after_rep"><span class="command">lemma</span></span> after_rep<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> A<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">xs</span> <span class="main">∈</span> traces <span class="free">P</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"Rep_process <span class="main">(</span><span class="free">P</span> <span class="main">∖</span> <span class="free">xs</span><span class="main">)</span> <span class="main">=</span> <span class="main">(</span>futures <span class="free">P</span> <span class="free">xs</span><span class="main">,</span> future_divergences <span class="free">P</span> <span class="free">xs</span><span class="main">)</span>"</span></span>
     <span class="main">(</span><span class="keyword2"><span class="keyword">is</span></span> <span class="quoted"><span class="quoted">"<span class="main">_</span> <span class="main">=</span> <span class="var">?X</span>"</span></span><span class="main">)</span>
@@ -142,12 +142,12 @@ indeed enjoy their respective characteristic properties as defined in \cite{R1}.
   <span class="keyword1"><span class="command">qed</span></span> <span class="main">(</span><span class="operator">rule</span> process_rule_6_futures<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> after_failures<span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-after_failures"><span class="command">lemma</span></span> after_failures<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> A<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">xs</span> <span class="main">∈</span> traces <span class="free">P</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"failures <span class="main">(</span><span class="free">P</span> <span class="main">∖</span> <span class="free">xs</span><span class="main">)</span> <span class="main">=</span> futures <span class="free">P</span> <span class="free">xs</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> failures_def after_rep <span class="main"><span class="main">[</span></span><span class="operator">OF</span> A<span class="main"><span class="main">]</span></span><span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> after_futures<span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-after_futures"><span class="command">lemma</span></span> after_futures<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> A<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">xs</span> <span class="main">∈</span> traces <span class="free">P</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"futures <span class="main">(</span><span class="free">P</span> <span class="main">∖</span> <span class="free">xs</span><span class="main">)</span> <span class="free">ys</span> <span class="main">=</span> futures <span class="free">P</span> <span class="main">(</span><span class="free">xs</span> <span class="main">@</span> <span class="free">ys</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> futures_def after_failures <span class="main"><span class="main">[</span></span><span class="operator">OF</span> A<span class="main"><span class="main">]</span></span><span class="main">)</span>
@@ -160,19 +160,19 @@ Finally, the closure of the futures of a secure process under intransitive purge
 \null
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> after_secure<span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-after_secure"><span class="command">lemma</span></span> after_secure<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> A<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">xs</span> <span class="main">∈</span> traces <span class="free">P</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"secure <span class="free">P</span> <span class="free">I</span> <span class="free">D</span> <span class="main">⟹</span> secure <span class="main">(</span><span class="free">P</span> <span class="main">∖</span> <span class="free">xs</span><span class="main">)</span> <span class="free">I</span> <span class="free">D</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> secure_def after_futures <span class="main"><span class="main">[</span></span><span class="operator">OF</span> A<span class="main"><span class="main">]</span></span><span class="main"><span class="keyword3">,</span></span> <span class="operator">blast</span><span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_tr_ref_aux_futures<span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-ipurge_tr_ref_aux_futures"><span class="command">lemma</span></span> ipurge_tr_ref_aux_futures<span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="main">⟦</span>secure <span class="free">P</span> <span class="free">I</span> <span class="free">D</span><span class="main">;</span> <span class="main">(</span><span class="free">ys</span><span class="main">,</span> <span class="free">Y</span><span class="main">)</span> <span class="main">∈</span> futures <span class="free">P</span> <span class="free">xs</span><span class="main">⟧</span> <span class="main">⟹</span>
     <span class="main">(</span>ipurge_tr_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">ys</span><span class="main">,</span> ipurge_ref_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">ys</span> <span class="free">Y</span><span class="main">)</span> <span class="main">∈</span> futures <span class="free">P</span> <span class="free">xs</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">subgoal_tac</span> <span class="quoted"><span class="quoted">"<span class="free">xs</span> <span class="main">∈</span> traces <span class="free">P</span>"</span></span><span class="main"><span class="keyword3">,</span></span> <span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> after_failures <span class="main"><span class="main">[</span></span><span class="operator">symmetric</span><span class="main"><span class="main">]</span></span><span class="main"><span class="keyword3">,</span></span>
  <span class="operator">rule</span> ipurge_tr_ref_aux_failures<span class="main"><span class="keyword3">,</span></span> <span class="operator">rule</span> after_secure<span class="main"><span class="keyword3">,</span></span> <span class="operator">assumption</span><span class="main"><span class="keyword3">+</span></span><span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> futures_def<span class="main"><span class="keyword3">,</span></span> <span class="operator">drule</span> failures_traces<span class="main"><span class="keyword3">,</span></span> <span class="operator">rule</span> process_rule_2_traces<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_tr_ref_aux_failures_general<span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-ipurge_tr_ref_aux_failures_general"><span class="command">lemma</span></span> ipurge_tr_ref_aux_failures_general<span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="main">⟦</span>secure <span class="free">P</span> <span class="free">I</span> <span class="free">D</span><span class="main">;</span> <span class="main">(</span><span class="free">xs</span> <span class="main">@</span> <span class="free">ys</span><span class="main">,</span> <span class="free">Y</span><span class="main">)</span> <span class="main">∈</span> failures <span class="free">P</span><span class="main">⟧</span> <span class="main">⟹</span>
     <span class="main">(</span><span class="free">xs</span> <span class="main">@</span> ipurge_tr_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">ys</span><span class="main">,</span> ipurge_ref_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">ys</span> <span class="free">Y</span><span class="main">)</span> <span class="main">∈</span> failures <span class="free">P</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">drule</span> ipurge_tr_ref_aux_futures<span class="main"><span class="keyword3">,</span></span> <span class="operator">simp_all</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> futures_def<span class="main">)</span>
@@ -264,12 +264,12 @@ the characteristic properties of the failures and the divergences sets of a proc
 \null
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> con_comp_prop_1<span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-con_comp_prop_1"><span class="command">lemma</span></span> con_comp_prop_1<span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="main">[]</span><span class="main">,</span> <span class="main">{}</span><span class="main">)</span> <span class="main">∈</span> con_comp_failures <span class="free">P</span> <span class="free">Q</span> <span class="free">p</span> <span class="free">q</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> con_comp_failures_def<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span> <span class="main">(</span><span class="operator">rule</span> disjI1<span class="main"><span class="keyword3">,</span></span> <span class="operator">rule</span> conjI<span class="main"><span class="keyword3">,</span></span> <span class="main">(</span><span class="operator">rule</span> process_rule_1<span class="main">)</span><span class="main"><span class="keyword3">+</span></span><span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> con_comp_prop_2<span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-con_comp_prop_2"><span class="command">lemma</span></span> con_comp_prop_2<span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="free">xs</span> <span class="main">@</span> <span class="main">[</span><span class="free">x</span><span class="main">]</span><span class="main">,</span> <span class="free">X</span><span class="main">)</span> <span class="main">∈</span> con_comp_failures <span class="free">P</span> <span class="free">Q</span> <span class="free">p</span> <span class="free">q</span> <span class="main">⟹</span>
     <span class="main">(</span><span class="free">xs</span><span class="main">,</span> <span class="main">{}</span><span class="main">)</span> <span class="main">∈</span> con_comp_failures <span class="free">P</span> <span class="free">Q</span> <span class="free">p</span> <span class="free">q</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> con_comp_failures_def <span class="quasi_keyword">del</span><span class="main"><span class="main">:</span></span> filter_append<span class="main"><span class="keyword3">,</span></span>
@@ -386,7 +386,7 @@ the characteristic properties of the failures and the divergences sets of a proc
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> con_comp_prop_3<span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-con_comp_prop_3"><span class="command">lemma</span></span> con_comp_prop_3<span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="main">⟦</span><span class="main">(</span><span class="free">xs</span><span class="main">,</span> <span class="free">Y</span><span class="main">)</span> <span class="main">∈</span> con_comp_failures <span class="free">P</span> <span class="free">Q</span> <span class="free">p</span> <span class="free">q</span><span class="main">;</span> <span class="free">X</span> <span class="main">⊆</span> <span class="free">Y</span><span class="main">⟧</span> <span class="main">⟹</span>
     <span class="main">(</span><span class="free">xs</span><span class="main">,</span> <span class="free">X</span><span class="main">)</span> <span class="main">∈</span> con_comp_failures <span class="free">P</span> <span class="free">Q</span> <span class="free">p</span> <span class="free">q</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> con_comp_failures_def<span class="main"><span class="keyword3">,</span></span> <span class="operator">erule</span> disjE<span class="main"><span class="keyword3">,</span></span> <span class="operator">simp_all</span><span class="main"><span class="keyword3">,</span></span>
@@ -439,7 +439,7 @@ the characteristic properties of the failures and the divergences sets of a proc
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> con_comp_prop_4<span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-con_comp_prop_4"><span class="command">lemma</span></span> con_comp_prop_4<span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="free">xs</span><span class="main">,</span> <span class="free">X</span><span class="main">)</span> <span class="main">∈</span> con_comp_failures <span class="free">P</span> <span class="free">Q</span> <span class="free">p</span> <span class="free">q</span> <span class="main">⟹</span>
     <span class="main">(</span><span class="free">xs</span> <span class="main">@</span> <span class="main">[</span><span class="free">x</span><span class="main">]</span><span class="main">,</span> <span class="main">{}</span><span class="main">)</span> <span class="main">∈</span> con_comp_failures <span class="free">P</span> <span class="free">Q</span> <span class="free">p</span> <span class="free">q</span> <span class="main">∨</span>
     <span class="main">(</span><span class="free">xs</span><span class="main">,</span> insert <span class="free">x</span> <span class="free">X</span><span class="main">)</span> <span class="main">∈</span> con_comp_failures <span class="free">P</span> <span class="free">Q</span> <span class="free">p</span> <span class="free">q</span>"</span></span>
@@ -689,7 +689,7 @@ the characteristic properties of the failures and the divergences sets of a proc
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> con_comp_prop_5<span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-con_comp_prop_5"><span class="command">lemma</span></span> con_comp_prop_5<span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="free">xs</span> <span class="main">∈</span> con_comp_divergences <span class="free">P</span> <span class="free">Q</span> <span class="free">p</span> <span class="free">q</span> <span class="main">⟹</span>
     <span class="free">xs</span> <span class="main">@</span> <span class="main">[</span><span class="free">x</span><span class="main">]</span> <span class="main">∈</span> con_comp_divergences <span class="free">P</span> <span class="free">Q</span> <span class="free">p</span> <span class="free">q</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> con_comp_divergences_def<span class="main"><span class="keyword3">,</span></span> <span class="operator">erule</span> exE<span class="main"><span class="keyword3">,</span></span> <span class="main">(</span><span class="operator">erule</span> conjE<span class="main">)</span><span class="main"><span class="keyword3">+</span></span><span class="main"><span class="keyword3">,</span></span> <span class="operator">erule</span> exE<span class="main">)</span>
@@ -708,12 +708,12 @@ the characteristic properties of the failures and the divergences sets of a proc
   <span class="keyword1"><span class="command">qed</span></span> <span class="main">(</span><span class="operator">rule_tac</span> x <span class="main"><span class="main">=</span></span> <span class="quoted"><span class="quoted">"<span class="skolem">ys'</span> <span class="main">@</span> <span class="main">[</span><span class="free">x</span><span class="main">]</span>"</span></span> <span class="keyword2"><span class="keyword"><span class="quasi_keyword">in</span></span></span> exI<span class="main"><span class="keyword3">,</span></span> <span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> D<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> con_comp_prop_6<span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-con_comp_prop_6"><span class="command">lemma</span></span> con_comp_prop_6<span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="free">xs</span> <span class="main">∈</span> con_comp_divergences <span class="free">P</span> <span class="free">Q</span> <span class="free">p</span> <span class="free">q</span> <span class="main">⟹</span>
     <span class="main">(</span><span class="free">xs</span><span class="main">,</span> <span class="free">X</span><span class="main">)</span> <span class="main">∈</span> con_comp_failures <span class="free">P</span> <span class="free">Q</span> <span class="free">p</span> <span class="free">q</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> con_comp_failures_def<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> con_comp_rep<span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-con_comp_rep"><span class="command">lemma</span></span> con_comp_rep<span class="main">:</span>
  <span class="quoted"><span class="quoted">"Rep_process <span class="main">(</span><span class="free">P</span> <span class="main">∥</span> <span class="free">Q</span> <span class="main">&lt;</span><span class="free">p</span><span class="main">,</span> <span class="free">q</span><span class="main">&gt;</span><span class="main">)</span> <span class="main">=</span>
     <span class="main">(</span>con_comp_failures <span class="free">P</span> <span class="free">Q</span> <span class="free">p</span> <span class="free">q</span><span class="main">,</span> con_comp_divergences <span class="free">P</span> <span class="free">Q</span> <span class="free">p</span> <span class="free">q</span><span class="main">)</span>"</span></span>
   <span class="main">(</span><span class="keyword2"><span class="keyword">is</span></span> <span class="quoted"><span class="quoted">"<span class="main">_</span> <span class="main">=</span> <span class="var">?X</span>"</span></span><span class="main">)</span>
@@ -755,28 +755,28 @@ the concurrent composition of a pair of processes.
 \null
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> con_comp_failures<span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-con_comp_failures"><span class="command">lemma</span></span> con_comp_failures<span class="main">:</span>
  <span class="quoted"><span class="quoted">"failures <span class="main">(</span><span class="free">P</span> <span class="main">∥</span> <span class="free">Q</span> <span class="main">&lt;</span><span class="free">p</span><span class="main">,</span> <span class="free">q</span><span class="main">&gt;</span><span class="main">)</span> <span class="main">=</span> con_comp_failures <span class="free">P</span> <span class="free">Q</span> <span class="free">p</span> <span class="free">q</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> failures_def con_comp_rep<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> con_comp_divergences<span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-con_comp_divergences"><span class="command">lemma</span></span> con_comp_divergences<span class="main">:</span>
  <span class="quoted"><span class="quoted">"divergences <span class="main">(</span><span class="free">P</span> <span class="main">∥</span> <span class="free">Q</span> <span class="main">&lt;</span><span class="free">p</span><span class="main">,</span> <span class="free">q</span><span class="main">&gt;</span><span class="main">)</span> <span class="main">=</span> con_comp_divergences <span class="free">P</span> <span class="free">Q</span> <span class="free">p</span> <span class="free">q</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> divergences_def con_comp_rep<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> con_comp_futures<span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-con_comp_futures"><span class="command">lemma</span></span> con_comp_futures<span class="main">:</span>
  <span class="quoted"><span class="quoted">"futures <span class="main">(</span><span class="free">P</span> <span class="main">∥</span> <span class="free">Q</span> <span class="main">&lt;</span><span class="free">p</span><span class="main">,</span> <span class="free">q</span><span class="main">&gt;</span><span class="main">)</span> <span class="free">xs</span> <span class="main">=</span>
     <span class="main">{</span><span class="main">(</span><span class="bound">ys</span><span class="main">,</span> <span class="bound">Y</span><span class="main">)</span><span class="main">.</span> <span class="main">(</span><span class="free">xs</span> <span class="main">@</span> <span class="bound">ys</span><span class="main">,</span> <span class="bound">Y</span><span class="main">)</span> <span class="main">∈</span> con_comp_failures <span class="free">P</span> <span class="free">Q</span> <span class="free">p</span> <span class="free">q</span><span class="main">}</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> futures_def con_comp_failures<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> con_comp_traces<span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-con_comp_traces"><span class="command">lemma</span></span> con_comp_traces<span class="main">:</span>
  <span class="quoted"><span class="quoted">"traces <span class="main">(</span><span class="free">P</span> <span class="main">∥</span> <span class="free">Q</span> <span class="main">&lt;</span><span class="free">p</span><span class="main">,</span> <span class="free">q</span><span class="main">&gt;</span><span class="main">)</span> <span class="main">=</span> Domain <span class="main">(</span>con_comp_failures <span class="free">P</span> <span class="free">Q</span> <span class="free">p</span> <span class="free">q</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> traces_def con_comp_failures<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> con_comp_refusals<span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-con_comp_refusals"><span class="command">lemma</span></span> con_comp_refusals<span class="main">:</span>
  <span class="quoted"><span class="quoted">"refusals <span class="main">(</span><span class="free">P</span> <span class="main">∥</span> <span class="free">Q</span> <span class="main">&lt;</span><span class="free">p</span><span class="main">,</span> <span class="free">q</span><span class="main">&gt;</span><span class="main">)</span> <span class="free">xs</span> <span class="main">≡</span> con_comp_failures <span class="free">P</span> <span class="free">Q</span> <span class="free">p</span> <span class="free">q</span> <span class="main">``</span> <span class="main">{</span><span class="free">xs</span><span class="main">}</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> refusals_def con_comp_failures<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> con_comp_next_events<span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-con_comp_next_events"><span class="command">lemma</span></span> con_comp_next_events<span class="main">:</span>
  <span class="quoted"><span class="quoted">"next_events <span class="main">(</span><span class="free">P</span> <span class="main">∥</span> <span class="free">Q</span> <span class="main">&lt;</span><span class="free">p</span><span class="main">,</span> <span class="free">q</span><span class="main">&gt;</span><span class="main">)</span> <span class="free">xs</span> <span class="main">=</span>
     <span class="main">{</span><span class="bound">x</span><span class="main">.</span> <span class="free">xs</span> <span class="main">@</span> <span class="main">[</span><span class="bound">x</span><span class="main">]</span> <span class="main">∈</span> Domain <span class="main">(</span>con_comp_failures <span class="free">P</span> <span class="free">Q</span> <span class="free">p</span> <span class="free">q</span><span class="main">)</span><span class="main">}</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> next_events_def con_comp_traces<span class="main">)</span>
@@ -794,7 +794,7 @@ composition used in the proof of the target security conservation theorem.
 \null
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> con_comp_ref_union_closed<span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-con_comp_ref_union_closed"><span class="command">lemma</span></span> con_comp_ref_union_closed<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span>
     A<span class="main">:</span> <span class="quoted"><span class="quoted">"ref_union_closed <span class="free">P</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
     B<span class="main">:</span> <span class="quoted"><span class="quoted">"ref_union_closed <span class="free">Q</span>"</span></span>
@@ -1054,7 +1054,7 @@ composition used in the proof of the target security conservation theorem.
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> con_comp_failures_traces<span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-con_comp_failures_traces"><span class="command">lemma</span></span> con_comp_failures_traces<span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="free">xs</span><span class="main">,</span> <span class="free">X</span><span class="main">)</span> <span class="main">∈</span> con_comp_failures <span class="free">P</span> <span class="free">Q</span> <span class="free">p</span> <span class="free">q</span> <span class="main">⟹</span>
     map <span class="main">(</span>inv <span class="free">p</span><span class="main">)</span> <span class="main">[</span><span class="bound">x</span><span class="main">←</span><span class="free">xs</span><span class="main">.</span> <span class="bound">x</span> <span class="main">∈</span> range <span class="free">p</span><span class="main">]</span> <span class="main">∈</span> traces <span class="free">P</span> <span class="main">∧</span>
     map <span class="main">(</span>inv <span class="free">q</span><span class="main">)</span> <span class="main">[</span><span class="bound">x</span><span class="main">←</span><span class="free">xs</span><span class="main">.</span> <span class="bound">x</span> <span class="main">∈</span> range <span class="free">q</span><span class="main">]</span> <span class="main">∈</span> traces <span class="free">Q</span>"</span></span>
@@ -1095,7 +1095,7 @@ composition used in the proof of the target security conservation theorem.
   <span class="keyword1"><span class="command">ultimately</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span> <span class="keyword1"><span class="command">..</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> con_comp_failures_divergences<span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-con_comp_failures_divergences"><span class="command">lemma</span></span> con_comp_failures_divergences<span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="free">xs</span> <span class="main">@</span> <span class="free">y</span> <span class="main">#</span> <span class="free">ys</span><span class="main">,</span> <span class="free">Y</span><span class="main">)</span> <span class="main">∈</span> con_comp_failures <span class="free">P</span> <span class="free">Q</span> <span class="free">p</span> <span class="free">q</span> <span class="main">⟹</span>
   <span class="free">y</span> <span class="main">∉</span> range <span class="free">p</span> <span class="main">⟹</span>
   <span class="free">y</span> <span class="main">∉</span> range <span class="free">q</span> <span class="main">⟹</span>
@@ -1323,14 +1323,14 @@ filtered intransitive purge of an event list.
 \null
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_tr_aux_foldr_subset<span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-ipurge_tr_aux_foldr_subset"><span class="command">lemma</span></span> ipurge_tr_aux_foldr_subset<span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="free">U</span> <span class="main">⊆</span> <span class="free">V</span> <span class="main">⟹</span>
   ipurge_tr_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="main">(</span>ipurge_tr_aux_foldr <span class="free">I</span> <span class="free">D</span> <span class="free">P</span> <span class="free">V</span> <span class="free">xs</span><span class="main">)</span> <span class="main">=</span>
     ipurge_tr_aux_foldr <span class="free">I</span> <span class="free">D</span> <span class="free">P</span> <span class="free">V</span> <span class="free">xs</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">induction</span> <span class="quoted"><span class="free">xs</span></span><span class="main"><span class="keyword3">,</span></span> <span class="operator">simp_all</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> ipurge_tr_aux_union <span class="main"><span class="main">[</span></span><span class="operator">symmetric</span><span class="main"><span class="main">]</span></span><span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span> <span class="main">(</span><span class="operator">drule</span> Un_absorb2<span class="main"><span class="keyword3">,</span></span> <span class="operator">simp</span><span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_tr_aux_foldr_eq<span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-ipurge_tr_aux_foldr_eq"><span class="command">lemma</span></span> ipurge_tr_aux_foldr_eq<span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="main">[</span><span class="bound">x</span><span class="main">←</span>ipurge_tr_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span><span class="main">.</span> <span class="free">P</span> <span class="bound">x</span><span class="main">]</span> <span class="main">=</span> ipurge_tr_aux_foldr <span class="free">I</span> <span class="free">D</span> <span class="free">P</span> <span class="free">U</span> <span class="free">xs</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">induction</span> <span class="quoted"><span class="free">xs</span></span> <span class="quasi_keyword">arbitrary</span><span class="main"><span class="main">:</span></span> <span class="quoted"><span class="free">U</span></span><span class="main"><span class="keyword3">,</span></span> <span class="operator">simp</span><span class="main">)</span>
   <span class="keyword3"><span class="command">fix</span></span> <span class="skolem">x</span> <span class="skolem">xs</span> <span class="skolem">U</span>
@@ -1406,7 +1406,7 @@ intransitive purge of an event set.
 \null
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_tr_aux_foldr_sinks_aux <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-ipurge_tr_aux_foldr_sinks_aux"><span class="command">lemma</span></span> ipurge_tr_aux_foldr_sinks_aux <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="free">U</span> <span class="main">⊆</span> <span class="free">V</span> <span class="main">⟶</span> sinks_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="main">(</span>ipurge_tr_aux_foldr <span class="free">I</span> <span class="free">D</span> <span class="free">P</span> <span class="free">V</span> <span class="free">xs</span><span class="main">)</span> <span class="main">=</span> <span class="free">U</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">induction</span> <span class="quoted"><span class="free">xs</span></span> <span class="quasi_keyword">arbitrary</span><span class="main"><span class="main">:</span></span> <span class="quoted"><span class="free">V</span></span><span class="main"><span class="keyword3">,</span></span> <span class="operator">simp</span><span class="main"><span class="keyword3">,</span></span> <span class="operator">rule</span> impI<span class="main">)</span>
   <span class="keyword3"><span class="command">fix</span></span> <span class="skolem">x</span> <span class="skolem">xs</span> <span class="skolem">V</span>
@@ -1489,13 +1489,13 @@ intransitive purge of an event set.
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_tr_aux_foldr_ref_aux<span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-ipurge_tr_aux_foldr_ref_aux"><span class="command">lemma</span></span> ipurge_tr_aux_foldr_ref_aux<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> A<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">U</span> <span class="main">⊆</span> <span class="free">V</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"ipurge_ref_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="main">(</span>ipurge_tr_aux_foldr <span class="free">I</span> <span class="free">D</span> <span class="free">P</span> <span class="free">V</span> <span class="free">xs</span><span class="main">)</span> <span class="free">X</span> <span class="main">=</span>
     ipurge_ref_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="main">[]</span> <span class="free">X</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> ipurge_ref_aux_def ipurge_tr_aux_foldr_sinks_aux <span class="main"><span class="main">[</span></span><span class="operator">OF</span> A<span class="main"><span class="main">]</span></span><span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_ref_aux_foldr_subset <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-ipurge_ref_aux_foldr_subset"><span class="command">lemma</span></span> ipurge_ref_aux_foldr_subset <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
  <span class="quoted"><span class="quoted">"sinks_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">ys</span> <span class="main">⊆</span> <span class="free">V</span> <span class="main">⟶</span>
   ipurge_ref_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">ys</span> <span class="main">(</span>ipurge_ref_aux_foldr <span class="free">I</span> <span class="free">D</span> <span class="free">P</span> <span class="free">V</span> <span class="free">xs</span> <span class="free">X</span><span class="main">)</span> <span class="main">=</span>
     ipurge_ref_aux_foldr <span class="free">I</span> <span class="free">D</span> <span class="free">P</span> <span class="free">V</span> <span class="free">xs</span> <span class="free">X</span>"</span></span>
@@ -1580,7 +1580,7 @@ intransitive purge of an event set.
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_ref_aux_foldr_eq<span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-ipurge_ref_aux_foldr_eq"><span class="command">lemma</span></span> ipurge_ref_aux_foldr_eq<span class="main">:</span>
  <span class="quoted"><span class="quoted">"ipurge_ref_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span> <span class="free">X</span> <span class="main">=</span> ipurge_ref_aux_foldr <span class="free">I</span> <span class="free">D</span> <span class="free">P</span> <span class="free">U</span> <span class="free">xs</span> <span class="free">X</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">induction</span> <span class="quoted"><span class="free">xs</span></span> <span class="quasi_keyword">arbitrary</span><span class="main"><span class="main">:</span></span> <span class="quoted"><span class="free">U</span></span><span class="main"><span class="keyword3">,</span></span> <span class="operator">simp</span><span class="main">)</span>
   <span class="keyword3"><span class="command">fix</span></span> <span class="skolem">x</span> <span class="skolem">xs</span> <span class="skolem">U</span>
@@ -1644,7 +1644,7 @@ and <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><s
 \null
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> con_comp_sinks_aux_range<span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-con_comp_sinks_aux_range"><span class="command">lemma</span></span> con_comp_sinks_aux_range<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span>
     A<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">U</span> <span class="main">⊆</span> range Some"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
     B<span class="main">:</span> <span class="quoted"><span class="quoted">"set <span class="free">xs</span> <span class="main">⊆</span> range <span class="free">p</span> <span class="main">∪</span> range <span class="free">q</span>"</span></span>
@@ -1665,7 +1665,7 @@ and <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><s
    <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> con_comp_sinks_aux <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-con_comp_sinks_aux"><span class="command">lemma</span></span> con_comp_sinks_aux <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> A<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">U</span> <span class="main">⊆</span> range Some"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"set <span class="free">xs</span> <span class="main">⊆</span> range <span class="free">p</span> <span class="main">⟶</span>
     sinks_aux <span class="free">I</span> <span class="free">D</span> <span class="main">(</span>the <span class="main">`</span> <span class="free">U</span><span class="main">)</span> <span class="main">(</span>map <span class="main">(</span>inv <span class="free">p</span><span class="main">)</span> <span class="free">xs</span><span class="main">)</span> <span class="main">=</span>
@@ -1738,7 +1738,7 @@ and <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><s
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> con_comp_ipurge_tr_aux <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-con_comp_ipurge_tr_aux"><span class="command">lemma</span></span> con_comp_ipurge_tr_aux <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> A<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">U</span> <span class="main">⊆</span> range Some"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"set <span class="free">xs</span> <span class="main">⊆</span> range <span class="free">p</span> <span class="main">⟶</span>
     ipurge_tr_aux <span class="free">I</span> <span class="free">D</span> <span class="main">(</span>the <span class="main">`</span> <span class="free">U</span><span class="main">)</span> <span class="main">(</span>map <span class="main">(</span>inv <span class="free">p</span><span class="main">)</span> <span class="free">xs</span><span class="main">)</span> <span class="main">=</span>
@@ -1827,7 +1827,7 @@ and <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><s
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> con_comp_ipurge_ref_aux<span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-con_comp_ipurge_ref_aux"><span class="command">lemma</span></span> con_comp_ipurge_ref_aux<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span>
     A<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">U</span> <span class="main">⊆</span> range Some"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
     B<span class="main">:</span> <span class="quoted"><span class="quoted">"set <span class="free">xs</span> <span class="main">⊆</span> range <span class="free">p</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -1912,7 +1912,7 @@ and <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><s
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> con_comp_sinks_filter<span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-con_comp_sinks_filter"><span class="command">lemma</span></span> con_comp_sinks_filter<span class="main">:</span>
  <span class="quoted"><span class="quoted">"sinks <span class="main">(</span>con_comp_pol <span class="free">I</span><span class="main">)</span> <span class="main">(</span>con_comp_map <span class="free">D</span> <span class="free">E</span> <span class="free">p</span> <span class="free">q</span><span class="main">)</span> <span class="free">u</span>
     <span class="main">[</span><span class="bound">x</span><span class="main">←</span><span class="free">xs</span><span class="main">.</span> <span class="bound">x</span> <span class="main">∈</span> range <span class="free">p</span> <span class="main">∪</span> range <span class="free">q</span><span class="main">]</span> <span class="main">=</span>
   sinks <span class="main">(</span>con_comp_pol <span class="free">I</span><span class="main">)</span> <span class="main">(</span>con_comp_map <span class="free">D</span> <span class="free">E</span> <span class="free">p</span> <span class="free">q</span><span class="main">)</span> <span class="free">u</span> <span class="free">xs</span> <span class="main">∩</span> range Some"</span></span>
@@ -1998,7 +1998,7 @@ and <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><s
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> con_comp_ipurge_tr_filter<span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-con_comp_ipurge_tr_filter"><span class="command">lemma</span></span> con_comp_ipurge_tr_filter<span class="main">:</span>
  <span class="quoted"><span class="quoted">"ipurge_tr <span class="main">(</span>con_comp_pol <span class="free">I</span><span class="main">)</span> <span class="main">(</span>con_comp_map <span class="free">D</span> <span class="free">E</span> <span class="free">p</span> <span class="free">q</span><span class="main">)</span> <span class="free">u</span>
     <span class="main">[</span><span class="bound">x</span><span class="main">←</span><span class="free">xs</span><span class="main">.</span> <span class="bound">x</span> <span class="main">∈</span> range <span class="free">p</span> <span class="main">∪</span> range <span class="free">q</span><span class="main">]</span> <span class="main">=</span>
   ipurge_tr <span class="main">(</span>con_comp_pol <span class="free">I</span><span class="main">)</span> <span class="main">(</span>con_comp_map <span class="free">D</span> <span class="free">E</span> <span class="free">p</span> <span class="free">q</span><span class="main">)</span> <span class="free">u</span> <span class="free">xs</span>"</span></span>
@@ -2054,7 +2054,7 @@ and <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><s
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> con_comp_ipurge_ref_filter<span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-con_comp_ipurge_ref_filter"><span class="command">lemma</span></span> con_comp_ipurge_ref_filter<span class="main">:</span>
  <span class="quoted"><span class="quoted">"ipurge_ref <span class="main">(</span>con_comp_pol <span class="free">I</span><span class="main">)</span> <span class="main">(</span>con_comp_map <span class="free">D</span> <span class="free">E</span> <span class="free">p</span> <span class="free">q</span><span class="main">)</span> <span class="free">u</span>
     <span class="main">[</span><span class="bound">x</span><span class="main">←</span><span class="free">xs</span><span class="main">.</span> <span class="bound">x</span> <span class="main">∈</span> range <span class="free">p</span> <span class="main">∪</span> range <span class="free">q</span><span class="main">]</span> <span class="free">X</span> <span class="main">=</span>
   ipurge_ref <span class="main">(</span>con_comp_pol <span class="free">I</span><span class="main">)</span> <span class="main">(</span>con_comp_map <span class="free">D</span> <span class="free">E</span> <span class="free">p</span> <span class="free">q</span><span class="main">)</span> <span class="free">u</span> <span class="free">xs</span> <span class="free">X</span>"</span></span>
@@ -2082,7 +2082,7 @@ and <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><s
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> con_comp_secure_aux <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-con_comp_secure_aux"><span class="command">lemma</span></span> con_comp_secure_aux <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span>
     A<span class="main">:</span> <span class="quoted"><span class="quoted">"secure <span class="free">P</span> <span class="free">I</span> <span class="free">D</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
     B<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">Y</span> <span class="main">⊆</span> range <span class="free">p</span>"</span></span>
@@ -2215,7 +2215,7 @@ proven for the former input process.
 \null
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> con_comp_secure_del_aux_1<span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-con_comp_secure_del_aux_1"><span class="command">lemma</span></span> con_comp_secure_del_aux_1<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span>
     A<span class="main">:</span> <span class="quoted"><span class="quoted">"secure <span class="free">P</span> <span class="free">I</span> <span class="free">D</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
     B<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">y</span> <span class="main">∈</span> range <span class="free">p</span> <span class="main">∨</span> <span class="free">y</span> <span class="main">∈</span> range <span class="free">q</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -2326,7 +2326,7 @@ proven for the former input process.
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> con_comp_secure_add_aux_1<span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-con_comp_secure_add_aux_1"><span class="command">lemma</span></span> con_comp_secure_add_aux_1<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span>
     A<span class="main">:</span> <span class="quoted"><span class="quoted">"secure <span class="free">P</span> <span class="free">I</span> <span class="free">D</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
     B<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">y</span> <span class="main">∈</span> range <span class="free">p</span> <span class="main">∨</span> <span class="free">y</span> <span class="main">∈</span> range <span class="free">q</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -2452,7 +2452,7 @@ proven for the former input process.
    <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> con_comp_consistent_maps<span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-con_comp_consistent_maps"><span class="command">lemma</span></span> con_comp_consistent_maps<span class="main">:</span>
  <span class="quoted"><span class="quoted">"consistent_maps <span class="free">D</span> <span class="free">E</span> <span class="free">p</span> <span class="free">q</span> <span class="main">⟹</span> con_comp_map <span class="free">D</span> <span class="free">E</span> <span class="free">p</span> <span class="free">q</span> <span class="main">=</span> con_comp_map <span class="free">E</span> <span class="free">D</span> <span class="free">q</span> <span class="free">p</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> <span class="main">[</span><span class="main">[</span><span class="operator">simproc</span> <span class="quasi_keyword">del</span><span class="main"><span class="main">:</span></span> defined_all<span class="main">]</span><span class="main">]</span> <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> consistent_maps_def<span class="main"><span class="keyword3">,</span></span> <span class="operator">rule</span> ext<span class="main">)</span>
   <span class="keyword3"><span class="command">fix</span></span> <span class="skolem">x</span>
@@ -2479,7 +2479,7 @@ proven for the former input process.
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> con_comp_secure_del_aux_2<span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-con_comp_secure_del_aux_2"><span class="command">lemma</span></span> con_comp_secure_del_aux_2<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> A<span class="main">:</span> <span class="quoted"><span class="quoted">"consistent_maps <span class="free">D</span> <span class="free">E</span> <span class="free">p</span> <span class="free">q</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span>
    <span class="quoted"><span class="quoted">"secure <span class="free">Q</span> <span class="free">I</span> <span class="free">E</span> <span class="main">⟹</span>
@@ -2494,7 +2494,7 @@ proven for the former input process.
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">only</span><span class="main"><span class="main">:</span></span> con_comp_consistent_maps <span class="main"><span class="main">[</span></span><span class="operator">OF</span> A<span class="main"><span class="main">]</span></span><span class="main"><span class="keyword3">,</span></span> <span class="operator">rule</span> con_comp_secure_del_aux_1<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span> <span class="main">(</span><span class="operator">simp_all</span><span class="main"><span class="keyword3">,</span></span> <span class="operator">blast</span><span class="main"><span class="keyword3">+</span></span><span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> con_comp_secure_add_aux_2<span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-con_comp_secure_add_aux_2"><span class="command">lemma</span></span> con_comp_secure_add_aux_2<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> A<span class="main">:</span> <span class="quoted"><span class="quoted">"consistent_maps <span class="free">D</span> <span class="free">E</span> <span class="free">p</span> <span class="free">q</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span>
    <span class="quoted"><span class="quoted">"secure <span class="free">Q</span> <span class="free">I</span> <span class="free">E</span> <span class="main">⟹</span>
@@ -2510,7 +2510,7 @@ proven for the former input process.
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">only</span><span class="main"><span class="main">:</span></span> con_comp_consistent_maps <span class="main"><span class="main">[</span></span><span class="operator">OF</span> A<span class="main"><span class="main">]</span></span><span class="main"><span class="keyword3">,</span></span> <span class="operator">rule</span> con_comp_secure_add_aux_1<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span> <span class="main">(</span><span class="operator">simp_all</span><span class="main"><span class="keyword3">,</span></span> <span class="operator">blast</span><span class="main"><span class="keyword3">+</span></span><span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> con_comp_secure_del_case_1<span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-con_comp_secure_del_case_1"><span class="command">lemma</span></span> con_comp_secure_del_case_1<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span>
     A<span class="main">:</span> <span class="quoted"><span class="quoted">"consistent_maps <span class="free">D</span> <span class="free">E</span> <span class="free">p</span> <span class="free">q</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
     B<span class="main">:</span> <span class="quoted"><span class="quoted">"secure <span class="free">P</span> <span class="free">I</span> <span class="free">D</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -2623,7 +2623,7 @@ proven for the former input process.
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> con_comp_secure_del_case_2<span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-con_comp_secure_del_case_2"><span class="command">lemma</span></span> con_comp_secure_del_case_2<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span>
     A<span class="main">:</span> <span class="quoted"><span class="quoted">"consistent_maps <span class="free">D</span> <span class="free">E</span> <span class="free">p</span> <span class="free">q</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
     B<span class="main">:</span> <span class="quoted"><span class="quoted">"secure <span class="free">P</span> <span class="free">I</span> <span class="free">D</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -2785,7 +2785,7 @@ proven for the former input process.
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> con_comp_secure_add_case_1<span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-con_comp_secure_add_case_1"><span class="command">lemma</span></span> con_comp_secure_add_case_1<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span>
     A<span class="main">:</span> <span class="quoted"><span class="quoted">"consistent_maps <span class="free">D</span> <span class="free">E</span> <span class="free">p</span> <span class="free">q</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
     B<span class="main">:</span> <span class="quoted"><span class="quoted">"secure <span class="free">P</span> <span class="free">I</span> <span class="free">D</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -2920,7 +2920,7 @@ proven for the former input process.
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> con_comp_secure_add_case_2<span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-con_comp_secure_add_case_2"><span class="command">lemma</span></span> con_comp_secure_add_case_2<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span>
     A<span class="main">:</span> <span class="quoted"><span class="quoted">"consistent_maps <span class="free">D</span> <span class="free">E</span> <span class="free">p</span> <span class="free">q</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
     B<span class="main">:</span> <span class="quoted"><span class="quoted">"secure <span class="free">P</span> <span class="free">I</span> <span class="free">D</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -3133,14 +3133,14 @@ composition <span class="antiquoted"><span class="antiquoted"><span class="antiq
 \null
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> con_comp_sinks_range<span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-con_comp_sinks_range"><span class="command">lemma</span></span> con_comp_sinks_range<span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="free">u</span> <span class="main">∈</span> range Some <span class="main">⟹</span>
   set <span class="free">xs</span> <span class="main">⊆</span> range <span class="free">p</span> <span class="main">∪</span> range <span class="free">q</span> <span class="main">⟹</span>
     sinks <span class="main">(</span>con_comp_pol <span class="free">I</span><span class="main">)</span> <span class="main">(</span>con_comp_map <span class="free">D</span> <span class="free">E</span> <span class="free">p</span> <span class="free">q</span><span class="main">)</span> <span class="free">u</span> <span class="free">xs</span> <span class="main">⊆</span> range Some"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">insert</span> con_comp_sinks_aux_range <span class="main"><span class="main">[</span></span><span class="operator">of</span> <span class="quoted"><span class="quoted"><span class="quoted"><span class="quoted">"<span class="main"><span class="main"><span class="main">{</span></span></span><span class="free"><span class="free"><span class="free">u</span></span></span><span class="main"><span class="main"><span class="main">}</span></span></span>"</span></span></span></span> <span class="quoted"><span class="free"><span class="quoted"><span class="free"><span class="quoted"><span class="free">xs</span></span></span></span></span></span> <span class="quoted"><span class="free"><span class="quoted"><span class="free"><span class="quoted"><span class="free">p</span></span></span></span></span></span> <span class="quoted"><span class="free"><span class="quoted"><span class="free"><span class="quoted"><span class="free">q</span></span></span></span></span></span> <span class="quoted"><span class="free"><span class="quoted"><span class="free"><span class="quoted"><span class="free">I</span></span></span></span></span></span> <span class="quoted"><span class="free"><span class="quoted"><span class="free"><span class="quoted"><span class="free">D</span></span></span></span></span></span> <span class="quoted"><span class="free"><span class="quoted"><span class="free"><span class="quoted"><span class="free">E</span></span></span></span></span></span><span class="main"><span class="main">]</span></span><span class="main"><span class="keyword3">,</span></span>
  <span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> sinks_aux_single_dom<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> con_comp_sinks_no_fake<span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-con_comp_sinks_no_fake"><span class="command">lemma</span></span> con_comp_sinks_no_fake<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span>
     A<span class="main">:</span> <span class="quoted"><span class="quoted">"range <span class="free">p</span> <span class="main">∪</span> range <span class="free">q</span> <span class="main">=</span> UNIV"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
     B<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">u</span> <span class="main">∈</span> range Some"</span></span>
@@ -3233,7 +3233,7 @@ composition <span class="antiquoted"><span class="antiquoted"><span class="antiq
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> con_comp_ipurge_tr_no_fake<span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-con_comp_ipurge_tr_no_fake"><span class="command">lemma</span></span> con_comp_ipurge_tr_no_fake<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span>
     A<span class="main">:</span> <span class="quoted"><span class="quoted">"range <span class="free">p</span> <span class="main">∪</span> range <span class="free">q</span> <span class="main">=</span> UNIV"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
     B<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">u</span> <span class="main">∈</span> range Some"</span></span>
@@ -3297,7 +3297,7 @@ composition <span class="antiquoted"><span class="antiquoted"><span class="antiq
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> con_comp_ipurge_ref_no_fake<span class="main">:</span>
+<span class="keyword1" id="ConcurrentComposition-con_comp_ipurge_ref_no_fake"><span class="command">lemma</span></span> con_comp_ipurge_ref_no_fake<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span>
     A<span class="main">:</span> <span class="quoted"><span class="quoted">"range <span class="free">p</span> <span class="main">∪</span> range <span class="free">q</span> <span class="main">=</span> UNIV"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
     B<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">u</span> <span class="main">∈</span> range Some"</span></span>

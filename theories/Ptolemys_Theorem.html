@@ -31,7 +31,7 @@ distribution with name <span class="antiquoted"><span class="antiquoted"><span c
 <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><span class="antiquote">@{</span></span><span class="operator"><span class="operator">term</span></span> <span class="quoted"><span class="quoted">"arcsin"</span></span><span class="antiquote"><span class="antiquote">}</span></span></span></span> for rewriting <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><span class="antiquote">@{</span></span><span class="operator"><span class="operator">term</span></span> <span class="quoted"><span class="quoted">"sin <span class="main"><span class="main">(</span></span>arcsin <span class="free"><span class="free">y</span></span><span class="main"><span class="main">)</span></span>"</span></span><span class="antiquote"><span class="antiquote">}</span></span></span></span>.
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> sin_arcsin_abs<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">¦</span><span class="free">y</span><span class="main">¦</span> <span class="main">≤</span> <span class="main">1</span> <span class="main">⟹</span> sin <span class="main">(</span>arcsin <span class="free">y</span><span class="main">)</span> <span class="main">=</span> <span class="free">y</span>"</span></span>
+<span class="keyword1" id="Ptolemys_Theorem-sin_arcsin_abs"><span class="command">lemma</span></span> sin_arcsin_abs<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">¦</span><span class="free">y</span><span class="main">¦</span> <span class="main">≤</span> <span class="main">1</span> <span class="main">⟹</span> sin <span class="main">(</span>arcsin <span class="free">y</span><span class="main">)</span> <span class="main">=</span> <span class="free">y</span>"</span></span>
   <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> abs_le_iff<span class="main">)</span>
 
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹
@@ -39,11 +39,11 @@ The further lemmas are the required variants from existing lemmas <span class="a
 and <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><span class="antiquote">@{</span></span><span class="operator"><span class="operator">thm</span></span> [source] arccos_ubound<span class="antiquote"><span class="antiquote">}</span></span></span></span>.
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> arccos_lbound_abs <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Ptolemys_Theorem-arccos_lbound_abs"><span class="command">lemma</span></span> arccos_lbound_abs <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span>
   <span class="quoted"><span class="quoted">"<span class="main">¦</span><span class="free">y</span><span class="main">¦</span> <span class="main">≤</span> <span class="main">1</span> <span class="main">⟹</span> <span class="main">0</span> <span class="main">≤</span> arccos <span class="free">y</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> arccos_lbound<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> arccos_ubound_abs <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Ptolemys_Theorem-arccos_ubound_abs"><span class="command">lemma</span></span> arccos_ubound_abs <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span>
   <span class="quoted"><span class="quoted">"<span class="main">¦</span><span class="free">y</span><span class="main">¦</span> <span class="main">≤</span> <span class="main">1</span> <span class="main">⟹</span> arccos <span class="free">y</span> <span class="main">≤</span> pi"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> arccos_ubound<span class="main">)</span>
 
@@ -53,7 +53,7 @@ we need some lemmas to reason about the sign of <span class="antiquoted"><span c
 for angles <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><span class="antiquote">@{</span></span><span class="operator"><span class="operator">term</span></span> <span class="quoted"><span class="quoted">"<span class="free"><span class="free">x</span></span>"</span></span><span class="antiquote"><span class="antiquote">}</span></span></span></span>.
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> sin_ge_zero_iff<span class="main">:</span>
+<span class="keyword1" id="Ptolemys_Theorem-sin_ge_zero_iff"><span class="command">lemma</span></span> sin_ge_zero_iff<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="main">0</span> <span class="main">≤</span> <span class="free">x</span>"</span></span> <span class="quoted"><span class="quoted">"<span class="free">x</span> <span class="main">&lt;</span> <span class="numeral">2</span> <span class="main">*</span> pi"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">0</span> <span class="main">≤</span> sin <span class="free">x</span> <span class="main">⟷</span> <span class="free">x</span> <span class="main">≤</span> pi"</span></span>
 <span class="keyword1"><span class="command">proof</span></span>
@@ -70,7 +70,7 @@ for angles <span class="antiquoted"><span class="antiquoted"><span class="antiqu
   <span class="keyword1"><span class="command">from</span></span> this <span class="quoted"><span class="quoted">‹<span class="main">0</span> <span class="main">≤</span> <span class="free">x</span>›</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="quoted"><span class="quoted">"<span class="main">0</span> <span class="main">≤</span> sin <span class="free">x</span>"</span></span> <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> sin_ge_zero<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> sin_less_zero_iff<span class="main">:</span>
+<span class="keyword1" id="Ptolemys_Theorem-sin_less_zero_iff"><span class="command">lemma</span></span> sin_less_zero_iff<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="main">0</span> <span class="main">≤</span> <span class="free">x</span>"</span></span> <span class="quoted"><span class="quoted">"<span class="free">x</span> <span class="main">&lt;</span> <span class="numeral">2</span> <span class="main">*</span> pi"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"sin <span class="free">x</span> <span class="main">&lt;</span> <span class="main">0</span> <span class="main">⟷</span> pi <span class="main">&lt;</span> <span class="free">x</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms sin_ge_zero_iff <span class="keyword1"><span class="command">by</span></span> <span class="operator">fastforce</span>
@@ -82,22 +82,22 @@ Here follow generally useful additions and specialised equations
 for two-dimensional real-valued vectors.
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> axis_nth_eq_0 <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Ptolemys_Theorem-axis_nth_eq_0"><span class="command">lemma</span></span> axis_nth_eq_0 <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">i</span> <span class="main">≠</span> <span class="free">j</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"axis <span class="free">i</span> <span class="free">x</span> <span class="main">$</span> <span class="free">j</span> <span class="main">=</span> <span class="main">0</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms <span class="keyword1"><span class="command">unfolding</span></span> axis_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> norm_axis<span class="main">:</span>
+<span class="keyword1" id="Ptolemys_Theorem-norm_axis"><span class="command">lemma</span></span> norm_axis<span class="main">:</span>
   <span class="keyword2"><span class="keyword">fixes</span></span> <span class="free">x</span> <span class="main">::</span> <span class="quoted">real</span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"norm <span class="main">(</span>axis <span class="free">i</span> <span class="free">x</span><span class="main">)</span> <span class="main">=</span> abs <span class="free">x</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> norm_eq_sqrt_inner inner_axis_axis<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> norm_eq_on_real_2_vec<span class="main">:</span>
+<span class="keyword1" id="Ptolemys_Theorem-norm_eq_on_real_2_vec"><span class="command">lemma</span></span> norm_eq_on_real_2_vec<span class="main">:</span>
   <span class="keyword2"><span class="keyword">fixes</span></span> <span class="free">x</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"real <span class="main">^</span> <span class="numeral">2</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"norm <span class="free">x</span> <span class="main">=</span> sqrt <span class="main">(</span><span class="main">(</span><span class="free">x</span> <span class="main">$</span> <span class="main">1</span><span class="main">)</span> <span class="main">^</span> <span class="numeral">2</span> <span class="main">+</span> <span class="main">(</span><span class="free">x</span> <span class="main">$</span> <span class="numeral">2</span><span class="main">)</span> <span class="main">^</span> <span class="numeral">2</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> norm_eq_sqrt_inner inner_vec_def UNIV_2 power2_eq_square<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> dist_eq_on_real_2_vec<span class="main">:</span>
+<span class="keyword1" id="Ptolemys_Theorem-dist_eq_on_real_2_vec"><span class="command">lemma</span></span> dist_eq_on_real_2_vec<span class="main">:</span>
   <span class="keyword2"><span class="keyword">fixes</span></span> <span class="free">a</span> <span class="free">b</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"real <span class="main">^</span> <span class="numeral">2</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"dist <span class="free">a</span> <span class="free">b</span> <span class="main">=</span> sqrt <span class="main">(</span><span class="main">(</span><span class="free">a</span> <span class="main">$</span> <span class="main">1</span> <span class="main">-</span> <span class="free">b</span> <span class="main">$</span> <span class="main">1</span><span class="main">)</span> <span class="main">^</span> <span class="numeral">2</span> <span class="main">+</span> <span class="main">(</span><span class="free">a</span> <span class="main">$</span> <span class="numeral">2</span> <span class="main">-</span> <span class="free">b</span> <span class="main">$</span> <span class="numeral">2</span><span class="main">)</span> <span class="main">^</span> <span class="numeral">2</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">unfolding</span></span> dist_norm norm_eq_on_real_2_vec <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
@@ -134,23 +134,23 @@ So, we choose to define <span class="antiquoted"><span class="antiquoted"><span 
 
 <span class="keyword1"><span class="command">subsubsection</span></span> <span class="quoted"><span class="plain_text">‹Lemmas on <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><span class="antiquote">@{</span></span><span class="operator"><span class="operator">const</span></span> of_radiant<span class="antiquote"><span class="antiquote">}</span></span></span></span>›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> nth_of_radiant_1 <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Ptolemys_Theorem-nth_of_radiant_1"><span class="command">lemma</span></span> nth_of_radiant_1 <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span>
   <span class="quoted"><span class="quoted">"of_radiant <span class="free">ω</span> <span class="main">$</span> <span class="main">1</span> <span class="main">=</span> cos <span class="free">ω</span>"</span></span>
 <span class="keyword1"><span class="command">unfolding</span></span> of_radiant_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> nth_of_radiant_2 <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Ptolemys_Theorem-nth_of_radiant_2"><span class="command">lemma</span></span> nth_of_radiant_2 <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span>
   <span class="quoted"><span class="quoted">"of_radiant <span class="free">ω</span> <span class="main">$</span> <span class="numeral">2</span> <span class="main">=</span> sin <span class="free">ω</span>"</span></span>
 <span class="keyword1"><span class="command">unfolding</span></span> of_radiant_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> norm_of_radiant<span class="main">:</span>
+<span class="keyword1" id="Ptolemys_Theorem-norm_of_radiant"><span class="command">lemma</span></span> norm_of_radiant<span class="main">:</span>
   <span class="quoted"><span class="quoted">"norm <span class="main">(</span>of_radiant <span class="free">ω</span><span class="main">)</span> <span class="main">=</span> <span class="main">1</span>"</span></span>
 <span class="keyword1"><span class="command">unfolding</span></span> of_radiant_def norm_eq_on_real_2_vec <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> of_radiant_plus_2pi<span class="main">:</span>
+<span class="keyword1" id="Ptolemys_Theorem-of_radiant_plus_2pi"><span class="command">lemma</span></span> of_radiant_plus_2pi<span class="main">:</span>
   <span class="quoted"><span class="quoted">"of_radiant <span class="main">(</span><span class="free">ω</span> <span class="main">+</span> <span class="numeral">2</span> <span class="main">*</span> pi<span class="main">)</span> <span class="main">=</span> of_radiant <span class="free">ω</span>"</span></span>
 <span class="keyword1"><span class="command">unfolding</span></span> of_radiant_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> of_radiant_minus_2pi<span class="main">:</span>
+<span class="keyword1" id="Ptolemys_Theorem-of_radiant_minus_2pi"><span class="command">lemma</span></span> of_radiant_minus_2pi<span class="main">:</span>
   <span class="quoted"><span class="quoted">"of_radiant <span class="main">(</span><span class="free">ω</span> <span class="main">-</span> <span class="numeral">2</span> <span class="main">*</span> pi<span class="main">)</span> <span class="main">=</span> of_radiant <span class="free">ω</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
   <span class="keyword1"><span class="command">have</span></span> <span class="quoted"><span class="quoted">"of_radiant <span class="main">(</span><span class="free">ω</span> <span class="main">-</span> <span class="numeral">2</span> <span class="main">*</span> pi<span class="main">)</span> <span class="main">=</span> of_radiant <span class="main">(</span><span class="free">ω</span> <span class="main">-</span> <span class="numeral">2</span> <span class="main">*</span> pi <span class="main">+</span> <span class="numeral">2</span> <span class="main">*</span> pi<span class="main">)</span>"</span></span>
@@ -161,24 +161,24 @@ So, we choose to define <span class="antiquoted"><span class="antiquoted"><span 
 
 <span class="keyword1"><span class="command">subsubsection</span></span> <span class="quoted"><span class="plain_text">‹Lemmas on <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><span class="antiquote">@{</span></span><span class="operator"><span class="operator">const</span></span> normalize<span class="antiquote"><span class="antiquote">}</span></span></span></span>›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> normalize_eq<span class="main">:</span>
+<span class="keyword1" id="Ptolemys_Theorem-normalize_eq"><span class="command">lemma</span></span> normalize_eq<span class="main">:</span>
   <span class="quoted"><span class="quoted">"norm <span class="free">p</span> <span class="keyword1">*<span class="hidden">⇩</span><sub>R</sub></span> normalize <span class="free">p</span> <span class="main">=</span> <span class="free">p</span>"</span></span>
 <span class="keyword1"><span class="command">unfolding</span></span> normalize_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> norm_normalize<span class="main">:</span>
+<span class="keyword1" id="Ptolemys_Theorem-norm_normalize"><span class="command">lemma</span></span> norm_normalize<span class="main">:</span>
   <span class="quoted"><span class="quoted">"norm <span class="main">(</span>normalize <span class="free">p</span><span class="main">)</span> <span class="main">=</span> <span class="main">1</span>"</span></span>
 <span class="keyword1"><span class="command">unfolding</span></span> normalize_def <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> norm_axis<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> nth_normalize <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Ptolemys_Theorem-nth_normalize"><span class="command">lemma</span></span> nth_normalize <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span>
   <span class="quoted"><span class="quoted">"<span class="main">¦</span>normalize <span class="free">p</span> <span class="main">$</span> <span class="free">i</span><span class="main">¦</span> <span class="main">≤</span> <span class="main">1</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> norm_normalize component_le_norm_cart <span class="keyword1"><span class="command">by</span></span> <span class="operator">metis</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> normalize_square<span class="main">:</span>
+<span class="keyword1" id="Ptolemys_Theorem-normalize_square"><span class="command">lemma</span></span> normalize_square<span class="main">:</span>
   <span class="quoted"><span class="quoted">"<span class="main">(</span>normalize <span class="free">p</span> <span class="main">$</span> <span class="main">1</span><span class="main">)</span><span class="main"><span class="hidden">⇧</span><sup>2</sup></span> <span class="main">+</span> <span class="main">(</span>normalize <span class="free">p</span> <span class="main">$</span> <span class="numeral">2</span><span class="main">)</span><span class="main"><span class="hidden">⇧</span><sup>2</sup></span> <span class="main">=</span> <span class="main">1</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> dot_square_norm<span class="main">[</span><span class="operator">of</span> <span class="quoted"><span class="quoted">"normalize <span class="free">p</span>"</span></span><span class="main">]</span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> inner_vec_def UNIV_2 power2_eq_square norm_normalize<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> nth_normalize_ge_zero_iff<span class="main">:</span>
+<span class="keyword1" id="Ptolemys_Theorem-nth_normalize_ge_zero_iff"><span class="command">lemma</span></span> nth_normalize_ge_zero_iff<span class="main">:</span>
   <span class="quoted"><span class="quoted">"<span class="main">0</span> <span class="main">≤</span> normalize <span class="free">p</span> <span class="main">$</span> <span class="free">i</span> <span class="main">⟷</span> <span class="main">0</span> <span class="main">≤</span> <span class="free">p</span> <span class="main">$</span> <span class="free">i</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span>
   <span class="keyword3"><span class="command">assume</span></span> <span class="quoted"><span class="quoted">"<span class="main">0</span> <span class="main">≤</span> normalize <span class="free">p</span> <span class="main">$</span> <span class="free">i</span>"</span></span>
@@ -192,11 +192,11 @@ So, we choose to define <span class="antiquoted"><span class="antiquoted"><span 
     <span class="keyword1"><span class="command">unfolding</span></span> normalize_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> nth_normalize_less_zero_iff<span class="main">:</span>
+<span class="keyword1" id="Ptolemys_Theorem-nth_normalize_less_zero_iff"><span class="command">lemma</span></span> nth_normalize_less_zero_iff<span class="main">:</span>
   <span class="quoted"><span class="quoted">"normalize <span class="free">p</span> <span class="main">$</span> <span class="free">i</span> <span class="main">&lt;</span> <span class="main">0</span> <span class="main">⟷</span> <span class="free">p</span> <span class="main">$</span> <span class="free">i</span> <span class="main">&lt;</span> <span class="main">0</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> nth_normalize_ge_zero_iff leD leI <span class="keyword1"><span class="command">by</span></span> <span class="operator">metis</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> normalize_boundary_iff<span class="main">:</span>
+<span class="keyword1" id="Ptolemys_Theorem-normalize_boundary_iff"><span class="command">lemma</span></span> normalize_boundary_iff<span class="main">:</span>
   <span class="quoted"><span class="quoted">"<span class="main">¦</span>normalize <span class="free">p</span> <span class="main">$</span> <span class="main">1</span><span class="main">¦</span> <span class="main">=</span> <span class="main">1</span> <span class="main">⟷</span> <span class="free">p</span> <span class="main">$</span> <span class="numeral">2</span> <span class="main">=</span> <span class="main">0</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span>
   <span class="keyword3"><span class="command">assume</span></span> <span class="quoted"><span class="quoted">"<span class="main">¦</span>normalize <span class="free">p</span> <span class="main">$</span> <span class="main">1</span><span class="main">¦</span> <span class="main">=</span> <span class="main">1</span>"</span></span>
@@ -213,12 +213,12 @@ So, we choose to define <span class="antiquoted"><span class="antiquoted"><span 
     <span class="keyword1"><span class="command">unfolding</span></span> normalize_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> between_normalize_if_distant_from_0<span class="main">:</span>
+<span class="keyword1" id="Ptolemys_Theorem-between_normalize_if_distant_from_0"><span class="command">lemma</span></span> between_normalize_if_distant_from_0<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"norm <span class="free">p</span> <span class="main">≥</span> <span class="main">1</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"between <span class="main">(</span><span class="main">0</span><span class="main">,</span> <span class="free">p</span><span class="main">)</span> <span class="main">(</span>normalize <span class="free">p</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> between_mem_segment closed_segment_def normalize_def<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> between_normalize_if_near_0<span class="main">:</span>
+<span class="keyword1" id="Ptolemys_Theorem-between_normalize_if_near_0"><span class="command">lemma</span></span> between_normalize_if_near_0<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"norm <span class="free">p</span> <span class="main">≤</span> <span class="main">1</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"between <span class="main">(</span><span class="main">0</span><span class="main">,</span> normalize <span class="free">p</span><span class="main">)</span> <span class="free">p</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
@@ -231,7 +231,7 @@ So, we choose to define <span class="antiquoted"><span class="antiquoted"><span 
 
 <span class="keyword1"><span class="command">subsubsection</span></span> <span class="quoted"><span class="plain_text">‹Lemmas on <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><span class="antiquote">@{</span></span><span class="operator"><span class="operator">const</span></span> radiant_of<span class="antiquote"><span class="antiquote">}</span></span></span></span>›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> radiant_of<span class="main">:</span>
+<span class="keyword1" id="Ptolemys_Theorem-radiant_of"><span class="command">lemma</span></span> radiant_of<span class="main">:</span>
   <span class="quoted"><span class="quoted">"<span class="main">0</span> <span class="main">≤</span> radiant_of <span class="free">p</span> <span class="main">∧</span> radiant_of <span class="free">p</span> <span class="main">&lt;</span> <span class="numeral">2</span> <span class="main">*</span> pi <span class="main">∧</span> of_radiant <span class="main">(</span>radiant_of <span class="free">p</span><span class="main">)</span> <span class="main">=</span> normalize <span class="free">p</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
   <span class="keyword1"><span class="command">let</span></span> <span class="var"><span class="quoted"><span class="var">?a</span></span></span> <span class="main">=</span> <span class="quoted"><span class="quoted">"<span class="keyword1">if</span> <span class="main">0</span> <span class="main">≤</span> <span class="free">p</span> <span class="main">$</span> <span class="numeral">2</span> <span class="keyword1">then</span> arccos <span class="main">(</span>normalize <span class="free">p</span> <span class="main">$</span> <span class="main">1</span><span class="main">)</span> <span class="keyword1">else</span> pi <span class="main">+</span> arccos <span class="main">(</span><span class="main">-</span> <span class="main">(</span>normalize <span class="free">p</span> <span class="main">$</span> <span class="main">1</span><span class="main">)</span><span class="main">)</span>"</span></span>
@@ -327,21 +327,21 @@ So, we choose to define <span class="antiquoted"><span class="antiquoted"><span 
     <span class="keyword1"><span class="command">unfolding</span></span> radiant_of_def <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">rule</span> theI<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> radiant_of_bounds <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Ptolemys_Theorem-radiant_of_bounds"><span class="command">lemma</span></span> radiant_of_bounds <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span>
   <span class="quoted"><span class="quoted">"<span class="main">0</span> <span class="main">≤</span> radiant_of <span class="free">p</span>"</span></span> <span class="quoted"><span class="quoted">"radiant_of <span class="free">p</span> <span class="main">&lt;</span> <span class="numeral">2</span> <span class="main">*</span> pi"</span></span>
 <span class="keyword1"><span class="command">using</span></span> radiant_of <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> radiant_of_weak_ubound <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Ptolemys_Theorem-radiant_of_weak_ubound"><span class="command">lemma</span></span> radiant_of_weak_ubound <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span>
   <span class="quoted"><span class="quoted">"radiant_of <span class="free">p</span> <span class="main">≤</span> <span class="numeral">2</span> <span class="main">*</span> pi"</span></span>
 <span class="keyword1"><span class="command">using</span></span> radiant_of_bounds<span class="main">(</span>2<span class="main">)</span><span class="main">[</span><span class="operator">of</span> <span class="quoted"><span class="free">p</span></span><span class="main">]</span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">linarith</span>
 
 <span class="keyword1"><span class="command">subsubsection</span></span> <span class="quoted"><span class="plain_text">‹Main Equations for Transforming to Polar Form›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> polar_form_eq<span class="main">:</span>
+<span class="keyword1" id="Ptolemys_Theorem-polar_form_eq"><span class="command">lemma</span></span> polar_form_eq<span class="main">:</span>
   <span class="quoted"><span class="quoted">"norm <span class="free">p</span> <span class="keyword1">*<span class="hidden">⇩</span><sub>R</sub></span> of_radiant <span class="main">(</span>radiant_of <span class="free">p</span><span class="main">)</span> <span class="main">=</span> <span class="free">p</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> radiant_of normalize_eq <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> relative_polar_form_eq<span class="main">:</span>
+<span class="keyword1" id="Ptolemys_Theorem-relative_polar_form_eq"><span class="command">lemma</span></span> relative_polar_form_eq<span class="main">:</span>
   <span class="quoted"><span class="quoted">"<span class="free">Q</span> <span class="main">+</span> dist <span class="free">P</span> <span class="free">Q</span> <span class="keyword1">*<span class="hidden">⇩</span><sub>R</sub></span> of_radiant <span class="main">(</span>radiant_of <span class="main">(</span><span class="free">P</span> <span class="main">-</span> <span class="free">Q</span><span class="main">)</span><span class="main">)</span> <span class="main">=</span> <span class="free">P</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
   <span class="keyword1"><span class="command">have</span></span> <span class="quoted"><span class="quoted">"norm <span class="main">(</span><span class="free">P</span> <span class="main">-</span> <span class="free">Q</span><span class="main">)</span> <span class="keyword1">*<span class="hidden">⇩</span><sub>R</sub></span> of_radiant <span class="main">(</span>radiant_of <span class="main">(</span><span class="free">P</span> <span class="main">-</span> <span class="free">Q</span><span class="main">)</span><span class="main">)</span> <span class="main">=</span> <span class="free">P</span> <span class="main">-</span> <span class="free">Q</span>"</span></span>
@@ -352,7 +352,7 @@ So, we choose to define <span class="antiquoted"><span class="antiquoted"><span 
 
 <span class="keyword1"><span class="command">subsection</span></span> <span class="quoted"><span class="plain_text">‹Ptolemy's Theorem›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> dist_circle_segment<span class="main">:</span>
+<span class="keyword1" id="Ptolemys_Theorem-dist_circle_segment"><span class="command">lemma</span></span> dist_circle_segment<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="main">0</span> <span class="main">≤</span> <span class="free">radius</span>"</span></span> <span class="quoted"><span class="quoted">"<span class="main">0</span> <span class="main">≤</span> <span class="free">α</span>"</span></span> <span class="quoted"><span class="quoted">"<span class="free">α</span> <span class="main">≤</span> <span class="free">β</span>"</span></span> <span class="quoted"><span class="quoted">"<span class="free">β</span> <span class="main">≤</span> <span class="numeral">2</span> <span class="main">*</span> pi"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"dist <span class="main">(</span><span class="free">center</span> <span class="main">+</span> <span class="free">radius</span> <span class="keyword1">*<span class="hidden">⇩</span><sub>R</sub></span> of_radiant <span class="free">α</span><span class="main">)</span> <span class="main">(</span><span class="free">center</span> <span class="main">+</span> <span class="free">radius</span> <span class="keyword1">*<span class="hidden">⇩</span><sub>R</sub></span> of_radiant <span class="free">β</span><span class="main">)</span> <span class="main">=</span> <span class="numeral">2</span> <span class="main">*</span> <span class="free">radius</span> <span class="main">*</span> sin <span class="main">(</span><span class="main">(</span><span class="free">β</span> <span class="main">-</span> <span class="free">α</span><span class="main">)</span> <span class="main">/</span> <span class="numeral">2</span><span class="main">)</span>"</span></span>
     <span class="main">(</span><span class="keyword2"><span class="keyword">is</span></span> <span class="quoted"><span class="quoted">"<span class="var">?lhs</span> <span class="main">=</span> <span class="var">?rhs</span>"</span></span><span class="main">)</span>

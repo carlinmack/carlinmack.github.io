@@ -64,7 +64,7 @@
   The lemma \isb{AXc} adds just the fact we need for our proofs about
   the commutativity of the union of multisets while elements are removed.
 ›</span></span>
-<span class="keyword1"><span class="command">lemma</span></span> AXc<span class="main">:</span>
+<span class="keyword1" id="Multiset-AXc"><span class="command">lemma</span></span> AXc<span class="main">:</span>
 <span class="keyword2"><span class="keyword">assumes</span></span> 
   <span class="quoted"><span class="quoted">"<span class="free">c1</span> <span class="main">≠</span> <span class="free">c2</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span> 
   <span class="quoted"><span class="quoted">"<span class="free">c1</span> <span class="main">∈#</span> <span class="free">X</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -148,7 +148,7 @@
  <span class="main">|</span> <span class="quoted"><span class="quoted">"<span class="free">isReceiverOf</span> <span class="free"><span class="bound"><span class="entity">p1</span></span></span> <span class="main">(</span><span class="main">&lt;</span><span class="free"><span class="bound"><span class="entity">p2</span></span></span><span class="main">,</span> <span class="free"><span class="bound"><span class="entity">v</span></span></span><span class="main">&gt;</span><span class="main">)</span> <span class="main">=</span>     <span class="main">(</span><span class="free"><span class="bound"><span class="entity">p1</span></span></span> <span class="main">=</span> <span class="free"><span class="bound"><span class="entity">p2</span></span></span><span class="main">)</span>"</span></span>
  <span class="main">|</span> <span class="quoted"><span class="quoted">"<span class="free">isReceiverOf</span> <span class="free"><span class="bound"><span class="entity">p1</span></span></span> <span class="main">(</span><span class="main">&lt;⊥,</span><span class="keyword1">outM</span> <span class="free"><span class="bound"><span class="entity">v</span></span></span><span class="main">&gt;</span><span class="main">)</span> <span class="main">=</span>  False"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> UniqueReceiverOf<span class="main">:</span>
+<span class="keyword1" id="AsynchronousSystem-UniqueReceiverOf"><span class="command">lemma</span></span> UniqueReceiverOf<span class="main">:</span>
 <span class="keyword2"><span class="keyword">fixes</span></span> 
   <span class="free">msg</span>  <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="tfree">'p</span><span class="main">,</span> <span class="tfree">'v</span><span class="main">)</span> message"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
   <span class="free">p</span> <span class="free">q</span> <span class="main">::</span> <span class="tfree"><span class="quoted"><span class="tfree">'p</span></span></span>
@@ -248,7 +248,7 @@
   of messages only affects the process the message is directed to while the
   rest stays unchanged.
 ›</span></span>
-<span class="keyword1"><span class="command">lemma</span></span> NoReceivingNoChange<span class="main">:</span>
+<span class="keyword1" id="AsynchronousSystem-NoReceivingNoChange"><span class="command">lemma</span></span> NoReceivingNoChange<span class="main">:</span>
 <span class="keyword2"><span class="keyword">fixes</span></span>
   <span class="free">cfg1</span> <span class="free">cfg2</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="tfree">'p</span><span class="main">,</span><span class="tfree">'v</span><span class="main">,</span><span class="tfree">'s</span><span class="main">)</span> configuration"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
   <span class="free">m</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="tfree">'p</span><span class="main">,</span><span class="tfree">'v</span><span class="main">)</span> message"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -273,7 +273,7 @@
   <span class="keyword1"><span class="command">with</span></span> Step CaseM <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ExistsMsg<span class="main">:</span>
+<span class="keyword1" id="AsynchronousSystem-ExistsMsg"><span class="command">lemma</span></span> ExistsMsg<span class="main">:</span>
 <span class="keyword2"><span class="keyword">fixes</span></span>
   <span class="free">cfg1</span> <span class="free">cfg2</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="tfree">'p</span><span class="main">,</span><span class="tfree">'v</span><span class="main">,</span><span class="tfree">'s</span><span class="main">)</span> configuration"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
   <span class="free">m</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="tfree">'p</span><span class="main">,</span><span class="tfree">'v</span><span class="main">)</span> message"</span></span>
@@ -283,7 +283,7 @@
   <span class="quoted"><span class="quoted">"<span class="free">m</span> <span class="main">∈#</span> <span class="main">(</span>msgs <span class="free">cfg1</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms enabled_def <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">cases</span> <span class="quoted"><span class="free">m</span></span><span class="main"><span class="keyword3">,</span></span> <span class="operator">auto</span><span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> NoMessageLossStep<span class="main">:</span>
+<span class="keyword1" id="AsynchronousSystem-NoMessageLossStep"><span class="command">lemma</span></span> NoMessageLossStep<span class="main">:</span>
 <span class="keyword2"><span class="keyword">fixes</span></span>
   <span class="free">cfg1</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="tfree">'p</span><span class="main">,</span><span class="tfree">'v</span><span class="main">,</span><span class="tfree">'s</span><span class="main">)</span> configuration"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
   <span class="free">cfg2</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="tfree">'p</span><span class="main">,</span><span class="tfree">'v</span><span class="main">,</span><span class="tfree">'s</span><span class="main">)</span> configuration"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -298,7 +298,7 @@
   <span class="quoted"><span class="quoted">"msgs <span class="free">cfg1</span> <span class="free">m'</span> <span class="main">≤</span> msgs <span class="free">cfg2</span> <span class="free">m'</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">induct</span> <span class="quoted"><span class="free">m</span></span><span class="main"><span class="keyword3">,</span></span> <span class="operator">simp_all</span><span class="main"><span class="keyword3">,</span></span> <span class="operator">auto</span><span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> OutOnlyGrowing<span class="main">:</span>
+<span class="keyword1" id="AsynchronousSystem-OutOnlyGrowing"><span class="command">lemma</span></span> OutOnlyGrowing<span class="main">:</span>
 <span class="keyword2"><span class="keyword">fixes</span></span> 
   <span class="free">cfg1</span> <span class="free">cfg2</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="tfree">'p</span><span class="main">,</span><span class="tfree">'v</span><span class="main">,</span><span class="tfree">'s</span><span class="main">)</span> configuration"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
   <span class="free">b</span><span class="main">::</span><span class="quoted">bool</span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -354,7 +354,7 @@
     <span class="keyword1"><span class="command">using</span></span> MsgFunction <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> OtherMessagesOnlyGrowing<span class="main">:</span>
+<span class="keyword1" id="AsynchronousSystem-OtherMessagesOnlyGrowing"><span class="command">lemma</span></span> OtherMessagesOnlyGrowing<span class="main">:</span>
 <span class="keyword2"><span class="keyword">fixes</span></span>
   <span class="free">cfg1</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="tfree">'p</span><span class="main">,</span><span class="tfree">'v</span><span class="main">,</span><span class="tfree">'s</span><span class="main">)</span> configuration"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
   <span class="free">cfg2</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="tfree">'p</span><span class="main">,</span><span class="tfree">'v</span><span class="main">,</span><span class="tfree">'s</span><span class="main">)</span> configuration"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -372,7 +372,7 @@
   Völzer: \textquote{Note that steps are enabled persistently, i.e., an
   enabled step remains enabled as long as it does not occur.}
 ›</span></span>
-<span class="keyword1"><span class="command">lemma</span></span> OnlyOccurenceDisables<span class="main">:</span>
+<span class="keyword1" id="AsynchronousSystem-OnlyOccurenceDisables"><span class="command">lemma</span></span> OnlyOccurenceDisables<span class="main">:</span>
 <span class="keyword2"><span class="keyword">fixes</span></span>
   <span class="free">cfg1</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="tfree">'p</span><span class="main">,</span><span class="tfree">'v</span><span class="main">,</span><span class="tfree">'s</span><span class="main">)</span> configuration"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
   <span class="free">cfg2</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="tfree">'p</span><span class="main">,</span><span class="tfree">'v</span><span class="main">,</span><span class="tfree">'s</span><span class="main">)</span> configuration"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -413,7 +413,7 @@
 <span class="main">|</span> step<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">⟦</span> <span class="free">reachable</span> <span class="free"><span class="bound"><span class="entity">cfg1</span></span></span> <span class="free"><span class="bound"><span class="entity">cfg2</span></span></span><span class="main">;</span> <span class="main">(</span><span class="free"><span class="bound"><span class="entity">cfg2</span></span></span> <span class="main">⊢</span> <span class="free"><span class="bound"><span class="entity">msg</span></span></span> <span class="main">↦</span> <span class="free"><span class="bound"><span class="entity">cfg3</span></span></span><span class="main">)</span> <span class="main">⟧</span> 
           <span class="main">⟹</span> <span class="free">reachable</span> <span class="free"><span class="bound"><span class="entity">cfg1</span></span></span> <span class="free"><span class="bound"><span class="entity">cfg3</span></span></span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ReachableStepFirst<span class="main">:</span> 
+<span class="keyword1" id="AsynchronousSystem-ReachableStepFirst"><span class="command">lemma</span></span> ReachableStepFirst<span class="main">:</span> 
 <span class="keyword2"><span class="keyword">assumes</span></span>
   <span class="quoted"><span class="quoted">"reachable <span class="free">cfg</span> <span class="free">cfg'</span>"</span></span>
 <span class="keyword2"><span class="keyword">shows</span></span> 
@@ -425,7 +425,7 @@
     <span class="operator">metis</span> StepOutMsg ExistsMsg init enabled_def isReceiverOf.simps<span class="main"><span class="main">(</span></span>1<span class="main"><span class="main">)</span></span> 
     isReceiverOf.simps<span class="main"><span class="main">(</span></span>2<span class="main"><span class="main">)</span></span> message.exhaust<span class="main"><span class="keyword3">,</span></span> <span class="operator">metis</span> asynchronousSystem.step<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ReachableTrans<span class="main">:</span> 
+<span class="keyword1" id="AsynchronousSystem-ReachableTrans"><span class="command">lemma</span></span> ReachableTrans<span class="main">:</span> 
 <span class="keyword2"><span class="keyword">fixes</span></span> 
   <span class="free">cfg1</span> <span class="free">cfg2</span> <span class="free">cfg3</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="tfree">'p</span><span class="main">,</span> <span class="tfree">'v</span><span class="main">,</span> <span class="tfree">'s</span> <span class="main">)</span> configuration"</span></span> <span class="keyword2"><span class="keyword">and</span></span> 
   <span class="free">Q</span> <span class="main">::</span> <span class="quoted"><span class="quoted">" <span class="tfree">'p</span> set"</span></span>
@@ -454,7 +454,7 @@
   <span class="quoted"><span class="quoted">"<span class="free">stepReachable</span> <span class="free"><span class="bound"><span class="entity">c1</span></span></span> <span class="free"><span class="bound"><span class="entity">msg</span></span></span> <span class="free"><span class="bound"><span class="entity">c2</span></span></span> <span class="main">≡</span> 
     <span class="main">∃</span> <span class="bound">c'</span> <span class="bound">c''</span><span class="main">.</span> reachable <span class="free"><span class="bound"><span class="entity">c1</span></span></span> <span class="bound">c'</span> <span class="main">∧</span> <span class="main">(</span><span class="bound">c'</span> <span class="main">⊢</span> <span class="free"><span class="bound"><span class="entity">msg</span></span></span> <span class="main">↦</span> <span class="bound">c''</span><span class="main">)</span> <span class="main">∧</span> reachable <span class="bound">c''</span> <span class="free"><span class="bound"><span class="entity">c2</span></span></span> "</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> StepReachable<span class="main">:</span>
+<span class="keyword1" id="AsynchronousSystem-StepReachable"><span class="command">lemma</span></span> StepReachable<span class="main">:</span>
 <span class="keyword2"><span class="keyword">fixes</span></span>
   <span class="free">cfg</span> <span class="free">cfg'</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="tfree">'p</span><span class="main">,</span><span class="tfree">'v</span><span class="main">,</span><span class="tfree">'s</span><span class="main">)</span> configuration"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
   <span class="free">msg</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="tfree">'p</span><span class="main">,</span> <span class="tfree">'v</span><span class="main">)</span> message"</span></span>
@@ -522,7 +522,7 @@
   Obviously q-reachability (and thus also without-q-reachability) implies 
   reachability.
 ›</span></span>
-<span class="keyword1"><span class="command">lemma</span></span> QReachImplReach<span class="main">:</span>
+<span class="keyword1" id="AsynchronousSystem-QReachImplReach"><span class="command">lemma</span></span> QReachImplReach<span class="main">:</span>
 <span class="keyword2"><span class="keyword">fixes</span></span>
   <span class="free">cfg1</span> <span class="free">cfg2</span><span class="main">::</span>  <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="tfree">'p</span><span class="main">,</span> <span class="tfree">'v</span><span class="main">,</span> <span class="tfree">'s</span> <span class="main">)</span> configuration"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
   <span class="free">Q</span> <span class="main">::</span> <span class="quoted"><span class="quoted">" <span class="tfree">'p</span> set"</span></span>
@@ -537,7 +537,7 @@
   <span class="keyword3"><span class="command">case</span></span> StepQ <span class="keyword3"><span class="command">thus</span></span> <span class="var"><span class="quoted"><span class="var">?case</span></span></span> <span class="keyword1"><span class="command">using</span></span> reachable.step <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> QReachableTrans<span class="main">:</span> 
+<span class="keyword1" id="AsynchronousSystem-QReachableTrans"><span class="command">lemma</span></span> QReachableTrans<span class="main">:</span> 
 <span class="keyword2"><span class="keyword">fixes</span></span> <span class="free">cfg1</span> <span class="free">cfg2</span> <span class="free">cfg3</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="tfree">'p</span><span class="main">,</span> <span class="tfree">'v</span><span class="main">,</span> <span class="tfree">'s</span> <span class="main">)</span> configuration"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
   <span class="free">Q</span> <span class="main">::</span> <span class="quoted"><span class="quoted">" <span class="tfree">'p</span> set"</span></span>
 <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"qReachable <span class="free">cfg2</span> <span class="free">Q</span> <span class="free">cfg3</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -549,7 +549,7 @@
   <span class="keyword3"><span class="command">thus</span></span> <span class="var"><span class="quoted"><span class="var">?case</span></span></span> <span class="keyword1"><span class="command">using</span></span> qReachable.simps <span class="keyword1"><span class="command">by</span></span> <span class="operator">metis</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> NotInQFrozenQReachability<span class="main">:</span> 
+<span class="keyword1" id="AsynchronousSystem-NotInQFrozenQReachability"><span class="command">lemma</span></span> NotInQFrozenQReachability<span class="main">:</span> 
 <span class="keyword2"><span class="keyword">fixes</span></span>
   <span class="free">cfg1</span> <span class="free">cfg2</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="tfree">'p</span><span class="main">,</span><span class="tfree">'v</span><span class="main">,</span><span class="tfree">'s</span><span class="main">)</span> configuration"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
   <span class="free">p</span> <span class="main">::</span> <span class="tfree"><span class="quoted"><span class="tfree">'p</span></span></span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -584,7 +584,7 @@
   <span class="quoted"><span class="quoted">"states <span class="free">cfg1</span> <span class="free">p</span> <span class="main">=</span> states <span class="free">cfg2</span> <span class="free">p</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms NotInQFrozenQReachability <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> NoActivityNoMessageLoss <span class="main">:</span>
+<span class="keyword1" id="AsynchronousSystem-NoActivityNoMessageLoss"><span class="command">lemma</span></span> NoActivityNoMessageLoss <span class="main">:</span>
 <span class="keyword2"><span class="keyword">fixes</span></span>
   <span class="free">cfg1</span> <span class="free">cfg2</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="tfree">'p</span><span class="main">,</span><span class="tfree">'v</span><span class="main">,</span><span class="tfree">'s</span><span class="main">)</span> configuration"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
   <span class="free">p</span> <span class="main">::</span> <span class="tfree"><span class="quoted"><span class="tfree">'p</span></span></span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -610,7 +610,7 @@
     <span class="keyword3"><span class="command">show</span></span> <span class="quoted"><span class="quoted">"msgs <span class="skolem">cfg1'</span> <span class="free">m'</span> <span class="main">≤</span> msgs <span class="skolem">cfg3</span> <span class="free">m'</span>"</span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> NoMessageLoss<span class="main">:</span>
+<span class="keyword1" id="AsynchronousSystem-NoMessageLoss"><span class="command">lemma</span></span> NoMessageLoss<span class="main">:</span>
 <span class="keyword2"><span class="keyword">fixes</span></span>
   <span class="free">cfg1</span> <span class="free">cfg2</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="tfree">'p</span><span class="main">,</span><span class="tfree">'v</span><span class="main">,</span><span class="tfree">'s</span><span class="main">)</span> configuration"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
   <span class="free">p</span> <span class="main">::</span> <span class="tfree"><span class="quoted"><span class="tfree">'p</span></span></span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -624,7 +624,7 @@
   <span class="quoted"><span class="quoted">"<span class="main">(</span>msgs <span class="free">cfg1</span> <span class="free">m'</span><span class="main">)</span> <span class="main">≤</span> <span class="main">(</span>msgs <span class="free">cfg2</span> <span class="free">m'</span><span class="main">)</span>"</span></span> 
 <span class="keyword1"><span class="command">using</span></span> assms NoActivityNoMessageLoss <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> NoOutMessageLoss<span class="main">:</span>
+<span class="keyword1" id="AsynchronousSystem-NoOutMessageLoss"><span class="command">lemma</span></span> NoOutMessageLoss<span class="main">:</span>
 <span class="keyword2"><span class="keyword">fixes</span></span>
   <span class="free">cfg1</span> <span class="free">cfg2</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="tfree">'p</span><span class="main">,</span><span class="tfree">'v</span><span class="main">,</span><span class="tfree">'s</span><span class="main">)</span> configuration"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
   <span class="free">v</span> <span class="main">::</span> <span class="quoted">bool</span>
@@ -645,7 +645,7 @@
     <span class="keyword1"><span class="command">using</span></span> le_trans <span class="keyword1"><span class="command">by</span></span> <span class="operator">blast</span>
 <span class="keyword1"><span class="command">qed</span></span> 
 
-<span class="keyword1"><span class="command">lemma</span></span> StillEnabled<span class="main">:</span>
+<span class="keyword1" id="AsynchronousSystem-StillEnabled"><span class="command">lemma</span></span> StillEnabled<span class="main">:</span>
 <span class="keyword2"><span class="keyword">fixes</span></span> 
   <span class="free">cfg1</span> <span class="free">cfg2</span><span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="tfree">'p</span><span class="main">,</span><span class="tfree">'v</span><span class="main">,</span><span class="tfree">'s</span><span class="main">)</span> configuration"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
   <span class="free">p</span> <span class="main">::</span> <span class="tfree"><span class="quoted"><span class="tfree">'p</span></span></span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -679,7 +679,7 @@
 <span class="keyword2"><span class="keyword">where</span></span>
   <span class="quoted"><span class="quoted">"<span class="free">initReachable</span> <span class="free"><span class="bound"><span class="entity">cfg</span></span></span> <span class="main">≡</span> <span class="main">∃</span><span class="bound">cfg0</span> <span class="main">.</span> initial <span class="bound">cfg0</span> <span class="main">∧</span> reachable <span class="bound">cfg0</span> <span class="free"><span class="bound"><span class="entity">cfg</span></span></span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> InitialIsInitReachable <span class="main">:</span>
+<span class="keyword1" id="AsynchronousSystem-InitialIsInitReachable"><span class="command">lemma</span></span> InitialIsInitReachable <span class="main">:</span>
 <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"initial <span class="free">c</span>"</span></span>
 <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"initReachable <span class="free">c</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> assms reachable.init
@@ -687,7 +687,7 @@
 
 <span class="keyword1"><span class="command">subsection</span></span> <span class="quoted"><span class="plain_text">‹Diamond property of reachability›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> DiamondOne<span class="main">:</span>
+<span class="keyword1" id="AsynchronousSystem-DiamondOne"><span class="command">lemma</span></span> DiamondOne<span class="main">:</span>
 <span class="keyword2"><span class="keyword">fixes</span></span>
   <span class="free">cfg</span> <span class="free">cfg1</span> <span class="free">cfg2</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="tfree">'p</span><span class="main">,</span><span class="tfree">'v</span><span class="main">,</span><span class="tfree">'s</span><span class="main">)</span> configuration"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
   <span class="free">p</span> <span class="free">q</span> <span class="main">::</span> <span class="tfree"><span class="quoted"><span class="tfree">'p</span></span></span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -890,7 +890,7 @@
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> DiamondTwo<span class="main">:</span>
+<span class="keyword1" id="AsynchronousSystem-DiamondTwo"><span class="command">lemma</span></span> DiamondTwo<span class="main">:</span>
 <span class="keyword2"><span class="keyword">fixes</span></span>
   <span class="free">cfg</span> <span class="free">cfg1</span> <span class="free">cfg2</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="tfree">'p</span><span class="main">,</span><span class="tfree">'v</span><span class="main">,</span><span class="tfree">'s</span><span class="main">)</span> configuration"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
   <span class="free">Q</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="tfree">'p</span> set"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -942,7 +942,7 @@
 <span class="keyword1"><span class="command">qed</span></span>
 
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹Proposition 1 of Völzer.›</span></span>
-<span class="keyword1"><span class="command">lemma</span></span> Diamond<span class="main">:</span>
+<span class="keyword1" id="AsynchronousSystem-Diamond"><span class="command">lemma</span></span> Diamond<span class="main">:</span>
 <span class="keyword2"><span class="keyword">fixes</span></span>
   <span class="free">cfg</span> <span class="free">cfg1</span> <span class="free">cfg2</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="tfree">'p</span><span class="main">,</span><span class="tfree">'v</span><span class="main">,</span><span class="tfree">'s</span><span class="main">)</span> configuration"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
   <span class="free">Q</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="tfree">'p</span> set"</span></span>
@@ -991,7 +991,7 @@
 
 <span class="keyword1"><span class="command">subsection</span></span> <span class="quoted"><span class="plain_text">‹Invariant finite message count›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> FiniteMessages<span class="main">:</span>
+<span class="keyword1" id="AsynchronousSystem-FiniteMessages"><span class="command">lemma</span></span> FiniteMessages<span class="main">:</span>
 <span class="keyword2"><span class="keyword">fixes</span></span> 
   <span class="free">cfg</span>  <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="tfree">'p</span><span class="main">,</span> <span class="tfree">'v</span><span class="main">,</span> <span class="tfree">'s</span><span class="main">)</span> configuration"</span></span>
 <span class="keyword2"><span class="keyword">assumes</span></span>
@@ -1085,7 +1085,7 @@
   <span class="quoted"><span class="quoted">"<span class="free">prefixList</span> <span class="main">[]</span> <span class="main">(</span><span class="free"><span class="bound"><span class="entity">x</span></span></span> <span class="main">#</span> <span class="free"><span class="bound"><span class="entity">xs</span></span></span><span class="main">)</span>"</span></span>
 <span class="main">|</span> <span class="quoted"><span class="quoted">"<span class="free">prefixList</span> <span class="free"><span class="bound"><span class="entity">xa</span></span></span> <span class="free"><span class="bound"><span class="entity">xb</span></span></span> <span class="main">⟹</span> <span class="free">prefixList</span> <span class="main">(</span><span class="free"><span class="bound"><span class="entity">x</span></span></span> <span class="main">#</span> <span class="free"><span class="bound"><span class="entity">xa</span></span></span><span class="main">)</span> <span class="main">(</span><span class="free"><span class="bound"><span class="entity">x</span></span></span> <span class="main">#</span> <span class="free"><span class="bound"><span class="entity">xb</span></span></span><span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> PrefixListHasTail<span class="main">:</span>
+<span class="keyword1" id="ListUtilities-PrefixListHasTail"><span class="command">lemma</span></span> PrefixListHasTail<span class="main">:</span>
 <span class="keyword2"><span class="keyword">fixes</span></span> 
   <span class="free">l1</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="tfree">'a</span> list"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
   <span class="free">l2</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="tfree">'a</span> list"</span></span>
@@ -1095,7 +1095,7 @@
   <span class="quoted"><span class="quoted">"<span class="main">∃</span> <span class="bound">l</span> <span class="main">.</span> <span class="free">l2</span> <span class="main">=</span> <span class="free">l1</span> <span class="main">@</span> <span class="bound">l</span> <span class="main">∧</span> <span class="bound">l</span> <span class="main">≠</span> <span class="main">[]</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">induct</span> <span class="quasi_keyword">rule</span><span class="main"><span class="main">:</span></span> prefixList.induct<span class="main"><span class="keyword3">,</span></span> <span class="operator">auto</span><span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> PrefixListMonotonicity<span class="main">:</span>
+<span class="keyword1" id="ListUtilities-PrefixListMonotonicity"><span class="command">lemma</span></span> PrefixListMonotonicity<span class="main">:</span>
 <span class="keyword2"><span class="keyword">fixes</span></span> 
   <span class="free">l1</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="tfree">'a</span> list"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
   <span class="free">l2</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="tfree">'a</span> list"</span></span>
@@ -1105,7 +1105,7 @@
   <span class="quoted"><span class="quoted">"length <span class="free">l1</span> <span class="main">&lt;</span> length <span class="free">l2</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">induct</span> <span class="quasi_keyword">rule</span><span class="main"><span class="main">:</span></span> prefixList.induct<span class="main"><span class="keyword3">,</span></span> <span class="operator">auto</span><span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> TailIsPrefixList <span class="main">:</span> 
+<span class="keyword1" id="ListUtilities-TailIsPrefixList"><span class="command">lemma</span></span> TailIsPrefixList <span class="main">:</span> 
 <span class="keyword2"><span class="keyword">fixes</span></span> 
   <span class="free">l1</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="tfree">'a</span> list"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
   <span class="free">tail</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="tfree">'a</span> list"</span></span>
@@ -1124,7 +1124,7 @@
     <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">metis</span> prefixList.intros<span class="main"><span class="main">(</span></span>2<span class="main"><span class="main">)</span></span><span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> PrefixListTransitive<span class="main">:</span>
+<span class="keyword1" id="ListUtilities-PrefixListTransitive"><span class="command">lemma</span></span> PrefixListTransitive<span class="main">:</span>
 <span class="keyword2"><span class="keyword">fixes</span></span> 
   <span class="free">l1</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="tfree">'a</span> list"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
   <span class="free">l2</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="tfree">'a</span> list"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -1150,7 +1150,7 @@
 
 <span class="keyword1"><span class="command">subsection</span></span> <span class="quoted"><span class="plain_text">‹Lemmas for lists and nat predicates›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> NatPredicateTippingPoint<span class="main">:</span>
+<span class="keyword1" id="ListUtilities-NatPredicateTippingPoint"><span class="command">lemma</span></span> NatPredicateTippingPoint<span class="main">:</span>
 <span class="keyword2"><span class="keyword">fixes</span></span> 
   <span class="free">n2</span> <span class="free">Pr</span>
 <span class="keyword2"><span class="keyword">assumes</span></span>
@@ -1172,7 +1172,7 @@
   <span class="keyword3"><span class="command">thus</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> MinPredicate<span class="main">:</span>
+<span class="keyword1" id="ListUtilities-MinPredicate"><span class="command">lemma</span></span> MinPredicate<span class="main">:</span>
 <span class="keyword2"><span class="keyword">fixes</span></span> 
   <span class="free">P</span><span class="main">::</span><span class="quoted"><span class="quoted">"nat <span class="main">⇒</span> bool"</span></span>
 <span class="keyword2"><span class="keyword">assumes</span></span>
@@ -1187,7 +1187,7 @@
   where the aforementioned smallest element is zero.
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> MinPredicate2<span class="main">:</span>
+<span class="keyword1" id="ListUtilities-MinPredicate2"><span class="command">lemma</span></span> MinPredicate2<span class="main">:</span>
 <span class="keyword2"><span class="keyword">fixes</span></span>
   <span class="free">P</span><span class="main">::</span><span class="quoted"><span class="quoted">"nat <span class="main">⇒</span> bool"</span></span>
 <span class="keyword2"><span class="keyword">assumes</span></span>
@@ -1203,7 +1203,7 @@
   two arguments.
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> PredicatePairFunction<span class="main">:</span> 
+<span class="keyword1" id="ListUtilities-PredicatePairFunction"><span class="command">lemma</span></span> PredicatePairFunction<span class="main">:</span> 
 <span class="keyword2"><span class="keyword">fixes</span></span>
   <span class="free">P</span><span class="main">::</span><span class="quoted"><span class="quoted">"<span class="tfree">'a</span> <span class="main">⇒</span> <span class="tfree">'b</span> <span class="main">⇒</span> <span class="tfree">'c</span> <span class="main">⇒</span> <span class="tfree">'d</span> <span class="main">⇒</span> bool"</span></span>
 <span class="keyword2"><span class="keyword">assumes</span></span>
@@ -1223,7 +1223,7 @@
   <span class="keyword3"><span class="command">thus</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span> <span class="keyword1"><span class="command">using</span></span> P'_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>           
 
-<span class="keyword1"><span class="command">lemma</span></span> PredicatePairFunctions2<span class="main">:</span> 
+<span class="keyword1" id="ListUtilities-PredicatePairFunctions2"><span class="command">lemma</span></span> PredicatePairFunctions2<span class="main">:</span> 
 <span class="keyword2"><span class="keyword">fixes</span></span>
   <span class="free">P</span><span class="main">::</span><span class="quoted"><span class="quoted">"<span class="tfree">'a</span> <span class="main">⇒</span> <span class="tfree">'b</span> <span class="main">⇒</span> <span class="tfree">'c</span> <span class="main">⇒</span> <span class="tfree">'d</span> <span class="main">⇒</span> bool"</span></span>
 <span class="keyword2"><span class="keyword">assumes</span></span>
@@ -1242,7 +1242,7 @@
     <span class="keyword1"><span class="command">using</span></span> ass<span class="main">[</span><span class="operator">of</span> <span class="quoted"><span class="skolem">f1</span></span> <span class="quoted"><span class="skolem">f2</span></span><span class="main">]</span> F <span class="keyword1"><span class="command">unfolding</span></span> f1_def f2_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> PredicatePairFunctions2Inv<span class="main">:</span> 
+<span class="keyword1" id="ListUtilities-PredicatePairFunctions2Inv"><span class="command">lemma</span></span> PredicatePairFunctions2Inv<span class="main">:</span> 
 <span class="keyword2"><span class="keyword">fixes</span></span>
   <span class="free">P</span><span class="main">::</span><span class="quoted"><span class="quoted">"<span class="tfree">'a</span> <span class="main">⇒</span> <span class="tfree">'b</span> <span class="main">⇒</span> <span class="tfree">'c</span> <span class="main">⇒</span> <span class="tfree">'d</span> <span class="main">⇒</span> bool"</span></span>
 <span class="keyword2"><span class="keyword">assumes</span></span>
@@ -1251,7 +1251,7 @@
   <span class="quoted"><span class="quoted">"<span class="main">∀</span><span class="bound">x1</span> <span class="bound">x2</span> <span class="main">.</span> <span class="main">(</span><span class="free">P</span> <span class="bound">x1</span> <span class="bound">x2</span> <span class="main">(</span><span class="free">f1</span> <span class="bound">x1</span> <span class="bound">x2</span><span class="main">)</span> <span class="main">(</span><span class="free">f2</span> <span class="bound">x1</span> <span class="bound">x2</span><span class="main">)</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> PredicatePairFunctions2<span class="main">[</span><span class="operator">OF</span> A1<span class="main">]</span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> SmallerMultipleStepsWithLimit<span class="main">:</span>
+<span class="keyword1" id="ListUtilities-SmallerMultipleStepsWithLimit"><span class="command">lemma</span></span> SmallerMultipleStepsWithLimit<span class="main">:</span>
 <span class="keyword2"><span class="keyword">fixes</span></span>
   <span class="free">k</span> <span class="free">A</span> <span class="free">limit</span>
 <span class="keyword2"><span class="keyword">assumes</span></span>
@@ -1268,7 +1268,7 @@
        less_diff_conv less_or_eq_imp_le add.commute<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> PrefixSameOnLow<span class="main">:</span>
+<span class="keyword1" id="ListUtilities-PrefixSameOnLow"><span class="command">lemma</span></span> PrefixSameOnLow<span class="main">:</span>
 <span class="keyword2"><span class="keyword">fixes</span></span>
   <span class="free">l1</span> <span class="free">l2</span>
 <span class="keyword2"><span class="keyword">assumes</span></span>
@@ -1286,7 +1286,7 @@
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> KeepProperty<span class="main">:</span>
+<span class="keyword1" id="ListUtilities-KeepProperty"><span class="command">lemma</span></span> KeepProperty<span class="main">:</span>
 <span class="keyword2"><span class="keyword">fixes</span></span>
   <span class="free">P</span> <span class="free">Q</span> <span class="free">low</span>
 <span class="keyword2"><span class="keyword">assumes</span></span>
@@ -1306,7 +1306,7 @@
   <span class="keyword3"><span class="command">thus</span></span> <span class="quoted"><span class="quoted">"<span class="free">Q</span> <span class="skolem">i</span>"</span></span> <span class="keyword1"><span class="command">using</span></span> Assump <span class="keyword1"><span class="command">by</span></span> <span class="operator">blast</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ListLenDrop<span class="main">:</span> 
+<span class="keyword1" id="ListUtilities-ListLenDrop"><span class="command">lemma</span></span> ListLenDrop<span class="main">:</span> 
 <span class="keyword2"><span class="keyword">fixes</span></span>
   <span class="free">i</span> <span class="free">la</span> <span class="free">lb</span>
 <span class="keyword2"><span class="keyword">assumes</span></span>
@@ -1318,7 +1318,7 @@
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">metis</span> Cons_nth_drop_Suc in_set_member member_rec<span class="main"><span class="main">(</span></span>1<span class="main"><span class="main">)</span></span> 
        set_drop_subset_set_drop rev_subsetD<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> DropToShift<span class="main">:</span>
+<span class="keyword1" id="ListUtilities-DropToShift"><span class="command">lemma</span></span> DropToShift<span class="main">:</span>
 <span class="keyword2"><span class="keyword">fixes</span></span>
   <span class="free">l</span> <span class="free">i</span> <span class="free">list</span>
 <span class="keyword2"><span class="keyword">assumes</span></span>
@@ -1328,7 +1328,7 @@
 <span class="keyword1"><span class="command">using</span></span> assms
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">induct</span> <span class="quoted"><span class="free">l</span></span><span class="main"><span class="keyword3">,</span></span> <span class="operator">auto</span><span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> SetToIndex<span class="main">:</span>
+<span class="keyword1" id="ListUtilities-SetToIndex"><span class="command">lemma</span></span> SetToIndex<span class="main">:</span>
 <span class="keyword2"><span class="keyword">fixes</span></span>
   <span class="free">a</span> <span class="keyword2"><span class="keyword">and</span></span> <span class="free">liste</span><span class="main">::</span><span class="quoted"><span class="quoted">"<span class="tfree">'a</span> list"</span></span>
 <span class="keyword2"><span class="keyword">assumes</span></span>
@@ -1368,7 +1368,7 @@
     AssumpSetToIndex <span class="keyword1"><span class="command">by</span></span> <span class="operator">blast</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> DropToIndex<span class="main">:</span>
+<span class="keyword1" id="ListUtilities-DropToIndex"><span class="command">lemma</span></span> DropToIndex<span class="main">:</span>
 <span class="keyword2"><span class="keyword">fixes</span></span>
   <span class="free">a</span><span class="main">::</span><span class="quoted"><span class="quoted">"<span class="tfree">'a</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span> <span class="free">l</span> <span class="free">liste</span> 
 <span class="keyword2"><span class="keyword">assumes</span></span>
@@ -1466,7 +1466,7 @@
     <span class="main">∧</span> <span class="main">(</span> <span class="free"><span class="bound"><span class="entity">n</span></span></span> <span class="main">≠</span> <span class="main">0</span> <span class="main">⟶</span> <span class="main">(</span><span class="main">¬</span> enabled <span class="main">(</span>execConf <span class="main">(</span><span class="free"><span class="bound"><span class="entity">n</span></span></span> <span class="main">-</span> <span class="main">1</span><span class="main">)</span><span class="main">)</span> <span class="free"><span class="bound"><span class="entity">msg</span></span></span> 
       <span class="main">∨</span> <span class="free"><span class="bound"><span class="entity">msg</span></span></span> <span class="main">=</span> execMsg <span class="main">(</span><span class="free"><span class="bound"><span class="entity">n</span></span></span> <span class="main">-</span> <span class="main">1</span><span class="main">)</span><span class="main">)</span><span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> FirstOccurrenceExists<span class="main">:</span>
+<span class="keyword1" id="Execution-FirstOccurrenceExists"><span class="command">lemma</span></span> FirstOccurrenceExists<span class="main">:</span>
 <span class="keyword2"><span class="keyword">assumes</span></span>
   <span class="quoted"><span class="quoted">"enabled <span class="main">(</span>last <span class="free">exec</span><span class="main">)</span> <span class="free">msg</span>"</span></span>
   <span class="quoted"><span class="quoted">"<span class="main">∃</span><span class="bound">p</span><span class="main">.</span> isReceiverOf <span class="bound">p</span> <span class="free">msg</span>"</span></span>
@@ -1571,7 +1571,7 @@
   <span class="keyword3"><span class="command">thus</span></span> <span class="quoted"><span class="quoted">"<span class="main">∃</span><span class="bound">n</span><span class="main">.</span> firstOccurrence <span class="free">msg</span> <span class="bound">n</span>"</span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">blast</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ReachableInExecution<span class="main">:</span>
+<span class="keyword1" id="Execution-ReachableInExecution"><span class="command">lemma</span></span> ReachableInExecution<span class="main">:</span>
 <span class="keyword2"><span class="keyword">assumes</span></span>
   <span class="quoted"><span class="quoted">"<span class="free">i</span> <span class="main">&lt;</span> length <span class="free">exec</span>"</span></span>
   <span class="quoted"><span class="quoted">"<span class="free">j</span> <span class="main">≤</span> <span class="free">i</span>"</span></span>
@@ -1604,7 +1604,7 @@
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> LastPoint<span class="main">:</span>
+<span class="keyword1" id="Execution-LastPoint"><span class="command">lemma</span></span> LastPoint<span class="main">:</span>
 <span class="keyword2"><span class="keyword">fixes</span></span>
   <span class="free">msg</span><span class="main">::</span><span class="quoted"><span class="quoted">"<span class="main">(</span><span class="tfree">'p</span><span class="main">,</span> <span class="tfree">'v</span><span class="main">)</span> message"</span></span>
 <span class="keyword2"><span class="keyword">assumes</span></span>
@@ -1636,7 +1636,7 @@
     <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span> <span class="keyword1"><span class="command">using</span></span> that False <span class="keyword1"><span class="command">by</span></span> <span class="operator">blast</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ExistImpliesMinEnabled<span class="main">:</span>
+<span class="keyword1" id="Execution-ExistImpliesMinEnabled"><span class="command">lemma</span></span> ExistImpliesMinEnabled<span class="main">:</span>
 <span class="keyword2"><span class="keyword">fixes</span></span> 
   <span class="free">msg</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="tfree">'p</span><span class="main">,</span> <span class="tfree">'v</span><span class="main">)</span> message"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
   <span class="free">p</span> <span class="main">::</span> <span class="tfree"><span class="quoted"><span class="tfree">'p</span></span></span>
@@ -1698,7 +1698,7 @@
   <span class="keyword3"><span class="command">thus</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">blast</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> StaysEnabledStep<span class="main">:</span>
+<span class="keyword1" id="Execution-StaysEnabledStep"><span class="command">lemma</span></span> StaysEnabledStep<span class="main">:</span>
 <span class="keyword2"><span class="keyword">assumes</span></span>
   En<span class="main">:</span> <span class="quoted"><span class="quoted">"enabled <span class="free">cfg</span> <span class="free">msg</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
   Cfg<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">cfg</span> <span class="main">=</span> <span class="free">exec</span> <span class="main">!</span> <span class="free">n</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -1725,7 +1725,7 @@
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>                          
 
-<span class="keyword1"><span class="command">lemma</span></span> StaysEnabledHelp<span class="main">:</span>
+<span class="keyword1" id="Execution-StaysEnabledHelp"><span class="command">lemma</span></span> StaysEnabledHelp<span class="main">:</span>
 <span class="keyword2"><span class="keyword">assumes</span></span>
   <span class="quoted"><span class="quoted">"enabled <span class="free">cfg</span> <span class="free">msg</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
   <span class="quoted"><span class="quoted">"<span class="free">cfg</span> <span class="main">=</span> <span class="free">exec</span> <span class="main">!</span> <span class="free">n</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -1743,7 +1743,7 @@
         nat_neq_iff notEmpty  zero_less_one<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> StaysEnabled<span class="main">:</span>
+<span class="keyword1" id="Execution-StaysEnabled"><span class="command">lemma</span></span> StaysEnabled<span class="main">:</span>
 <span class="keyword2"><span class="keyword">assumes</span></span> En<span class="main">:</span> <span class="quoted"><span class="quoted">"enabled <span class="free">cfg</span> <span class="free">msg</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
   <span class="quoted"><span class="quoted">"<span class="free">cfg</span> <span class="main">=</span> <span class="free">exec</span> <span class="main">!</span> <span class="free">n</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
   <span class="quoted"><span class="quoted">"<span class="free">n</span> <span class="main">&lt;</span> length <span class="free">exec</span>"</span></span>   
@@ -2167,7 +2167,7 @@
   
   \voelzer{Proposition 2(a)}
 ›</span></span>
-<span class="keyword1"><span class="command">lemma</span></span> DecisionValuesExist<span class="main">:</span>
+<span class="keyword1" id="FLPSystem-DecisionValuesExist"><span class="command">lemma</span></span> DecisionValuesExist<span class="main">:</span>
 <span class="keyword2"><span class="keyword">fixes</span></span>
   <span class="free">c</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="tfree">'p</span><span class="main">,</span> <span class="tfree">'v</span><span class="main">,</span> <span class="tfree">'s</span><span class="main">)</span> configuration"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
   <span class="free">p</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="tfree">'p</span>"</span></span> 
@@ -2200,7 +2200,7 @@
 
   \voelzer{Proposition 2(b)}
 ›</span></span>
-<span class="keyword1"><span class="command">lemma</span></span> DecidedImpliesUniform<span class="main">:</span>
+<span class="keyword1" id="FLPSystem-DecidedImpliesUniform"><span class="command">lemma</span></span> DecidedImpliesUniform<span class="main">:</span>
 <span class="keyword2"><span class="keyword">fixes</span></span>
   <span class="free">c</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="tfree">'p</span><span class="main">,</span> <span class="tfree">'v</span><span class="main">,</span> <span class="tfree">'s</span><span class="main">)</span> configuration"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
   <span class="free">v</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"bool"</span></span>
@@ -2275,7 +2275,7 @@
 
   \voelzer{Proposition 3(a)}
 ›</span></span>
-<span class="keyword1"><span class="command">lemma</span></span> InactiveProcessSilentDecisionValuesDecrease<span class="main">:</span>
+<span class="keyword1" id="FLPSystem-InactiveProcessSilentDecisionValuesDecrease"><span class="command">lemma</span></span> InactiveProcessSilentDecisionValuesDecrease<span class="main">:</span>
 <span class="keyword2"><span class="keyword">fixes</span></span> 
   <span class="free">p</span> <span class="free">q</span> <span class="main">::</span> <span class="tfree"><span class="quoted"><span class="tfree">'p</span></span></span> <span class="keyword2"><span class="keyword">and</span></span>
   <span class="free">c</span> <span class="free">c'</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="tfree">'p</span><span class="main">,</span> <span class="tfree">'v</span><span class="main">,</span> <span class="tfree">'s</span><span class="main">)</span> configuration"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -2322,7 +2322,7 @@
 
   \voelzer{Proposition 3(b)}
 ›</span></span>
-<span class="keyword1"><span class="command">lemma</span></span> ActiveProcessSilentDecisionValuesIncrease <span class="main">:</span>
+<span class="keyword1" id="FLPSystem-ActiveProcessSilentDecisionValuesIncrease"><span class="command">lemma</span></span> ActiveProcessSilentDecisionValuesIncrease <span class="main">:</span>
 <span class="keyword2"><span class="keyword">fixes</span></span> 
   <span class="free">p</span> <span class="free">q</span> <span class="main">::</span> <span class="tfree"><span class="quoted"><span class="tfree">'p</span></span></span> <span class="keyword2"><span class="keyword">and</span></span>
   <span class="free">c</span> <span class="free">c'</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="tfree">'p</span><span class="main">,</span> <span class="tfree">'v</span><span class="main">,</span> <span class="tfree">'s</span><span class="main">)</span> configuration"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -2365,7 +2365,7 @@
 
   \voelzer{Proposition 3(c)}
 ›</span></span>
-<span class="keyword1"><span class="command">lemma</span></span> SilentDecisionValueNotInverting<span class="main">:</span>
+<span class="keyword1" id="FLPSystem-SilentDecisionValueNotInverting"><span class="command">lemma</span></span> SilentDecisionValueNotInverting<span class="main">:</span>
 <span class="keyword2"><span class="keyword">fixes</span></span> 
   <span class="free">p</span> <span class="free">q</span> <span class="main">::</span> <span class="tfree"><span class="quoted"><span class="tfree">'p</span></span></span> <span class="keyword2"><span class="keyword">and</span></span>
   <span class="free">c</span> <span class="free">c'</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="tfree">'p</span><span class="main">,</span> <span class="tfree">'v</span><span class="main">,</span> <span class="tfree">'s</span><span class="main">)</span> configuration"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -2402,7 +2402,7 @@
 
   \voelzer{Lemma 1}
 ›</span></span>
-<span class="keyword1"><span class="command">lemma</span></span> InitialNonUniformCfg<span class="main">:</span>
+<span class="keyword1" id="FLPSystem-InitialNonUniformCfg"><span class="command">lemma</span></span> InitialNonUniformCfg<span class="main">:</span>
 <span class="keyword2"><span class="keyword">assumes</span></span>
   Termination<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">⋀</span><span class="bound">cc</span> <span class="bound">Q</span> <span class="main">.</span> terminationPseudo <span class="main">1</span> <span class="bound">cc</span> <span class="bound">Q</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
   Validity<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">∀</span> <span class="bound">i</span> <span class="bound">c</span> <span class="main">.</span> validity <span class="bound">i</span> <span class="bound">c</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -2824,7 +2824,7 @@
 
   \voelzer{Lemma 2}
 ›</span></span>
-<span class="keyword1"><span class="command">lemma</span></span> NonUniformCanReachSilentBivalence<span class="main">:</span>
+<span class="keyword1" id="FLPSystem-NonUniformCanReachSilentBivalence"><span class="command">lemma</span></span> NonUniformCanReachSilentBivalence<span class="main">:</span>
 <span class="keyword2"><span class="keyword">fixes</span></span> 
   <span class="free">p</span><span class="main">::</span> <span class="tfree"><span class="quoted"><span class="tfree">'p</span></span></span> <span class="keyword2"><span class="keyword">and</span></span>
   <span class="free">c</span><span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="tfree">'p</span><span class="main">,</span> <span class="tfree">'v</span><span class="main">,</span> <span class="tfree">'s</span><span class="main">)</span> configuration"</span></span>
@@ -2983,7 +2983,7 @@
   execution where the decision for both values is still possible.
   \voelzer{constructing executions using Lemma 2}
 ›</span></span>
-<span class="keyword1"><span class="command">lemma</span></span> NonUniformExecutionsConstructable<span class="main">:</span>
+<span class="keyword1" id="FLPTheorem-NonUniformExecutionsConstructable"><span class="command">lemma</span></span> NonUniformExecutionsConstructable<span class="main">:</span>
 <span class="keyword2"><span class="keyword">fixes</span></span>
   <span class="free">exec</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="tfree">'p</span><span class="main">,</span> <span class="tfree">'v</span><span class="main">,</span> <span class="tfree">'s</span> <span class="main">)</span> configuration list "</span></span> <span class="keyword2"><span class="keyword">and</span></span>
   <span class="free">trace</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="tfree">'p</span><span class="main">,</span> <span class="tfree">'v</span><span class="main">)</span> message list"</span></span> <span class="keyword2"><span class="keyword">and</span></span> 
@@ -3140,7 +3140,7 @@
   <span class="keyword1"><span class="command">qed</span></span> 
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> NonUniformExecutionBase<span class="main">:</span>
+<span class="keyword1" id="FLPTheorem-NonUniformExecutionBase"><span class="command">lemma</span></span> NonUniformExecutionBase<span class="main">:</span>
 <span class="keyword2"><span class="keyword">fixes</span></span>
   <span class="free">cfg</span>
 <span class="keyword2"><span class="keyword">assumes</span></span>
@@ -3189,7 +3189,7 @@
   <span class="keyword1"><span class="command">with</span></span> StartExec NonUniListCfg MinEnabledMsg <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> NonUniformExecutionStep<span class="main">:</span>
+<span class="keyword1" id="FLPTheorem-NonUniformExecutionStep"><span class="command">lemma</span></span> NonUniformExecutionStep<span class="main">:</span>
 <span class="keyword2"><span class="keyword">fixes</span></span>
  <span class="free">cfgList</span> <span class="free">msgList</span>
 <span class="keyword2"><span class="keyword">assumes</span></span>
@@ -3294,7 +3294,7 @@
     <span class="free"><span class="bound"><span class="entity">fStepMsg</span></span></span> <span class="main">(</span><span class="free">infiniteExecutionCfg</span> <span class="free"><span class="bound"><span class="entity">cfg</span></span></span> <span class="free"><span class="bound"><span class="entity">fStepCfg</span></span></span> <span class="free"><span class="bound"><span class="entity">fStepMsg</span></span></span> <span class="free"><span class="bound"><span class="entity">n</span></span></span><span class="main">)</span> 
              <span class="main">(</span><span class="free">infiniteExecutionMsg</span> <span class="free"><span class="bound"><span class="entity">cfg</span></span></span> <span class="free"><span class="bound"><span class="entity">fStepCfg</span></span></span> <span class="free"><span class="bound"><span class="entity">fStepMsg</span></span></span> <span class="free"><span class="bound"><span class="entity">n</span></span></span><span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> FairNonUniformExecution<span class="main">:</span>
+<span class="keyword1" id="FLPTheorem-FairNonUniformExecution"><span class="command">lemma</span></span> FairNonUniformExecution<span class="main">:</span>
 <span class="keyword2"><span class="keyword">fixes</span></span>
   <span class="free">cfg</span>
 <span class="keyword2"><span class="keyword">assumes</span></span>
@@ -4496,7 +4496,7 @@
     states <span class="main">=</span> <span class="main">(</span><span class="main">λ</span><span class="bound">p</span><span class="main">.</span> s0<span class="main">)</span><span class="main">,</span>
     msgs <span class="main">=</span> <span class="main">(</span><span class="main">{#</span> <span class="main">&lt;</span>p0<span class="main">,</span> <span class="keyword1">inM</span> True<span class="main">&gt;</span> <span class="main">}</span> <span class="main">∪#</span> <span class="main">{#</span> <span class="main">&lt;</span>p1<span class="main">,</span> <span class="keyword1">inM</span> True<span class="main">&gt;</span> <span class="main">}</span><span class="main">)</span> <span class="main">⦈</span> <span class="main">]</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ProcUniv<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">(</span>UNIV <span class="main">::</span> proc set<span class="main">)</span> <span class="main">=</span> <span class="main">{</span>p0<span class="main">,</span> p1<span class="main">}</span>"</span></span>
+<span class="keyword1" id="FLPExistingSystem-ProcUniv"><span class="command">lemma</span></span> ProcUniv<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">(</span>UNIV <span class="main">::</span> proc set<span class="main">)</span> <span class="main">=</span> <span class="main">{</span>p0<span class="main">,</span> p1<span class="main">}</span>"</span></span>
   <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">metis</span> UNIV_eq_I insert_iff proc.exhaust<span class="main">)</span>
 
 <span class="keyword1"><span class="command">subsection</span></span> <span class="quoted"><span class="plain_text">‹Interpretation as FLP Locale›</span></span>

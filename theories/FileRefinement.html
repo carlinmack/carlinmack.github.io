@@ -22,16 +22,16 @@
 
 <span class="comment1">(* ---------------------------------------------------------------*)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> makeCArrayCorrect<span class="main">:</span>
+<span class="keyword1" id="CArrays-makeCArrayCorrect"><span class="command">lemma</span></span> makeCArrayCorrect<span class="main">:</span>
   <span class="quoted"><span class="quoted">"<span class="free">index</span> <span class="main">&lt;</span> <span class="free">arraySize</span> <span class="main">==&gt;</span>
    readCArray <span class="main">(</span>makeCArray <span class="free">arraySize</span> <span class="free">fillValue</span><span class="main">)</span> <span class="free">index</span> <span class="main">=</span> <span class="free">fillValue</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> readCArray_def makeCArray_def<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> writeCArrayCorrect1<span class="main">:</span>
+<span class="keyword1" id="CArrays-writeCArrayCorrect1"><span class="command">lemma</span></span> writeCArrayCorrect1<span class="main">:</span>
   <span class="quoted"><span class="quoted">"readCArray <span class="main">(</span>writeCArray <span class="free">array</span> <span class="free">index</span> <span class="free">value</span><span class="main">)</span> <span class="free">index</span> <span class="main">=</span> <span class="free">value</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> readCArray_def writeCArray_def<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> writeCArrayCorrect2<span class="main">:</span>
+<span class="keyword1" id="CArrays-writeCArrayCorrect2"><span class="command">lemma</span></span> writeCArrayCorrect2<span class="main">:</span>
   <span class="quoted"><span class="quoted">"<span class="free">index1</span> <span class="main">~=</span> <span class="free">index2</span> <span class="main">==&gt;</span>
    readCArray <span class="main">(</span>writeCArray <span class="free">array</span> <span class="free">index1</span> <span class="free">value</span><span class="main">)</span> <span class="free">index2</span> <span class="main">=</span> 
    readCArray <span class="free">array</span> <span class="free">index2</span>"</span></span>
@@ -70,20 +70,20 @@
      <span class="main">(</span>fst <span class="free"><span class="bound"><span class="entity">arr</span></span></span><span class="main">,</span> 
       <span class="main">%</span> <span class="bound">i</span><span class="main">.</span> <span class="keyword1">if</span> <span class="bound">i</span> <span class="main">&lt;</span> fst <span class="free"><span class="bound"><span class="entity">arr</span></span></span> <span class="keyword1">then</span> snd <span class="free"><span class="bound"><span class="entity">arr</span></span></span> <span class="bound">i</span> <span class="keyword1">else</span> <span class="free"><span class="bound"><span class="entity">fill</span></span></span><span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> raWriteSizeSame <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">i</span> <span class="main">&lt;</span> fst <span class="free">arr</span> <span class="main">==&gt;</span> fst <span class="main">(</span>raWrite <span class="free">arr</span> <span class="free">i</span> <span class="free">value</span> <span class="free">fillValue</span><span class="main">)</span> <span class="main">=</span> fst <span class="free">arr</span>"</span></span>
+<span class="keyword1" id="ResizableArrays-raWriteSizeSame"><span class="command">lemma</span></span> raWriteSizeSame <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">i</span> <span class="main">&lt;</span> fst <span class="free">arr</span> <span class="main">==&gt;</span> fst <span class="main">(</span>raWrite <span class="free">arr</span> <span class="free">i</span> <span class="free">value</span> <span class="free">fillValue</span><span class="main">)</span> <span class="main">=</span> fst <span class="free">arr</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp_all</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> raWrite_def fillAndUpdate_def Let_def<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> raWriteSizeGrows <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">(</span>fst <span class="free">arr</span> <span class="main">&lt;=</span> <span class="free">i</span><span class="main">)</span> <span class="main">==&gt;</span> fst <span class="main">(</span>raWrite <span class="free">arr</span> <span class="free">i</span> <span class="free">value</span> <span class="free">fillValue</span><span class="main">)</span> <span class="main">=</span> <span class="free">i</span><span class="main">+</span><span class="main">1</span>"</span></span>
+<span class="keyword1" id="ResizableArrays-raWriteSizeGrows"><span class="command">lemma</span></span> raWriteSizeGrows <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">(</span>fst <span class="free">arr</span> <span class="main">&lt;=</span> <span class="free">i</span><span class="main">)</span> <span class="main">==&gt;</span> fst <span class="main">(</span>raWrite <span class="free">arr</span> <span class="free">i</span> <span class="free">value</span> <span class="free">fillValue</span><span class="main">)</span> <span class="main">=</span> <span class="free">i</span><span class="main">+</span><span class="main">1</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp_all</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> raWrite_def fillAndUpdate_def Let_def<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> raWriteContentChanged <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span> <span class="quoted"><span class="quoted">"snd <span class="main">(</span>raWrite <span class="free">arr</span> <span class="free">i</span> <span class="free">value</span> <span class="free">fillValue</span><span class="main">)</span> <span class="free">i</span> <span class="main">=</span> <span class="free">value</span>"</span></span>
+<span class="keyword1" id="ResizableArrays-raWriteContentChanged"><span class="command">lemma</span></span> raWriteContentChanged <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span> <span class="quoted"><span class="quoted">"snd <span class="main">(</span>raWrite <span class="free">arr</span> <span class="free">i</span> <span class="free">value</span> <span class="free">fillValue</span><span class="main">)</span> <span class="free">i</span> <span class="main">=</span> <span class="free">value</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp_all</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> raWrite_def fillAndUpdate_def Let_def<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> raWriteContentOld <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">[|</span> <span class="free">j</span> <span class="main">&lt;</span> fst <span class="free">arr</span><span class="main">;</span> <span class="free">i</span> <span class="main">~=</span> <span class="free">j</span> <span class="main">|]</span> <span class="main">==&gt;</span> 
+<span class="keyword1" id="ResizableArrays-raWriteContentOld"><span class="command">lemma</span></span> raWriteContentOld <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">[|</span> <span class="free">j</span> <span class="main">&lt;</span> fst <span class="free">arr</span><span class="main">;</span> <span class="free">i</span> <span class="main">~=</span> <span class="free">j</span> <span class="main">|]</span> <span class="main">==&gt;</span> 
                           snd <span class="main">(</span>raWrite <span class="free">arr</span> <span class="free">i</span> <span class="free">value</span> <span class="free">fillValue</span><span class="main">)</span> <span class="free">j</span> <span class="main">=</span> snd <span class="free">arr</span> <span class="free">j</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp_all</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> raWrite_def fillAndUpdate_def Let_def<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> raWriteContentFill <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">[|</span> fst <span class="free">arr</span> <span class="main">&lt;</span> <span class="free">j</span><span class="main">;</span> <span class="free">j</span> <span class="main">&lt;</span> <span class="free">i</span> <span class="main">|]</span> <span class="main">==&gt;</span> 
+<span class="keyword1" id="ResizableArrays-raWriteContentFill"><span class="command">lemma</span></span> raWriteContentFill <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">[|</span> fst <span class="free">arr</span> <span class="main">&lt;</span> <span class="free">j</span><span class="main">;</span> <span class="free">j</span> <span class="main">&lt;</span> <span class="free">i</span> <span class="main">|]</span> <span class="main">==&gt;</span> 
                           snd <span class="main">(</span>raWrite <span class="free">arr</span> <span class="free">i</span> <span class="free">value</span> <span class="free">fillValue</span><span class="main">)</span> <span class="free">j</span> <span class="main">=</span> <span class="free">fillValue</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp_all</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> raWrite_def fillAndUpdate_def Let_def<span class="main">)</span>
 
@@ -254,23 +254,23 @@ afsFileSize :: "AFile =&gt; nat"
 
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹We prove each invariant individually and then summarize.›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> nextFreeBlockInvariant1<span class="main">:</span>
+<span class="keyword1" id="FileRefinement-nextFreeBlockInvariant1"><span class="command">lemma</span></span> nextFreeBlockInvariant1<span class="main">:</span>
   <span class="quoted"><span class="quoted">"nextFreeBlockInvariant makeCF"</span></span>
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> nextFreeBlockInvariant_def makeCF_def<span class="main">)</span>
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> nonZeroBlockSize<span class="main">)</span>
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> unallocatedBlocksInvariant1<span class="main">:</span>
+<span class="keyword1" id="FileRefinement-unallocatedBlocksInvariant1"><span class="command">lemma</span></span> unallocatedBlocksInvariant1<span class="main">:</span>
   <span class="quoted"><span class="quoted">"unallocatedBlocksInvariant makeCF"</span></span>
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> unallocatedBlocksInvariant_def makeCF_def<span class="main">)</span>
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> makeCArray_def<span class="main">)</span>
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> lastBlockInvariant1<span class="main">:</span>
+<span class="keyword1" id="FileRefinement-lastBlockInvariant1"><span class="command">lemma</span></span> lastBlockInvariant1<span class="main">:</span>
   <span class="quoted"><span class="quoted">"lastBlockInvariant makeCF"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> lastBlockInvariant_def makeCF_def<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> makeCFpreserves<span class="main">:</span> <span class="quoted"><span class="quoted">"reachabilityInvariant makeCF"</span></span>
+<span class="keyword1" id="FileRefinement-makeCFpreserves"><span class="command">lemma</span></span> makeCFpreserves<span class="main">:</span> <span class="quoted"><span class="quoted">"reachabilityInvariant makeCF"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> reachabilityInvariant_def
               nextFreeBlockInvariant1
               unallocatedBlocksInvariant1
@@ -279,7 +279,7 @@ afsFileSize :: "AFile =&gt; nat"
 <span class="comment1">(* ---------------------------------------------------------------*)</span>
 <span class="keyword1"><span class="command">subsection</span></span> <span class="quoted"><span class="plain_text">‹Properties of Concrete File Operations›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> cfWriteNoExtendPreservesFileSize<span class="main">:</span>
+<span class="keyword1" id="FileRefinement-cfWriteNoExtendPreservesFileSize"><span class="command">lemma</span></span> cfWriteNoExtendPreservesFileSize<span class="main">:</span>
   <span class="quoted"><span class="quoted">"<span class="main">[|</span> <span class="free">index</span> <span class="main">&lt;</span> fileSize <span class="free">cfile1</span><span class="main">;</span>
       cfWrite <span class="free">cfile1</span> <span class="free">index</span> <span class="free">value</span> <span class="main">=</span> Some <span class="free">cfile2</span>
    <span class="main">|]</span> <span class="main">==&gt;</span> 
@@ -290,7 +290,7 @@ afsFileSize :: "AFile =&gt; nat"
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span> <span class="operator">force</span>
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> cfWriteExtendFileSize<span class="main">:</span>
+<span class="keyword1" id="FileRefinement-cfWriteExtendFileSize"><span class="command">lemma</span></span> cfWriteExtendFileSize<span class="main">:</span>
   <span class="quoted"><span class="quoted">"<span class="main">[|</span> <span class="main">~</span> <span class="free">index</span> <span class="main">&lt;</span> fileSize <span class="free">cfile1</span><span class="main">;</span>
       cfWrite <span class="free">cfile1</span> <span class="free">index</span> <span class="free">value</span> <span class="main">=</span> Some <span class="free">cfile2</span>
    <span class="main">|]</span> <span class="main">==&gt;</span> fileSize <span class="free">cfile2</span> <span class="main">=</span> Suc <span class="free">index</span>"</span></span>
@@ -300,7 +300,7 @@ afsFileSize :: "AFile =&gt; nat"
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span> <span class="operator">force</span>
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> fileSizeIncreases<span class="main">:</span>
+<span class="keyword1" id="FileRefinement-fileSizeIncreases"><span class="command">lemma</span></span> fileSizeIncreases<span class="main">:</span>
   <span class="quoted"><span class="quoted">"cfWrite <span class="free">cfile1</span> <span class="free">index</span> <span class="free">value</span> <span class="main">=</span> Some <span class="free">cfile2</span>
    <span class="main">==&gt;</span> fileSize <span class="free">cfile1</span> <span class="main">&lt;=</span> fileSize <span class="free">cfile2</span>"</span></span>
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> cfWrite_def<span class="main">)</span>
@@ -311,7 +311,7 @@ afsFileSize :: "AFile =&gt; nat"
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span> <span class="operator">force</span>
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> nextFreeBlockIncreases<span class="main">:</span>
+<span class="keyword1" id="FileRefinement-nextFreeBlockIncreases"><span class="command">lemma</span></span> nextFreeBlockIncreases<span class="main">:</span>
   <span class="quoted"><span class="quoted">"<span class="main">[|</span> nextFreeBlockInvariant <span class="free">cfile1</span><span class="main">;</span>
       cfWrite <span class="free">cfile1</span> <span class="free">index</span> <span class="free">value</span> <span class="main">=</span> Some <span class="free">cfile2</span>
    <span class="main">|]</span> <span class="main">==&gt;</span> nextFreeBlock <span class="free">cfile1</span> <span class="main">&lt;=</span> nextFreeBlock <span class="free">cfile2</span>"</span></span>
@@ -341,7 +341,7 @@ afsFileSize :: "AFile =&gt; nat"
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹There is only one top-level concrete operation: write, and we
 show that it preserves all reachability invariants.›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> cfWritePreservesNextFreeBlockInvariant<span class="main">:</span>
+<span class="keyword1" id="FileRefinement-cfWritePreservesNextFreeBlockInvariant"><span class="command">lemma</span></span> cfWritePreservesNextFreeBlockInvariant<span class="main">:</span>
    <span class="quoted"><span class="quoted">"<span class="main">[|</span> reachabilityInvariant <span class="free">cfile1</span><span class="main">;</span>
        cfWrite <span class="free">cfile1</span> <span class="free">byteIndex</span> <span class="free">value</span> <span class="main">=</span> Some <span class="free">cfile2</span>
     <span class="main">|]</span> <span class="main">==&gt;</span> nextFreeBlockInvariant <span class="free">cfile2</span>"</span></span>
@@ -355,7 +355,7 @@ show that it preserves all reachability invariants.›</span></span>
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> nonZeroBlockSize<span class="main">)</span>
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> modInequalityLemma<span class="main">:</span>
+<span class="keyword1" id="FileRefinement-modInequalityLemma"><span class="command">lemma</span></span> modInequalityLemma<span class="main">:</span>
   <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="free">a</span><span class="main">::</span>nat<span class="main">)</span> <span class="main">~=</span> <span class="free">b</span> <span class="main">&amp;</span> <span class="free">a</span> <span class="keyword1">mod</span> <span class="free">c</span> <span class="main">=</span> <span class="free">b</span> <span class="keyword1">mod</span> <span class="free">c</span> <span class="main">==&gt;</span> <span class="free">a</span> <span class="keyword1">div</span> <span class="free">c</span> <span class="main">~=</span> <span class="free">b</span> <span class="keyword1">div</span> <span class="free">c</span>"</span></span>
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span> <span class="main">(</span><span class="operator">insert</span> div_mult_mod_eq <span class="main"><span class="main">[</span></span><span class="operator">of</span> <span class="quoted"><span class="quoted"><span class="quoted">"<span class="free"><span class="free">a</span></span>"</span></span></span> <span class="quoted"><span class="quoted"><span class="quoted">"<span class="free"><span class="free">c</span></span>"</span></span></span><span class="main"><span class="main">]</span></span><span class="main">)</span>
@@ -363,7 +363,7 @@ show that it preserves all reachability invariants.›</span></span>
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span> <span class="operator">simp</span>
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> mod_round_lt<span class="main">:</span>
+<span class="keyword1" id="FileRefinement-mod_round_lt"><span class="command">lemma</span></span> mod_round_lt<span class="main">:</span>
   <span class="quoted"><span class="quoted">"<span class="main">[|</span> <span class="main">0</span> <span class="main">&lt;</span> <span class="main">(</span><span class="free">c</span><span class="main">::</span>nat<span class="main">)</span><span class="main">;</span>
       <span class="free">a</span> <span class="main">&lt;</span> <span class="free">b</span>
    <span class="main">|]</span> <span class="main">==&gt;</span> <span class="free">a</span> <span class="keyword1">div</span> <span class="free">c</span> <span class="main">&lt;</span> <span class="main">(</span><span class="free">b</span> <span class="main">+</span> <span class="free">c</span> <span class="main">-</span> <span class="main">1</span><span class="main">)</span> <span class="keyword1">div</span> <span class="free">c</span>"</span></span>
@@ -376,7 +376,7 @@ show that it preserves all reachability invariants.›</span></span>
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span> <span class="operator">simp</span>
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> blockNumNELemma<span class="main">:</span>
+<span class="keyword1" id="FileRefinement-blockNumNELemma"><span class="command">lemma</span></span> blockNumNELemma<span class="main">:</span>
   <span class="quoted"><span class="quoted">"<span class="main">!!</span><span class="bound">blockNum</span> <span class="bound">i</span><span class="main">.</span>
        <span class="main">[|</span> nextFreeBlockInvariant <span class="free">cfile1</span><span class="main">;</span>
           <span class="free">cfile1</span>
@@ -399,7 +399,7 @@ show that it preserves all reachability invariants.›</span></span>
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span> <span class="operator">force</span>
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> cfWritePreservesUnallocatedBlocksInvariant<span class="main">:</span>
+<span class="keyword1" id="FileRefinement-cfWritePreservesUnallocatedBlocksInvariant"><span class="command">lemma</span></span> cfWritePreservesUnallocatedBlocksInvariant<span class="main">:</span>
    <span class="quoted"><span class="quoted">"<span class="main">[|</span> reachabilityInvariant <span class="free">cfile1</span><span class="main">;</span>
        cfWrite <span class="free">cfile1</span> <span class="free">byteIndex</span> <span class="free">value</span> <span class="main">=</span> Some <span class="free">cfile2</span>
     <span class="main">|]</span> <span class="main">==&gt;</span> unallocatedBlocksInvariant <span class="free">cfile2</span>"</span></span>
@@ -420,7 +420,7 @@ show that it preserves all reachability invariants.›</span></span>
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> nextFreeBlockIncreases<span class="main">)</span>
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> cfWritePreservesLastBlockInvariant<span class="main">:</span>
+<span class="keyword1" id="FileRefinement-cfWritePreservesLastBlockInvariant"><span class="command">lemma</span></span> cfWritePreservesLastBlockInvariant<span class="main">:</span>
    <span class="quoted"><span class="quoted">"<span class="main">[|</span> reachabilityInvariant <span class="free">cfile1</span><span class="main">;</span>
        cfWrite <span class="free">cfile1</span> <span class="free">byteIndex</span> <span class="free">value</span> <span class="main">=</span> Some <span class="free">cfile2</span> <span class="main">|]</span> <span class="main">==&gt;</span> 
     lastBlockInvariant <span class="free">cfile2</span>"</span></span>
@@ -460,7 +460,7 @@ show that it preserves all reachability invariants.›</span></span>
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span>
 
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹Final statement that all invariants are preserved.›</span></span>
-<span class="keyword1"><span class="command">lemma</span></span> cfWritePreserves<span class="main">:</span> 
+<span class="keyword1" id="FileRefinement-cfWritePreserves"><span class="command">lemma</span></span> cfWritePreserves<span class="main">:</span> 
    <span class="quoted"><span class="quoted">"<span class="main">[|</span> reachabilityInvariant <span class="free">cfile1</span><span class="main">;</span>
        cfWrite <span class="free">cfile1</span> <span class="free">byteIndex</span> <span class="free">value</span> <span class="main">=</span> Some <span class="free">cfile2</span> <span class="main">|]</span> <span class="main">==&gt;</span> 
     reachabilityInvariant <span class="free">cfile2</span>"</span></span>
@@ -491,19 +491,19 @@ show that it preserves all reachability invariants.›</span></span>
 <span class="comment1">(* ---------------------------------------------------------------*)</span>
 <span class="keyword1"><span class="command">subsubsection</span></span> <span class="quoted"><span class="plain_text">‹Creating a File›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> makeCFCorrect<span class="main">:</span> <span class="quoted"><span class="quoted">"abstFn makeCF <span class="main">=</span> makeAF"</span></span>
+<span class="keyword1" id="FileRefinement-makeCFCorrect"><span class="command">lemma</span></span> makeCFCorrect<span class="main">:</span> <span class="quoted"><span class="quoted">"abstFn makeCF <span class="main">=</span> makeAF"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> makeCF_def makeAF_def abstFn_def cfRead_def
     <span class="quasi_keyword">split</span><span class="main"><span class="main">:</span></span> bool.splits option.splits<span class="main">)</span>
 
 <span class="keyword1"><span class="command">subsubsection</span></span> <span class="quoted"><span class="plain_text">‹File Size›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> fileSizeCorrect<span class="main">:</span>
+<span class="keyword1" id="FileRefinement-fileSizeCorrect"><span class="command">lemma</span></span> fileSizeCorrect<span class="main">:</span>
   <span class="quoted"><span class="quoted">"cfSize <span class="free">cfile</span> <span class="main">=</span> afSize <span class="main">(</span>abstFn <span class="free">cfile</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> cfSize_def afSize_def abstFn_def<span class="main">)</span>
 
 <span class="keyword1"><span class="command">subsubsection</span></span> <span class="quoted"><span class="plain_text">‹Read Operation›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> readCorrect<span class="main">:</span>
+<span class="keyword1" id="FileRefinement-readCorrect"><span class="command">lemma</span></span> readCorrect<span class="main">:</span>
   <span class="quoted"><span class="quoted">"cfRead <span class="free">cfile</span> <span class="main">=</span> afRead <span class="main">(</span>abstFn <span class="free">cfile</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> abstFn_def<span class="main">)</span>
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span> <span class="main">(</span><span class="operator">rule</span> ext<span class="main">)</span>
@@ -512,7 +512,7 @@ show that it preserves all reachability invariants.›</span></span>
 
 <span class="keyword1"><span class="command">subsubsection</span></span> <span class="quoted"><span class="plain_text">‹Write Operation›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> writeNoExtendCorrect<span class="main">:</span>
+<span class="keyword1" id="FileRefinement-writeNoExtendCorrect"><span class="command">lemma</span></span> writeNoExtendCorrect<span class="main">:</span>
   <span class="quoted"><span class="quoted">"<span class="main">[|</span> <span class="free">index</span> <span class="main">&lt;</span> fileSize <span class="free">cfile1</span><span class="main">;</span>
       Some <span class="free">cfile2</span> <span class="main">=</span> cfWrite <span class="free">cfile1</span> <span class="free">index</span> <span class="free">value</span>
    <span class="main">|]</span> <span class="main">==&gt;</span> Some <span class="main">(</span>abstFn <span class="free">cfile2</span><span class="main">)</span> <span class="main">=</span> afWrite <span class="main">(</span>abstFn <span class="free">cfile1</span><span class="main">)</span> <span class="free">index</span> <span class="free">value</span>"</span></span>
@@ -528,7 +528,7 @@ show that it preserves all reachability invariants.›</span></span>
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span> <span class="main">(</span><span class="operator">simp_all</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> modInequalityLemma<span class="main">)</span>
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> writeExtendCorrect<span class="main">:</span>
+<span class="keyword1" id="FileRefinement-writeExtendCorrect"><span class="command">lemma</span></span> writeExtendCorrect<span class="main">:</span>
   <span class="quoted"><span class="quoted">"<span class="main">[|</span> nextFreeBlockInvariant <span class="free">cfile1</span><span class="main">;</span>
       unallocatedBlocksInvariant <span class="free">cfile1</span><span class="main">;</span>
       lastBlockInvariant <span class="free">cfile1</span><span class="main">;</span>
@@ -578,7 +578,7 @@ show that it preserves all reachability invariants.›</span></span>
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span> <span class="main">(</span><span class="operator">simp_all</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> le_diff_conv<span class="main">)</span>
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> writeSucceedCorrect<span class="main">:</span>
+<span class="keyword1" id="FileRefinement-writeSucceedCorrect"><span class="command">lemma</span></span> writeSucceedCorrect<span class="main">:</span>
   <span class="quoted"><span class="quoted">"<span class="main">[|</span> nextFreeBlockInvariant <span class="free">cfile1</span><span class="main">;</span>
       unallocatedBlocksInvariant <span class="free">cfile1</span><span class="main">;</span>
       lastBlockInvariant <span class="free">cfile1</span><span class="main">;</span>
@@ -588,7 +588,7 @@ show that it preserves all reachability invariants.›</span></span>
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span> <span class="main">(</span><span class="operator">simp_all</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> writeExtendCorrect writeNoExtendCorrect<span class="main">)</span>
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> writeFailCorrect<span class="main">:</span>
+<span class="keyword1" id="FileRefinement-writeFailCorrect"><span class="command">lemma</span></span> writeFailCorrect<span class="main">:</span>
   <span class="quoted"><span class="quoted">"cfWrite <span class="free">cfile1</span> <span class="free">index</span> <span class="free">value</span> <span class="main">=</span> None <span class="main">==&gt;</span> 
    afWrite <span class="main">(</span>abstFn <span class="free">cfile1</span><span class="main">)</span> <span class="free">index</span> <span class="free">value</span> <span class="main">=</span> None"</span></span>
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> abstFn_def cfWrite_def afWrite_def<span class="main">)</span>
@@ -596,7 +596,7 @@ show that it preserves all reachability invariants.›</span></span>
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span> <span class="main">(</span><span class="operator">case_tac</span> <span class="quoted"><span class="quoted">"<span class="free">index</span> <span class="main">&lt;</span> fileSize <span class="free">cfile1</span>"</span></span><span class="main"><span class="keyword3">,</span></span> <span class="operator">simp_all</span><span class="main">)</span>
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> writeCorrect<span class="main">:</span>
+<span class="keyword1" id="FileRefinement-writeCorrect"><span class="command">lemma</span></span> writeCorrect<span class="main">:</span>
   <span class="quoted"><span class="quoted">"reachabilityInvariant <span class="free">cfile1</span> <span class="main">==&gt;</span>
    oAbstFn <span class="main">(</span>cfWrite <span class="free">cfile1</span> <span class="free">index</span> <span class="free">value</span><span class="main">)</span> <span class="main">=</span> afWrite <span class="main">(</span>abstFn <span class="free">cfile1</span><span class="main">)</span> <span class="free">index</span> <span class="free">value</span>"</span></span>
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> reachabilityInvariant_def<span class="main">)</span>

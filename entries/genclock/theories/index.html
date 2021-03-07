@@ -1,4 +1,4 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Session GenClock - Archive of Formal Proofs</title><meta property="og:title" content="Session GenClock"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/genclock/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Session GenClock"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css><link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><a href=/entries/genclock><li>Return to entry</li></a></ul><hr><ul><a href=#GenClock><li>GenClock</li></a></ul></div><ul><a href=https://www.isa-afp.org/browser_info/current/AFP/GenClock/outline.pdf><li>Proof
+<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Session GenClock - Archive of Formal Proofs</title><meta property="og:title" content="Session GenClock"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/genclock/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Session GenClock"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css><link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><a href=/entries/genclock><li>Return to entry</li></a></ul><hr><ul><li><a href=#GenClock>GenClock</a><ul><a href=#GenClock-rts0d><li>rts0d</li></a><a href=#GenClock-rts1d><li>rts1d</li></a><a href=#GenClock-rte><li>rte</li></a><a href=#GenClock-beta_bound1><li>beta_bound1</li></a><a href=#GenClock-beta_bound2><li>beta_bound2</li></a><a href=#GenClock-bd><li>bd</li></a><a href=#GenClock-bounded_drift><li>bounded_drift</li></a><a href=#GenClock-IC_rate1><li>IC_rate1</li></a><a href=#GenClock-IC_rate2><li>IC_rate2</li></a><a href=#GenClock-IC_bd><li>IC_bd</li></a><a href=#GenClock-event_bound><li>event_bound</li></a><a href=#GenClock-okClocks_sym><li>okClocks_sym</li></a><a href=#GenClock-ICp_Suc><li>ICp_Suc</li></a><a href=#GenClock-IC_trans_inv><li>IC_trans_inv</li></a><a href=#GenClock-beta_rho><li>beta_rho</li></a><a href=#GenClock-pe_cond1><li>pe_cond1</li></a><a href=#GenClock-pe_cond2><li>pe_cond2</li></a><a href=#GenClock-theta_bound><li>theta_bound</li></a><a href=#GenClock-four_one_ind_half><li>four_one_ind_half</li></a><a href=#GenClock-VC_cfn><li>VC_cfn</li></a><a href=#GenClock-four_two_ind><li>four_two_ind</li></a></ul></li></ul></div><ul><a href=https://www.isa-afp.org/browser_info/current/AFP/GenClock/outline.pdf><li>Proof
 outline</li></a><a href=https://www.isa-afp.org/browser_info/current/AFP/GenClock/document.pdf><li>Proof
 document</li></a><a href=https://www.isa-afp.org/browser_info/current/AFP/GenClock/session_graph.pdf><li>Theory dependencies</li></a></ul></div></aside><div class="content theories"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255><button id=searchButton type=button><img src=/images/search.svg alt=Search></button><div id=searchInputautocomplete-list style=display:none><div></div></div></div></form><h1><span class=first>S</span>ession <span class=first>G</span>en<span class=first>C</span>lock</h1><div></div></header><div><main><div id=GenClock><div class=head><h1>Theory GenClock</h1></div><pre class=source><span class=comment1>(*  Title:       Formalization of Schneider's generalized clock synchronization protocol.
     Author:      Alwen Tiu, LORIA, June 11, 2005
@@ -149,17 +149,17 @@ to synchronization rounds.›</span></span>
 
 <span class=keyword1><span class=command>subsubsection</span></span><span class=quoted><span class=plain_text>‹Some derived properties of clocks›</span></span>
 
-<span class=keyword1><span class=command>lemma</span></span> rts0d<span class=main>:</span>
+<span class=keyword1 id=GenClock-rts0d><span class=command>lemma</span></span> rts0d<span class=main>:</span>
 <span class=keyword2><span class=keyword>assumes</span></span> cp<span class=main>:</span> <span class=quoted><span class=quoted>"correct <span class=free>p</span> <span class=main>(</span>te <span class=free>p</span> <span class=main>(</span><span class=free>i</span><span class=main>+</span><span class=main>1</span><span class=main>)</span><span class=main>)</span>"</span></span>
 <span class=keyword2><span class=keyword>shows</span></span> <span class=quoted><span class=quoted>"te <span class=free>p</span> <span class=main>(</span><span class=free>i</span><span class=main>+</span><span class=main>1</span><span class=main>)</span> <span class=main>-</span> te <span class=free>p</span> <span class=free>i</span> <span class=main>≤</span> rmax"</span></span>
 <span class=keyword1><span class=command>using</span></span> cp rts0 <span class=keyword1><span class=command>by</span></span> <span class=operator>simp</span>
 
-<span class=keyword1><span class=command>lemma</span></span> rts1d<span class=main>:</span>
+<span class=keyword1 id=GenClock-rts1d><span class=command>lemma</span></span> rts1d<span class=main>:</span>
 <span class=keyword2><span class=keyword>assumes</span></span> cp<span class=main>:</span> <span class=quoted><span class=quoted>"correct <span class=free>p</span> <span class=main>(</span>te <span class=free>p</span> <span class=main>(</span><span class=free>i</span><span class=main>+</span><span class=main>1</span><span class=main>)</span><span class=main>)</span>"</span></span>
 <span class=keyword2><span class=keyword>shows</span></span> <span class=quoted><span class=quoted>"rmin <span class=main>≤</span> te <span class=free>p</span> <span class=main>(</span><span class=free>i</span><span class=main>+</span><span class=main>1</span><span class=main>)</span> <span class=main>-</span> te <span class=free>p</span> <span class=free>i</span>"</span></span>
 <span class=keyword1><span class=command>using</span></span> cp rts1 <span class=keyword1><span class=command>by</span></span> <span class=operator>simp</span>
 
-<span class=keyword1><span class=command>lemma</span></span> rte<span class=main>:</span>
+<span class=keyword1 id=GenClock-rte><span class=command>lemma</span></span> rte<span class=main>:</span>
 <span class=keyword2><span class=keyword>assumes</span></span> cp<span class=main>:</span> <span class=quoted><span class=quoted>"correct <span class=free>p</span> <span class=main>(</span>te <span class=free>p</span> <span class=main>(</span><span class=free>i</span><span class=main>+</span><span class=main>1</span><span class=main>)</span><span class=main>)</span>"</span></span>
 <span class=keyword2><span class=keyword>shows</span></span> <span class=quoted><span class=quoted>"te <span class=free>p</span> <span class=free>i</span> <span class=main>≤</span> te <span class=free>p</span> <span class=main>(</span><span class=free>i</span><span class=main>+</span><span class=main>1</span><span class=main>)</span>"</span></span>
 <span class=keyword1><span class=command>proof</span></span><span class=operator>-</span>
@@ -168,7 +168,7 @@ to synchronization rounds.›</span></span>
   <span class=keyword1><span class=command>from</span></span> this constants_ax <span class=keyword3><span class=command>show</span></span> <span class=var><span class=quoted><span class=var>?thesis</span></span></span> <span class=keyword1><span class=command>by</span></span> <span class=operator>arith</span>
 <span class=keyword1><span class=command>qed</span></span>
 
-<span class=keyword1><span class=command>lemma</span></span> beta_bound1<span class=main>:</span>
+<span class=keyword1 id=GenClock-beta_bound1><span class=command>lemma</span></span> beta_bound1<span class=main>:</span>
 <span class=keyword2><span class=keyword>assumes</span></span> corr_p<span class=main>:</span> <span class=quoted><span class=quoted>"correct <span class=free>p</span> <span class=main>(</span>te <span class=free>p</span> <span class=main>(</span><span class=free>i</span><span class=main>+</span><span class=main>1</span><span class=main>)</span><span class=main>)</span>"</span></span>
 <span class=keyword2><span class=keyword>and</span></span> corr_q<span class=main>:</span> <span class=quoted><span class=quoted>"correct <span class=free>q</span> <span class=main>(</span>te <span class=free>p</span> <span class=main>(</span><span class=free>i</span><span class=main>+</span><span class=main>1</span><span class=main>)</span><span class=main>)</span>"</span></span>
 <span class=keyword2><span class=keyword>shows</span></span> <span class=quoted><span class=quoted>"<span class=main>0</span> <span class=main>≤</span> te <span class=free>p</span> <span class=main>(</span><span class=free>i</span><span class=main>+</span><span class=main>1</span><span class=main>)</span> <span class=main>-</span> te <span class=free>q</span> <span class=free>i</span>"</span></span>
@@ -188,7 +188,7 @@ to synchronization rounds.›</span></span>
   <span class=keyword3><span class=command>thus</span></span> <span class=var><span class=quoted><span class=var>?thesis</span></span></span> <span class=keyword1><span class=command>by</span></span> <span class=operator>simp</span>
 <span class=keyword1><span class=command>qed</span></span>
 
-<span class=keyword1><span class=command>lemma</span></span> beta_bound2<span class=main>:</span>
+<span class=keyword1 id=GenClock-beta_bound2><span class=command>lemma</span></span> beta_bound2<span class=main>:</span>
 <span class=keyword2><span class=keyword>assumes</span></span> corr_p<span class=main>:</span> <span class=quoted><span class=quoted>"correct <span class=free>p</span> <span class=main>(</span>te <span class=free>p</span> <span class=main>(</span><span class=free>i</span><span class=main>+</span><span class=main>1</span><span class=main>)</span><span class=main>)</span>"</span></span>
 <span class=keyword2><span class=keyword>and</span></span> corr_q<span class=main>:</span> <span class=quoted><span class=quoted>"correct <span class=free>q</span> <span class=main>(</span>te <span class=free>q</span> <span class=free>i</span><span class=main>)</span>"</span></span>
 <span class=keyword2><span class=keyword>shows</span></span> <span class=quoted><span class=quoted>"te <span class=free>p</span> <span class=main>(</span><span class=free>i</span><span class=main>+</span><span class=main>1</span><span class=main>)</span> <span class=main>-</span> te <span class=free>q</span> <span class=free>i</span> <span class=main>≤</span> rmax <span class=main>+</span> β"</span></span>
@@ -222,7 +222,7 @@ to synchronization rounds.›</span></span>
 
 <span class=keyword1><span class=command>subsubsection</span></span><span class=quoted><span class=plain_text>‹Bounded-drift for logical clocks (IC)›</span></span>
 
-<span class=keyword1><span class=command>lemma</span></span> bd<span class=main>:</span>
+<span class=keyword1 id=GenClock-bd><span class=command>lemma</span></span> bd<span class=main>:</span>
   <span class=keyword2><span class=keyword>assumes</span></span> ie<span class=main>:</span> <span class=quoted><span class=quoted>"<span class=free>s</span> <span class=main>≤</span> <span class=free>t</span>"</span></span>
   <span class=keyword2><span class=keyword>and</span></span> rb1<span class=main>:</span> <span class=quoted><span class=quoted>"rho_bound1 <span class=free>C</span>"</span></span>
   <span class=keyword2><span class=keyword>and</span></span> rb2<span class=main>:</span> <span class=quoted><span class=quoted>"rho_bound2 <span class=free>D</span>"</span></span>
@@ -256,7 +256,7 @@ to synchronization rounds.›</span></span>
   <span class=keyword1><span class=command>ultimately</span></span> <span class=keyword3><span class=command>show</span></span> <span class=var><span class=quoted><span class=var>?thesis</span></span></span> <span class=keyword1><span class=command>by</span></span> <span class=operator>simp</span>
 <span class=keyword1><span class=command>qed</span></span>
 
-<span class=keyword1><span class=command>lemma</span></span> bounded_drift<span class=main>:</span>
+<span class=keyword1 id=GenClock-bounded_drift><span class=command>lemma</span></span> bounded_drift<span class=main>:</span>
   <span class=keyword2><span class=keyword>assumes</span></span> ie<span class=main>:</span> <span class=quoted><span class=quoted>"<span class=free>s</span> <span class=main>≤</span> <span class=free>t</span>"</span></span>
   <span class=keyword2><span class=keyword>and</span></span> rb1<span class=main>:</span> <span class=quoted><span class=quoted>"rho_bound1 <span class=free>C</span>"</span></span>
   <span class=keyword2><span class=keyword>and</span></span> rb2<span class=main>:</span> <span class=quoted><span class=quoted>"rho_bound2 <span class=free>C</span>"</span></span>
@@ -285,7 +285,7 @@ to synchronization rounds.›</span></span>
 
 <span class=keyword1><span class=command>text</span></span><span class=quoted><span class=plain_text>‹Drift rate of logical clocks›</span></span>
 
-<span class=keyword1><span class=command>lemma</span></span> IC_rate1<span class=main>:</span>
+<span class=keyword1 id=GenClock-IC_rate1><span class=command>lemma</span></span> IC_rate1<span class=main>:</span>
 <span class=quoted><span class=quoted>"rho_bound1 <span class=main>(</span><span class=main>λ</span> <span class=bound>p</span> <span class=bound>t</span><span class=main>.</span> IC <span class=bound>p</span> <span class=free>i</span> <span class=bound>t</span><span class=main>)</span>"</span></span>
 <span class=keyword1><span class=command>proof</span></span><span class=operator>-</span>
   <span class=keyword1><span class=command>{</span></span>
@@ -312,7 +312,7 @@ to synchronization rounds.›</span></span>
   <span class=keyword3><span class=command>thus</span></span> <span class=var><span class=quoted><span class=var>?thesis</span></span></span> <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> rho_bound1_def<span class=main>)</span>
 <span class=keyword1><span class=command>qed</span></span>
 
-<span class=keyword1><span class=command>lemma</span></span> IC_rate2<span class=main>:</span>
+<span class=keyword1 id=GenClock-IC_rate2><span class=command>lemma</span></span> IC_rate2<span class=main>:</span>
 <span class=quoted><span class=quoted>"rho_bound2 <span class=main>(</span><span class=main>λ</span> <span class=bound>p</span> <span class=bound>t</span><span class=main>.</span> IC <span class=bound>p</span> <span class=free>i</span> <span class=bound>t</span><span class=main>)</span>"</span></span>
 <span class=keyword1><span class=command>proof</span></span><span class=operator>-</span>
   <span class=keyword1><span class=command>{</span></span>
@@ -346,7 +346,7 @@ unification problem in some tactic of isabelle.›</span></span>
   <span class=entity>ICf</span> <span class=main>::</span> <span class=quoted><span class=quoted>"nat <span class=main>⇒</span> <span class=main>(</span>process <span class=main>⇒</span> time <span class=main>⇒</span> Clocktime<span class=main>)</span>"</span></span> <span class=keyword2><span class=keyword>where</span></span>
   <span class=quoted><span class=quoted>"<span class=free>ICf</span> <span class=free><span class=bound><span class=entity>i</span></span></span> <span class=main>=</span> <span class=main>(</span><span class=main>λ</span> <span class=bound>p</span> <span class=bound>t</span><span class=main>.</span> IC <span class=bound>p</span> <span class=free><span class=bound><span class=entity>i</span></span></span> <span class=bound>t</span><span class=main>)</span>"</span></span>
 
-<span class=keyword1><span class=command>lemma</span></span> IC_bd<span class=main>:</span>
+<span class=keyword1 id=GenClock-IC_bd><span class=command>lemma</span></span> IC_bd<span class=main>:</span>
   <span class=keyword2><span class=keyword>assumes</span></span> ie<span class=main>:</span> <span class=quoted><span class=quoted>"<span class=free>s</span> <span class=main>≤</span> <span class=free>t</span>"</span></span>
   <span class=keyword2><span class=keyword>and</span></span> corr_p<span class=main>:</span> <span class=quoted><span class=quoted>"correct <span class=free>p</span> <span class=free>t</span>"</span></span>
   <span class=keyword2><span class=keyword>and</span></span> corr_q<span class=main>:</span> <span class=quoted><span class=quoted>"correct <span class=free>q</span> <span class=free>t</span>"</span></span>
@@ -368,7 +368,7 @@ unification problem in some tactic of isabelle.›</span></span>
   <span class=keyword1><span class=command>from</span></span> this <span class=keyword3><span class=command>show</span></span> <span class=var><span class=quoted><span class=var>?thesis</span></span></span> <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> ICf_def<span class=main>)</span>
 <span class=keyword1><span class=command>qed</span></span>
 
-<span class=keyword1><span class=command>lemma</span></span> event_bound<span class=main>:</span>
+<span class=keyword1 id=GenClock-event_bound><span class=command>lemma</span></span> event_bound<span class=main>:</span>
 <span class=keyword2><span class=keyword>assumes</span></span> ie1<span class=main>:</span> <span class=quoted><span class=quoted>"<span class=main>0</span> <span class=main>≤</span> <span class=main>(</span><span class=free>t</span><span class=main>::</span>real<span class=main>)</span>"</span></span>
 <span class=keyword2><span class=keyword>and</span></span> corr_p<span class=main>:</span> <span class=quoted><span class=quoted>"correct <span class=free>p</span> <span class=free>t</span>"</span></span>
 <span class=keyword2><span class=keyword>and</span></span> corr_q<span class=main>:</span> <span class=quoted><span class=quoted>"correct <span class=free>q</span> <span class=free>t</span>"</span></span>
@@ -473,7 +473,7 @@ unification problem in some tactic of isabelle.›</span></span>
         <span class=main>∧</span> correct <span class=free><span class=bound><span class=entity>p</span></span></span> <span class=bound>t</span> <span class=main>∧</span> correct <span class=free><span class=bound><span class=entity>q</span></span></span> <span class=bound>t</span>
      <span class=main>⟶</span> <span class=main>¦</span>VC <span class=free><span class=bound><span class=entity>p</span></span></span> <span class=bound>t</span> <span class=main>-</span> VC <span class=free><span class=bound><span class=entity>q</span></span></span> <span class=bound>t</span><span class=main>¦</span> <span class=main>≤</span> δ<span class=main>)</span>"</span></span>
 
-<span class=keyword1><span class=command>lemma</span></span> okClocks_sym<span class=main>:</span>
+<span class=keyword1 id=GenClock-okClocks_sym><span class=command>lemma</span></span> okClocks_sym<span class=main>:</span>
 <span class=keyword2><span class=keyword>assumes</span></span> ok_pq<span class=main>:</span> <span class=quoted><span class=quoted>"okClocks <span class=free>p</span> <span class=free>q</span> <span class=free>i</span>"</span></span>
 <span class=keyword2><span class=keyword>shows</span></span> <span class=quoted><span class=quoted>"okClocks <span class=free>q</span> <span class=free>p</span> <span class=free>i</span>"</span></span>
 <span class=keyword1><span class=command>proof</span></span><span class=operator>-</span>
@@ -493,12 +493,12 @@ unification problem in some tactic of isabelle.›</span></span>
   <span class=keyword3><span class=command>thus</span></span> <span class=var><span class=quoted><span class=var>?thesis</span></span></span> <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> okClocks_def<span class=main>)</span>
 <span class=keyword1><span class=command>qed</span></span>
 
-<span class=keyword1><span class=command>lemma</span></span> ICp_Suc<span class=main>:</span>
+<span class=keyword1 id=GenClock-ICp_Suc><span class=command>lemma</span></span> ICp_Suc<span class=main>:</span>
 <span class=keyword2><span class=keyword>assumes</span></span> corr_p<span class=main>:</span> <span class=quoted><span class=quoted>"correct <span class=free>p</span> <span class=main>(</span>te <span class=free>p</span> <span class=main>(</span><span class=free>i</span><span class=main>+</span><span class=main>1</span><span class=main>)</span><span class=main>)</span>"</span></span>
 <span class=keyword2><span class=keyword>shows</span></span> <span class=quoted><span class=quoted>"IC <span class=free>p</span> <span class=main>(</span><span class=free>i</span><span class=main>+</span><span class=main>1</span><span class=main>)</span> <span class=main>(</span>te <span class=free>p</span> <span class=main>(</span><span class=free>i</span><span class=main>+</span><span class=main>1</span><span class=main>)</span><span class=main>)</span> <span class=main>=</span> cfn <span class=free>p</span> <span class=main>(</span>θ <span class=free>p</span> <span class=main>(</span><span class=free>i</span><span class=main>+</span><span class=main>1</span><span class=main>)</span><span class=main>)</span> "</span></span>
 <span class=keyword1><span class=command>using</span></span> corr_p IClock <span class=keyword1><span class=command>by</span></span><span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> Adj_def<span class=main>)</span>
 
-<span class=keyword1><span class=command>lemma</span></span> IC_trans_inv<span class=main>:</span>
+<span class=keyword1 id=GenClock-IC_trans_inv><span class=command>lemma</span></span> IC_trans_inv<span class=main>:</span>
 <span class=keyword2><span class=keyword>assumes</span></span> ie1<span class=main>:</span> <span class=quoted><span class=quoted>"te <span class=free>q</span> <span class=main>(</span><span class=free>i</span><span class=main>+</span><span class=main>1</span><span class=main>)</span> <span class=main>≤</span> te <span class=free>p</span> <span class=main>(</span><span class=free>i</span><span class=main>+</span><span class=main>1</span><span class=main>)</span>"</span></span>
 <span class=keyword2><span class=keyword>and</span></span> corr_p<span class=main>:</span> <span class=quoted><span class=quoted>"correct <span class=free>p</span> <span class=main>(</span>te <span class=free>p</span> <span class=main>(</span><span class=free>i</span><span class=main>+</span><span class=main>1</span><span class=main>)</span><span class=main>)</span>"</span></span>
 <span class=keyword2><span class=keyword>and</span></span> corr_q<span class=main>:</span> <span class=quoted><span class=quoted>"correct <span class=free>q</span> <span class=main>(</span>te <span class=free>p</span> <span class=main>(</span><span class=free>i</span><span class=main>+</span><span class=main>1</span><span class=main>)</span><span class=main>)</span>"</span></span>
@@ -518,7 +518,7 @@ unification problem in some tactic of isabelle.›</span></span>
   <span class=keyword1><span class=command>from</span></span> this posX trans_inv <span class=keyword3><span class=command>show</span></span> <span class=var><span class=quoted><span class=var>?thesis</span></span></span> <span class=keyword1><span class=command>by</span></span> <span class=operator>simp</span>
 <span class=keyword1><span class=command>qed</span></span>
 
-<span class=keyword1><span class=command>lemma</span></span> beta_rho<span class=main>:</span>
+<span class=keyword1 id=GenClock-beta_rho><span class=command>lemma</span></span> beta_rho<span class=main>:</span>
 <span class=keyword2><span class=keyword>assumes</span></span> ie<span class=main>:</span> <span class=quoted><span class=quoted>"te <span class=free>q</span> <span class=main>(</span><span class=free>i</span><span class=main>+</span><span class=main>1</span><span class=main>)</span> <span class=main>≤</span> te <span class=free>p</span> <span class=main>(</span><span class=free>i</span><span class=main>+</span><span class=main>1</span><span class=main>)</span>"</span></span>
 <span class=keyword2><span class=keyword>and</span></span> corr_p<span class=main>:</span> <span class=quoted><span class=quoted>"correct <span class=free>p</span> <span class=main>(</span>te <span class=free>p</span> <span class=main>(</span><span class=free>i</span><span class=main>+</span><span class=main>1</span><span class=main>)</span><span class=main>)</span>"</span></span>
 <span class=keyword2><span class=keyword>and</span></span> corr_q<span class=main>:</span> <span class=quoted><span class=quoted>"correct <span class=free>q</span> <span class=main>(</span>te <span class=free>p</span> <span class=main>(</span><span class=free>i</span><span class=main>+</span><span class=main>1</span><span class=main>)</span><span class=main>)</span>"</span></span>
@@ -563,7 +563,7 @@ unification problem in some tactic of isabelle.›</span></span>
 <span class=keyword1><span class=command>text</span></span><span class=quoted><span class=plain_text>‹This lemma (and the next one pe-cond2) proves an assumption used
 in the precision enhancement.›</span></span>
 
-<span class=keyword1><span class=command>lemma</span></span> pe_cond1<span class=main>:</span>
+<span class=keyword1 id=GenClock-pe_cond1><span class=command>lemma</span></span> pe_cond1<span class=main>:</span>
 <span class=keyword2><span class=keyword>assumes</span></span> ie<span class=main>:</span> <span class=quoted><span class=quoted>"te <span class=free>q</span> <span class=main>(</span><span class=free>i</span><span class=main>+</span><span class=main>1</span><span class=main>)</span> <span class=main>≤</span> te <span class=free>p</span> <span class=main>(</span><span class=free>i</span><span class=main>+</span><span class=main>1</span><span class=main>)</span>"</span></span>
 <span class=keyword2><span class=keyword>and</span></span> corr_p<span class=main>:</span> <span class=quoted><span class=quoted>"correct <span class=free>p</span> <span class=main>(</span>te <span class=free>p</span> <span class=main>(</span><span class=free>i</span><span class=main>+</span><span class=main>1</span><span class=main>)</span><span class=main>)</span>"</span></span>
 <span class=keyword2><span class=keyword>and</span></span> corr_q<span class=main>:</span> <span class=quoted><span class=quoted>"correct <span class=free>q</span> <span class=main>(</span>te <span class=free>p</span> <span class=main>(</span><span class=free>i</span> <span class=main>+</span> <span class=main>1</span><span class=main>)</span><span class=main>)</span>"</span></span>
@@ -653,7 +653,7 @@ in the precision enhancement.›</span></span>
 
 <span class=keyword1><span class=command>qed</span></span>
 
-<span class=keyword1><span class=command>lemma</span></span> pe_cond2<span class=main>:</span>
+<span class=keyword1 id=GenClock-pe_cond2><span class=command>lemma</span></span> pe_cond2<span class=main>:</span>
 <span class=keyword2><span class=keyword>assumes</span></span> ie<span class=main>:</span> <span class=quoted><span class=quoted>"te <span class=free>m</span> <span class=free>i</span> <span class=main>≤</span> te <span class=free>l</span> <span class=free>i</span>"</span></span>
 <span class=keyword2><span class=keyword>and</span></span> corr_k<span class=main>:</span> <span class=quoted><span class=quoted>"correct <span class=free>k</span> <span class=main>(</span>te <span class=free>k</span> <span class=main>(</span><span class=free>i</span><span class=main>+</span><span class=main>1</span><span class=main>)</span><span class=main>)</span>"</span></span>
 <span class=keyword2><span class=keyword>and</span></span> corr_l_tk<span class=main>:</span> <span class=quoted><span class=quoted>"correct <span class=free>l</span> <span class=main>(</span>te <span class=free>k</span> <span class=main>(</span><span class=free>i</span><span class=main>+</span><span class=main>1</span><span class=main>)</span><span class=main>)</span>"</span></span>
@@ -704,7 +704,7 @@ in the precision enhancement.›</span></span>
   <span class=keyword1><span class=command>from</span></span> Eq1 Eq2 Eq4a Eq7 split <span class=keyword3><span class=command>show</span></span> <span class=var><span class=quoted><span class=var>?thesis</span></span></span> <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span><span class=main>)</span>
 <span class=keyword1><span class=command>qed</span></span>
 
-<span class=keyword1><span class=command>lemma</span></span> theta_bound<span class=main>:</span>
+<span class=keyword1 id=GenClock-theta_bound><span class=command>lemma</span></span> theta_bound<span class=main>:</span>
 <span class=keyword2><span class=keyword>assumes</span></span> corr_l<span class=main>:</span> <span class=quoted><span class=quoted>"correct <span class=free>l</span> <span class=main>(</span>te <span class=free>p</span> <span class=main>(</span><span class=free>i</span><span class=main>+</span><span class=main>1</span><span class=main>)</span><span class=main>)</span>"</span></span>
 <span class=keyword2><span class=keyword>and</span></span> corr_m<span class=main>:</span> <span class=quoted><span class=quoted>"correct <span class=free>m</span> <span class=main>(</span>te <span class=free>p</span> <span class=main>(</span><span class=free>i</span><span class=main>+</span><span class=main>1</span><span class=main>)</span><span class=main>)</span>"</span></span>
 <span class=keyword2><span class=keyword>and</span></span> corr_p<span class=main>:</span> <span class=quoted><span class=quoted>"correct <span class=free>p</span> <span class=main>(</span>te <span class=free>p</span> <span class=main>(</span><span class=free>i</span><span class=main>+</span><span class=main>1</span><span class=main>)</span><span class=main>)</span>"</span></span>
@@ -754,7 +754,7 @@ in the precision enhancement.›</span></span>
   <span class=keyword1><span class=command>qed</span></span>
 <span class=keyword1><span class=command>qed</span></span>
 
-<span class=keyword1><span class=command>lemma</span></span> four_one_ind_half<span class=main>:</span>
+<span class=keyword1 id=GenClock-four_one_ind_half><span class=command>lemma</span></span> four_one_ind_half<span class=main>:</span>
   <span class=keyword2><span class=keyword>assumes</span></span> ie1<span class=main>:</span> <span class=quoted><span class=quoted>"β <span class=main>≤</span> rmin"</span></span>
   <span class=keyword2><span class=keyword>and</span></span> ie2<span class=main>:</span> <span class=quoted><span class=quoted>"μ <span class=main>≤</span> <span class=free>δS</span>"</span></span>
   <span class=keyword2><span class=keyword>and</span></span> ie3<span class=main>:</span> <span class=quoted><span class=quoted>"γ1 <span class=free>δS</span> <span class=main>≤</span> <span class=free>δS</span>"</span></span>
@@ -979,7 +979,7 @@ in the precision enhancement.›</span></span>
   <span class=keyword1><span class=command>qed</span></span>
 <span class=keyword1><span class=command>qed</span></span>
 
-<span class=keyword1><span class=command>lemma</span></span> VC_cfn<span class=main>:</span>
+<span class=keyword1 id=GenClock-VC_cfn><span class=command>lemma</span></span> VC_cfn<span class=main>:</span>
   <span class=keyword2><span class=keyword>assumes</span></span> corr_p<span class=main>:</span> <span class=quoted><span class=quoted>"correct <span class=free>p</span> <span class=main>(</span>te <span class=free>p</span> <span class=main>(</span><span class=free>i</span><span class=main>+</span><span class=main>1</span><span class=main>)</span><span class=main>)</span>"</span></span>
   <span class=keyword2><span class=keyword>and</span></span> ie<span class=main>:</span> <span class=quoted><span class=quoted>"te <span class=free>p</span> <span class=main>(</span><span class=free>i</span><span class=main>+</span><span class=main>1</span><span class=main>)</span> <span class=main>&lt;</span> te <span class=free>p</span> <span class=main>(</span><span class=free>i</span><span class=main>+</span><span class=numeral>2</span><span class=main>)</span>"</span></span>
 <span class=keyword2><span class=keyword>shows</span></span> <span class=quoted><span class=quoted>"VC <span class=free>p</span> <span class=main>(</span>te <span class=free>p</span> <span class=main>(</span><span class=free>i</span><span class=main>+</span><span class=main>1</span><span class=main>)</span><span class=main>)</span> <span class=main>=</span> cfn <span class=free>p</span> <span class=main>(</span>θ <span class=free>p</span> <span class=main>(</span><span class=free>i</span><span class=main>+</span><span class=main>1</span><span class=main>)</span><span class=main>)</span>"</span></span>
@@ -998,7 +998,7 @@ in the precision enhancement.›</span></span>
 
 <span class=keyword1><span class=command>text</span></span><span class=quoted><span class=plain_text>‹Lemma for the inductive case in Theorem 4.2›</span></span>
 
-<span class=keyword1><span class=command>lemma</span></span> four_two_ind<span class=main>:</span>
+<span class=keyword1 id=GenClock-four_two_ind><span class=command>lemma</span></span> four_two_ind<span class=main>:</span>
   <span class=keyword2><span class=keyword>assumes</span></span> ie1<span class=main>:</span> <span class=quoted><span class=quoted>"β <span class=main>≤</span> rmin"</span></span>
   <span class=keyword2><span class=keyword>and</span></span> ie2<span class=main>:</span> <span class=quoted><span class=quoted>"μ <span class=main>≤</span> <span class=free>δS</span>"</span></span>
   <span class=keyword2><span class=keyword>and</span></span> ie3<span class=main>:</span> <span class=quoted><span class=quoted>"γ1 <span class=free>δS</span> <span class=main>≤</span> <span class=free>δS</span>"</span></span>

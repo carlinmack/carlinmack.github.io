@@ -91,17 +91,17 @@ Here below is the proof of some properties of functions <span class="antiquoted"
 \null
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_tr_length<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-ipurge_tr_length"><span class="command">lemma</span></span> ipurge_tr_length<span class="main">:</span>
  <span class="quoted"><span class="quoted">"length <span class="main">(</span>ipurge_tr <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="free">xs</span><span class="main">)</span> <span class="main">≤</span> length <span class="free">xs</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">induction</span> <span class="quoted"><span class="free">xs</span></span> <span class="quasi_keyword">rule</span><span class="main"><span class="main">:</span></span> rev_induct<span class="main"><span class="keyword3">,</span></span> <span class="operator">simp_all</span><span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_ref_swap<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-ipurge_ref_swap"><span class="command">lemma</span></span> ipurge_ref_swap<span class="main">:</span>
  <span class="quoted"><span class="quoted">"ipurge_ref <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="free">xs</span> <span class="main">{</span><span class="bound"><span class="bound">x</span></span> <span class="main">∈</span> <span class="free">X</span><span class="main">.</span> <span class="free">P</span> <span class="bound">x</span><span class="main">}</span> <span class="main">=</span>
   <span class="main">{</span><span class="bound"><span class="bound">x</span></span> <span class="main">∈</span> ipurge_ref <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="free">xs</span> <span class="free">X</span><span class="main">.</span> <span class="free">P</span> <span class="bound">x</span><span class="main">}</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> ipurge_ref_def<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span> <span class="operator">blast</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_ref_last<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-ipurge_ref_last"><span class="command">lemma</span></span> ipurge_ref_last<span class="main">:</span>
  <span class="quoted"><span class="quoted">"ipurge_ref <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="main">(</span><span class="free">xs</span> <span class="main">@</span> <span class="main">[</span><span class="free">x</span><span class="main">]</span><span class="main">)</span> <span class="free">X</span> <span class="main">=</span>
    <span class="main">(</span><span class="keyword1">if</span> <span class="main">(</span><span class="free">u</span><span class="main">,</span> <span class="free">D</span> <span class="free">x</span><span class="main">)</span> <span class="main">∈</span> <span class="free">I</span> <span class="main">∨</span> <span class="main">(</span><span class="main">∃</span><span class="bound">v</span> <span class="main">∈</span> sinks <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="free">xs</span><span class="main">.</span> <span class="main">(</span><span class="bound">v</span><span class="main">,</span> <span class="free">D</span> <span class="free">x</span><span class="main">)</span> <span class="main">∈</span> <span class="free">I</span><span class="main">)</span>
     <span class="keyword1">then</span> ipurge_ref <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="free">xs</span> <span class="main">{</span><span class="bound"><span class="bound">x'</span></span> <span class="main">∈</span> <span class="free">X</span><span class="main">.</span> <span class="main">(</span><span class="free">D</span> <span class="free">x</span><span class="main">,</span> <span class="free">D</span> <span class="bound">x'</span><span class="main">)</span> <span class="main">∉</span> <span class="free">I</span><span class="main">}</span>
@@ -118,12 +118,12 @@ Here below is the proof of some properties of function <span class="antiquoted">
 \null
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> sinks_aux_append<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-sinks_aux_append"><span class="command">lemma</span></span> sinks_aux_append<span class="main">:</span>
  <span class="quoted"><span class="quoted">"sinks_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="main">(</span><span class="free">xs</span> <span class="main">@</span> <span class="free">ys</span><span class="main">)</span> <span class="main">=</span> sinks_aux <span class="free">I</span> <span class="free">D</span> <span class="main">(</span>sinks_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span><span class="main">)</span> <span class="free">ys</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">induction</span> <span class="quoted"><span class="free">ys</span></span> <span class="quasi_keyword">rule</span><span class="main"><span class="main">:</span></span> rev_induct<span class="main"><span class="keyword3">,</span></span> <span class="operator">simp</span><span class="main"><span class="keyword3">,</span></span> <span class="operator">subst</span> append_assoc <span class="main"><span class="main">[</span></span><span class="operator">symmetric</span><span class="main"><span class="main">]</span></span><span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">del</span><span class="main"><span class="main">:</span></span> append_assoc<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> sinks_aux_union<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-sinks_aux_union"><span class="command">lemma</span></span> sinks_aux_union<span class="main">:</span>
  <span class="quoted"><span class="quoted">"sinks_aux <span class="free">I</span> <span class="free">D</span> <span class="main">(</span><span class="free">U</span> <span class="main">∪</span> <span class="free">V</span><span class="main">)</span> <span class="free">xs</span> <span class="main">=</span>
   sinks_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span> <span class="main">∪</span> sinks_aux <span class="free">I</span> <span class="free">D</span> <span class="free">V</span> <span class="main">(</span>ipurge_tr_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">induction</span> <span class="quoted"><span class="free">xs</span></span> <span class="quasi_keyword">rule</span><span class="main"><span class="main">:</span></span> rev_induct<span class="main"><span class="keyword3">,</span></span> <span class="operator">simp</span><span class="main">)</span>
@@ -155,7 +155,7 @@ Here below is the proof of some properties of function <span class="antiquoted">
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> sinks_aux_subset_dom<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-sinks_aux_subset_dom"><span class="command">lemma</span></span> sinks_aux_subset_dom<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> A<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">U</span> <span class="main">⊆</span> <span class="free">V</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"sinks_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span> <span class="main">⊆</span> sinks_aux <span class="free">I</span> <span class="free">D</span> <span class="free">V</span> <span class="free">xs</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">induction</span> <span class="quoted"><span class="free">xs</span></span> <span class="quasi_keyword">rule</span><span class="main"><span class="main">:</span></span> rev_induct<span class="main"><span class="keyword3">,</span></span> <span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> A<span class="main"><span class="keyword3">,</span></span> <span class="operator">rule</span> subsetI<span class="main">)</span>
@@ -191,7 +191,7 @@ Here below is the proof of some properties of function <span class="antiquoted">
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> sinks_aux_subset_ipurge_tr_aux<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-sinks_aux_subset_ipurge_tr_aux"><span class="command">lemma</span></span> sinks_aux_subset_ipurge_tr_aux<span class="main">:</span>
  <span class="quoted"><span class="quoted">"sinks_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="main">(</span>ipurge_tr_aux <span class="free">I'</span> <span class="free">D'</span> <span class="free">U'</span> <span class="free">xs</span><span class="main">)</span> <span class="main">⊆</span> sinks_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">induction</span> <span class="quoted"><span class="free">xs</span></span> <span class="quasi_keyword">rule</span><span class="main"><span class="main">:</span></span> rev_induct<span class="main"><span class="keyword3">,</span></span> <span class="operator">simp</span><span class="main"><span class="keyword3">,</span></span> <span class="operator">rule</span> subsetI<span class="main">)</span>
   <span class="keyword3"><span class="command">fix</span></span> <span class="skolem">x</span> <span class="skolem">xs</span> <span class="skolem">w</span>
@@ -244,11 +244,11 @@ Here below is the proof of some properties of function <span class="antiquoted">
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> sinks_aux_subset_ipurge_tr<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-sinks_aux_subset_ipurge_tr"><span class="command">lemma</span></span> sinks_aux_subset_ipurge_tr<span class="main">:</span>
  <span class="quoted"><span class="quoted">"sinks_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="main">(</span>ipurge_tr <span class="free">I'</span> <span class="free">D'</span> <span class="free">u'</span> <span class="free">xs</span><span class="main">)</span> <span class="main">⊆</span> sinks_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> ipurge_tr_aux_single_dom <span class="main"><span class="main">[</span></span><span class="operator">symmetric</span><span class="main"><span class="main">]</span></span> sinks_aux_subset_ipurge_tr_aux<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> sinks_aux_member_ipurge_tr_aux <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-sinks_aux_member_ipurge_tr_aux"><span class="command">lemma</span></span> sinks_aux_member_ipurge_tr_aux <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="free">u</span> <span class="main">∈</span> sinks_aux <span class="free">I</span> <span class="free">D</span> <span class="main">(</span><span class="free">U</span> <span class="main">∪</span> <span class="free">V</span><span class="main">)</span> <span class="free">xs</span> <span class="main">⟶</span>
     <span class="main">(</span><span class="free">u</span><span class="main">,</span> <span class="free">w</span><span class="main">)</span> <span class="main">∈</span> <span class="free">I</span> <span class="main">⟶</span>
     <span class="main">¬</span> <span class="main">(</span><span class="main">∃</span><span class="bound">v</span> <span class="main">∈</span> sinks_aux <span class="free">I</span> <span class="free">D</span> <span class="free">V</span> <span class="free">xs</span><span class="main">.</span> <span class="main">(</span><span class="bound">v</span><span class="main">,</span> <span class="free">w</span><span class="main">)</span> <span class="main">∈</span> <span class="free">I</span><span class="main">)</span> <span class="main">⟶</span>
@@ -357,7 +357,7 @@ Here below is the proof of some properties of function <span class="antiquoted">
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> sinks_aux_member_ipurge_tr<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-sinks_aux_member_ipurge_tr"><span class="command">lemma</span></span> sinks_aux_member_ipurge_tr<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span>
     A<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">u</span> <span class="main">∈</span> sinks_aux <span class="free">I</span> <span class="free">D</span> <span class="main">(</span>insert <span class="free">v</span> <span class="free">U</span><span class="main">)</span> <span class="free">xs</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
     B<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="free">u</span><span class="main">,</span> <span class="free">w</span><span class="main">)</span> <span class="main">∈</span> <span class="free">I</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -384,19 +384,19 @@ Here below is the proof of some properties of functions <span class="antiquoted"
 \null
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_tr_aux_append<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-ipurge_tr_aux_append"><span class="command">lemma</span></span> ipurge_tr_aux_append<span class="main">:</span>
  <span class="quoted"><span class="quoted">"ipurge_tr_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="main">(</span><span class="free">xs</span> <span class="main">@</span> <span class="free">ys</span><span class="main">)</span> <span class="main">=</span>
   ipurge_tr_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span> <span class="main">@</span> ipurge_tr_aux <span class="free">I</span> <span class="free">D</span> <span class="main">(</span>sinks_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span><span class="main">)</span> <span class="free">ys</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">induction</span> <span class="quoted"><span class="free">ys</span></span> <span class="quasi_keyword">rule</span><span class="main"><span class="main">:</span></span> rev_induct<span class="main"><span class="keyword3">,</span></span> <span class="operator">simp</span><span class="main"><span class="keyword3">,</span></span> <span class="operator">subst</span> append_assoc <span class="main"><span class="main">[</span></span><span class="operator">symmetric</span><span class="main"><span class="main">]</span></span><span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> sinks_aux_append <span class="quasi_keyword">del</span><span class="main"><span class="main">:</span></span> append_assoc<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_tr_aux_single_event<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-ipurge_tr_aux_single_event"><span class="command">lemma</span></span> ipurge_tr_aux_single_event<span class="main">:</span>
  <span class="quoted"><span class="quoted">"ipurge_tr_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="main">[</span><span class="free">x</span><span class="main">]</span> <span class="main">=</span> <span class="main">(</span><span class="keyword1">if</span> <span class="main">∃</span><span class="bound">v</span> <span class="main">∈</span> <span class="free">U</span><span class="main">.</span> <span class="main">(</span><span class="bound">v</span><span class="main">,</span> <span class="free">D</span> <span class="free">x</span><span class="main">)</span> <span class="main">∈</span> <span class="free">I</span>
     <span class="keyword1">then</span> <span class="main">[]</span>
     <span class="keyword1">else</span> <span class="main">[</span><span class="free">x</span><span class="main">]</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">subst</span> <span class="main"><span class="main">(</span></span>2<span class="main"><span class="main">)</span></span> append_Nil <span class="main"><span class="main">[</span></span><span class="operator">symmetric</span><span class="main"><span class="main">]</span></span><span class="main"><span class="keyword3">,</span></span> <span class="operator">simp</span> <span class="quasi_keyword">del</span><span class="main"><span class="main">:</span></span> append_Nil<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_tr_aux_cons<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-ipurge_tr_aux_cons"><span class="command">lemma</span></span> ipurge_tr_aux_cons<span class="main">:</span>
  <span class="quoted"><span class="quoted">"ipurge_tr_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="main">(</span><span class="free">x</span> <span class="main">#</span> <span class="free">xs</span><span class="main">)</span> <span class="main">=</span> <span class="main">(</span><span class="keyword1">if</span> <span class="main">∃</span><span class="bound">u</span> <span class="main">∈</span> <span class="free">U</span><span class="main">.</span> <span class="main">(</span><span class="bound">u</span><span class="main">,</span> <span class="free">D</span> <span class="free">x</span><span class="main">)</span> <span class="main">∈</span> <span class="free">I</span>
     <span class="keyword1">then</span> ipurge_tr_aux <span class="free">I</span> <span class="free">D</span> <span class="main">(</span>insert <span class="main">(</span><span class="free">D</span> <span class="free">x</span><span class="main">)</span> <span class="free">U</span><span class="main">)</span> <span class="free">xs</span>
     <span class="keyword1">else</span> <span class="free">x</span> <span class="main">#</span> ipurge_tr_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span><span class="main">)</span>"</span></span>
@@ -410,7 +410,7 @@ Here below is the proof of some properties of functions <span class="antiquoted"
    <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> sinks_aux_single_event ipurge_tr_aux_single_event<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_tr_aux_union<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-ipurge_tr_aux_union"><span class="command">lemma</span></span> ipurge_tr_aux_union<span class="main">:</span>
  <span class="quoted"><span class="quoted">"ipurge_tr_aux <span class="free">I</span> <span class="free">D</span> <span class="main">(</span><span class="free">U</span> <span class="main">∪</span> <span class="free">V</span><span class="main">)</span> <span class="free">xs</span> <span class="main">=</span>
   ipurge_tr_aux <span class="free">I</span> <span class="free">D</span> <span class="free">V</span> <span class="main">(</span>ipurge_tr_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">induction</span> <span class="quoted"><span class="free">xs</span></span> <span class="quasi_keyword">rule</span><span class="main"><span class="main">:</span></span> rev_induct<span class="main"><span class="keyword3">,</span></span> <span class="operator">simp</span><span class="main">)</span>
@@ -442,12 +442,12 @@ Here below is the proof of some properties of functions <span class="antiquoted"
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_tr_aux_insert<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-ipurge_tr_aux_insert"><span class="command">lemma</span></span> ipurge_tr_aux_insert<span class="main">:</span>
  <span class="quoted"><span class="quoted">"ipurge_tr_aux <span class="free">I</span> <span class="free">D</span> <span class="main">(</span>insert <span class="free">v</span> <span class="free">U</span><span class="main">)</span> <span class="free">xs</span> <span class="main">=</span>
   ipurge_tr_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="main">(</span>ipurge_tr <span class="free">I</span> <span class="free">D</span> <span class="free">v</span> <span class="free">xs</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">subst</span> insert_is_Un<span class="main"><span class="keyword3">,</span></span> <span class="operator">simp</span> <span class="quasi_keyword">only</span><span class="main"><span class="main">:</span></span> ipurge_tr_aux_union ipurge_tr_aux_single_dom<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_ref_aux_subset<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-ipurge_ref_aux_subset"><span class="command">lemma</span></span> ipurge_ref_aux_subset<span class="main">:</span>
  <span class="quoted"><span class="quoted">"ipurge_ref_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span> <span class="free">X</span> <span class="main">⊆</span> <span class="free">X</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">subst</span> ipurge_ref_aux_def<span class="main"><span class="keyword3">,</span></span> <span class="operator">rule</span> subsetI<span class="main"><span class="keyword3">,</span></span> <span class="operator">simp</span><span class="main">)</span>
 
@@ -488,25 +488,25 @@ Here below is the proof of some properties of function <span class="antiquoted">
 \null
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> sinks_aux_sinks_aux_less<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-sinks_aux_sinks_aux_less"><span class="command">lemma</span></span> sinks_aux_sinks_aux_less<span class="main">:</span>
  <span class="quoted"><span class="quoted">"sinks_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span> <span class="main">=</span> <span class="free">U</span> <span class="main">∪</span> sinks_aux_less <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">induction</span> <span class="quoted"><span class="free">xs</span></span> <span class="quasi_keyword">rule</span><span class="main"><span class="main">:</span></span> rev_induct<span class="main"><span class="keyword3">,</span></span> <span class="operator">simp_all</span><span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> sinks_aux_less_single_dom<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-sinks_aux_less_single_dom"><span class="command">lemma</span></span> sinks_aux_less_single_dom<span class="main">:</span>
  <span class="quoted"><span class="quoted">"sinks_aux_less <span class="free">I</span> <span class="free">D</span> <span class="main">{</span><span class="free">u</span><span class="main">}</span> <span class="free">xs</span> <span class="main">=</span> sinks <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="free">xs</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">induction</span> <span class="quoted"><span class="free">xs</span></span> <span class="quasi_keyword">rule</span><span class="main"><span class="main">:</span></span> rev_induct<span class="main"><span class="keyword3">,</span></span> <span class="operator">simp_all</span><span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> sinks_aux_less_single_event<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-sinks_aux_less_single_event"><span class="command">lemma</span></span> sinks_aux_less_single_event<span class="main">:</span>
  <span class="quoted"><span class="quoted">"sinks_aux_less <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="main">[</span><span class="free">x</span><span class="main">]</span> <span class="main">=</span> <span class="main">(</span><span class="keyword1">if</span> <span class="main">∃</span><span class="bound">u</span> <span class="main">∈</span> <span class="free">U</span><span class="main">.</span> <span class="main">(</span><span class="bound">u</span><span class="main">,</span> <span class="free">D</span> <span class="free">x</span><span class="main">)</span> <span class="main">∈</span> <span class="free">I</span> <span class="keyword1">then</span> <span class="main">{</span><span class="free">D</span> <span class="free">x</span><span class="main">}</span> <span class="keyword1">else</span> <span class="main">{}</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">subst</span> append_Nil <span class="main"><span class="main">[</span></span><span class="operator">symmetric</span><span class="main"><span class="main">]</span></span><span class="main"><span class="keyword3">,</span></span> <span class="operator">simp</span> <span class="quasi_keyword">del</span><span class="main"><span class="main">:</span></span> append_Nil<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> sinks_aux_less_append<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-sinks_aux_less_append"><span class="command">lemma</span></span> sinks_aux_less_append<span class="main">:</span>
  <span class="quoted"><span class="quoted">"sinks_aux_less <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="main">(</span><span class="free">xs</span> <span class="main">@</span> <span class="free">ys</span><span class="main">)</span> <span class="main">=</span>
   sinks_aux_less <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span> <span class="main">∪</span> sinks_aux_less <span class="free">I</span> <span class="free">D</span> <span class="main">(</span><span class="free">U</span> <span class="main">∪</span> sinks_aux_less <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span><span class="main">)</span> <span class="free">ys</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">induction</span> <span class="quoted"><span class="free">ys</span></span> <span class="quasi_keyword">rule</span><span class="main"><span class="main">:</span></span> rev_induct<span class="main"><span class="keyword3">,</span></span> <span class="operator">simp</span><span class="main"><span class="keyword3">,</span></span> <span class="operator">subst</span> append_assoc <span class="main"><span class="main">[</span></span><span class="operator">symmetric</span><span class="main"><span class="main">]</span></span><span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">del</span><span class="main"><span class="main">:</span></span> append_assoc<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> sinks_aux_less_cons<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-sinks_aux_less_cons"><span class="command">lemma</span></span> sinks_aux_less_cons<span class="main">:</span>
  <span class="quoted"><span class="quoted">"sinks_aux_less <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="main">(</span><span class="free">x</span> <span class="main">#</span> <span class="free">xs</span><span class="main">)</span> <span class="main">=</span> <span class="main">(</span><span class="keyword1">if</span> <span class="main">∃</span><span class="bound">u</span> <span class="main">∈</span> <span class="free">U</span><span class="main">.</span> <span class="main">(</span><span class="bound">u</span><span class="main">,</span> <span class="free">D</span> <span class="free">x</span><span class="main">)</span> <span class="main">∈</span> <span class="free">I</span>
    <span class="keyword1">then</span> insert <span class="main">(</span><span class="free">D</span> <span class="free">x</span><span class="main">)</span> <span class="main">(</span>sinks_aux_less <span class="free">I</span> <span class="free">D</span> <span class="main">(</span>insert <span class="main">(</span><span class="free">D</span> <span class="free">x</span><span class="main">)</span> <span class="free">U</span><span class="main">)</span> <span class="free">xs</span><span class="main">)</span>
    <span class="keyword1">else</span> sinks_aux_less <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span><span class="main">)</span>"</span></span>
@@ -529,7 +529,7 @@ follows.
 \null
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_ref_aux_less_last<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-ipurge_ref_aux_less_last"><span class="command">lemma</span></span> ipurge_ref_aux_less_last<span class="main">:</span>
  <span class="quoted"><span class="quoted">"ipurge_ref_aux_less <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="main">(</span><span class="free">xs</span> <span class="main">@</span> <span class="main">[</span><span class="free">x</span><span class="main">]</span><span class="main">)</span> <span class="free">X</span> <span class="main">=</span>
    <span class="main">(</span><span class="keyword1">if</span> <span class="main">∃</span><span class="bound">v</span> <span class="main">∈</span> <span class="free">U</span> <span class="main">∪</span> sinks_aux_less <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span><span class="main">.</span> <span class="main">(</span><span class="bound">v</span><span class="main">,</span> <span class="free">D</span> <span class="free">x</span><span class="main">)</span> <span class="main">∈</span> <span class="free">I</span>
     <span class="keyword1">then</span> ipurge_ref_aux_less <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span> <span class="main">{</span><span class="bound"><span class="bound">x'</span></span> <span class="main">∈</span> <span class="free">X</span><span class="main">.</span> <span class="main">(</span><span class="free">D</span> <span class="free">x</span><span class="main">,</span> <span class="free">D</span> <span class="bound">x'</span><span class="main">)</span> <span class="main">∉</span> <span class="free">I</span><span class="main">}</span>
@@ -537,13 +537,13 @@ follows.
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">cases</span> <span class="quoted"><span class="quoted">"<span class="main">∃</span><span class="bound">v</span> <span class="main">∈</span> <span class="free">U</span> <span class="main">∪</span> sinks_aux_less <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span><span class="main">.</span> <span class="main">(</span><span class="bound">v</span><span class="main">,</span> <span class="free">D</span> <span class="free">x</span><span class="main">)</span> <span class="main">∈</span> <span class="free">I</span>"</span></span><span class="main"><span class="keyword3">,</span></span>
  <span class="operator">simp_all</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> ipurge_ref_aux_less_def<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_ref_aux_less_nil<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-ipurge_ref_aux_less_nil"><span class="command">lemma</span></span> ipurge_ref_aux_less_nil<span class="main">:</span>
  <span class="quoted"><span class="quoted">"ipurge_ref_aux_less <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span> <span class="main">(</span>ipurge_ref_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="main">[]</span> <span class="free">X</span><span class="main">)</span> <span class="main">=</span>
   ipurge_ref_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span> <span class="free">X</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> ipurge_ref_aux_def ipurge_ref_aux_less_def sinks_aux_sinks_aux_less<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span> <span class="operator">blast</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_ref_aux_less_cons_1<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-ipurge_ref_aux_less_cons_1"><span class="command">lemma</span></span> ipurge_ref_aux_less_cons_1<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> A<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">∃</span><span class="bound">u</span> <span class="main">∈</span> <span class="free">U</span><span class="main">.</span> <span class="main">(</span><span class="bound">u</span><span class="main">,</span> <span class="free">D</span> <span class="free">x</span><span class="main">)</span> <span class="main">∈</span> <span class="free">I</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"ipurge_ref_aux_less <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="main">(</span><span class="free">x</span> <span class="main">#</span> <span class="free">xs</span><span class="main">)</span> <span class="free">X</span> <span class="main">=</span>
     ipurge_ref_aux_less <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="main">(</span>ipurge_tr <span class="free">I</span> <span class="free">D</span> <span class="main">(</span><span class="free">D</span> <span class="free">x</span><span class="main">)</span> <span class="free">xs</span><span class="main">)</span> <span class="main">(</span>ipurge_ref <span class="free">I</span> <span class="free">D</span> <span class="main">(</span><span class="free">D</span> <span class="free">x</span><span class="main">)</span> <span class="free">xs</span> <span class="free">X</span><span class="main">)</span>"</span></span>
@@ -713,7 +713,7 @@ follows.
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_ref_aux_less_cons_2<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-ipurge_ref_aux_less_cons_2"><span class="command">lemma</span></span> ipurge_ref_aux_less_cons_2<span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="main">¬</span> <span class="main">(</span><span class="main">∃</span><span class="bound">u</span> <span class="main">∈</span> <span class="free">U</span><span class="main">.</span> <span class="main">(</span><span class="bound">u</span><span class="main">,</span> <span class="free">D</span> <span class="free">x</span><span class="main">)</span> <span class="main">∈</span> <span class="free">I</span><span class="main">)</span> <span class="main">⟹</span>
   ipurge_ref_aux_less <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="main">(</span><span class="free">x</span> <span class="main">#</span> <span class="free">xs</span><span class="main">)</span> <span class="free">X</span> <span class="main">=</span>
     ipurge_ref_aux_less <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span> <span class="free">X</span>"</span></span>
@@ -994,7 +994,7 @@ R3<span class="main">:</span> <span class="quoted"><span class="quoted">"<span c
 
 <span class="keyword1"><span class="command">subsubsection</span></span> <span class="quoted"><span class="plain_text">"Step 4"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_fail_aux_t_subset<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-ipurge_fail_aux_t_subset"><span class="command">lemma</span></span> ipurge_fail_aux_t_subset<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> A<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">Z</span> <span class="main">∈</span> ipurge_fail_aux_t_set <span class="free">Y</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"ipurge_fail_aux_t_set <span class="free">Z</span> <span class="main">⊆</span> ipurge_fail_aux_t_set <span class="free">Y</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">rule</span> subsetI<span class="main"><span class="keyword3">,</span></span> <span class="operator">erule</span> ipurge_fail_aux_t_set.induct<span class="main">)</span>
@@ -1026,7 +1026,7 @@ R3<span class="main">:</span> <span class="quoted"><span class="quoted">"<span c
    <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">rule</span> R3<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_fail_aux_t_aux_set<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-ipurge_fail_aux_t_aux_set"><span class="command">lemma</span></span> ipurge_fail_aux_t_aux_set<span class="main">:</span>
  <span class="quoted"><span class="quoted">"ipurge_fail_aux_t_aux <span class="free">Y</span> <span class="main">∈</span> ipurge_fail_aux_t_set <span class="free">Y</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">induction</span> <span class="quasi_keyword">rule</span><span class="main"><span class="main">:</span></span> ipurge_fail_aux_t_aux.induct<span class="main"><span class="keyword3">,</span></span>
  <span class="operator">simp_all</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> R0 <span class="quasi_keyword">del</span><span class="main"><span class="main">:</span></span> ipurge_fail_aux_t_aux.simps<span class="main"><span class="main">(</span></span>2<span class="main"><span class="main">)</span></span><span class="main">)</span>
@@ -1160,17 +1160,17 @@ the set matches <span class="antiquoted"><span class="antiquoted"><span class="a
 
 <span class="keyword1"><span class="command">subsubsection</span></span> <span class="quoted"><span class="plain_text">"Step 6"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_fail_aux_t_input_1<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-ipurge_fail_aux_t_input_1"><span class="command">lemma</span></span> ipurge_fail_aux_t_input_1<span class="main">:</span>
  <span class="quoted"><span class="quoted">"ipurge_fail_aux_t_inv_1 <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span>
     <span class="main">⦇</span>Pol <span class="main">=</span> <span class="free">I</span><span class="main">,</span> Map <span class="main">=</span> <span class="free">D</span><span class="main">,</span> Doms <span class="main">=</span> <span class="free">U</span><span class="main">,</span> List <span class="main">=</span> <span class="free">xs</span><span class="main">,</span> ListOp <span class="main">=</span> None<span class="main">,</span> Set <span class="main">=</span> <span class="free">X</span><span class="main">⦈</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> ipurge_fail_aux_t_inv_1_def<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_fail_aux_t_input_2<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-ipurge_fail_aux_t_input_2"><span class="command">lemma</span></span> ipurge_fail_aux_t_input_2<span class="main">:</span>
  <span class="quoted"><span class="quoted">"ipurge_fail_aux_t_inv_2 <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span> <span class="free">X</span>
     <span class="main">⦇</span>Pol <span class="main">=</span> <span class="free">I</span><span class="main">,</span> Map <span class="main">=</span> <span class="free">D</span><span class="main">,</span> Doms <span class="main">=</span> <span class="free">U</span><span class="main">,</span> List <span class="main">=</span> <span class="free">xs</span><span class="main">,</span> ListOp <span class="main">=</span> None<span class="main">,</span> Set <span class="main">=</span> <span class="free">X</span><span class="main">⦈</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> ipurge_fail_aux_t_inv_2_def<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_fail_aux_t_input_3<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-ipurge_fail_aux_t_input_3"><span class="command">lemma</span></span> ipurge_fail_aux_t_input_3<span class="main">:</span>
  <span class="quoted"><span class="quoted">"ipurge_fail_aux_t_inv_3 <span class="free">P</span> <span class="free">I</span> <span class="free">D</span> <span class="free">xs</span> <span class="free">X</span>
     <span class="main">⦇</span>Pol <span class="main">=</span> <span class="free">I</span><span class="main">,</span> Map <span class="main">=</span> <span class="free">D</span><span class="main">,</span> Doms <span class="main">=</span> <span class="free">U</span><span class="main">,</span> List <span class="main">=</span> <span class="free">xs</span><span class="main">,</span> ListOp <span class="main">=</span> None<span class="main">,</span> Set <span class="main">=</span> <span class="free">X</span><span class="main">⦈</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> ipurge_fail_aux_t_inv_3_def<span class="main">)</span>
@@ -1181,21 +1181,21 @@ the set matches <span class="antiquoted"><span class="antiquoted"><span class="a
 <span class="quoted"><span class="quoted">"<span class="free">ipurge_fail_aux_t_form</span> <span class="free"><span class="bound"><span class="entity">Y</span></span></span> <span class="main">≡</span>
   <span class="keyword1">case</span> ListOp <span class="free"><span class="bound"><span class="entity">Y</span></span></span> <span class="keyword1">of</span> None <span class="main">⇒</span> False <span class="main">|</span> Some <span class="bound">ys</span> <span class="main">⇒</span> List <span class="free"><span class="bound"><span class="entity">Y</span></span></span> <span class="main">=</span> <span class="main">[]</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_fail_aux_t_intro_1<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-ipurge_fail_aux_t_intro_1"><span class="command">lemma</span></span> ipurge_fail_aux_t_intro_1<span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="main">⟦</span>ipurge_fail_aux_t_inv_1 <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span> <span class="free">Y</span><span class="main">;</span> ipurge_fail_aux_t_form <span class="free">Y</span><span class="main">⟧</span> <span class="main">⟹</span>
     fst <span class="main">(</span>ipurge_fail_aux_t_out <span class="free">Y</span><span class="main">)</span> <span class="main">=</span> ipurge_tr_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> ipurge_fail_aux_t_inv_1_def ipurge_fail_aux_t_form_def
  ipurge_fail_aux_t_out_def<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">split</span><span class="main"><span class="main">:</span></span> option.split_asm<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_fail_aux_t_intro_2<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-ipurge_fail_aux_t_intro_2"><span class="command">lemma</span></span> ipurge_fail_aux_t_intro_2<span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="main">⟦</span>ipurge_fail_aux_t_inv_2 <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span> <span class="free">X</span> <span class="free">Y</span><span class="main">;</span> ipurge_fail_aux_t_form <span class="free">Y</span><span class="main">⟧</span> <span class="main">⟹</span>
     snd <span class="main">(</span>ipurge_fail_aux_t_out <span class="free">Y</span><span class="main">)</span> <span class="main">=</span> ipurge_ref_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span> <span class="free">X</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> ipurge_fail_aux_t_inv_2_def ipurge_fail_aux_t_form_def
  ipurge_fail_aux_t_out_def<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> ipurge_ref_aux_less_def <span class="quasi_keyword">split</span><span class="main"><span class="main">:</span></span> option.split_asm<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_fail_aux_t_intro_3<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-ipurge_fail_aux_t_intro_3"><span class="command">lemma</span></span> ipurge_fail_aux_t_intro_3<span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="main">⟦</span>ipurge_fail_aux_t_inv_3 <span class="free">P</span> <span class="free">I</span> <span class="free">D</span> <span class="free">xs</span> <span class="free">X</span> <span class="free">Y</span><span class="main">;</span> ipurge_fail_aux_t_form <span class="free">Y</span><span class="main">⟧</span> <span class="main">⟹</span>
     secure <span class="free">P</span> <span class="free">I</span> <span class="free">D</span> <span class="main">⟶</span> <span class="main">(</span><span class="free">xs</span><span class="main">,</span> <span class="free">X</span><span class="main">)</span> <span class="main">∈</span> failures <span class="free">P</span> <span class="main">⟶</span>
       ipurge_fail_aux_t_out <span class="free">Y</span> <span class="main">∈</span> failures <span class="free">P</span>"</span></span>
@@ -1205,14 +1205,14 @@ the set matches <span class="antiquoted"><span class="antiquoted"><span class="a
 
 <span class="keyword1"><span class="command">subsubsection</span></span> <span class="quoted"><span class="plain_text">"Step 8"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_fail_aux_t_form_aux<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-ipurge_fail_aux_t_form_aux"><span class="command">lemma</span></span> ipurge_fail_aux_t_form_aux<span class="main">:</span>
  <span class="quoted"><span class="quoted">"ipurge_fail_aux_t_form <span class="main">(</span>ipurge_fail_aux_t_aux <span class="free">Y</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">induction</span> <span class="quoted"><span class="free">Y</span></span> <span class="quasi_keyword">rule</span><span class="main"><span class="main">:</span></span> ipurge_fail_aux_t_aux.induct<span class="main"><span class="keyword3">,</span></span>
  <span class="operator">simp_all</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> ipurge_fail_aux_t_form_def<span class="main">)</span>
 
 <span class="keyword1"><span class="command">subsubsection</span></span> <span class="quoted"><span class="plain_text">"Step 9"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_fail_aux_t_invariance_aux<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-ipurge_fail_aux_t_invariance_aux"><span class="command">lemma</span></span> ipurge_fail_aux_t_invariance_aux<span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="free">Z</span> <span class="main">∈</span> ipurge_fail_aux_t_set <span class="free">Y</span> <span class="main">⟹</span>
   Pol <span class="free">Z</span> <span class="main">=</span> Pol <span class="free">Y</span> <span class="main">∧</span> Map <span class="free">Z</span> <span class="main">=</span> Map <span class="free">Y</span> <span class="main">∧</span> Doms <span class="free">Z</span> <span class="main">=</span> Doms <span class="free">Y</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">erule</span> ipurge_fail_aux_t_set.induct<span class="main"><span class="keyword3">,</span></span> <span class="operator">simp_all</span><span class="main">)</span>
@@ -1236,7 +1236,7 @@ appearing in the lemmas.
 \null
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_fail_aux_t_invariance_1<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-ipurge_fail_aux_t_invariance_1"><span class="command">lemma</span></span> ipurge_fail_aux_t_invariance_1<span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="main">⟦</span><span class="free">Z</span> <span class="main">∈</span> ipurge_fail_aux_t_set <span class="main">(</span><span class="free">Y</span><span class="main">⦇</span>Pol <span class="main">:=</span> <span class="free">I</span><span class="main">,</span> Map <span class="main">:=</span> <span class="free">D</span><span class="main">,</span> Doms <span class="main">:=</span> <span class="free">U</span><span class="main">⦈</span><span class="main">)</span><span class="main">;</span>
     ipurge_fail_aux_t_inv_1 <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span> <span class="main">(</span><span class="free">Y</span><span class="main">⦇</span>Pol <span class="main">:=</span> <span class="free">I</span><span class="main">,</span> Map <span class="main">:=</span> <span class="free">D</span><span class="main">,</span> Doms <span class="main">:=</span> <span class="free">U</span><span class="main">⦈</span><span class="main">)</span><span class="main">⟧</span> <span class="main">⟹</span>
   ipurge_fail_aux_t_inv_1 <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span> <span class="free">Z</span>"</span></span>
@@ -1262,7 +1262,7 @@ appearing in the lemmas.
   <span class="keyword1"><span class="command">ultimately</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="quoted"><span class="quoted">"<span class="var">?B</span> <span class="main">=</span> <span class="var">?C</span>"</span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_fail_aux_t_invariance_2<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-ipurge_fail_aux_t_invariance_2"><span class="command">lemma</span></span> ipurge_fail_aux_t_invariance_2<span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="main">⟦</span><span class="free">Z</span> <span class="main">∈</span> ipurge_fail_aux_t_set <span class="main">(</span><span class="free">Y</span><span class="main">⦇</span>Pol <span class="main">:=</span> <span class="free">I</span><span class="main">,</span> Map <span class="main">:=</span> <span class="free">D</span><span class="main">,</span> Doms <span class="main">:=</span> <span class="free">U</span><span class="main">⦈</span><span class="main">)</span><span class="main">;</span>
     ipurge_fail_aux_t_inv_2 <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span> <span class="free">X</span> <span class="main">(</span><span class="free">Y</span><span class="main">⦇</span>Pol <span class="main">:=</span> <span class="free">I</span><span class="main">,</span> Map <span class="main">:=</span> <span class="free">D</span><span class="main">,</span> Doms <span class="main">:=</span> <span class="free">U</span><span class="main">⦈</span><span class="main">)</span><span class="main">⟧</span> <span class="main">⟹</span>
   ipurge_fail_aux_t_inv_2 <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span> <span class="free">X</span> <span class="free">Z</span>"</span></span>
@@ -1292,7 +1292,7 @@ appearing in the lemmas.
   <span class="keyword1"><span class="command">ultimately</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="quoted"><span class="quoted">"<span class="var">?B</span> <span class="main">=</span> <span class="var">?C</span>"</span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_fail_aux_t_invariance_3<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-ipurge_fail_aux_t_invariance_3"><span class="command">lemma</span></span> ipurge_fail_aux_t_invariance_3<span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="main">⟦</span><span class="free">Z</span> <span class="main">∈</span> ipurge_fail_aux_t_set <span class="main">(</span><span class="free">Y</span><span class="main">⦇</span>Pol <span class="main">:=</span> <span class="free">I</span><span class="main">,</span> Map <span class="main">:=</span> <span class="free">D</span><span class="main">⦈</span><span class="main">)</span><span class="main">;</span>
     ipurge_fail_aux_t_inv_3 <span class="free">P</span> <span class="free">I</span> <span class="free">D</span> <span class="free">xs</span> <span class="free">X</span> <span class="main">(</span><span class="free">Y</span><span class="main">⦇</span>Pol <span class="main">:=</span> <span class="free">I</span><span class="main">,</span> Map <span class="main">:=</span> <span class="free">D</span><span class="main">⦈</span><span class="main">)</span><span class="main">⟧</span> <span class="main">⟹</span>
   ipurge_fail_aux_t_inv_3 <span class="free">P</span> <span class="free">I</span> <span class="free">D</span> <span class="free">xs</span> <span class="free">X</span> <span class="free">Z</span>"</span></span>
@@ -1335,7 +1335,7 @@ demonstrate the target closure lemma.
 \null
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_fail_aux_t_eq_tr<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-ipurge_fail_aux_t_eq_tr"><span class="command">lemma</span></span> ipurge_fail_aux_t_eq_tr<span class="main">:</span>
  <span class="quoted"><span class="quoted">"fst <span class="main">(</span>ipurge_fail_aux_t <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span> <span class="free">X</span><span class="main">)</span> <span class="main">=</span> ipurge_tr_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
   <span class="keyword1"><span class="command">let</span></span> <span class="var"><span class="quoted"><span class="var">?Y</span></span></span> <span class="main">=</span> <span class="quoted"><span class="quoted">"<span class="main">⦇</span>Pol <span class="main">=</span> <span class="free">I</span><span class="main">,</span> Map <span class="main">=</span> <span class="free">D</span><span class="main">,</span> Doms <span class="main">=</span> <span class="free">U</span><span class="main">,</span> List <span class="main">=</span> <span class="free">xs</span><span class="main">,</span> ListOp <span class="main">=</span> None<span class="main">,</span>
@@ -1359,7 +1359,7 @@ demonstrate the target closure lemma.
    <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> ipurge_fail_aux_t_def<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_fail_aux_t_eq_ref<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-ipurge_fail_aux_t_eq_ref"><span class="command">lemma</span></span> ipurge_fail_aux_t_eq_ref<span class="main">:</span>
  <span class="quoted"><span class="quoted">"snd <span class="main">(</span>ipurge_fail_aux_t <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span> <span class="free">X</span><span class="main">)</span> <span class="main">=</span> ipurge_ref_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span> <span class="free">X</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
   <span class="keyword1"><span class="command">let</span></span> <span class="var"><span class="quoted"><span class="var">?Y</span></span></span> <span class="main">=</span> <span class="quoted"><span class="quoted">"<span class="main">⦇</span>Pol <span class="main">=</span> <span class="free">I</span><span class="main">,</span> Map <span class="main">=</span> <span class="free">D</span><span class="main">,</span> Doms <span class="main">=</span> <span class="free">U</span><span class="main">,</span> List <span class="main">=</span> <span class="free">xs</span><span class="main">,</span> ListOp <span class="main">=</span> None<span class="main">,</span>
@@ -1383,7 +1383,7 @@ demonstrate the target closure lemma.
    <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> ipurge_fail_aux_t_def<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_fail_aux_t_failures <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-ipurge_fail_aux_t_failures"><span class="command">lemma</span></span> ipurge_fail_aux_t_failures <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
  <span class="quoted"><span class="quoted">"secure <span class="free">P</span> <span class="free">I</span> <span class="free">D</span> <span class="main">⟶</span> <span class="main">(</span><span class="free">xs</span><span class="main">,</span> <span class="free">X</span><span class="main">)</span> <span class="main">∈</span> failures <span class="free">P</span> <span class="main">⟶</span>
     ipurge_fail_aux_t <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span> <span class="free">X</span> <span class="main">∈</span> failures <span class="free">P</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
@@ -1408,7 +1408,7 @@ demonstrate the target closure lemma.
    <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> ipurge_fail_aux_t_def<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_tr_ref_aux_failures<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-ipurge_tr_ref_aux_failures"><span class="command">lemma</span></span> ipurge_tr_ref_aux_failures<span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="main">⟦</span>secure <span class="free">P</span> <span class="free">I</span> <span class="free">D</span><span class="main">;</span> <span class="main">(</span><span class="free">xs</span><span class="main">,</span> <span class="free">X</span><span class="main">)</span> <span class="main">∈</span> failures <span class="free">P</span><span class="main">⟧</span> <span class="main">⟹</span>
     <span class="main">(</span>ipurge_tr_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span><span class="main">,</span> ipurge_ref_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span> <span class="free">X</span><span class="main">)</span> <span class="main">∈</span> failures <span class="free">P</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">drule</span> ipurge_fail_aux_t_failures <span class="main"><span class="main">[</span></span><span class="keyword2"><span class="keyword"><span class="operator">where</span></span></span> U <span class="main"><span class="main"><span class="main">=</span></span></span> <span class="quoted"><span class="free"><span class="quoted"><span class="free">U</span></span></span></span><span class="main"><span class="main">]</span></span><span class="main"><span class="keyword3">,</span></span> <span class="operator">assumption</span><span class="main"><span class="keyword3">,</span></span>
@@ -1431,16 +1431,16 @@ not affected by any purged event, then that future is also a future for the full
 \null
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_tr_aux_idem<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-ipurge_tr_aux_idem"><span class="command">lemma</span></span> ipurge_tr_aux_idem<span class="main">:</span>
  <span class="quoted"><span class="quoted">"ipurge_tr_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="main">(</span>ipurge_tr_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span><span class="main">)</span> <span class="main">=</span> ipurge_tr_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> ipurge_tr_aux_union <span class="main"><span class="main">[</span></span><span class="operator">symmetric</span><span class="main"><span class="main">]</span></span><span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_tr_aux_set<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-ipurge_tr_aux_set"><span class="command">lemma</span></span> ipurge_tr_aux_set<span class="main">:</span>
  <span class="quoted"><span class="quoted">"set <span class="main">(</span>ipurge_tr_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span><span class="main">)</span> <span class="main">⊆</span> set <span class="free">xs</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">induction</span> <span class="quoted"><span class="free">xs</span></span> <span class="quasi_keyword">rule</span><span class="main"><span class="main">:</span></span> rev_induct<span class="main"><span class="keyword3">,</span></span> <span class="operator">simp_all</span><span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span> <span class="operator">blast</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_tr_aux_nil <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-ipurge_tr_aux_nil"><span class="command">lemma</span></span> ipurge_tr_aux_nil <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> A<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">u</span> <span class="main">∈</span> <span class="free">U</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="main">∀</span><span class="bound">x</span> <span class="main">∈</span> set <span class="free">xs</span><span class="main">.</span> <span class="main">(</span><span class="free">u</span><span class="main">,</span> <span class="free">D</span> <span class="bound">x</span><span class="main">)</span> <span class="main">∈</span> <span class="free">I</span><span class="main">)</span> <span class="main">⟶</span> ipurge_tr_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span> <span class="main">=</span> <span class="main">[]</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">induction</span> <span class="quoted"><span class="free">xs</span></span> <span class="quasi_keyword">rule</span><span class="main"><span class="main">:</span></span> rev_induct<span class="main"><span class="keyword3">,</span></span> <span class="operator">simp</span><span class="main"><span class="keyword3">,</span></span> <span class="operator">rule</span> impI<span class="main">)</span>
@@ -1462,7 +1462,7 @@ not affected by any purged event, then that future is also a future for the full
    <span class="keyword1"><span class="command">using</span></span> C <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_tr_aux_del_failures <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-ipurge_tr_aux_del_failures"><span class="command">lemma</span></span> ipurge_tr_aux_del_failures <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> S<span class="main">:</span> <span class="quoted"><span class="quoted">"secure <span class="free">P</span> <span class="free">I</span> <span class="free">D</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="main">∀</span><span class="bound">u</span> <span class="main">∈</span> sinks_aux_less <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">ys</span><span class="main">.</span> <span class="main">∀</span><span class="bound">z</span> <span class="main">∈</span> <span class="free">Z</span> <span class="main">∪</span> set <span class="free">zs</span><span class="main">.</span> <span class="main">(</span><span class="bound">u</span><span class="main">,</span> <span class="free">D</span> <span class="bound">z</span><span class="main">)</span> <span class="main">∉</span> <span class="free">I</span><span class="main">)</span> <span class="main">⟶</span>
     <span class="main">(</span><span class="free">xs</span> <span class="main">@</span> ipurge_tr_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">ys</span> <span class="main">@</span> <span class="free">zs</span><span class="main">,</span> <span class="free">Z</span><span class="main">)</span> <span class="main">∈</span> failures <span class="free">P</span> <span class="main">⟶</span>
@@ -1551,11 +1551,11 @@ not affected by any purged event, then that future is also a future for the full
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_ref_aux_append<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-ipurge_ref_aux_append"><span class="command">lemma</span></span> ipurge_ref_aux_append<span class="main">:</span>
  <span class="quoted"><span class="quoted">"ipurge_ref_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="main">(</span><span class="free">xs</span> <span class="main">@</span> <span class="free">ys</span><span class="main">)</span> <span class="free">X</span> <span class="main">=</span> ipurge_ref_aux <span class="free">I</span> <span class="free">D</span> <span class="main">(</span>sinks_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span><span class="main">)</span> <span class="free">ys</span> <span class="free">X</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> ipurge_ref_aux_def sinks_aux_append<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_ref_aux_empty <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-ipurge_ref_aux_empty"><span class="command">lemma</span></span> ipurge_ref_aux_empty <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span>
     A<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">u</span> <span class="main">∈</span> sinks_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
     B<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">∀</span><span class="bound">x</span> <span class="main">∈</span> <span class="free">X</span><span class="main">.</span> <span class="main">(</span><span class="free">u</span><span class="main">,</span> <span class="free">D</span> <span class="bound">x</span><span class="main">)</span> <span class="main">∈</span> <span class="free">I</span>"</span></span>
@@ -1583,30 +1583,30 @@ purged event, then that future is also a future for the full event list.
 \null
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> sinks_idem<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-sinks_idem"><span class="command">lemma</span></span> sinks_idem<span class="main">:</span>
  <span class="quoted"><span class="quoted">"sinks <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="main">(</span>ipurge_tr <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="free">xs</span><span class="main">)</span> <span class="main">=</span> <span class="main">{}</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">induction</span> <span class="quoted"><span class="free">xs</span></span> <span class="quasi_keyword">rule</span><span class="main"><span class="main">:</span></span> rev_induct<span class="main"><span class="keyword3">,</span></span> <span class="operator">simp_all</span><span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> sinks_elem <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-sinks_elem"><span class="command">lemma</span></span> sinks_elem <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="free">v</span> <span class="main">∈</span> sinks <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="free">xs</span> <span class="main">⟶</span> <span class="main">(</span><span class="main">∃</span><span class="bound">x</span> <span class="main">∈</span> set <span class="free">xs</span><span class="main">.</span> <span class="free">v</span> <span class="main">=</span> <span class="free">D</span> <span class="bound">x</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">induction</span> <span class="quoted"><span class="free">xs</span></span> <span class="quasi_keyword">rule</span><span class="main"><span class="main">:</span></span> rev_induct<span class="main"><span class="keyword3">,</span></span> <span class="operator">simp_all</span><span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_tr_append<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-ipurge_tr_append"><span class="command">lemma</span></span> ipurge_tr_append<span class="main">:</span>
  <span class="quoted"><span class="quoted">"ipurge_tr <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="main">(</span><span class="free">xs</span> <span class="main">@</span> <span class="free">ys</span><span class="main">)</span> <span class="main">=</span>
   ipurge_tr <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="free">xs</span> <span class="main">@</span> ipurge_tr_aux <span class="free">I</span> <span class="free">D</span> <span class="main">(</span>insert <span class="free">u</span> <span class="main">(</span>sinks <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="free">xs</span><span class="main">)</span><span class="main">)</span> <span class="free">ys</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> sinks_aux_single_dom <span class="main"><span class="main">[</span></span><span class="operator">symmetric</span><span class="main"><span class="main">]</span></span>
  ipurge_tr_aux_single_dom <span class="main"><span class="main">[</span></span><span class="operator">symmetric</span><span class="main"><span class="main">]</span></span><span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> ipurge_tr_aux_append<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_tr_idem<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-ipurge_tr_idem"><span class="command">lemma</span></span> ipurge_tr_idem<span class="main">:</span>
  <span class="quoted"><span class="quoted">"ipurge_tr <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="main">(</span>ipurge_tr <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="free">xs</span><span class="main">)</span> <span class="main">=</span> ipurge_tr <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="free">xs</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> ipurge_tr_aux_single_dom <span class="main"><span class="main">[</span></span><span class="operator">symmetric</span><span class="main"><span class="main">]</span></span> ipurge_tr_aux_idem<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_tr_set<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-ipurge_tr_set"><span class="command">lemma</span></span> ipurge_tr_set<span class="main">:</span>
  <span class="quoted"><span class="quoted">"set <span class="main">(</span>ipurge_tr <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="free">xs</span><span class="main">)</span> <span class="main">⊆</span> set <span class="free">xs</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> ipurge_tr_aux_single_dom <span class="main"><span class="main">[</span></span><span class="operator">symmetric</span><span class="main"><span class="main">]</span></span> ipurge_tr_aux_set<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_tr_del_failures <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-ipurge_tr_del_failures"><span class="command">lemma</span></span> ipurge_tr_del_failures <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span>
     S<span class="main">:</span> <span class="quoted"><span class="quoted">"secure <span class="free">P</span> <span class="free">I</span> <span class="free">D</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
     A<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">∀</span><span class="bound">v</span> <span class="main">∈</span> sinks <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="free">ys</span><span class="main">.</span> <span class="main">∀</span><span class="bound">z</span> <span class="main">∈</span> <span class="free">Z</span> <span class="main">∪</span> set <span class="free">zs</span><span class="main">.</span> <span class="main">(</span><span class="bound">v</span><span class="main">,</span> <span class="free">D</span> <span class="bound">z</span><span class="main">)</span> <span class="main">∉</span> <span class="free">I</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -1616,7 +1616,7 @@ purged event, then that future is also a future for the full event list.
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">rule</span> ipurge_tr_aux_del_failures <span class="main"><span class="main">[</span></span><span class="operator">OF</span> S _ _ C<span class="main"><span class="main">,</span></span> <span class="keyword2"><span class="keyword"><span class="operator">where</span></span></span> U <span class="main"><span class="main"><span class="main">=</span></span></span> <span class="quoted"><span class="quoted"><span class="quoted">"<span class="main"><span class="main">{</span></span><span class="free"><span class="free">u</span></span><span class="main"><span class="main">}</span></span>"</span></span></span><span class="main"><span class="main">]</span></span><span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> A sinks_aux_less_single_dom<span class="main"><span class="keyword3">,</span></span> <span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> B ipurge_tr_aux_single_dom<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_tr_del_traces <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-ipurge_tr_del_traces"><span class="command">lemma</span></span> ipurge_tr_del_traces <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span>
     S<span class="main">:</span> <span class="quoted"><span class="quoted">"secure <span class="free">P</span> <span class="free">I</span> <span class="free">D</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
     A<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">∀</span><span class="bound">v</span> <span class="main">∈</span> sinks <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="free">ys</span><span class="main">.</span> <span class="main">∀</span><span class="bound">z</span> <span class="main">∈</span> set <span class="free">zs</span><span class="main">.</span> <span class="main">(</span><span class="bound">v</span><span class="main">,</span> <span class="free">D</span> <span class="bound">z</span><span class="main">)</span> <span class="main">∉</span> <span class="free">I</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -1627,37 +1627,37 @@ purged event, then that future is also a future for the full event list.
  <span class="operator">rule</span> ipurge_tr_del_failures <span class="main"><span class="main">[</span></span><span class="operator">OF</span> S _ _ C<span class="main"><span class="main">,</span></span> <span class="keyword2"><span class="keyword"><span class="operator">where</span></span></span> u <span class="main"><span class="main"><span class="main">=</span></span></span> <span class="quoted"><span class="free"><span class="quoted"><span class="free">u</span></span></span></span><span class="main"><span class="main">]</span></span><span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> A<span class="main"><span class="keyword3">,</span></span> <span class="operator">rule</span> traces_failures <span class="main"><span class="main">[</span></span><span class="operator">OF</span> B<span class="main"><span class="main">]</span></span><span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_ref_append<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-ipurge_ref_append"><span class="command">lemma</span></span> ipurge_ref_append<span class="main">:</span>
  <span class="quoted"><span class="quoted">"ipurge_ref <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="main">(</span><span class="free">xs</span> <span class="main">@</span> <span class="free">ys</span><span class="main">)</span> <span class="free">X</span> <span class="main">=</span>
   ipurge_ref_aux <span class="free">I</span> <span class="free">D</span> <span class="main">(</span>insert <span class="free">u</span> <span class="main">(</span>sinks <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="free">xs</span><span class="main">)</span><span class="main">)</span> <span class="free">ys</span> <span class="free">X</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> sinks_aux_single_dom <span class="main"><span class="main">[</span></span><span class="operator">symmetric</span><span class="main"><span class="main">]</span></span>
  ipurge_ref_aux_single_dom <span class="main"><span class="main">[</span></span><span class="operator">symmetric</span><span class="main"><span class="main">]</span></span><span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> ipurge_ref_aux_append<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_ref_distrib_inter<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-ipurge_ref_distrib_inter"><span class="command">lemma</span></span> ipurge_ref_distrib_inter<span class="main">:</span>
  <span class="quoted"><span class="quoted">"ipurge_ref <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="free">xs</span> <span class="main">(</span><span class="free">X</span> <span class="main">∩</span> <span class="free">Y</span><span class="main">)</span> <span class="main">=</span> ipurge_ref <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="free">xs</span> <span class="free">X</span> <span class="main">∩</span> ipurge_ref <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="free">xs</span> <span class="free">Y</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> ipurge_ref_def<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span> <span class="operator">blast</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_ref_distrib_union<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-ipurge_ref_distrib_union"><span class="command">lemma</span></span> ipurge_ref_distrib_union<span class="main">:</span>
  <span class="quoted"><span class="quoted">"ipurge_ref <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="free">xs</span> <span class="main">(</span><span class="free">X</span> <span class="main">∪</span> <span class="free">Y</span><span class="main">)</span> <span class="main">=</span> ipurge_ref <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="free">xs</span> <span class="free">X</span> <span class="main">∪</span> ipurge_ref <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="free">xs</span> <span class="free">Y</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> ipurge_ref_def<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span> <span class="operator">blast</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_ref_subset<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-ipurge_ref_subset"><span class="command">lemma</span></span> ipurge_ref_subset<span class="main">:</span>
  <span class="quoted"><span class="quoted">"ipurge_ref <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="free">xs</span> <span class="free">X</span> <span class="main">⊆</span> <span class="free">X</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">subst</span> ipurge_ref_def<span class="main"><span class="keyword3">,</span></span> <span class="operator">rule</span> subsetI<span class="main"><span class="keyword3">,</span></span> <span class="operator">simp</span><span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_ref_subset_union<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-ipurge_ref_subset_union"><span class="command">lemma</span></span> ipurge_ref_subset_union<span class="main">:</span>
  <span class="quoted"><span class="quoted">"ipurge_ref <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="free">xs</span> <span class="main">(</span><span class="free">X</span> <span class="main">∪</span> <span class="free">Y</span><span class="main">)</span> <span class="main">⊆</span> <span class="free">X</span> <span class="main">∪</span> ipurge_ref <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="free">xs</span> <span class="free">Y</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> ipurge_ref_def<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span> <span class="operator">blast</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_ref_subset_insert<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-ipurge_ref_subset_insert"><span class="command">lemma</span></span> ipurge_ref_subset_insert<span class="main">:</span>
  <span class="quoted"><span class="quoted">"ipurge_ref <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="free">xs</span> <span class="main">(</span>insert <span class="free">x</span> <span class="free">X</span><span class="main">)</span> <span class="main">⊆</span> insert <span class="free">x</span> <span class="main">(</span>ipurge_ref <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="free">xs</span> <span class="free">X</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">only</span><span class="main"><span class="main">:</span></span> insert_def ipurge_ref_subset_union<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_ref_empty <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-ipurge_ref_empty"><span class="command">lemma</span></span> ipurge_ref_empty <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span>
     A<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">v</span> <span class="main">=</span> <span class="free">u</span> <span class="main">∨</span> <span class="free">v</span> <span class="main">∈</span> sinks <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="free">xs</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
     B<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">∀</span><span class="bound">x</span> <span class="main">∈</span> <span class="free">X</span><span class="main">.</span> <span class="main">(</span><span class="free">v</span><span class="main">,</span> <span class="free">D</span> <span class="bound">x</span><span class="main">)</span> <span class="main">∈</span> <span class="free">I</span>"</span></span>
@@ -1681,7 +1681,7 @@ Finally, in what follows, properties <span class="antiquoted"><span class="antiq
 \null
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> process_rule_1<span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-process_rule_1"><span class="command">lemma</span></span> process_rule_1<span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="main">[]</span><span class="main">,</span> <span class="main">{}</span><span class="main">)</span> <span class="main">∈</span> failures <span class="free">P</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> failures_def<span class="main">)</span>
   <span class="keyword1"><span class="command">have</span></span> <span class="quoted"><span class="quoted">"Rep_process <span class="free">P</span> <span class="main">∈</span> process_set"</span></span> <span class="main">(</span><span class="keyword2"><span class="keyword">is</span></span> <span class="quoted"><span class="quoted">"<span class="var">?P'</span> <span class="main">∈</span> <span class="main">_</span>"</span></span><span class="main">)</span>
@@ -1690,7 +1690,7 @@ Finally, in what follows, properties <span class="antiquoted"><span class="antiq
    <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> process_set_def process_prop_1_def<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> process_rule_5 <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-process_rule_5"><span class="command">lemma</span></span> process_rule_5 <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="free">xs</span> <span class="main">∈</span> divergences <span class="free">P</span> <span class="main">⟶</span> <span class="free">xs</span> <span class="main">@</span> <span class="main">[</span><span class="free">x</span><span class="main">]</span> <span class="main">∈</span> divergences <span class="free">P</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> divergences_def<span class="main">)</span>
   <span class="keyword1"><span class="command">have</span></span> <span class="quoted"><span class="quoted">"Rep_process <span class="free">P</span> <span class="main">∈</span> process_set"</span></span> <span class="main">(</span><span class="keyword2"><span class="keyword">is</span></span> <span class="quoted"><span class="quoted">"<span class="var">?P'</span> <span class="main">∈</span> <span class="main">_</span>"</span></span><span class="main">)</span>
@@ -1701,7 +1701,7 @@ Finally, in what follows, properties <span class="antiquoted"><span class="antiq
    <span class="keyword1"><span class="command">by</span></span> <span class="operator">blast</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> process_rule_6 <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Propaedeutics-process_rule_6"><span class="command">lemma</span></span> process_rule_6 <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="free">xs</span> <span class="main">∈</span> divergences <span class="free">P</span> <span class="main">⟶</span> <span class="main">(</span><span class="free">xs</span><span class="main">,</span> <span class="free">X</span><span class="main">)</span> <span class="main">∈</span> failures <span class="free">P</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> failures_def divergences_def<span class="main">)</span>
   <span class="keyword1"><span class="command">have</span></span> <span class="quoted"><span class="quoted">"Rep_process <span class="free">P</span> <span class="main">∈</span> process_set"</span></span> <span class="main">(</span><span class="keyword2"><span class="keyword">is</span></span> <span class="quoted"><span class="quoted">"<span class="var">?P'</span> <span class="main">∈</span> <span class="main">_</span>"</span></span><span class="main">)</span>
@@ -1807,11 +1807,11 @@ processes to be composed be refusals union closed (cf. below).
 \null
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> seq_implies_weakly_seq<span class="main">:</span>
+<span class="keyword1" id="SequentialComposition-seq_implies_weakly_seq"><span class="command">lemma</span></span> seq_implies_weakly_seq<span class="main">:</span>
  <span class="quoted"><span class="quoted">"sequential <span class="free">P</span> <span class="main">⟹</span> weakly_sequential <span class="free">P</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> weakly_sequential_def sequential_def<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> weakly_seq_sentences_none<span class="main">:</span>
+<span class="keyword1" id="SequentialComposition-weakly_seq_sentences_none"><span class="command">lemma</span></span> weakly_seq_sentences_none<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span>
     WS<span class="main">:</span> <span class="quoted"><span class="quoted">"weakly_sequential <span class="free">P</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
     A<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">xs</span> <span class="main">∈</span> sentences <span class="free">P</span>"</span></span>
@@ -1826,7 +1826,7 @@ processes to be composed be refusals union closed (cf. below).
    <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> seq_sentences_none<span class="main">:</span>
+<span class="keyword1" id="SequentialComposition-seq_sentences_none"><span class="command">lemma</span></span> seq_sentences_none<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span>
     S<span class="main">:</span> <span class="quoted"><span class="quoted">"sequential <span class="free">P</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
     A<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">xs</span> <span class="main">∈</span> sentences <span class="free">P</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -1847,7 +1847,7 @@ processes to be composed be refusals union closed (cf. below).
    <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> seq_sentences_ref<span class="main">:</span>
+<span class="keyword1" id="SequentialComposition-seq_sentences_ref"><span class="command">lemma</span></span> seq_sentences_ref<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span>
     A<span class="main">:</span> <span class="quoted"><span class="quoted">"ref_union_closed <span class="free">P</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
     B<span class="main">:</span> <span class="quoted"><span class="quoted">"sequential <span class="free">P</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -1970,7 +1970,7 @@ characteristic properties of the failures set of a process as defined in \cite{R
 \null
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> seq_comp_prop_1<span class="main">:</span>
+<span class="keyword1" id="SequentialComposition-seq_comp_prop_1"><span class="command">lemma</span></span> seq_comp_prop_1<span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="main">[]</span><span class="main">,</span> <span class="main">{}</span><span class="main">)</span> <span class="main">∈</span> seq_comp_failures <span class="free">P</span> <span class="free">Q</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">cases</span> <span class="quoted"><span class="quoted">"<span class="main">[]</span> <span class="main">∈</span> sentences <span class="free">P</span>"</span></span><span class="main">)</span>
   <span class="keyword3"><span class="command">case</span></span> False
@@ -1991,7 +1991,7 @@ characteristic properties of the failures set of a process as defined in \cite{R
   <span class="keyword3"><span class="command">thus</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> seq_comp_prop_2_aux <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="SequentialComposition-seq_comp_prop_2_aux"><span class="command">lemma</span></span> seq_comp_prop_2_aux <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> WS<span class="main">:</span> <span class="quoted"><span class="quoted">"weakly_sequential <span class="free">P</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="free">ws</span><span class="main">,</span> <span class="free">X</span><span class="main">)</span> <span class="main">∈</span> seq_comp_failures <span class="free">P</span> <span class="free">Q</span> <span class="main">⟹</span>
     <span class="free">ws</span> <span class="main">=</span> <span class="free">xs</span> <span class="main">@</span> <span class="main">[</span><span class="free">x</span><span class="main">]</span> <span class="main">⟶</span> <span class="main">(</span><span class="free">xs</span><span class="main">,</span> <span class="main">{}</span><span class="main">)</span> <span class="main">∈</span> seq_comp_failures <span class="free">P</span> <span class="free">Q</span>"</span></span>
@@ -2078,13 +2078,13 @@ characteristic properties of the failures set of a process as defined in \cite{R
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> seq_comp_prop_2<span class="main">:</span>
+<span class="keyword1" id="SequentialComposition-seq_comp_prop_2"><span class="command">lemma</span></span> seq_comp_prop_2<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> WS<span class="main">:</span> <span class="quoted"><span class="quoted">"weakly_sequential <span class="free">P</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="free">xs</span> <span class="main">@</span> <span class="main">[</span><span class="free">x</span><span class="main">]</span><span class="main">,</span> <span class="free">X</span><span class="main">)</span> <span class="main">∈</span> seq_comp_failures <span class="free">P</span> <span class="free">Q</span> <span class="main">⟹</span>
     <span class="main">(</span><span class="free">xs</span><span class="main">,</span> <span class="main">{}</span><span class="main">)</span> <span class="main">∈</span> seq_comp_failures <span class="free">P</span> <span class="free">Q</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">erule</span> seq_comp_prop_2_aux <span class="main"><span class="main">[</span></span><span class="operator">OF</span> WS<span class="main"><span class="main">]</span></span><span class="main"><span class="keyword3">,</span></span> <span class="operator">simp</span><span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> seq_comp_prop_3 <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="SequentialComposition-seq_comp_prop_3"><span class="command">lemma</span></span> seq_comp_prop_3 <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="free">xs</span><span class="main">,</span> <span class="free">Y</span><span class="main">)</span> <span class="main">∈</span> seq_comp_failures <span class="free">P</span> <span class="free">Q</span> <span class="main">⟹</span> <span class="free">X</span> <span class="main">⊆</span> <span class="free">Y</span> <span class="main">⟶</span>
     <span class="main">(</span><span class="free">xs</span><span class="main">,</span> <span class="free">X</span><span class="main">)</span> <span class="main">∈</span> seq_comp_failures <span class="free">P</span> <span class="free">Q</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">induction</span> <span class="quasi_keyword">arbitrary</span><span class="main"><span class="main">:</span></span> <span class="quoted"><span class="free">X</span></span> <span class="quasi_keyword">rule</span><span class="main"><span class="main">:</span></span> seq_comp_failures.induct<span class="main"><span class="keyword3">,</span></span> <span class="operator">rule_tac</span> <span class="main"><span class="improper">[</span></span><span class="main"><span class="main">!</span></span><span class="main"><span class="improper">]</span></span> impI<span class="main">)</span>
@@ -2154,7 +2154,7 @@ characteristic properties of the failures set of a process as defined in \cite{R
    <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> seq_comp_prop_4<span class="main">:</span>
+<span class="keyword1" id="SequentialComposition-seq_comp_prop_4"><span class="command">lemma</span></span> seq_comp_prop_4<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> WS<span class="main">:</span> <span class="quoted"><span class="quoted">"weakly_sequential <span class="free">P</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="free">xs</span><span class="main">,</span> <span class="free">X</span><span class="main">)</span> <span class="main">∈</span> seq_comp_failures <span class="free">P</span> <span class="free">Q</span> <span class="main">⟹</span>
     <span class="main">(</span><span class="free">xs</span> <span class="main">@</span> <span class="main">[</span><span class="free">x</span><span class="main">]</span><span class="main">,</span> <span class="main">{}</span><span class="main">)</span> <span class="main">∈</span> seq_comp_failures <span class="free">P</span> <span class="free">Q</span> <span class="main">∨</span>
@@ -2333,7 +2333,7 @@ characteristic properties of the failures set of a process as defined in \cite{R
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> seq_comp_rep<span class="main">:</span>
+<span class="keyword1" id="SequentialComposition-seq_comp_rep"><span class="command">lemma</span></span> seq_comp_rep<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> WS<span class="main">:</span> <span class="quoted"><span class="quoted">"weakly_sequential <span class="free">P</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"Rep_process <span class="main">(</span><span class="free">P</span> <span class="main">;</span> <span class="free">Q</span><span class="main">)</span> <span class="main">=</span> <span class="main">(</span>seq_comp_failures <span class="free">P</span> <span class="free">Q</span><span class="main">,</span> <span class="main">{}</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">subst</span> seq_comp_def<span class="main"><span class="keyword3">,</span></span> <span class="operator">rule</span> Abs_process_inverse<span class="main"><span class="keyword3">,</span></span> <span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> process_set_def<span class="main"><span class="keyword3">,</span></span>
@@ -2372,32 +2372,32 @@ the sequential composition of a pair of processes.
 \null
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> seq_comp_failures<span class="main">:</span>
+<span class="keyword1" id="SequentialComposition-seq_comp_failures"><span class="command">lemma</span></span> seq_comp_failures<span class="main">:</span>
  <span class="quoted"><span class="quoted">"weakly_sequential <span class="free">P</span> <span class="main">⟹</span>
     failures <span class="main">(</span><span class="free">P</span> <span class="main">;</span> <span class="free">Q</span><span class="main">)</span> <span class="main">=</span> seq_comp_failures <span class="free">P</span> <span class="free">Q</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">drule</span> seq_comp_rep <span class="main"><span class="main">[</span></span><span class="keyword2"><span class="keyword"><span class="operator">where</span></span></span> Q <span class="main"><span class="main"><span class="main">=</span></span></span> <span class="quoted"><span class="free"><span class="quoted"><span class="free"><span class="quoted"><span class="free">Q</span></span></span></span></span></span><span class="main"><span class="main">]</span></span><span class="main"><span class="keyword3">,</span></span> <span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> failures_def<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> seq_comp_divergences<span class="main">:</span>
+<span class="keyword1" id="SequentialComposition-seq_comp_divergences"><span class="command">lemma</span></span> seq_comp_divergences<span class="main">:</span>
  <span class="quoted"><span class="quoted">"weakly_sequential <span class="free">P</span> <span class="main">⟹</span>
     divergences <span class="main">(</span><span class="free">P</span> <span class="main">;</span> <span class="free">Q</span><span class="main">)</span> <span class="main">=</span> <span class="main">{}</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">drule</span> seq_comp_rep <span class="main"><span class="main">[</span></span><span class="keyword2"><span class="keyword"><span class="operator">where</span></span></span> Q <span class="main"><span class="main"><span class="main">=</span></span></span> <span class="quoted"><span class="free"><span class="quoted"><span class="free"><span class="quoted"><span class="free">Q</span></span></span></span></span></span><span class="main"><span class="main">]</span></span><span class="main"><span class="keyword3">,</span></span> <span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> divergences_def<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> seq_comp_futures<span class="main">:</span>
+<span class="keyword1" id="SequentialComposition-seq_comp_futures"><span class="command">lemma</span></span> seq_comp_futures<span class="main">:</span>
  <span class="quoted"><span class="quoted">"weakly_sequential <span class="free">P</span> <span class="main">⟹</span>
     futures <span class="main">(</span><span class="free">P</span> <span class="main">;</span> <span class="free">Q</span><span class="main">)</span> <span class="free">xs</span> <span class="main">=</span> <span class="main">{</span><span class="main">(</span><span class="bound">ys</span><span class="main">,</span> <span class="bound">Y</span><span class="main">)</span><span class="main">.</span> <span class="main">(</span><span class="free">xs</span> <span class="main">@</span> <span class="bound">ys</span><span class="main">,</span> <span class="bound">Y</span><span class="main">)</span> <span class="main">∈</span> seq_comp_failures <span class="free">P</span> <span class="free">Q</span><span class="main">}</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> futures_def seq_comp_failures<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> seq_comp_traces<span class="main">:</span>
+<span class="keyword1" id="SequentialComposition-seq_comp_traces"><span class="command">lemma</span></span> seq_comp_traces<span class="main">:</span>
  <span class="quoted"><span class="quoted">"weakly_sequential <span class="free">P</span> <span class="main">⟹</span>
     traces <span class="main">(</span><span class="free">P</span> <span class="main">;</span> <span class="free">Q</span><span class="main">)</span> <span class="main">=</span> Domain <span class="main">(</span>seq_comp_failures <span class="free">P</span> <span class="free">Q</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> traces_def seq_comp_failures<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> seq_comp_refusals<span class="main">:</span>
+<span class="keyword1" id="SequentialComposition-seq_comp_refusals"><span class="command">lemma</span></span> seq_comp_refusals<span class="main">:</span>
  <span class="quoted"><span class="quoted">"weakly_sequential <span class="free">P</span> <span class="main">⟹</span>
     refusals <span class="main">(</span><span class="free">P</span> <span class="main">;</span> <span class="free">Q</span><span class="main">)</span> <span class="free">xs</span> <span class="main">≡</span> seq_comp_failures <span class="free">P</span> <span class="free">Q</span> <span class="main">``</span> <span class="main">{</span><span class="free">xs</span><span class="main">}</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> refusals_def seq_comp_failures<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> seq_comp_next_events<span class="main">:</span>
+<span class="keyword1" id="SequentialComposition-seq_comp_next_events"><span class="command">lemma</span></span> seq_comp_next_events<span class="main">:</span>
  <span class="quoted"><span class="quoted">"weakly_sequential <span class="free">P</span> <span class="main">⟹</span>
     next_events <span class="main">(</span><span class="free">P</span> <span class="main">;</span> <span class="free">Q</span><span class="main">)</span> <span class="free">xs</span> <span class="main">=</span> <span class="main">{</span><span class="bound">x</span><span class="main">.</span> <span class="free">xs</span> <span class="main">@</span> <span class="main">[</span><span class="bound">x</span><span class="main">]</span> <span class="main">∈</span> Domain <span class="main">(</span>seq_comp_failures <span class="free">P</span> <span class="free">Q</span><span class="main">)</span><span class="main">}</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> next_events_def seq_comp_traces<span class="main">)</span>
@@ -2421,7 +2421,7 @@ The proof of the latter lemma makes use of the axiom of choice.
 \null
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> seq_comp_refusals_1<span class="main">:</span>
+<span class="keyword1" id="SequentialComposition-seq_comp_refusals_1"><span class="command">lemma</span></span> seq_comp_refusals_1<span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="free">xs</span><span class="main">,</span> <span class="free">X</span><span class="main">)</span> <span class="main">∈</span> seq_comp_failures <span class="free">P</span> <span class="free">Q</span> <span class="main">⟹</span> <span class="main">∃</span><span class="bound">R</span><span class="main">.</span>
     <span class="free">X</span> <span class="main">=</span> <span class="main">(</span><span class="main">⋃</span><span class="bound">n</span> <span class="main">∈</span> <span class="main">{..</span>length <span class="free">xs</span><span class="main">}</span><span class="main">.</span> <span class="main">⋃</span><span class="bound">W</span> <span class="main">∈</span> <span class="bound">R</span> <span class="bound">n</span><span class="main">.</span> <span class="bound">W</span><span class="main">)</span> <span class="main">∧</span>
     <span class="main">(</span><span class="main">∀</span><span class="bound">W</span> <span class="main">∈</span> <span class="bound">R</span> <span class="main">0</span><span class="main">.</span>
@@ -2554,7 +2554,7 @@ The proof of the latter lemma makes use of the axiom of choice.
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> seq_comp_refusals_finite <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="SequentialComposition-seq_comp_refusals_finite"><span class="command">lemma</span></span> seq_comp_refusals_finite <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> A<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">xs</span> <span class="main">∈</span> Domain <span class="main">(</span>seq_comp_failures <span class="free">P</span> <span class="free">Q</span><span class="main">)</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"finite <span class="free">A</span> <span class="main">⟹</span> <span class="main">(</span><span class="main">∀</span><span class="bound">x</span> <span class="main">∈</span> <span class="free">A</span><span class="main">.</span> <span class="main">(</span><span class="free">xs</span><span class="main">,</span> <span class="free">F</span> <span class="bound">x</span><span class="main">)</span> <span class="main">∈</span> seq_comp_failures <span class="free">P</span> <span class="free">Q</span><span class="main">)</span> <span class="main">⟶</span>
     <span class="main">(</span><span class="free">xs</span><span class="main">,</span> <span class="main">⋃</span><span class="bound">x</span> <span class="main">∈</span> <span class="free">A</span><span class="main">.</span> <span class="free">F</span> <span class="bound">x</span><span class="main">)</span> <span class="main">∈</span> seq_comp_failures <span class="free">P</span> <span class="free">Q</span>"</span></span>
@@ -2580,7 +2580,7 @@ The proof of the latter lemma makes use of the axiom of choice.
    <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> seq_comp_refusals_2<span class="main">:</span>
+<span class="keyword1" id="SequentialComposition-seq_comp_refusals_2"><span class="command">lemma</span></span> seq_comp_refusals_2<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span>
     A<span class="main">:</span> <span class="quoted"><span class="quoted">"ref_union_closed <span class="free">P</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
     B<span class="main">:</span> <span class="quoted"><span class="quoted">"ref_union_closed <span class="free">Q</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -2803,7 +2803,7 @@ the sequential composition of an arbitrary list of processes.
 \null
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> seq_comp_ref_union_closed<span class="main">:</span>
+<span class="keyword1" id="SequentialComposition-seq_comp_ref_union_closed"><span class="command">lemma</span></span> seq_comp_ref_union_closed<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span>
     WS<span class="main">:</span> <span class="quoted"><span class="quoted">"weakly_sequential <span class="free">P</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
     A<span class="main">:</span> <span class="quoted"><span class="quoted">"ref_union_closed <span class="free">P</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -2919,7 +2919,7 @@ the sequential composition of an arbitrary list of processes.
    <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">rule</span> seq_comp_refusals_2 <span class="main"><span class="main">[</span></span><span class="operator">OF</span> A B<span class="main"><span class="main">]</span></span><span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> seq_comp_weakly_sequential<span class="main">:</span>
+<span class="keyword1" id="SequentialComposition-seq_comp_weakly_sequential"><span class="command">lemma</span></span> seq_comp_weakly_sequential<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span>
     A<span class="main">:</span> <span class="quoted"><span class="quoted">"weakly_sequential <span class="free">P</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
     B<span class="main">:</span> <span class="quoted"><span class="quoted">"weakly_sequential <span class="free">Q</span>"</span></span>
@@ -2969,7 +2969,7 @@ the sequential composition of an arbitrary list of processes.
    <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> seq_comp_sequential<span class="main">:</span>
+<span class="keyword1" id="SequentialComposition-seq_comp_sequential"><span class="command">lemma</span></span> seq_comp_sequential<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span>
     A<span class="main">:</span> <span class="quoted"><span class="quoted">"sequential <span class="free">P</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
     B<span class="main">:</span> <span class="quoted"><span class="quoted">"sequential <span class="free">Q</span>"</span></span>
@@ -3288,7 +3288,7 @@ meet the proof obligations arising from rule <span class="antiquoted"><span clas
 \null
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> seq_comp_secure_aux_1_case_1<span class="main">:</span>
+<span class="keyword1" id="SequentialComposition-seq_comp_secure_aux_1_case_1"><span class="command">lemma</span></span> seq_comp_secure_aux_1_case_1<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span>
     A<span class="main">:</span> <span class="quoted"><span class="quoted">"secure_termination <span class="free">I</span> <span class="free">D</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
     B<span class="main">:</span> <span class="quoted"><span class="quoted">"sequential <span class="free">P</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -3423,7 +3423,7 @@ meet the proof obligations arising from rule <span class="antiquoted"><span clas
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> seq_comp_secure_aux_1_case_2<span class="main">:</span>
+<span class="keyword1" id="SequentialComposition-seq_comp_secure_aux_1_case_2"><span class="command">lemma</span></span> seq_comp_secure_aux_1_case_2<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span>
     A<span class="main">:</span> <span class="quoted"><span class="quoted">"secure_termination <span class="free">I</span> <span class="free">D</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
     B<span class="main">:</span> <span class="quoted"><span class="quoted">"sequential <span class="free">P</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -3577,7 +3577,7 @@ meet the proof obligations arising from rule <span class="antiquoted"><span clas
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> seq_comp_secure_aux_1_case_3<span class="main">:</span>
+<span class="keyword1" id="SequentialComposition-seq_comp_secure_aux_1_case_3"><span class="command">lemma</span></span> seq_comp_secure_aux_1_case_3<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span>
     A<span class="main">:</span> <span class="quoted"><span class="quoted">"secure_termination <span class="free">I</span> <span class="free">D</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
     B<span class="main">:</span> <span class="quoted"><span class="quoted">"ref_union_closed <span class="free">Q</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -3860,7 +3860,7 @@ meet the proof obligations arising from rule <span class="antiquoted"><span clas
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> seq_comp_secure_aux_1 <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="SequentialComposition-seq_comp_secure_aux_1"><span class="command">lemma</span></span> seq_comp_secure_aux_1 <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span>
     A<span class="main">:</span> <span class="quoted"><span class="quoted">"secure_termination <span class="free">I</span> <span class="free">D</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
     B<span class="main">:</span> <span class="quoted"><span class="quoted">"ref_union_closed <span class="free">P</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -3916,7 +3916,7 @@ meet the proof obligations arising from rule <span class="antiquoted"><span clas
    <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> ipurge_ref_distrib_union<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> seq_comp_secure_1<span class="main">:</span>
+<span class="keyword1" id="SequentialComposition-seq_comp_secure_1"><span class="command">lemma</span></span> seq_comp_secure_1<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span>
     A<span class="main">:</span> <span class="quoted"><span class="quoted">"secure_termination <span class="free">I</span> <span class="free">D</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
     B<span class="main">:</span> <span class="quoted"><span class="quoted">"ref_union_closed <span class="free">P</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -3943,7 +3943,7 @@ derived previously.
 \null
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> seq_comp_secure_aux_2_case_1<span class="main">:</span>
+<span class="keyword1" id="SequentialComposition-seq_comp_secure_aux_2_case_1"><span class="command">lemma</span></span> seq_comp_secure_aux_2_case_1<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span>
     A<span class="main">:</span> <span class="quoted"><span class="quoted">"secure_termination <span class="free">I</span> <span class="free">D</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
     B<span class="main">:</span> <span class="quoted"><span class="quoted">"sequential <span class="free">P</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -4196,7 +4196,7 @@ derived previously.
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> seq_comp_secure_aux_2_case_2<span class="main">:</span>
+<span class="keyword1" id="SequentialComposition-seq_comp_secure_aux_2_case_2"><span class="command">lemma</span></span> seq_comp_secure_aux_2_case_2<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span>
     A<span class="main">:</span> <span class="quoted"><span class="quoted">"secure_termination <span class="free">I</span> <span class="free">D</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
     B<span class="main">:</span> <span class="quoted"><span class="quoted">"sequential <span class="free">P</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -4494,7 +4494,7 @@ derived previously.
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> seq_comp_secure_aux_2_case_3<span class="main">:</span>
+<span class="keyword1" id="SequentialComposition-seq_comp_secure_aux_2_case_3"><span class="command">lemma</span></span> seq_comp_secure_aux_2_case_3<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span>
     A<span class="main">:</span> <span class="quoted"><span class="quoted">"secure_termination <span class="free">I</span> <span class="free">D</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
     B<span class="main">:</span> <span class="quoted"><span class="quoted">"ref_union_closed <span class="free">P</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -5035,7 +5035,7 @@ derived previously.
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> seq_comp_secure_aux_2 <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="SequentialComposition-seq_comp_secure_aux_2"><span class="command">lemma</span></span> seq_comp_secure_aux_2 <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span>
     A<span class="main">:</span> <span class="quoted"><span class="quoted">"secure_termination <span class="free">I</span> <span class="free">D</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
     B<span class="main">:</span> <span class="quoted"><span class="quoted">"ref_union_closed <span class="free">P</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -5095,7 +5095,7 @@ derived previously.
    <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> ipurge_ref_distrib_union<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> seq_comp_secure_2<span class="main">:</span>
+<span class="keyword1" id="SequentialComposition-seq_comp_secure_2"><span class="command">lemma</span></span> seq_comp_secure_2<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span>
     A<span class="main">:</span> <span class="quoted"><span class="quoted">"secure_termination <span class="free">I</span> <span class="free">D</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
     B<span class="main">:</span> <span class="quoted"><span class="quoted">"ref_union_closed <span class="free">P</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -5215,13 +5215,13 @@ sequentiality are generalized, too.
 \null
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> seq_comp_list_weakly_sequential <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="SequentialComposition-seq_comp_list_weakly_sequential"><span class="command">lemma</span></span> seq_comp_list_weakly_sequential <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="main">∀</span><span class="bound">X</span> <span class="main">∈</span> set <span class="main">(</span><span class="free">P</span> <span class="main">#</span> <span class="free">PS</span><span class="main">)</span><span class="main">.</span> weakly_sequential <span class="bound">X</span><span class="main">)</span> <span class="main">⟶</span>
     weakly_sequential <span class="main">(</span>foldl <span class="main">(;)</span> <span class="free">P</span> <span class="free">PS</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">induction</span> <span class="quoted"><span class="free">PS</span></span> <span class="quasi_keyword">rule</span><span class="main"><span class="main">:</span></span> rev_induct<span class="main"><span class="keyword3">,</span></span> <span class="operator">simp</span><span class="main"><span class="keyword3">,</span></span> <span class="operator">rule</span> impI<span class="main"><span class="keyword3">,</span></span> <span class="operator">simp</span><span class="main"><span class="keyword3">,</span></span> <span class="main">(</span><span class="operator">erule</span> conjE<span class="main">)</span><span class="main"><span class="keyword3">+</span></span><span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span> <span class="main">(</span><span class="operator">rule</span> seq_comp_weakly_sequential<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> seq_comp_list_ref_union_closed <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="SequentialComposition-seq_comp_list_ref_union_closed"><span class="command">lemma</span></span> seq_comp_list_ref_union_closed <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="main">∀</span><span class="bound">X</span> <span class="main">∈</span> set <span class="main">(</span>butlast <span class="main">(</span><span class="free">P</span> <span class="main">#</span> <span class="free">PS</span><span class="main">)</span><span class="main">)</span><span class="main">.</span> weakly_sequential <span class="bound">X</span><span class="main">)</span> <span class="main">⟶</span>
   <span class="main">(</span><span class="main">∀</span><span class="bound">X</span> <span class="main">∈</span> set <span class="main">(</span><span class="free">P</span> <span class="main">#</span> <span class="free">PS</span><span class="main">)</span><span class="main">.</span> ref_union_closed <span class="bound">X</span><span class="main">)</span> <span class="main">⟶</span>
     ref_union_closed <span class="main">(</span>foldl <span class="main">(;)</span> <span class="free">P</span> <span class="free">PS</span><span class="main">)</span>"</span></span>
@@ -5253,7 +5253,7 @@ sequentiality are generalized, too.
    <span class="keyword1"><span class="command">using</span></span> C <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">rule</span> seq_comp_ref_union_closed<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> seq_comp_list_sequential <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="SequentialComposition-seq_comp_list_sequential"><span class="command">lemma</span></span> seq_comp_list_sequential <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="main">∀</span><span class="bound">X</span> <span class="main">∈</span> set <span class="main">(</span><span class="free">P</span> <span class="main">#</span> <span class="free">PS</span><span class="main">)</span><span class="main">.</span> sequential <span class="bound">X</span><span class="main">)</span> <span class="main">⟶</span>
     sequential <span class="main">(</span>foldl <span class="main">(;)</span> <span class="free">P</span> <span class="free">PS</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">induction</span> <span class="quoted"><span class="free">PS</span></span> <span class="quasi_keyword">rule</span><span class="main"><span class="main">:</span></span> rev_induct<span class="main"><span class="keyword3">,</span></span> <span class="operator">simp</span><span class="main"><span class="keyword3">,</span></span> <span class="operator">rule</span> impI<span class="main"><span class="keyword3">,</span></span> <span class="operator">simp</span><span class="main"><span class="keyword3">,</span></span> <span class="main">(</span><span class="operator">erule</span> conjE<span class="main">)</span><span class="main"><span class="keyword3">+</span></span><span class="main">)</span>
@@ -5370,7 +5370,7 @@ definitions of these constants, followed by few useful lemmas on process <span c
 <span class="keyword1"><span class="command">definition</span></span> <span class="entity">Q</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"event option process"</span></span> <span class="keyword2"><span class="keyword">where</span></span>
 <span class="quoted"><span class="quoted">"<span class="free">Q</span> <span class="main">≡</span> ts_process <span class="main">{</span><span class="main">[]</span><span class="main">,</span> <span class="main">[</span>Some b<span class="main">]</span><span class="main">}</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> trace_set_snd<span class="main">:</span>
+<span class="keyword1" id="Counterexamples-trace_set_snd"><span class="command">lemma</span></span> trace_set_snd<span class="main">:</span>
  <span class="quoted"><span class="quoted">"trace_set <span class="main">{</span><span class="main">[]</span><span class="main">,</span> <span class="main">[</span>Some b<span class="main">]</span><span class="main">}</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> trace_set_def<span class="main">)</span>
 
@@ -5414,7 +5414,7 @@ on process <span class="antiquoted"><span class="antiquoted"><span class="antiqu
 <span class="keyword1"><span class="command">definition</span></span> <span class="entity">P<span class="hidden">⇩</span><sub>1</sub></span> <span class="main">::</span> <span class="quoted"><span class="quoted">"event option process"</span></span> <span class="keyword2"><span class="keyword">where</span></span>
 <span class="quoted"><span class="quoted">"<span class="free">P<span class="hidden">⇩</span><sub>1</sub></span> <span class="main">≡</span> ts_process <span class="main">{</span><span class="main">[]</span><span class="main">,</span> <span class="main">[</span>Some a<span class="main">]</span><span class="main">,</span> <span class="main">[</span>Some a<span class="main">,</span> None<span class="main">]</span><span class="main">}</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> trace_set_fst_1<span class="main">:</span>
+<span class="keyword1" id="Counterexamples-trace_set_fst_1"><span class="command">lemma</span></span> trace_set_fst_1<span class="main">:</span>
  <span class="quoted"><span class="quoted">"trace_set <span class="main">{</span><span class="main">[]</span><span class="main">,</span> <span class="main">[</span>Some a<span class="main">]</span><span class="main">,</span> <span class="main">[</span>Some a<span class="main">,</span> None<span class="main">]</span><span class="main">}</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> trace_set_def<span class="main">)</span>
 
@@ -5436,22 +5436,22 @@ keep being satisfied. For the sake of simplicity, the identity function is used 
 \null
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> not_secure_termination_1<span class="main">:</span>
+<span class="keyword1" id="Counterexamples-not_secure_termination_1"><span class="command">lemma</span></span> not_secure_termination_1<span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="main">¬</span> secure_termination I<span class="hidden">⇩</span><sub>1</sub> id"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> secure_termination_def I<span class="hidden">⇩</span><sub>1</sub>_def<span class="main"><span class="keyword3">,</span></span> <span class="operator">rule</span> exI <span class="main"><span class="main">[</span></span><span class="keyword2"><span class="keyword"><span class="operator">where</span></span></span> x <span class="main"><span class="main"><span class="main">=</span></span></span> <span class="quoted"><span class="quoted"><span class="quoted">"Some a"</span></span></span><span class="main"><span class="main">]</span></span><span class="main"><span class="keyword3">,</span></span>
  <span class="operator">simp</span><span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span> <span class="main">(</span><span class="operator">rule</span> exI <span class="main"><span class="main">[</span></span><span class="keyword2"><span class="keyword"><span class="operator">where</span></span></span> x <span class="main"><span class="main"><span class="main">=</span></span></span> <span class="quoted"><span class="quoted"><span class="quoted">"Some b"</span></span></span><span class="main"><span class="main">]</span></span><span class="main"><span class="keyword3">,</span></span> <span class="operator">simp</span><span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ref_union_closed_fst_1<span class="main">:</span>
+<span class="keyword1" id="Counterexamples-ref_union_closed_fst_1"><span class="command">lemma</span></span> ref_union_closed_fst_1<span class="main">:</span>
  <span class="quoted"><span class="quoted">"ref_union_closed P<span class="hidden">⇩</span><sub>1</sub>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">rule</span> d_implies_ruc<span class="main"><span class="keyword3">,</span></span> <span class="operator">subst</span> P<span class="hidden">⇩</span><sub>1</sub>_def<span class="main"><span class="keyword3">,</span></span> <span class="operator">rule</span> ts_process_d<span class="main"><span class="keyword3">,</span></span> <span class="operator">rule</span> trace_set_fst_1<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> sequential_fst_1<span class="main">:</span>
+<span class="keyword1" id="Counterexamples-sequential_fst_1"><span class="command">lemma</span></span> sequential_fst_1<span class="main">:</span>
  <span class="quoted"><span class="quoted">"sequential P<span class="hidden">⇩</span><sub>1</sub>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> sequential_def sentences_def P<span class="hidden">⇩</span><sub>1</sub>_def traces_fst_1<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> set_eq_iff next_events_fst_1<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> secure_fst_1<span class="main">:</span>
+<span class="keyword1" id="Counterexamples-secure_fst_1"><span class="command">lemma</span></span> secure_fst_1<span class="main">:</span>
  <span class="quoted"><span class="quoted">"secure P<span class="hidden">⇩</span><sub>1</sub> I<span class="hidden">⇩</span><sub>1</sub> id"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> P<span class="hidden">⇩</span><sub>1</sub>_def unwinding_fst_1 dfc_equals_dwfc_rel_ipurge <span class="main"><span class="main">[</span></span><span class="operator">symmetric</span><span class="main"><span class="main">]</span></span>
  d_future_consistent_def rel_ipurge_def traces_fst_1<span class="main"><span class="keyword3">,</span></span> <span class="main">(</span><span class="operator">rule</span> allI<span class="main">)</span><span class="main"><span class="keyword3">+</span></span><span class="main">)</span>
@@ -5485,7 +5485,7 @@ keep being satisfied. For the sake of simplicity, the identity function is used 
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> secure_snd_1<span class="main">:</span>
+<span class="keyword1" id="Counterexamples-secure_snd_1"><span class="command">lemma</span></span> secure_snd_1<span class="main">:</span>
  <span class="quoted"><span class="quoted">"secure Q I<span class="hidden">⇩</span><sub>1</sub> id"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> Q_def unwinding_snd dfc_equals_dwfc_rel_ipurge <span class="main"><span class="main">[</span></span><span class="operator">symmetric</span><span class="main"><span class="main">]</span></span>
  d_future_consistent_def rel_ipurge_def traces_snd<span class="main"><span class="keyword3">,</span></span> <span class="main">(</span><span class="operator">rule</span> allI<span class="main">)</span><span class="main"><span class="keyword3">+</span></span><span class="main">)</span>
@@ -5526,28 +5526,28 @@ list <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><
 \null
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> traces_comp_1<span class="main">:</span>
+<span class="keyword1" id="Counterexamples-traces_comp_1"><span class="command">lemma</span></span> traces_comp_1<span class="main">:</span>
  <span class="quoted"><span class="quoted">"traces <span class="main">(</span>P<span class="hidden">⇩</span><sub>1</sub> <span class="main">;</span> Q<span class="main">)</span> <span class="main">=</span> Domain <span class="main">(</span>seq_comp_failures P<span class="hidden">⇩</span><sub>1</sub> Q<span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">subst</span> seq_comp_traces<span class="main"><span class="keyword3">,</span></span> <span class="operator">rule</span> seq_implies_weakly_seq<span class="main"><span class="keyword3">,</span></span> <span class="operator">rule</span> sequential_fst_1<span class="main"><span class="keyword3">,</span></span> <span class="operator">simp</span><span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ref_union_closed_comp_1<span class="main">:</span>
+<span class="keyword1" id="Counterexamples-ref_union_closed_comp_1"><span class="command">lemma</span></span> ref_union_closed_comp_1<span class="main">:</span>
  <span class="quoted"><span class="quoted">"ref_union_closed <span class="main">(</span>P<span class="hidden">⇩</span><sub>1</sub> <span class="main">;</span> Q<span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">rule</span> seq_comp_ref_union_closed<span class="main"><span class="keyword3">,</span></span> <span class="operator">rule</span> seq_implies_weakly_seq<span class="main"><span class="keyword3">,</span></span>
  <span class="operator">rule</span> sequential_fst_1<span class="main"><span class="keyword3">,</span></span> <span class="operator">rule</span> ref_union_closed_fst_1<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span> <span class="main">(</span><span class="operator">rule</span> d_implies_ruc<span class="main"><span class="keyword3">,</span></span> <span class="operator">subst</span> Q_def<span class="main"><span class="keyword3">,</span></span> <span class="operator">rule</span> ts_process_d<span class="main"><span class="keyword3">,</span></span> <span class="operator">rule</span> trace_set_snd<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> not_secure_comp_1_aux_aux_1<span class="main">:</span>
+<span class="keyword1" id="Counterexamples-not_secure_comp_1_aux_aux_1"><span class="command">lemma</span></span> not_secure_comp_1_aux_aux_1<span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="free">xs</span><span class="main">,</span> <span class="free">X</span><span class="main">)</span> <span class="main">∈</span> seq_comp_failures P<span class="hidden">⇩</span><sub>1</sub> Q <span class="main">⟹</span> <span class="free">xs</span> <span class="main">≠</span> <span class="main">[</span>Some b<span class="main">]</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">rule</span> notI<span class="main"><span class="keyword3">,</span></span> <span class="operator">erule</span> rev_mp<span class="main"><span class="keyword3">,</span></span> <span class="operator">erule</span> seq_comp_failures.induct<span class="main"><span class="keyword3">,</span></span> <span class="main">(</span><span class="operator">rule_tac</span> <span class="main"><span class="improper">[</span></span><span class="main"><span class="main">!</span></span><span class="main"><span class="improper">]</span></span> impI<span class="main">)</span><span class="main"><span class="keyword3">+</span></span><span class="main"><span class="keyword3">,</span></span>
  <span class="operator">simp_all</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> P<span class="hidden">⇩</span><sub>1</sub>_def Q_def sentences_def<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span> <span class="main">(</span><span class="operator">simp_all</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> failures_fst_1 traces_fst_1<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> not_secure_comp_1_aux_1<span class="main">:</span>
+<span class="keyword1" id="Counterexamples-not_secure_comp_1_aux_1"><span class="command">lemma</span></span> not_secure_comp_1_aux_1<span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="main">[</span>Some b<span class="main">]</span> <span class="main">∉</span> traces <span class="main">(</span>P<span class="hidden">⇩</span><sub>1</sub> <span class="main">;</span> Q<span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> traces_comp_1 Domain_iff<span class="main"><span class="keyword3">,</span></span> <span class="operator">rule</span> allI<span class="main"><span class="keyword3">,</span></span> <span class="operator">rule</span> notI<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span> <span class="main">(</span><span class="operator">drule</span> not_secure_comp_1_aux_aux_1<span class="main"><span class="keyword3">,</span></span> <span class="operator">simp</span><span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> not_secure_comp_1_aux_2<span class="main">:</span>
+<span class="keyword1" id="Counterexamples-not_secure_comp_1_aux_2"><span class="command">lemma</span></span> not_secure_comp_1_aux_2<span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="main">[</span>Some a<span class="main">,</span> Some b<span class="main">]</span> <span class="main">∈</span> traces <span class="main">(</span>P<span class="hidden">⇩</span><sub>1</sub> <span class="main">;</span> Q<span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> traces_comp_1 Domain_iff<span class="main"><span class="keyword3">,</span></span> <span class="operator">rule</span> exI <span class="main"><span class="main">[</span></span><span class="keyword2"><span class="keyword"><span class="operator">where</span></span></span> x <span class="main"><span class="main"><span class="main">=</span></span></span> <span class="quoted"><span class="quoted"><span class="quoted">"<span class="main"><span class="main">{}</span></span>"</span></span></span><span class="main"><span class="main">]</span></span><span class="main">)</span>
   <span class="keyword1"><span class="command">have</span></span> <span class="quoted"><span class="quoted">"<span class="main">[</span>Some a<span class="main">]</span> <span class="main">∈</span> sentences P<span class="hidden">⇩</span><sub>1</sub>"</span></span>
@@ -5562,7 +5562,7 @@ list <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><
    <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> not_secure_comp_1<span class="main">:</span>
+<span class="keyword1" id="Counterexamples-not_secure_comp_1"><span class="command">lemma</span></span> not_secure_comp_1<span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="main">¬</span> secure <span class="main">(</span>P<span class="hidden">⇩</span><sub>1</sub> <span class="main">;</span> Q<span class="main">)</span> I<span class="hidden">⇩</span><sub>1</sub> id"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">subst</span> ipurge_unwinding<span class="main"><span class="keyword3">,</span></span> <span class="operator">rule</span> ref_union_closed_comp_1<span class="main"><span class="keyword3">,</span></span> <span class="operator">simp</span>
  <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> fc_equals_wfc_rel_ipurge <span class="main"><span class="main">[</span></span><span class="operator">symmetric</span><span class="main"><span class="main">]</span></span> future_consistent_def rel_ipurge_def
@@ -5605,7 +5605,7 @@ security from the assumptions of the security conservation theorem.
 \null
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> counterexample_1<span class="main">:</span>
+<span class="keyword1" id="Counterexamples-counterexample_1"><span class="command">lemma</span></span> counterexample_1<span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="main">¬</span> <span class="main">(</span>ref_union_closed P<span class="hidden">⇩</span><sub>1</sub> <span class="main">∧</span>
      sequential P<span class="hidden">⇩</span><sub>1</sub> <span class="main">∧</span>
      secure P<span class="hidden">⇩</span><sub>1</sub> I<span class="hidden">⇩</span><sub>1</sub> id <span class="main">∧</span>
@@ -5663,7 +5663,7 @@ on process <span class="antiquoted"><span class="antiquoted"><span class="antiqu
 <span class="keyword1"><span class="command">definition</span></span> <span class="entity">P<span class="hidden">⇩</span><sub>2</sub></span> <span class="main">::</span> <span class="quoted"><span class="quoted">"event option process"</span></span> <span class="keyword2"><span class="keyword">where</span></span>
 <span class="quoted"><span class="quoted">"<span class="free">P<span class="hidden">⇩</span><sub>2</sub></span> <span class="main">≡</span> ts_process <span class="main">{</span><span class="main">[]</span><span class="main">,</span> <span class="main">[</span>None<span class="main">]</span><span class="main">,</span> <span class="main">[</span>Some a<span class="main">]</span><span class="main">,</span> <span class="main">[</span>Some a<span class="main">,</span> None<span class="main">]</span><span class="main">}</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> trace_set_fst_2<span class="main">:</span>
+<span class="keyword1" id="Counterexamples-trace_set_fst_2"><span class="command">lemma</span></span> trace_set_fst_2<span class="main">:</span>
  <span class="quoted"><span class="quoted">"trace_set <span class="main">{</span><span class="main">[]</span><span class="main">,</span> <span class="main">[</span>None<span class="main">]</span><span class="main">,</span> <span class="main">[</span>Some a<span class="main">]</span><span class="main">,</span> <span class="main">[</span>Some a<span class="main">,</span> None<span class="main">]</span><span class="main">}</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> trace_set_def<span class="main">)</span>
 
@@ -5686,19 +5686,19 @@ as event-domain map.
 \null
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> secure_termination_2<span class="main">:</span>
+<span class="keyword1" id="Counterexamples-secure_termination_2"><span class="command">lemma</span></span> secure_termination_2<span class="main">:</span>
  <span class="quoted"><span class="quoted">"secure_termination I<span class="hidden">⇩</span><sub>2</sub> id"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> secure_termination_def I<span class="hidden">⇩</span><sub>2</sub>_def<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ref_union_closed_fst_2<span class="main">:</span>
+<span class="keyword1" id="Counterexamples-ref_union_closed_fst_2"><span class="command">lemma</span></span> ref_union_closed_fst_2<span class="main">:</span>
  <span class="quoted"><span class="quoted">"ref_union_closed P<span class="hidden">⇩</span><sub>2</sub>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">rule</span> d_implies_ruc<span class="main"><span class="keyword3">,</span></span> <span class="operator">subst</span> P<span class="hidden">⇩</span><sub>2</sub>_def<span class="main"><span class="keyword3">,</span></span> <span class="operator">rule</span> ts_process_d<span class="main"><span class="keyword3">,</span></span> <span class="operator">rule</span> trace_set_fst_2<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> weakly_sequential_fst_2<span class="main">:</span>
+<span class="keyword1" id="Counterexamples-weakly_sequential_fst_2"><span class="command">lemma</span></span> weakly_sequential_fst_2<span class="main">:</span>
  <span class="quoted"><span class="quoted">"weakly_sequential P<span class="hidden">⇩</span><sub>2</sub>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> weakly_sequential_def P<span class="hidden">⇩</span><sub>2</sub>_def traces_fst_2<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> not_sequential_fst_2<span class="main">:</span>
+<span class="keyword1" id="Counterexamples-not_sequential_fst_2"><span class="command">lemma</span></span> not_sequential_fst_2<span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="main">¬</span> sequential P<span class="hidden">⇩</span><sub>2</sub>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> sequential_def<span class="main"><span class="keyword3">,</span></span> <span class="operator">rule</span> disjI2<span class="main"><span class="keyword3">,</span></span> <span class="operator">rule</span> bexI <span class="main"><span class="main">[</span></span><span class="keyword2"><span class="keyword"><span class="operator">where</span></span></span> x <span class="main"><span class="main"><span class="main">=</span></span></span> <span class="quoted"><span class="quoted"><span class="quoted">"<span class="main"><span class="main">[]</span></span>"</span></span></span><span class="main"><span class="main">]</span></span><span class="main">)</span>
   <span class="keyword3"><span class="command">show</span></span> <span class="quoted"><span class="quoted">"next_events P<span class="hidden">⇩</span><sub>2</sub> <span class="main">[]</span> <span class="main">≠</span> <span class="main">{</span>None<span class="main">}</span>"</span></span>
@@ -5709,7 +5709,7 @@ as event-domain map.
    <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> sentences_def P<span class="hidden">⇩</span><sub>2</sub>_def traces_fst_2<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> secure_fst_2<span class="main">:</span>
+<span class="keyword1" id="Counterexamples-secure_fst_2"><span class="command">lemma</span></span> secure_fst_2<span class="main">:</span>
  <span class="quoted"><span class="quoted">"secure P<span class="hidden">⇩</span><sub>2</sub> I<span class="hidden">⇩</span><sub>2</sub> id"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> P<span class="hidden">⇩</span><sub>2</sub>_def unwinding_fst_2 dfc_equals_dwfc_rel_ipurge <span class="main"><span class="main">[</span></span><span class="operator">symmetric</span><span class="main"><span class="main">]</span></span>
  d_future_consistent_def rel_ipurge_def traces_fst_2<span class="main"><span class="keyword3">,</span></span> <span class="main">(</span><span class="operator">rule</span> allI<span class="main">)</span><span class="main"><span class="keyword3">+</span></span><span class="main">)</span>
@@ -5747,7 +5747,7 @@ as event-domain map.
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> secure_snd_2<span class="main">:</span>
+<span class="keyword1" id="Counterexamples-secure_snd_2"><span class="command">lemma</span></span> secure_snd_2<span class="main">:</span>
  <span class="quoted"><span class="quoted">"secure Q I<span class="hidden">⇩</span><sub>2</sub> id"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> Q_def unwinding_snd dfc_equals_dwfc_rel_ipurge <span class="main"><span class="main">[</span></span><span class="operator">symmetric</span><span class="main"><span class="main">]</span></span>
  d_future_consistent_def rel_ipurge_def traces_snd<span class="main"><span class="keyword3">,</span></span> <span class="main">(</span><span class="operator">rule</span> allI<span class="main">)</span><span class="main"><span class="keyword3">+</span></span><span class="main">)</span>
@@ -5789,28 +5789,28 @@ lists <span class="antiquoted"><span class="antiquoted"><span class="antiquote">
 \null
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> traces_comp_2<span class="main">:</span>
+<span class="keyword1" id="Counterexamples-traces_comp_2"><span class="command">lemma</span></span> traces_comp_2<span class="main">:</span>
  <span class="quoted"><span class="quoted">"traces <span class="main">(</span>P<span class="hidden">⇩</span><sub>2</sub> <span class="main">;</span> Q<span class="main">)</span> <span class="main">=</span> Domain <span class="main">(</span>seq_comp_failures P<span class="hidden">⇩</span><sub>2</sub> Q<span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">subst</span> seq_comp_traces<span class="main"><span class="keyword3">,</span></span> <span class="operator">rule</span> weakly_sequential_fst_2<span class="main"><span class="keyword3">,</span></span> <span class="operator">simp</span><span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ref_union_closed_comp_2<span class="main">:</span>
+<span class="keyword1" id="Counterexamples-ref_union_closed_comp_2"><span class="command">lemma</span></span> ref_union_closed_comp_2<span class="main">:</span>
  <span class="quoted"><span class="quoted">"ref_union_closed <span class="main">(</span>P<span class="hidden">⇩</span><sub>2</sub> <span class="main">;</span> Q<span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">rule</span> seq_comp_ref_union_closed<span class="main"><span class="keyword3">,</span></span> <span class="operator">rule</span> weakly_sequential_fst_2<span class="main"><span class="keyword3">,</span></span>
  <span class="operator">rule</span> ref_union_closed_fst_2<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span> <span class="main">(</span><span class="operator">rule</span> d_implies_ruc<span class="main"><span class="keyword3">,</span></span> <span class="operator">subst</span> Q_def<span class="main"><span class="keyword3">,</span></span> <span class="operator">rule</span> ts_process_d<span class="main"><span class="keyword3">,</span></span> <span class="operator">rule</span> trace_set_snd<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> not_secure_comp_2_aux_aux_1<span class="main">:</span>
+<span class="keyword1" id="Counterexamples-not_secure_comp_2_aux_aux_1"><span class="command">lemma</span></span> not_secure_comp_2_aux_aux_1<span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="free">xs</span><span class="main">,</span> <span class="free">X</span><span class="main">)</span> <span class="main">∈</span> seq_comp_failures P<span class="hidden">⇩</span><sub>2</sub> Q <span class="main">⟹</span> <span class="free">xs</span> <span class="main">≠</span> <span class="main">[</span>Some b<span class="main">,</span> Some a<span class="main">]</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">rule</span> notI<span class="main"><span class="keyword3">,</span></span> <span class="operator">erule</span> rev_mp<span class="main"><span class="keyword3">,</span></span> <span class="operator">erule</span> seq_comp_failures.induct<span class="main"><span class="keyword3">,</span></span> <span class="main">(</span><span class="operator">rule_tac</span> <span class="main"><span class="improper">[</span></span><span class="main"><span class="main">!</span></span><span class="main"><span class="improper">]</span></span> impI<span class="main">)</span><span class="main"><span class="keyword3">+</span></span><span class="main"><span class="keyword3">,</span></span>
  <span class="operator">simp_all</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> P<span class="hidden">⇩</span><sub>2</sub>_def Q_def sentences_def<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span> <span class="main">(</span><span class="operator">simp_all</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> failures_fst_2 traces_fst_2 failures_snd<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> not_secure_comp_2_aux_1<span class="main">:</span>
+<span class="keyword1" id="Counterexamples-not_secure_comp_2_aux_1"><span class="command">lemma</span></span> not_secure_comp_2_aux_1<span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="main">[</span>Some b<span class="main">,</span> Some a<span class="main">]</span> <span class="main">∉</span> traces <span class="main">(</span>P<span class="hidden">⇩</span><sub>2</sub> <span class="main">;</span> Q<span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> traces_comp_2 Domain_iff<span class="main"><span class="keyword3">,</span></span> <span class="operator">rule</span> allI<span class="main"><span class="keyword3">,</span></span> <span class="operator">rule</span> notI<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span> <span class="main">(</span><span class="operator">drule</span> not_secure_comp_2_aux_aux_1<span class="main"><span class="keyword3">,</span></span> <span class="operator">simp</span><span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> not_secure_comp_2_aux_2<span class="main">:</span>
+<span class="keyword1" id="Counterexamples-not_secure_comp_2_aux_2"><span class="command">lemma</span></span> not_secure_comp_2_aux_2<span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="main">[</span>Some a<span class="main">]</span> <span class="main">∈</span> traces <span class="main">(</span>P<span class="hidden">⇩</span><sub>2</sub> <span class="main">;</span> Q<span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> traces_comp_2 Domain_iff<span class="main"><span class="keyword3">,</span></span> <span class="operator">rule</span> exI <span class="main"><span class="main">[</span></span><span class="keyword2"><span class="keyword"><span class="operator">where</span></span></span> x <span class="main"><span class="main"><span class="main">=</span></span></span> <span class="quoted"><span class="quoted"><span class="quoted">"<span class="main"><span class="main">{}</span></span>"</span></span></span><span class="main"><span class="main">]</span></span><span class="main">)</span>
   <span class="keyword1"><span class="command">have</span></span> <span class="quoted"><span class="quoted">"<span class="main">[</span>Some a<span class="main">]</span> <span class="main">∈</span> sentences P<span class="hidden">⇩</span><sub>2</sub>"</span></span>
@@ -5825,7 +5825,7 @@ lists <span class="antiquoted"><span class="antiquoted"><span class="antiquote">
    <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> not_secure_comp_2_aux_3<span class="main">:</span>
+<span class="keyword1" id="Counterexamples-not_secure_comp_2_aux_3"><span class="command">lemma</span></span> not_secure_comp_2_aux_3<span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="main">[</span>Some b<span class="main">]</span> <span class="main">∈</span> traces <span class="main">(</span>P<span class="hidden">⇩</span><sub>2</sub> <span class="main">;</span> Q<span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> traces_comp_2 Domain_iff<span class="main"><span class="keyword3">,</span></span> <span class="operator">rule</span> exI <span class="main"><span class="main">[</span></span><span class="keyword2"><span class="keyword"><span class="operator">where</span></span></span> x <span class="main"><span class="main"><span class="main">=</span></span></span> <span class="quoted"><span class="quoted"><span class="quoted">"<span class="main"><span class="main">{}</span></span>"</span></span></span><span class="main"><span class="main">]</span></span><span class="main">)</span>
   <span class="keyword1"><span class="command">have</span></span> <span class="quoted"><span class="quoted">"<span class="main">[]</span> <span class="main">∈</span> sentences P<span class="hidden">⇩</span><sub>2</sub>"</span></span>
@@ -5840,7 +5840,7 @@ lists <span class="antiquoted"><span class="antiquoted"><span class="antiquote">
    <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> not_secure_comp_2<span class="main">:</span>
+<span class="keyword1" id="Counterexamples-not_secure_comp_2"><span class="command">lemma</span></span> not_secure_comp_2<span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="main">¬</span> secure <span class="main">(</span>P<span class="hidden">⇩</span><sub>2</sub> <span class="main">;</span> Q<span class="main">)</span> I<span class="hidden">⇩</span><sub>2</sub> id"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">subst</span> ipurge_unwinding<span class="main"><span class="keyword3">,</span></span> <span class="operator">rule</span> ref_union_closed_comp_2<span class="main"><span class="keyword3">,</span></span> <span class="operator">simp</span>
  <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> fc_equals_wfc_rel_ipurge <span class="main"><span class="main">[</span></span><span class="operator">symmetric</span><span class="main"><span class="main">]</span></span> future_consistent_def rel_ipurge_def
@@ -5881,7 +5881,7 @@ sequentiality with weak sequentiality in the assumptions of the security conserv
 \null
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> counterexample_2<span class="main">:</span>
+<span class="keyword1" id="Counterexamples-counterexample_2"><span class="command">lemma</span></span> counterexample_2<span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="main">¬</span> <span class="main">(</span>secure_termination I<span class="hidden">⇩</span><sub>2</sub> id <span class="main">∧</span>
      ref_union_closed P<span class="hidden">⇩</span><sub>2</sub> <span class="main">∧</span>
      weakly_sequential P<span class="hidden">⇩</span><sub>2</sub> <span class="main">∧</span>

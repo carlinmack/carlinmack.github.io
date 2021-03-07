@@ -11,33 +11,33 @@
   <span class="keyword2"><span class="keyword">imports</span></span> <a href="../../HOL/HOL/Complex_Main.html">Complex_Main</a> <span class="quoted">"<a href="../../HOL/HOL-Library/Stirling.html">HOL-Library.Stirling</a>"</span>
 <span class="keyword2"><span class="keyword">begin</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> pochhammer_0 <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span> <span class="comment1">― ‹TODO move›</span>
+<span class="keyword1" id="Factorials-pochhammer_0"><span class="command">lemma</span></span> pochhammer_0 <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span> <span class="comment1">― ‹TODO move›</span>
   <span class="quoted"><span class="quoted">"pochhammer <span class="main">0</span> <span class="free">n</span> <span class="main">=</span> <span class="main">(</span><span class="main">0</span><span class="main">::</span>nat<span class="main">)</span>"</span></span> <span class="keyword2"><span class="keyword">if</span></span> <span class="quoted"><span class="quoted">"<span class="free">n</span> <span class="main">&gt;</span> <span class="main">0</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> that <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> pochhammer_prod<span class="main">)</span>
 
 <span class="keyword1"><span class="command">definition</span></span> <span class="entity">ffact</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"nat <span class="main">⇒</span> <span class="tfree">'a</span><span class="main">::</span>comm_semiring_1_cancel <span class="main">⇒</span> <span class="tfree">'a</span>"</span></span>
   <span class="keyword2"><span class="keyword">where</span></span> <span class="quoted"><span class="quoted">"<span class="free">ffact</span> <span class="free"><span class="bound"><span class="entity">n</span></span></span> <span class="free"><span class="bound"><span class="entity">a</span></span></span> <span class="main">=</span> pochhammer <span class="main">(</span><span class="free"><span class="bound"><span class="entity">a</span></span></span> <span class="main">+</span> <span class="main">1</span> <span class="main">-</span> of_nat <span class="free"><span class="bound"><span class="entity">n</span></span></span><span class="main">)</span> <span class="free"><span class="bound"><span class="entity">n</span></span></span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ffact_0 <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Factorials-ffact_0"><span class="command">lemma</span></span> ffact_0 <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span>
   <span class="quoted"><span class="quoted">"ffact <span class="main">0</span> <span class="main">=</span> <span class="main">(</span><span class="main">λ</span><span class="bound">x</span><span class="main">.</span> <span class="main">1</span><span class="main">)</span>"</span></span>
   <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> fun_eq_iff ffact_def<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ffact_Suc<span class="main">:</span>
+<span class="keyword1" id="Factorials-ffact_Suc"><span class="command">lemma</span></span> ffact_Suc<span class="main">:</span>
   <span class="quoted"><span class="quoted">"ffact <span class="main">(</span>Suc <span class="free">n</span><span class="main">)</span> <span class="free">a</span> <span class="main">=</span> <span class="free">a</span> <span class="main">*</span> ffact <span class="free">n</span> <span class="main">(</span><span class="free">a</span> <span class="main">-</span> <span class="main">1</span><span class="main">)</span>"</span></span>
     <span class="keyword2"><span class="keyword">for</span></span> <span class="free">a</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="tfree">'a</span> <span class="main">::</span> comm_ring_1"</span></span>
   <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> ffact_def pochhammer_prod prod.atLeast0_lessThan_Suc <span class="dynamic"><span class="dynamic">algebra_simps</span></span><span class="main">)</span>
 
 <span class="comment1">(* TODO: what's the right class here? *)</span>
-<span class="keyword1"><span class="command">lemma</span></span> ffact_Suc_rev<span class="main">:</span>
+<span class="keyword1" id="Factorials-ffact_Suc_rev"><span class="command">lemma</span></span> ffact_Suc_rev<span class="main">:</span>
   <span class="quoted"><span class="quoted">"ffact <span class="main">(</span>Suc <span class="free">n</span><span class="main">)</span> <span class="free">m</span> <span class="main">=</span> <span class="main">(</span><span class="free">m</span> <span class="main">-</span> of_nat <span class="free">n</span><span class="main">)</span> <span class="main">*</span> ffact <span class="free">n</span> <span class="free">m</span>"</span></span>
     <span class="keyword2"><span class="keyword">for</span></span> <span class="free">m</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="tfree">'a</span> <span class="main">::</span> <span class="main">{</span>comm_semiring_1_cancel<span class="main">,</span> ab_group_add<span class="main">}</span>"</span></span>
 <span class="keyword1"><span class="command">unfolding</span></span> ffact_def pochhammer_rec <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> diff_add_eq<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ffact_nat_triv<span class="main">:</span>
+<span class="keyword1" id="Factorials-ffact_nat_triv"><span class="command">lemma</span></span> ffact_nat_triv<span class="main">:</span>
   <span class="quoted"><span class="quoted">"ffact <span class="free">n</span> <span class="free">m</span> <span class="main">=</span> <span class="main">0</span>"</span></span> <span class="keyword2"><span class="keyword">if</span></span> <span class="quoted"><span class="quoted">"<span class="free">m</span> <span class="main">&lt;</span> <span class="free">n</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> that <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> ffact_def<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ffact_Suc_nat<span class="main">:</span>
+<span class="keyword1" id="Factorials-ffact_Suc_nat"><span class="command">lemma</span></span> ffact_Suc_nat<span class="main">:</span>
   <span class="quoted"><span class="quoted">"ffact <span class="main">(</span>Suc <span class="free">n</span><span class="main">)</span> <span class="free">m</span> <span class="main">=</span> <span class="free">m</span> <span class="main">*</span> ffact <span class="free">n</span> <span class="main">(</span><span class="free">m</span> <span class="main">-</span> <span class="main">1</span><span class="main">)</span>"</span></span>
     <span class="keyword2"><span class="keyword">for</span></span> <span class="free">m</span> <span class="main">::</span> <span class="quoted">nat</span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">cases</span> <span class="quoted"><span class="quoted">"<span class="free">n</span> <span class="main">≤</span> <span class="free">m</span>"</span></span><span class="main">)</span>
@@ -52,7 +52,7 @@
     <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> ffact_nat_triv<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ffact_Suc_rev_nat<span class="main">:</span>
+<span class="keyword1" id="Factorials-ffact_Suc_rev_nat"><span class="command">lemma</span></span> ffact_Suc_rev_nat<span class="main">:</span>
   <span class="quoted"><span class="quoted">"ffact <span class="main">(</span>Suc <span class="free">n</span><span class="main">)</span> <span class="free">m</span> <span class="main">=</span> <span class="main">(</span><span class="free">m</span> <span class="main">-</span> <span class="free">n</span><span class="main">)</span> <span class="main">*</span> ffact <span class="free">n</span> <span class="free">m</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">cases</span> <span class="quoted"><span class="quoted">"<span class="free">n</span> <span class="main">≤</span> <span class="free">m</span>"</span></span><span class="main">)</span>
   <span class="keyword3"><span class="command">case</span></span> True
@@ -64,7 +64,7 @@
   <span class="keyword1"><span class="command">then</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span> <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> ffact_nat_triv<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> fact_div_fact_ffact<span class="main">:</span>
+<span class="keyword1" id="Factorials-fact_div_fact_ffact"><span class="command">lemma</span></span> fact_div_fact_ffact<span class="main">:</span>
   <span class="quoted"><span class="quoted">"fact <span class="free">n</span> <span class="keyword1">div</span> fact <span class="free">m</span> <span class="main">=</span> ffact <span class="main">(</span><span class="free">n</span> <span class="main">-</span> <span class="free">m</span><span class="main">)</span> <span class="free">n</span>"</span></span> <span class="keyword2"><span class="keyword">if</span></span> <span class="quoted"><span class="quoted">"<span class="free">m</span> <span class="main">≤</span> <span class="free">n</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
   <span class="keyword1"><span class="command">from</span></span> that <span class="keyword1"><span class="command">have</span></span> <span class="quoted"><span class="quoted">"fact <span class="free">n</span> <span class="main">=</span> ffact <span class="main">(</span><span class="free">n</span> <span class="main">-</span> <span class="free">m</span><span class="main">)</span> <span class="free">n</span> <span class="main">*</span> fact <span class="free">m</span>"</span></span>
@@ -75,20 +75,20 @@
     <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> fact_div_fact_ffact_nat<span class="main">:</span>
+<span class="keyword1" id="Factorials-fact_div_fact_ffact_nat"><span class="command">lemma</span></span> fact_div_fact_ffact_nat<span class="main">:</span>
   <span class="quoted"><span class="quoted">"fact <span class="free">n</span> <span class="keyword1">div</span> fact <span class="main">(</span><span class="free">n</span> <span class="main">-</span> <span class="free">k</span><span class="main">)</span> <span class="main">=</span> ffact <span class="free">k</span> <span class="free">n</span>"</span></span> <span class="keyword2"><span class="keyword">if</span></span> <span class="quoted"><span class="quoted">"<span class="free">k</span> <span class="main">≤</span> <span class="free">n</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> that <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> fact_div_fact_ffact<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ffact_fact<span class="main">:</span>
+<span class="keyword1" id="Factorials-ffact_fact"><span class="command">lemma</span></span> ffact_fact<span class="main">:</span>
   <span class="quoted"><span class="quoted">"ffact <span class="free">n</span> <span class="main">(</span>of_nat <span class="free">n</span><span class="main">)</span> <span class="main">=</span> <span class="main">(</span>of_nat <span class="main">(</span>fact <span class="free">n</span><span class="main">)</span> <span class="main">::</span> <span class="tfree">'a</span> <span class="main">::</span> comm_ring_1<span class="main">)</span>"</span></span>
   <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">induct</span> <span class="quoted"><span class="free">n</span></span><span class="main">)</span> <span class="main">(</span><span class="operator">simp_all</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> <span class="dynamic"><span class="dynamic">algebra_simps</span></span> ffact_Suc<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ffact_add_diff_assoc<span class="main">:</span>
+<span class="keyword1" id="Factorials-ffact_add_diff_assoc"><span class="command">lemma</span></span> ffact_add_diff_assoc<span class="main">:</span>
   <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="free">a</span> <span class="main">-</span> of_nat <span class="free">n</span><span class="main">)</span> <span class="main">*</span> ffact <span class="free">n</span> <span class="free">a</span> <span class="main">+</span> of_nat <span class="free">n</span> <span class="main">*</span> ffact <span class="free">n</span> <span class="free">a</span> <span class="main">=</span> <span class="free">a</span> <span class="main">*</span> ffact <span class="free">n</span> <span class="free">a</span>"</span></span>
     <span class="keyword2"><span class="keyword">for</span></span> <span class="free">a</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="tfree">'a</span> <span class="main">::</span> comm_ring_1"</span></span>
   <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> <span class="dynamic"><span class="dynamic">algebra_simps</span></span><span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> mult_ffact<span class="main">:</span>
+<span class="keyword1" id="Factorials-mult_ffact"><span class="command">lemma</span></span> mult_ffact<span class="main">:</span>
   <span class="quoted"><span class="quoted">"<span class="free">a</span> <span class="main">*</span> ffact <span class="free">n</span> <span class="free">a</span> <span class="main">=</span> ffact <span class="main">(</span>Suc <span class="free">n</span><span class="main">)</span> <span class="free">a</span> <span class="main">+</span> of_nat <span class="free">n</span> <span class="main">*</span> ffact <span class="free">n</span> <span class="free">a</span>"</span></span>
     <span class="keyword2"><span class="keyword">for</span></span> <span class="free">a</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="tfree">'a</span> <span class="main">::</span> comm_ring_1"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
@@ -99,7 +99,7 @@
 <span class="keyword1"><span class="command">qed</span></span>
 
 <span class="comment1">(* TODO: what's the right class here? *)</span>
-<span class="keyword1"><span class="command">lemma</span></span> prod_ffact<span class="main">:</span>
+<span class="keyword1" id="Factorials-prod_ffact"><span class="command">lemma</span></span> prod_ffact<span class="main">:</span>
   <span class="keyword2"><span class="keyword">fixes</span></span> <span class="free">m</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="tfree">'a</span> <span class="main">::</span> <span class="main">{</span>ord<span class="main">,</span> ring_1<span class="main">,</span> comm_monoid_mult<span class="main">,</span> comm_semiring_1_cancel<span class="main">}</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="main">∏</span><span class="bound">i</span> <span class="main">=</span> <span class="main">0</span><span class="main">..&lt;</span><span class="free">n</span><span class="main">.</span> <span class="free">m</span> <span class="main">-</span> of_nat <span class="bound">i</span><span class="main">)</span> <span class="main">=</span> ffact <span class="free">n</span> <span class="free">m</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
@@ -119,7 +119,7 @@
     <span class="keyword1"><span class="command">unfolding</span></span> ffact_def <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">only</span><span class="main"><span class="main">:</span></span> pochhammer_prod_rev<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> prod_ffact_nat<span class="main">:</span>
+<span class="keyword1" id="Factorials-prod_ffact_nat"><span class="command">lemma</span></span> prod_ffact_nat<span class="main">:</span>
   <span class="keyword2"><span class="keyword">fixes</span></span> <span class="free">m</span> <span class="main">::</span> <span class="quoted">nat</span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="main">∏</span><span class="bound">i</span> <span class="main">=</span> <span class="main">0</span><span class="main">..&lt;</span><span class="free">n</span><span class="main">.</span> <span class="free">m</span> <span class="main">-</span> <span class="bound">i</span><span class="main">)</span> <span class="main">=</span> ffact <span class="free">n</span> <span class="free">m</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">cases</span>
@@ -141,7 +141,7 @@
 <span class="keyword1"><span class="command">qed</span></span>
 
 <span class="comment1">(* TODO: what's the right class here? *)</span>
-<span class="keyword1"><span class="command">lemma</span></span> prod_rev_ffact<span class="main">:</span>
+<span class="keyword1" id="Factorials-prod_rev_ffact"><span class="command">lemma</span></span> prod_rev_ffact<span class="main">:</span>
   <span class="keyword2"><span class="keyword">fixes</span></span> <span class="free">m</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="tfree">'a</span> <span class="main">::</span> <span class="main">{</span>ord<span class="main">,</span> ring_1<span class="main">,</span> comm_monoid_mult<span class="main">,</span> comm_semiring_1_cancel<span class="main">}</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="main">∏</span><span class="bound">i</span> <span class="main">=</span> <span class="main">1</span><span class="main">..</span><span class="free">n</span><span class="main">.</span> <span class="free">m</span> <span class="main">-</span> of_nat <span class="free">n</span> <span class="main">+</span> of_nat <span class="bound">i</span><span class="main">)</span> <span class="main">=</span> ffact <span class="free">n</span> <span class="free">m</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
@@ -154,7 +154,7 @@
     <span class="keyword1"><span class="command">unfolding</span></span> ffact_def <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">only</span><span class="main"><span class="main">:</span></span> pochhammer_prod<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> prod_rev_ffact_nat<span class="main">:</span>
+<span class="keyword1" id="Factorials-prod_rev_ffact_nat"><span class="command">lemma</span></span> prod_rev_ffact_nat<span class="main">:</span>
   <span class="keyword2"><span class="keyword">fixes</span></span> <span class="free">m</span> <span class="main">::</span> <span class="quoted">nat</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">n</span> <span class="main">≤</span> <span class="free">m</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="main">∏</span><span class="bound">i</span> <span class="main">=</span> <span class="main">1</span><span class="main">..</span><span class="free">n</span><span class="main">.</span> <span class="free">m</span> <span class="main">-</span> <span class="free">n</span> <span class="main">+</span> <span class="bound">i</span><span class="main">)</span> <span class="main">=</span> ffact <span class="free">n</span> <span class="free">m</span>"</span></span>
@@ -169,7 +169,7 @@
    <span class="keyword1"><span class="command">unfolding</span></span> ffact_def <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">only</span><span class="main"><span class="main">:</span></span> pochhammer_prod of_nat_id<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> prod_rev_ffact_nat'<span class="main">:</span>
+<span class="keyword1" id="Factorials-prod_rev_ffact_nat'"><span class="command">lemma</span></span> prod_rev_ffact_nat'<span class="main">:</span>
   <span class="keyword2"><span class="keyword">fixes</span></span> <span class="free">m</span> <span class="main">::</span> <span class="quoted">nat</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">n</span> <span class="main">≤</span> <span class="free">m</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">∏</span><span class="main">{</span><span class="free">m</span> <span class="main">-</span> <span class="free">n</span> <span class="main">+</span> <span class="main">1</span><span class="main">..</span><span class="free">m</span><span class="main">}</span> <span class="main">=</span> ffact <span class="free">n</span> <span class="free">m</span>"</span></span>
@@ -188,7 +188,7 @@
     <span class="keyword1"><span class="command">using</span></span> <span class="quoted"><span class="quoted">‹<span class="free">n</span> <span class="main">≤</span> <span class="free">m</span>›</span></span> <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">only</span><span class="main"><span class="main">:</span></span> prod_rev_ffact_nat<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ffact_eq_fact_mult_binomial<span class="main">:</span>
+<span class="keyword1" id="Factorials-ffact_eq_fact_mult_binomial"><span class="command">lemma</span></span> ffact_eq_fact_mult_binomial<span class="main">:</span>
   <span class="quoted"><span class="quoted">"ffact <span class="free">k</span> <span class="free">n</span> <span class="main">=</span> fact <span class="free">k</span> <span class="main">*</span> <span class="main">(</span><span class="free">n</span> <span class="keyword1">choose</span> <span class="free">k</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">cases</span>
   <span class="keyword3"><span class="command">assume</span></span> <span class="quoted"><span class="quoted">"<span class="free">k</span> <span class="main">≤</span> <span class="free">n</span>"</span></span>
@@ -202,7 +202,7 @@
   <span class="keyword1"><span class="command">from</span></span> this ffact_nat_triv <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">force</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> of_nat_ffact<span class="main">:</span>
+<span class="keyword1" id="Factorials-of_nat_ffact"><span class="command">lemma</span></span> of_nat_ffact<span class="main">:</span>
   <span class="quoted"><span class="quoted">"of_nat <span class="main">(</span>ffact <span class="free">n</span> <span class="free">m</span><span class="main">)</span> <span class="main">=</span> ffact <span class="free">n</span> <span class="main">(</span>of_nat <span class="free">m</span> <span class="main">::</span> <span class="tfree">'a</span> <span class="main">::</span> comm_ring_1<span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">induct</span> <span class="quoted"><span class="free">n</span></span> <span class="quasi_keyword">arbitrary</span><span class="main"><span class="main">:</span></span> <span class="quoted"><span class="free">m</span></span><span class="main">)</span>
   <span class="keyword3"><span class="command">case</span></span> 0
@@ -222,7 +222,7 @@
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> of_int_ffact<span class="main">:</span>
+<span class="keyword1" id="Factorials-of_int_ffact"><span class="command">lemma</span></span> of_int_ffact<span class="main">:</span>
   <span class="quoted"><span class="quoted">"of_int <span class="main">(</span>ffact <span class="free">n</span> <span class="free">k</span><span class="main">)</span> <span class="main">=</span> ffact <span class="free">n</span> <span class="main">(</span>of_int <span class="free">k</span> <span class="main">::</span> <span class="tfree">'a</span> <span class="main">::</span> comm_ring_1<span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">induct</span> <span class="quoted"><span class="free">n</span></span> <span class="quasi_keyword">arbitrary</span><span class="main"><span class="main">:</span></span> <span class="quoted"><span class="free">k</span></span><span class="main">)</span>
   <span class="keyword3"><span class="command">case</span></span> 0 <span class="keyword1"><span class="command">then</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?case</span></span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
@@ -233,7 +233,7 @@
     <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> ffact_Suc_nat ffact_Suc<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ffact_minus<span class="main">:</span>
+<span class="keyword1" id="Factorials-ffact_minus"><span class="command">lemma</span></span> ffact_minus<span class="main">:</span>
   <span class="keyword2"><span class="keyword">fixes</span></span> <span class="free">x</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="tfree">'a</span> <span class="main">::</span> comm_ring_1"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"ffact <span class="free">n</span> <span class="main">(</span><span class="main">-</span> <span class="free">x</span><span class="main">)</span> <span class="main">=</span> <span class="main">(</span><span class="main">-</span> <span class="main">1</span><span class="main">)</span> <span class="main">^</span> <span class="free">n</span> <span class="main">*</span> pochhammer <span class="free">x</span> <span class="free">n</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
@@ -249,7 +249,7 @@
 
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹Conversion of natural potences into falling factorials and back›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> monomial_ffact<span class="main">:</span>
+<span class="keyword1" id="Factorials-monomial_ffact"><span class="command">lemma</span></span> monomial_ffact<span class="main">:</span>
   <span class="quoted"><span class="quoted">"<span class="free">a</span> <span class="main">^</span> <span class="free">n</span> <span class="main">=</span> <span class="main">(</span><span class="main">∑</span><span class="bound">k</span> <span class="main">=</span> <span class="main">0</span><span class="main">..</span><span class="free">n</span><span class="main">.</span> of_nat <span class="main">(</span>Stirling <span class="free">n</span> <span class="bound">k</span><span class="main">)</span> <span class="main">*</span> ffact <span class="bound">k</span> <span class="free">a</span><span class="main">)</span>"</span></span>
     <span class="keyword2"><span class="keyword">for</span></span> <span class="free">a</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="tfree">'a</span> <span class="main">::</span> comm_ring_1"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">induct</span> <span class="quoted"><span class="free">n</span></span><span class="main">)</span>
@@ -288,7 +288,7 @@
   <span class="keyword1"><span class="command">finally</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?case</span></span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ffact_monomial<span class="main">:</span>
+<span class="keyword1" id="Factorials-ffact_monomial"><span class="command">lemma</span></span> ffact_monomial<span class="main">:</span>
   <span class="quoted"><span class="quoted">"ffact <span class="free">n</span> <span class="free">a</span> <span class="main">=</span> <span class="main">(</span><span class="main">∑</span><span class="bound">k</span> <span class="main">=</span> <span class="main">0</span><span class="main">..</span><span class="free">n</span><span class="main">.</span> <span class="main">(</span><span class="main">-</span> <span class="main">1</span><span class="main">)</span> <span class="main">^</span> <span class="main">(</span><span class="free">n</span> <span class="main">-</span> <span class="bound">k</span><span class="main">)</span> <span class="main">*</span> of_nat <span class="main">(</span>stirling <span class="free">n</span> <span class="bound">k</span><span class="main">)</span> <span class="main">*</span> <span class="free">a</span> <span class="main">^</span> <span class="bound">k</span><span class="main">)</span>"</span></span>
     <span class="keyword2"><span class="keyword">for</span></span> <span class="free">a</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="tfree">'a</span> <span class="main">::</span> comm_ring_1"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">induct</span> <span class="quoted"><span class="free">n</span></span><span class="main">)</span>
@@ -339,11 +339,11 @@
 
 <span class="keyword1"><span class="command">subsection</span></span> <span class="quoted"><span class="plain_text">‹Auxiliary›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> add_sum_orient<span class="main">:</span>
+<span class="keyword1" id="Discrete_Summation-add_sum_orient"><span class="command">lemma</span></span> add_sum_orient<span class="main">:</span>
   <span class="quoted"><span class="quoted">"sum <span class="free">f</span> <span class="main">{</span><span class="free">k</span><span class="main">..&lt;</span><span class="free">j</span><span class="main">}</span> <span class="main">+</span> sum <span class="free">f</span> <span class="main">{</span><span class="free">l</span><span class="main">..&lt;</span><span class="free">k</span><span class="main">}</span> <span class="main">=</span> sum <span class="free">f</span> <span class="main">{</span><span class="free">l</span><span class="main">..&lt;</span><span class="free">k</span><span class="main">}</span> <span class="main">+</span> sum <span class="free">f</span> <span class="main">{</span><span class="free">k</span><span class="main">..&lt;</span><span class="free">j</span><span class="main">}</span>"</span></span>
   <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">fact</span> add.commute<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> add_sum_int<span class="main">:</span>
+<span class="keyword1" id="Discrete_Summation-add_sum_int"><span class="command">lemma</span></span> add_sum_int<span class="main">:</span>
   <span class="keyword2"><span class="keyword">fixes</span></span> <span class="free">j</span> <span class="free">k</span> <span class="free">l</span> <span class="main">::</span> <span class="quoted">int</span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="free">j</span> <span class="main">&lt;</span> <span class="free">k</span> <span class="main">⟹</span> <span class="free">k</span> <span class="main">&lt;</span> <span class="free">l</span> <span class="main">⟹</span>
     sum <span class="free">f</span> <span class="main">{</span><span class="free">j</span><span class="main">..&lt;</span><span class="free">k</span><span class="main">}</span> <span class="main">+</span> sum <span class="free">f</span> <span class="main">{</span><span class="free">k</span><span class="main">..&lt;</span><span class="free">l</span><span class="main">}</span> <span class="main">=</span> sum <span class="free">f</span> <span class="main">{</span><span class="free">j</span><span class="main">..&lt;</span><span class="free">l</span><span class="main">}</span>"</span></span>
@@ -356,11 +356,11 @@
 <span class="keyword2"><span class="keyword">where</span></span>
   <span class="quoted"><span class="quoted">"<span class="free">Δ</span> <span class="free"><span class="bound"><span class="entity">f</span></span></span> <span class="free"><span class="bound"><span class="entity">k</span></span></span> <span class="main">=</span> <span class="free"><span class="bound"><span class="entity">f</span></span></span> <span class="main">(</span>of_int <span class="main">(</span><span class="free"><span class="bound"><span class="entity">k</span></span></span> <span class="main">+</span> <span class="main">1</span><span class="main">)</span><span class="main">)</span> <span class="main">-</span> <span class="free"><span class="bound"><span class="entity">f</span></span></span> <span class="main">(</span>of_int <span class="free"><span class="bound"><span class="entity">k</span></span></span><span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> Δ_shift<span class="main">:</span>
+<span class="keyword1" id="Discrete_Summation-Δ_shift"><span class="command">lemma</span></span> Δ_shift<span class="main">:</span>
   <span class="quoted"><span class="quoted">"Δ <span class="main">(</span><span class="main">λ</span><span class="bound">k</span><span class="main">.</span> <span class="free">l</span> <span class="main">+</span> <span class="free">f</span> <span class="bound">k</span><span class="main">)</span> <span class="main">=</span> Δ <span class="free">f</span>"</span></span>
   <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> Δ_def fun_eq_iff<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> Δ_same_shift<span class="main">:</span>
+<span class="keyword1" id="Discrete_Summation-Δ_same_shift"><span class="command">lemma</span></span> Δ_same_shift<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"Δ <span class="free">f</span> <span class="main">=</span> Δ <span class="free">g</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">∃</span><span class="bound">l</span><span class="main">.</span> plus <span class="bound">l</span> <span class="main">∘</span> <span class="free">f</span> <span class="main">∘</span> of_int <span class="main">=</span> <span class="free">g</span> <span class="main">∘</span> of_int"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
@@ -389,11 +389,11 @@
   <span class="keyword1"><span class="command">then</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span> <span class="keyword1"><span class="command">..</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> Δ_add<span class="main">:</span>
+<span class="keyword1" id="Discrete_Summation-Δ_add"><span class="command">lemma</span></span> Δ_add<span class="main">:</span>
   <span class="quoted"><span class="quoted">"Δ <span class="main">(</span><span class="main">λ</span><span class="bound">k</span><span class="main">.</span> <span class="free">f</span> <span class="bound">k</span> <span class="main">+</span> <span class="free">g</span> <span class="bound">k</span><span class="main">)</span> <span class="free">k</span> <span class="main">=</span> Δ <span class="free">f</span> <span class="free">k</span> <span class="main">+</span> Δ <span class="free">g</span> <span class="free">k</span>"</span></span>
   <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> Δ_def<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> Δ_factor<span class="main">:</span>
+<span class="keyword1" id="Discrete_Summation-Δ_factor"><span class="command">lemma</span></span> Δ_factor<span class="main">:</span>
   <span class="quoted"><span class="quoted">"Δ <span class="main">(</span><span class="main">λ</span><span class="bound">k</span><span class="main">.</span> <span class="free">c</span> <span class="main">*</span> <span class="bound">k</span><span class="main">)</span> <span class="free">k</span> <span class="main">=</span> <span class="free">c</span>"</span></span>
   <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> Δ_def <span class="dynamic"><span class="dynamic">algebra_simps</span></span><span class="main">)</span>
 
@@ -406,42 +406,42 @@
     <span class="keyword1">else</span> <span class="keyword1">if</span> <span class="free"><span class="bound"><span class="entity">j</span></span></span> <span class="main">&gt;</span> <span class="free"><span class="bound"><span class="entity">l</span></span></span> <span class="keyword1">then</span> <span class="main">-</span> sum <span class="main">(</span><span class="free"><span class="bound"><span class="entity">f</span></span></span> <span class="main">∘</span> of_int<span class="main">)</span> <span class="main">{</span><span class="free"><span class="bound"><span class="entity">l</span></span></span><span class="main">..&lt;</span><span class="free"><span class="bound"><span class="entity">j</span></span></span><span class="main">}</span>
     <span class="keyword1">else</span> <span class="main">0</span><span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> Σ_same <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Discrete_Summation-Σ_same"><span class="command">lemma</span></span> Σ_same <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span>
   <span class="quoted"><span class="quoted">"Σ <span class="free">f</span> <span class="free">j</span> <span class="free">j</span> <span class="main">=</span> <span class="main">0</span>"</span></span>
   <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> Σ_def<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> Σ_positive<span class="main">:</span>
+<span class="keyword1" id="Discrete_Summation-Σ_positive"><span class="command">lemma</span></span> Σ_positive<span class="main">:</span>
   <span class="quoted"><span class="quoted">"<span class="free">j</span> <span class="main">&lt;</span> <span class="free">l</span> <span class="main">⟹</span> Σ <span class="free">f</span> <span class="free">j</span> <span class="free">l</span> <span class="main">=</span> sum <span class="main">(</span><span class="free">f</span> <span class="main">∘</span> of_int<span class="main">)</span> <span class="main">{</span><span class="free">j</span><span class="main">..&lt;</span><span class="free">l</span><span class="main">}</span>"</span></span>
   <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> Σ_def<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> Σ_negative<span class="main">:</span>
+<span class="keyword1" id="Discrete_Summation-Σ_negative"><span class="command">lemma</span></span> Σ_negative<span class="main">:</span>
   <span class="quoted"><span class="quoted">"<span class="free">j</span> <span class="main">&gt;</span> <span class="free">l</span> <span class="main">⟹</span> Σ <span class="free">f</span> <span class="free">j</span> <span class="free">l</span> <span class="main">=</span> <span class="main">-</span> Σ <span class="free">f</span> <span class="free">l</span> <span class="free">j</span>"</span></span>
   <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> Σ_def<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> Σ_comp_of_int<span class="main">:</span>
+<span class="keyword1" id="Discrete_Summation-Σ_comp_of_int"><span class="command">lemma</span></span> Σ_comp_of_int<span class="main">:</span>
   <span class="quoted"><span class="quoted">"Σ <span class="main">(</span><span class="free">f</span> <span class="main">∘</span> of_int<span class="main">)</span> <span class="main">=</span> Σ <span class="free">f</span>"</span></span>
   <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> Σ_def fun_eq_iff<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> Σ_const<span class="main">:</span>
+<span class="keyword1" id="Discrete_Summation-Σ_const"><span class="command">lemma</span></span> Σ_const<span class="main">:</span>
   <span class="quoted"><span class="quoted">"Σ <span class="main">(</span><span class="main">λ</span><span class="bound">k</span><span class="main">.</span> <span class="free">c</span><span class="main">)</span> <span class="free">j</span> <span class="free">l</span> <span class="main">=</span> of_int <span class="main">(</span><span class="free">l</span> <span class="main">-</span> <span class="free">j</span><span class="main">)</span> <span class="main">*</span> <span class="free">c</span>"</span></span>
   <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> Σ_def <span class="dynamic"><span class="dynamic">algebra_simps</span></span><span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> Σ_add<span class="main">:</span>
+<span class="keyword1" id="Discrete_Summation-Σ_add"><span class="command">lemma</span></span> Σ_add<span class="main">:</span>
   <span class="quoted"><span class="quoted">"Σ <span class="main">(</span><span class="main">λ</span><span class="bound">k</span><span class="main">.</span> <span class="free">f</span> <span class="bound">k</span> <span class="main">+</span> <span class="free">g</span> <span class="bound">k</span><span class="main">)</span> <span class="free">j</span> <span class="free">l</span> <span class="main">=</span> Σ <span class="free">f</span> <span class="free">j</span> <span class="free">l</span> <span class="main">+</span> Σ <span class="free">g</span> <span class="free">j</span> <span class="free">l</span>"</span></span>
   <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> Σ_def sum.distrib<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> Σ_factor<span class="main">:</span>
+<span class="keyword1" id="Discrete_Summation-Σ_factor"><span class="command">lemma</span></span> Σ_factor<span class="main">:</span>
   <span class="quoted"><span class="quoted">"Σ <span class="main">(</span><span class="main">λ</span><span class="bound">k</span><span class="main">.</span> <span class="free">c</span> <span class="main">*</span> <span class="free">f</span> <span class="bound">k</span><span class="main">)</span> <span class="free">j</span> <span class="free">l</span> <span class="main">=</span> <span class="main">(</span><span class="free">c</span><span class="main">::</span><span class="tfree">'a</span><span class="main">::</span>ring<span class="main">)</span> <span class="main">*</span> Σ <span class="main">(</span><span class="main">λ</span><span class="bound">k</span><span class="main">.</span> <span class="free">f</span> <span class="bound">k</span><span class="main">)</span> <span class="free">j</span> <span class="free">l</span>"</span></span>
   <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> Σ_def sum_distrib_left<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> Σ_concat<span class="main">:</span>
+<span class="keyword1" id="Discrete_Summation-Σ_concat"><span class="command">lemma</span></span> Σ_concat<span class="main">:</span>
   <span class="quoted"><span class="quoted">"Σ <span class="free">f</span> <span class="free">j</span> <span class="free">k</span> <span class="main">+</span> Σ <span class="free">f</span> <span class="free">k</span> <span class="free">l</span> <span class="main">=</span> Σ <span class="free">f</span> <span class="free">j</span> <span class="free">l</span>"</span></span>
   <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> Σ_def <span class="dynamic"><span class="dynamic">algebra_simps</span></span> add_sum_int<span class="main">)</span>
     <span class="main">(</span><span class="operator">simp_all</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> add_sum_orient <span class="main"><span class="main">[</span></span><span class="operator">of</span> <span class="quoted"><span class="quoted">"<span class="main">λ</span><span class="bound">k</span><span class="main">.</span> <span class="free">f</span> <span class="main">(</span>of_int <span class="bound">k</span><span class="main">)</span>"</span></span> <span class="quoted"><span class="free">k</span></span> <span class="quoted"><span class="free">j</span></span> <span class="quoted"><span class="free">l</span></span><span class="main"><span class="main">]</span></span>
       add_sum_orient <span class="main"><span class="main">[</span></span><span class="operator">of</span> <span class="quoted"><span class="quoted">"<span class="main">λ</span><span class="bound">k</span><span class="main">.</span> <span class="free">f</span> <span class="main">(</span>of_int <span class="bound">k</span><span class="main">)</span>"</span></span> <span class="quoted"><span class="free">j</span></span> <span class="quoted"><span class="free">l</span></span> <span class="quoted"><span class="free">k</span></span><span class="main"><span class="main">]</span></span>
       add_sum_orient <span class="main"><span class="main">[</span></span><span class="operator">of</span> <span class="quoted"><span class="quoted">"<span class="main">λ</span><span class="bound">k</span><span class="main">.</span> <span class="free">f</span> <span class="main">(</span>of_int <span class="bound">k</span><span class="main">)</span>"</span></span> <span class="quoted"><span class="free">j</span></span> <span class="quoted"><span class="free">k</span></span> <span class="quoted"><span class="free">l</span></span><span class="main"><span class="main">]</span></span> add_sum_int<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> Σ_incr_upper<span class="main">:</span>
+<span class="keyword1" id="Discrete_Summation-Σ_incr_upper"><span class="command">lemma</span></span> Σ_incr_upper<span class="main">:</span>
   <span class="quoted"><span class="quoted">"Σ <span class="free">f</span> <span class="free">j</span> <span class="main">(</span><span class="free">l</span> <span class="main">+</span> <span class="main">1</span><span class="main">)</span> <span class="main">=</span> Σ <span class="free">f</span> <span class="free">j</span> <span class="free">l</span> <span class="main">+</span> <span class="free">f</span> <span class="main">(</span>of_int <span class="free">l</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
   <span class="keyword1"><span class="command">have</span></span> <span class="quoted"><span class="quoted">"<span class="main">{</span><span class="free">l</span><span class="main">..&lt;</span><span class="free">l</span><span class="main">+</span><span class="main">1</span><span class="main">}</span> <span class="main">=</span> <span class="main">{</span><span class="free">l</span><span class="main">}</span>"</span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
@@ -453,7 +453,7 @@
 
 <span class="keyword1"><span class="command">subsection</span></span> <span class="quoted"><span class="plain_text">‹Fundamental lemmas: The relation between <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><span class="antiquote">@{</span></span><span class="operator"><span class="operator">term</span></span> <span class="quoted"><span class="quoted">Δ</span></span><span class="antiquote"><span class="antiquote">}</span></span></span></span> and <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><span class="antiquote">@{</span></span><span class="operator"><span class="operator">term</span></span> <span class="quoted"><span class="quoted">Σ</span></span><span class="antiquote"><span class="antiquote">}</span></span></span></span>›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> Δ_Σ<span class="main">:</span>
+<span class="keyword1" id="Discrete_Summation-Δ_Σ"><span class="command">lemma</span></span> Δ_Σ<span class="main">:</span>
   <span class="quoted"><span class="quoted">"Δ <span class="main">(</span>Σ <span class="free">f</span> <span class="free">j</span><span class="main">)</span> <span class="main">=</span> <span class="free">f</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span>
   <span class="keyword3"><span class="command">fix</span></span> <span class="skolem">k</span>
@@ -461,7 +461,7 @@
     <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> Δ_def Σ_incr_upper<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> Σ_Δ<span class="main">:</span>
+<span class="keyword1" id="Discrete_Summation-Σ_Δ"><span class="command">lemma</span></span> Σ_Δ<span class="main">:</span>
   <span class="quoted"><span class="quoted">"Σ <span class="main">(</span>Δ <span class="free">f</span><span class="main">)</span> <span class="free">j</span> <span class="free">l</span> <span class="main">=</span> <span class="free">f</span> <span class="main">(</span>of_int <span class="free">l</span><span class="main">)</span> <span class="main">-</span> <span class="free">f</span> <span class="main">(</span>of_int <span class="free">j</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
   <span class="keyword1"><span class="command">from</span></span> Δ_Σ <span class="keyword1"><span class="command">have</span></span> <span class="quoted"><span class="quoted">"Δ <span class="main">(</span>Σ <span class="main">(</span>Δ <span class="free">f</span><span class="main">)</span> <span class="free">j</span><span class="main">)</span> <span class="main">=</span> Δ <span class="free">f</span>"</span></span> <span class="keyword1"><span class="command">.</span></span>
@@ -496,12 +496,12 @@
   Σ_const <span class="main">[</span><span class="operator">summation</span><span class="main">]</span> Σ_add <span class="main">[</span><span class="operator">summation</span><span class="main">]</span>
   Σ_factor <span class="main">[</span><span class="operator">summation</span><span class="main">]</span> monomial_ffact <span class="main">[</span><span class="operator">summation</span><span class="main">]</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> intervall_simps <span class="main">[</span><span class="operator">summation</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Summation_Conversion-intervall_simps"><span class="command">lemma</span></span> intervall_simps <span class="main">[</span><span class="operator">summation</span><span class="main">]</span><span class="main">:</span>
   <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="main">∑</span><span class="bound">k</span><span class="main">::</span>nat <span class="main">=</span> <span class="main">0</span><span class="main">..</span><span class="main">0</span><span class="main">.</span> <span class="free">f</span> <span class="bound">k</span><span class="main">)</span> <span class="main">=</span> <span class="free">f</span> <span class="main">0</span>"</span></span>
   <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="main">∑</span><span class="bound">k</span><span class="main">::</span>nat <span class="main">=</span> <span class="main">0</span><span class="main">..</span>Suc <span class="free">n</span><span class="main">.</span> <span class="free">f</span> <span class="bound">k</span><span class="main">)</span> <span class="main">=</span> <span class="free">f</span> <span class="main">(</span>Suc <span class="free">n</span><span class="main">)</span> <span class="main">+</span> <span class="main">(</span><span class="main">∑</span><span class="bound">k</span><span class="main">::</span>nat <span class="main">=</span> <span class="main">0</span><span class="main">..</span><span class="free">n</span><span class="main">.</span> <span class="free">f</span> <span class="bound">k</span><span class="main">)</span>"</span></span>
   <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp_all</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> add.commute<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> Δ_ffact<span class="main">:</span>
+<span class="keyword1" id="Summation_Conversion-Δ_ffact"><span class="command">lemma</span></span> Δ_ffact<span class="main">:</span>
   <span class="quoted"><span class="quoted">"Δ <span class="main">(</span>ffact <span class="main">(</span>Suc <span class="free">n</span><span class="main">)</span><span class="main">)</span> <span class="free">k</span> <span class="main">=</span> of_nat <span class="main">(</span>Suc <span class="free">n</span><span class="main">)</span> <span class="main">*</span> ffact <span class="free">n</span> <span class="main">(</span>of_int <span class="free">k</span> <span class="main">::</span> <span class="tfree">'a</span> <span class="main">::</span> comm_ring_1<span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">induct</span> <span class="quoted"><span class="free">n</span></span><span class="main">)</span>
   <span class="keyword3"><span class="command">case</span></span> 0 <span class="keyword1"><span class="command">then</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?case</span></span></span>
@@ -523,7 +523,7 @@
   <span class="keyword1"><span class="command">finally</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?case</span></span></span> <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">only</span><span class="main"><span class="main">:</span></span> <span class="quoted"><span class="quoted">‹<span class="skolem">m</span> <span class="main">=</span> Suc <span class="skolem">n</span>›</span></span> diff_Suc_1<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> Σ_ffact_divide <span class="main">[</span><span class="operator">summation</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Summation_Conversion-Σ_ffact_divide"><span class="command">lemma</span></span> Σ_ffact_divide <span class="main">[</span><span class="operator">summation</span><span class="main">]</span><span class="main">:</span>
   <span class="quoted"><span class="quoted">"Σ <span class="main">(</span>ffact <span class="free">n</span><span class="main">)</span> <span class="free">j</span> <span class="free">l</span> <span class="main">=</span>
     <span class="main">(</span>ffact <span class="main">(</span>Suc <span class="free">n</span><span class="main">)</span> <span class="main">(</span>of_int <span class="free">l</span> <span class="main">::</span> <span class="tfree">'a</span> <span class="main">::</span> <span class="main">{</span>idom_divide<span class="main">,</span> semiring_char_0<span class="main">}</span><span class="main">)</span> <span class="main">-</span> ffact <span class="main">(</span>Suc <span class="free">n</span><span class="main">)</span> <span class="main">(</span>of_int <span class="free">j</span><span class="main">)</span><span class="main">)</span> <span class="keyword1">div</span> of_nat <span class="main">(</span>Suc <span class="free">n</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
@@ -542,7 +542,7 @@
 
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹Various other rules›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> of_int_coeff<span class="main">:</span>
+<span class="keyword1" id="Summation_Conversion-of_int_coeff"><span class="command">lemma</span></span> of_int_coeff<span class="main">:</span>
   <span class="quoted"><span class="quoted">"<span class="main">(</span>of_int <span class="free">l</span> <span class="main">::</span> <span class="tfree">'a</span><span class="main">::</span>comm_ring_1<span class="main">)</span> <span class="main">*</span> numeral <span class="free">k</span> <span class="main">=</span> of_int <span class="main">(</span><span class="free">l</span> <span class="main">*</span> numeral <span class="free">k</span><span class="main">)</span>"</span></span>
   <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 
@@ -555,7 +555,7 @@
   of_int_add <span class="main">[</span><span class="operator">symmetric</span><span class="main">]</span> of_int_diff <span class="main">[</span><span class="operator">symmetric</span><span class="main">]</span> of_int_mult <span class="main">[</span><span class="operator">symmetric</span><span class="main">]</span>
   of_int_coeff
 
-<span class="keyword1"><span class="command">lemma</span></span> of_nat_coeff<span class="main">:</span>
+<span class="keyword1" id="Summation_Conversion-of_nat_coeff"><span class="command">lemma</span></span> of_nat_coeff<span class="main">:</span>
   <span class="quoted"><span class="quoted">"<span class="main">(</span>of_nat <span class="free">n</span> <span class="main">::</span> <span class="tfree">'a</span><span class="main">::</span>comm_semiring_1<span class="main">)</span> <span class="main">*</span> numeral <span class="free">m</span> <span class="main">=</span> of_nat <span class="main">(</span><span class="free">n</span> <span class="main">*</span> numeral <span class="free">m</span><span class="main">)</span>"</span></span>
   <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">induct</span> <span class="quoted"><span class="free">n</span></span><span class="main">)</span> <span class="operator">simp_all</span>
   
@@ -584,7 +584,7 @@
 <span class="keyword2"><span class="keyword">where</span></span>
   <span class="quoted"><span class="quoted">"<span class="free">pos_id</span> <span class="free"><span class="bound"><span class="entity">k</span></span></span> <span class="main">=</span> <span class="main">(</span><span class="keyword1">if</span> <span class="free"><span class="bound"><span class="entity">k</span></span></span> <span class="main">&lt;</span> <span class="main">0</span> <span class="keyword1">then</span> <span class="main">0</span> <span class="keyword1">else</span> <span class="free"><span class="bound"><span class="entity">k</span></span></span><span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> Σ_pos_id <span class="main">[</span><span class="operator">summation</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Summation_Conversion-Σ_pos_id"><span class="command">lemma</span></span> Σ_pos_id <span class="main">[</span><span class="operator">summation</span><span class="main">]</span><span class="main">:</span>
   <span class="quoted"><span class="quoted">"<span class="main">0</span> <span class="main">≤</span> <span class="free">k</span> <span class="main">⟹</span> <span class="main">0</span> <span class="main">≤</span> <span class="free">l</span> <span class="main">⟹</span> Σ <span class="main">(</span><span class="main">λ</span><span class="bound">r</span><span class="main">.</span> <span class="free">f</span> <span class="main">(</span>pos_id <span class="bound">r</span><span class="main">)</span><span class="main">)</span> <span class="free">k</span> <span class="free">l</span> <span class="main">=</span> Σ <span class="free">f</span> <span class="free">k</span> <span class="free">l</span>"</span></span>
   <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> Σ_def pos_id_def<span class="main">)</span>
 

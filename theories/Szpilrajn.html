@@ -25,19 +25,19 @@ A strict partial order is a transitive and irreflexive relation:›</span></span
 
 <span class="keyword1"><span class="command">definition</span></span> <span class="quoted"><span class="quoted">"<span class="free">strict_partial_order</span> <span class="free"><span class="bound"><span class="entity">r</span></span></span> <span class="main">≡</span> trans <span class="free"><span class="bound"><span class="entity">r</span></span></span> <span class="main">∧</span> irrefl <span class="free"><span class="bound"><span class="entity">r</span></span></span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> show_strict_partial_order<span class="main">[</span><span class="operator">intro</span><span class="main">]</span><span class="main">:</span> 
+<span class="keyword1" id="Szpilrajn-show_strict_partial_order"><span class="command">lemma</span></span> show_strict_partial_order<span class="main">[</span><span class="operator">intro</span><span class="main">]</span><span class="main">:</span> 
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"trans <span class="free">r</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"irrefl <span class="free">r</span>"</span></span> 
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"strict_partial_order <span class="free">r</span>"</span></span>
   <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> assms strict_partial_order_def<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> strict_partial_order_acyclic<span class="main">:</span>
+<span class="keyword1" id="Szpilrajn-strict_partial_order_acyclic"><span class="command">lemma</span></span> strict_partial_order_acyclic<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"strict_partial_order <span class="free">r</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"acyclic <span class="free">r</span>"</span></span>
   <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">metis</span> acyclic_irrefl assms strict_partial_order_def trancl_id<span class="main">)</span>
 
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹A typical example is <span class="antiquoted"><span class="antiquoted"><span class="operator"><span class="operator"><span class="hidden">\&lt;^</span><span class="control">term</span><span class="hidden">&gt;</span></span></span><span class="quoted"><span class="quoted">‹<span class="main"><span class="main">(⊂)</span></span>›</span></span></span></span> on sets:›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> strict_partial_order_subset<span class="main">:</span>
+<span class="keyword1" id="Szpilrajn-strict_partial_order_subset"><span class="command">lemma</span></span> strict_partial_order_subset<span class="main">:</span>
   <span class="quoted"><span class="quoted">"strict_partial_order <span class="main">{</span><span class="main">(</span><span class="bound">x</span><span class="main">,</span><span class="bound">y</span><span class="main">)</span><span class="main">.</span> <span class="bound">x</span> <span class="main">⊂</span> <span class="bound">y</span><span class="main">}</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span>
   <span class="keyword3"><span class="command">show</span></span> <span class="quoted"><span class="quoted">"trans <span class="main">{</span><span class="main">(</span><span class="bound">x</span><span class="main">,</span><span class="bound">y</span><span class="main">)</span><span class="main">.</span> <span class="bound">x</span> <span class="main">⊂</span> <span class="bound">y</span><span class="main">}</span>"</span></span>
@@ -48,7 +48,7 @@ A strict partial order is a transitive and irreflexive relation:›</span></span
 
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹A strict linear order has all the properties of a strict partial order, but is also total: ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> strict_linear_order_def<span class="main">:</span> 
+<span class="keyword1" id="Szpilrajn-strict_linear_order_def"><span class="command">lemma</span></span> strict_linear_order_def<span class="main">:</span> 
   <span class="quoted"><span class="quoted">"strict_linear_order <span class="free">r</span> <span class="main">⟷</span> strict_partial_order <span class="free">r</span> <span class="main">∧</span> total <span class="free">r</span>"</span></span>
   <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> strict_linear_order_on_def strict_partial_order_def<span class="main">)</span>
 
@@ -63,7 +63,7 @@ if <span class="antiquoted"><span class="antiquoted"><span class="operator"><spa
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹We start by proving that a strict partial order with two incomparable elements
 <span class="antiquoted"><span class="antiquoted"><span class="operator"><span class="operator"><span class="hidden">\&lt;^</span><span class="control">term</span><span class="hidden">&gt;</span></span></span><span class="quoted"><span class="quoted">‹<span class="free"><span class="free">x</span></span>›</span></span></span></span> and <span class="antiquoted"><span class="antiquoted"><span class="operator"><span class="operator"><span class="hidden">\&lt;^</span><span class="control">term</span><span class="hidden">&gt;</span></span></span><span class="quoted"><span class="quoted">‹<span class="free"><span class="free">y</span></span>›</span></span></span></span> can be extended to a strict partial order where <span class="antiquoted"><span class="antiquoted"><span class="operator"><span class="operator"><span class="hidden">\&lt;^</span><span class="control">term</span><span class="hidden">&gt;</span></span></span><span class="quoted"><span class="quoted">‹<span class="free"><span class="free">x</span></span> <span class="main"><span class="main">&lt;</span></span> <span class="free"><span class="free">y</span></span>›</span></span></span></span>. ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> can_extend_partial_order<span class="main">:</span> 
+<span class="keyword1" id="Szpilrajn-can_extend_partial_order"><span class="command">lemma</span></span> can_extend_partial_order<span class="main">:</span> 
   <span class="keyword2"><span class="keyword">assumes</span></span> spo<span class="main">:</span> <span class="quoted"><span class="quoted">"strict_partial_order <span class="free">r</span>"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> no1<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="free">x</span><span class="main">,</span><span class="free">y</span><span class="main">)</span> <span class="main">∉</span> <span class="free">r</span>"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> no2<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="free">y</span><span class="main">,</span><span class="free">x</span><span class="main">)</span> <span class="main">∉</span> <span class="free">r</span>"</span></span>
@@ -89,7 +89,7 @@ if <span class="antiquoted"><span class="antiquoted"><span class="operator"><spa
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹With this, we can start the proof of the Szpilrajn extension theorem.
 For this we will use a variant of Zorns Lemma, which only considers nonempty chains:›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> Zorns_po_lemma_nonempty<span class="main">:</span>
+<span class="keyword1" id="Szpilrajn-Zorns_po_lemma_nonempty"><span class="command">lemma</span></span> Zorns_po_lemma_nonempty<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> po<span class="main">:</span> <span class="quoted"><span class="quoted">"Partial_order <span class="free">r</span>"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> u<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">⋀</span><span class="bound">C</span><span class="main">.</span> <span class="main">⟦</span><span class="bound">C</span> <span class="main">∈</span> Chains <span class="free">r</span><span class="main">;</span> <span class="bound">C</span><span class="main">≠</span><span class="main">{}</span><span class="main">⟧</span> <span class="main">⟹</span> <span class="main">∃</span><span class="bound">u</span><span class="main">∈</span>Field <span class="free">r</span><span class="main">.</span> <span class="main">∀</span><span class="bound">a</span><span class="main">∈</span><span class="bound">C</span><span class="main">.</span> <span class="main">(</span><span class="bound">a</span><span class="main">,</span> <span class="bound">u</span><span class="main">)</span> <span class="main">∈</span> <span class="free">r</span>"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> ne<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">r</span> <span class="main">≠</span> <span class="main">{}</span>"</span></span>
@@ -265,7 +265,7 @@ to a strict linear order: ›</span></span>
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹Let us conclude with an example, showing that there exists a strict linear 
 order on sets, which includes the subset relation:›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> exists_strict_partial_order_on_sets<span class="main">:</span>
+<span class="keyword1" id="Szpilrajn-exists_strict_partial_order_on_sets"><span class="command">lemma</span></span> exists_strict_partial_order_on_sets<span class="main">:</span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">∃</span><span class="bound">r</span><span class="main">.</span> strict_linear_order <span class="bound">r</span> <span class="main">∧</span> <span class="main">{</span><span class="main">(</span><span class="bound">x</span><span class="main">,</span><span class="bound">y</span><span class="main">)</span><span class="main">.</span> <span class="bound">x</span> <span class="main">⊂</span> <span class="bound">y</span><span class="main">}</span> <span class="main">⊆</span> <span class="bound">r</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> strict_partial_order_subset <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">rule</span> Szpilrajn<span class="main">)</span>
 

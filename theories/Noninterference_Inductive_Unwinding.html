@@ -74,17 +74,17 @@ Function <span class="antiquoted"><span class="antiquoted"><span class="antiquot
 \null
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> sources_aux_single_dom<span class="main">:</span>
+<span class="keyword1" id="InductiveUnwinding-sources_aux_single_dom"><span class="command">lemma</span></span> sources_aux_single_dom<span class="main">:</span>
  <span class="quoted"><span class="quoted">"sources_aux <span class="free">I</span> <span class="free">D</span> <span class="main">{</span><span class="free">u</span><span class="main">}</span> <span class="free">xs</span> <span class="main">=</span> insert <span class="free">u</span> <span class="main">(</span>sources <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="free">xs</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> sources_sinks sources_sinks_aux sinks_aux_single_dom<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> sources_interference_eq<span class="main">:</span>
+<span class="keyword1" id="InductiveUnwinding-sources_interference_eq"><span class="command">lemma</span></span> sources_interference_eq<span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="main">(</span><span class="free">D</span> <span class="free">x</span><span class="main">,</span> <span class="free">u</span><span class="main">)</span> <span class="main">∈</span> <span class="free">I</span> <span class="main">∨</span> <span class="main">(</span><span class="main">∃</span><span class="bound">v</span> <span class="main">∈</span> sources <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="free">xs</span><span class="main">.</span> <span class="main">(</span><span class="free">D</span> <span class="free">x</span><span class="main">,</span> <span class="bound">v</span><span class="main">)</span> <span class="main">∈</span> <span class="free">I</span><span class="main">)</span><span class="main">)</span> <span class="main">=</span>
   <span class="main">(</span><span class="free">D</span> <span class="free">x</span> <span class="main">∈</span> sources <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="main">(</span><span class="free">x</span> <span class="main">#</span> <span class="free">xs</span><span class="main">)</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">only</span><span class="main"><span class="main">:</span></span> sources_sinks rev.simps<span class="main"><span class="keyword3">,</span></span> <span class="operator">subst</span> <span class="main"><span class="main">(</span></span>1 2<span class="main"><span class="main">)</span></span> converse_iff <span class="main"><span class="main">[</span></span><span class="operator">symmetric</span><span class="main"><span class="main">]</span></span><span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span> <span class="main">(</span><span class="operator">rule</span> sinks_interference_eq<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ex_sinks_sources_aux_1 <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="InductiveUnwinding-ex_sinks_sources_aux_1"><span class="command">lemma</span></span> ex_sinks_sources_aux_1 <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="main">∃</span><span class="bound">u</span> <span class="main">∈</span> sinks_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span><span class="main">.</span> <span class="main">∃</span><span class="bound">v</span> <span class="main">∈</span> <span class="free">V</span><span class="main">.</span> <span class="main">(</span><span class="bound">u</span><span class="main">,</span> <span class="bound">v</span><span class="main">)</span> <span class="main">∈</span> <span class="free">I</span><span class="main">)</span> <span class="main">⟶</span>
   <span class="main">(</span><span class="main">∃</span><span class="bound">u</span> <span class="main">∈</span> <span class="free">U</span><span class="main">.</span> <span class="main">∃</span><span class="bound">v</span> <span class="main">∈</span> sources_aux <span class="free">I</span> <span class="free">D</span> <span class="free">V</span> <span class="free">xs</span><span class="main">.</span> <span class="main">(</span><span class="bound">u</span><span class="main">,</span> <span class="bound">v</span><span class="main">)</span> <span class="main">∈</span> <span class="free">I</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">induction</span> <span class="quoted"><span class="free">xs</span></span> <span class="quasi_keyword">arbitrary</span><span class="main"><span class="main">:</span></span> <span class="quoted"><span class="free">V</span></span> <span class="quasi_keyword">rule</span><span class="main"><span class="main">:</span></span> rev_induct<span class="main"><span class="keyword3">,</span></span> <span class="operator">simp</span><span class="main"><span class="keyword3">,</span></span> <span class="operator">subst</span> sources_aux_append<span class="main"><span class="keyword3">,</span></span>
@@ -147,7 +147,7 @@ Function <span class="antiquoted"><span class="antiquoted"><span class="antiquot
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ex_sinks_sources_aux_2 <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="InductiveUnwinding-ex_sinks_sources_aux_2"><span class="command">lemma</span></span> ex_sinks_sources_aux_2 <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="main">∃</span><span class="bound">u</span> <span class="main">∈</span> <span class="free">U</span><span class="main">.</span> <span class="main">∃</span><span class="bound">v</span> <span class="main">∈</span> sources_aux <span class="free">I</span> <span class="free">D</span> <span class="free">V</span> <span class="free">xs</span><span class="main">.</span> <span class="main">(</span><span class="bound">u</span><span class="main">,</span> <span class="bound">v</span><span class="main">)</span> <span class="main">∈</span> <span class="free">I</span><span class="main">)</span> <span class="main">⟶</span>
   <span class="main">(</span><span class="main">∃</span><span class="bound">u</span> <span class="main">∈</span> sinks_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span><span class="main">.</span> <span class="main">∃</span><span class="bound">v</span> <span class="main">∈</span> <span class="free">V</span><span class="main">.</span> <span class="main">(</span><span class="bound">u</span><span class="main">,</span> <span class="bound">v</span><span class="main">)</span> <span class="main">∈</span> <span class="free">I</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">induction</span> <span class="quoted"><span class="free">xs</span></span> <span class="quasi_keyword">arbitrary</span><span class="main"><span class="main">:</span></span> <span class="quoted"><span class="free">V</span></span> <span class="quasi_keyword">rule</span><span class="main"><span class="main">:</span></span> rev_induct<span class="main"><span class="keyword3">,</span></span> <span class="operator">simp</span><span class="main"><span class="keyword3">,</span></span> <span class="operator">subst</span> sources_aux_append<span class="main"><span class="keyword3">,</span></span>
@@ -195,12 +195,12 @@ Function <span class="antiquoted"><span class="antiquoted"><span class="antiquot
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ex_sinks_sources_aux<span class="main">:</span>
+<span class="keyword1" id="InductiveUnwinding-ex_sinks_sources_aux"><span class="command">lemma</span></span> ex_sinks_sources_aux<span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="main">∃</span><span class="bound">u</span> <span class="main">∈</span> sinks_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">xs</span><span class="main">.</span> <span class="main">∃</span><span class="bound">v</span> <span class="main">∈</span> <span class="free">V</span><span class="main">.</span> <span class="main">(</span><span class="bound">u</span><span class="main">,</span> <span class="bound">v</span><span class="main">)</span> <span class="main">∈</span> <span class="free">I</span><span class="main">)</span> <span class="main">=</span>
   <span class="main">(</span><span class="main">∃</span><span class="bound">u</span> <span class="main">∈</span> <span class="free">U</span><span class="main">.</span> <span class="main">∃</span><span class="bound">v</span> <span class="main">∈</span> sources_aux <span class="free">I</span> <span class="free">D</span> <span class="free">V</span> <span class="free">xs</span><span class="main">.</span> <span class="main">(</span><span class="bound">u</span><span class="main">,</span> <span class="bound">v</span><span class="main">)</span> <span class="main">∈</span> <span class="free">I</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">rule</span> iffI<span class="main"><span class="keyword3">,</span></span> <span class="operator">erule</span> ex_sinks_sources_aux_1<span class="main"><span class="keyword3">,</span></span> <span class="operator">rule</span> ex_sinks_sources_aux_2<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_tr_rev_ipurge_tr_sources_aux_1 <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="InductiveUnwinding-ipurge_tr_rev_ipurge_tr_sources_aux_1"><span class="command">lemma</span></span> ipurge_tr_rev_ipurge_tr_sources_aux_1 <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="main">¬</span> <span class="main">(</span><span class="main">∃</span><span class="bound">v</span> <span class="main">∈</span> <span class="free">D</span> <span class="main">`</span> set <span class="free">ys</span><span class="main">.</span> <span class="main">∃</span><span class="bound">u</span> <span class="main">∈</span> sources_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="free">zs</span><span class="main">.</span> <span class="main">(</span><span class="bound">v</span><span class="main">,</span> <span class="bound">u</span><span class="main">)</span> <span class="main">∈</span> <span class="free">I</span><span class="main">)</span> <span class="main">⟶</span>
   ipurge_tr_rev_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="main">(</span><span class="free">xs</span> <span class="main">@</span> <span class="free">ys</span> <span class="main">@</span> <span class="free">zs</span><span class="main">)</span> <span class="main">=</span>
   ipurge_tr_rev_aux <span class="free">I</span> <span class="free">D</span> <span class="free">U</span> <span class="main">(</span><span class="free">xs</span> <span class="main">@</span> ipurge_tr_aux <span class="free">I</span> <span class="free">D</span> <span class="main">(</span><span class="free">D</span> <span class="main">`</span> set <span class="free">ys</span><span class="main">)</span> <span class="free">zs</span><span class="main">)</span>"</span></span>
@@ -292,7 +292,7 @@ Function <span class="antiquoted"><span class="antiquoted"><span class="antiquot
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_tr_rev_ipurge_tr_sources_1<span class="main">:</span>
+<span class="keyword1" id="InductiveUnwinding-ipurge_tr_rev_ipurge_tr_sources_1"><span class="command">lemma</span></span> ipurge_tr_rev_ipurge_tr_sources_1<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> A<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">D</span> <span class="free">y</span> <span class="main">∉</span> sources <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="main">(</span><span class="free">y</span> <span class="main">#</span> <span class="free">zs</span><span class="main">)</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span>
    <span class="quoted"><span class="quoted">"ipurge_tr_rev <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="main">(</span><span class="free">xs</span> <span class="main">@</span> <span class="free">y</span> <span class="main">#</span> <span class="free">zs</span><span class="main">)</span> <span class="main">=</span>
@@ -309,15 +309,15 @@ Function <span class="antiquoted"><span class="antiquoted"><span class="antiquot
   <span class="keyword3"><span class="command">thus</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span> <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> ipurge_tr_aux_single_dom ipurge_tr_rev_aux_single_dom<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_tr_length<span class="main">:</span>
+<span class="keyword1" id="InductiveUnwinding-ipurge_tr_length"><span class="command">lemma</span></span> ipurge_tr_length<span class="main">:</span>
  <span class="quoted"><span class="quoted">"length <span class="main">(</span>ipurge_tr <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="free">xs</span><span class="main">)</span> <span class="main">≤</span> length <span class="free">xs</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">induction</span> <span class="quoted"><span class="free">xs</span></span> <span class="quasi_keyword">rule</span><span class="main"><span class="main">:</span></span> rev_induct<span class="main"><span class="keyword3">,</span></span> <span class="operator">simp_all</span><span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> sources_idem<span class="main">:</span>
+<span class="keyword1" id="InductiveUnwinding-sources_idem"><span class="command">lemma</span></span> sources_idem<span class="main">:</span>
  <span class="quoted"><span class="quoted">"sources <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="main">(</span>ipurge_tr_rev <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="free">xs</span><span class="main">)</span> <span class="main">=</span> sources <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="free">xs</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">induction</span> <span class="quoted"><span class="free">xs</span></span><span class="main"><span class="keyword3">,</span></span> <span class="operator">simp_all</span><span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_tr_rev_idem<span class="main">:</span>
+<span class="keyword1" id="InductiveUnwinding-ipurge_tr_rev_idem"><span class="command">lemma</span></span> ipurge_tr_rev_idem<span class="main">:</span>
  <span class="quoted"><span class="quoted">"ipurge_tr_rev <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="main">(</span>ipurge_tr_rev <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="free">xs</span><span class="main">)</span> <span class="main">=</span> ipurge_tr_rev <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="free">xs</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">induction</span> <span class="quoted"><span class="free">xs</span></span><span class="main"><span class="keyword3">,</span></span> <span class="operator">simp_all</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> sources_idem<span class="main">)</span>
 
@@ -508,7 +508,7 @@ R2<span class="main">:</span> <span class="quoted"><span class="quoted">"<span c
 
 <span class="keyword1"><span class="command">subsubsection</span></span> <span class="quoted"><span class="plain_text">"Step 4"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_tr_rev_t_subset<span class="main">:</span>
+<span class="keyword1" id="InductiveUnwinding-ipurge_tr_rev_t_subset"><span class="command">lemma</span></span> ipurge_tr_rev_t_subset<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> A<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">Y</span> <span class="main">∈</span> ipurge_tr_rev_t_set <span class="free">X</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"ipurge_tr_rev_t_set <span class="free">Y</span> <span class="main">⊆</span> ipurge_tr_rev_t_set <span class="free">X</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">rule</span> subsetI<span class="main"><span class="keyword3">,</span></span> <span class="operator">erule</span> ipurge_tr_rev_t_set.induct<span class="main">)</span>
@@ -533,7 +533,7 @@ R2<span class="main">:</span> <span class="quoted"><span class="quoted">"<span c
    <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">rule</span> R2<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_tr_rev_t_aux_set<span class="main">:</span>
+<span class="keyword1" id="InductiveUnwinding-ipurge_tr_rev_t_aux_set"><span class="command">lemma</span></span> ipurge_tr_rev_t_aux_set<span class="main">:</span>
  <span class="quoted"><span class="quoted">"ipurge_tr_rev_t_aux <span class="free">X</span> <span class="main">∈</span> ipurge_tr_rev_t_set <span class="free">X</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">induction</span> <span class="quasi_keyword">rule</span><span class="main"><span class="main">:</span></span> ipurge_tr_rev_t_aux.induct<span class="main"><span class="keyword3">,</span></span>
  <span class="operator">simp_all</span> <span class="quasi_keyword">only</span><span class="main"><span class="main">:</span></span> ipurge_tr_rev_t_aux.simps<span class="main"><span class="main">(</span></span>2<span class="main"><span class="main">)</span></span> R0<span class="main">)</span>
@@ -609,11 +609,11 @@ appearing in the aforesaid lemmas.
 
 <span class="keyword1"><span class="command">subsubsection</span></span> <span class="quoted"><span class="plain_text">"Step 6"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_tr_rev_t_input_1<span class="main">:</span>
+<span class="keyword1" id="InductiveUnwinding-ipurge_tr_rev_t_input_1"><span class="command">lemma</span></span> ipurge_tr_rev_t_input_1<span class="main">:</span>
  <span class="quoted"><span class="quoted">"ipurge_tr_rev_t_inv_1 <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="free">xs</span> <span class="main">⦇</span>Pol <span class="main">=</span> <span class="free">I</span><span class="main">,</span> Map <span class="main">=</span> <span class="free">D</span><span class="main">,</span> Dom <span class="main">=</span> <span class="free">u</span><span class="main">,</span> In <span class="main">=</span> <span class="free">xs</span><span class="main">,</span> Out <span class="main">=</span> <span class="main">[]</span><span class="main">⦈</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> ipurge_tr_rev_t_inv_1_def<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_tr_rev_t_input_2<span class="main">:</span>
+<span class="keyword1" id="InductiveUnwinding-ipurge_tr_rev_t_input_2"><span class="command">lemma</span></span> ipurge_tr_rev_t_input_2<span class="main">:</span>
  <span class="quoted"><span class="quoted">"ipurge_tr_rev_t_inv_2 <span class="free">P</span> <span class="free">I</span> <span class="free">D</span> <span class="free">xs</span> <span class="main">⦇</span>Pol <span class="main">=</span> <span class="free">I</span><span class="main">,</span> Map <span class="main">=</span> <span class="free">D</span><span class="main">,</span> Dom <span class="main">=</span> <span class="free">u</span><span class="main">,</span> In <span class="main">=</span> <span class="free">xs</span><span class="main">,</span> Out <span class="main">=</span> <span class="main">[]</span><span class="main">⦈</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> ipurge_tr_rev_t_inv_2_def<span class="main">)</span>
 
@@ -622,13 +622,13 @@ appearing in the aforesaid lemmas.
 <span class="keyword1"><span class="command">definition</span></span> <span class="entity">ipurge_tr_rev_t_form</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="tfree">'a</span><span class="main">,</span> <span class="tfree">'d</span><span class="main">)</span> ipurge_rec <span class="main">⇒</span> bool"</span></span> <span class="keyword2"><span class="keyword">where</span></span>
 <span class="quoted"><span class="quoted">"<span class="free">ipurge_tr_rev_t_form</span> <span class="free"><span class="bound"><span class="entity">X</span></span></span> <span class="main">≡</span> In <span class="free"><span class="bound"><span class="entity">X</span></span></span> <span class="main">=</span> <span class="main">[]</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_tr_rev_t_intro_1<span class="main">:</span>
+<span class="keyword1" id="InductiveUnwinding-ipurge_tr_rev_t_intro_1"><span class="command">lemma</span></span> ipurge_tr_rev_t_intro_1<span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="main">⟦</span>ipurge_tr_rev_t_inv_1 <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="free">xs</span> <span class="free">X</span><span class="main">;</span> ipurge_tr_rev_t_form <span class="free">X</span><span class="main">⟧</span> <span class="main">⟹</span>
   ipurge_tr_rev_t_out <span class="free">X</span> <span class="main">=</span> ipurge_tr_rev <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="free">xs</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> ipurge_tr_rev_t_inv_1_def ipurge_tr_rev_t_form_def
  ipurge_tr_rev_t_out_def<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_tr_rev_t_intro_2<span class="main">:</span>
+<span class="keyword1" id="InductiveUnwinding-ipurge_tr_rev_t_intro_2"><span class="command">lemma</span></span> ipurge_tr_rev_t_intro_2<span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="main">⟦</span>ipurge_tr_rev_t_inv_2 <span class="free">P</span> <span class="free">I</span> <span class="free">D</span> <span class="free">xs</span> <span class="free">X</span><span class="main">;</span> ipurge_tr_rev_t_form <span class="free">X</span><span class="main">⟧</span> <span class="main">⟹</span>
   secure <span class="free">P</span> <span class="free">I</span> <span class="free">D</span> <span class="main">⟶</span> <span class="free">xs</span> <span class="main">∈</span> traces <span class="free">P</span> <span class="main">⟶</span> ipurge_tr_rev_t_out <span class="free">X</span> <span class="main">∈</span> traces <span class="free">P</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> ipurge_tr_rev_t_inv_2_def ipurge_tr_rev_t_form_def
@@ -636,14 +636,14 @@ appearing in the aforesaid lemmas.
 
 <span class="keyword1"><span class="command">subsubsection</span></span> <span class="quoted"><span class="plain_text">"Step 8"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_tr_rev_t_form_aux<span class="main">:</span>
+<span class="keyword1" id="InductiveUnwinding-ipurge_tr_rev_t_form_aux"><span class="command">lemma</span></span> ipurge_tr_rev_t_form_aux<span class="main">:</span>
  <span class="quoted"><span class="quoted">"ipurge_tr_rev_t_form <span class="main">(</span>ipurge_tr_rev_t_aux <span class="free">X</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">induction</span> <span class="quoted"><span class="free">X</span></span> <span class="quasi_keyword">rule</span><span class="main"><span class="main">:</span></span> ipurge_tr_rev_t_aux.induct<span class="main"><span class="keyword3">,</span></span>
  <span class="operator">simp_all</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> ipurge_tr_rev_t_form_def<span class="main">)</span>
 
 <span class="keyword1"><span class="command">subsubsection</span></span> <span class="quoted"><span class="plain_text">"Step 9"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_tr_rev_t_invariance_aux<span class="main">:</span>
+<span class="keyword1" id="InductiveUnwinding-ipurge_tr_rev_t_invariance_aux"><span class="command">lemma</span></span> ipurge_tr_rev_t_invariance_aux<span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="free">Y</span> <span class="main">∈</span> ipurge_tr_rev_t_set <span class="free">X</span> <span class="main">⟹</span>
   Pol <span class="free">Y</span> <span class="main">=</span> Pol <span class="free">X</span> <span class="main">∧</span> Map <span class="free">Y</span> <span class="main">=</span> Map <span class="free">X</span> <span class="main">∧</span> Dom <span class="free">Y</span> <span class="main">=</span> Dom <span class="free">X</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">erule</span> ipurge_tr_rev_t_set.induct<span class="main"><span class="keyword3">,</span></span> <span class="operator">simp_all</span><span class="main">)</span>
@@ -665,7 +665,7 @@ variables appearing in the lemmas.
 \null
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_tr_rev_t_invariance_1<span class="main">:</span>
+<span class="keyword1" id="InductiveUnwinding-ipurge_tr_rev_t_invariance_1"><span class="command">lemma</span></span> ipurge_tr_rev_t_invariance_1<span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="main">⟦</span><span class="free">Y</span> <span class="main">∈</span> ipurge_tr_rev_t_set <span class="main">(</span><span class="free">X</span><span class="main">⦇</span>Pol <span class="main">:=</span> <span class="free">I</span><span class="main">,</span> Map <span class="main">:=</span> <span class="free">D</span><span class="main">,</span> Dom <span class="main">:=</span> <span class="free">u</span><span class="main">⦈</span><span class="main">)</span><span class="main">;</span>
     ipurge_tr_rev_t_inv_1 <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="free">ws</span> <span class="main">(</span><span class="free">X</span><span class="main">⦇</span>Pol <span class="main">:=</span> <span class="free">I</span><span class="main">,</span> Map <span class="main">:=</span> <span class="free">D</span><span class="main">,</span> Dom <span class="main">:=</span> <span class="free">u</span><span class="main">⦈</span><span class="main">)</span><span class="main">⟧</span> <span class="main">⟹</span>
   ipurge_tr_rev_t_inv_1 <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="free">ws</span> <span class="free">Y</span>"</span></span>
@@ -686,7 +686,7 @@ variables appearing in the lemmas.
    <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_tr_rev_t_invariance_2<span class="main">:</span>
+<span class="keyword1" id="InductiveUnwinding-ipurge_tr_rev_t_invariance_2"><span class="command">lemma</span></span> ipurge_tr_rev_t_invariance_2<span class="main">:</span>
  <span class="quoted"><span class="quoted">"<span class="main">⟦</span><span class="free">Y</span> <span class="main">∈</span> ipurge_tr_rev_t_set <span class="main">(</span><span class="free">X</span><span class="main">⦇</span>Pol <span class="main">:=</span> <span class="free">I</span><span class="main">,</span> Map <span class="main">:=</span> <span class="free">D</span><span class="main">⦈</span><span class="main">)</span><span class="main">;</span>
     ipurge_tr_rev_t_inv_2 <span class="free">P</span> <span class="free">I</span> <span class="free">D</span> <span class="free">ws</span> <span class="main">(</span><span class="free">X</span><span class="main">⦇</span>Pol <span class="main">:=</span> <span class="free">I</span><span class="main">,</span> Map <span class="main">:=</span> <span class="free">D</span><span class="main">⦈</span><span class="main">)</span><span class="main">⟧</span> <span class="main">⟹</span>
   ipurge_tr_rev_t_inv_2 <span class="free">P</span> <span class="free">I</span> <span class="free">D</span> <span class="free">ws</span> <span class="free">Y</span>"</span></span>
@@ -717,7 +717,7 @@ which are then applied to demonstrate the target closure lemma.
 \null
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_tr_rev_t_equiv<span class="main">:</span>
+<span class="keyword1" id="InductiveUnwinding-ipurge_tr_rev_t_equiv"><span class="command">lemma</span></span> ipurge_tr_rev_t_equiv<span class="main">:</span>
  <span class="quoted"><span class="quoted">"ipurge_tr_rev_t <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="free">xs</span> <span class="main">=</span> ipurge_tr_rev <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="free">xs</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
   <span class="keyword1"><span class="command">let</span></span> <span class="var"><span class="quoted"><span class="var">?X</span></span></span> <span class="main">=</span> <span class="quoted"><span class="quoted">"<span class="main">⦇</span>Pol <span class="main">=</span> <span class="free">I</span><span class="main">,</span> Map <span class="main">=</span> <span class="free">D</span><span class="main">,</span> Dom <span class="main">=</span> <span class="free">u</span><span class="main">,</span> In <span class="main">=</span> <span class="free">xs</span><span class="main">,</span> Out <span class="main">=</span> <span class="main">[]</span><span class="main">⦈</span>"</span></span>
@@ -739,7 +739,7 @@ which are then applied to demonstrate the target closure lemma.
   <span class="keyword1"><span class="command">ultimately</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span> <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> ipurge_tr_rev_t_def<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_tr_rev_t_trace <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="InductiveUnwinding-ipurge_tr_rev_t_trace"><span class="command">lemma</span></span> ipurge_tr_rev_t_trace <span class="main">[</span><span class="operator">rule_format</span><span class="main">]</span><span class="main">:</span>
  <span class="quoted"><span class="quoted">"secure <span class="free">P</span> <span class="free">I</span> <span class="free">D</span> <span class="main">⟶</span> <span class="free">xs</span> <span class="main">∈</span> traces <span class="free">P</span> <span class="main">⟶</span> ipurge_tr_rev_t <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="free">xs</span> <span class="main">∈</span> traces <span class="free">P</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
   <span class="keyword1"><span class="command">let</span></span> <span class="var"><span class="quoted"><span class="var">?X</span></span></span> <span class="main">=</span> <span class="quoted"><span class="quoted">"<span class="main">⦇</span>Pol <span class="main">=</span> <span class="free">I</span><span class="main">,</span> Map <span class="main">=</span> <span class="free">D</span><span class="main">,</span> Dom <span class="main">=</span> <span class="free">u</span><span class="main">,</span> In <span class="main">=</span> <span class="free">xs</span><span class="main">,</span> Out <span class="main">=</span> <span class="main">[]</span><span class="main">⦈</span>"</span></span>
@@ -760,7 +760,7 @@ which are then applied to demonstrate the target closure lemma.
   <span class="keyword1"><span class="command">ultimately</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span> <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> ipurge_tr_rev_t_def<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ipurge_tr_rev_trace<span class="main">:</span>
+<span class="keyword1" id="InductiveUnwinding-ipurge_tr_rev_trace"><span class="command">lemma</span></span> ipurge_tr_rev_trace<span class="main">:</span>
  <span class="quoted"><span class="quoted">"secure <span class="free">P</span> <span class="free">I</span> <span class="free">D</span> <span class="main">⟹</span> <span class="free">xs</span> <span class="main">∈</span> traces <span class="free">P</span> <span class="main">⟹</span> ipurge_tr_rev <span class="free">I</span> <span class="free">D</span> <span class="free">u</span> <span class="free">xs</span> <span class="main">∈</span> traces <span class="free">P</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">subst</span> ipurge_tr_rev_t_equiv <span class="main"><span class="main">[</span></span><span class="operator">symmetric</span><span class="main"><span class="main">]</span></span><span class="main"><span class="keyword3">,</span></span> <span class="operator">rule</span> ipurge_tr_rev_t_trace<span class="main">)</span>
 
@@ -780,7 +780,7 @@ the idempotence of this function are used in the proof of condition necessity.
 \null
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> inductive_unwinding_1<span class="main">:</span>
+<span class="keyword1" id="InductiveUnwinding-inductive_unwinding_1"><span class="command">lemma</span></span> inductive_unwinding_1<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span>
     R<span class="main">:</span> <span class="quoted"><span class="quoted">"ref_union_closed <span class="free">P</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
     S<span class="main">:</span> <span class="quoted"><span class="quoted">"secure <span class="free">P</span> <span class="free">I</span> <span class="free">D</span>"</span></span>
@@ -819,7 +819,7 @@ the idempotence of this function are used in the proof of condition necessity.
    <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> inductive_unwinding_2<span class="main">:</span>
+<span class="keyword1" id="InductiveUnwinding-inductive_unwinding_2"><span class="command">lemma</span></span> inductive_unwinding_2<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span>
     R<span class="main">:</span> <span class="quoted"><span class="quoted">"ref_union_closed <span class="free">P</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
     S<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">∀</span><span class="bound">xs</span> <span class="main">∈</span> traces <span class="free">P</span><span class="main">.</span> <span class="main">∀</span><span class="bound">u</span> <span class="main">∈</span> range <span class="free">D</span> <span class="main">∩</span> <span class="main">(</span><span class="main">-</span><span class="free">I</span><span class="main">)</span> <span class="main">``</span> range <span class="free">D</span><span class="main">.</span>
@@ -924,7 +924,7 @@ processes, refused events are completely specified by accepted events (cf. \cite
 \null
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> d_inductive_unwinding_1<span class="main">:</span>
+<span class="keyword1" id="InductiveUnwinding-d_inductive_unwinding_1"><span class="command">lemma</span></span> d_inductive_unwinding_1<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span>
     D<span class="main">:</span> <span class="quoted"><span class="quoted">"deterministic <span class="free">P</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
     S<span class="main">:</span> <span class="quoted"><span class="quoted">"secure <span class="free">P</span> <span class="free">I</span> <span class="free">D</span>"</span></span>
@@ -958,7 +958,7 @@ processes, refused events are completely specified by accepted events (cf. \cite
     <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> d_inductive_unwinding_2<span class="main">:</span>
+<span class="keyword1" id="InductiveUnwinding-d_inductive_unwinding_2"><span class="command">lemma</span></span> d_inductive_unwinding_2<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span>
     D<span class="main">:</span> <span class="quoted"><span class="quoted">"deterministic <span class="free">P</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
     S<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">∀</span><span class="bound">xs</span> <span class="main">∈</span> traces <span class="free">P</span><span class="main">.</span> <span class="main">∀</span><span class="bound">u</span> <span class="main">∈</span> range <span class="free">D</span> <span class="main">∩</span> <span class="main">(</span><span class="main">-</span><span class="free">I</span><span class="main">)</span> <span class="main">``</span> range <span class="free">D</span><span class="main">.</span>

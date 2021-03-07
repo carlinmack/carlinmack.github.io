@@ -86,7 +86,7 @@ number <span class="antiquoted"><span class="antiquoted"><span class="antiquote"
 
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹We first need to prove this auxiliary lemma.›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> trans_inv'<span class="main">:</span> 
+<span class="keyword1" id="ICAInstance-trans_inv'"><span class="command">lemma</span></span> trans_inv'<span class="main">:</span> 
 <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="main">∑</span> <span class="bound">l</span><span class="main">∈</span><span class="main">{..&lt;</span><span class="free">np'</span><span class="main">}</span><span class="main">.</span> fiX <span class="main">(</span><span class="main">λ</span> <span class="bound">y</span><span class="main">.</span> <span class="free">f</span> <span class="bound">y</span> <span class="main">+</span> <span class="free">x</span><span class="main">)</span> <span class="free">p</span> <span class="bound">l</span><span class="main">)</span> <span class="main">=</span> 
         <span class="main">(</span><span class="main">∑</span> <span class="bound">l</span><span class="main">∈</span><span class="main">{..&lt;</span><span class="free">np'</span><span class="main">}</span><span class="main">.</span> fiX <span class="free">f</span> <span class="free">p</span> <span class="bound">l</span><span class="main">)</span> <span class="main">+</span> real <span class="free">np'</span> <span class="main">*</span> <span class="free">x</span>"</span></span>
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span> <span class="main">(</span><span class="operator">induct_tac</span> <span class="quoted"><span class="free"><span class="quoted"><span class="free">np'</span></span></span></span><span class="main">)</span>
@@ -107,14 +107,14 @@ number <span class="antiquoted"><span class="antiquoted"><span class="antiquote"
 
 <span class="keyword1"><span class="command">subsubsection</span></span> <span class="quoted"><span class="plain_text">‹Auxiliary lemmas›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> finitC<span class="main">:</span>
+<span class="keyword1" id="ICAInstance-finitC"><span class="command">lemma</span></span> finitC<span class="main">:</span>
   <span class="quoted"><span class="quoted">"<span class="free">C</span> <span class="main">⊆</span> PR <span class="main">⟹</span> finite <span class="free">C</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span><span class="operator">-</span>
   <span class="keyword3"><span class="command">assume</span></span> <span class="quoted"><span class="quoted">"<span class="free">C</span> <span class="main">⊆</span> PR"</span></span>
   <span class="keyword3"><span class="command">thus</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span> <span class="keyword1"><span class="command">using</span></span> finite_subset <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> finitnpC<span class="main">:</span>
+<span class="keyword1" id="ICAInstance-finitnpC"><span class="command">lemma</span></span> finitnpC<span class="main">:</span>
   <span class="quoted"><span class="quoted">"finite <span class="main">(</span>PR <span class="main">-</span> <span class="free">C</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span><span class="operator">-</span>
   <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span>  <span class="keyword1"><span class="command">using</span></span> finite_Diff <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
@@ -124,13 +124,13 @@ number <span class="antiquoted"><span class="antiquoted"><span class="antiquote"
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹The next lemmas are about arithmetic properties of the
 generalized summation over a set constructor.›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> sum_abs_triangle_ineq<span class="main">:</span>
+<span class="keyword1" id="ICAInstance-sum_abs_triangle_ineq"><span class="command">lemma</span></span> sum_abs_triangle_ineq<span class="main">:</span>
 <span class="quoted"><span class="quoted">"finite <span class="free">S</span> <span class="main">⟹</span>
   <span class="main">¦</span><span class="main">∑</span><span class="bound">l</span><span class="main">∈</span><span class="free">S</span><span class="main">.</span> <span class="main">(</span><span class="free">f</span><span class="main">::</span><span class="tfree">'a</span> <span class="main">⇒</span> <span class="tfree">'b</span><span class="main">::</span>linordered_idom<span class="main">)</span> <span class="bound">l</span><span class="main">¦</span> <span class="main">&lt;=</span> <span class="main">(</span><span class="main">∑</span><span class="bound">l</span><span class="main">∈</span><span class="free">S</span><span class="main">.</span> <span class="main">¦</span><span class="free">f</span> <span class="bound">l</span><span class="main">¦</span><span class="main">)</span>"</span></span>
   <span class="main">(</span><span class="keyword2"><span class="keyword">is</span></span> <span class="quoted"><span class="quoted">"<span class="main">...</span> <span class="main">⟹</span> <span class="var">?P</span> <span class="free">S</span>"</span></span><span class="main">)</span>
   <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">rule</span> sum_abs<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> sum_le<span class="main">:</span>
+<span class="keyword1" id="ICAInstance-sum_le"><span class="command">lemma</span></span> sum_le<span class="main">:</span>
   <span class="quoted"><span class="quoted">"<span class="main">⟦</span>finite <span class="free">S</span> <span class="main">;</span> <span class="main">∀</span> <span class="bound">r</span><span class="main">∈</span><span class="free">S</span><span class="main">.</span> <span class="free">f</span> <span class="bound">r</span> <span class="main">&lt;=</span> <span class="free">b</span> <span class="main">⟧</span>
   <span class="main">⟹</span>
   <span class="main">(</span><span class="main">∑</span><span class="bound">l</span><span class="main">∈</span><span class="free">S</span><span class="main">.</span> <span class="free">f</span> <span class="bound">l</span><span class="main">)</span> <span class="main">&lt;=</span> real <span class="main">(</span>card <span class="free">S</span><span class="main">)</span> <span class="main">*</span> <span class="free">b</span>"</span></span>
@@ -155,7 +155,7 @@ generalized summation over a set constructor.›</span></span>
   <span class="keyword3"><span class="command">show</span></span> <span class="quoted"><span class="quoted">"<span class="var">?P</span> <span class="main">(</span>insert <span class="skolem">x</span> <span class="skolem">F</span><span class="main">)</span>"</span></span> <span class="keyword1"><span class="command">.</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> sum_np_eq<span class="main">:</span>
+<span class="keyword1" id="ICAInstance-sum_np_eq"><span class="command">lemma</span></span> sum_np_eq<span class="main">:</span>
 <span class="keyword2"><span class="keyword">assumes</span></span> 
   hC<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">C</span> <span class="main">⊆</span> PR"</span></span>
 <span class="keyword2"><span class="keyword">shows</span></span> 
@@ -174,7 +174,7 @@ generalized summation over a set constructor.›</span></span>
     <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
  
-<span class="keyword1"><span class="command">lemma</span></span> abs_sum_np_ineq<span class="main">:</span>
+<span class="keyword1" id="ICAInstance-abs_sum_np_ineq"><span class="command">lemma</span></span> abs_sum_np_ineq<span class="main">:</span>
 <span class="keyword2"><span class="keyword">assumes</span></span> 
   hC<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">C</span> <span class="main">⊆</span> PR"</span></span>
 <span class="keyword2"><span class="keyword">shows</span></span> 
@@ -209,7 +209,7 @@ generalized summation over a set constructor.›</span></span>
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹The next lemmas are about the existence of bounds that are
 necesary in order to prove the Precicion Enhancement theorem.›</span></span>
   
-<span class="keyword1"><span class="command">lemma</span></span> fiX_ubound<span class="main">:</span>
+<span class="keyword1" id="ICAInstance-fiX_ubound"><span class="command">lemma</span></span> fiX_ubound<span class="main">:</span>
   <span class="quoted"><span class="quoted">"fiX <span class="free">f</span> <span class="free">p</span> <span class="free">l</span> <span class="main">&lt;=</span> <span class="free">f</span> <span class="free">p</span> <span class="main">+</span> Δ"</span></span>
 <span class="keyword1"><span class="command">proof</span></span><span class="main">(</span><span class="operator">cases</span> <span class="quoted"><span class="quoted">"<span class="main">¦</span><span class="free">f</span> <span class="free">p</span> <span class="main">-</span> <span class="free">f</span> <span class="free">l</span><span class="main">¦</span> <span class="main">≤</span> Δ"</span></span><span class="main">)</span>
   <span class="keyword3"><span class="command">assume</span></span> asm<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">¦</span><span class="free">f</span> <span class="free">p</span> <span class="main">-</span> <span class="free">f</span> <span class="free">l</span><span class="main">¦</span> <span class="main">≤</span> Δ"</span></span> 
@@ -227,7 +227,7 @@ necesary in order to prove the Precicion Enhancement theorem.›</span></span>
   <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">arith</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> fiX_lbound<span class="main">:</span>
+<span class="keyword1" id="ICAInstance-fiX_lbound"><span class="command">lemma</span></span> fiX_lbound<span class="main">:</span>
   <span class="quoted"><span class="quoted">"<span class="free">f</span> <span class="free">p</span> <span class="main">-</span> Δ <span class="main">&lt;=</span> fiX <span class="free">f</span> <span class="free">p</span> <span class="free">l</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span><span class="main">(</span><span class="operator">cases</span> <span class="quoted"><span class="quoted">"<span class="main">¦</span><span class="free">f</span> <span class="free">p</span> <span class="main">-</span> <span class="free">f</span> <span class="free">l</span><span class="main">¦</span> <span class="main">≤</span> Δ"</span></span><span class="main">)</span>
   <span class="keyword3"><span class="command">assume</span></span> asm<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">¦</span><span class="free">f</span> <span class="free">p</span> <span class="main">-</span> <span class="free">f</span> <span class="free">l</span><span class="main">¦</span> <span class="main">≤</span> Δ"</span></span> 
@@ -245,7 +245,7 @@ necesary in order to prove the Precicion Enhancement theorem.›</span></span>
   <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">arith</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> abs_fiX_bound<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">¦</span>fiX <span class="free">f</span> <span class="free">p</span> <span class="free">l</span> <span class="main">-</span> <span class="free">f</span> <span class="free">p</span> <span class="main">¦</span> <span class="main">&lt;=</span> Δ"</span></span>
+<span class="keyword1" id="ICAInstance-abs_fiX_bound"><span class="command">lemma</span></span> abs_fiX_bound<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">¦</span>fiX <span class="free">f</span> <span class="free">p</span> <span class="free">l</span> <span class="main">-</span> <span class="free">f</span> <span class="free">p</span> <span class="main">¦</span> <span class="main">&lt;=</span> Δ"</span></span>
 <span class="keyword1"><span class="command">proof</span></span><span class="operator">-</span>
 <span class="comment1">(*
 from constants_ax and fiX_lbound and fiX_ubound show ?thesis by arith
@@ -255,7 +255,7 @@ from constants_ax and fiX_lbound and fiX_ubound show ?thesis by arith
 <span class="keyword1"><span class="command">with</span></span> fiX_lbound  fiX_ubound <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">blast</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> abs_dif_fiX_bound<span class="main">:</span>
+<span class="keyword1" id="ICAInstance-abs_dif_fiX_bound"><span class="command">lemma</span></span> abs_dif_fiX_bound<span class="main">:</span>
 <span class="keyword2"><span class="keyword">assumes</span></span>
   hbx<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">∀</span> <span class="bound">l</span><span class="main">∈</span><span class="free">C</span><span class="main">.</span> <span class="main">¦</span><span class="free">f</span> <span class="bound">l</span> <span class="main">-</span> <span class="free">g</span> <span class="bound">l</span><span class="main">¦</span> <span class="main">&lt;=</span> <span class="free">x</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
   hby<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">∀</span> <span class="bound">l</span><span class="main">∈</span><span class="free">C</span><span class="main">.</span> <span class="main">∀</span> <span class="bound">m</span><span class="main">∈</span><span class="free">C</span><span class="main">.</span> <span class="main">¦</span><span class="free">f</span> <span class="bound">l</span> <span class="main">-</span> <span class="free">f</span> <span class="bound">m</span><span class="main">¦</span> <span class="main">&lt;=</span> <span class="free">y</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -303,7 +303,7 @@ from constants_ax and fiX_lbound and fiX_ubound show ?thesis by arith
 <span class="keyword1"><span class="command">qed</span></span>
         
 
-<span class="keyword1"><span class="command">lemma</span></span> abs_dif_fiX_bound_C_aux1<span class="main">:</span>
+<span class="keyword1" id="ICAInstance-abs_dif_fiX_bound_C_aux1"><span class="command">lemma</span></span> abs_dif_fiX_bound_C_aux1<span class="main">:</span>
 <span class="keyword2"><span class="keyword">assumes</span></span> 
   hbx<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">∀</span> <span class="bound">l</span><span class="main">∈</span><span class="free">C</span><span class="main">.</span> <span class="main">¦</span><span class="free">f</span> <span class="bound">l</span> <span class="main">-</span> <span class="free">g</span> <span class="bound">l</span><span class="main">¦</span> <span class="main">&lt;=</span> <span class="free">x</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
   hby1<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">∀</span> <span class="bound">l</span><span class="main">∈</span><span class="free">C</span><span class="main">.</span> <span class="main">∀</span> <span class="bound">m</span><span class="main">∈</span><span class="free">C</span><span class="main">.</span> <span class="main">¦</span><span class="free">f</span> <span class="bound">l</span> <span class="main">-</span> <span class="free">f</span> <span class="bound">m</span><span class="main">¦</span> <span class="main">&lt;=</span> <span class="free">y</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -389,7 +389,7 @@ from constants_ax and fiX_lbound and fiX_ubound show ?thesis by arith
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> abs_dif_fiX_bound_C_aux2<span class="main">:</span>
+<span class="keyword1" id="ICAInstance-abs_dif_fiX_bound_C_aux2"><span class="command">lemma</span></span> abs_dif_fiX_bound_C_aux2<span class="main">:</span>
 <span class="keyword2"><span class="keyword">assumes</span></span> 
   hbx<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">∀</span> <span class="bound">l</span><span class="main">∈</span><span class="free">C</span><span class="main">.</span> <span class="main">¦</span><span class="free">f</span> <span class="bound">l</span> <span class="main">-</span> <span class="free">g</span> <span class="bound">l</span><span class="main">¦</span> <span class="main">&lt;=</span> <span class="free">x</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
   hby1<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">∀</span> <span class="bound">l</span><span class="main">∈</span><span class="free">C</span><span class="main">.</span> <span class="main">∀</span> <span class="bound">m</span><span class="main">∈</span><span class="free">C</span><span class="main">.</span> <span class="main">¦</span><span class="free">f</span> <span class="bound">l</span> <span class="main">-</span> <span class="free">f</span> <span class="bound">m</span><span class="main">¦</span> <span class="main">&lt;=</span> <span class="free">y</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -416,7 +416,7 @@ from constants_ax and fiX_lbound and fiX_ubound show ?thesis by arith
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> abs_dif_fiX_bound_C<span class="main">:</span>
+<span class="keyword1" id="ICAInstance-abs_dif_fiX_bound_C"><span class="command">lemma</span></span> abs_dif_fiX_bound_C<span class="main">:</span>
 <span class="keyword2"><span class="keyword">assumes</span></span> 
   hbx<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">∀</span> <span class="bound">l</span><span class="main">∈</span><span class="free">C</span><span class="main">.</span> <span class="main">¦</span><span class="free">f</span> <span class="bound">l</span> <span class="main">-</span> <span class="free">g</span> <span class="bound">l</span><span class="main">¦</span> <span class="main">&lt;=</span> <span class="free">x</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
   hby1<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">∀</span> <span class="bound">l</span><span class="main">∈</span><span class="free">C</span><span class="main">.</span> <span class="main">∀</span> <span class="bound">m</span><span class="main">∈</span><span class="free">C</span><span class="main">.</span> <span class="main">¦</span><span class="free">f</span> <span class="bound">l</span> <span class="main">-</span> <span class="free">f</span> <span class="bound">m</span><span class="main">¦</span> <span class="main">&lt;=</span> <span class="free">y</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -517,7 +517,7 @@ from constants_ax and fiX_lbound and fiX_ubound show ?thesis by arith
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹First, a simple lemma about an arithmetic propertie of the
 generalized summation over a set constructor.›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> sum_div_card<span class="main">:</span>
+<span class="keyword1" id="ICAInstance-sum_div_card"><span class="command">lemma</span></span> sum_div_card<span class="main">:</span>
 <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="main">∑</span><span class="bound">l</span><span class="main">∈</span><span class="main">{..&lt;</span><span class="free">n</span><span class="main">::</span>nat<span class="main">}</span><span class="main">.</span> <span class="free">f</span> <span class="bound">l</span><span class="main">)</span> <span class="main">+</span> <span class="free">q</span> <span class="main">*</span> real <span class="free">n</span><span class="main">=</span> 
   <span class="main">(</span><span class="main">∑</span><span class="bound">l</span><span class="main">∈</span><span class="main">{..&lt;</span><span class="free">n</span><span class="main">}</span><span class="main">.</span> <span class="free">f</span> <span class="bound">l</span> <span class="main">+</span> <span class="free">q</span> <span class="main">)</span>"</span></span>
   <span class="main">(</span><span class="keyword2"><span class="keyword">is</span></span> <span class="quoted"><span class="quoted">"<span class="var">?Sl</span> <span class="free">n</span> <span class="main">=</span> <span class="var">?Sr</span> <span class="free">n</span>"</span></span><span class="main">)</span>
@@ -531,7 +531,7 @@ generalized summation over a set constructor.›</span></span>
 
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹Next, some lemmas about bounds that are used in the proof of Accuracy Preservation›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> bound_aux_C<span class="main">:</span>
+<span class="keyword1" id="ICAInstance-bound_aux_C"><span class="command">lemma</span></span> bound_aux_C<span class="main">:</span>
 <span class="keyword2"><span class="keyword">assumes</span></span>
   hby<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">∀</span> <span class="bound">l</span><span class="main">∈</span><span class="free">C</span><span class="main">.</span> <span class="main">∀</span> <span class="bound">m</span><span class="main">∈</span><span class="free">C</span><span class="main">.</span> <span class="main">¦</span><span class="free">f</span> <span class="bound">l</span> <span class="main">-</span> <span class="free">f</span> <span class="bound">m</span><span class="main">¦</span> <span class="main">&lt;=</span> <span class="free">x</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
   hpC<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">p</span><span class="main">∈</span><span class="free">C</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -557,7 +557,7 @@ generalized summation over a set constructor.›</span></span>
   <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span> <span class="keyword1"><span class="command">.</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> bound_aux<span class="main">:</span>
+<span class="keyword1" id="ICAInstance-bound_aux"><span class="command">lemma</span></span> bound_aux<span class="main">:</span>
 <span class="keyword2"><span class="keyword">assumes</span></span>
   hby<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">∀</span> <span class="bound">l</span><span class="main">∈</span><span class="free">C</span><span class="main">.</span> <span class="main">∀</span> <span class="bound">m</span><span class="main">∈</span><span class="free">C</span><span class="main">.</span> <span class="main">¦</span><span class="free">f</span> <span class="bound">l</span> <span class="main">-</span> <span class="free">f</span> <span class="bound">m</span><span class="main">¦</span> <span class="main">&lt;=</span> <span class="free">x</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
   hpC<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">p</span><span class="main">∈</span><span class="free">C</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -592,7 +592,7 @@ generalized summation over a set constructor.›</span></span>
 
 <span class="keyword1"><span class="command">subsubsection</span></span> <span class="quoted"><span class="plain_text">‹Main theorem›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> accur_pres<span class="main">:</span>
+<span class="keyword1" id="ICAInstance-accur_pres"><span class="command">lemma</span></span> accur_pres<span class="main">:</span>
 <span class="keyword2"><span class="keyword">assumes</span></span> 
   hC<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">C</span> <span class="main">⊆</span> PR"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
   hby<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">∀</span> <span class="bound">l</span><span class="main">∈</span><span class="free">C</span><span class="main">.</span> <span class="main">∀</span> <span class="bound">m</span><span class="main">∈</span><span class="free">C</span><span class="main">.</span> <span class="main">¦</span><span class="free">f</span> <span class="bound">l</span> <span class="main">-</span> <span class="free">f</span> <span class="bound">m</span><span class="main">¦</span> <span class="main">&lt;=</span> <span class="free">x</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
@@ -801,7 +801,7 @@ of the image of a set, if the set is finite and not empty.›</span></span>
 <span class="comment1">(* [source] ex_Max} and @{thm [source] ex_Min} in the Isabelle's standard *)</span>
 <span class="comment1">(* theories. *)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ex_Maxf<span class="main">:</span>
+<span class="keyword1" id="LynchInstance-ex_Maxf"><span class="command">lemma</span></span> ex_Maxf<span class="main">:</span>
 <span class="keyword2"><span class="keyword">fixes</span></span> <span class="free">S</span> <span class="keyword2"><span class="keyword">and</span></span> <span class="free">f</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="tfree">'a</span> <span class="main">⇒</span> <span class="main">(</span><span class="tfree">'b</span><span class="main">::</span>linorder<span class="main">)</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> fin<span class="main">:</span> <span class="quoted"><span class="quoted">"finite <span class="free">S</span>"</span></span> 
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="free">S</span> <span class="main">≠</span> <span class="main">{}</span> <span class="main">==&gt;</span> <span class="main">∃</span><span class="bound">m</span><span class="main">∈</span><span class="free">S</span><span class="main">.</span> <span class="main">∀</span><span class="bound">s</span> <span class="main">∈</span> <span class="free">S</span><span class="main">.</span> <span class="free">f</span> <span class="bound">s</span> <span class="main">≤</span> <span class="free">f</span> <span class="bound">m</span>"</span></span>
@@ -828,7 +828,7 @@ of the image of a set, if the set is finite and not empty.›</span></span>
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ex_Minf<span class="main">:</span>
+<span class="keyword1" id="LynchInstance-ex_Minf"><span class="command">lemma</span></span> ex_Minf<span class="main">:</span>
 <span class="keyword2"><span class="keyword">fixes</span></span> <span class="free">S</span> <span class="keyword2"><span class="keyword">and</span></span> <span class="free">f</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="tfree">'a</span> <span class="main">⇒</span> <span class="main">(</span><span class="tfree">'b</span><span class="main">::</span>linorder<span class="main">)</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> fin<span class="main">:</span> <span class="quoted"><span class="quoted">"finite <span class="free">S</span>"</span></span> 
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="free">S</span> <span class="main">≠</span> <span class="main">{}</span> <span class="main">==&gt;</span> <span class="main">∃</span><span class="bound">m</span><span class="main">∈</span><span class="free">S</span><span class="main">.</span> <span class="main">∀</span><span class="bound">s</span> <span class="main">∈</span> <span class="free">S</span><span class="main">.</span> <span class="free">f</span> <span class="bound">m</span> <span class="main">≤</span> <span class="free">f</span> <span class="bound">s</span>"</span></span>
@@ -857,7 +857,7 @@ of the image of a set, if the set is finite and not empty.›</span></span>
 
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹This trivial lemma is needed by the next two.›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> khl_bound<span class="main">:</span> <span class="quoted"><span class="quoted">"khl <span class="main">&lt;</span> np"</span></span>
+<span class="keyword1" id="LynchInstance-khl_bound"><span class="command">lemma</span></span> khl_bound<span class="main">:</span> <span class="quoted"><span class="quoted">"khl <span class="main">&lt;</span> np"</span></span>
   <span class="keyword1"><span class="command">using</span></span> constants_ax <span class="keyword1"><span class="command">by</span></span> <span class="operator">arith</span>
 
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹The next two lemmas prove that de functions kmin and kmax
@@ -866,7 +866,7 @@ because we need to prove the existence of these values, according to
 the rule of the Hilbert's operator. We will need this lemma many
 times because is the only thing that we know about these functions.›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> kmax_prop<span class="main">:</span>
+<span class="keyword1" id="LynchInstance-kmax_prop"><span class="command">lemma</span></span> kmax_prop<span class="main">:</span>
 <span class="keyword2"><span class="keyword">fixes</span></span> <span class="free">f</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"nat <span class="main">⇒</span> Clocktime"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span>
 <span class="quoted"><span class="quoted">"<span class="main">(</span>kmax <span class="free">f</span> PR<span class="main">)</span> <span class="main">⊆</span> PR <span class="main">∧</span> card <span class="main">(</span>kmax <span class="free">f</span> PR<span class="main">)</span> <span class="main">=</span> khl <span class="main">∧</span> 
@@ -929,7 +929,7 @@ times because is the only thing that we know about these functions.›</span></s
       <span class="main">(</span><span class="operator">rule</span> someI <span class="main"><span class="main">[</span></span><span class="keyword2"><span class="keyword"><span class="operator">where</span></span></span> P<span class="main"><span class="main"><span class="main">=</span></span></span><span class="quoted"><span class="quoted"><span class="quoted"><span class="quoted">"<span class="main"><span class="main"><span class="main">λ</span></span></span><span class="bound"><span class="bound"><span class="bound">S</span></span></span><span class="main"><span class="main"><span class="main">.</span></span></span> <span class="bound"><span class="bound"><span class="bound">S</span></span></span> <span class="main"><span class="main"><span class="main">⊆</span></span></span> PR <span class="main"><span class="main"><span class="main">∧</span></span></span> card <span class="bound"><span class="bound"><span class="bound">S</span></span></span> <span class="main"><span class="main"><span class="main">=</span></span></span> khl <span class="main"><span class="main"><span class="main">∧</span></span></span> <span class="main"><span class="main"><span class="main">(</span></span></span><span class="main"><span class="main"><span class="main">∀</span></span></span><span class="bound"><span class="bound"><span class="bound">i</span></span></span><span class="main"><span class="main"><span class="main">∈</span></span></span><span class="bound"><span class="bound"><span class="bound">S</span></span></span><span class="main"><span class="main"><span class="main">.</span></span></span> <span class="main"><span class="main"><span class="main">∀</span></span></span><span class="bound"><span class="bound"><span class="bound">j</span></span></span><span class="main"><span class="main"><span class="main">∈</span></span></span>PR <span class="main"><span class="main"><span class="main">-</span></span></span> <span class="bound"><span class="bound"><span class="bound">S</span></span></span><span class="main"><span class="main"><span class="main">.</span></span></span> <span class="free"><span class="free"><span class="free">f</span></span></span> <span class="bound"><span class="bound"><span class="bound">j</span></span></span> <span class="main"><span class="main"><span class="main">≤</span></span></span> <span class="free"><span class="free"><span class="free">f</span></span></span> <span class="bound"><span class="bound"><span class="bound">i</span></span></span><span class="main"><span class="main"><span class="main">)</span></span></span>"</span></span></span></span><span class="main"><span class="main">]</span></span><span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> kmin_prop<span class="main">:</span>
+<span class="keyword1" id="LynchInstance-kmin_prop"><span class="command">lemma</span></span> kmin_prop<span class="main">:</span>
 <span class="keyword2"><span class="keyword">fixes</span></span> <span class="free">f</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"nat <span class="main">⇒</span> Clocktime"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span>
 <span class="quoted"><span class="quoted">"<span class="main">(</span>kmin <span class="free">f</span> PR<span class="main">)</span> <span class="main">⊆</span> PR <span class="main">∧</span> card <span class="main">(</span>kmin <span class="free">f</span> PR<span class="main">)</span> <span class="main">=</span> khl <span class="main">∧</span> 
@@ -994,7 +994,7 @@ times because is the only thing that we know about these functions.›</span></s
 
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹The next two lemmas are trivial from the previous ones›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> finite_kmax<span class="main">:</span>
+<span class="keyword1" id="LynchInstance-finite_kmax"><span class="command">lemma</span></span> finite_kmax<span class="main">:</span>
 <span class="quoted"><span class="quoted">"finite <span class="main">(</span>kmax <span class="free">f</span> PR<span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span><span class="operator">-</span>
   <span class="keyword1"><span class="command">have</span></span> <span class="quoted"><span class="quoted">"finite PR"</span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
@@ -1002,7 +1002,7 @@ times because is the only thing that we know about these functions.›</span></s
     <span class="keyword1"><span class="command">by</span></span> <span class="operator">blast</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> finite_kmin<span class="main">:</span>
+<span class="keyword1" id="LynchInstance-finite_kmin"><span class="command">lemma</span></span> finite_kmin<span class="main">:</span>
 <span class="quoted"><span class="quoted">"finite <span class="main">(</span>kmin <span class="free">f</span> PR<span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span><span class="operator">-</span>
   <span class="keyword1"><span class="command">have</span></span> <span class="quoted"><span class="quoted">"finite PR"</span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
@@ -1013,7 +1013,7 @@ times because is the only thing that we know about these functions.›</span></s
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹This lemma is necesary because the definition of the
 convergence function use the builtin Max and Min.›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> reduce_not_empty<span class="main">:</span>
+<span class="keyword1" id="LynchInstance-reduce_not_empty"><span class="command">lemma</span></span> reduce_not_empty<span class="main">:</span>
 <span class="quoted"><span class="quoted">"reduce <span class="free">f</span> PR <span class="main">≠</span> <span class="main">{}</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span><span class="operator">-</span>
   <span class="keyword1"><span class="command">from</span></span> constants_ax <span class="keyword1"><span class="command">have</span></span> 
@@ -1051,7 +1051,7 @@ convergence function use the builtin Max and Min.›</span></span>
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹The next three are the main lemmas necessary for prove the
 Translation Invariance property.›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> reduce_shift<span class="main">:</span>
+<span class="keyword1" id="LynchInstance-reduce_shift"><span class="command">lemma</span></span> reduce_shift<span class="main">:</span>
 <span class="keyword2"><span class="keyword">fixes</span></span> <span class="free">f</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"nat <span class="main">⇒</span> Clocktime"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span>
   <span class="quoted"><span class="quoted">"<span class="free">f</span> <span class="main">`</span> <span class="main">(</span>PR <span class="main">-</span> <span class="main">(</span>kmax <span class="free">f</span> PR <span class="main">∪</span> kmin <span class="free">f</span> PR<span class="main">)</span><span class="main">)</span> <span class="main">=</span> 
@@ -1059,7 +1059,7 @@ Translation Invariance property.›</span></span>
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span> <span class="main">(</span><span class="operator">unfold</span> kmin_def kmax_def<span class="main">)</span>
 <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> max_shift<span class="main">:</span>
+<span class="keyword1" id="LynchInstance-max_shift"><span class="command">lemma</span></span> max_shift<span class="main">:</span>
 <span class="keyword2"><span class="keyword">fixes</span></span> <span class="free">f</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"nat <span class="main">⇒</span> Clocktime"</span></span> <span class="keyword2"><span class="keyword">and</span></span> <span class="free">S</span>
 <span class="keyword2"><span class="keyword">assumes</span></span> notEmpFin<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">S</span> <span class="main">≠</span> <span class="main">{}</span>"</span></span> <span class="quoted"><span class="quoted">"finite <span class="free">S</span>"</span></span>
 <span class="keyword2"><span class="keyword">shows</span></span>
@@ -1075,7 +1075,7 @@ Translation Invariance property.›</span></span>
   <span class="keyword3"><span class="command">thus</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">force</span>
 <span class="keyword1"><span class="command">qed</span></span>
   
-<span class="keyword1"><span class="command">lemma</span></span> min_shift<span class="main">:</span>
+<span class="keyword1" id="LynchInstance-min_shift"><span class="command">lemma</span></span> min_shift<span class="main">:</span>
 <span class="keyword2"><span class="keyword">fixes</span></span> <span class="free">f</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"nat <span class="main">⇒</span> Clocktime"</span></span> <span class="keyword2"><span class="keyword">and</span></span> <span class="free">S</span>
 <span class="keyword2"><span class="keyword">assumes</span></span> notEmpFin<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">S</span> <span class="main">≠</span> <span class="main">{}</span>"</span></span> <span class="quoted"><span class="quoted">"finite <span class="free">S</span>"</span></span>
 <span class="keyword2"><span class="keyword">shows</span></span>
@@ -1169,7 +1169,7 @@ Translation Invariance property.›</span></span>
 property. This is a consecuence of the <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><span class="antiquote">@{</span></span><span class="operator"><span class="operator">thm</span></span> [source] card_Un_Int<span class="antiquote"><span class="antiquote">}</span></span></span></span>
 lemma›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> pigeonhole<span class="main">:</span>
+<span class="keyword1" id="LynchInstance-pigeonhole"><span class="command">lemma</span></span> pigeonhole<span class="main">:</span>
 <span class="keyword2"><span class="keyword">assumes</span></span>
   finitA<span class="main">:</span> <span class="quoted"><span class="quoted">"finite <span class="free">A</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span> 
   Bss<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">B</span> <span class="main">⊆</span> <span class="free">A</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span> Css<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">C</span> <span class="main">⊆</span> <span class="free">A</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span> 
@@ -1196,7 +1196,7 @@ the bound $\pi(x,y) = x + y$. But this bound not satisfy the property
 \] that is used in \cite{shankar92mechanical} for prove the
 Schneider's schema.›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> subsets_int<span class="main">:</span>
+<span class="keyword1" id="LynchInstance-subsets_int"><span class="command">lemma</span></span> subsets_int<span class="main">:</span>
 <span class="keyword2"><span class="keyword">assumes</span></span>
   finitA<span class="main">:</span> <span class="quoted"><span class="quoted">"finite <span class="free">A</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span> 
   Bss<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">B</span> <span class="main">⊆</span> <span class="free">A</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span> Css<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">C</span> <span class="main">⊆</span> <span class="free">A</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span> 
@@ -1213,7 +1213,7 @@ Schneider's schema.›</span></span>
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹This lemma is true because <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><span class="antiquote">@{</span></span><span class="operator"><span class="operator">term</span></span> <span class="quoted"><span class="quoted">"reduce <span class="free"><span class="free">f</span></span> PR"</span></span><span class="antiquote"><span class="antiquote">}</span></span></span></span> is the image
 of <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><span class="antiquote">@{</span></span><span class="operator"><span class="operator">term</span></span> <span class="quoted"><span class="quoted">"PR<span class="main"><span class="main">-</span></span><span class="main"><span class="main">(</span></span>kmax <span class="free"><span class="free">f</span></span> PR <span class="main"><span class="main">∪</span></span> kmin <span class="free"><span class="free">f</span></span> PR<span class="main"><span class="main">)</span></span>"</span></span><span class="antiquote"><span class="antiquote">}</span></span></span></span> by the function <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><span class="antiquote">@{</span></span><span class="operator"><span class="operator">term</span></span> <span class="quoted"><span class="free"><span class="quoted"><span class="free">f</span></span></span></span><span class="antiquote"><span class="antiquote">}</span></span></span></span>.›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> exist_reduce<span class="main">:</span>
+<span class="keyword1" id="LynchInstance-exist_reduce"><span class="command">lemma</span></span> exist_reduce<span class="main">:</span>
 <span class="quoted"><span class="quoted">"<span class="main">∀</span> <span class="bound">c</span> <span class="main">∈</span> reduce <span class="free">f</span> PR<span class="main">.</span> <span class="main">∃</span> <span class="bound">i</span><span class="main">∈</span> PR<span class="main">-</span><span class="main">(</span>kmax <span class="free">f</span> PR <span class="main">∪</span> kmin <span class="free">f</span> PR<span class="main">)</span><span class="main">.</span> <span class="free">f</span> <span class="bound">i</span> <span class="main">=</span> <span class="bound">c</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span>
 <span class="keyword3"><span class="command">fix</span></span> <span class="skolem">c</span> <span class="keyword3"><span class="command">assume</span></span> asm<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="skolem">c</span> <span class="main">∈</span> reduce <span class="free">f</span> PR"</span></span>
@@ -1224,14 +1224,14 @@ of <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><sp
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹The next three lemmas are consequence of the definition of
 <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><span class="antiquote">@{</span></span><span class="operator"><span class="operator">term</span></span> <span class="quoted"><span class="quoted">reduce</span></span><span class="antiquote"><span class="antiquote">}</span></span></span></span>, <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><span class="antiquote">@{</span></span><span class="operator"><span class="operator">term</span></span> <span class="quoted"><span class="quoted">kmax</span></span><span class="antiquote"><span class="antiquote">}</span></span></span></span> and <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><span class="antiquote">@{</span></span><span class="operator"><span class="operator">term</span></span> <span class="quoted"><span class="quoted">kmin</span></span><span class="antiquote"><span class="antiquote">}</span></span></span></span>›</span></span>
  
-<span class="keyword1"><span class="command">lemma</span></span> finite_reduce<span class="main">:</span>
+<span class="keyword1" id="LynchInstance-finite_reduce"><span class="command">lemma</span></span> finite_reduce<span class="main">:</span>
 <span class="quoted"><span class="quoted">"finite <span class="main">(</span>reduce <span class="free">f</span> PR<span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span><span class="main">(</span><span class="operator">unfold</span> reduce_def<span class="main">)</span>
   <span class="keyword3"><span class="command">show</span></span> <span class="quoted"><span class="quoted">"finite <span class="main">(</span><span class="free">f</span> <span class="main">`</span> <span class="main">(</span>PR <span class="main">-</span> <span class="main">(</span>kmax <span class="free">f</span> PR <span class="main">∪</span> kmin <span class="free">f</span> PR<span class="main">)</span><span class="main">)</span><span class="main">)</span>"</span></span>
     <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> kmax_ge<span class="main">:</span>
+<span class="keyword1" id="LynchInstance-kmax_ge"><span class="command">lemma</span></span> kmax_ge<span class="main">:</span>
   <span class="quoted"><span class="quoted">"<span class="main">∀</span> <span class="bound">i</span><span class="main">∈</span> <span class="main">(</span>kmax <span class="free">f</span> PR<span class="main">)</span><span class="main">.</span> <span class="main">∀</span> <span class="bound">r</span> <span class="main">∈</span> <span class="main">(</span>reduce <span class="free">f</span> PR<span class="main">)</span><span class="main">.</span> <span class="bound">r</span> <span class="main">&lt;=</span> <span class="free">f</span> <span class="bound">i</span> "</span></span>
 <span class="keyword1"><span class="command">proof</span></span>
   <span class="keyword3"><span class="command">fix</span></span> <span class="skolem">i</span> <span class="keyword3"><span class="command">assume</span></span> asm<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="skolem">i</span> <span class="main">∈</span> kmax <span class="free">f</span> PR"</span></span>
@@ -1254,7 +1254,7 @@ of <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><sp
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> kmin_le<span class="main">:</span>
+<span class="keyword1" id="LynchInstance-kmin_le"><span class="command">lemma</span></span> kmin_le<span class="main">:</span>
   <span class="quoted"><span class="quoted">"<span class="main">∀</span> <span class="bound">i</span><span class="main">∈</span> <span class="main">(</span>kmin <span class="free">f</span> PR<span class="main">)</span><span class="main">.</span> <span class="main">∀</span> <span class="bound">r</span> <span class="main">∈</span> <span class="main">(</span>reduce <span class="free">f</span> PR<span class="main">)</span><span class="main">.</span> <span class="free">f</span> <span class="bound">i</span> <span class="main">&lt;=</span> <span class="bound">r</span> "</span></span>
 <span class="keyword1"><span class="command">proof</span></span>
   <span class="keyword3"><span class="command">fix</span></span> <span class="skolem">i</span> <span class="keyword3"><span class="command">assume</span></span> asm<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="skolem">i</span> <span class="main">∈</span> kmin <span class="free">f</span> PR"</span></span>
@@ -1284,7 +1284,7 @@ property. This has been proved in ICS. The proof is in the appendix
 <span class="keyword1"><span class="command">text</span></span><span class="quoted"><span class="plain_text">‹This lemma is true also with <span class="antiquoted"><span class="raw_text"><span class="antiquoted"><span class="raw_text"><span class="operator"><span class="operator">‹</span></span>0 &lt;= c›</span></span></span></span> !!›</span></span>
 
 
-<span class="keyword1"><span class="command">lemma</span></span> abs_distrib_div<span class="main">:</span>
+<span class="keyword1" id="LynchInstance-abs_distrib_div"><span class="command">lemma</span></span> abs_distrib_div<span class="main">:</span>
   <span class="quoted"><span class="quoted">"<span class="main">0</span> <span class="main">&lt;</span> <span class="main">(</span><span class="free">c</span><span class="main">::</span>real<span class="main">)</span>  <span class="main">⟹</span> <span class="main">¦</span><span class="free">a</span> <span class="main">/</span> <span class="free">c</span> <span class="main">-</span> <span class="free">b</span> <span class="main">/</span> <span class="free">c</span><span class="main">¦</span> <span class="main">=</span> <span class="main">¦</span><span class="free">a</span> <span class="main">-</span> <span class="free">b</span><span class="main">¦</span> <span class="main">/</span> <span class="free">c</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span><span class="operator">-</span>
   <span class="keyword3"><span class="command">assume</span></span> ch<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">0</span><span class="main">&lt;</span><span class="free">c</span>"</span></span>
@@ -1314,7 +1314,7 @@ property. This has been proved in ICS. The proof is in the appendix
 values <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><span class="antiquote">@{</span></span><span class="operator"><span class="operator">term</span></span> <span class="quoted"><span class="quoted">"Max <span class="main"><span class="main">(</span></span>reduce <span class="free"><span class="free">f</span></span> PR<span class="main"><span class="main">)</span></span>"</span></span><span class="antiquote"><span class="antiquote">}</span></span></span></span> and <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><span class="antiquote">@{</span></span><span class="operator"><span class="operator">term</span></span> <span class="quoted"><span class="quoted">"Min <span class="main"><span class="main">(</span></span>reduce <span class="free"><span class="free">f</span></span> PR<span class="main"><span class="main">)</span></span>"</span></span><span class="antiquote"><span class="antiquote">}</span></span></span></span>. These
 are used in the proof of the main property.›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> uboundmax<span class="main">:</span>
+<span class="keyword1" id="LynchInstance-uboundmax"><span class="command">lemma</span></span> uboundmax<span class="main">:</span>
 <span class="keyword2"><span class="keyword">assumes</span></span> 
   hC<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">C</span> <span class="main">⊆</span> PR"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
   hCk<span class="main">:</span> <span class="quoted"><span class="quoted">"np <span class="main">&lt;=</span> card <span class="free">C</span> <span class="main">+</span> khl"</span></span>
@@ -1361,7 +1361,7 @@ are used in the proof of the main property.›</span></span>
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
   
-<span class="keyword1"><span class="command">lemma</span></span> lboundmin<span class="main">:</span>
+<span class="keyword1" id="LynchInstance-lboundmin"><span class="command">lemma</span></span> lboundmin<span class="main">:</span>
 <span class="keyword2"><span class="keyword">assumes</span></span> 
   hC<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">C</span> <span class="main">⊆</span> PR"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
   hCk<span class="main">:</span> <span class="quoted"><span class="quoted">"np <span class="main">&lt;=</span> card <span class="free">C</span> <span class="main">+</span> khl"</span></span>
@@ -1408,7 +1408,7 @@ are used in the proof of the main property.›</span></span>
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
   
-<span class="keyword1"><span class="command">lemma</span></span> same_bound<span class="main">:</span>
+<span class="keyword1" id="LynchInstance-same_bound"><span class="command">lemma</span></span> same_bound<span class="main">:</span>
 <span class="keyword2"><span class="keyword">assumes</span></span> 
   hC<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">C</span> <span class="main">⊆</span> PR"</span></span> <span class="keyword2"><span class="keyword">and</span></span>
   hCk<span class="main">:</span> <span class="quoted"><span class="quoted">"np <span class="main">&lt;=</span> card <span class="free">C</span> <span class="main">+</span> khl"</span></span> <span class="keyword2"><span class="keyword">and</span></span>

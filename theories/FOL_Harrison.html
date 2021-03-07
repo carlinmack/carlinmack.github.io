@@ -286,12 +286,12 @@
 
 <span class="keyword1"><span class="command">subsection</span></span> <span class="quoted"><span class="plain_text">‹Soundness of proof system›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> map'<span class="main">:</span>
+<span class="keyword1" id="FOL_Harrison-map'"><span class="command">lemma</span></span> map'<span class="main">:</span>
   <span class="quoted"><span class="quoted">"<span class="main">¬</span> occurs_in <span class="free">x</span> <span class="free">t</span> <span class="main">⟹</span> semantics_term <span class="free">e</span> <span class="free">f</span> <span class="free">t</span> <span class="main">=</span> semantics_term <span class="main">(</span><span class="free">e</span><span class="main">(</span><span class="free">x</span> <span class="main">:=</span> <span class="free">v</span><span class="main">)</span><span class="main">)</span> <span class="free">f</span> <span class="free">t</span>"</span></span>
   <span class="quoted"><span class="quoted">"<span class="main">¬</span> occurs_in_list <span class="free">x</span> <span class="free">l</span> <span class="main">⟹</span> semantics_list <span class="free">e</span> <span class="free">f</span> <span class="free">l</span> <span class="main">=</span> semantics_list <span class="main">(</span><span class="free">e</span><span class="main">(</span><span class="free">x</span> <span class="main">:=</span> <span class="free">v</span><span class="main">)</span><span class="main">)</span> <span class="free">f</span> <span class="free">l</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">induct</span> <span class="quoted"><span class="free">t</span></span> <span class="keyword2"><span class="keyword"><span class="quasi_keyword">and</span></span></span> <span class="quoted"><span class="free">l</span></span> <span class="quasi_keyword">rule</span><span class="main"><span class="main">:</span></span> semantics_term.induct semantics_list.induct<span class="main">)</span> <span class="operator">simp_all</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> map<span class="main">:</span>
+<span class="keyword1" id="FOL_Harrison-map"><span class="command">lemma</span></span> map<span class="main">:</span>
   <span class="quoted"><span class="quoted">"<span class="main">¬</span> free_in <span class="free">x</span> <span class="free">p</span> <span class="main">⟹</span> semantics <span class="free">e</span> <span class="free">f</span> <span class="free">g</span> <span class="free">p</span> <span class="main">⟷</span> semantics <span class="main">(</span><span class="free">e</span><span class="main">(</span><span class="free">x</span> <span class="main">:=</span> <span class="free">v</span><span class="main">)</span><span class="main">)</span> <span class="free">f</span> <span class="free">g</span> <span class="free">p</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">induct</span> <span class="quoted"><span class="free">p</span></span> <span class="quasi_keyword">arbitrary</span><span class="main"><span class="main">:</span></span> <span class="quoted"><span class="free">e</span></span><span class="main">)</span>
   <span class="keyword3"><span class="command">fix</span></span> <span class="skolem">e</span>
@@ -390,7 +390,7 @@
   <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span> <span class="main">(</span><span class="operator">metis</span> fun_upd_twist fun_upd_upd<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> length2_equiv<span class="main">:</span>
+<span class="keyword1" id="FOL_Harrison-length2_equiv"><span class="command">lemma</span></span> length2_equiv<span class="main">:</span>
   <span class="quoted"><span class="quoted">"length2 <span class="free">l</span> <span class="main">⟷</span> <span class="main">[</span>hd <span class="free">l</span><span class="main">,</span> hd <span class="main">(</span>tl <span class="free">l</span><span class="main">)</span><span class="main">]</span> <span class="main">=</span> <span class="free">l</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
   <span class="keyword1"><span class="command">have</span></span> <span class="quoted"><span class="quoted">"length2 <span class="free">l</span> <span class="main">⟹</span> <span class="main">[</span>hd <span class="free">l</span><span class="main">,</span> hd <span class="main">(</span>tl <span class="free">l</span><span class="main">)</span><span class="main">]</span> <span class="main">=</span> <span class="free">l</span>"</span></span>
@@ -403,7 +403,7 @@
   <span class="keyword1"><span class="command">by</span></span> <span class="operator">metis</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> equal_length_sym<span class="main">:</span>
+<span class="keyword1" id="FOL_Harrison-equal_length_sym"><span class="command">lemma</span></span> equal_length_sym<span class="main">:</span>
   <span class="quoted"><span class="quoted">"equal_length <span class="free">l</span> <span class="free">l'</span> <span class="main">⟹</span> equal_length <span class="free">l'</span> <span class="free">l</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">induct</span> <span class="quoted"><span class="free">l'</span></span> <span class="quasi_keyword">arbitrary</span><span class="main"><span class="main">:</span></span> <span class="quoted"><span class="free">l</span></span><span class="main">)</span>
   <span class="keyword3"><span class="command">fix</span></span> <span class="skolem">l</span>
@@ -420,7 +420,7 @@
   <span class="keyword1"><span class="command">by</span></span> <span class="operator">metis</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> equal_length2<span class="main">:</span>
+<span class="keyword1" id="FOL_Harrison-equal_length2"><span class="command">lemma</span></span> equal_length2<span class="main">:</span>
   <span class="quoted"><span class="quoted">"equal_length <span class="free">l</span> <span class="free">l'</span> <span class="main">⟹</span> length2 <span class="free">l</span> <span class="main">⟷</span> length2 <span class="free">l'</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
   <span class="keyword3"><span class="command">assume</span></span> assm<span class="main">:</span> <span class="quoted"><span class="quoted">"equal_length <span class="free">l</span> <span class="free">l'</span>"</span></span>
@@ -437,12 +437,12 @@
   <span class="keyword1"><span class="command">by</span></span> <span class="operator">metis</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> imp_chain_equiv<span class="main">:</span>
+<span class="keyword1" id="FOL_Harrison-imp_chain_equiv"><span class="command">lemma</span></span> imp_chain_equiv<span class="main">:</span>
   <span class="quoted"><span class="quoted">"semantics <span class="free">e</span> <span class="free">f</span> <span class="free">g</span> <span class="main">(</span>foldr Imp <span class="free">l</span> <span class="free">p</span><span class="main">)</span> <span class="main">⟷</span> <span class="main">(</span><span class="main">∀</span><span class="bound">q</span> <span class="main">∈</span> set <span class="free">l</span><span class="main">.</span> semantics <span class="free">e</span> <span class="free">f</span> <span class="free">g</span> <span class="bound">q</span><span class="main">)</span> <span class="main">⟶</span> semantics <span class="free">e</span> <span class="free">f</span> <span class="free">g</span> <span class="free">p</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> imp_conjL
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">induct</span> <span class="quoted"><span class="free">l</span></span><span class="main">)</span> <span class="operator">simp_all</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> imp_chain_zip_eq<span class="main">:</span>
+<span class="keyword1" id="FOL_Harrison-imp_chain_zip_eq"><span class="command">lemma</span></span> imp_chain_zip_eq<span class="main">:</span>
   <span class="quoted"><span class="quoted">"equal_length <span class="free">l</span> <span class="free">l'</span> <span class="main">⟹</span>
       semantics <span class="free">e</span> <span class="free">f</span> <span class="free">g</span> <span class="main">(</span>foldr Imp <span class="main">(</span>zip_eq <span class="free">l</span> <span class="free">l'</span><span class="main">)</span> <span class="free">p</span><span class="main">)</span> <span class="main">⟷</span>
       semantics_list <span class="free">e</span> <span class="free">f</span> <span class="free">l</span> <span class="main">=</span> semantics_list <span class="free">e</span> <span class="free">f</span> <span class="free">l'</span> <span class="main">⟶</span> semantics <span class="free">e</span> <span class="free">f</span> <span class="free">g</span> <span class="free">p</span>"</span></span>
@@ -458,7 +458,7 @@
   <span class="keyword1"><span class="command">by</span></span> <span class="operator">iprover</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> funcong<span class="main">:</span>
+<span class="keyword1" id="FOL_Harrison-funcong"><span class="command">lemma</span></span> funcong<span class="main">:</span>
   <span class="quoted"><span class="quoted">"equal_length <span class="free">l</span> <span class="free">l'</span> <span class="main">⟹</span>
       semantics <span class="free">e</span> <span class="free">f</span> <span class="free">g</span> <span class="main">(</span>foldr Imp <span class="main">(</span>zip_eq <span class="free">l</span> <span class="free">l'</span><span class="main">)</span> <span class="main">(</span>Atom <span class="main">(</span>Rl <span class="main">(</span><span class="keyword1">STR</span> <span class="inner_quoted">''=''</span><span class="main">)</span> <span class="main">[</span>Fn <span class="free">i</span> <span class="free">l</span><span class="main">,</span> Fn <span class="free">i</span> <span class="free">l'</span><span class="main">]</span><span class="main">)</span><span class="main">)</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
@@ -480,7 +480,7 @@
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> predcong<span class="main">:</span>
+<span class="keyword1" id="FOL_Harrison-predcong"><span class="command">lemma</span></span> predcong<span class="main">:</span>
   <span class="quoted"><span class="quoted">"equal_length <span class="free">l</span> <span class="free">l'</span> <span class="main">⟹</span>
       semantics <span class="free">e</span> <span class="free">f</span> <span class="free">g</span> <span class="main">(</span>foldr Imp <span class="main">(</span>zip_eq <span class="free">l</span> <span class="free">l'</span><span class="main">)</span> <span class="main">(</span>Imp <span class="main">(</span>Atom <span class="main">(</span>Rl <span class="free">i</span> <span class="free">l</span><span class="main">)</span><span class="main">)</span> <span class="main">(</span>Atom <span class="main">(</span>Rl <span class="free">i</span> <span class="free">l'</span><span class="main">)</span><span class="main">)</span><span class="main">)</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>

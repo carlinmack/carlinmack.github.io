@@ -9,7 +9,7 @@
 
 <span class="keyword1"><span class="command">theory</span></span> Sort
 <span class="keyword2"><span class="keyword">imports</span></span> <a href="../../HOL/HOL/Main.html">Main</a> 
-  <span class="quoted">"<a href="../../HOL/HOL-Library/Permutation.html">HOL-Library.Permutation</a>"</span>
+  <span class="quoted">"<a href="../../HOL/HOL-Library/List_Permutation.html">HOL-Library.List_Permutation</a>"</span>
 <span class="keyword2"><span class="keyword">begin</span></span>
 
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹
@@ -88,7 +88,7 @@ describes characteristics of both list and heap.
   the list. This, practically, means that function {\em of\_list} does
   not delete or change elements of the starting list.›</span>
 <span class="keyword2"><span class="keyword">begin</span></span>
-  <span class="keyword1"><span class="command">lemma</span></span> is_empty_as_list<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">is_empty</span> <span class="free">e</span> <span class="main">⟹</span> <span class="free">multiset</span> <span class="free">e</span> <span class="main">=</span> <span class="main">{#}</span>"</span></span>
+  <span class="keyword1" id="RemoveMax-is_empty_as_list"><span class="command">lemma</span></span> is_empty_as_list<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">is_empty</span> <span class="free">e</span> <span class="main">⟹</span> <span class="free">multiset</span> <span class="free">e</span> <span class="main">=</span> <span class="main">{#}</span>"</span></span>
     <span class="keyword1"><span class="command">using</span></span> is_empty_inj multiset_empty
     <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
@@ -147,13 +147,13 @@ and completely justify our observation.
       {\em remove\_max} must not change that.›</span>
 <span class="keyword2"><span class="keyword">begin</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> remove_max_multiset_size<span class="main">:</span> 
+<span class="keyword1" id="RemoveMax-remove_max_multiset_size"><span class="command">lemma</span></span> remove_max_multiset_size<span class="main">:</span> 
   <span class="quoted"><span class="quoted">"<span class="main">⟦</span><span class="main">¬</span> <span class="free">is_empty</span> <span class="free">l</span><span class="main">;</span> <span class="free">inv</span> <span class="free">l</span><span class="main">;</span> <span class="main">(</span><span class="free">m</span><span class="main">,</span> <span class="free">l'</span><span class="main">)</span> <span class="main">=</span> <span class="free">remove_max</span> <span class="free">l</span><span class="main">⟧</span> <span class="main">⟹</span> 
                size <span class="main">(</span><span class="free">multiset</span> <span class="free">l</span><span class="main">)</span> <span class="main">&gt;</span> size <span class="main">(</span><span class="free">multiset</span> <span class="free">l'</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> remove_max_multiset<span class="main">[</span><span class="operator">of</span> <span class="quoted"><span class="free">l</span></span> <span class="quoted"><span class="free">m</span></span> <span class="quoted"><span class="free">l'</span></span><span class="main">]</span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">metis</span> mset_subset_size multi_psub_of_add_self<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> remove_max_set<span class="main">:</span> 
+<span class="keyword1" id="RemoveMax-remove_max_set"><span class="command">lemma</span></span> remove_max_set<span class="main">:</span> 
   <span class="quoted"><span class="quoted">"<span class="main">⟦</span><span class="main">¬</span> <span class="free">is_empty</span> <span class="free">l</span><span class="main">;</span> <span class="free">inv</span> <span class="free">l</span><span class="main">;</span> <span class="main">(</span><span class="free">m</span><span class="main">,</span> <span class="free">l'</span><span class="main">)</span> <span class="main">=</span> <span class="free">remove_max</span> <span class="free">l</span><span class="main">⟧</span> <span class="main">⟹</span> 
                                  set <span class="free">l'</span> <span class="main">∪</span> <span class="main">{</span><span class="free">m</span><span class="main">}</span> <span class="main">=</span> set <span class="free">l</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> remove_max_multiset<span class="main">[</span><span class="operator">of</span> <span class="quoted"><span class="free">l</span></span> <span class="quoted"><span class="free">m</span></span> <span class="quoted"><span class="free">l'</span></span><span class="main">]</span>
@@ -184,7 +184,7 @@ mechanism that enables total function to appear as partial one:›</span></span>
 <span class="keyword1"><span class="command">inductive</span></span> <span class="entity">ssort'_dom</span> <span class="keyword2"><span class="keyword">where</span></span>
    step<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">⟦</span><span class="main">⋀</span><span class="bound">m</span> <span class="bound">l'</span><span class="main">.</span> <span class="main">⟦</span><span class="main">¬</span> <span class="free">is_empty</span> <span class="free"><span class="bound"><span class="entity">l</span></span></span><span class="main">;</span> <span class="main">(</span><span class="bound">m</span><span class="main">,</span> <span class="bound">l'</span><span class="main">)</span> <span class="main">=</span> <span class="free">remove_max</span> <span class="free"><span class="bound"><span class="entity">l</span></span></span><span class="main">⟧</span> <span class="main">⟹</span> 
                   <span class="free">ssort'_dom</span> <span class="main">(</span><span class="bound">l'</span><span class="main">,</span> <span class="bound">m</span> <span class="main">#</span> <span class="free"><span class="bound"><span class="entity">sl</span></span></span><span class="main">)</span><span class="main">⟧</span> <span class="main">⟹</span> <span class="free">ssort'_dom</span> <span class="main">(</span><span class="free"><span class="bound"><span class="entity">l</span></span></span><span class="main">,</span> <span class="free"><span class="bound"><span class="entity">sl</span></span></span><span class="main">)</span>"</span></span>
-<span class="keyword1"><span class="command">lemma</span></span> ssort'_termination<span class="main">:</span>
+<span class="keyword1" id="RemoveMax-ssort'_termination"><span class="command">lemma</span></span> ssort'_termination<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">inv</span> <span class="main">(</span>fst <span class="free">p</span><span class="main">)</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"ssort'_dom <span class="free">p</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms
@@ -211,7 +211,7 @@ mechanism that enables total function to appear as partial one:›</span></span>
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span> <span class="operator">simp</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ssort'Induct<span class="main">:</span>
+<span class="keyword1" id="RemoveMax-ssort'Induct"><span class="command">lemma</span></span> ssort'Induct<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">inv</span> <span class="free">l</span>"</span></span> <span class="quoted"><span class="quoted">"<span class="free">P</span> <span class="free">l</span> <span class="free">sl</span>"</span></span>
    <span class="quoted"><span class="quoted">"<span class="main">⋀</span> <span class="bound">l</span> <span class="bound">sl</span> <span class="bound">m</span> <span class="bound">l'</span><span class="main">.</span> 
     <span class="main">⟦</span><span class="main">¬</span> <span class="free">is_empty</span> <span class="bound">l</span><span class="main">;</span> <span class="free">inv</span> <span class="bound">l</span><span class="main">;</span> <span class="main">(</span><span class="bound">m</span><span class="main">,</span> <span class="bound">l'</span><span class="main">)</span> <span class="main">=</span> <span class="free">remove_max</span> <span class="bound">l</span><span class="main">;</span> <span class="free">P</span> <span class="bound">l</span> <span class="bound">sl</span><span class="main">⟧</span> <span class="main">⟹</span> <span class="free">P</span> <span class="bound">l'</span> <span class="main">(</span><span class="bound">m</span> <span class="main">#</span> <span class="bound">sl</span><span class="main">)</span>"</span></span>
@@ -244,7 +244,7 @@ mechanism that enables total function to appear as partial one:›</span></span>
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> mset_ssort'<span class="main">:</span>
+<span class="keyword1" id="RemoveMax-mset_ssort'"><span class="command">lemma</span></span> mset_ssort'<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">inv</span> <span class="free">l</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"mset <span class="main">(</span>ssort' <span class="free">l</span> <span class="free">sl</span><span class="main">)</span> <span class="main">=</span> <span class="free">multiset</span> <span class="free">l</span> <span class="main">+</span> mset <span class="free">sl</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms
@@ -266,7 +266,7 @@ mechanism that enables total function to appear as partial one:›</span></span>
       <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> sorted_ssort'<span class="main">:</span>
+<span class="keyword1" id="RemoveMax-sorted_ssort'"><span class="command">lemma</span></span> sorted_ssort'<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">inv</span> <span class="free">l</span>"</span></span> <span class="quoted"><span class="quoted">"sorted <span class="free">sl</span> <span class="main">∧</span> <span class="main">(</span><span class="main">∀</span> <span class="bound">x</span> <span class="main">∈</span> set <span class="free">l</span><span class="main">.</span> <span class="main">(</span><span class="main">∀</span> <span class="bound">y</span> <span class="main">∈</span> List.set <span class="free">sl</span><span class="main">.</span> <span class="bound">x</span> <span class="main">≤</span> <span class="bound">y</span><span class="main">)</span><span class="main">)</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"sorted <span class="main">(</span>ssort' <span class="free">l</span> <span class="free">sl</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms
@@ -288,12 +288,12 @@ mechanism that enables total function to appear as partial one:›</span></span>
     <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> sorted_ssort<span class="main">:</span> <span class="quoted"><span class="quoted">"sorted <span class="main">(</span>ssort <span class="free">i</span><span class="main">)</span>"</span></span>
+<span class="keyword1" id="RemoveMax-sorted_ssort"><span class="command">lemma</span></span> sorted_ssort<span class="main">:</span> <span class="quoted"><span class="quoted">"sorted <span class="main">(</span>ssort <span class="free">i</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">unfolding</span></span> ssort_def
 <span class="keyword1"><span class="command">using</span></span> sorted_ssort'<span class="main">[</span><span class="operator">of</span> <span class="quoted"><span class="quoted">"<span class="free">of_list</span> <span class="free">i</span>"</span></span> <span class="quoted"><span class="quoted">"<span class="main">[]</span>"</span></span><span class="main">]</span> of_list_inv
 <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> permutation_ssort<span class="main">:</span> <span class="quoted"><span class="quoted">"ssort <span class="free">l</span> <span class="main">&lt;~~&gt;</span> <span class="free">l</span>"</span></span>
+<span class="keyword1" id="RemoveMax-permutation_ssort"><span class="command">lemma</span></span> permutation_ssort<span class="main">:</span> <span class="quoted"><span class="quoted">"ssort <span class="free">l</span> <span class="main">&lt;~~&gt;</span> <span class="free">l</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">subst</span> mset_eq_perm<span class="main"><span class="main">[</span></span><span class="operator">symmetric</span><span class="main"><span class="main">]</span></span><span class="main">)</span>
   <span class="keyword3"><span class="command">show</span></span> <span class="quoted"><span class="quoted">"mset <span class="main">(</span>ssort <span class="free">l</span><span class="main">)</span> <span class="main">=</span> mset <span class="free">l</span>"</span></span>
     <span class="keyword1"><span class="command">unfolding</span></span> ssort_def
@@ -351,7 +351,7 @@ list.
 <span class="keyword1"><span class="command">definition</span></span> <span class="entity">remove_max</span> <span class="keyword2"><span class="keyword">where</span></span>
   <span class="quoted"><span class="quoted">"<span class="free">remove_max</span> <span class="free"><span class="bound"><span class="entity">l</span></span></span> <span class="main">=</span> foldl f <span class="main">(</span>hd <span class="free"><span class="bound"><span class="entity">l</span></span></span><span class="main">,</span> <span class="main">[]</span><span class="main">)</span> <span class="main">(</span>tl <span class="free"><span class="bound"><span class="entity">l</span></span></span><span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> max_Max_commute<span class="main">:</span> 
+<span class="keyword1" id="SelectionSort_Functional-max_Max_commute"><span class="command">lemma</span></span> max_Max_commute<span class="main">:</span> 
   <span class="quoted"><span class="quoted">"finite <span class="free">A</span> <span class="main">⟹</span> max <span class="main">(</span>Max <span class="main">(</span>insert <span class="free">m</span> <span class="free">A</span><span class="main">)</span><span class="main">)</span> <span class="free">x</span> <span class="main">=</span> max <span class="free">m</span> <span class="main">(</span>Max <span class="main">(</span>insert <span class="free">x</span> <span class="free">A</span><span class="main">)</span><span class="main">)</span>"</span></span>
   <span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span> <span class="main">(</span><span class="operator">cases</span> <span class="quoted"><span class="quoted">"<span class="free">A</span> <span class="main">=</span> <span class="main">{}</span>"</span></span><span class="main"><span class="keyword3">,</span></span> <span class="operator">simp</span><span class="main">)</span>  
   <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">metis</span> Max_insert max.commute max.left_commute<span class="main">)</span>
@@ -359,7 +359,7 @@ list.
 <span class="keyword1"><span class="command">text</span></span><span class="quoted"><span class="plain_text">‹The function really returned the
 maximum value.›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> remove_max_max_lemma<span class="main">:</span>
+<span class="keyword1" id="SelectionSort_Functional-remove_max_max_lemma"><span class="command">lemma</span></span> remove_max_max_lemma<span class="main">:</span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"fst <span class="main">(</span>foldl f <span class="main">(</span><span class="free">m</span><span class="main">,</span> <span class="free">t</span><span class="main">)</span> <span class="free">l</span><span class="main">)</span> <span class="main">=</span>  Max <span class="main">(</span>set <span class="main">(</span><span class="free">m</span> <span class="main">#</span> <span class="free">l</span><span class="main">)</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">induct</span> <span class="quoted"><span class="free">l</span></span> <span class="quasi_keyword">arbitrary</span><span class="main"><span class="main">:</span></span> <span class="quoted"><span class="free">m</span></span> <span class="quoted"><span class="free">t</span></span> <span class="quasi_keyword">rule</span><span class="main"><span class="main">:</span></span> rev_induct<span class="main">)</span>
   <span class="keyword3"><span class="command">case</span></span> <span class="main">(</span>snoc <span class="skolem">x</span> <span class="skolem">xs</span><span class="main">)</span>
@@ -372,7 +372,7 @@ maximum value.›</span></span>
     <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> max_Max_commute<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span> <span class="operator">simp</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> remove_max_max<span class="main">:</span>
+<span class="keyword1" id="SelectionSort_Functional-remove_max_max"><span class="command">lemma</span></span> remove_max_max<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">l</span> <span class="main">≠</span> <span class="main">[]</span>"</span></span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="free">m</span><span class="main">,</span> <span class="free">l'</span><span class="main">)</span> <span class="main">=</span> remove_max <span class="free">l</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="free">m</span> <span class="main">=</span> Max <span class="main">(</span>set <span class="free">l</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms
@@ -384,7 +384,7 @@ maximum value.›</span></span>
 <span class="keyword1"><span class="command">text</span></span><span class="quoted"><span class="plain_text">‹Nothing new is added in the list and noting is deleted
 from the list except the maximum element.›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> remove_max_mset_lemma<span class="main">:</span>
+<span class="keyword1" id="SelectionSort_Functional-remove_max_mset_lemma"><span class="command">lemma</span></span> remove_max_mset_lemma<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="free">m</span><span class="main">,</span> <span class="free">l'</span><span class="main">)</span> <span class="main">=</span> foldl f <span class="main">(</span><span class="free">m'</span><span class="main">,</span> <span class="free">t'</span><span class="main">)</span> <span class="free">l</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"mset <span class="main">(</span><span class="free">m</span> <span class="main">#</span> <span class="free">l'</span><span class="main">)</span> <span class="main">=</span> mset <span class="main">(</span><span class="free">m'</span> <span class="main">#</span> <span class="free">t'</span> <span class="main">@</span> <span class="free">l</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms
@@ -401,7 +401,7 @@ from the list except the maximum element.›</span></span>
     <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">split</span><span class="main"><span class="main">:</span></span> if_split_asm<span class="main">)</span> 
 <span class="keyword1"><span class="command">qed</span></span> <span class="operator">simp</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> remove_max_mset<span class="main">:</span>
+<span class="keyword1" id="SelectionSort_Functional-remove_max_mset"><span class="command">lemma</span></span> remove_max_mset<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">l</span> <span class="main">≠</span> <span class="main">[]</span>"</span></span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="free">m</span><span class="main">,</span> <span class="free">l'</span><span class="main">)</span> <span class="main">=</span> remove_max <span class="free">l</span>"</span></span> 
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"add_mset <span class="free">m</span> <span class="main">(</span>mset <span class="free">l'</span><span class="main">)</span> <span class="main">=</span> mset <span class="free">l</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms
@@ -471,13 +471,13 @@ heap, otherwise it is {\em False}:›</span></span>
 <span class="main">|</span> <span class="quoted"><span class="quoted">"<span class="free">is_heap</span> <span class="main">(</span>T <span class="free"><span class="bound"><span class="entity">v</span></span></span> <span class="free"><span class="bound"><span class="entity">l</span></span></span> E<span class="main">)</span> <span class="main">=</span> <span class="main">(</span><span class="free"><span class="bound"><span class="entity">v</span></span></span> <span class="main">≥</span> val <span class="free"><span class="bound"><span class="entity">l</span></span></span> <span class="main">∧</span> <span class="free">is_heap</span> <span class="free"><span class="bound"><span class="entity">l</span></span></span><span class="main">)</span>"</span></span>
 <span class="main">|</span> <span class="quoted"><span class="quoted">"<span class="free">is_heap</span> <span class="main">(</span>T <span class="free"><span class="bound"><span class="entity">v</span></span></span> <span class="free"><span class="bound"><span class="entity">l</span></span></span> <span class="free"><span class="bound"><span class="entity">r</span></span></span><span class="main">)</span> <span class="main">=</span> <span class="main">(</span><span class="free"><span class="bound"><span class="entity">v</span></span></span> <span class="main">≥</span> val <span class="free"><span class="bound"><span class="entity">r</span></span></span> <span class="main">∧</span> <span class="free">is_heap</span> <span class="free"><span class="bound"><span class="entity">r</span></span></span> <span class="main">∧</span> <span class="free"><span class="bound"><span class="entity">v</span></span></span> <span class="main">≥</span> val <span class="free"><span class="bound"><span class="entity">l</span></span></span> <span class="main">∧</span> <span class="free">is_heap</span> <span class="free"><span class="bound"><span class="entity">l</span></span></span><span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> heap_top_geq<span class="main">:</span>
+<span class="keyword1" id="Heap-heap_top_geq"><span class="command">lemma</span></span> heap_top_geq<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">a</span> <span class="main">∈#</span> multiset <span class="free">t</span>"</span></span> <span class="quoted"><span class="quoted">"is_heap <span class="free">t</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"val <span class="free">t</span> <span class="main">≥</span> <span class="free">a</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">induct</span> <span class="quoted"><span class="free">t</span></span> <span class="quasi_keyword">rule</span><span class="main"><span class="main">:</span></span> is_heap.induct<span class="main">)</span>  <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">split</span><span class="main"><span class="main">:</span></span> if_split_asm<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> heap_top_max<span class="main">:</span>
+<span class="keyword1" id="Heap-heap_top_max"><span class="command">lemma</span></span> heap_top_max<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">t</span> <span class="main">≠</span> E"</span></span> <span class="quoted"><span class="quoted">"is_heap <span class="free">t</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"val <span class="free">t</span> <span class="main">=</span> Max_mset <span class="main">(</span>multiset <span class="free">t</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">rule</span> Max_eqI<span class="main"><span class="main">[</span></span><span class="operator">symmetric</span><span class="main"><span class="main">]</span></span><span class="main">)</span>
@@ -553,7 +553,7 @@ in functional or in imperative manner.
   <span class="quoted"><span class="quoted">"<span class="free">in_tree</span> <span class="free"><span class="bound"><span class="entity">v</span></span></span> E <span class="main">=</span> False"</span></span>
 <span class="main">|</span> <span class="quoted"><span class="quoted">"<span class="free">in_tree</span> <span class="free"><span class="bound"><span class="entity">v</span></span></span> <span class="main">(</span>T <span class="free"><span class="bound"><span class="entity">v'</span></span></span> <span class="free"><span class="bound"><span class="entity">l</span></span></span> <span class="free"><span class="bound"><span class="entity">r</span></span></span><span class="main">)</span> <span class="main">⟷</span> <span class="free"><span class="bound"><span class="entity">v</span></span></span> <span class="main">=</span> <span class="free"><span class="bound"><span class="entity">v'</span></span></span> <span class="main">∨</span> <span class="free">in_tree</span> <span class="free"><span class="bound"><span class="entity">v</span></span></span> <span class="free"><span class="bound"><span class="entity">l</span></span></span> <span class="main">∨</span> <span class="free">in_tree</span> <span class="free"><span class="bound"><span class="entity">v</span></span></span> <span class="free"><span class="bound"><span class="entity">r</span></span></span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> is_heap_max<span class="main">:</span>
+<span class="keyword1" id="Heap-is_heap_max"><span class="command">lemma</span></span> is_heap_max<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"in_tree <span class="free">v</span> <span class="free">t</span>"</span></span> <span class="quoted"><span class="quoted">"is_heap <span class="free">t</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"val <span class="free">t</span> <span class="main">≥</span> <span class="free">v</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms
@@ -605,7 +605,7 @@ be combined into one tree that satisfies heap condition:›</span></span>
     <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>  
 <span class="keyword1"><span class="command">qed</span></span> <span class="operator">simp</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> merge_val<span class="main">:</span>
+<span class="keyword1" id="HeapFunctional-merge_val"><span class="command">lemma</span></span> merge_val<span class="main">:</span>
   <span class="quoted"><span class="quoted">"val<span class="main">(</span>merge <span class="free">l</span> <span class="free">r</span><span class="main">)</span> <span class="main">=</span> val <span class="free">l</span> <span class="main">∨</span> val<span class="main">(</span>merge <span class="free">l</span> <span class="free">r</span><span class="main">)</span> <span class="main">=</span> val <span class="free">r</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span><span class="main">(</span><span class="operator">induct</span> <span class="quoted"><span class="free">l</span></span> <span class="quoted"><span class="free">r</span></span> <span class="quasi_keyword">rule</span><span class="main"><span class="main">:</span></span>merge.induct<span class="main">)</span>
   <span class="keyword3"><span class="command">case</span></span> <span class="main">(</span>1 <span class="skolem">l</span><span class="main">)</span>
@@ -635,7 +635,7 @@ be combined into one tree that satisfies heap condition:›</span></span>
 
 <span class="keyword1"><span class="command">text</span></span><span class="quoted"><span class="plain_text">‹Function {\em merge} merges two heaps into one:›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> merge_heap_is_heap<span class="main">:</span>
+<span class="keyword1" id="HeapFunctional-merge_heap_is_heap"><span class="command">lemma</span></span> merge_heap_is_heap<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"is_heap <span class="free">l</span>"</span></span> <span class="quoted"><span class="quoted">"is_heap <span class="free">r</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"is_heap <span class="main">(</span>merge <span class="free">l</span> <span class="free">r</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms
@@ -841,7 +841,7 @@ be combined into one tree that satisfies heap condition:›</span></span>
 <span class="keyword1"><span class="command">fun</span></span> <span class="entity">hs_remove_max</span><span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="tfree">'a</span><span class="main">::</span>linorder Tree <span class="main">⇒</span> <span class="tfree">'a</span> <span class="main">×</span> <span class="tfree">'a</span> Tree"</span></span>  <span class="keyword2"><span class="keyword">where</span></span>
   <span class="quoted"><span class="quoted">"<span class="free">hs_remove_max</span> <span class="main">(</span>T <span class="free"><span class="bound"><span class="entity">v</span></span></span> <span class="free"><span class="bound"><span class="entity">l</span></span></span> <span class="free"><span class="bound"><span class="entity">r</span></span></span><span class="main">)</span> <span class="main">=</span> <span class="main">(</span><span class="free"><span class="bound"><span class="entity">v</span></span></span><span class="main">,</span> merge <span class="free"><span class="bound"><span class="entity">l</span></span></span> <span class="free"><span class="bound"><span class="entity">r</span></span></span><span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> merge_multiset<span class="main">:</span>
+<span class="keyword1" id="HeapFunctional-merge_multiset"><span class="command">lemma</span></span> merge_multiset<span class="main">:</span>
   <span class="quoted"><span class="quoted">"multiset <span class="free">l</span> <span class="main">+</span> multiset <span class="free">g</span> <span class="main">=</span> multiset <span class="main">(</span>merge <span class="free">l</span> <span class="free">g</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span><span class="main">(</span><span class="operator">induct</span> <span class="quoted"><span class="free">l</span></span> <span class="quoted"><span class="free">g</span></span> <span class="quasi_keyword">rule</span><span class="main"><span class="main">:</span></span>merge.induct<span class="main">)</span>
   <span class="keyword3"><span class="command">case</span></span> <span class="main">(</span>1 <span class="skolem">l</span><span class="main">)</span>
@@ -1037,21 +1037,21 @@ recursively applied.›</span></span>
         <span class="keyword1">else</span>
             <span class="keyword1">if</span> <span class="free"><span class="bound"><span class="entity">v</span></span></span> <span class="main">≥</span> val <span class="free"><span class="bound"><span class="entity">r</span></span></span> <span class="keyword1">then</span> T <span class="free"><span class="bound"><span class="entity">v</span></span></span> <span class="free"><span class="bound"><span class="entity">l</span></span></span> <span class="free"><span class="bound"><span class="entity">r</span></span></span> <span class="keyword1">else</span> T <span class="main">(</span>val <span class="free"><span class="bound"><span class="entity">r</span></span></span><span class="main">)</span> <span class="free"><span class="bound"><span class="entity">l</span></span></span> <span class="main">(</span><span class="free">siftDown</span> <span class="main">(</span>set_val <span class="free"><span class="bound"><span class="entity">r</span></span></span> <span class="free"><span class="bound"><span class="entity">v</span></span></span><span class="main">)</span><span class="main">)</span><span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> siftDown_Node<span class="main">:</span>
+<span class="keyword1" id="HeapImperative-siftDown_Node"><span class="command">lemma</span></span> siftDown_Node<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">t</span> <span class="main">=</span> T <span class="free">v</span> <span class="free">l</span> <span class="free">r</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">∃</span> <span class="bound">l'</span> <span class="bound">v'</span> <span class="bound">r'</span><span class="main">.</span> siftDown <span class="free">t</span> <span class="main">=</span> T <span class="bound">v'</span> <span class="bound">l'</span> <span class="bound">r'</span> <span class="main">∧</span> <span class="bound">v'</span> <span class="main">≥</span> <span class="free">v</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="main">(</span><span class="operator">induct</span> <span class="quoted"><span class="free">t</span></span> <span class="quasi_keyword">rule</span><span class="main"><span class="main">:</span></span>siftDown.induct<span class="main">)</span>
 <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> siftDown_in_tree<span class="main">:</span>
+<span class="keyword1" id="HeapImperative-siftDown_in_tree"><span class="command">lemma</span></span> siftDown_in_tree<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">t</span> <span class="main">≠</span> E"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"in_tree <span class="main">(</span>val <span class="main">(</span>siftDown <span class="free">t</span><span class="main">)</span><span class="main">)</span> <span class="free">t</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="main">(</span><span class="operator">induct</span> <span class="quoted"><span class="free">t</span></span> <span class="quasi_keyword">rule</span><span class="main"><span class="main">:</span></span>siftDown.induct<span class="main">)</span>
 <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> siftDown_in_tree_set<span class="main">:</span> 
+<span class="keyword1" id="HeapImperative-siftDown_in_tree_set"><span class="command">lemma</span></span> siftDown_in_tree_set<span class="main">:</span> 
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"in_tree <span class="free">v</span> <span class="free">t</span> <span class="main">⟷</span> in_tree <span class="free">v</span> <span class="main">(</span>siftDown <span class="free">t</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span>
   <span class="keyword3"><span class="command">assume</span></span> <span class="quoted"><span class="quoted">"in_tree <span class="free">v</span> <span class="free">t</span>"</span></span>
@@ -1298,7 +1298,7 @@ recursively applied.›</span></span>
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> siftDown_heap_is_heap<span class="main">:</span>
+<span class="keyword1" id="HeapImperative-siftDown_heap_is_heap"><span class="command">lemma</span></span> siftDown_heap_is_heap<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"is_heap <span class="free">l</span>"</span></span> <span class="quoted"><span class="quoted">"is_heap <span class="free">r</span>"</span></span> <span class="quoted"><span class="quoted">"<span class="free">t</span> <span class="main">=</span> T <span class="free">v</span> <span class="free">l</span> <span class="free">r</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"is_heap <span class="main">(</span>siftDown <span class="free">t</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms
@@ -1615,7 +1615,7 @@ makes a heap from any given binary tree.›</span></span>
    <span class="quoted"><span class="quoted">"<span class="free">heapify</span> E <span class="main">=</span> E"</span></span>
 <span class="main">|</span>  <span class="quoted"><span class="quoted">"<span class="free">heapify</span> <span class="main">(</span>T <span class="free"><span class="bound"><span class="entity">v</span></span></span> <span class="free"><span class="bound"><span class="entity">l</span></span></span> <span class="free"><span class="bound"><span class="entity">r</span></span></span><span class="main">)</span> <span class="main">=</span> siftDown <span class="main">(</span>T <span class="free"><span class="bound"><span class="entity">v</span></span></span> <span class="main">(</span><span class="free">heapify</span> <span class="free"><span class="bound"><span class="entity">l</span></span></span><span class="main">)</span> <span class="main">(</span><span class="free">heapify</span> <span class="free"><span class="bound"><span class="entity">r</span></span></span><span class="main">)</span><span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> heapify_heap_is_heap<span class="main">:</span>
+<span class="keyword1" id="HeapImperative-heapify_heap_is_heap"><span class="command">lemma</span></span> heapify_heap_is_heap<span class="main">:</span>
   <span class="quoted"><span class="quoted">"is_heap <span class="main">(</span>heapify <span class="free">t</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span><span class="main">(</span><span class="operator">induct</span> <span class="quoted"><span class="free">t</span></span><span class="main">)</span>
   <span class="keyword3"><span class="command">case</span></span> E
@@ -1667,7 +1667,7 @@ reason to apply function {\em siftDown}.›</span></span>
 <span class="keyword1"><span class="command">definition</span></span> <span class="entity">hs_is_empty</span> <span class="keyword2"><span class="keyword">where</span></span>
 <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">hs_is_empty</span> <span class="free"><span class="bound"><span class="entity">t</span></span></span> <span class="main">⟷</span>  <span class="free"><span class="bound"><span class="entity">t</span></span></span> <span class="main">=</span> E"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> siftDown_multiset<span class="main">:</span>
+<span class="keyword1" id="HeapImperative-siftDown_multiset"><span class="command">lemma</span></span> siftDown_multiset<span class="main">:</span>
   <span class="quoted"><span class="quoted">"multiset <span class="main">(</span>siftDown <span class="free">t</span><span class="main">)</span> <span class="main">=</span> multiset <span class="free">t</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span><span class="main">(</span><span class="operator">induct</span> <span class="quoted"><span class="free">t</span></span> <span class="quasi_keyword">rule</span><span class="main"><span class="main">:</span></span>siftDown.induct<span class="main">)</span>
   <span class="keyword3"><span class="command">case</span></span> 1
@@ -1868,7 +1868,7 @@ reason to apply function {\em siftDown}.›</span></span>
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> mset_list_tree<span class="main">:</span>
+<span class="keyword1" id="HeapImperative-mset_list_tree"><span class="command">lemma</span></span> mset_list_tree<span class="main">:</span>
  <span class="quoted"><span class="quoted">"multiset <span class="main">(</span>of_list_tree <span class="free">l</span><span class="main">)</span> <span class="main">=</span> mset <span class="free">l</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span><span class="main">(</span><span class="operator">induct</span> <span class="quoted"><span class="free">l</span></span><span class="main">)</span>
   <span class="keyword3"><span class="command">case</span></span> Nil
@@ -1885,7 +1885,7 @@ reason to apply function {\em siftDown}.›</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
   
 
-<span class="keyword1"><span class="command">lemma</span></span> multiset_heapify<span class="main">:</span>
+<span class="keyword1" id="HeapImperative-multiset_heapify"><span class="command">lemma</span></span> multiset_heapify<span class="main">:</span>
   <span class="quoted"><span class="quoted">"multiset <span class="main">(</span>heapify <span class="free">t</span><span class="main">)</span> <span class="main">=</span> multiset <span class="free">t</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span><span class="main">(</span><span class="operator">induct</span> <span class="quoted"><span class="free">t</span></span><span class="main">)</span>
   <span class="keyword3"><span class="command">case</span></span> E
@@ -1901,20 +1901,20 @@ reason to apply function {\em siftDown}.›</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
     
 
-<span class="keyword1"><span class="command">lemma</span></span> multiset_heapify_of_list_tree<span class="main">:</span>
+<span class="keyword1" id="HeapImperative-multiset_heapify_of_list_tree"><span class="command">lemma</span></span> multiset_heapify_of_list_tree<span class="main">:</span>
   <span class="quoted"><span class="quoted">"multiset <span class="main">(</span>heapify <span class="main">(</span>of_list_tree <span class="free">l</span><span class="main">)</span><span class="main">)</span> <span class="main">=</span> mset <span class="free">l</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> multiset_heapify<span class="main">[</span><span class="operator">of</span> <span class="quoted"><span class="quoted">"of_list_tree <span class="free">l</span>"</span></span><span class="main">]</span>
 <span class="keyword1"><span class="command">using</span></span> mset_list_tree<span class="main">[</span><span class="operator">of</span> <span class="quoted"><span class="free">l</span></span><span class="main">]</span>
 <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> removeLeaf_val_val<span class="main">:</span>
+<span class="keyword1" id="HeapImperative-removeLeaf_val_val"><span class="command">lemma</span></span> removeLeaf_val_val<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"snd <span class="main">(</span>removeLeaf <span class="free">t</span><span class="main">)</span> <span class="main">≠</span> E"</span></span> <span class="quoted"><span class="quoted">"<span class="free">t</span> <span class="main">≠</span> E"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"val <span class="free">t</span> <span class="main">=</span> val <span class="main">(</span>snd <span class="main">(</span>removeLeaf <span class="free">t</span><span class="main">)</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span> <span class="main">(</span><span class="operator">induct</span> <span class="quoted"><span class="free">t</span></span> <span class="quasi_keyword">rule</span><span class="main"><span class="main">:</span></span>removeLeaf.induct<span class="main">)</span>
 <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> removeLeaf_heap_is_heap<span class="main">:</span> 
+<span class="keyword1" id="HeapImperative-removeLeaf_heap_is_heap"><span class="command">lemma</span></span> removeLeaf_heap_is_heap<span class="main">:</span> 
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"is_heap <span class="free">t</span>"</span></span> <span class="quoted"><span class="quoted">"<span class="free">t</span> <span class="main">≠</span> E"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"is_heap <span class="main">(</span>snd <span class="main">(</span>removeLeaf <span class="free">t</span><span class="main">)</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms
@@ -2087,7 +2087,7 @@ reason to apply function {\em siftDown}.›</span></span>
     <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> removeLeaf_multiset<span class="main">:</span>
+<span class="keyword1" id="HeapImperative-removeLeaf_multiset"><span class="command">lemma</span></span> removeLeaf_multiset<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="free">v'</span><span class="main">,</span> <span class="free">t'</span><span class="main">)</span> <span class="main">=</span> removeLeaf <span class="free">t</span>"</span></span> <span class="quoted"><span class="quoted">"<span class="free">t</span> <span class="main">≠</span> E"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">{#</span><span class="free">v'</span><span class="main">#}</span> <span class="main">+</span> multiset <span class="free">t'</span> <span class="main">=</span> multiset <span class="free">t</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms
@@ -2210,7 +2210,7 @@ reason to apply function {\em siftDown}.›</span></span>
     <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> set_val_multiset<span class="main">:</span>
+<span class="keyword1" id="HeapImperative-set_val_multiset"><span class="command">lemma</span></span> set_val_multiset<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">t</span> <span class="main">≠</span> E"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"multiset <span class="main">(</span>set_val <span class="free">t</span> <span class="free">v'</span><span class="main">)</span> <span class="main">+</span>  <span class="main">{#</span>val <span class="free">t</span><span class="main">#}</span> <span class="main">=</span> <span class="main">{#</span><span class="free">v'</span><span class="main">#}</span> <span class="main">+</span> multiset <span class="free">t</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span><span class="operator">-</span>
@@ -2235,7 +2235,7 @@ reason to apply function {\em siftDown}.›</span></span>
     <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> hs_remove_max_multiset<span class="main">:</span>
+<span class="keyword1" id="HeapImperative-hs_remove_max_multiset"><span class="command">lemma</span></span> hs_remove_max_multiset<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="free">m</span><span class="main">,</span> <span class="free">t'</span><span class="main">)</span> <span class="main">=</span> hs_remove_max <span class="free">t</span>"</span></span> <span class="quoted"><span class="quoted">"<span class="free">t</span> <span class="main">≠</span> E"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">{#</span><span class="free">m</span><span class="main">#}</span> <span class="main">+</span> multiset <span class="free">t'</span> <span class="main">=</span> multiset <span class="free">t</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span><span class="operator">-</span>

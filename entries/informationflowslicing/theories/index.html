@@ -1,4 +1,4 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Session InformationFlowSlicing - Archive of Formal Proofs</title><meta property="og:title" content="Session InformationFlowSlicing"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/informationflowslicing/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Session InformationFlowSlicing"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css><link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><a href=/entries/informationflowslicing><li>Return to entry</li></a></ul><hr><ul><a href=#NonInterferenceIntra><li>NonInterferenceIntra</li></a><a href=#LiftingIntra><li>LiftingIntra</li></a><a href=#NonInterferenceWhile><li>NonInterferenceWhile</li></a></ul></div><ul><a href=https://www.isa-afp.org/browser_info/current/AFP/InformationFlowSlicing/outline.pdf><li>Proof
+<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Session InformationFlowSlicing - Archive of Formal Proofs</title><meta property="og:title" content="Session InformationFlowSlicing"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/informationflowslicing/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Session InformationFlowSlicing"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css><link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><a href=/entries/informationflowslicing><li>Return to entry</li></a></ul><hr><ul><li><a href=#NonInterferenceIntra>NonInterferenceIntra</a><ul><a href=#NonInterferenceIntra-Low_neq_Exit><li>Low_neq_Exit</li></a><a href=#NonInterferenceIntra-Entry_path_High_path><li>Entry_path_High_path</li></a><a href=#NonInterferenceIntra-Exit_path_Low_path><li>Exit_path_Low_path</li></a><a href=#NonInterferenceIntra-not_Low_High><li>not_Low_High</li></a><a href=#NonInterferenceIntra-not_High_Low><li>not_High_Low</li></a><a href=#NonInterferenceIntra-relevant_vars_Entry><li>relevant_vars_Entry</li></a><a href=#NonInterferenceIntra-lowEquivalence_relevant_nodes_Entry><li>lowEquivalence_relevant_nodes_Entry</li></a><a href=#NonInterferenceIntra-rv_Low_Use_Low><li>rv_Low_Use_Low</li></a><a href=#NonInterferenceIntra-nonInterference_path_to_Low><li>nonInterference_path_to_Low</li></a></ul></li><li><a href=#LiftingIntra>LiftingIntra</a><ul><a href=#LiftingIntra-lift_CFG><li>lift_CFG</li></a><a href=#LiftingIntra-lift_CFG_wf><li>lift_CFG_wf</li></a><a href=#LiftingIntra-lift_CFGExit><li>lift_CFGExit</li></a><a href=#LiftingIntra-lift_CFGExit_wf><li>lift_CFGExit_wf</li></a><a href=#LiftingIntra-lift_wod_backward_slice><li>lift_wod_backward_slice</li></a><a href=#LiftingIntra-lift_Postdomination><li>lift_Postdomination</li></a><a href=#LiftingIntra-lift_PDG_scd><li>lift_PDG_scd</li></a><a href=#LiftingIntra-lift_PDG_standard_backward_slice><li>lift_PDG_standard_backward_slice</li></a><a href=#LiftingIntra-lift_StrongPostdomination><li>lift_StrongPostdomination</li></a><a href=#LiftingIntra-lift_PDG_wcd><li>lift_PDG_wcd</li></a><a href=#LiftingIntra-lift_PDG_weak_backward_slice><li>lift_PDG_weak_backward_slice</li></a></ul></li><li><a href=#NonInterferenceWhile>NonInterferenceWhile</a><ul><a href=#NonInterferenceWhile-lift_valid_node><li>lift_valid_node</li></a><a href=#NonInterferenceWhile-lifted_CFG_fund_prop><li>lifted_CFG_fund_prop</li></a><a href=#NonInterferenceWhile-final_edge><li>final_edge</li></a><a href=#NonInterferenceWhile-WODNonInterference><li>WODNonInterference</li></a><a href=#NonInterferenceWhile-inner_node_exists><li>inner_node_exists</li></a><a href=#NonInterferenceWhile-SCDNonInterference><li>SCDNonInterference</li></a><a href=#NonInterferenceWhile-WCDNonInterference><li>WCDNonInterference</li></a></ul></li></ul></div><ul><a href=https://www.isa-afp.org/browser_info/current/AFP/InformationFlowSlicing/outline.pdf><li>Proof
 outline</li></a><a href=https://www.isa-afp.org/browser_info/current/AFP/InformationFlowSlicing/document.pdf><li>Proof
 document</li></a><a href=https://www.isa-afp.org/browser_info/current/AFP/InformationFlowSlicing/session_graph.pdf><li>Theory dependencies</li></a></ul></div></aside><div class="content theories"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255><button id=searchButton type=button><img src=/images/search.svg alt=Search></button><div id=searchInputautocomplete-list style=display:none><div></div></div></div></form><h1><span class=first>S</span>ession <span class=first>I</span>nformation<span class=first>F</span>low<span class=first>S</span>licing</h1><div></div></header><div><main><div id=NonInterferenceIntra><div class=head><h1>Theory NonInterferenceIntra</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Slicing guarantees IFC Noninterference›</span></span>
 
@@ -70,14 +70,14 @@ in a new locale:
 
 <span class=keyword2><span class=keyword>begin</span></span>
 
-<span class=keyword1><span class=command>lemma</span></span> Low_neq_Exit<span class=main>:</span> <span class=keyword2><span class=keyword>assumes</span></span> <span class=quoted><span class=quoted>"<span class=free>L</span> <span class=main>≠</span> <span class=main>{}</span>"</span></span> <span class=keyword2><span class=keyword>shows</span></span> <span class=quoted><span class=quoted>"<span class=keyword1><span class=free>(_Low_)</span></span> <span class=main>≠</span> <span class=keyword1><span class=free>(_Exit_)</span></span>"</span></span>
+<span class=keyword1 id=NonInterferenceIntra-Low_neq_Exit><span class=command>lemma</span></span> Low_neq_Exit<span class=main>:</span> <span class=keyword2><span class=keyword>assumes</span></span> <span class=quoted><span class=quoted>"<span class=free>L</span> <span class=main>≠</span> <span class=main>{}</span>"</span></span> <span class=keyword2><span class=keyword>shows</span></span> <span class=quoted><span class=quoted>"<span class=keyword1><span class=free>(_Low_)</span></span> <span class=main>≠</span> <span class=keyword1><span class=free>(_Exit_)</span></span>"</span></span>
 <span class=keyword1><span class=command>proof</span></span>
   <span class=keyword3><span class=command>assume</span></span> <span class=quoted><span class=quoted>"<span class=keyword1><span class=free>(_Low_)</span></span> <span class=main>=</span> <span class=keyword1><span class=free>(_Exit_)</span></span>"</span></span>
   <span class=keyword1><span class=command>have</span></span> <span class=quoted><span class=quoted>"<span class=free>Use</span> <span class=keyword1><span class=free>(_Exit_)</span></span> <span class=main>=</span> <span class=main>{}</span>"</span></span> <span class=keyword1><span class=command>by</span></span> <span class=operator>fastforce</span>
   <span class=keyword1><span class=command>with</span></span> UseLow <span class=quoted><span class=quoted>‹<span class=free>L</span> <span class=main>≠</span> <span class=main>{}</span>›</span></span> <span class=quoted><span class=quoted>‹<span class=keyword1><span class=free>(_Low_)</span></span> <span class=main>=</span> <span class=keyword1><span class=free>(_Exit_)</span></span>›</span></span> <span class=keyword3><span class=command>show</span></span> <span class=quoted>False</span> <span class=keyword1><span class=command>by</span></span> <span class=operator>simp</span>
 <span class=keyword1><span class=command>qed</span></span>
 
-<span class=keyword1><span class=command>lemma</span></span> Entry_path_High_path<span class=main>:</span>
+<span class=keyword1 id=NonInterferenceIntra-Entry_path_High_path><span class=command>lemma</span></span> Entry_path_High_path<span class=main>:</span>
   <span class=keyword2><span class=keyword>assumes</span></span> <span class=quoted><span class=quoted>"<span class=keyword1><span class=free>(_Entry_)</span></span> <span class=main>-</span><span class=free>as</span><span class=main>→*</span> <span class=free>n</span>"</span></span> <span class=keyword2><span class=keyword>and</span></span> <span class=quoted><span class=quoted>"inner_node <span class=free>n</span>"</span></span>
   <span class=keyword2><span class=keyword>obtains</span></span> <span class=free>a'</span> <span class=free>as'</span> <span class=keyword2><span class=keyword>where</span></span> <span class=quoted><span class=quoted>"<span class=free>as</span> <span class=main>=</span> <span class=free>a'</span><span class=main>#</span><span class=free>as'</span>"</span></span> <span class=keyword2><span class=keyword>and</span></span> <span class=quoted><span class=quoted>"<span class=keyword1><span class=free>(_High_)</span></span> <span class=main>-</span><span class=free>as'</span><span class=main>→*</span> <span class=free>n</span>"</span></span> 
   <span class=keyword2><span class=keyword>and</span></span> <span class=quoted><span class=quoted>"<span class=free>kind</span> <span class=free>a'</span> <span class=main>=</span> <span class=main>(</span><span class=main>λ</span><span class=bound>s</span><span class=main>.</span> True<span class=main>)<span class=hidden>⇩</span><sub>√</sub></span>"</span></span>
@@ -103,7 +103,7 @@ in a new locale:
 
 
 
-<span class=keyword1><span class=command>lemma</span></span> Exit_path_Low_path<span class=main>:</span>
+<span class=keyword1 id=NonInterferenceIntra-Exit_path_Low_path><span class=command>lemma</span></span> Exit_path_Low_path<span class=main>:</span>
   <span class=keyword2><span class=keyword>assumes</span></span> <span class=quoted><span class=quoted>"<span class=free>n</span> <span class=main>-</span><span class=free>as</span><span class=main>→*</span> <span class=keyword1><span class=free>(_Exit_)</span></span>"</span></span> <span class=keyword2><span class=keyword>and</span></span> <span class=quoted><span class=quoted>"inner_node <span class=free>n</span>"</span></span>
   <span class=keyword2><span class=keyword>obtains</span></span> <span class=free>a'</span> <span class=free>as'</span> <span class=keyword2><span class=keyword>where</span></span> <span class=quoted><span class=quoted>"<span class=free>as</span> <span class=main>=</span> <span class=free>as'</span><span class=main>@</span><span class=main>[</span><span class=free>a'</span><span class=main>]</span>"</span></span> <span class=keyword2><span class=keyword>and</span></span> <span class=quoted><span class=quoted>"<span class=free>n</span> <span class=main>-</span><span class=free>as'</span><span class=main>→*</span> <span class=keyword1><span class=free>(_Low_)</span></span>"</span></span>
   <span class=keyword2><span class=keyword>and</span></span> <span class=quoted><span class=quoted>"<span class=free>kind</span> <span class=free>a'</span> <span class=main>=</span> <span class=main>(</span><span class=main>λ</span><span class=bound>s</span><span class=main>.</span> True<span class=main>)<span class=hidden>⇩</span><sub>√</sub></span>"</span></span>
@@ -136,11 +136,11 @@ in a new locale:
 <span class=keyword1><span class=command>qed</span></span>
 
 
-<span class=keyword1><span class=command>lemma</span></span> not_Low_High<span class=main>:</span> <span class=quoted><span class=quoted>"<span class=free>V</span> <span class=main>∉</span> <span class=free>L</span> <span class=main>⟹</span> <span class=free>V</span> <span class=main>∈</span> <span class=free>H</span>"</span></span>
+<span class=keyword1 id=NonInterferenceIntra-not_Low_High><span class=command>lemma</span></span> not_Low_High<span class=main>:</span> <span class=quoted><span class=quoted>"<span class=free>V</span> <span class=main>∉</span> <span class=free>L</span> <span class=main>⟹</span> <span class=free>V</span> <span class=main>∈</span> <span class=free>H</span>"</span></span>
   <span class=keyword1><span class=command>using</span></span> HighLowUNIV
   <span class=keyword1><span class=command>by</span></span> <span class=operator>fastforce</span>
 
-<span class=keyword1><span class=command>lemma</span></span> not_High_Low<span class=main>:</span> <span class=quoted><span class=quoted>"<span class=free>V</span> <span class=main>∉</span> <span class=free>H</span> <span class=main>⟹</span> <span class=free>V</span> <span class=main>∈</span> <span class=free>L</span>"</span></span>
+<span class=keyword1 id=NonInterferenceIntra-not_High_Low><span class=command>lemma</span></span> not_High_Low<span class=main>:</span> <span class=quoted><span class=quoted>"<span class=free>V</span> <span class=main>∉</span> <span class=free>H</span> <span class=main>⟹</span> <span class=free>V</span> <span class=main>∈</span> <span class=free>L</span>"</span></span>
   <span class=keyword1><span class=command>using</span></span> HighLowUNIV
   <span class=keyword1><span class=command>by</span></span> <span class=operator>fastforce</span>
 
@@ -161,7 +161,7 @@ the relation <span class=antiquoted><span class=raw_text><span class=antiquoted>
 <span class=keyword1><span class=command>text</span></span> <span class=quoted><span class=plain_text>‹The following lemmas connect low equivalent states with
 relevant variables as necessary in the correctness proof for slicing.›</span></span>
 
-<span class=keyword1><span class=command>lemma</span></span> relevant_vars_Entry<span class=main>:</span>
+<span class=keyword1 id=NonInterferenceIntra-relevant_vars_Entry><span class=command>lemma</span></span> relevant_vars_Entry<span class=main>:</span>
   <span class=keyword2><span class=keyword>assumes</span></span> <span class=quoted><span class=quoted>"<span class=free>V</span> <span class=main>∈</span> <span class=keyword1>rv</span> <span class=free>S</span> <span class=keyword1><span class=free>(_Entry_)</span></span>"</span></span> <span class=keyword2><span class=keyword>and</span></span> <span class=quoted><span class=quoted>"<span class=keyword1><span class=free>(_High_)</span></span> <span class=main>∉</span> <span class=free>backward_slice</span> <span class=free>S</span>"</span></span>
   <span class=keyword2><span class=keyword>shows</span></span> <span class=quoted><span class=quoted>"<span class=free>V</span> <span class=main>∈</span> <span class=free>L</span>"</span></span>
 <span class=keyword1><span class=command>proof</span></span> <span class=operator>-</span>
@@ -209,7 +209,7 @@ relevant variables as necessary in the correctness proof for slicing.›</span><
 
 
 
-<span class=keyword1><span class=command>lemma</span></span> lowEquivalence_relevant_nodes_Entry<span class=main>:</span>
+<span class=keyword1 id=NonInterferenceIntra-lowEquivalence_relevant_nodes_Entry><span class=command>lemma</span></span> lowEquivalence_relevant_nodes_Entry<span class=main>:</span>
   <span class=keyword2><span class=keyword>assumes</span></span> <span class=quoted><span class=quoted>"<span class=free>s</span> <span class=keyword1>≈<span class=hidden>⇩</span><sub>L</sub></span> <span class=free>s'</span>"</span></span> <span class=keyword2><span class=keyword>and</span></span> <span class=quoted><span class=quoted>"<span class=keyword1><span class=free>(_High_)</span></span> <span class=main>∉</span> <span class=free>backward_slice</span> <span class=free>S</span>"</span></span>
   <span class=keyword2><span class=keyword>shows</span></span> <span class=quoted><span class=quoted>"<span class=main>∀</span><span class=bound>V</span> <span class=main>∈</span> <span class=keyword1>rv</span> <span class=free>S</span> <span class=keyword1><span class=free>(_Entry_)</span></span><span class=main>.</span> <span class=free>state_val</span> <span class=free>s</span> <span class=bound>V</span> <span class=main>=</span> <span class=free>state_val</span> <span class=free>s'</span> <span class=bound>V</span>"</span></span>
 <span class=keyword1><span class=command>proof</span></span>
@@ -220,7 +220,7 @@ relevant variables as necessary in the correctness proof for slicing.›</span><
 
 
 
-<span class=keyword1><span class=command>lemma</span></span> rv_Low_Use_Low<span class=main>:</span>
+<span class=keyword1 id=NonInterferenceIntra-rv_Low_Use_Low><span class=command>lemma</span></span> rv_Low_Use_Low<span class=main>:</span>
   <span class=keyword2><span class=keyword>assumes</span></span> <span class=quoted><span class=quoted>"<span class=keyword1><span class=free>(_Low_)</span></span> <span class=main>∈</span> <span class=free>S</span>"</span></span>
   <span class=keyword2><span class=keyword>shows</span></span> <span class=quoted><span class=quoted>"<span class=main>⟦</span><span class=free>n</span> <span class=main>-</span><span class=free>as</span><span class=main>→*</span> <span class=keyword1><span class=free>(_Low_)</span></span><span class=main>;</span> <span class=free>n</span> <span class=main>-</span><span class=free>as'</span><span class=main>→*</span> <span class=keyword1><span class=free>(_Low_)</span></span><span class=main>;</span>
     <span class=main>∀</span><span class=bound>V</span> <span class=main>∈</span> <span class=keyword1>rv</span> <span class=free>S</span> <span class=free>n</span><span class=main>.</span> <span class=free>state_val</span> <span class=free>s</span> <span class=bound>V</span> <span class=main>=</span> <span class=free>state_val</span> <span class=free>s'</span> <span class=bound>V</span><span class=main>;</span>
@@ -339,7 +339,7 @@ First, a theorem regarding
 <span class=antiquoted><span class=raw_text><span class=antiquoted><span class=raw_text><span class=operator><span class=operator>‹</span></span>(_Entry_) -as→* (_Exit_)›</span></span></span></span> paths in the control flow graph (CFG),
 which agree to a complete program execution:›</span></span>
 
-<span class=keyword1><span class=command>lemma</span></span> nonInterference_path_to_Low<span class=main>:</span>
+<span class=keyword1 id=NonInterferenceIntra-nonInterference_path_to_Low><span class=command>lemma</span></span> nonInterference_path_to_Low<span class=main>:</span>
   <span class=keyword2><span class=keyword>assumes</span></span> <span class=quoted><span class=quoted>"<span class=free>s</span> <span class=keyword1>≈<span class=hidden>⇩</span><sub>L</sub></span> <span class=free>s'</span>"</span></span> <span class=keyword2><span class=keyword>and</span></span> <span class=quoted><span class=quoted>"<span class=keyword1><span class=free>(_High_)</span></span> <span class=main>∉</span> <span class=free>backward_slice</span> <span class=free>S</span>"</span></span> <span class=keyword2><span class=keyword>and</span></span> <span class=quoted><span class=quoted>"<span class=keyword1><span class=free>(_Low_)</span></span> <span class=main>∈</span> <span class=free>S</span>"</span></span>
   <span class=keyword2><span class=keyword>and</span></span> <span class=quoted><span class=quoted>"<span class=keyword1><span class=free>(_Entry_)</span></span> <span class=main>-</span><span class=free>as</span><span class=main>→*</span> <span class=keyword1><span class=free>(_Low_)</span></span>"</span></span> <span class=keyword2><span class=keyword>and</span></span> <span class=quoted><span class=quoted>"preds <span class=main>(</span>kinds <span class=free>as</span><span class=main>)</span> <span class=free>s</span>"</span></span>
   <span class=keyword2><span class=keyword>and</span></span> <span class=quoted><span class=quoted>"<span class=keyword1><span class=free>(_Entry_)</span></span> <span class=main>-</span><span class=free>as'</span><span class=main>→*</span> <span class=keyword1><span class=free>(_Low_)</span></span>"</span></span> <span class=keyword2><span class=keyword>and</span></span> <span class=quoted><span class=quoted>"preds <span class=main>(</span>kinds <span class=free>as'</span><span class=main>)</span> <span class=free>s'</span>"</span></span>
@@ -668,7 +668,7 @@ to operate on this new graph.›</span></span>
   <span class=keyword2><span class=keyword>where</span></span> <span class=quoted><span class=quoted>"<span class=free>knd</span> <span class=free><span class=bound><span class=entity>a</span></span></span> <span class=main>≡</span> fst<span class=main>(</span>snd <span class=free><span class=bound><span class=entity>a</span></span></span><span class=main>)</span>"</span></span>
 
 
-<span class=keyword1><span class=command>lemma</span></span> lift_CFG<span class=main>:</span>
+<span class=keyword1 id=LiftingIntra-lift_CFG><span class=command>lemma</span></span> lift_CFG<span class=main>:</span>
   <span class=keyword2><span class=keyword>assumes</span></span> wf<span class=main>:</span><span class=quoted><span class=quoted>"CFGExit_wf <span class=free>sourcenode</span> <span class=free>targetnode</span> <span class=free>kind</span> <span class=free>valid_edge</span> <span class=free>Entry</span> <span class=free>Def</span> <span class=free>Use</span>
                          <span class=free>state_val</span> <span class=free>Exit</span>"</span></span>
   <span class=keyword2><span class=keyword>shows</span></span> <span class=quoted><span class=quoted>"CFG src trg
@@ -695,7 +695,7 @@ to operate on this new graph.›</span></span>
 <span class=keyword1><span class=command>qed</span></span>
 
 
-<span class=keyword1><span class=command>lemma</span></span> lift_CFG_wf<span class=main>:</span>
+<span class=keyword1 id=LiftingIntra-lift_CFG_wf><span class=command>lemma</span></span> lift_CFG_wf<span class=main>:</span>
   <span class=keyword2><span class=keyword>assumes</span></span> wf<span class=main>:</span><span class=quoted><span class=quoted>"CFGExit_wf <span class=free>sourcenode</span> <span class=free>targetnode</span> <span class=free>kind</span> <span class=free>valid_edge</span> <span class=free>Entry</span> <span class=free>Def</span> <span class=free>Use</span>
                          <span class=free>state_val</span> <span class=free>Exit</span>"</span></span>
   <span class=keyword2><span class=keyword>shows</span></span> <span class=quoted><span class=quoted>"CFG_wf src trg knd 
@@ -844,7 +844,7 @@ to operate on this new graph.›</span></span>
 <span class=keyword1><span class=command>qed</span></span>
 
 
-<span class=keyword1><span class=command>lemma</span></span> lift_CFGExit<span class=main>:</span>
+<span class=keyword1 id=LiftingIntra-lift_CFGExit><span class=command>lemma</span></span> lift_CFGExit<span class=main>:</span>
   <span class=keyword2><span class=keyword>assumes</span></span> wf<span class=main>:</span><span class=quoted><span class=quoted>"CFGExit_wf <span class=free>sourcenode</span> <span class=free>targetnode</span> <span class=free>kind</span> <span class=free>valid_edge</span> <span class=free>Entry</span> <span class=free>Def</span> <span class=free>Use</span>
                          <span class=free>state_val</span> <span class=free>Exit</span>"</span></span>
   <span class=keyword2><span class=keyword>shows</span></span> <span class=quoted><span class=quoted>"CFGExit src trg knd 
@@ -871,7 +871,7 @@ to operate on this new graph.›</span></span>
 <span class=keyword1><span class=command>qed</span></span>
 
 
-<span class=keyword1><span class=command>lemma</span></span> lift_CFGExit_wf<span class=main>:</span>
+<span class=keyword1 id=LiftingIntra-lift_CFGExit_wf><span class=command>lemma</span></span> lift_CFGExit_wf<span class=main>:</span>
   <span class=keyword2><span class=keyword>assumes</span></span> wf<span class=main>:</span><span class=quoted><span class=quoted>"CFGExit_wf <span class=free>sourcenode</span> <span class=free>targetnode</span> <span class=free>kind</span> <span class=free>valid_edge</span> <span class=free>Entry</span> <span class=free>Def</span> <span class=free>Use</span>
                          <span class=free>state_val</span> <span class=free>Exit</span>"</span></span>
   <span class=keyword2><span class=keyword>shows</span></span> <span class=quoted><span class=quoted>"CFGExit_wf src trg knd 
@@ -901,7 +901,7 @@ to operate on this new graph.›</span></span>
 
 <span class=keyword1><span class=command>subsubsection</span></span> <span class=quoted><span class=plain_text>‹Lifting <span class=antiquoted><span class=antiquoted><span class=antiquote><span class=antiquote>@{</span></span><span class=operator><span class=operator>term</span></span> <span class=quoted><span class=free><span class=quoted><span class=free>wod_backward_slice</span></span></span></span><span class=antiquote><span class=antiquote>}</span></span></span></span>›</span></span>
 
-<span class=keyword1><span class=command>lemma</span></span> lift_wod_backward_slice<span class=main>:</span>
+<span class=keyword1 id=LiftingIntra-lift_wod_backward_slice><span class=command>lemma</span></span> lift_wod_backward_slice<span class=main>:</span>
   <span class=keyword2><span class=keyword>fixes</span></span> <span class=free>valid_edge</span> <span class=keyword2><span class=keyword>and</span></span> <span class=free>sourcenode</span> <span class=keyword2><span class=keyword>and</span></span> <span class=free>targetnode</span> <span class=keyword2><span class=keyword>and</span></span> <span class=free>kind</span> <span class=keyword2><span class=keyword>and</span></span> <span class=free>Entry</span> <span class=keyword2><span class=keyword>and</span></span> <span class=free>Exit</span>
   <span class=keyword2><span class=keyword>and</span></span> <span class=free>Def</span> <span class=keyword2><span class=keyword>and</span></span> <span class=free>Use</span> <span class=keyword2><span class=keyword>and</span></span> <span class=free>H</span> <span class=keyword2><span class=keyword>and</span></span> <span class=free>L</span>
   <span class=keyword2><span class=keyword>defines</span></span> lve<span class=main>:</span><span class=quoted><span class=quoted>"<span class=free>lve</span> <span class=main>≡</span> lift_valid_edge <span class=free>valid_edge</span> <span class=free>sourcenode</span> <span class=free>targetnode</span> <span class=free>kind</span> <span class=free>Entry</span> <span class=free>Exit</span>"</span></span>
@@ -1002,7 +1002,7 @@ to operate on this new graph.›</span></span>
 
 <span class=keyword1><span class=command>subsubsection</span></span> <span class=quoted><span class=plain_text>‹Lifting <span class=antiquoted><span class=raw_text><span class=antiquoted><span class=raw_text><span class=operator><span class=operator>‹</span></span>PDG_BS›</span></span></span></span> with <span class=antiquoted><span class=raw_text><span class=antiquoted><span class=raw_text><span class=operator><span class=operator>‹</span></span>standard_control_dependence›</span></span></span></span>›</span></span>
 
-<span class=keyword1><span class=command>lemma</span></span> lift_Postdomination<span class=main>:</span>
+<span class=keyword1 id=LiftingIntra-lift_Postdomination><span class=command>lemma</span></span> lift_Postdomination<span class=main>:</span>
   <span class=keyword2><span class=keyword>assumes</span></span> wf<span class=main>:</span><span class=quoted><span class=quoted>"CFGExit_wf <span class=free>sourcenode</span> <span class=free>targetnode</span> <span class=free>kind</span> <span class=free>valid_edge</span> <span class=free>Entry</span> <span class=free>Def</span> <span class=free>Use</span>
                          <span class=free>state_val</span> <span class=free>Exit</span>"</span></span>
   <span class=keyword2><span class=keyword>and</span></span> pd<span class=main>:</span><span class=quoted><span class=quoted>"Postdomination <span class=free>sourcenode</span> <span class=free>targetnode</span> <span class=free>kind</span> <span class=free>valid_edge</span> <span class=free>Entry</span> <span class=free>Exit</span>"</span></span>
@@ -1404,7 +1404,7 @@ to operate on this new graph.›</span></span>
 <span class=keyword1><span class=command>qed</span></span>
 
 
-<span class=keyword1><span class=command>lemma</span></span> lift_PDG_scd<span class=main>:</span>
+<span class=keyword1 id=LiftingIntra-lift_PDG_scd><span class=command>lemma</span></span> lift_PDG_scd<span class=main>:</span>
   <span class=keyword2><span class=keyword>assumes</span></span> PDG<span class=main>:</span><span class=quoted><span class=quoted>"PDG <span class=free>sourcenode</span> <span class=free>targetnode</span> <span class=free>kind</span> <span class=free>valid_edge</span> <span class=free>Entry</span> <span class=free>Def</span> <span class=free>Use</span> <span class=free>state_val</span> <span class=free>Exit</span> 
   <span class=main>(</span>Postdomination.standard_control_dependence <span class=free>sourcenode</span> <span class=free>targetnode</span> <span class=free>valid_edge</span> <span class=free>Exit</span><span class=main>)</span>"</span></span>
   <span class=keyword2><span class=keyword>and</span></span> pd<span class=main>:</span><span class=quoted><span class=quoted>"Postdomination <span class=free>sourcenode</span> <span class=free>targetnode</span> <span class=free>kind</span> <span class=free>valid_edge</span> <span class=free>Entry</span> <span class=free>Exit</span>"</span></span>
@@ -1523,7 +1523,7 @@ to operate on this new graph.›</span></span>
 
 
 
-<span class=keyword1><span class=command>lemma</span></span> lift_PDG_standard_backward_slice<span class=main>:</span>
+<span class=keyword1 id=LiftingIntra-lift_PDG_standard_backward_slice><span class=command>lemma</span></span> lift_PDG_standard_backward_slice<span class=main>:</span>
   <span class=keyword2><span class=keyword>fixes</span></span> <span class=free>valid_edge</span> <span class=keyword2><span class=keyword>and</span></span> <span class=free>sourcenode</span> <span class=keyword2><span class=keyword>and</span></span> <span class=free>targetnode</span> <span class=keyword2><span class=keyword>and</span></span> <span class=free>kind</span> <span class=keyword2><span class=keyword>and</span></span> <span class=free>Entry</span> <span class=keyword2><span class=keyword>and</span></span> <span class=free>Exit</span>
   <span class=keyword2><span class=keyword>and</span></span> <span class=free>Def</span> <span class=keyword2><span class=keyword>and</span></span> <span class=free>Use</span> <span class=keyword2><span class=keyword>and</span></span> <span class=free>H</span> <span class=keyword2><span class=keyword>and</span></span> <span class=free>L</span>
   <span class=keyword2><span class=keyword>defines</span></span> lve<span class=main>:</span><span class=quoted><span class=quoted>"<span class=free>lve</span> <span class=main>≡</span> lift_valid_edge <span class=free>valid_edge</span> <span class=free>sourcenode</span> <span class=free>targetnode</span> <span class=free>kind</span> <span class=free>Entry</span> <span class=free>Exit</span>"</span></span>
@@ -1671,7 +1671,7 @@ to operate on this new graph.›</span></span>
 
 <span class=keyword1><span class=command>subsubsection</span></span> <span class=quoted><span class=plain_text>‹Lifting <span class=antiquoted><span class=raw_text><span class=antiquoted><span class=raw_text><span class=operator><span class=operator>‹</span></span>PDG_BS›</span></span></span></span> with <span class=antiquoted><span class=raw_text><span class=antiquoted><span class=raw_text><span class=operator><span class=operator>‹</span></span>weak_control_dependence›</span></span></span></span>›</span></span>
 
-<span class=keyword1><span class=command>lemma</span></span> lift_StrongPostdomination<span class=main>:</span>
+<span class=keyword1 id=LiftingIntra-lift_StrongPostdomination><span class=command>lemma</span></span> lift_StrongPostdomination<span class=main>:</span>
   <span class=keyword2><span class=keyword>assumes</span></span> wf<span class=main>:</span><span class=quoted><span class=quoted>"CFGExit_wf <span class=free>sourcenode</span> <span class=free>targetnode</span> <span class=free>kind</span> <span class=free>valid_edge</span> <span class=free>Entry</span> <span class=free>Def</span> <span class=free>Use</span>
                          <span class=free>state_val</span> <span class=free>Exit</span>"</span></span>
   <span class=keyword2><span class=keyword>and</span></span> spd<span class=main>:</span><span class=quoted><span class=quoted>"StrongPostdomination <span class=free>sourcenode</span> <span class=free>targetnode</span> <span class=free>kind</span> <span class=free>valid_edge</span> <span class=free>Entry</span> <span class=free>Exit</span>"</span></span>
@@ -1750,7 +1750,7 @@ to operate on this new graph.›</span></span>
 
 
 
-<span class=keyword1><span class=command>lemma</span></span> lift_PDG_wcd<span class=main>:</span>
+<span class=keyword1 id=LiftingIntra-lift_PDG_wcd><span class=command>lemma</span></span> lift_PDG_wcd<span class=main>:</span>
   <span class=keyword2><span class=keyword>assumes</span></span> PDG<span class=main>:</span><span class=quoted><span class=quoted>"PDG <span class=free>sourcenode</span> <span class=free>targetnode</span> <span class=free>kind</span> <span class=free>valid_edge</span> <span class=free>Entry</span> <span class=free>Def</span> <span class=free>Use</span> <span class=free>state_val</span> <span class=free>Exit</span> 
   <span class=main>(</span>StrongPostdomination.weak_control_dependence <span class=free>sourcenode</span> <span class=free>targetnode</span> 
   <span class=free>valid_edge</span> <span class=free>Exit</span><span class=main>)</span>"</span></span>
@@ -1870,7 +1870,7 @@ to operate on this new graph.›</span></span>
 
 
 
-<span class=keyword1><span class=command>lemma</span></span> lift_PDG_weak_backward_slice<span class=main>:</span>
+<span class=keyword1 id=LiftingIntra-lift_PDG_weak_backward_slice><span class=command>lemma</span></span> lift_PDG_weak_backward_slice<span class=main>:</span>
   <span class=keyword2><span class=keyword>fixes</span></span> <span class=free>valid_edge</span> <span class=keyword2><span class=keyword>and</span></span> <span class=free>sourcenode</span> <span class=keyword2><span class=keyword>and</span></span> <span class=free>targetnode</span> <span class=keyword2><span class=keyword>and</span></span> <span class=free>kind</span> <span class=keyword2><span class=keyword>and</span></span> <span class=free>Entry</span> <span class=keyword2><span class=keyword>and</span></span> <span class=free>Exit</span>
   <span class=keyword2><span class=keyword>and</span></span> <span class=free>Def</span> <span class=keyword2><span class=keyword>and</span></span> <span class=free>Use</span> <span class=keyword2><span class=keyword>and</span></span> <span class=free>H</span> <span class=keyword2><span class=keyword>and</span></span> <span class=free>L</span>
   <span class=keyword2><span class=keyword>defines</span></span> lve<span class=main>:</span><span class=quoted><span class=quoted>"<span class=free>lve</span> <span class=main>≡</span> lift_valid_edge <span class=free>valid_edge</span> <span class=free>sourcenode</span> <span class=free>targetnode</span> <span class=free>kind</span> <span class=free>Entry</span> <span class=free>Exit</span>"</span></span>
@@ -2049,7 +2049,7 @@ to operate on this new graph.›</span></span>
   <span class=main>=</span> CFG.path.induct<span class=main>[</span><span class=operator>OF</span> While_CFG_aux<span class=main>]</span>
 
 
-<span class=keyword1><span class=command>lemma</span></span> lift_valid_node<span class=main>:</span>
+<span class=keyword1 id=NonInterferenceWhile-lift_valid_node><span class=command>lemma</span></span> lift_valid_node<span class=main>:</span>
   <span class=keyword2><span class=keyword>assumes</span></span> <span class=quoted><span class=quoted>"CFG.valid_node sourcenode targetnode <span class=main>(</span>valid_edge <span class=free>prog</span><span class=main>)</span> <span class=free>n</span>"</span></span>
   <span class=keyword2><span class=keyword>shows</span></span> <span class=quoted><span class=quoted>"CFG.valid_node src trg
   <span class=main>(</span>lift_valid_edge <span class=main>(</span>valid_edge <span class=free>prog</span><span class=main>)</span> sourcenode targetnode kind <span class=keyword1>(_Entry_)</span> <span class=keyword1>(_Exit_)</span><span class=main>)</span>
@@ -2103,7 +2103,7 @@ to operate on this new graph.›</span></span>
 
 
 
-<span class=keyword1><span class=command>lemma</span></span> lifted_CFG_fund_prop<span class=main>:</span>
+<span class=keyword1 id=NonInterferenceWhile-lifted_CFG_fund_prop><span class=command>lemma</span></span> lifted_CFG_fund_prop<span class=main>:</span>
   <span class=keyword2><span class=keyword>assumes</span></span> <span class=quoted><span class=quoted>"labels_LDCFG_nodes <span class=free>prog</span> <span class=free>n</span> <span class=free>c</span>"</span></span> <span class=keyword2><span class=keyword>and</span></span> <span class=quoted><span class=quoted>"<span class=main>⟨</span><span class=free>c</span><span class=main>,</span><span class=free>s</span><span class=main>⟩</span> <span class=main>→*</span> <span class=main>⟨</span><span class=free>c'</span><span class=main>,</span><span class=free>s'</span><span class=main>⟩</span>"</span></span>
   <span class=keyword2><span class=keyword>shows</span></span> <span class=quoted><span class=quoted>"<span class=main>∃</span><span class=bound>n'</span> <span class=bound>as</span><span class=main>.</span> CFG.path src trg
   <span class=main>(</span>lift_valid_edge <span class=main>(</span>valid_edge <span class=free>prog</span><span class=main>)</span> sourcenode targetnode kind <span class=keyword1>(_Entry_)</span> <span class=keyword1>(_Exit_)</span><span class=main>)</span>
@@ -2226,7 +2226,7 @@ to operate on this new graph.›</span></span>
   <span class=main>|</span> <span class=quoted><span class=quoted>"<span class=free>final</span> <span class=free><span class=bound><span class=entity>c</span></span></span> <span class=main>=</span> False"</span></span>
 
 
-<span class=keyword1><span class=command>lemma</span></span> final_edge<span class=main>:</span>
+<span class=keyword1 id=NonInterferenceWhile-final_edge><span class=command>lemma</span></span> final_edge<span class=main>:</span>
   <span class=quoted><span class=quoted>"labels_nodes <span class=free>prog</span> <span class=free>n</span> Skip <span class=main>⟹</span> <span class=free>prog</span> <span class=main>⊢</span> <span class=free>n</span> <span class=main>-</span><span class=main>⇑</span>id<span class=main>→</span> <span class=keyword1>(_Exit_)</span>"</span></span>
 <span class=keyword1><span class=command>proof</span></span><span class=main>(</span><span class=operator>induct</span> <span class=quoted><span class=free>prog</span></span> <span class=quasi_keyword>arbitrary</span><span class=main><span class=main>:</span></span><span class=quoted><span class=free>n</span></span><span class=main>)</span>
   <span class=keyword3><span class=command>case</span></span> Skip
@@ -2292,7 +2292,7 @@ to operate on this new graph.›</span></span>
   lift_wod_backward_slice<span class=main>[</span><span class=operator>OF</span> While_CFGExit_wf_aux HighLowDistinct HighLowUNIV<span class=main>]</span>
 
 
-<span class=keyword1><span class=command>lemma</span></span> WODNonInterference<span class=main>:</span>
+<span class=keyword1 id=NonInterferenceWhile-WODNonInterference><span class=command>lemma</span></span> WODNonInterference<span class=main>:</span>
   <span class=quoted><span class=quoted>"NonInterferenceIntra src trg knd
      <span class=main>(</span>lift_valid_edge <span class=main>(</span>valid_edge <span class=free>prog</span><span class=main>)</span> sourcenode targetnode kind
        <span class=keyword1>(_Entry_)</span> <span class=keyword1>(_Exit_)</span><span class=main>)</span>
@@ -2361,7 +2361,7 @@ to operate on this new graph.›</span></span>
 
 <span class=keyword1><span class=command>subsection</span></span> <span class=quoted><span class=plain_text>‹Semantic Non-Interference for Standard Control Dependence›</span></span>
 
-<span class=keyword1><span class=command>lemma</span></span> inner_node_exists<span class=main>:</span><span class=quoted><span class=quoted>"<span class=main>∃</span><span class=bound>n</span><span class=main>.</span> CFGExit.inner_node sourcenode targetnode 
+<span class=keyword1 id=NonInterferenceWhile-inner_node_exists><span class=command>lemma</span></span> inner_node_exists<span class=main>:</span><span class=quoted><span class=quoted>"<span class=main>∃</span><span class=bound>n</span><span class=main>.</span> CFGExit.inner_node sourcenode targetnode 
   <span class=main>(</span>valid_edge <span class=free>prog</span><span class=main>)</span> <span class=keyword1>(_Entry_)</span> <span class=keyword1>(_Exit_)</span> <span class=bound>n</span>"</span></span>
 <span class=keyword1><span class=command>proof</span></span> <span class=operator>-</span>
   <span class=keyword1><span class=command>have</span></span> <span class=quoted><span class=quoted>"<span class=free>prog</span> <span class=main>⊢</span> <span class=keyword1>(_Entry_)</span> <span class=main>-</span><span class=main>(</span><span class=main>λ</span><span class=bound>s</span><span class=main>.</span> True<span class=main>)<span class=hidden>⇩</span><sub>√</sub></span><span class=main>→</span> <span class=main>(_</span><span class=main>0</span><span class=main>_)</span>"</span></span> <span class=keyword1><span class=command>by</span></span><span class=main>(</span><span class=operator>rule</span> WCFG_Entry<span class=main>)</span>
@@ -2376,7 +2376,7 @@ to operate on this new graph.›</span></span>
   WhilePostdomination_aux _ HighLowDistinct HighLowUNIV<span class=main>]</span>
 
 
-<span class=keyword1><span class=command>lemma</span></span> SCDNonInterference<span class=main>:</span>
+<span class=keyword1 id=NonInterferenceWhile-SCDNonInterference><span class=command>lemma</span></span> SCDNonInterference<span class=main>:</span>
   <span class=quoted><span class=quoted>"NonInterferenceIntra src trg knd
      <span class=main>(</span>lift_valid_edge <span class=main>(</span>valid_edge <span class=free>prog</span><span class=main>)</span> sourcenode targetnode kind
        <span class=keyword1>(_Entry_)</span> <span class=keyword1>(_Exit_)</span><span class=main>)</span>
@@ -2461,7 +2461,7 @@ to operate on this new graph.›</span></span>
   WhileStrongPostdomination_aux _ HighLowDistinct HighLowUNIV<span class=main>]</span>
 
 
-<span class=keyword1><span class=command>lemma</span></span> WCDNonInterference<span class=main>:</span>
+<span class=keyword1 id=NonInterferenceWhile-WCDNonInterference><span class=command>lemma</span></span> WCDNonInterference<span class=main>:</span>
   <span class=quoted><span class=quoted>"NonInterferenceIntra src trg knd
      <span class=main>(</span>lift_valid_edge <span class=main>(</span>valid_edge <span class=free>prog</span><span class=main>)</span> sourcenode targetnode kind
        <span class=keyword1>(_Entry_)</span> <span class=keyword1>(_Exit_)</span><span class=main>)</span>

@@ -36,7 +36,7 @@ This is necessary to establish the invariant for the actual correctness proof, w
 We first show two verification conditions which are used in both correctness proofs.
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> kruskal_vc_1<span class="main">:</span>
+<span class="keyword1" id="Kruskal-kruskal_vc_1"><span class="command">lemma</span></span> kruskal_vc_1<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"symmetric <span class="free">g</span>"</span></span>
     <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"kruskal_spanning_invariant bot <span class="free">g</span> <span class="free">g</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">unfold</span> kruskal_spanning_invariant_def<span class="main"><span class="keyword3">,</span></span> <span class="operator">intro</span> conjI<span class="main">)</span>
@@ -53,7 +53,7 @@ We first show two verification conditions which are used in both correctness pro
     <span class="keyword1"><span class="command">using</span></span> star.circ_transitive_equal spanning_forest_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> kruskal_vc_2<span class="main">:</span>
+<span class="keyword1" id="Kruskal-kruskal_vc_2"><span class="command">lemma</span></span> kruskal_vc_2<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"kruskal_spanning_invariant <span class="free">f</span> <span class="free">g</span> <span class="free">h</span>"</span></span>
       <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"<span class="free">h</span> <span class="main">≠</span> bot"</span></span>
     <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">(</span>minarc <span class="free">h</span> <span class="main">≤</span> <span class="main">-</span>forest_components <span class="free">f</span> <span class="main">⟶</span> kruskal_spanning_invariant <span class="main">(</span><span class="main">(</span><span class="free">f</span> <span class="main">⊓</span> <span class="main">-</span><span class="main">(</span>top <span class="main">*</span> minarc <span class="free">h</span> <span class="main">*</span> <span class="free">f</span><span class="keyword1"><span class="hidden">⇧</span><sup>T</sup></span><span class="main"><span class="hidden">⇧</span><sup>⋆</sup></span><span class="main">)</span><span class="main">)</span> <span class="main">⊔</span> <span class="main">(</span><span class="free">f</span> <span class="main">⊓</span> top <span class="main">*</span> minarc <span class="free">h</span> <span class="main">*</span> <span class="free">f</span><span class="keyword1"><span class="hidden">⇧</span><sup>T</sup></span><span class="main"><span class="hidden">⇧</span><sup>⋆</sup></span><span class="main">)</span><span class="keyword1"><span class="hidden">⇧</span><sup>T</sup></span> <span class="main">⊔</span> minarc <span class="free">h</span><span class="main">)</span> <span class="free">g</span> <span class="main">(</span><span class="free">h</span> <span class="main">⊓</span> <span class="main">-</span>minarc <span class="free">h</span> <span class="main">⊓</span> <span class="main">-</span>minarc <span class="free">h</span><span class="keyword1"><span class="hidden">⇧</span><sup>T</sup></span><span class="main">)</span>
@@ -226,7 +226,7 @@ We cannot yet show that this is a minimum spanning tree.
 Because we have shown total correctness, we conclude that a spanning tree exists.
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> kruskal_exists_spanning<span class="main">:</span>
+<span class="keyword1" id="Kruskal-kruskal_exists_spanning"><span class="command">lemma</span></span> kruskal_exists_spanning<span class="main">:</span>
   <span class="quoted"><span class="quoted">"symmetric <span class="free">g</span> <span class="main">⟹</span> <span class="main">∃</span><span class="bound">f</span> <span class="main">.</span> spanning_forest <span class="bound">f</span> <span class="free">g</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> tc_extract_function kruskal_spanning <span class="keyword1"><span class="command">by</span></span> <span class="operator">blast</span>
 
@@ -234,7 +234,7 @@ Because we have shown total correctness, we conclude that a spanning tree exists
 This implies that a minimum spanning tree exists, which is used in the subsequent correctness proof.
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> kruskal_exists_minimal_spanning<span class="main">:</span>
+<span class="keyword1" id="Kruskal-kruskal_exists_minimal_spanning"><span class="command">lemma</span></span> kruskal_exists_minimal_spanning<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"symmetric <span class="free">g</span>"</span></span>
     <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">∃</span><span class="bound">f</span> <span class="main">.</span> minimum_spanning_forest <span class="bound">f</span> <span class="free">g</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
@@ -631,7 +631,7 @@ The partial-correctness proof of Prim's algorithm is discussed in \cite{Guttmann
 <span class="keyword1"><span class="command">definition</span></span> <span class="quoted"><span class="quoted">"<span class="free">prim_spanning_invariant</span> <span class="free"><span class="bound"><span class="entity">t</span></span></span> <span class="free"><span class="bound"><span class="entity">v</span></span></span> <span class="free"><span class="bound"><span class="entity">g</span></span></span> <span class="free"><span class="bound"><span class="entity">r</span></span></span> <span class="main">≡</span> prim_precondition <span class="free"><span class="bound"><span class="entity">g</span></span></span> <span class="free"><span class="bound"><span class="entity">r</span></span></span> <span class="main">∧</span> <span class="free"><span class="bound"><span class="entity">v</span></span></span><span class="keyword1"><span class="hidden">⇧</span><sup>T</sup></span> <span class="main">=</span> <span class="free"><span class="bound"><span class="entity">r</span></span></span><span class="keyword1"><span class="hidden">⇧</span><sup>T</sup></span> <span class="main">*</span> <span class="free"><span class="bound"><span class="entity">t</span></span></span><span class="main"><span class="hidden">⇧</span><sup>⋆</sup></span> <span class="main">∧</span> spanning_tree <span class="free"><span class="bound"><span class="entity">t</span></span></span> <span class="main">(</span><span class="free"><span class="bound"><span class="entity">v</span></span></span> <span class="main">*</span> <span class="free"><span class="bound"><span class="entity">v</span></span></span><span class="keyword1"><span class="hidden">⇧</span><sup>T</sup></span> <span class="main">⊓</span> <span class="free"><span class="bound"><span class="entity">g</span></span></span><span class="main">)</span> <span class="free"><span class="bound"><span class="entity">r</span></span></span>"</span></span>
 <span class="keyword1"><span class="command">definition</span></span> <span class="quoted"><span class="quoted">"<span class="free">prim_invariant</span> <span class="free"><span class="bound"><span class="entity">t</span></span></span> <span class="free"><span class="bound"><span class="entity">v</span></span></span> <span class="free"><span class="bound"><span class="entity">g</span></span></span> <span class="free"><span class="bound"><span class="entity">r</span></span></span> <span class="main">≡</span> prim_spanning_invariant <span class="free"><span class="bound"><span class="entity">t</span></span></span> <span class="free"><span class="bound"><span class="entity">v</span></span></span> <span class="free"><span class="bound"><span class="entity">g</span></span></span> <span class="free"><span class="bound"><span class="entity">r</span></span></span> <span class="main">∧</span> <span class="main">(</span><span class="main">∃</span><span class="bound">w</span> <span class="main">.</span> minimum_spanning_tree <span class="bound">w</span> <span class="free"><span class="bound"><span class="entity">g</span></span></span> <span class="free"><span class="bound"><span class="entity">r</span></span></span> <span class="main">∧</span> <span class="free"><span class="bound"><span class="entity">t</span></span></span> <span class="main">≤</span> <span class="bound">w</span><span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> span_tree_split<span class="main">:</span>
+<span class="keyword1" id="Prim-span_tree_split"><span class="command">lemma</span></span> span_tree_split<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"vector <span class="free">r</span>"</span></span>
     <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="free">t</span> <span class="main">≤</span> <span class="main">(</span>component <span class="free">g</span> <span class="free">r</span><span class="main">)</span><span class="keyword1"><span class="hidden">⇧</span><sup>T</sup></span> <span class="main">*</span> <span class="main">(</span>component <span class="free">g</span> <span class="free">r</span><span class="main">)</span> <span class="main">⊓</span> <span class="main">-</span><span class="main">-</span><span class="free">g</span> <span class="main">⟷</span> <span class="main">(</span><span class="free">t</span> <span class="main">≤</span> <span class="main">(</span>component <span class="free">g</span> <span class="free">r</span><span class="main">)</span><span class="keyword1"><span class="hidden">⇧</span><sup>T</sup></span> <span class="main">∧</span> <span class="free">t</span> <span class="main">≤</span> component <span class="free">g</span> <span class="free">r</span> <span class="main">∧</span> <span class="free">t</span> <span class="main">≤</span> <span class="main">-</span><span class="main">-</span><span class="free">g</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
@@ -641,7 +641,7 @@ The partial-correctness proof of Prim's algorithm is discussed in \cite{Guttmann
     <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> span_tree_component<span class="main">:</span>
+<span class="keyword1" id="Prim-span_tree_component"><span class="command">lemma</span></span> span_tree_component<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"spanning_tree <span class="free">t</span> <span class="free">g</span> <span class="free">r</span>"</span></span>
     <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"component <span class="free">g</span> <span class="free">r</span> <span class="main">=</span> component <span class="free">t</span> <span class="free">r</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> assms <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> antisym mult_right_isotone star_isotone spanning_tree_def<span class="main">)</span>
@@ -650,7 +650,7 @@ The partial-correctness proof of Prim's algorithm is discussed in \cite{Guttmann
 We first show three verification conditions which are used in both correctness proofs.
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> prim_vc_1<span class="main">:</span>
+<span class="keyword1" id="Prim-prim_vc_1"><span class="command">lemma</span></span> prim_vc_1<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"prim_precondition <span class="free">g</span> <span class="free">r</span>"</span></span>
     <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"prim_spanning_invariant bot <span class="free">r</span> <span class="free">g</span> <span class="free">r</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">unfold</span> prim_spanning_invariant_def<span class="main"><span class="keyword3">,</span></span> <span class="operator">intro</span> conjI<span class="main">)</span>
@@ -686,7 +686,7 @@ We first show three verification conditions which are used in both correctness p
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> prim_vc_2<span class="main">:</span>
+<span class="keyword1" id="Prim-prim_vc_2"><span class="command">lemma</span></span> prim_vc_2<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"prim_spanning_invariant <span class="free">t</span> <span class="free">v</span> <span class="free">g</span> <span class="free">r</span>"</span></span>
       <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"<span class="free">v</span> <span class="main">*</span> <span class="main">-</span><span class="free">v</span><span class="keyword1"><span class="hidden">⇧</span><sup>T</sup></span> <span class="main">⊓</span> <span class="free">g</span> <span class="main">≠</span> bot"</span></span>
     <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"prim_spanning_invariant <span class="main">(</span><span class="free">t</span> <span class="main">⊔</span> minarc <span class="main">(</span><span class="free">v</span> <span class="main">*</span> <span class="main">-</span><span class="free">v</span><span class="keyword1"><span class="hidden">⇧</span><sup>T</sup></span> <span class="main">⊓</span> <span class="free">g</span><span class="main">)</span><span class="main">)</span> <span class="main">(</span><span class="free">v</span> <span class="main">⊔</span> minarc <span class="main">(</span><span class="free">v</span> <span class="main">*</span> <span class="main">-</span><span class="free">v</span><span class="keyword1"><span class="hidden">⇧</span><sup>T</sup></span> <span class="main">⊓</span> <span class="free">g</span><span class="main">)</span><span class="keyword1"><span class="hidden">⇧</span><sup>T</sup></span> <span class="main">*</span> top<span class="main">)</span> <span class="free">g</span> <span class="free">r</span> <span class="main">∧</span> card <span class="main">{</span> <span class="bound">x</span> <span class="main">.</span> regular <span class="bound">x</span> <span class="main">∧</span> <span class="bound">x</span> <span class="main">≤</span> component <span class="free">g</span> <span class="free">r</span> <span class="main">∧</span> <span class="bound">x</span> <span class="main">≤</span> <span class="main">-</span><span class="main">(</span><span class="free">v</span> <span class="main">⊔</span> minarc <span class="main">(</span><span class="free">v</span> <span class="main">*</span> <span class="main">-</span><span class="free">v</span><span class="keyword1"><span class="hidden">⇧</span><sup>T</sup></span> <span class="main">⊓</span> <span class="free">g</span><span class="main">)</span><span class="keyword1"><span class="hidden">⇧</span><sup>T</sup></span> <span class="main">*</span> top<span class="main">)</span><span class="keyword1"><span class="hidden">⇧</span><sup>T</sup></span> <span class="main">}</span> <span class="main">&lt;</span> card <span class="main">{</span> <span class="bound">x</span> <span class="main">.</span> regular <span class="bound">x</span> <span class="main">∧</span> <span class="bound">x</span> <span class="main">≤</span> component <span class="free">g</span> <span class="free">r</span> <span class="main">∧</span> <span class="bound">x</span> <span class="main">≤</span> <span class="main">-</span><span class="free">v</span><span class="keyword1"><span class="hidden">⇧</span><sup>T</sup></span> <span class="main">}</span>"</span></span>
@@ -802,7 +802,7 @@ We first show three verification conditions which are used in both correctness p
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> prim_vc_3<span class="main">:</span>
+<span class="keyword1" id="Prim-prim_vc_3"><span class="command">lemma</span></span> prim_vc_3<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"prim_spanning_invariant <span class="free">t</span> <span class="free">v</span> <span class="free">g</span> <span class="free">r</span>"</span></span>
       <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"<span class="free">v</span> <span class="main">*</span> <span class="main">-</span><span class="free">v</span><span class="keyword1"><span class="hidden">⇧</span><sup>T</sup></span> <span class="main">⊓</span> <span class="free">g</span> <span class="main">=</span> bot"</span></span>
     <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"spanning_tree <span class="free">t</span> <span class="free">g</span> <span class="free">r</span>"</span></span>
@@ -860,7 +860,7 @@ We cannot yet show that this is a minimum spanning tree.
 Because we have shown total correctness, we conclude that a spanning tree exists.
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> prim_exists_spanning<span class="main">:</span>
+<span class="keyword1" id="Prim-prim_exists_spanning"><span class="command">lemma</span></span> prim_exists_spanning<span class="main">:</span>
   <span class="quoted"><span class="quoted">"prim_precondition <span class="free">g</span> <span class="free">r</span> <span class="main">⟹</span> <span class="main">∃</span><span class="bound">t</span> <span class="main">.</span> spanning_tree <span class="bound">t</span> <span class="free">g</span> <span class="free">r</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> tc_extract_function prim_spanning <span class="keyword1"><span class="command">by</span></span> <span class="operator">blast</span>
 
@@ -868,7 +868,7 @@ Because we have shown total correctness, we conclude that a spanning tree exists
 This implies that a minimum spanning tree exists, which is used in the subsequent correctness proof.
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> prim_exists_minimal_spanning<span class="main">:</span>
+<span class="keyword1" id="Prim-prim_exists_minimal_spanning"><span class="command">lemma</span></span> prim_exists_minimal_spanning<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"prim_precondition <span class="free">g</span> <span class="free">r</span>"</span></span>
     <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">∃</span><span class="bound">t</span> <span class="main">.</span> minimum_spanning_tree <span class="bound">t</span> <span class="free">g</span> <span class="free">r</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
@@ -1126,7 +1126,7 @@ In this section we give results that hold more generally.
 
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹Theorem 3›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> He_eq_He_THe_star<span class="main">:</span>
+<span class="keyword1" id="Boruvka-He_eq_He_THe_star"><span class="command">lemma</span></span> He_eq_He_THe_star<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"arc <span class="free">e</span>"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"equivalence <span class="free">H</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="free">H</span> <span class="main">*</span> <span class="free">e</span> <span class="main">=</span> <span class="free">H</span> <span class="main">*</span> <span class="free">e</span> <span class="main">*</span> <span class="main">(</span>top <span class="main">*</span> <span class="free">H</span> <span class="main">*</span> <span class="free">e</span><span class="main">)</span><span class="main"><span class="hidden">⇧</span><sup>⋆</sup></span>"</span></span>
@@ -1148,7 +1148,7 @@ In this section we give results that hold more generally.
     <span class="keyword1"><span class="command">using</span></span> 1 2 <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> path_through_components<span class="main">:</span>
+<span class="keyword1" id="Boruvka-path_through_components"><span class="command">lemma</span></span> path_through_components<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"equivalence <span class="free">H</span>"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"arc <span class="free">e</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="free">H</span> <span class="main">*</span> <span class="main">(</span><span class="free">d</span> <span class="main">⊔</span> <span class="free">e</span><span class="main">)</span><span class="main">)</span><span class="main"><span class="hidden">⇧</span><sup>⋆</sup></span> <span class="main">=</span> <span class="main">(</span><span class="free">H</span> <span class="main">*</span> <span class="free">d</span><span class="main">)</span><span class="main"><span class="hidden">⇧</span><sup>⋆</sup></span> <span class="main">⊔</span> <span class="main">(</span><span class="free">H</span> <span class="main">*</span> <span class="free">d</span><span class="main">)</span><span class="main"><span class="hidden">⇧</span><sup>⋆</sup></span> <span class="main">*</span> <span class="free">H</span> <span class="main">*</span> <span class="free">e</span> <span class="main">*</span> <span class="main">(</span><span class="free">H</span> <span class="main">*</span> <span class="free">d</span><span class="main">)</span><span class="main"><span class="hidden">⇧</span><sup>⋆</sup></span>"</span></span>
@@ -1169,7 +1169,7 @@ In this section we give results that hold more generally.
     <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> simplify_f<span class="main">:</span>
+<span class="keyword1" id="Boruvka-simplify_f"><span class="command">lemma</span></span> simplify_f<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"regular <span class="free">p</span>"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"regular <span class="free">e</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="free">f</span> <span class="main">⊓</span> <span class="main">-</span> <span class="free">e</span><span class="keyword1"><span class="hidden">⇧</span><sup>T</sup></span> <span class="main">⊓</span> <span class="main">-</span> <span class="free">p</span><span class="main">)</span> <span class="main">⊔</span> <span class="main">(</span><span class="free">f</span> <span class="main">⊓</span> <span class="main">-</span> <span class="free">e</span><span class="keyword1"><span class="hidden">⇧</span><sup>T</sup></span> <span class="main">⊓</span> <span class="free">p</span><span class="main">)</span> <span class="main">⊔</span> <span class="main">(</span><span class="free">f</span> <span class="main">⊓</span> <span class="main">-</span> <span class="free">e</span><span class="keyword1"><span class="hidden">⇧</span><sup>T</sup></span> <span class="main">⊓</span> <span class="free">p</span><span class="main">)</span><span class="keyword1"><span class="hidden">⇧</span><sup>T</sup></span> <span class="main">⊔</span> <span class="main">(</span><span class="free">f</span> <span class="main">⊓</span> <span class="main">-</span> <span class="free">e</span><span class="keyword1"><span class="hidden">⇧</span><sup>T</sup></span> <span class="main">⊓</span> <span class="main">-</span> <span class="free">p</span><span class="main">)</span><span class="keyword1"><span class="hidden">⇧</span><sup>T</sup></span> <span class="main">⊔</span> <span class="free">e</span><span class="keyword1"><span class="hidden">⇧</span><sup>T</sup></span> <span class="main">⊔</span> <span class="free">e</span> <span class="main">=</span> <span class="free">f</span> <span class="main">⊔</span> <span class="free">f</span><span class="keyword1"><span class="hidden">⇧</span><sup>T</sup></span> <span class="main">⊔</span> <span class="free">e</span> <span class="main">⊔</span> <span class="free">e</span><span class="keyword1"><span class="hidden">⇧</span><sup>T</sup></span>"</span></span>
@@ -1202,7 +1202,7 @@ In this section we give results that hold more generally.
     <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">metis</span> abel_semigroup.commute assms<span class="main"><span class="main">(</span></span>2<span class="main"><span class="main">)</span></span> conv_complement inf_top_right stone sup.abel_semigroup_axioms sup_assoc<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> simplify_forest_components_f<span class="main">:</span>
+<span class="keyword1" id="Boruvka-simplify_forest_components_f"><span class="command">lemma</span></span> simplify_forest_components_f<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"regular <span class="free">p</span>"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"regular <span class="free">e</span>"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"injective <span class="main">(</span><span class="free">f</span> <span class="main">⊓</span> <span class="main">-</span> <span class="free">e</span><span class="keyword1"><span class="hidden">⇧</span><sup>T</sup></span> <span class="main">⊓</span> <span class="main">-</span> <span class="free">p</span> <span class="main">⊔</span> <span class="main">(</span><span class="free">f</span> <span class="main">⊓</span> <span class="main">-</span> <span class="free">e</span><span class="keyword1"><span class="hidden">⇧</span><sup>T</sup></span> <span class="main">⊓</span> <span class="free">p</span><span class="main">)</span><span class="keyword1"><span class="hidden">⇧</span><sup>T</sup></span> <span class="main">⊔</span> <span class="free">e</span><span class="main">)</span>"</span></span>
@@ -1221,7 +1221,7 @@ In this section we give results that hold more generally.
     <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> components_disj_increasing<span class="main">:</span>
+<span class="keyword1" id="Boruvka-components_disj_increasing"><span class="command">lemma</span></span> components_disj_increasing<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"regular <span class="free">p</span>"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"regular <span class="free">e</span>"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"injective <span class="main">(</span><span class="free">f</span> <span class="main">⊓</span> <span class="main">-</span> <span class="free">e</span><span class="keyword1"><span class="hidden">⇧</span><sup>T</sup></span> <span class="main">⊓</span> <span class="main">-</span> <span class="free">p</span> <span class="main">⊔</span> <span class="main">(</span><span class="free">f</span> <span class="main">⊓</span> <span class="main">-</span> <span class="free">e</span><span class="keyword1"><span class="hidden">⇧</span><sup>T</sup></span> <span class="main">⊓</span> <span class="free">p</span><span class="main">)</span><span class="keyword1"><span class="hidden">⇧</span><sup>T</sup></span> <span class="main">⊔</span> <span class="free">e</span><span class="main">)</span>"</span></span>
@@ -1238,12 +1238,12 @@ In this section we give results that hold more generally.
     <span class="keyword1"><span class="command">using</span></span> 1 sup.left_commute sup_commute <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> fch_equivalence<span class="main">:</span>
+<span class="keyword1" id="Boruvka-fch_equivalence"><span class="command">lemma</span></span> fch_equivalence<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"forest <span class="free">h</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"equivalence <span class="main">(</span>forest_components <span class="free">h</span><span class="main">)</span>"</span></span>
   <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> assms forest_components_equivalence<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> big_forest_path_split_1<span class="main">:</span>
+<span class="keyword1" id="Boruvka-big_forest_path_split_1"><span class="command">lemma</span></span> big_forest_path_split_1<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"arc <span class="free">a</span>"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"equivalence <span class="free">H</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="free">H</span> <span class="main">*</span> <span class="free">d</span><span class="main">)</span><span class="main"><span class="hidden">⇧</span><sup>⋆</sup></span> <span class="main">*</span> <span class="free">H</span> <span class="main">*</span> <span class="free">a</span> <span class="main">*</span> top <span class="main">=</span> <span class="main">(</span><span class="free">H</span> <span class="main">*</span> <span class="main">(</span><span class="free">d</span> <span class="main">⊓</span> <span class="main">-</span> <span class="free">a</span><span class="main">)</span><span class="main">)</span><span class="main"><span class="hidden">⇧</span><sup>⋆</sup></span> <span class="main">*</span> <span class="free">H</span> <span class="main">*</span> <span class="free">a</span> <span class="main">*</span> top"</span></span>
@@ -1300,7 +1300,7 @@ In this section we give results that hold more generally.
     <span class="keyword1"><span class="command">using</span></span> 1 2 antisym mult_assoc <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> dTransHd_le_1<span class="main">:</span>
+<span class="keyword1" id="Boruvka-dTransHd_le_1"><span class="command">lemma</span></span> dTransHd_le_1<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"equivalence <span class="free">H</span>"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"univalent <span class="main">(</span><span class="free">H</span> <span class="main">*</span> <span class="free">d</span><span class="main">)</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="free">d</span><span class="keyword1"><span class="hidden">⇧</span><sup>T</sup></span> <span class="main">*</span> <span class="free">H</span> <span class="main">*</span> <span class="free">d</span> <span class="main">≤</span> <span class="main">1</span>"</span></span>
@@ -1311,7 +1311,7 @@ In this section we give results that hold more generally.
     <span class="keyword1"><span class="command">using</span></span> assms<span class="main">(</span>1<span class="main">)</span> mult_assoc <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> preorder_idempotent<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> HcompaT_le_compHaT<span class="main">:</span>
+<span class="keyword1" id="Boruvka-HcompaT_le_compHaT"><span class="command">lemma</span></span> HcompaT_le_compHaT<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"equivalence <span class="free">H</span>"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"injective <span class="main">(</span><span class="free">a</span> <span class="main">*</span> top<span class="main">)</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">-</span><span class="free">H</span> <span class="main">*</span> <span class="free">a</span> <span class="main">*</span> top <span class="main">≤</span> <span class="main">-</span> <span class="main">(</span><span class="free">H</span> <span class="main">*</span> <span class="free">a</span> <span class="main">*</span> top<span class="main">)</span>"</span></span>
@@ -1330,7 +1330,7 @@ In this section we give results that hold more generally.
 
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹Theorem 4›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> expand_big_forest<span class="main">:</span>
+<span class="keyword1" id="Boruvka-expand_big_forest"><span class="command">lemma</span></span> expand_big_forest<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"big_forest <span class="free">H</span> <span class="free">d</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="free">d</span><span class="keyword1"><span class="hidden">⇧</span><sup>T</sup></span> <span class="main">*</span> <span class="free">H</span><span class="main">)</span><span class="main"><span class="hidden">⇧</span><sup>⋆</sup></span> <span class="main">*</span> <span class="main">(</span><span class="free">H</span> <span class="main">*</span> <span class="free">d</span><span class="main">)</span><span class="main"><span class="hidden">⇧</span><sup>⋆</sup></span> <span class="main">=</span> <span class="main">(</span><span class="free">d</span><span class="keyword1"><span class="hidden">⇧</span><sup>T</sup></span> <span class="main">*</span> <span class="free">H</span><span class="main">)</span><span class="main"><span class="hidden">⇧</span><sup>⋆</sup></span> <span class="main">⊔</span> <span class="main">(</span><span class="free">H</span> <span class="main">*</span> <span class="free">d</span><span class="main">)</span><span class="main"><span class="hidden">⇧</span><sup>⋆</sup></span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
@@ -1343,7 +1343,7 @@ In this section we give results that hold more generally.
 <span class="keyword1"><span class="command">qed</span></span>
 
 
-<span class="keyword1"><span class="command">lemma</span></span> big_forest_path_bot<span class="main">:</span>
+<span class="keyword1" id="Boruvka-big_forest_path_bot"><span class="command">lemma</span></span> big_forest_path_bot<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"arc <span class="free">a</span>"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"<span class="free">a</span> <span class="main">≤</span> <span class="free">d</span>"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"big_forest <span class="free">H</span> <span class="free">d</span>"</span></span>
@@ -1416,7 +1416,7 @@ In this section we give results that hold more generally.
     <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> schroeder_3_p<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> big_forest_path_split_2<span class="main">:</span>
+<span class="keyword1" id="Boruvka-big_forest_path_split_2"><span class="command">lemma</span></span> big_forest_path_split_2<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"arc <span class="free">a</span>"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"<span class="free">a</span> <span class="main">≤</span> <span class="free">d</span>"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"big_forest <span class="free">H</span> <span class="free">d</span>"</span></span>
@@ -1692,7 +1692,7 @@ A <span class="antiquoted"><span class="raw_text"><span class="antiquoted"><span
     <span class="main">⟶</span> sum<span class="main">(</span><span class="bound">b</span> <span class="main">⊓</span> <span class="free"><span class="bound"><span class="entity">g</span></span></span><span class="main">)</span> <span class="main">≤</span> sum<span class="main">(</span><span class="bound">a</span> <span class="main">⊓</span> <span class="free"><span class="bound"><span class="entity">g</span></span></span><span class="main">)</span><span class="main">)</span>
   <span class="main">∧</span> regular <span class="free"><span class="bound"><span class="entity">d</span></span></span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> expression_equivalent_without_e_complement<span class="main">:</span>
+<span class="keyword1" id="Boruvka-expression_equivalent_without_e_complement"><span class="command">lemma</span></span> expression_equivalent_without_e_complement<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"selected_edge <span class="free">h</span> <span class="free">j</span> <span class="free">g</span> <span class="main">≤</span> <span class="main">-</span> forest_components <span class="free">f</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="free">f</span> <span class="main">⊓</span> <span class="main">-</span> <span class="main">(</span>selected_edge <span class="free">h</span> <span class="free">j</span> <span class="free">g</span><span class="main">)</span><span class="keyword1"><span class="hidden">⇧</span><sup>T</sup></span> <span class="main">⊓</span> <span class="main">-</span> <span class="main">(</span>path <span class="free">f</span> <span class="free">h</span> <span class="free">j</span> <span class="free">g</span><span class="main">)</span> <span class="main">⊔</span> <span class="main">(</span><span class="free">f</span> <span class="main">⊓</span> <span class="main">-</span> <span class="main">(</span>selected_edge <span class="free">h</span> <span class="free">j</span> <span class="free">g</span><span class="main">)</span><span class="keyword1"><span class="hidden">⇧</span><sup>T</sup></span> <span class="main">⊓</span> <span class="main">(</span>path <span class="free">f</span> <span class="free">h</span> <span class="free">j</span> <span class="free">g</span><span class="main">)</span><span class="main">)</span><span class="keyword1"><span class="hidden">⇧</span><sup>T</sup></span> <span class="main">⊔</span> <span class="main">(</span>selected_edge <span class="free">h</span> <span class="free">j</span> <span class="free">g</span><span class="main">)</span>
          <span class="main">=</span> <span class="free">f</span> <span class="main">⊓</span> <span class="main">-</span> <span class="main">(</span>path <span class="free">f</span> <span class="free">h</span> <span class="free">j</span> <span class="free">g</span><span class="main">)</span> <span class="main">⊔</span> <span class="main">(</span><span class="free">f</span> <span class="main">⊓</span> <span class="main">(</span>path <span class="free">f</span> <span class="free">h</span> <span class="free">j</span> <span class="free">g</span><span class="main">)</span><span class="main">)</span><span class="keyword1"><span class="hidden">⇧</span><sup>T</sup></span> <span class="main">⊔</span> <span class="main">(</span>selected_edge <span class="free">h</span> <span class="free">j</span> <span class="free">g</span><span class="main">)</span>"</span></span>
@@ -1727,7 +1727,7 @@ A <span class="antiquoted"><span class="raw_text"><span class="antiquoted"><span
 The source of the <span class="antiquoted"><span class="raw_text"><span class="antiquoted"><span class="raw_text"><span class="operator"><span class="operator">‹</span></span>selected_edge›</span></span></span></span> is contained in $j$, the vector describing those vertices still to be processed in the inner loop of Bor\r{u}vka's algorithm.
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> et_below_j<span class="main">:</span>
+<span class="keyword1" id="Boruvka-et_below_j"><span class="command">lemma</span></span> et_below_j<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"vector <span class="free">j</span>"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"regular <span class="free">j</span>"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"<span class="free">j</span> <span class="main">≠</span> bot"</span></span>
@@ -1759,7 +1759,7 @@ The source of the <span class="antiquoted"><span class="raw_text"><span class="a
 We prove a number of properties about <span class="antiquoted"><span class="raw_text"><span class="antiquoted"><span class="raw_text"><span class="operator"><span class="operator">‹</span></span>big_forest›</span></span></span></span> and <span class="antiquoted"><span class="raw_text"><span class="antiquoted"><span class="raw_text"><span class="operator"><span class="operator">‹</span></span>forest_components›</span></span></span></span>.
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> fc_j_eq_j_inv<span class="main">:</span>
+<span class="keyword1" id="Boruvka-fc_j_eq_j_inv"><span class="command">lemma</span></span> fc_j_eq_j_inv<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"forest <span class="free">h</span>"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"forest_components <span class="free">h</span> <span class="main">*</span> <span class="free">j</span> <span class="main">=</span> <span class="free">j</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"forest_components <span class="free">h</span> <span class="main">*</span> <span class="main">(</span><span class="free">j</span> <span class="main">⊓</span> <span class="main">-</span> choose_component <span class="main">(</span>forest_components <span class="free">h</span><span class="main">)</span> <span class="free">j</span><span class="main">)</span> <span class="main">=</span> <span class="free">j</span> <span class="main">⊓</span> <span class="main">-</span> choose_component <span class="main">(</span>forest_components <span class="free">h</span><span class="main">)</span> <span class="free">j</span>"</span></span>
@@ -1792,7 +1792,7 @@ We prove a number of properties about <span class="antiquoted"><span class="raw_
 There is a path in the <span class="antiquoted"><span class="raw_text"><span class="antiquoted"><span class="raw_text"><span class="operator"><span class="operator">‹</span></span>big_forest›</span></span></span></span> between edges $a$ and $b$ if and only if there is either a path in the <span class="antiquoted"><span class="raw_text"><span class="antiquoted"><span class="raw_text"><span class="operator"><span class="operator">‹</span></span>big_forest›</span></span></span></span> from $a$ to $b$ or one from $a$ to $c$ and one from $c$ to $b$.
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> big_forest_path_split_disj<span class="main">:</span>
+<span class="keyword1" id="Boruvka-big_forest_path_split_disj"><span class="command">lemma</span></span> big_forest_path_split_disj<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"equivalence <span class="free">H</span>"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"arc <span class="free">c</span>"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"regular <span class="free">a</span> <span class="main">∧</span> regular <span class="free">b</span> <span class="main">∧</span> regular <span class="free">c</span> <span class="main">∧</span> regular <span class="free">d</span> <span class="main">∧</span> regular <span class="free">H</span>"</span></span>
@@ -1890,7 +1890,7 @@ There is a path in the <span class="antiquoted"><span class="raw_text"><span cla
     <span class="keyword1"><span class="command">using</span></span> 1 2 <span class="keyword1"><span class="command">by</span></span> <span class="operator">blast</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> dT_He_eq_bot<span class="main">:</span>
+<span class="keyword1" id="Boruvka-dT_He_eq_bot"><span class="command">lemma</span></span> dT_He_eq_bot<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"vector <span class="free">j</span>"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"regular <span class="free">j</span>"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"<span class="free">d</span> <span class="main">*</span> top <span class="main">≤</span> <span class="main">-</span> <span class="free">j</span>"</span></span>
@@ -1916,7 +1916,7 @@ There is a path in the <span class="antiquoted"><span class="raw_text"><span cla
     <span class="keyword1"><span class="command">using</span></span> coreflexive_bot_closed le_bot <span class="keyword1"><span class="command">by</span></span> <span class="operator">blast</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> big_forest_d_U_e<span class="main">:</span>
+<span class="keyword1" id="Boruvka-big_forest_d_U_e"><span class="command">lemma</span></span> big_forest_d_U_e<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"forest <span class="free">f</span>"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"vector <span class="free">j</span>"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"regular <span class="free">j</span>"</span></span>
@@ -2137,7 +2137,7 @@ The expression $d \sqcap \top e^\top H \sqcap (H d^\top)^* H a^\top \top$ identi
 Here, we prove this expression is an <span class="antiquoted"><span class="raw_text"><span class="antiquoted"><span class="raw_text"><span class="operator"><span class="operator">‹</span></span>arc›</span></span></span></span>.
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> shows_arc_x<span class="main">:</span>
+<span class="keyword1" id="Boruvka-shows_arc_x"><span class="command">lemma</span></span> shows_arc_x<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"big_forest <span class="free">H</span> <span class="free">d</span>"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"bf_between_arcs <span class="free">a</span> <span class="free">e</span> <span class="free">H</span> <span class="free">d</span>"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"<span class="free">H</span> <span class="main">*</span> <span class="free">d</span> <span class="main">*</span> <span class="main">(</span><span class="free">H</span> <span class="main">*</span> <span class="free">d</span><span class="main">)</span><span class="main"><span class="hidden">⇧</span><sup>⋆</sup></span> <span class="main">≤</span> <span class="main">-</span> <span class="free">H</span>"</span></span>
@@ -2417,7 +2417,7 @@ To maintain that $f$ can be extended to a minimum spanning forest we identify an
 Here, we show that $i$ is an <span class="antiquoted"><span class="raw_text"><span class="antiquoted"><span class="raw_text"><span class="operator"><span class="operator">‹</span></span>arc›</span></span></span></span>.
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> boruvka_edge_arc<span class="main">:</span>
+<span class="keyword1" id="Boruvka-boruvka_edge_arc"><span class="command">lemma</span></span> boruvka_edge_arc<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"equivalence <span class="free">F</span>"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"forest <span class="free">v</span>"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"arc <span class="free">e</span>"</span></span>
@@ -2740,7 +2740,7 @@ For example, Theorem 8 is used to show that the <span class="antiquoted"><span c
 
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹Theorem 8›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> e_leq_c_c_complement_transpose_general<span class="main">:</span>
+<span class="keyword1" id="Boruvka-e_leq_c_c_complement_transpose_general"><span class="command">lemma</span></span> e_leq_c_c_complement_transpose_general<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">e</span> <span class="main">=</span> minarc <span class="main">(</span><span class="free">c</span> <span class="main">*</span> <span class="main">-</span><span class="main">(</span><span class="free">c</span><span class="main">)</span><span class="keyword1"><span class="hidden">⇧</span><sup>T</sup></span> <span class="main">⊓</span> <span class="free">g</span><span class="main">)</span>"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"regular <span class="free">c</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="free">e</span> <span class="main">≤</span> <span class="free">c</span> <span class="main">*</span> <span class="main">-</span><span class="main">(</span><span class="free">c</span><span class="main">)</span><span class="keyword1"><span class="hidden">⇧</span><sup>T</sup></span>"</span></span>
@@ -2757,7 +2757,7 @@ For example, Theorem 8 is used to show that the <span class="antiquoted"><span c
 
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹Theorem 9›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> x_leq_c_transpose_general<span class="main">:</span>
+<span class="keyword1" id="Boruvka-x_leq_c_transpose_general"><span class="command">lemma</span></span> x_leq_c_transpose_general<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"forest <span class="free">h</span>"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"vector <span class="free">c</span>"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"<span class="free">x</span><span class="keyword1"><span class="hidden">⇧</span><sup>T</sup></span> <span class="main">*</span> top <span class="main">≤</span> forest_components<span class="main">(</span><span class="free">h</span><span class="main">)</span> <span class="main">*</span> <span class="free">e</span> <span class="main">*</span> top"</span></span>
@@ -2788,7 +2788,7 @@ For example, Theorem 8 is used to show that the <span class="antiquoted"><span c
 
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹Theorem 10›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> x_leq_c_complement_general<span class="main">:</span>
+<span class="keyword1" id="Boruvka-x_leq_c_complement_general"><span class="command">lemma</span></span> x_leq_c_complement_general<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"vector <span class="free">c</span>"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"<span class="free">c</span> <span class="main">*</span> <span class="free">c</span><span class="keyword1"><span class="hidden">⇧</span><sup>T</sup></span> <span class="main">≤</span> forest_components <span class="free">h</span>"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"<span class="free">x</span> <span class="main">≤</span> <span class="free">c</span><span class="keyword1"><span class="hidden">⇧</span><sup>T</sup></span>"</span></span>
@@ -2813,7 +2813,7 @@ For example, Theorem 8 is used to show that the <span class="antiquoted"><span c
 
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹Theorem 11›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> sum_e_below_sum_x_when_outgoing_same_component_general<span class="main">:</span>
+<span class="keyword1" id="Boruvka-sum_e_below_sum_x_when_outgoing_same_component_general"><span class="command">lemma</span></span> sum_e_below_sum_x_when_outgoing_same_component_general<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">e</span> <span class="main">=</span> minarc <span class="main">(</span><span class="free">c</span> <span class="main">*</span> <span class="main">-</span><span class="main">(</span><span class="free">c</span><span class="main">)</span><span class="keyword1"><span class="hidden">⇧</span><sup>T</sup></span> <span class="main">⊓</span> <span class="free">g</span><span class="main">)</span>"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"regular <span class="free">c</span>"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"forest <span class="free">h</span>"</span></span>
@@ -2863,7 +2863,7 @@ For example, Theorem 8 is used to show that the <span class="antiquoted"><span c
     <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> sum_e_below_sum_x_when_outgoing_same_component<span class="main">:</span>
+<span class="keyword1" id="Boruvka-sum_e_below_sum_x_when_outgoing_same_component"><span class="command">lemma</span></span> sum_e_below_sum_x_when_outgoing_same_component<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"symmetric <span class="free">g</span>"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"vector <span class="free">j</span>"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"forest <span class="free">h</span>"</span></span>
@@ -2927,7 +2927,7 @@ This is because either,
 \end{itemize}
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> a_to_e_in_bigforest<span class="main">:</span>
+<span class="keyword1" id="Boruvka-a_to_e_in_bigforest"><span class="command">lemma</span></span> a_to_e_in_bigforest<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"symmetric <span class="free">g</span>"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"<span class="free">f</span> <span class="main">≤</span> <span class="main">-</span><span class="main">-</span><span class="free">g</span>"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"vector <span class="free">j</span>"</span></span>
@@ -3109,7 +3109,7 @@ In this section, most of the work is done to maintain the invariants of the inne
 In particular, we use <span class="antiquoted"><span class="raw_text"><span class="antiquoted"><span class="raw_text"><span class="operator"><span class="operator">‹</span></span>exists_a_w›</span></span></span></span> to maintain that $f$ can be extended to a minimum spanning forest.
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> boruvka_exchange_spanning_inv<span class="main">:</span>
+<span class="keyword1" id="Boruvka-boruvka_exchange_spanning_inv"><span class="command">lemma</span></span> boruvka_exchange_spanning_inv<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"forest <span class="free">v</span>"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"<span class="free">v</span><span class="main"><span class="hidden">⇧</span><sup>⋆</sup></span> <span class="main">*</span> <span class="free">e</span><span class="keyword1"><span class="hidden">⇧</span><sup>T</sup></span> <span class="main">=</span> <span class="free">e</span><span class="keyword1"><span class="hidden">⇧</span><sup>T</sup></span>"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"<span class="free">i</span> <span class="main">≤</span> <span class="free">v</span> <span class="main">⊓</span> top <span class="main">*</span> <span class="free">e</span><span class="keyword1"><span class="hidden">⇧</span><sup>T</sup></span> <span class="main">*</span> <span class="free">w</span><span class="keyword1"><span class="hidden">⇧</span><sup>T</sup></span><span class="main"><span class="hidden">⇧</span><sup>⋆</sup></span>"</span></span>
@@ -3231,7 +3231,7 @@ In particular, we use <span class="antiquoted"><span class="raw_text"><span clas
     <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> exists_a_w<span class="main">:</span>
+<span class="keyword1" id="Boruvka-exists_a_w"><span class="command">lemma</span></span> exists_a_w<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"symmetric <span class="free">g</span>"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"forest <span class="free">f</span>"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"<span class="free">f</span> <span class="main">≤</span> <span class="main">-</span><span class="main">-</span><span class="free">g</span>"</span></span>
@@ -3847,7 +3847,7 @@ In particular, we use <span class="antiquoted"><span class="raw_text"><span clas
   <span class="keyword3"><span class="command">thus</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> boruvka_outer_invariant_when_e_not_bot<span class="main">:</span>
+<span class="keyword1" id="Boruvka-boruvka_outer_invariant_when_e_not_bot"><span class="command">lemma</span></span> boruvka_outer_invariant_when_e_not_bot<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"boruvka_inner_invariant <span class="free">j</span> <span class="free">f</span> <span class="free">h</span> <span class="free">g</span> <span class="free">d</span>"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"<span class="free">j</span> <span class="main">≠</span> bot"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"selected_edge <span class="free">h</span> <span class="free">j</span> <span class="free">g</span> <span class="main">≤</span> <span class="main">-</span> forest_components <span class="free">f</span>"</span></span>
@@ -4081,7 +4081,7 @@ In particular, we use <span class="antiquoted"><span class="raw_text"><span clas
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> second_inner_invariant_when_e_not_bot<span class="main">:</span>
+<span class="keyword1" id="Boruvka-second_inner_invariant_when_e_not_bot"><span class="command">lemma</span></span> second_inner_invariant_when_e_not_bot<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"boruvka_inner_invariant <span class="free">j</span> <span class="free">f</span> <span class="free">h</span> <span class="free">g</span> <span class="free">d</span>"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"<span class="free">j</span> <span class="main">≠</span> bot"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"selected_edge <span class="free">h</span> <span class="free">j</span> <span class="free">g</span> <span class="main">≤</span> <span class="main">-</span> forest_components <span class="free">f</span>"</span></span>
@@ -4381,7 +4381,7 @@ In particular, we use <span class="antiquoted"><span class="raw_text"><span clas
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> second_inner_invariant_when_e_bot<span class="main">:</span>
+<span class="keyword1" id="Boruvka-second_inner_invariant_when_e_bot"><span class="command">lemma</span></span> second_inner_invariant_when_e_bot<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"selected_edge <span class="free">h</span> <span class="free">j</span> <span class="free">g</span> <span class="main">=</span> bot"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"selected_edge <span class="free">h</span> <span class="free">j</span> <span class="free">g</span> <span class="main">≤</span> <span class="main">-</span> forest_components <span class="free">f</span>"</span></span>
     <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"boruvka_inner_invariant <span class="free">j</span> <span class="free">f</span> <span class="free">h</span> <span class="free">g</span> <span class="free">d</span>"</span></span>

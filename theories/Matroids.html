@@ -13,7 +13,7 @@ Independence systems
   <span class="keyword2"><span class="keyword">imports</span></span> <a href="../../HOL/HOL/Main.html">Main</a>
 <span class="keyword2"><span class="keyword">begin</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> finite_psubset_inc_induct<span class="main">:</span>
+<span class="keyword1" id="Indep_System-finite_psubset_inc_induct"><span class="command">lemma</span></span> finite_psubset_inc_induct<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"finite <span class="free">A</span>"</span></span> <span class="quoted"><span class="quoted">"<span class="free">X</span> <span class="main">⊆</span> <span class="free">A</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="main">⋀</span><span class="bound">X</span><span class="main">.</span> <span class="main">(</span><span class="main">⋀</span><span class="bound">Y</span><span class="main">.</span> <span class="bound">X</span> <span class="main">⊂</span> <span class="bound">Y</span> <span class="main">⟹</span> <span class="bound">Y</span> <span class="main">⊆</span> <span class="free">A</span> <span class="main">⟹</span> <span class="free">P</span> <span class="bound">Y</span><span class="main">)</span> <span class="main">⟹</span> <span class="free">P</span> <span class="bound">X</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="free">P</span> <span class="free">X</span>"</span></span>
@@ -49,7 +49,7 @@ Independence systems
   The empty set is independent.
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> indep_empty <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">indep</span> <span class="main">{}</span>"</span></span>
+<span class="keyword1" id="Indep_System-indep_empty"><span class="command">lemma</span></span> indep_empty <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">indep</span> <span class="main">{}</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> indep_ex indep_subset <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
 <span class="keyword1"><span class="command">subsection</span></span> <span class="quoted"><span class="plain_text">‹Sub-independence systems›</span></span>
@@ -60,24 +60,24 @@ Independence systems
 
 <span class="keyword1"><span class="command">definition</span></span> <span class="entity">indep_in</span> <span class="keyword2"><span class="keyword">where</span></span> <span class="quoted"><span class="quoted">"<span class="free">indep_in</span> <span class="free"><span class="bound"><span class="entity">ℰ</span></span></span> <span class="free"><span class="bound"><span class="entity">X</span></span></span> <span class="main">⟷</span> <span class="free"><span class="bound"><span class="entity">X</span></span></span> <span class="main">⊆</span> <span class="free"><span class="bound"><span class="entity">ℰ</span></span></span> <span class="main">∧</span> <span class="free">indep</span> <span class="free"><span class="bound"><span class="entity">X</span></span></span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> indep_inI<span class="main">:</span>
+<span class="keyword1" id="Indep_System-indep_inI"><span class="command">lemma</span></span> indep_inI<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">X</span> <span class="main">⊆</span> <span class="free">ℰ</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">indep</span> <span class="free">X</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"indep_in <span class="free">ℰ</span> <span class="free">X</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> assms <span class="keyword1"><span class="command">unfolding</span></span> indep_in_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> indep_in_subI<span class="main">:</span> <span class="quoted"><span class="quoted">"indep_in <span class="free">ℰ</span> <span class="free">X</span> <span class="main">⟹</span> indep_in <span class="free">ℰ'</span> <span class="main">(</span><span class="free">X</span> <span class="main">∩</span> <span class="free">ℰ'</span><span class="main">)</span>"</span></span>
+<span class="keyword1" id="Indep_System-indep_in_subI"><span class="command">lemma</span></span> indep_in_subI<span class="main">:</span> <span class="quoted"><span class="quoted">"indep_in <span class="free">ℰ</span> <span class="free">X</span> <span class="main">⟹</span> indep_in <span class="free">ℰ'</span> <span class="main">(</span><span class="free">X</span> <span class="main">∩</span> <span class="free">ℰ'</span><span class="main">)</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> indep_subset <span class="keyword1"><span class="command">unfolding</span></span> indep_in_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> dep_in_subI<span class="main">:</span>
+<span class="keyword1" id="Indep_System-dep_in_subI"><span class="command">lemma</span></span> dep_in_subI<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">X</span> <span class="main">⊆</span> <span class="free">ℰ'</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">¬</span> indep_in <span class="free">ℰ'</span> <span class="free">X</span> <span class="main">⟹</span> <span class="main">¬</span> indep_in <span class="free">ℰ</span> <span class="free">X</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> assms <span class="keyword1"><span class="command">unfolding</span></span> indep_in_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> indep_in_subset_carrier<span class="main">:</span> <span class="quoted"><span class="quoted">"indep_in <span class="free">ℰ</span> <span class="free">X</span> <span class="main">⟹</span> <span class="free">X</span> <span class="main">⊆</span> <span class="free">ℰ</span>"</span></span>
+<span class="keyword1" id="Indep_System-indep_in_subset_carrier"><span class="command">lemma</span></span> indep_in_subset_carrier<span class="main">:</span> <span class="quoted"><span class="quoted">"indep_in <span class="free">ℰ</span> <span class="free">X</span> <span class="main">⟹</span> <span class="free">X</span> <span class="main">⊆</span> <span class="free">ℰ</span>"</span></span>
   <span class="keyword1"><span class="command">unfolding</span></span> indep_in_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> indep_in_subI_subset<span class="main">:</span>
+<span class="keyword1" id="Indep_System-indep_in_subI_subset"><span class="command">lemma</span></span> indep_in_subI_subset<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">ℰ'</span> <span class="main">⊆</span> <span class="free">ℰ</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"indep_in <span class="free">ℰ'</span> <span class="free">X</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"indep_in <span class="free">ℰ</span> <span class="free">X</span>"</span></span>
@@ -87,7 +87,7 @@ Independence systems
   <span class="keyword1"><span class="command">ultimately</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> indep_in_supI<span class="main">:</span>
+<span class="keyword1" id="Indep_System-indep_in_supI"><span class="command">lemma</span></span> indep_in_supI<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">X</span> <span class="main">⊆</span> <span class="free">ℰ'</span>"</span></span> <span class="quoted"><span class="quoted">"<span class="free">ℰ'</span> <span class="main">⊆</span> <span class="free">ℰ</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"indep_in <span class="free">ℰ</span> <span class="free">X</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"indep_in <span class="free">ℰ'</span> <span class="free">X</span>"</span></span>
@@ -96,12 +96,12 @@ Independence systems
   <span class="keyword1"><span class="command">then</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span> <span class="keyword1"><span class="command">using</span></span> assms indep_in_subI<span class="main">[</span><span class="keyword2"><span class="keyword"><span class="operator">where</span></span></span> ℰ <span class="main"><span class="main">=</span></span> <span class="quoted"><span class="free">ℰ</span></span> <span class="keyword2"><span class="keyword"><span class="quasi_keyword">and</span></span></span> ℰ' <span class="main"><span class="main">=</span></span> <span class="quoted"><span class="free">ℰ'</span></span> <span class="keyword2"><span class="keyword"><span class="quasi_keyword">and</span></span></span> X <span class="main"><span class="main">=</span></span> <span class="quoted"><span class="free">X</span></span><span class="main">]</span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> indep_in_indep<span class="main">:</span> <span class="quoted"><span class="quoted">"indep_in <span class="free">ℰ</span> <span class="free">X</span> <span class="main">⟹</span> <span class="free">indep</span> <span class="free">X</span>"</span></span>
+<span class="keyword1" id="Indep_System-indep_in_indep"><span class="command">lemma</span></span> indep_in_indep<span class="main">:</span> <span class="quoted"><span class="quoted">"indep_in <span class="free">ℰ</span> <span class="free">X</span> <span class="main">⟹</span> <span class="free">indep</span> <span class="free">X</span>"</span></span>
   <span class="keyword1"><span class="command">unfolding</span></span> indep_in_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
 <span class="keyword1"><span class="command">lemmas</span></span> indep_inD <span class="main">=</span> indep_in_subset_carrier indep_in_indep
 
-<span class="keyword1"><span class="command">lemma</span></span> indep_system_subset <span class="main">[</span><span class="operator">simp</span><span class="main">,</span> <span class="operator">intro</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Indep_System-indep_system_subset"><span class="command">lemma</span></span> indep_system_subset <span class="main">[</span><span class="operator">simp</span><span class="main">,</span> <span class="operator">intro</span><span class="main">]</span><span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">ℰ</span> <span class="main">⊆</span> <span class="free">carrier</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"indep_system <span class="free">ℰ</span> <span class="main">(</span>indep_in <span class="free">ℰ</span><span class="main">)</span>"</span></span>
   <span class="keyword1"><span class="command">unfolding</span></span> indep_system_def indep_in_def
@@ -122,7 +122,7 @@ Independence systems
 <span class="keyword1"><span class="command">interpretation</span></span> ℰ<span class="main">:</span> indep_system <span class="quoted"><span class="free">ℰ</span></span> <span class="quoted"><span class="quoted">"indep_in <span class="free">ℰ</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> <span class="quoted"><span class="quoted">‹<span class="free">ℰ</span> <span class="main">⊆</span> <span class="free">carrier</span>›</span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> indep_in_sub_cong<span class="main">:</span>
+<span class="keyword1" id="Indep_System-indep_in_sub_cong"><span class="command">lemma</span></span> indep_in_sub_cong<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">ℰ'</span> <span class="main">⊆</span> <span class="free">ℰ</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"ℰ.indep_in <span class="free">ℰ'</span> <span class="free">X</span> <span class="main">⟷</span> indep_in <span class="free">ℰ'</span> <span class="free">X</span>"</span></span>
   <span class="keyword1"><span class="command">unfolding</span></span> ℰ.indep_in_def indep_in_def <span class="keyword1"><span class="command">using</span></span> assms <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
@@ -142,29 +142,29 @@ Independence systems
 
 <span class="keyword1"><span class="command">definition</span></span> <span class="entity">basis</span> <span class="keyword2"><span class="keyword">where</span></span> <span class="quoted"><span class="quoted">"<span class="free">basis</span> <span class="free"><span class="bound"><span class="entity">X</span></span></span> <span class="main">⟷</span> <span class="free">indep</span> <span class="free"><span class="bound"><span class="entity">X</span></span></span> <span class="main">∧</span> <span class="main">(</span><span class="main">∀</span><span class="bound">x</span> <span class="main">∈</span> <span class="free">carrier</span> <span class="main">-</span> <span class="free"><span class="bound"><span class="entity">X</span></span></span><span class="main">.</span> <span class="main">¬</span> <span class="free">indep</span> <span class="main">(</span>insert <span class="bound">x</span> <span class="free"><span class="bound"><span class="entity">X</span></span></span><span class="main">)</span><span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> basisI<span class="main">:</span>
+<span class="keyword1" id="Indep_System-basisI"><span class="command">lemma</span></span> basisI<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">indep</span> <span class="free">X</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="main">⋀</span><span class="bound">x</span><span class="main">.</span> <span class="bound">x</span> <span class="main">∈</span> <span class="free">carrier</span> <span class="main">-</span> <span class="free">X</span> <span class="main">⟹</span> <span class="main">¬</span> <span class="free">indep</span> <span class="main">(</span>insert <span class="bound">x</span> <span class="free">X</span><span class="main">)</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"basis <span class="free">X</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> assms <span class="keyword1"><span class="command">unfolding</span></span> basis_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> basis_indep<span class="main">:</span> <span class="quoted"><span class="quoted">"basis <span class="free">X</span> <span class="main">⟹</span> <span class="free">indep</span> <span class="free">X</span>"</span></span>
+<span class="keyword1" id="Indep_System-basis_indep"><span class="command">lemma</span></span> basis_indep<span class="main">:</span> <span class="quoted"><span class="quoted">"basis <span class="free">X</span> <span class="main">⟹</span> <span class="free">indep</span> <span class="free">X</span>"</span></span>
   <span class="keyword1"><span class="command">unfolding</span></span> basis_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> basis_max_indep<span class="main">:</span> <span class="quoted"><span class="quoted">"basis <span class="free">X</span> <span class="main">⟹</span> <span class="free">x</span> <span class="main">∈</span> <span class="free">carrier</span> <span class="main">-</span> <span class="free">X</span> <span class="main">⟹</span> <span class="main">¬</span> <span class="free">indep</span> <span class="main">(</span>insert <span class="free">x</span> <span class="free">X</span><span class="main">)</span>"</span></span>
+<span class="keyword1" id="Indep_System-basis_max_indep"><span class="command">lemma</span></span> basis_max_indep<span class="main">:</span> <span class="quoted"><span class="quoted">"basis <span class="free">X</span> <span class="main">⟹</span> <span class="free">x</span> <span class="main">∈</span> <span class="free">carrier</span> <span class="main">-</span> <span class="free">X</span> <span class="main">⟹</span> <span class="main">¬</span> <span class="free">indep</span> <span class="main">(</span>insert <span class="free">x</span> <span class="free">X</span><span class="main">)</span>"</span></span>
   <span class="keyword1"><span class="command">unfolding</span></span> basis_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
 <span class="keyword1"><span class="command">lemmas</span></span> basisD <span class="main">=</span> basis_indep basis_max_indep
 <span class="keyword1"><span class="command">lemmas</span></span> basis_subset_carrier <span class="main">=</span> indep_subset_carrier<span class="main">[</span><span class="operator">OF</span> basis_indep<span class="main">]</span>
 <span class="keyword1"><span class="command">lemmas</span></span> basis_finite <span class="main">[</span><span class="operator">simp</span><span class="main">]</span> <span class="main">=</span> indep_finite<span class="main">[</span><span class="operator">OF</span> basis_indep<span class="main">]</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> indep_not_basis<span class="main">:</span>
+<span class="keyword1" id="Indep_System-indep_not_basis"><span class="command">lemma</span></span> indep_not_basis<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">indep</span> <span class="free">X</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="main">¬</span> basis <span class="free">X</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">∃</span><span class="bound">x</span> <span class="main">∈</span> <span class="free">carrier</span> <span class="main">-</span> <span class="free">X</span><span class="main">.</span> <span class="free">indep</span> <span class="main">(</span>insert <span class="bound">x</span> <span class="free">X</span><span class="main">)</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> assms basisI <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> basis_subset_eq<span class="main">:</span>
+<span class="keyword1" id="Indep_System-basis_subset_eq"><span class="command">lemma</span></span> basis_subset_eq<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"basis <span class="free">B<span class="hidden">⇩</span><sub>1</sub></span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"basis <span class="free">B<span class="hidden">⇩</span><sub>2</sub></span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">B<span class="hidden">⇩</span><sub>1</sub></span> <span class="main">⊆</span> <span class="free">B<span class="hidden">⇩</span><sub>2</sub></span>"</span></span>
@@ -181,7 +181,7 @@ Independence systems
 <span class="keyword1"><span class="command">definition</span></span> <span class="entity">basis_in</span> <span class="keyword2"><span class="keyword">where</span></span>
   <span class="quoted"><span class="quoted">"<span class="free">basis_in</span> <span class="free"><span class="bound"><span class="entity">ℰ</span></span></span> <span class="free"><span class="bound"><span class="entity">X</span></span></span> <span class="main">⟷</span> indep_system.basis <span class="free"><span class="bound"><span class="entity">ℰ</span></span></span> <span class="main">(</span>indep_in <span class="free"><span class="bound"><span class="entity">ℰ</span></span></span><span class="main">)</span> <span class="free"><span class="bound"><span class="entity">X</span></span></span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> basis_iff_basis_in<span class="main">:</span> <span class="quoted"><span class="quoted">"basis <span class="free">B</span> <span class="main">⟷</span> basis_in <span class="free">carrier</span> <span class="free">B</span>"</span></span>
+<span class="keyword1" id="Indep_System-basis_iff_basis_in"><span class="command">lemma</span></span> basis_iff_basis_in<span class="main">:</span> <span class="quoted"><span class="quoted">"basis <span class="free">B</span> <span class="main">⟷</span> basis_in <span class="free">carrier</span> <span class="free">B</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
   <span class="keyword1"><span class="command">interpret</span></span> ℰ<span class="main">:</span> indep_system <span class="quoted"><span class="free">carrier</span></span> <span class="quoted"><span class="quoted">"indep_in <span class="free">carrier</span>"</span></span>
     <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
@@ -221,13 +221,13 @@ Independence systems
 <span class="keyword1"><span class="command">interpretation</span></span> ℰ<span class="main">:</span> indep_system <span class="quoted"><span class="free">ℰ</span></span> <span class="quoted"><span class="quoted">"indep_in <span class="free">ℰ</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> <span class="quoted"><span class="quoted">‹<span class="free">ℰ</span> <span class="main">⊆</span> <span class="free">carrier</span>›</span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> basis_inI_aux<span class="main">:</span> <span class="quoted"><span class="quoted">"ℰ.basis <span class="free">X</span> <span class="main">⟹</span> basis_in <span class="free">ℰ</span> <span class="free">X</span>"</span></span>
+<span class="keyword1" id="Indep_System-basis_inI_aux"><span class="command">lemma</span></span> basis_inI_aux<span class="main">:</span> <span class="quoted"><span class="quoted">"ℰ.basis <span class="free">X</span> <span class="main">⟹</span> basis_in <span class="free">ℰ</span> <span class="free">X</span>"</span></span>
   <span class="keyword1"><span class="command">unfolding</span></span> basis_in_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> basis_inD_aux<span class="main">:</span> <span class="quoted"><span class="quoted">"basis_in <span class="free">ℰ</span> <span class="free">X</span> <span class="main">⟹</span> ℰ.basis <span class="free">X</span>"</span></span>
+<span class="keyword1" id="Indep_System-basis_inD_aux"><span class="command">lemma</span></span> basis_inD_aux<span class="main">:</span> <span class="quoted"><span class="quoted">"basis_in <span class="free">ℰ</span> <span class="free">X</span> <span class="main">⟹</span> ℰ.basis <span class="free">X</span>"</span></span>
   <span class="keyword1"><span class="command">unfolding</span></span> basis_in_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> not_basis_inD_aux<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">¬</span> basis_in <span class="free">ℰ</span> <span class="free">X</span> <span class="main">⟹</span> <span class="main">¬</span> ℰ.basis <span class="free">X</span>"</span></span>
+<span class="keyword1" id="Indep_System-not_basis_inD_aux"><span class="command">lemma</span></span> not_basis_inD_aux<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">¬</span> basis_in <span class="free">ℰ</span> <span class="free">X</span> <span class="main">⟹</span> <span class="main">¬</span> ℰ.basis <span class="free">X</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> basis_inI_aux <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
 <span class="keyword1"><span class="command">lemmas</span></span> basis_inI <span class="main">=</span> basis_inI_aux<span class="main">[</span><span class="operator">OF</span> ℰ.basisI<span class="main">]</span>
@@ -249,7 +249,7 @@ Independence systems
 <span class="keyword1"><span class="command">interpretation</span></span> ℰ<span class="main">:</span> indep_system <span class="quoted"><span class="free">ℰ</span></span> <span class="quoted"><span class="quoted">"indep_in <span class="free">ℰ</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> * <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> basis_in_sub_cong<span class="main">:</span>
+<span class="keyword1" id="Indep_System-basis_in_sub_cong"><span class="command">lemma</span></span> basis_in_sub_cong<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">ℰ'</span> <span class="main">⊆</span> <span class="free">ℰ</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"ℰ.basis_in <span class="free">ℰ'</span> <span class="free">B</span> <span class="main">⟷</span> basis_in <span class="free">ℰ'</span> <span class="free">B</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">safe</span><span class="main"><span class="keyword3">,</span></span> <span class="operator">goal_cases</span> LTR RTL<span class="main">)</span>
@@ -293,36 +293,36 @@ Independence systems
 
 <span class="keyword1"><span class="command">definition</span></span> <span class="entity">circuit</span> <span class="keyword2"><span class="keyword">where</span></span> <span class="quoted"><span class="quoted">"<span class="free">circuit</span> <span class="free"><span class="bound"><span class="entity">X</span></span></span> <span class="main">⟷</span> <span class="free"><span class="bound"><span class="entity">X</span></span></span> <span class="main">⊆</span> <span class="free">carrier</span> <span class="main">∧</span> <span class="main">¬</span> <span class="free">indep</span> <span class="free"><span class="bound"><span class="entity">X</span></span></span> <span class="main">∧</span> <span class="main">(</span><span class="main">∀</span><span class="bound">x</span> <span class="main">∈</span> <span class="free"><span class="bound"><span class="entity">X</span></span></span><span class="main">.</span> <span class="free">indep</span> <span class="main">(</span><span class="free"><span class="bound"><span class="entity">X</span></span></span> <span class="main">-</span> <span class="main">{</span><span class="bound">x</span><span class="main">}</span><span class="main">)</span><span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> circuitI<span class="main">:</span>
+<span class="keyword1" id="Indep_System-circuitI"><span class="command">lemma</span></span> circuitI<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">X</span> <span class="main">⊆</span> <span class="free">carrier</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="main">¬</span> <span class="free">indep</span> <span class="free">X</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="main">⋀</span><span class="bound">x</span><span class="main">.</span> <span class="bound">x</span> <span class="main">∈</span> <span class="free">X</span> <span class="main">⟹</span> <span class="free">indep</span> <span class="main">(</span><span class="free">X</span> <span class="main">-</span> <span class="main">{</span><span class="bound">x</span><span class="main">}</span><span class="main">)</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"circuit <span class="free">X</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> assms <span class="keyword1"><span class="command">unfolding</span></span> circuit_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> circuit_subset_carrier<span class="main">:</span> <span class="quoted"><span class="quoted">"circuit <span class="free">X</span> <span class="main">⟹</span> <span class="free">X</span> <span class="main">⊆</span> <span class="free">carrier</span>"</span></span>
+<span class="keyword1" id="Indep_System-circuit_subset_carrier"><span class="command">lemma</span></span> circuit_subset_carrier<span class="main">:</span> <span class="quoted"><span class="quoted">"circuit <span class="free">X</span> <span class="main">⟹</span> <span class="free">X</span> <span class="main">⊆</span> <span class="free">carrier</span>"</span></span>
   <span class="keyword1"><span class="command">unfolding</span></span> circuit_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">lemmas</span></span> circuit_finite <span class="main">[</span><span class="operator">simp</span><span class="main">]</span> <span class="main">=</span> finite_subset<span class="main">[</span><span class="operator">OF</span> circuit_subset_carrier carrier_finite<span class="main">]</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> circuit_dep<span class="main">:</span> <span class="quoted"><span class="quoted">"circuit <span class="free">X</span> <span class="main">⟹</span> <span class="main">¬</span> <span class="free">indep</span> <span class="free">X</span>"</span></span>
+<span class="keyword1" id="Indep_System-circuit_dep"><span class="command">lemma</span></span> circuit_dep<span class="main">:</span> <span class="quoted"><span class="quoted">"circuit <span class="free">X</span> <span class="main">⟹</span> <span class="main">¬</span> <span class="free">indep</span> <span class="free">X</span>"</span></span>
   <span class="keyword1"><span class="command">unfolding</span></span> circuit_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> circuit_min_dep<span class="main">:</span> <span class="quoted"><span class="quoted">"circuit <span class="free">X</span> <span class="main">⟹</span> <span class="free">x</span> <span class="main">∈</span> <span class="free">X</span> <span class="main">⟹</span> <span class="free">indep</span> <span class="main">(</span><span class="free">X</span> <span class="main">-</span> <span class="main">{</span><span class="free">x</span><span class="main">}</span><span class="main">)</span>"</span></span>
+<span class="keyword1" id="Indep_System-circuit_min_dep"><span class="command">lemma</span></span> circuit_min_dep<span class="main">:</span> <span class="quoted"><span class="quoted">"circuit <span class="free">X</span> <span class="main">⟹</span> <span class="free">x</span> <span class="main">∈</span> <span class="free">X</span> <span class="main">⟹</span> <span class="free">indep</span> <span class="main">(</span><span class="free">X</span> <span class="main">-</span> <span class="main">{</span><span class="free">x</span><span class="main">}</span><span class="main">)</span>"</span></span>
   <span class="keyword1"><span class="command">unfolding</span></span> circuit_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
 <span class="keyword1"><span class="command">lemmas</span></span> circuitD <span class="main">=</span> circuit_subset_carrier circuit_dep circuit_min_dep
 
-<span class="keyword1"><span class="command">lemma</span></span> circuit_nonempty<span class="main">:</span> <span class="quoted"><span class="quoted">"circuit <span class="free">X</span> <span class="main">⟹</span> <span class="free">X</span> <span class="main">≠</span> <span class="main">{}</span>"</span></span>
+<span class="keyword1" id="Indep_System-circuit_nonempty"><span class="command">lemma</span></span> circuit_nonempty<span class="main">:</span> <span class="quoted"><span class="quoted">"circuit <span class="free">X</span> <span class="main">⟹</span> <span class="free">X</span> <span class="main">≠</span> <span class="main">{}</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> circuit_dep indep_empty <span class="keyword1"><span class="command">by</span></span> <span class="operator">blast</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> dep_not_circuit<span class="main">:</span>
+<span class="keyword1" id="Indep_System-dep_not_circuit"><span class="command">lemma</span></span> dep_not_circuit<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">X</span> <span class="main">⊆</span> <span class="free">carrier</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="main">¬</span> <span class="free">indep</span> <span class="free">X</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="main">¬</span> circuit <span class="free">X</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">∃</span><span class="bound">x</span> <span class="main">∈</span> <span class="free">X</span><span class="main">.</span> <span class="main">¬</span> <span class="free">indep</span> <span class="main">(</span><span class="free">X</span> <span class="main">-</span> <span class="main">{</span><span class="bound">x</span><span class="main">}</span><span class="main">)</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> assms circuitI <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> circuit_subset_eq<span class="main">:</span>
+<span class="keyword1" id="Indep_System-circuit_subset_eq"><span class="command">lemma</span></span> circuit_subset_eq<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"circuit <span class="free">C<span class="hidden">⇩</span><sub>1</sub></span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"circuit <span class="free">C<span class="hidden">⇩</span><sub>2</sub></span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">C<span class="hidden">⇩</span><sub>1</sub></span> <span class="main">⊆</span> <span class="free">C<span class="hidden">⇩</span><sub>2</sub></span>"</span></span>
@@ -345,13 +345,13 @@ Independence systems
 <span class="keyword1"><span class="command">interpretation</span></span> ℰ<span class="main">:</span> indep_system <span class="quoted"><span class="free">ℰ</span></span> <span class="quoted"><span class="quoted">"indep_in <span class="free">ℰ</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> <span class="quoted"><span class="quoted">‹<span class="free">ℰ</span> <span class="main">⊆</span> <span class="free">carrier</span>›</span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> circuit_inI_aux<span class="main">:</span> <span class="quoted"><span class="quoted">"ℰ.circuit <span class="free">X</span> <span class="main">⟹</span> circuit_in <span class="free">ℰ</span> <span class="free">X</span>"</span></span>
+<span class="keyword1" id="Indep_System-circuit_inI_aux"><span class="command">lemma</span></span> circuit_inI_aux<span class="main">:</span> <span class="quoted"><span class="quoted">"ℰ.circuit <span class="free">X</span> <span class="main">⟹</span> circuit_in <span class="free">ℰ</span> <span class="free">X</span>"</span></span>
   <span class="keyword1"><span class="command">unfolding</span></span> circuit_in_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> circuit_inD_aux<span class="main">:</span> <span class="quoted"><span class="quoted">"circuit_in <span class="free">ℰ</span> <span class="free">X</span> <span class="main">⟹</span> ℰ.circuit <span class="free">X</span>"</span></span>
+<span class="keyword1" id="Indep_System-circuit_inD_aux"><span class="command">lemma</span></span> circuit_inD_aux<span class="main">:</span> <span class="quoted"><span class="quoted">"circuit_in <span class="free">ℰ</span> <span class="free">X</span> <span class="main">⟹</span> ℰ.circuit <span class="free">X</span>"</span></span>
   <span class="keyword1"><span class="command">unfolding</span></span> circuit_in_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> not_circuit_inD_aux<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">¬</span> circuit_in <span class="free">ℰ</span> <span class="free">X</span> <span class="main">⟹</span> <span class="main">¬</span> ℰ.circuit <span class="free">X</span>"</span></span>
+<span class="keyword1" id="Indep_System-not_circuit_inD_aux"><span class="command">lemma</span></span> not_circuit_inD_aux<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">¬</span> circuit_in <span class="free">ℰ</span> <span class="free">X</span> <span class="main">⟹</span> <span class="main">¬</span> ℰ.circuit <span class="free">X</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> circuit_inI_aux <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
 <span class="keyword1"><span class="command">lemmas</span></span> circuit_inI <span class="main">=</span> circuit_inI_aux<span class="main">[</span><span class="operator">OF</span> ℰ.circuitI<span class="main">]</span>
@@ -367,7 +367,7 @@ Independence systems
 
 <span class="keyword2"><span class="keyword">end</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> circuit_in_subI<span class="main">:</span>
+<span class="keyword1" id="Indep_System-circuit_in_subI"><span class="command">lemma</span></span> circuit_in_subI<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">ℰ'</span> <span class="main">⊆</span> <span class="free">ℰ</span>"</span></span> <span class="quoted"><span class="quoted">"<span class="free">ℰ</span> <span class="main">⊆</span> <span class="free">carrier</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"circuit_in <span class="free">ℰ'</span> <span class="free">C</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"circuit_in <span class="free">ℰ</span> <span class="free">C</span>"</span></span>
@@ -388,7 +388,7 @@ Independence systems
     <span class="keyword1"><span class="command">using</span></span> assms circuit_in_min_dep_in indep_in_subI_subset <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> circuit_in_supI<span class="main">:</span>
+<span class="keyword1" id="Indep_System-circuit_in_supI"><span class="command">lemma</span></span> circuit_in_supI<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">ℰ'</span> <span class="main">⊆</span> <span class="free">ℰ</span>"</span></span> <span class="quoted"><span class="quoted">"<span class="free">ℰ</span> <span class="main">⊆</span> <span class="free">carrier</span>"</span></span> <span class="quoted"><span class="quoted">"<span class="free">C</span> <span class="main">⊆</span> <span class="free">ℰ'</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"circuit_in <span class="free">ℰ</span> <span class="free">C</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"circuit_in <span class="free">ℰ'</span> <span class="free">C</span>"</span></span>
@@ -416,7 +416,7 @@ Independence systems
 <span class="keyword1"><span class="command">interpretation</span></span> ℰ<span class="main">:</span> indep_system <span class="quoted"><span class="free">ℰ</span></span> <span class="quoted"><span class="quoted">"indep_in <span class="free">ℰ</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> * <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> circuit_in_sub_cong<span class="main">:</span>
+<span class="keyword1" id="Indep_System-circuit_in_sub_cong"><span class="command">lemma</span></span> circuit_in_sub_cong<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">ℰ'</span> <span class="main">⊆</span> <span class="free">ℰ</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"ℰ.circuit_in <span class="free">ℰ'</span> <span class="free">C</span> <span class="main">⟷</span> circuit_in <span class="free">ℰ'</span> <span class="free">C</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">safe</span><span class="main"><span class="keyword3">,</span></span> <span class="operator">goal_cases</span> LTR RTL<span class="main">)</span>
@@ -457,7 +457,7 @@ Independence systems
 
 <span class="keyword2"><span class="keyword">end</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> circuit_imp_circuit_in<span class="main">:</span>
+<span class="keyword1" id="Indep_System-circuit_imp_circuit_in"><span class="command">lemma</span></span> circuit_imp_circuit_in<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"circuit <span class="free">C</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"circuit_in <span class="free">carrier</span> <span class="free">C</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">rule</span> circuit_inI<span class="main">)</span>
@@ -477,7 +477,7 @@ Independence systems
   A set is independent iff it is a subset of a basis.
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> indep_imp_subset_basis<span class="main">:</span>
+<span class="keyword1" id="Indep_System-indep_imp_subset_basis"><span class="command">lemma</span></span> indep_imp_subset_basis<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">indep</span> <span class="free">X</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">∃</span><span class="bound">B</span><span class="main">.</span> basis <span class="bound">B</span> <span class="main">∧</span> <span class="free">X</span> <span class="main">⊆</span> <span class="bound">B</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> assms
@@ -497,10 +497,10 @@ Independence systems
 
 <span class="keyword1"><span class="command">lemmas</span></span> subset_basis_imp_indep <span class="main">=</span> indep_subset<span class="main">[</span><span class="operator">OF</span> basis_indep<span class="main">]</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> indep_iff_subset_basis<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">indep</span> <span class="free">X</span> <span class="main">⟷</span> <span class="main">(</span><span class="main">∃</span><span class="bound">B</span><span class="main">.</span> basis <span class="bound">B</span> <span class="main">∧</span> <span class="free">X</span> <span class="main">⊆</span> <span class="bound">B</span><span class="main">)</span>"</span></span>
+<span class="keyword1" id="Indep_System-indep_iff_subset_basis"><span class="command">lemma</span></span> indep_iff_subset_basis<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">indep</span> <span class="free">X</span> <span class="main">⟷</span> <span class="main">(</span><span class="main">∃</span><span class="bound">B</span><span class="main">.</span> basis <span class="bound">B</span> <span class="main">∧</span> <span class="free">X</span> <span class="main">⊆</span> <span class="bound">B</span><span class="main">)</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> indep_imp_subset_basis subset_basis_imp_indep <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> basis_ex<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">∃</span><span class="bound">B</span><span class="main">.</span> basis <span class="bound">B</span>"</span></span>
+<span class="keyword1" id="Indep_System-basis_ex"><span class="command">lemma</span></span> basis_ex<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">∃</span><span class="bound">B</span><span class="main">.</span> basis <span class="bound">B</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> indep_imp_subset_basis<span class="main">[</span><span class="operator">OF</span> indep_empty<span class="main">]</span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
 <span class="keyword1"><span class="command">context</span></span>
@@ -511,20 +511,20 @@ Independence systems
 <span class="keyword1"><span class="command">interpretation</span></span> ℰ<span class="main">:</span> indep_system <span class="quoted"><span class="free">ℰ</span></span> <span class="quoted"><span class="quoted">"indep_in <span class="free">ℰ</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> * <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> indep_in_imp_subset_basis_in<span class="main">:</span>
+<span class="keyword1" id="Indep_System-indep_in_imp_subset_basis_in"><span class="command">lemma</span></span> indep_in_imp_subset_basis_in<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"indep_in <span class="free">ℰ</span> <span class="free">X</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">∃</span><span class="bound">B</span><span class="main">.</span> basis_in <span class="free">ℰ</span> <span class="bound">B</span> <span class="main">∧</span> <span class="free">X</span> <span class="main">⊆</span> <span class="bound">B</span>"</span></span>
   <span class="keyword1"><span class="command">unfolding</span></span> basis_in_def <span class="keyword1"><span class="command">using</span></span> ℰ.indep_imp_subset_basis<span class="main">[</span><span class="operator">OF</span> assms<span class="main">]</span> <span class="keyword1"><span class="command">.</span></span>
 
 <span class="keyword1"><span class="command">lemmas</span></span> subset_basis_in_imp_indep_in <span class="main">=</span> indep_in_subset<span class="main">[</span><span class="operator">OF</span> * basis_in_indep_in<span class="main"><span class="main">[</span></span><span class="operator">OF</span> *<span class="main"><span class="main">]</span></span><span class="main">]</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> indep_in_iff_subset_basis_in<span class="main">:</span> <span class="quoted"><span class="quoted">"indep_in <span class="free">ℰ</span> <span class="free">X</span> <span class="main">⟷</span> <span class="main">(</span><span class="main">∃</span><span class="bound">B</span><span class="main">.</span> basis_in <span class="free">ℰ</span> <span class="bound">B</span> <span class="main">∧</span> <span class="free">X</span> <span class="main">⊆</span> <span class="bound">B</span><span class="main">)</span>"</span></span>
+<span class="keyword1" id="Indep_System-indep_in_iff_subset_basis_in"><span class="command">lemma</span></span> indep_in_iff_subset_basis_in<span class="main">:</span> <span class="quoted"><span class="quoted">"indep_in <span class="free">ℰ</span> <span class="free">X</span> <span class="main">⟷</span> <span class="main">(</span><span class="main">∃</span><span class="bound">B</span><span class="main">.</span> basis_in <span class="free">ℰ</span> <span class="bound">B</span> <span class="main">∧</span> <span class="free">X</span> <span class="main">⊆</span> <span class="bound">B</span><span class="main">)</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> indep_in_imp_subset_basis_in subset_basis_in_imp_indep_in <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> basis_in_ex<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">∃</span><span class="bound">B</span><span class="main">.</span> basis_in <span class="free">ℰ</span> <span class="bound">B</span>"</span></span>
+<span class="keyword1" id="Indep_System-basis_in_ex"><span class="command">lemma</span></span> basis_in_ex<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">∃</span><span class="bound">B</span><span class="main">.</span> basis_in <span class="free">ℰ</span> <span class="bound">B</span>"</span></span>
   <span class="keyword1"><span class="command">unfolding</span></span> basis_in_def <span class="keyword1"><span class="command">using</span></span> ℰ.basis_ex <span class="keyword1"><span class="command">.</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> basis_in_subI<span class="main">:</span>
+<span class="keyword1" id="Indep_System-basis_in_subI"><span class="command">lemma</span></span> basis_in_subI<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">ℰ'</span> <span class="main">⊆</span> <span class="free">ℰ</span>"</span></span> <span class="quoted"><span class="quoted">"<span class="free">ℰ</span> <span class="main">⊆</span> <span class="free">carrier</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"basis_in <span class="free">ℰ'</span> <span class="free">B</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">∃</span><span class="bound"><span class="bound">B'</span></span> <span class="main">⊆</span> <span class="free">ℰ</span> <span class="main">-</span> <span class="free">ℰ'</span><span class="main">.</span> basis_in <span class="free">ℰ</span> <span class="main">(</span><span class="free">B</span> <span class="main">∪</span> <span class="bound">B'</span><span class="main">)</span>"</span></span>
@@ -556,7 +556,7 @@ Independence systems
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> basis_in_supI<span class="main">:</span>
+<span class="keyword1" id="Indep_System-basis_in_supI"><span class="command">lemma</span></span> basis_in_supI<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">B</span> <span class="main">⊆</span> <span class="free">ℰ'</span>"</span></span> <span class="quoted"><span class="quoted">"<span class="free">ℰ'</span> <span class="main">⊆</span> <span class="free">ℰ</span>"</span></span> <span class="quoted"><span class="quoted">"<span class="free">ℰ</span> <span class="main">⊆</span> <span class="free">carrier</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"basis_in <span class="free">ℰ</span> <span class="free">B</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"basis_in <span class="free">ℰ'</span> <span class="free">B</span>"</span></span>
@@ -583,7 +583,7 @@ Independence systems
   A set is dependent iff it contains a circuit.
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> dep_imp_supset_circuit<span class="main">:</span>
+<span class="keyword1" id="Indep_System-dep_imp_supset_circuit"><span class="command">lemma</span></span> dep_imp_supset_circuit<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">X</span> <span class="main">⊆</span> <span class="free">carrier</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="main">¬</span> <span class="free">indep</span> <span class="free">X</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">∃</span><span class="bound">C</span><span class="main">.</span> circuit <span class="bound">C</span> <span class="main">∧</span> <span class="bound">C</span> <span class="main">⊆</span> <span class="free">X</span>"</span></span>
@@ -601,12 +601,12 @@ Independence systems
   <span class="keyword1"><span class="command">then</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?case</span></span></span> <span class="keyword1"><span class="command">using</span></span> remove.prems <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> carrier_finite finite_subset<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> supset_circuit_imp_dep<span class="main">:</span>
+<span class="keyword1" id="Indep_System-supset_circuit_imp_dep"><span class="command">lemma</span></span> supset_circuit_imp_dep<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"circuit <span class="free">C</span> <span class="main">∧</span> <span class="free">C</span> <span class="main">⊆</span> <span class="free">X</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">¬</span> <span class="free">indep</span> <span class="free">X</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> assms indep_subset circuit_dep <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> dep_iff_supset_circuit<span class="main">:</span>
+<span class="keyword1" id="Indep_System-dep_iff_supset_circuit"><span class="command">lemma</span></span> dep_iff_supset_circuit<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">X</span> <span class="main">⊆</span> <span class="free">carrier</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">¬</span> <span class="free">indep</span> <span class="free">X</span> <span class="main">⟷</span> <span class="main">(</span><span class="main">∃</span><span class="bound">C</span><span class="main">.</span> circuit <span class="bound">C</span> <span class="main">∧</span> <span class="bound">C</span> <span class="main">⊆</span> <span class="free">X</span><span class="main">)</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> assms dep_imp_supset_circuit supset_circuit_imp_dep <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
@@ -619,18 +619,18 @@ Independence systems
 <span class="keyword1"><span class="command">interpretation</span></span> ℰ<span class="main">:</span> indep_system <span class="quoted"><span class="free">ℰ</span></span> <span class="quoted"><span class="quoted">"indep_in <span class="free">ℰ</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> <span class="quoted"><span class="quoted">‹<span class="free">ℰ</span> <span class="main">⊆</span> <span class="free">carrier</span>›</span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> dep_in_imp_supset_circuit_in<span class="main">:</span>
+<span class="keyword1" id="Indep_System-dep_in_imp_supset_circuit_in"><span class="command">lemma</span></span> dep_in_imp_supset_circuit_in<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">X</span> <span class="main">⊆</span> <span class="free">ℰ</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="main">¬</span> indep_in <span class="free">ℰ</span> <span class="free">X</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">∃</span><span class="bound">C</span><span class="main">.</span> circuit_in <span class="free">ℰ</span> <span class="bound">C</span> <span class="main">∧</span> <span class="bound">C</span> <span class="main">⊆</span> <span class="free">X</span>"</span></span>
   <span class="keyword1"><span class="command">unfolding</span></span> circuit_in_def <span class="keyword1"><span class="command">using</span></span> ℰ.dep_imp_supset_circuit<span class="main">[</span><span class="operator">OF</span> assms<span class="main">]</span> <span class="keyword1"><span class="command">.</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> supset_circuit_in_imp_dep_in<span class="main">:</span>
+<span class="keyword1" id="Indep_System-supset_circuit_in_imp_dep_in"><span class="command">lemma</span></span> supset_circuit_in_imp_dep_in<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"circuit_in <span class="free">ℰ</span> <span class="free">C</span> <span class="main">∧</span> <span class="free">C</span> <span class="main">⊆</span> <span class="free">X</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">¬</span> indep_in <span class="free">ℰ</span> <span class="free">X</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> assms ℰ.supset_circuit_imp_dep <span class="keyword1"><span class="command">unfolding</span></span> circuit_in_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> dep_in_iff_supset_circuit_in<span class="main">:</span>
+<span class="keyword1" id="Indep_System-dep_in_iff_supset_circuit_in"><span class="command">lemma</span></span> dep_in_iff_supset_circuit_in<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">X</span> <span class="main">⊆</span> <span class="free">ℰ</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">¬</span> indep_in <span class="free">ℰ</span> <span class="free">X</span> <span class="main">⟷</span> <span class="main">(</span><span class="main">∃</span><span class="bound">C</span><span class="main">.</span> circuit_in <span class="free">ℰ</span> <span class="bound">C</span> <span class="main">∧</span> <span class="bound">C</span> <span class="main">⊆</span> <span class="free">X</span><span class="main">)</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> assms dep_in_imp_supset_circuit_in supset_circuit_in_imp_dep_in <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
@@ -645,7 +645,7 @@ Independence systems
 <span class="keyword1"><span class="command">definition</span></span> <span class="entity">upper_rank_of</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="tfree">'a</span> set <span class="main">⇒</span> nat"</span></span> <span class="keyword2"><span class="keyword">where</span></span>
   <span class="quoted"><span class="quoted">"<span class="free">upper_rank_of</span> <span class="free"><span class="bound"><span class="entity">carrier'</span></span></span> <span class="main">≡</span> Max <span class="main">{</span>card <span class="bound">B</span> <span class="main">|</span> <span class="bound">B</span><span class="main">.</span> basis_in <span class="free"><span class="bound"><span class="entity">carrier'</span></span></span> <span class="bound">B</span><span class="main">}</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> collect_basis_finite<span class="main">:</span> <span class="quoted"><span class="quoted">"finite <span class="main">(</span>Collect basis<span class="main">)</span>"</span></span>
+<span class="keyword1" id="Indep_System-collect_basis_finite"><span class="command">lemma</span></span> collect_basis_finite<span class="main">:</span> <span class="quoted"><span class="quoted">"finite <span class="main">(</span>Collect basis<span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
   <span class="keyword1"><span class="command">have</span></span> <span class="quoted"><span class="quoted">"Collect basis <span class="main">⊆</span> <span class="main">{</span><span class="bound">X</span><span class="main">.</span> <span class="bound">X</span> <span class="main">⊆</span> <span class="free">carrier</span><span class="main">}</span>"</span></span>
     <span class="keyword1"><span class="command">using</span></span> basis_subset_carrier <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
@@ -662,10 +662,10 @@ Independence systems
 <span class="keyword1"><span class="command">interpretation</span></span> ℰ<span class="main">:</span> indep_system <span class="quoted"><span class="free">ℰ</span></span> <span class="quoted"><span class="quoted">"indep_in <span class="free">ℰ</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> * <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> collect_basis_in_finite<span class="main">:</span> <span class="quoted"><span class="quoted">"finite <span class="main">(</span>Collect <span class="main">(</span>basis_in <span class="free">ℰ</span><span class="main">)</span><span class="main">)</span>"</span></span>
+<span class="keyword1" id="Indep_System-collect_basis_in_finite"><span class="command">lemma</span></span> collect_basis_in_finite<span class="main">:</span> <span class="quoted"><span class="quoted">"finite <span class="main">(</span>Collect <span class="main">(</span>basis_in <span class="free">ℰ</span><span class="main">)</span><span class="main">)</span>"</span></span>
   <span class="keyword1"><span class="command">unfolding</span></span> basis_in_def <span class="keyword1"><span class="command">using</span></span> ℰ.collect_basis_finite <span class="keyword1"><span class="command">.</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> lower_rank_of_le<span class="main">:</span> <span class="quoted"><span class="quoted">"lower_rank_of <span class="free">ℰ</span> <span class="main">≤</span> card <span class="free">ℰ</span>"</span></span>
+<span class="keyword1" id="Indep_System-lower_rank_of_le"><span class="command">lemma</span></span> lower_rank_of_le<span class="main">:</span> <span class="quoted"><span class="quoted">"lower_rank_of <span class="free">ℰ</span> <span class="main">≤</span> card <span class="free">ℰ</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
   <span class="keyword1"><span class="command">have</span></span> <span class="quoted"><span class="quoted">"<span class="main">∃</span><span class="bound">n</span> <span class="main">∈</span> <span class="main">{</span>card <span class="bound">B</span> <span class="main">|</span> <span class="bound">B</span><span class="main">.</span> basis_in <span class="free">ℰ</span> <span class="bound">B</span><span class="main">}</span><span class="main">.</span> <span class="bound">n</span> <span class="main">≤</span> card <span class="free">ℰ</span>"</span></span>
     <span class="keyword1"><span class="command">using</span></span> card_mono<span class="main">[</span><span class="operator">OF</span> ℰ.carrier_finite basis_in_subset_carrier<span class="main"><span class="main">[</span></span><span class="operator">OF</span> *<span class="main"><span class="main">]</span></span><span class="main">]</span> basis_in_ex<span class="main">[</span><span class="operator">OF</span> *<span class="main">]</span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
@@ -675,7 +675,7 @@ Independence systems
     <span class="keyword1"><span class="command">unfolding</span></span> lower_rank_of_def <span class="keyword1"><span class="command">using</span></span> basis_ex Min_le_iff <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> upper_rank_of_le<span class="main">:</span> <span class="quoted"><span class="quoted">"upper_rank_of <span class="free">ℰ</span> <span class="main">≤</span> card <span class="free">ℰ</span>"</span></span>
+<span class="keyword1" id="Indep_System-upper_rank_of_le"><span class="command">lemma</span></span> upper_rank_of_le<span class="main">:</span> <span class="quoted"><span class="quoted">"upper_rank_of <span class="free">ℰ</span> <span class="main">≤</span> card <span class="free">ℰ</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
   <span class="keyword1"><span class="command">have</span></span> <span class="quoted"><span class="quoted">"<span class="main">∀</span><span class="bound">n</span> <span class="main">∈</span> <span class="main">{</span>card <span class="bound">B</span> <span class="main">|</span> <span class="bound">B</span><span class="main">.</span> basis_in <span class="free">ℰ</span> <span class="bound">B</span><span class="main">}</span><span class="main">.</span> <span class="bound">n</span> <span class="main">≤</span> card <span class="free">ℰ</span>"</span></span>
     <span class="keyword1"><span class="command">using</span></span> card_mono<span class="main">[</span><span class="operator">OF</span> ℰ.carrier_finite basis_in_subset_carrier<span class="main"><span class="main">[</span></span><span class="operator">OF</span> *<span class="main"><span class="main">]</span></span><span class="main">]</span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
@@ -693,7 +693,7 @@ Independence systems
 <span class="keyword1"><span class="command">interpretation</span></span> ℰ'<span class="hidden">⇩</span><sub>2</sub><span class="main">:</span> indep_system <span class="quoted"><span class="free">ℰ'</span></span> <span class="quoted"><span class="quoted">"ℰ.indep_in <span class="free">ℰ'</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> * ** <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> lower_rank_of_sub_cong<span class="main">:</span>
+<span class="keyword1" id="Indep_System-lower_rank_of_sub_cong"><span class="command">lemma</span></span> lower_rank_of_sub_cong<span class="main">:</span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"ℰ.lower_rank_of <span class="free">ℰ'</span> <span class="main">=</span> lower_rank_of <span class="free">ℰ'</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
   <span class="keyword1"><span class="command">have</span></span> <span class="quoted"><span class="quoted">"<span class="main">⋀</span><span class="bound">B</span><span class="main">.</span> ℰ'<span class="hidden">⇩</span><sub>1</sub>.basis <span class="bound">B</span> <span class="main">⟷</span> ℰ'<span class="hidden">⇩</span><sub>2</sub>.basis <span class="bound">B</span>"</span></span>
@@ -705,7 +705,7 @@ Independence systems
     <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> upper_rank_of_sub_cong<span class="main">:</span>
+<span class="keyword1" id="Indep_System-upper_rank_of_sub_cong"><span class="command">lemma</span></span> upper_rank_of_sub_cong<span class="main">:</span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"ℰ.upper_rank_of <span class="free">ℰ'</span> <span class="main">=</span> upper_rank_of <span class="free">ℰ'</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
   <span class="keyword1"><span class="command">have</span></span> <span class="quoted"><span class="quoted">"<span class="main">⋀</span><span class="bound">B</span><span class="main">.</span> ℰ'<span class="hidden">⇩</span><sub>1</sub>.basis <span class="bound">B</span> <span class="main">⟷</span> ℰ'<span class="hidden">⇩</span><sub>2</sub>.basis <span class="bound">B</span>"</span></span>
@@ -738,7 +738,7 @@ Independence systems
   <span class="keyword2"><span class="keyword">imports</span></span> <a href="Indep_System.html">Indep_System</a>
 <span class="keyword2"><span class="keyword">begin</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> card_subset_ex<span class="main">:</span>
+<span class="keyword1" id="Matroid-card_subset_ex"><span class="command">lemma</span></span> card_subset_ex<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"finite <span class="free">A</span>"</span></span> <span class="quoted"><span class="quoted">"<span class="free">n</span> <span class="main">≤</span> card <span class="free">A</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">∃</span><span class="bound"><span class="bound">B</span></span> <span class="main">⊆</span> <span class="free">A</span><span class="main">.</span> card <span class="bound">B</span> <span class="main">=</span> <span class="free">n</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms
@@ -764,7 +764,7 @@ Independence systems
     <span class="quoted"><span class="quoted">"<span class="free">indep</span> <span class="free">X</span> <span class="main">⟹</span> <span class="free">indep</span> <span class="free">Y</span> <span class="main">⟹</span> card <span class="free">X</span> <span class="main">=</span> Suc <span class="main">(</span>card <span class="free">Y</span><span class="main">)</span> <span class="main">⟹</span> <span class="main">∃</span><span class="bound">x</span> <span class="main">∈</span> <span class="free">X</span> <span class="main">-</span> <span class="free">Y</span><span class="main">.</span> <span class="free">indep</span> <span class="main">(</span>insert <span class="bound">x</span> <span class="free">Y</span><span class="main">)</span>"</span></span>
 <span class="keyword2"><span class="keyword">begin</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> augment<span class="main">:</span>
+<span class="keyword1" id="Matroid-augment"><span class="command">lemma</span></span> augment<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">indep</span> <span class="free">X</span>"</span></span> <span class="quoted"><span class="quoted">"<span class="free">indep</span> <span class="free">Y</span>"</span></span> <span class="quoted"><span class="quoted">"card <span class="free">Y</span> <span class="main">&lt;</span> card <span class="free">X</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">∃</span><span class="bound">x</span> <span class="main">∈</span> <span class="free">X</span> <span class="main">-</span> <span class="free">Y</span><span class="main">.</span> <span class="free">indep</span> <span class="main">(</span>insert <span class="bound">x</span> <span class="free">Y</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
@@ -775,7 +775,7 @@ Independence systems
   <span class="keyword1"><span class="command">then</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span> <span class="keyword1"><span class="command">using</span></span> <span class="quoted"><span class="quoted">‹<span class="skolem">X'</span> <span class="main">⊆</span> <span class="free">X</span>›</span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> augment_psubset<span class="main">:</span>
+<span class="keyword1" id="Matroid-augment_psubset"><span class="command">lemma</span></span> augment_psubset<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">indep</span> <span class="free">X</span>"</span></span> <span class="quoted"><span class="quoted">"<span class="free">indep</span> <span class="free">Y</span>"</span></span> <span class="quoted"><span class="quoted">"<span class="free">Y</span> <span class="main">⊂</span> <span class="free">X</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">∃</span><span class="bound">x</span> <span class="main">∈</span> <span class="free">X</span> <span class="main">-</span> <span class="free">Y</span><span class="main">.</span> <span class="free">indep</span> <span class="main">(</span>insert <span class="bound">x</span> <span class="free">Y</span><span class="main">)</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> assms augment psubset_card_mono indep_finite <span class="keyword1"><span class="command">by</span></span> <span class="operator">blast</span>
@@ -786,7 +786,7 @@ Independence systems
   A subset of the ground set induces a matroid.
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> matroid_subset <span class="main">[</span><span class="operator">simp</span><span class="main">,</span> <span class="operator">intro</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Matroid-matroid_subset"><span class="command">lemma</span></span> matroid_subset <span class="main">[</span><span class="operator">simp</span><span class="main">,</span> <span class="operator">intro</span><span class="main">]</span><span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">ℰ</span> <span class="main">⊆</span> <span class="free">carrier</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"matroid <span class="free">ℰ</span> <span class="main">(</span>indep_in <span class="free">ℰ</span><span class="main">)</span>"</span></span>
   <span class="keyword1"><span class="command">unfolding</span></span> matroid_def matroid_axioms_def
@@ -814,7 +814,7 @@ Independence systems
 
 <span class="keyword1"><span class="command">subsection</span></span> <span class="quoted"><span class="plain_text">‹Bases›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> basis_card<span class="main">:</span>
+<span class="keyword1" id="Matroid-basis_card"><span class="command">lemma</span></span> basis_card<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"basis <span class="free">B<span class="hidden">⇩</span><sub>1</sub></span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"basis <span class="free">B<span class="hidden">⇩</span><sub>2</sub></span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"card <span class="free">B<span class="hidden">⇩</span><sub>1</sub></span> <span class="main">=</span> card <span class="free">B<span class="hidden">⇩</span><sub>2</sub></span>"</span></span>
@@ -834,7 +834,7 @@ Independence systems
   <span class="keyword1"><span class="command">ultimately</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?case</span></span></span> <span class="keyword1"><span class="command">using</span></span> assms <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> basis_indep_card<span class="main">:</span>
+<span class="keyword1" id="Matroid-basis_indep_card"><span class="command">lemma</span></span> basis_indep_card<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">indep</span> <span class="free">X</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"basis <span class="free">B</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"card <span class="free">X</span> <span class="main">≤</span> card <span class="free">B</span>"</span></span>
@@ -843,7 +843,7 @@ Independence systems
   <span class="keyword1"><span class="command">then</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span> <span class="keyword1"><span class="command">using</span></span> assms basis_finite basis_card<span class="main">[</span><span class="operator">of</span> <span class="quoted"><span class="free">B</span></span> <span class="quoted"><span class="skolem">B'</span></span><span class="main">]</span> <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">intro</span><span class="main"><span class="main">:</span></span> card_mono<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> basis_augment<span class="main">:</span>
+<span class="keyword1" id="Matroid-basis_augment"><span class="command">lemma</span></span> basis_augment<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"basis <span class="free">B<span class="hidden">⇩</span><sub>1</sub></span>"</span></span> <span class="quoted"><span class="quoted">"basis <span class="free">B<span class="hidden">⇩</span><sub>2</sub></span>"</span></span> <span class="quoted"><span class="quoted">"<span class="free">x</span> <span class="main">∈</span> <span class="free">B<span class="hidden">⇩</span><sub>1</sub></span> <span class="main">-</span> <span class="free">B<span class="hidden">⇩</span><sub>2</sub></span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">∃</span><span class="bound">y</span> <span class="main">∈</span> <span class="free">B<span class="hidden">⇩</span><sub>2</sub></span> <span class="main">-</span> <span class="free">B<span class="hidden">⇩</span><sub>1</sub></span><span class="main">.</span> basis <span class="main">(</span>insert <span class="bound">y</span> <span class="main">(</span><span class="free">B<span class="hidden">⇩</span><sub>1</sub></span> <span class="main">-</span> <span class="main">{</span><span class="free">x</span><span class="main">}</span><span class="main">)</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
@@ -887,7 +887,7 @@ Independence systems
 <span class="keyword1"><span class="command">lemmas</span></span> basis_in_card <span class="main">=</span> ℰ.basis_card<span class="main">[</span><span class="operator">OF</span> basis_inD_aux<span class="main"><span class="main">[</span></span><span class="operator">OF</span> *<span class="main"><span class="main">]</span></span> basis_inD_aux<span class="main"><span class="main">[</span></span><span class="operator">OF</span> *<span class="main"><span class="main">]</span></span><span class="main">]</span>
 <span class="keyword1"><span class="command">lemmas</span></span> basis_in_indep_in_card <span class="main">=</span> ℰ.basis_indep_card<span class="main">[</span><span class="operator">OF</span> _ basis_inD_aux<span class="main"><span class="main">[</span></span><span class="operator">OF</span> *<span class="main"><span class="main">]</span></span><span class="main">]</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> basis_in_augment<span class="main">:</span>
+<span class="keyword1" id="Matroid-basis_in_augment"><span class="command">lemma</span></span> basis_in_augment<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"basis_in <span class="free">ℰ</span> <span class="free">B<span class="hidden">⇩</span><sub>1</sub></span>"</span></span> <span class="quoted"><span class="quoted">"basis_in <span class="free">ℰ</span> <span class="free">B<span class="hidden">⇩</span><sub>2</sub></span>"</span></span> <span class="quoted"><span class="quoted">"<span class="free">x</span> <span class="main">∈</span> <span class="free">B<span class="hidden">⇩</span><sub>1</sub></span> <span class="main">-</span> <span class="free">B<span class="hidden">⇩</span><sub>2</sub></span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">∃</span><span class="bound">y</span> <span class="main">∈</span> <span class="free">B<span class="hidden">⇩</span><sub>2</sub></span> <span class="main">-</span> <span class="free">B<span class="hidden">⇩</span><sub>1</sub></span><span class="main">.</span> basis_in <span class="free">ℰ</span> <span class="main">(</span>insert <span class="bound">y</span> <span class="main">(</span><span class="free">B<span class="hidden">⇩</span><sub>1</sub></span> <span class="main">-</span> <span class="main">{</span><span class="free">x</span><span class="main">}</span><span class="main">)</span><span class="main">)</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> assms ℰ.basis_augment <span class="keyword1"><span class="command">unfolding</span></span> basis_in_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
@@ -896,7 +896,7 @@ Independence systems
 
 <span class="keyword1"><span class="command">subsection</span></span> <span class="quoted"><span class="plain_text">‹Circuits›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> circuit_elim<span class="main">:</span>
+<span class="keyword1" id="Matroid-circuit_elim"><span class="command">lemma</span></span> circuit_elim<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"circuit <span class="free">C<span class="hidden">⇩</span><sub>1</sub></span>"</span></span> <span class="quoted"><span class="quoted">"circuit <span class="free">C<span class="hidden">⇩</span><sub>2</sub></span>"</span></span> <span class="quoted"><span class="quoted">"<span class="free">C<span class="hidden">⇩</span><sub>1</sub></span> <span class="main">≠</span> <span class="free">C<span class="hidden">⇩</span><sub>2</sub></span>"</span></span> <span class="quoted"><span class="quoted">"<span class="free">x</span> <span class="main">∈</span> <span class="free">C<span class="hidden">⇩</span><sub>1</sub></span> <span class="main">∩</span> <span class="free">C<span class="hidden">⇩</span><sub>2</sub></span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">∃</span><span class="bound"><span class="bound">C<span class="hidden">⇩</span><sub>3</sub></span></span> <span class="main">⊆</span> <span class="main">(</span><span class="free">C<span class="hidden">⇩</span><sub>1</sub></span> <span class="main">∪</span> <span class="free">C<span class="hidden">⇩</span><sub>2</sub></span><span class="main">)</span> <span class="main">-</span> <span class="main">{</span><span class="free">x</span><span class="main">}</span><span class="main">.</span> circuit <span class="bound">C<span class="hidden">⇩</span><sub>3</sub></span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
@@ -984,7 +984,7 @@ Independence systems
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> min_dep_imp_supset_circuit<span class="main">:</span>
+<span class="keyword1" id="Matroid-min_dep_imp_supset_circuit"><span class="command">lemma</span></span> min_dep_imp_supset_circuit<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">indep</span> <span class="free">X</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"circuit <span class="free">C</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">C</span> <span class="main">⊆</span> insert <span class="free">x</span> <span class="free">X</span>"</span></span>
@@ -996,7 +996,7 @@ Independence systems
   <span class="keyword1"><span class="command">then</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="quoted">False</span> <span class="keyword1"><span class="command">using</span></span> assms circuitD <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> min_dep_imp_ex1_supset_circuit<span class="main">:</span>
+<span class="keyword1" id="Matroid-min_dep_imp_ex1_supset_circuit"><span class="command">lemma</span></span> min_dep_imp_ex1_supset_circuit<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">x</span> <span class="main">∈</span> <span class="free">carrier</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">indep</span> <span class="free">X</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="main">¬</span> <span class="free">indep</span> <span class="main">(</span>insert <span class="free">x</span> <span class="free">X</span><span class="main">)</span>"</span></span>
@@ -1027,7 +1027,7 @@ Independence systems
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> basis_ex1_supset_circuit<span class="main">:</span>
+<span class="keyword1" id="Matroid-basis_ex1_supset_circuit"><span class="command">lemma</span></span> basis_ex1_supset_circuit<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"basis <span class="free">B</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">x</span> <span class="main">∈</span> <span class="free">carrier</span> <span class="main">-</span> <span class="free">B</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">∃!</span><span class="bound">C</span><span class="main">.</span> circuit <span class="bound">C</span> <span class="main">∧</span> <span class="bound">C</span> <span class="main">⊆</span> insert <span class="free">x</span> <span class="free">B</span>"</span></span>
@@ -1036,7 +1036,7 @@ Independence systems
 <span class="keyword1"><span class="command">definition</span></span> <span class="entity">fund_circuit</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="tfree">'a</span> <span class="main">⇒</span> <span class="tfree">'a</span> set <span class="main">⇒</span> <span class="tfree">'a</span> set"</span></span> <span class="keyword2"><span class="keyword">where</span></span>
   <span class="quoted"><span class="quoted">"<span class="free">fund_circuit</span> <span class="free"><span class="bound"><span class="entity">x</span></span></span> <span class="free"><span class="bound"><span class="entity">B</span></span></span> <span class="main">≡</span> <span class="main">(</span><span class="keyword1">THE</span> <span class="bound">C</span><span class="main">.</span> circuit <span class="bound">C</span> <span class="main">∧</span> <span class="bound">C</span> <span class="main">⊆</span> insert <span class="free"><span class="bound"><span class="entity">x</span></span></span> <span class="free"><span class="bound"><span class="entity">B</span></span></span><span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> circuit_iff_fund_circuit<span class="main">:</span>
+<span class="keyword1" id="Matroid-circuit_iff_fund_circuit"><span class="command">lemma</span></span> circuit_iff_fund_circuit<span class="main">:</span>
   <span class="quoted"><span class="quoted">"circuit <span class="free">C</span> <span class="main">⟷</span> <span class="main">(</span><span class="main">∃</span><span class="bound">x</span> <span class="bound">B</span><span class="main">.</span> <span class="bound">x</span> <span class="main">∈</span> <span class="free">carrier</span> <span class="main">-</span> <span class="bound">B</span> <span class="main">∧</span> basis <span class="bound">B</span> <span class="main">∧</span> <span class="free">C</span> <span class="main">=</span> fund_circuit <span class="bound">x</span> <span class="bound">B</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">safe</span><span class="main"><span class="keyword3">,</span></span> <span class="operator">goal_cases</span> LTR RTL<span class="main">)</span>
   <span class="keyword3"><span class="command">case</span></span> LTR
@@ -1063,7 +1063,7 @@ Independence systems
     <span class="keyword1"><span class="command">using</span></span> theI<span class="main">[</span><span class="operator">of</span> <span class="quoted"><span class="quoted">"<span class="main">λ</span><span class="bound">C</span><span class="main">.</span> circuit <span class="bound">C</span> <span class="main">∧</span> <span class="bound">C</span> <span class="main">⊆</span> insert <span class="skolem">x</span> <span class="skolem">B</span>"</span></span><span class="main">]</span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">fastforce</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> fund_circuitI<span class="main">:</span>
+<span class="keyword1" id="Matroid-fund_circuitI"><span class="command">lemma</span></span> fund_circuitI<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"basis <span class="free">B</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">x</span> <span class="main">∈</span> <span class="free">carrier</span> <span class="main">-</span> <span class="free">B</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"circuit <span class="free">C</span>"</span></span>
@@ -1082,30 +1082,30 @@ Independence systems
 <span class="keyword1"><span class="command">interpretation</span></span> ℰ<span class="main">:</span> matroid <span class="quoted"><span class="free">ℰ</span></span> <span class="quoted"><span class="quoted">"indep_in <span class="free">ℰ</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> <span class="quoted"><span class="quoted">‹<span class="free">ℰ</span> <span class="main">⊆</span> <span class="free">carrier</span>›</span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> fund_circuit_inI_aux<span class="main">:</span> <span class="quoted"><span class="quoted">"ℰ.fund_circuit <span class="free">x</span> <span class="free">B</span> <span class="main">=</span> fund_circuit_in <span class="free">ℰ</span> <span class="free">x</span> <span class="free">B</span>"</span></span>
+<span class="keyword1" id="Matroid-fund_circuit_inI_aux"><span class="command">lemma</span></span> fund_circuit_inI_aux<span class="main">:</span> <span class="quoted"><span class="quoted">"ℰ.fund_circuit <span class="free">x</span> <span class="free">B</span> <span class="main">=</span> fund_circuit_in <span class="free">ℰ</span> <span class="free">x</span> <span class="free">B</span>"</span></span>
   <span class="keyword1"><span class="command">unfolding</span></span> fund_circuit_in_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> circuit_in_elim<span class="main">:</span>
+<span class="keyword1" id="Matroid-circuit_in_elim"><span class="command">lemma</span></span> circuit_in_elim<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"circuit_in <span class="free">ℰ</span> <span class="free">C<span class="hidden">⇩</span><sub>1</sub></span>"</span></span> <span class="quoted"><span class="quoted">"circuit_in <span class="free">ℰ</span> <span class="free">C<span class="hidden">⇩</span><sub>2</sub></span>"</span></span> <span class="quoted"><span class="quoted">"<span class="free">C<span class="hidden">⇩</span><sub>1</sub></span> <span class="main">≠</span> <span class="free">C<span class="hidden">⇩</span><sub>2</sub></span>"</span></span> <span class="quoted"><span class="quoted">"<span class="free">x</span> <span class="main">∈</span> <span class="free">C<span class="hidden">⇩</span><sub>1</sub></span> <span class="main">∩</span> <span class="free">C<span class="hidden">⇩</span><sub>2</sub></span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">∃</span><span class="bound"><span class="bound">C<span class="hidden">⇩</span><sub>3</sub></span></span> <span class="main">⊆</span> <span class="main">(</span><span class="free">C<span class="hidden">⇩</span><sub>1</sub></span> <span class="main">∪</span> <span class="free">C<span class="hidden">⇩</span><sub>2</sub></span><span class="main">)</span> <span class="main">-</span> <span class="main">{</span><span class="free">x</span><span class="main">}</span><span class="main">.</span> circuit_in <span class="free">ℰ</span> <span class="bound">C<span class="hidden">⇩</span><sub>3</sub></span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> assms ℰ.circuit_elim <span class="keyword1"><span class="command">unfolding</span></span> circuit_in_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
 <span class="keyword1"><span class="command">lemmas</span></span> min_dep_in_imp_supset_circuit_in <span class="main">=</span> ℰ.min_dep_imp_supset_circuit<span class="main">[</span><span class="operator">OF</span> _ circuit_inD_aux<span class="main"><span class="main">[</span></span><span class="operator">OF</span> *<span class="main"><span class="main">]</span></span><span class="main">]</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> min_dep_in_imp_ex1_supset_circuit_in<span class="main">:</span>
+<span class="keyword1" id="Matroid-min_dep_in_imp_ex1_supset_circuit_in"><span class="command">lemma</span></span> min_dep_in_imp_ex1_supset_circuit_in<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">x</span> <span class="main">∈</span> <span class="free">ℰ</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"indep_in <span class="free">ℰ</span> <span class="free">X</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="main">¬</span> indep_in <span class="free">ℰ</span> <span class="main">(</span>insert <span class="free">x</span> <span class="free">X</span><span class="main">)</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">∃!</span><span class="bound">C</span><span class="main">.</span> circuit_in <span class="free">ℰ</span> <span class="bound">C</span> <span class="main">∧</span> <span class="bound">C</span> <span class="main">⊆</span> insert <span class="free">x</span> <span class="free">X</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> assms ℰ.min_dep_imp_ex1_supset_circuit <span class="keyword1"><span class="command">unfolding</span></span> circuit_in_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> basis_in_ex1_supset_circuit_in<span class="main">:</span>
+<span class="keyword1" id="Matroid-basis_in_ex1_supset_circuit_in"><span class="command">lemma</span></span> basis_in_ex1_supset_circuit_in<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"basis_in <span class="free">ℰ</span> <span class="free">B</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">x</span> <span class="main">∈</span> <span class="free">ℰ</span> <span class="main">-</span> <span class="free">B</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">∃!</span><span class="bound">C</span><span class="main">.</span> circuit_in <span class="free">ℰ</span> <span class="bound">C</span> <span class="main">∧</span> <span class="bound">C</span> <span class="main">⊆</span> insert <span class="free">x</span> <span class="free">B</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> assms ℰ.basis_ex1_supset_circuit <span class="keyword1"><span class="command">unfolding</span></span> circuit_in_def basis_in_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> fund_circuit_inI<span class="main">:</span>
+<span class="keyword1" id="Matroid-fund_circuit_inI"><span class="command">lemma</span></span> fund_circuit_inI<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"basis_in <span class="free">ℰ</span> <span class="free">B</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">x</span> <span class="main">∈</span> <span class="free">ℰ</span> <span class="main">-</span> <span class="free">B</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"circuit_in <span class="free">ℰ</span> <span class="free">C</span>"</span></span>
@@ -1124,7 +1124,7 @@ Independence systems
 <span class="keyword1"><span class="command">interpretation</span></span> ℰ<span class="main">:</span> matroid <span class="quoted"><span class="free">ℰ</span></span> <span class="quoted"><span class="quoted">"indep_in <span class="free">ℰ</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> <span class="quoted"><span class="quoted">‹<span class="free">ℰ</span> <span class="main">⊆</span> <span class="free">carrier</span>›</span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> fund_circuit_in_sub_cong<span class="main">:</span>
+<span class="keyword1" id="Matroid-fund_circuit_in_sub_cong"><span class="command">lemma</span></span> fund_circuit_in_sub_cong<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">ℰ'</span> <span class="main">⊆</span> <span class="free">ℰ</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">x</span> <span class="main">∈</span> <span class="free">ℰ'</span> <span class="main">-</span> <span class="free">B</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"basis_in <span class="free">ℰ'</span> <span class="free">B</span>"</span></span>
@@ -1157,7 +1157,7 @@ Independence systems
 <span class="keyword1"><span class="command">interpretation</span></span> ℰ<span class="main">:</span> matroid <span class="quoted"><span class="free">ℰ</span></span> <span class="quoted"><span class="quoted">"indep_in <span class="free">ℰ</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> * <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> lower_rank_of_eq_upper_rank_of<span class="main">:</span> <span class="quoted"><span class="quoted">"lower_rank_of <span class="free">ℰ</span> <span class="main">=</span> upper_rank_of <span class="free">ℰ</span>"</span></span>
+<span class="keyword1" id="Matroid-lower_rank_of_eq_upper_rank_of"><span class="command">lemma</span></span> lower_rank_of_eq_upper_rank_of<span class="main">:</span> <span class="quoted"><span class="quoted">"lower_rank_of <span class="free">ℰ</span> <span class="main">=</span> upper_rank_of <span class="free">ℰ</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
   <span class="keyword3"><span class="command">obtain</span></span> <span class="skolem"><span class="skolem">B</span></span> <span class="keyword2"><span class="keyword">where</span></span> <span class="quoted"><span class="quoted">"basis_in <span class="free">ℰ</span> <span class="skolem">B</span>"</span></span> <span class="keyword1"><span class="command">using</span></span> basis_in_ex<span class="main">[</span><span class="operator">OF</span> *<span class="main">]</span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
   <span class="keyword1"><span class="command">then</span></span> <span class="keyword1"><span class="command">have</span></span> <span class="quoted"><span class="quoted">"<span class="main">{</span>card <span class="bound">B</span> <span class="main">|</span> <span class="bound">B</span><span class="main">.</span> basis_in <span class="free">ℰ</span> <span class="bound">B</span><span class="main">}</span> <span class="main">=</span> <span class="main">{</span>card <span class="skolem">B</span><span class="main">}</span>"</span></span>
@@ -1165,7 +1165,7 @@ Independence systems
   <span class="keyword1"><span class="command">then</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span> <span class="keyword1"><span class="command">unfolding</span></span> lower_rank_of_def upper_rank_of_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> rank_of_eq_card_basis_in<span class="main">:</span>
+<span class="keyword1" id="Matroid-rank_of_eq_card_basis_in"><span class="command">lemma</span></span> rank_of_eq_card_basis_in<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"basis_in <span class="free">ℰ</span> <span class="free">B</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"rank_of <span class="free">ℰ</span> <span class="main">=</span> card <span class="free">B</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
@@ -1173,7 +1173,7 @@ Independence systems
   <span class="keyword1"><span class="command">then</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span> <span class="keyword1"><span class="command">unfolding</span></span> rank_of_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> rank_of_indep_in_le<span class="main">:</span>
+<span class="keyword1" id="Matroid-rank_of_indep_in_le"><span class="command">lemma</span></span> rank_of_indep_in_le<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"indep_in <span class="free">ℰ</span> <span class="free">X</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"card <span class="free">X</span> <span class="main">≤</span> rank_of <span class="free">ℰ</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
@@ -1193,7 +1193,7 @@ Independence systems
 
 <span class="keyword2"><span class="keyword">end</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> rank_of_mono<span class="main">:</span>
+<span class="keyword1" id="Matroid-rank_of_mono"><span class="command">lemma</span></span> rank_of_mono<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">X</span> <span class="main">⊆</span> <span class="free">Y</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">Y</span> <span class="main">⊆</span> <span class="free">carrier</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"rank_of <span class="free">X</span> <span class="main">≤</span> rank_of <span class="free">Y</span>"</span></span>
@@ -1206,7 +1206,7 @@ Independence systems
   <span class="keyword1"><span class="command">ultimately</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span> <span class="keyword1"><span class="command">using</span></span> assms rank_of_eq_card_basis_in <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> rank_of_insert_le<span class="main">:</span>
+<span class="keyword1" id="Matroid-rank_of_insert_le"><span class="command">lemma</span></span> rank_of_insert_le<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">X</span> <span class="main">⊆</span> <span class="free">carrier</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">x</span> <span class="main">∈</span> <span class="free">carrier</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"rank_of <span class="main">(</span>insert <span class="free">x</span> <span class="free">X</span><span class="main">)</span> <span class="main">≤</span> Suc <span class="main">(</span>rank_of <span class="free">X</span><span class="main">)</span>"</span></span>
@@ -1247,7 +1247,7 @@ Independence systems
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> rank_of_Un_Int_le<span class="main">:</span>
+<span class="keyword1" id="Matroid-rank_of_Un_Int_le"><span class="command">lemma</span></span> rank_of_Un_Int_le<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">X</span> <span class="main">⊆</span> <span class="free">carrier</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">Y</span> <span class="main">⊆</span> <span class="free">carrier</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"rank_of <span class="main">(</span><span class="free">X</span> <span class="main">∪</span> <span class="free">Y</span><span class="main">)</span> <span class="main">+</span> rank_of <span class="main">(</span><span class="free">X</span> <span class="main">∩</span> <span class="free">Y</span><span class="main">)</span> <span class="main">≤</span> rank_of <span class="free">X</span> <span class="main">+</span> rank_of <span class="free">Y</span>"</span></span>
@@ -1304,7 +1304,7 @@ Independence systems
   <span class="keyword1"><span class="command">ultimately</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="quoted"><span class="quoted">"rank_of <span class="free">X</span> <span class="main">+</span> rank_of <span class="free">Y</span> <span class="main">≥</span> rank_of <span class="main">(</span><span class="free">X</span> <span class="main">∪</span> <span class="free">Y</span><span class="main">)</span> <span class="main">+</span> rank_of <span class="main">(</span><span class="free">X</span> <span class="main">∩</span> <span class="free">Y</span><span class="main">)</span>"</span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> rank_of_Un_absorbI<span class="main">:</span>
+<span class="keyword1" id="Matroid-rank_of_Un_absorbI"><span class="command">lemma</span></span> rank_of_Un_absorbI<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">X</span> <span class="main">⊆</span> <span class="free">carrier</span>"</span></span> <span class="quoted"><span class="quoted">"<span class="free">Y</span> <span class="main">⊆</span> <span class="free">carrier</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="main">⋀</span><span class="bound">y</span><span class="main">.</span> <span class="bound">y</span> <span class="main">∈</span> <span class="free">Y</span> <span class="main">-</span> <span class="free">X</span> <span class="main">⟹</span> rank_of <span class="main">(</span>insert <span class="bound">y</span> <span class="free">X</span><span class="main">)</span> <span class="main">=</span> rank_of <span class="free">X</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"rank_of <span class="main">(</span><span class="free">X</span> <span class="main">∪</span> <span class="free">Y</span><span class="main">)</span> <span class="main">=</span> rank_of <span class="free">X</span>"</span></span>
@@ -1348,7 +1348,7 @@ Independence systems
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> indep_iff_rank_of<span class="main">:</span>
+<span class="keyword1" id="Matroid-indep_iff_rank_of"><span class="command">lemma</span></span> indep_iff_rank_of<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">X</span> <span class="main">⊆</span> <span class="free">carrier</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="free">indep</span> <span class="free">X</span> <span class="main">⟷</span> rank_of <span class="free">X</span> <span class="main">=</span> card <span class="free">X</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">standard</span><span class="main"><span class="keyword3">,</span></span> <span class="operator">goal_cases</span> LTR RTL<span class="main">)</span>
@@ -1366,7 +1366,7 @@ Independence systems
   <span class="keyword1"><span class="command">then</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?case</span></span></span> <span class="keyword1"><span class="command">using</span></span> basis_in_indep_in<span class="main">[</span><span class="operator">OF</span> assms B<span class="main">]</span> indep_in_indep <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> basis_iff_rank_of<span class="main">:</span>
+<span class="keyword1" id="Matroid-basis_iff_rank_of"><span class="command">lemma</span></span> basis_iff_rank_of<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">X</span> <span class="main">⊆</span> <span class="free">carrier</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"basis <span class="free">X</span> <span class="main">⟷</span> rank_of <span class="free">X</span> <span class="main">=</span> card <span class="free">X</span> <span class="main">∧</span> rank_of <span class="free">X</span> <span class="main">=</span> rank_of <span class="free">carrier</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">standard</span><span class="main"><span class="keyword3">,</span></span> <span class="operator">goal_cases</span> LTR RTL<span class="main">)</span>
@@ -1394,7 +1394,7 @@ Independence systems
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> circuit_iff_rank_of<span class="main">:</span>
+<span class="keyword1" id="Matroid-circuit_iff_rank_of"><span class="command">lemma</span></span> circuit_iff_rank_of<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">X</span> <span class="main">⊆</span> <span class="free">carrier</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"circuit <span class="free">X</span> <span class="main">⟷</span> <span class="free">X</span> <span class="main">≠</span> <span class="main">{}</span> <span class="main">∧</span> <span class="main">(</span><span class="main">∀</span><span class="bound">x</span> <span class="main">∈</span> <span class="free">X</span><span class="main">.</span> rank_of <span class="main">(</span><span class="free">X</span> <span class="main">-</span> <span class="main">{</span><span class="bound">x</span><span class="main">}</span><span class="main">)</span> <span class="main">=</span> card <span class="main">(</span><span class="free">X</span> <span class="main">-</span> <span class="main">{</span><span class="bound">x</span><span class="main">}</span><span class="main">)</span> <span class="main">∧</span> card <span class="main">(</span><span class="free">X</span> <span class="main">-</span> <span class="main">{</span><span class="bound">x</span><span class="main">}</span><span class="main">)</span> <span class="main">=</span> rank_of <span class="free">X</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">standard</span><span class="main"><span class="keyword3">,</span></span> <span class="operator">goal_cases</span> LTR RTL<span class="main">)</span>
@@ -1448,18 +1448,18 @@ Independence systems
 <span class="keyword1"><span class="command">interpretation</span></span> ℰ<span class="main">:</span> matroid <span class="quoted"><span class="free">ℰ</span></span> <span class="quoted"><span class="quoted">"indep_in <span class="free">ℰ</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> * <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> indep_in_iff_rank_of<span class="main">:</span>
+<span class="keyword1" id="Matroid-indep_in_iff_rank_of"><span class="command">lemma</span></span> indep_in_iff_rank_of<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">X</span> <span class="main">⊆</span> <span class="free">ℰ</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"indep_in <span class="free">ℰ</span> <span class="free">X</span> <span class="main">⟷</span> rank_of <span class="free">X</span> <span class="main">=</span> card <span class="free">X</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> assms ℰ.indep_iff_rank_of rank_of_sub_cong<span class="main">[</span><span class="operator">OF</span> * assms<span class="main">]</span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> basis_in_iff_rank_of<span class="main">:</span>
+<span class="keyword1" id="Matroid-basis_in_iff_rank_of"><span class="command">lemma</span></span> basis_in_iff_rank_of<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">X</span> <span class="main">⊆</span> <span class="free">ℰ</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"basis_in <span class="free">ℰ</span> <span class="free">X</span> <span class="main">⟷</span> rank_of <span class="free">X</span> <span class="main">=</span> card <span class="free">X</span> <span class="main">∧</span> rank_of <span class="free">X</span> <span class="main">=</span> rank_of <span class="free">ℰ</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> ℰ.basis_iff_rank_of<span class="main">[</span><span class="operator">OF</span> assms<span class="main">]</span> rank_of_sub_cong<span class="main">[</span><span class="operator">OF</span> *<span class="main">]</span> assms
   <span class="keyword1"><span class="command">unfolding</span></span> basis_in_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> circuit_in_iff_rank_of<span class="main">:</span>
+<span class="keyword1" id="Matroid-circuit_in_iff_rank_of"><span class="command">lemma</span></span> circuit_in_iff_rank_of<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">X</span> <span class="main">⊆</span> <span class="free">ℰ</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"circuit_in <span class="free">ℰ</span> <span class="free">X</span> <span class="main">⟷</span> <span class="free">X</span> <span class="main">≠</span> <span class="main">{}</span> <span class="main">∧</span> <span class="main">(</span><span class="main">∀</span><span class="bound">x</span> <span class="main">∈</span> <span class="free">X</span><span class="main">.</span> rank_of <span class="main">(</span><span class="free">X</span> <span class="main">-</span> <span class="main">{</span><span class="bound">x</span><span class="main">}</span><span class="main">)</span> <span class="main">=</span> card <span class="main">(</span><span class="free">X</span> <span class="main">-</span> <span class="main">{</span><span class="bound">x</span><span class="main">}</span><span class="main">)</span> <span class="main">∧</span> card <span class="main">(</span><span class="free">X</span> <span class="main">-</span> <span class="main">{</span><span class="bound">x</span><span class="main">}</span><span class="main">)</span> <span class="main">=</span> rank_of <span class="free">X</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
@@ -1487,13 +1487,13 @@ Independence systems
 <span class="keyword1"><span class="command">definition</span></span> <span class="entity">cl</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="tfree">'a</span> set <span class="main">⇒</span> <span class="tfree">'a</span> set"</span></span> <span class="keyword2"><span class="keyword">where</span></span>
   <span class="quoted"><span class="quoted">"<span class="free">cl</span> <span class="free"><span class="bound"><span class="entity">X</span></span></span> <span class="main">≡</span> <span class="main">{</span><span class="bound"><span class="bound">x</span></span> <span class="main">∈</span> <span class="free">carrier</span><span class="main">.</span> rank_of <span class="main">(</span>insert <span class="bound">x</span> <span class="free"><span class="bound"><span class="entity">X</span></span></span><span class="main">)</span> <span class="main">=</span> rank_of <span class="free"><span class="bound"><span class="entity">X</span></span></span><span class="main">}</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> clI<span class="main">:</span>
+<span class="keyword1" id="Matroid-clI"><span class="command">lemma</span></span> clI<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">x</span> <span class="main">∈</span> <span class="free">carrier</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"rank_of <span class="main">(</span>insert <span class="free">x</span> <span class="free">X</span><span class="main">)</span> <span class="main">=</span> rank_of <span class="free">X</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="free">x</span> <span class="main">∈</span> cl <span class="free">X</span>"</span></span>
   <span class="keyword1"><span class="command">unfolding</span></span> cl_def <span class="keyword1"><span class="command">using</span></span> assms <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> cl_altdef<span class="main">:</span>
+<span class="keyword1" id="Matroid-cl_altdef"><span class="command">lemma</span></span> cl_altdef<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">X</span> <span class="main">⊆</span> <span class="free">carrier</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"cl <span class="free">X</span> <span class="main">=</span> <span class="main">⋃</span><span class="main">{</span><span class="bound"><span class="bound">Y</span></span> <span class="main">∈</span> Pow <span class="free">carrier</span><span class="main">.</span> <span class="free">X</span> <span class="main">⊆</span> <span class="bound">Y</span> <span class="main">∧</span> rank_of <span class="bound">Y</span> <span class="main">=</span> rank_of <span class="free">X</span><span class="main">}</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
@@ -1526,20 +1526,20 @@ Independence systems
 <span class="keyword1"><span class="command">qed</span></span>
 
 
-<span class="keyword1"><span class="command">lemma</span></span> cl_rank_of<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">x</span> <span class="main">∈</span> cl <span class="free">X</span> <span class="main">⟹</span> rank_of <span class="main">(</span>insert <span class="free">x</span> <span class="free">X</span><span class="main">)</span> <span class="main">=</span> rank_of <span class="free">X</span>"</span></span>
+<span class="keyword1" id="Matroid-cl_rank_of"><span class="command">lemma</span></span> cl_rank_of<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">x</span> <span class="main">∈</span> cl <span class="free">X</span> <span class="main">⟹</span> rank_of <span class="main">(</span>insert <span class="free">x</span> <span class="free">X</span><span class="main">)</span> <span class="main">=</span> rank_of <span class="free">X</span>"</span></span>
   <span class="keyword1"><span class="command">unfolding</span></span> cl_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> cl_subset_carrier<span class="main">:</span> <span class="quoted"><span class="quoted">"cl <span class="free">X</span> <span class="main">⊆</span> <span class="free">carrier</span>"</span></span>
+<span class="keyword1" id="Matroid-cl_subset_carrier"><span class="command">lemma</span></span> cl_subset_carrier<span class="main">:</span> <span class="quoted"><span class="quoted">"cl <span class="free">X</span> <span class="main">⊆</span> <span class="free">carrier</span>"</span></span>
   <span class="keyword1"><span class="command">unfolding</span></span> cl_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
 <span class="keyword1"><span class="command">lemmas</span></span> clD <span class="main">=</span> cl_rank_of cl_subset_carrier
 
-<span class="keyword1"><span class="command">lemma</span></span> cl_subset<span class="main">:</span>
+<span class="keyword1" id="Matroid-cl_subset"><span class="command">lemma</span></span> cl_subset<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">X</span> <span class="main">⊆</span> <span class="free">carrier</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="free">X</span> <span class="main">⊆</span> cl <span class="free">X</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> assms <span class="keyword1"><span class="command">using</span></span> insert_absorb<span class="main">[</span><span class="operator">of</span> <span class="main">_</span> <span class="quoted"><span class="free">X</span></span><span class="main">]</span> <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">intro</span><span class="main"><span class="main">!</span></span><span class="main"><span class="main">:</span></span> clI<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> cl_mono<span class="main">:</span>
+<span class="keyword1" id="Matroid-cl_mono"><span class="command">lemma</span></span> cl_mono<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">X</span> <span class="main">⊆</span> <span class="free">Y</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">Y</span> <span class="main">⊆</span> <span class="free">carrier</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"cl <span class="free">X</span> <span class="main">⊆</span> cl <span class="free">Y</span>"</span></span>
@@ -1628,7 +1628,7 @@ Independence systems
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> cl_insert_absorb<span class="main">:</span>
+<span class="keyword1" id="Matroid-cl_insert_absorb"><span class="command">lemma</span></span> cl_insert_absorb<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">X</span> <span class="main">⊆</span> <span class="free">carrier</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">x</span> <span class="main">∈</span> cl <span class="free">X</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"cl <span class="main">(</span>insert <span class="free">x</span> <span class="free">X</span><span class="main">)</span> <span class="main">=</span> cl <span class="free">X</span>"</span></span>
@@ -1666,7 +1666,7 @@ Independence systems
   <span class="keyword1"><span class="command">ultimately</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="quoted"><span class="quoted">"cl <span class="free">X</span> <span class="main">⊆</span> cl <span class="main">(</span>insert <span class="free">x</span> <span class="free">X</span><span class="main">)</span>"</span></span> <span class="keyword1"><span class="command">using</span></span> assms cl_subset_carrier cl_mono <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> cl_cl_absorb<span class="main">:</span>
+<span class="keyword1" id="Matroid-cl_cl_absorb"><span class="command">lemma</span></span> cl_cl_absorb<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">X</span> <span class="main">⊆</span> <span class="free">carrier</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"cl <span class="main">(</span>cl <span class="free">X</span><span class="main">)</span> <span class="main">=</span> cl <span class="free">X</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span>
@@ -1703,7 +1703,7 @@ Independence systems
   <span class="keyword3"><span class="command">show</span></span> <span class="quoted"><span class="quoted">"cl <span class="free">X</span> <span class="main">⊆</span> cl <span class="main">(</span>cl <span class="free">X</span><span class="main">)</span>"</span></span> <span class="keyword1"><span class="command">using</span></span> cl_subset<span class="main">[</span><span class="operator">OF</span> cl_subset_carrier<span class="main">]</span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> cl_augment<span class="main">:</span>
+<span class="keyword1" id="Matroid-cl_augment"><span class="command">lemma</span></span> cl_augment<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">X</span> <span class="main">⊆</span> <span class="free">carrier</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">x</span> <span class="main">∈</span> <span class="free">carrier</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">y</span> <span class="main">∈</span> cl <span class="main">(</span>insert <span class="free">x</span> <span class="free">X</span><span class="main">)</span> <span class="main">-</span> cl <span class="free">X</span>"</span></span>
@@ -1738,7 +1738,7 @@ Independence systems
   <span class="keyword1"><span class="command">ultimately</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="quoted"><span class="quoted">"rank_of <span class="main">(</span>insert <span class="free">x</span> <span class="main">(</span>insert <span class="free">y</span> <span class="free">X</span><span class="main">)</span><span class="main">)</span> <span class="main">=</span> rank_of <span class="main">(</span>insert <span class="free">y</span> <span class="free">X</span><span class="main">)</span>"</span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> clI_insert<span class="main">:</span>
+<span class="keyword1" id="Matroid-clI_insert"><span class="command">lemma</span></span> clI_insert<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">x</span> <span class="main">∈</span> <span class="free">carrier</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">indep</span> <span class="free">X</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="main">¬</span> <span class="free">indep</span> <span class="main">(</span>insert <span class="free">x</span> <span class="free">X</span><span class="main">)</span>"</span></span>
@@ -1778,7 +1778,7 @@ Independence systems
     <span class="keyword1"><span class="command">using</span></span> B rank_of_eq_card_basis_in<span class="main">[</span><span class="operator">OF</span> *<span class="main">]</span> rank_of_eq_card_basis_in<span class="main">[</span><span class="operator">OF</span> **<span class="main">]</span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> indep_in_carrier <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span> <span class="quoted"><span class="quoted">"indep_in <span class="free">carrier</span> <span class="main">=</span> <span class="free">indep</span>"</span></span>
+<span class="keyword1" id="Matroid-indep_in_carrier"><span class="command">lemma</span></span> indep_in_carrier <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span> <span class="quoted"><span class="quoted">"indep_in <span class="free">carrier</span> <span class="main">=</span> <span class="free">indep</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> indep_subset_carrier <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span><span class="main"><span class="main">:</span></span> indep_in_def fun_eq_iff<span class="main">)</span>
 
 <span class="keyword1"><span class="command">context</span></span>
@@ -1786,7 +1786,7 @@ Independence systems
   <span class="keyword2"><span class="keyword">defines</span></span> <span class="quoted"><span class="quoted">"<span class="free">I</span> <span class="main">≡</span> <span class="main">(</span><span class="main">λ</span><span class="bound">X</span><span class="main">.</span> <span class="bound">X</span> <span class="main">⊆</span> <span class="free">carrier</span> <span class="main">∧</span> <span class="main">(</span><span class="main">∀</span><span class="bound">x</span><span class="main">∈</span><span class="bound">X</span><span class="main">.</span> <span class="bound">x</span> <span class="main">∉</span> cl <span class="main">(</span><span class="bound">X</span> <span class="main">-</span> <span class="main">{</span><span class="bound">x</span><span class="main">}</span><span class="main">)</span><span class="main">)</span><span class="main">)</span>"</span></span>
 <span class="keyword2"><span class="keyword">begin</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> I_mono<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">I</span> <span class="free">Y</span>"</span></span> <span class="keyword2"><span class="keyword">if</span></span> <span class="quoted"><span class="quoted">"<span class="free">Y</span> <span class="main">⊆</span> <span class="free">X</span>"</span></span> <span class="quoted"><span class="quoted">"<span class="free">I</span> <span class="free">X</span>"</span></span> <span class="keyword2"><span class="keyword">for</span></span> <span class="free">X</span> <span class="free">Y</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="tfree">'a</span> set"</span></span>
+<span class="keyword1" id="Matroid-I_mono"><span class="command">lemma</span></span> I_mono<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">I</span> <span class="free">Y</span>"</span></span> <span class="keyword2"><span class="keyword">if</span></span> <span class="quoted"><span class="quoted">"<span class="free">Y</span> <span class="main">⊆</span> <span class="free">X</span>"</span></span> <span class="quoted"><span class="quoted">"<span class="free">I</span> <span class="free">X</span>"</span></span> <span class="keyword2"><span class="keyword">for</span></span> <span class="free">X</span> <span class="free">Y</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="tfree">'a</span> set"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
   <span class="keyword1"><span class="command">have</span></span> <span class="quoted"><span class="quoted">"<span class="main">∀</span><span class="bound">x</span><span class="main">∈</span><span class="free">Y</span><span class="main">.</span> <span class="bound">x</span> <span class="main">∉</span> cl <span class="main">(</span><span class="free">Y</span> <span class="main">-</span> <span class="main">{</span><span class="bound">x</span><span class="main">}</span><span class="main">)</span>"</span></span>
   <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">intro</span> ballI<span class="main">)</span>
@@ -1798,7 +1798,7 @@ Independence systems
   <span class="keyword1"><span class="command">with</span></span> that <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span> <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span><span class="main"><span class="main">:</span></span> I_def<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> clI'<span class="main">:</span>
+<span class="keyword1" id="Matroid-clI'"><span class="command">lemma</span></span> clI'<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">I</span> <span class="free">X</span>"</span></span> <span class="quoted"><span class="quoted">"<span class="free">x</span> <span class="main">∈</span> <span class="free">carrier</span>"</span></span> <span class="quoted"><span class="quoted">"<span class="main">¬</span><span class="free">I</span> <span class="main">(</span>insert <span class="free">x</span> <span class="free">X</span><span class="main">)</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span>   <span class="quoted"><span class="quoted">"<span class="free">x</span> <span class="main">∈</span> cl <span class="free">X</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
@@ -1823,7 +1823,7 @@ Independence systems
 <span class="keyword1"><span class="command">qed</span></span>
 
 
-<span class="keyword1"><span class="command">lemma</span></span> matroid_I<span class="main">:</span> <span class="quoted"><span class="quoted">"matroid <span class="free">carrier</span> <span class="free">I</span>"</span></span>
+<span class="keyword1" id="Matroid-matroid_I"><span class="command">lemma</span></span> matroid_I<span class="main">:</span> <span class="quoted"><span class="quoted">"matroid <span class="free">carrier</span> <span class="free">I</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">unfold_locales</span><span class="main"><span class="keyword3">,</span></span> <span class="operator">goal_cases</span><span class="main">)</span>
   <span class="keyword3"><span class="command">show</span></span> <span class="quoted"><span class="quoted">"finite <span class="free">carrier</span>"</span></span> <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">rule</span> carrier_finite<span class="main">)</span>
 <span class="keyword1"><span class="command">next</span></span>
@@ -1915,7 +1915,7 @@ Independence systems
 
 <span class="keyword1"><span class="command">definition</span></span> <span class="entity">cl_in</span> <span class="keyword2"><span class="keyword">where</span></span> <span class="quoted"><span class="quoted">"<span class="free">cl_in</span> <span class="free"><span class="bound"><span class="entity">ℰ</span></span></span> <span class="free"><span class="bound"><span class="entity">X</span></span></span> <span class="main">=</span> matroid.cl <span class="free"><span class="bound"><span class="entity">ℰ</span></span></span> <span class="main">(</span>indep_in <span class="free"><span class="bound"><span class="entity">ℰ</span></span></span><span class="main">)</span> <span class="free"><span class="bound"><span class="entity">X</span></span></span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> cl_eq_cl_in<span class="main">:</span>
+<span class="keyword1" id="Matroid-cl_eq_cl_in"><span class="command">lemma</span></span> cl_eq_cl_in<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">X</span> <span class="main">⊆</span> <span class="free">carrier</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"cl <span class="free">X</span> <span class="main">=</span> cl_in <span class="free">carrier</span> <span class="free">X</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
@@ -1938,13 +1938,13 @@ Independence systems
 <span class="keyword1"><span class="command">interpretation</span></span> ℰ<span class="main">:</span> matroid <span class="quoted"><span class="free">ℰ</span></span> <span class="quoted"><span class="quoted">"indep_in <span class="free">ℰ</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> * <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> cl_inI_aux<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">x</span> <span class="main">∈</span> ℰ.cl <span class="free">X</span> <span class="main">⟹</span> <span class="free">x</span> <span class="main">∈</span> cl_in <span class="free">ℰ</span> <span class="free">X</span>"</span></span>
+<span class="keyword1" id="Matroid-cl_inI_aux"><span class="command">lemma</span></span> cl_inI_aux<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">x</span> <span class="main">∈</span> ℰ.cl <span class="free">X</span> <span class="main">⟹</span> <span class="free">x</span> <span class="main">∈</span> cl_in <span class="free">ℰ</span> <span class="free">X</span>"</span></span>
   <span class="keyword1"><span class="command">unfolding</span></span> cl_in_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> cl_inD_aux<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">x</span> <span class="main">∈</span> cl_in <span class="free">ℰ</span> <span class="free">X</span> <span class="main">⟹</span> <span class="free">x</span> <span class="main">∈</span> ℰ.cl <span class="free">X</span>"</span></span>
+<span class="keyword1" id="Matroid-cl_inD_aux"><span class="command">lemma</span></span> cl_inD_aux<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">x</span> <span class="main">∈</span> cl_in <span class="free">ℰ</span> <span class="free">X</span> <span class="main">⟹</span> <span class="free">x</span> <span class="main">∈</span> ℰ.cl <span class="free">X</span>"</span></span>
   <span class="keyword1"><span class="command">unfolding</span></span> cl_in_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> cl_inI<span class="main">:</span>
+<span class="keyword1" id="Matroid-cl_inI"><span class="command">lemma</span></span> cl_inI<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">X</span> <span class="main">⊆</span> <span class="free">ℰ</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">x</span> <span class="main">∈</span> <span class="free">ℰ</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"rank_of <span class="main">(</span>insert <span class="free">x</span> <span class="free">X</span><span class="main">)</span> <span class="main">=</span> rank_of <span class="free">X</span>"</span></span>
@@ -1955,7 +1955,7 @@ Independence systems
   <span class="keyword1"><span class="command">then</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span> <span class="keyword1"><span class="command">unfolding</span></span> cl_in_def <span class="keyword1"><span class="command">using</span></span> assms <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">intro</span><span class="main"><span class="main">:</span></span> ℰ.clI<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> cl_in_altdef<span class="main">:</span>
+<span class="keyword1" id="Matroid-cl_in_altdef"><span class="command">lemma</span></span> cl_in_altdef<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">X</span> <span class="main">⊆</span> <span class="free">ℰ</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"cl_in <span class="free">ℰ</span> <span class="free">X</span> <span class="main">=</span> <span class="main">⋃</span><span class="main">{</span><span class="bound"><span class="bound">Y</span></span> <span class="main">∈</span> Pow <span class="free">ℰ</span><span class="main">.</span> <span class="free">X</span> <span class="main">⊆</span> <span class="bound">Y</span> <span class="main">∧</span> rank_of <span class="bound">Y</span> <span class="main">=</span> rank_of <span class="free">X</span><span class="main">}</span>"</span></span>
   <span class="keyword1"><span class="command">unfolding</span></span> cl_in_def
@@ -1972,10 +1972,10 @@ Independence systems
   <span class="keyword1"><span class="command">then</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?case</span></span></span> <span class="keyword1"><span class="command">using</span></span> ℰ.cl_altdef<span class="main">[</span><span class="operator">OF</span> assms<span class="main">]</span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> cl_in_subset_carrier<span class="main">:</span> <span class="quoted"><span class="quoted">"cl_in <span class="free">ℰ</span> <span class="free">X</span> <span class="main">⊆</span> <span class="free">ℰ</span>"</span></span>
+<span class="keyword1" id="Matroid-cl_in_subset_carrier"><span class="command">lemma</span></span> cl_in_subset_carrier<span class="main">:</span> <span class="quoted"><span class="quoted">"cl_in <span class="free">ℰ</span> <span class="free">X</span> <span class="main">⊆</span> <span class="free">ℰ</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> ℰ.cl_subset_carrier <span class="keyword1"><span class="command">unfolding</span></span> cl_in_def <span class="keyword1"><span class="command">.</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> cl_in_rank_of<span class="main">:</span>
+<span class="keyword1" id="Matroid-cl_in_rank_of"><span class="command">lemma</span></span> cl_in_rank_of<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">X</span> <span class="main">⊆</span> <span class="free">ℰ</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">x</span> <span class="main">∈</span> cl_in <span class="free">ℰ</span> <span class="free">X</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"rank_of <span class="main">(</span>insert <span class="free">x</span> <span class="free">X</span><span class="main">)</span> <span class="main">=</span> rank_of <span class="free">X</span>"</span></span>
@@ -1991,24 +1991,24 @@ Independence systems
 
 <span class="keyword1"><span class="command">lemmas</span></span> cl_inD <span class="main">=</span> cl_in_rank_of cl_in_subset_carrier
 
-<span class="keyword1"><span class="command">lemma</span></span> cl_in_subset<span class="main">:</span>
+<span class="keyword1" id="Matroid-cl_in_subset"><span class="command">lemma</span></span> cl_in_subset<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">X</span> <span class="main">⊆</span> <span class="free">ℰ</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="free">X</span> <span class="main">⊆</span> cl_in <span class="free">ℰ</span> <span class="free">X</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> ℰ.cl_subset<span class="main">[</span><span class="operator">OF</span> assms<span class="main">]</span> <span class="keyword1"><span class="command">unfolding</span></span> cl_in_def <span class="keyword1"><span class="command">.</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> cl_in_mono<span class="main">:</span>
+<span class="keyword1" id="Matroid-cl_in_mono"><span class="command">lemma</span></span> cl_in_mono<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">X</span> <span class="main">⊆</span> <span class="free">Y</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">Y</span> <span class="main">⊆</span> <span class="free">ℰ</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"cl_in <span class="free">ℰ</span> <span class="free">X</span> <span class="main">⊆</span> cl_in <span class="free">ℰ</span> <span class="free">Y</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> ℰ.cl_mono<span class="main">[</span><span class="operator">OF</span> assms<span class="main">]</span> <span class="keyword1"><span class="command">unfolding</span></span> cl_in_def <span class="keyword1"><span class="command">.</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> cl_in_insert_absorb<span class="main">:</span>
+<span class="keyword1" id="Matroid-cl_in_insert_absorb"><span class="command">lemma</span></span> cl_in_insert_absorb<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">X</span> <span class="main">⊆</span> <span class="free">ℰ</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">x</span> <span class="main">∈</span> cl_in <span class="free">ℰ</span> <span class="free">X</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"cl_in <span class="free">ℰ</span> <span class="main">(</span>insert <span class="free">x</span> <span class="free">X</span><span class="main">)</span> <span class="main">=</span> cl_in <span class="free">ℰ</span> <span class="free">X</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> assms ℰ.cl_insert_absorb <span class="keyword1"><span class="command">unfolding</span></span> cl_in_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> cl_in_augment<span class="main">:</span>
+<span class="keyword1" id="Matroid-cl_in_augment"><span class="command">lemma</span></span> cl_in_augment<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">X</span> <span class="main">⊆</span> <span class="free">ℰ</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">x</span> <span class="main">∈</span> <span class="free">ℰ</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">y</span> <span class="main">∈</span> cl_in <span class="free">ℰ</span> <span class="main">(</span>insert <span class="free">x</span> <span class="free">X</span><span class="main">)</span> <span class="main">-</span> cl_in <span class="free">ℰ</span> <span class="free">X</span>"</span></span>
@@ -2019,7 +2019,7 @@ Independence systems
 
 <span class="keyword2"><span class="keyword">end</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> cl_in_subI<span class="main">:</span>
+<span class="keyword1" id="Matroid-cl_in_subI"><span class="command">lemma</span></span> cl_in_subI<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">X</span> <span class="main">⊆</span> <span class="free">ℰ'</span>"</span></span> <span class="quoted"><span class="quoted">"<span class="free">ℰ'</span> <span class="main">⊆</span> <span class="free">ℰ</span>"</span></span> <span class="quoted"><span class="quoted">"<span class="free">ℰ</span> <span class="main">⊆</span> <span class="free">carrier</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"cl_in <span class="free">ℰ'</span> <span class="free">X</span> <span class="main">⊆</span> cl_in <span class="free">ℰ</span> <span class="free">X</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">safe</span><span class="main"><span class="keyword3">,</span></span> <span class="operator">goal_cases</span> elem<span class="main">)</span>
@@ -2037,7 +2037,7 @@ Independence systems
 <span class="keyword1"><span class="command">interpretation</span></span> ℰ<span class="main">:</span> matroid <span class="quoted"><span class="free">ℰ</span></span> <span class="quoted"><span class="quoted">"indep_in <span class="free">ℰ</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> * <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> cl_in_sub_cong<span class="main">:</span>
+<span class="keyword1" id="Matroid-cl_in_sub_cong"><span class="command">lemma</span></span> cl_in_sub_cong<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">X</span> <span class="main">⊆</span> <span class="free">ℰ'</span>"</span></span> <span class="quoted"><span class="quoted">"<span class="free">ℰ'</span> <span class="main">⊆</span> <span class="free">ℰ</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"ℰ.cl_in <span class="free">ℰ'</span> <span class="free">X</span> <span class="main">=</span> cl_in <span class="free">ℰ'</span> <span class="free">X</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">safe</span><span class="main"><span class="keyword3">,</span></span> <span class="operator">goal_cases</span> LTR RTL<span class="main">)</span>

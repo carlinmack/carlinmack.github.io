@@ -34,7 +34,7 @@
   For finite sets, <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><span class="antiquote">@{</span></span><span class="operator"><span class="operator">term</span></span> <span class="quoted"><span class="quoted">Setalt</span></span><span class="antiquote"><span class="antiquote">}</span></span></span></span> is preserved under <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><span class="antiquote">@{</span></span><span class="operator"><span class="operator">term</span></span> <span class="quoted"><span class="quoted">lang</span></span><span class="antiquote"><span class="antiquote">}</span></span></span></span>.
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> folds_plus_simp <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Folds-folds_plus_simp"><span class="command">lemma</span></span> folds_plus_simp <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span>
   <span class="keyword2"><span class="keyword">fixes</span></span> <span class="free">rs</span><span class="main">::</span><span class="quoted"><span class="quoted">"<span class="main">(</span><span class="tfree">'a</span> rexp<span class="main">)</span> set"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> a<span class="main">:</span> <span class="quoted"><span class="quoted">"finite <span class="free">rs</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"lang <span class="main">(</span><span class="main">⨄</span><span class="free">rs</span><span class="main">)</span> <span class="main">=</span> <span class="main">⋃</span> <span class="main">(</span>lang <span class="main">`</span> <span class="free">rs</span><span class="main">)</span>"</span></span>
@@ -64,7 +64,7 @@
   conc <span class="main">(</span><span class="keyword2"><span class="keyword">infixr</span></span> <span class="quoted">"<span class="keyword1">⋅</span>"</span> 100<span class="main">)</span> <span class="keyword2"><span class="keyword">and</span></span>
   star <span class="main">(</span><span class="quoted">"_<span class="keyword1">⋆</span>"</span> <span class="main">[</span>101<span class="main">]</span> 102<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> Pair_Collect <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Myhill_1-Pair_Collect"><span class="command">lemma</span></span> Pair_Collect <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="free">x</span><span class="main">,</span> <span class="free">y</span><span class="main">)</span> <span class="main">∈</span> <span class="main">{</span><span class="main">(</span><span class="bound">x</span><span class="main">,</span> <span class="bound">y</span><span class="main">)</span><span class="main">.</span> <span class="free">P</span> <span class="bound">x</span> <span class="bound">y</span><span class="main">}</span> <span class="main">⟷</span> <span class="free">P</span> <span class="free">x</span> <span class="free">y</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 
@@ -80,7 +80,7 @@
 <span class="keyword2"><span class="keyword">where</span></span>
   <span class="quoted"><span class="quoted">"<span class="free"><span class="bound"><span class="entity">x</span></span></span> <span class="main"><span class="free">≈</span></span><span class="free"><span class="bound"><span class="entity">A</span></span></span> <span class="free"><span class="bound"><span class="entity">y</span></span></span> <span class="main">≡</span> <span class="main">(</span><span class="free"><span class="bound"><span class="entity">x</span></span></span><span class="main">,</span> <span class="free"><span class="bound"><span class="entity">y</span></span></span><span class="main">)</span> <span class="main">∈</span> <span class="main">≈</span><span class="free"><span class="bound"><span class="entity">A</span></span></span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> str_eq_conv_Derivs<span class="main">:</span>
+<span class="keyword1" id="Myhill_1-str_eq_conv_Derivs"><span class="command">lemma</span></span> str_eq_conv_Derivs<span class="main">:</span>
   <span class="quoted"><span class="quoted">"str_eq <span class="free">A</span> <span class="main">=</span> <span class="main">{</span><span class="main">(</span><span class="bound">u</span><span class="main">,</span><span class="bound">v</span><span class="main">)</span><span class="main">.</span> Derivs <span class="bound">u</span> <span class="free">A</span> <span class="main">=</span> Derivs <span class="bound">v</span> <span class="free">A</span><span class="main">}</span>"</span></span>
   <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span><span class="main"><span class="main">:</span></span> str_eq_def Derivs_def<span class="main">)</span>  
 
@@ -89,14 +89,14 @@
 <span class="keyword2"><span class="keyword">where</span></span>
   <span class="quoted"><span class="quoted">"<span class="free">finals</span> <span class="free"><span class="bound"><span class="entity">A</span></span></span> <span class="main">≡</span> <span class="main">{</span><span class="main">≈</span><span class="free"><span class="bound"><span class="entity">A</span></span></span> <span class="main">``</span> <span class="main">{</span><span class="bound">s</span><span class="main">}</span> <span class="main">|</span> <span class="bound">s</span> <span class="main">.</span> <span class="bound">s</span> <span class="main">∈</span> <span class="free"><span class="bound"><span class="entity">A</span></span></span><span class="main">}</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> lang_is_union_of_finals<span class="main">:</span> 
+<span class="keyword1" id="Myhill_1-lang_is_union_of_finals"><span class="command">lemma</span></span> lang_is_union_of_finals<span class="main">:</span> 
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="free">A</span> <span class="main">=</span> <span class="main">⋃</span><span class="main">(</span>finals <span class="free">A</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">unfolding</span></span> finals_def
 <span class="keyword1"><span class="command">unfolding</span></span> Image_def
 <span class="keyword1"><span class="command">unfolding</span></span> str_eq_def
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span><span class="main">)</span> <span class="main">(</span><span class="operator">metis</span> append_Nil2<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> finals_in_partitions<span class="main">:</span>
+<span class="keyword1" id="Myhill_1-finals_in_partitions"><span class="command">lemma</span></span> finals_in_partitions<span class="main">:</span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"finals <span class="free">A</span> <span class="main">⊆</span> <span class="main">(</span>UNIV <span class="main">//</span> <span class="main">≈</span><span class="free">A</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">unfolding</span></span> finals_def quotient_def
 <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
@@ -120,11 +120,11 @@
 <span class="keyword2"><span class="keyword">where</span></span> 
   <span class="quoted"><span class="quoted">"<span class="free">lang_rhs</span> <span class="free"><span class="bound"><span class="entity">rhs</span></span></span> <span class="main">=</span> <span class="main">⋃</span> <span class="main">(</span>lang_trm <span class="main">`</span> <span class="free"><span class="bound"><span class="entity">rhs</span></span></span><span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> lang_rhs_set<span class="main">:</span>
+<span class="keyword1" id="Myhill_1-lang_rhs_set"><span class="command">lemma</span></span> lang_rhs_set<span class="main">:</span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"lang_rhs <span class="main">{</span>Trn <span class="free">X</span> <span class="bound">r</span> <span class="main">|</span> <span class="bound">r</span><span class="main">.</span> <span class="free">P</span> <span class="bound">r</span><span class="main">}</span> <span class="main">=</span> <span class="main">⋃</span><span class="main">{</span>lang_trm <span class="main">(</span>Trn <span class="free">X</span> <span class="bound">r</span><span class="main">)</span> <span class="main">|</span> <span class="bound">r</span><span class="main">.</span> <span class="free">P</span> <span class="bound">r</span><span class="main">}</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span><span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> lang_rhs_union_distrib<span class="main">:</span>
+<span class="keyword1" id="Myhill_1-lang_rhs_union_distrib"><span class="command">lemma</span></span> lang_rhs_union_distrib<span class="main">:</span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"lang_rhs <span class="free">A</span> <span class="main">∪</span> lang_rhs <span class="free">B</span> <span class="main">=</span> lang_rhs <span class="main">(</span><span class="free">A</span> <span class="main">∪</span> <span class="free">B</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 
@@ -188,7 +188,7 @@
   <span class="quoted"><span class="quoted">"<span class="free">Iter</span> <span class="free"><span class="bound"><span class="entity">X</span></span></span> <span class="free"><span class="bound"><span class="entity">ES</span></span></span> <span class="main">≡</span> <span class="main">(</span><span class="keyword1">let</span> <span class="main">(</span><span class="bound">Y</span><span class="main">,</span> <span class="bound">yrhs</span><span class="main">)</span> <span class="main">=</span> <span class="keyword1">SOME</span> <span class="main">(</span><span class="bound">Y</span><span class="main">,</span> <span class="bound">yrhs</span><span class="main">)</span><span class="main">.</span> <span class="main">(</span><span class="bound">Y</span><span class="main">,</span> <span class="bound">yrhs</span><span class="main">)</span> <span class="main">∈</span> <span class="free"><span class="bound"><span class="entity">ES</span></span></span> <span class="main">∧</span> <span class="free"><span class="bound"><span class="entity">X</span></span></span> <span class="main">≠</span> <span class="bound">Y</span>
                 <span class="keyword1">in</span> Remove <span class="free"><span class="bound"><span class="entity">ES</span></span></span> <span class="bound">Y</span> <span class="bound">yrhs</span><span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> IterI2<span class="main">:</span>
+<span class="keyword1" id="Myhill_1-IterI2"><span class="command">lemma</span></span> IterI2<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="free">Y</span><span class="main">,</span> <span class="free">yrhs</span><span class="main">)</span> <span class="main">∈</span> <span class="free">ES</span>"</span></span>
   <span class="keyword2"><span class="keyword">and</span></span>     <span class="quoted"><span class="quoted">"<span class="free">X</span> <span class="main">≠</span> <span class="free">Y</span>"</span></span>
   <span class="keyword2"><span class="keyword">and</span></span>     <span class="quoted"><span class="quoted">"<span class="main">⋀</span><span class="bound">Y</span> <span class="bound">yrhs</span><span class="main">.</span> <span class="main">⟦</span><span class="main">(</span><span class="bound">Y</span><span class="main">,</span> <span class="bound">yrhs</span><span class="main">)</span> <span class="main">∈</span> <span class="free">ES</span><span class="main">;</span> <span class="free">X</span> <span class="main">≠</span> <span class="bound">Y</span><span class="main">⟧</span> <span class="main">⟹</span> <span class="free">Q</span> <span class="main">(</span>Remove <span class="free">ES</span> <span class="bound">Y</span> <span class="bound">yrhs</span><span class="main">)</span>"</span></span>
@@ -219,7 +219,7 @@
 <span class="keyword1"><span class="command">definition</span></span>
   <span class="quoted"><span class="quoted">"<span class="free">finite_rhs</span> <span class="free"><span class="bound"><span class="entity">ES</span></span></span> <span class="main">≡</span> <span class="main">∀</span><span class="main">(</span><span class="bound">X</span><span class="main">,</span> <span class="bound">rhs</span><span class="main">)</span> <span class="main">∈</span> <span class="free"><span class="bound"><span class="entity">ES</span></span></span><span class="main">.</span> finite <span class="bound">rhs</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> finite_rhs_def2<span class="main">:</span>
+<span class="keyword1" id="Myhill_1-finite_rhs_def2"><span class="command">lemma</span></span> finite_rhs_def2<span class="main">:</span>
   <span class="quoted"><span class="quoted">"finite_rhs <span class="free">ES</span> <span class="main">=</span> <span class="main">(</span><span class="main">∀</span> <span class="bound">X</span> <span class="bound">rhs</span><span class="main">.</span> <span class="main">(</span><span class="bound">X</span><span class="main">,</span> <span class="bound">rhs</span><span class="main">)</span> <span class="main">∈</span> <span class="free">ES</span> <span class="main">⟶</span> finite <span class="bound">rhs</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">unfolding</span></span> finite_rhs_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
@@ -232,11 +232,11 @@
 <span class="keyword1"><span class="command">definition</span></span> 
   <span class="quoted"><span class="quoted">"<span class="free">validity</span> <span class="free"><span class="bound"><span class="entity">ES</span></span></span> <span class="main">≡</span> <span class="main">∀</span><span class="main">(</span><span class="bound">X</span><span class="main">,</span> <span class="bound">rhs</span><span class="main">)</span> <span class="main">∈</span> <span class="free"><span class="bound"><span class="entity">ES</span></span></span><span class="main">.</span> rhss <span class="bound">rhs</span> <span class="main">⊆</span> lhss <span class="free"><span class="bound"><span class="entity">ES</span></span></span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> rhss_union_distrib<span class="main">:</span>
+<span class="keyword1" id="Myhill_1-rhss_union_distrib"><span class="command">lemma</span></span> rhss_union_distrib<span class="main">:</span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"rhss <span class="main">(</span><span class="free">A</span> <span class="main">∪</span> <span class="free">B</span><span class="main">)</span> <span class="main">=</span> rhss <span class="free">A</span> <span class="main">∪</span> rhss <span class="free">B</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> rhss_def<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> lhss_union_distrib<span class="main">:</span>
+<span class="keyword1" id="Myhill_1-lhss_union_distrib"><span class="command">lemma</span></span> lhss_union_distrib<span class="main">:</span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"lhss <span class="main">(</span><span class="free">A</span> <span class="main">∪</span> <span class="free">B</span><span class="main">)</span> <span class="main">=</span> lhss <span class="free">A</span> <span class="main">∪</span> lhss <span class="free">B</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> lhss_def<span class="main">)</span>
 
@@ -250,7 +250,7 @@
                 <span class="main">∧</span> validity <span class="free"><span class="bound"><span class="entity">ES</span></span></span>"</span></span>
 
 
-<span class="keyword1"><span class="command">lemma</span></span> invariantI<span class="main">:</span>
+<span class="keyword1" id="Myhill_1-invariantI"><span class="command">lemma</span></span> invariantI<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"soundness <span class="free">ES</span>"</span></span> <span class="quoted"><span class="quoted">"finite <span class="free">ES</span>"</span></span> <span class="quoted"><span class="quoted">"distinctness <span class="free">ES</span>"</span></span> <span class="quoted"><span class="quoted">"ardenable_all <span class="free">ES</span>"</span></span> 
           <span class="quoted"><span class="quoted">"finite_rhs <span class="free">ES</span>"</span></span> <span class="quoted"><span class="quoted">"validity <span class="free">ES</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"invariant <span class="free">ES</span>"</span></span>
@@ -259,17 +259,17 @@
 
 <span class="keyword1"><span class="command">declare</span></span> <span class="main">[</span><span class="main">[</span><span class="operator">simproc</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> finite_Collect<span class="main">]</span><span class="main">]</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> finite_Trn<span class="main">:</span>
+<span class="keyword1" id="Myhill_1-finite_Trn"><span class="command">lemma</span></span> finite_Trn<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> fin<span class="main">:</span> <span class="quoted"><span class="quoted">"finite <span class="free">rhs</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"finite <span class="main">{</span><span class="bound">r</span><span class="main">.</span> Trn <span class="free">Y</span> <span class="bound">r</span> <span class="main">∈</span> <span class="free">rhs</span><span class="main">}</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">intro</span><span class="main"><span class="main">!</span></span><span class="main"><span class="main">:</span></span> finite_vimageI <span class="quasi_keyword">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> inj_on_def<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> finite_Lam<span class="main">:</span>
+<span class="keyword1" id="Myhill_1-finite_Lam"><span class="command">lemma</span></span> finite_Lam<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> fin<span class="main">:</span> <span class="quoted"><span class="quoted">"finite <span class="free">rhs</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"finite <span class="main">{</span><span class="bound">r</span><span class="main">.</span> Lam <span class="bound">r</span> <span class="main">∈</span> <span class="free">rhs</span><span class="main">}</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">intro</span><span class="main"><span class="main">!</span></span><span class="main"><span class="main">:</span></span> finite_vimageI <span class="quasi_keyword">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> inj_on_def<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> trm_soundness<span class="main">:</span>
+<span class="keyword1" id="Myhill_1-trm_soundness"><span class="command">lemma</span></span> trm_soundness<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> finite<span class="main">:</span><span class="quoted"><span class="quoted">"finite <span class="free">rhs</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"lang_rhs <span class="main">(</span><span class="main">{</span>Trn <span class="free">X</span> <span class="bound">r</span><span class="main">|</span> <span class="bound">r</span><span class="main">.</span> Trn <span class="free">X</span> <span class="bound">r</span> <span class="main">∈</span> <span class="free">rhs</span><span class="main">}</span><span class="main">)</span> <span class="main">=</span> <span class="free">X</span> <span class="main">⋅</span> <span class="main">(</span>lang <span class="main">(</span><span class="main">⨄</span><span class="main">{</span><span class="bound">r</span><span class="main">.</span> Trn <span class="free">X</span> <span class="bound">r</span> <span class="main">∈</span> <span class="free">rhs</span><span class="main">}</span><span class="main">)</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
@@ -279,12 +279,12 @@
     <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">only</span><span class="main"><span class="main">:</span></span> lang_rhs_set lang_trm.simps<span class="main">)</span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> conc_def<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> lang_of_append_rexp<span class="main">:</span>
+<span class="keyword1" id="Myhill_1-lang_of_append_rexp"><span class="command">lemma</span></span> lang_of_append_rexp<span class="main">:</span>
   <span class="quoted"><span class="quoted">"lang_trm <span class="main">(</span>Append_rexp <span class="free">r</span> <span class="free">trm</span><span class="main">)</span> <span class="main">=</span> lang_trm <span class="free">trm</span> <span class="main">⋅</span> lang <span class="free">r</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">induct</span> <span class="quasi_keyword">rule</span><span class="main"><span class="main">:</span></span> Append_rexp.induct<span class="main">)</span>
    <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> conc_assoc<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> lang_of_append_rexp_rhs<span class="main">:</span>
+<span class="keyword1" id="Myhill_1-lang_of_append_rexp_rhs"><span class="command">lemma</span></span> lang_of_append_rexp_rhs<span class="main">:</span>
   <span class="quoted"><span class="quoted">"lang_rhs <span class="main">(</span>Append_rexp_rhs <span class="free">rhs</span> <span class="free">r</span><span class="main">)</span> <span class="main">=</span> lang_rhs <span class="free">rhs</span> <span class="main">⋅</span> lang <span class="free">r</span>"</span></span>
 <span class="keyword1"><span class="command">unfolding</span></span> Append_rexp_rhs_def
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> conc_def lang_of_append_rexp<span class="main">)</span>
@@ -292,14 +292,14 @@
 
 <span class="keyword1"><span class="command">subsection</span></span> <span class="quoted"><span class="plain_text">‹Intial Equational Systems›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> defined_by_str<span class="main">:</span>
+<span class="keyword1" id="Myhill_1-defined_by_str"><span class="command">lemma</span></span> defined_by_str<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">s</span> <span class="main">∈</span> <span class="free">X</span>"</span></span> <span class="quoted"><span class="quoted">"<span class="free">X</span> <span class="main">∈</span> UNIV <span class="main">//</span> <span class="main">≈</span><span class="free">A</span>"</span></span> 
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="free">X</span> <span class="main">=</span> <span class="main">≈</span><span class="free">A</span> <span class="main">``</span> <span class="main">{</span><span class="free">s</span><span class="main">}</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms
 <span class="keyword1"><span class="command">unfolding</span></span> quotient_def Image_def str_eq_def 
 <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> every_eqclass_has_transition<span class="main">:</span>
+<span class="keyword1" id="Myhill_1-every_eqclass_has_transition"><span class="command">lemma</span></span> every_eqclass_has_transition<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> has_str<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">s</span> <span class="main">@</span> <span class="main">[</span><span class="free">c</span><span class="main">]</span> <span class="main">∈</span> <span class="free">X</span>"</span></span>
   <span class="keyword2"><span class="keyword">and</span></span>     in_CS<span class="main">:</span>   <span class="quoted"><span class="quoted">"<span class="free">X</span> <span class="main">∈</span> UNIV <span class="main">//</span> <span class="main">≈</span><span class="free">A</span>"</span></span>
   <span class="keyword2"><span class="keyword">obtains</span></span> <span class="free">Y</span> <span class="keyword2"><span class="keyword">where</span></span> <span class="quoted"><span class="quoted">"<span class="free">Y</span> <span class="main">∈</span> UNIV <span class="main">//</span> <span class="main">≈</span><span class="free">A</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"<span class="free">Y</span> <span class="main">⋅</span> <span class="main">{</span><span class="main">[</span><span class="free">c</span><span class="main">]</span><span class="main">}</span> <span class="main">⊆</span> <span class="free">X</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"<span class="free">s</span> <span class="main">∈</span> <span class="free">Y</span>"</span></span>
@@ -320,7 +320,7 @@
   <span class="keyword1"><span class="command">ultimately</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="quoted"><span class="free">thesis</span></span> <span class="keyword1"><span class="command">using</span></span> that <span class="keyword1"><span class="command">by</span></span> <span class="operator">blast</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> l_eq_r_in_eqs<span class="main">:</span>
+<span class="keyword1" id="Myhill_1-l_eq_r_in_eqs"><span class="command">lemma</span></span> l_eq_r_in_eqs<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> X_in_eqs<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="free">X</span><span class="main">,</span> <span class="free">rhs</span><span class="main">)</span> <span class="main">∈</span> Init <span class="main">(</span>UNIV <span class="main">//</span> <span class="main">≈</span><span class="free">A</span><span class="main">)</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="free">X</span> <span class="main">=</span> lang_rhs <span class="free">rhs</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> 
@@ -355,14 +355,14 @@
 <span class="keyword1"><span class="command">qed</span></span>
 
 
-<span class="keyword1"><span class="command">lemma</span></span> finite_Init_rhs<span class="main">:</span> 
+<span class="keyword1" id="Myhill_1-finite_Init_rhs"><span class="command">lemma</span></span> finite_Init_rhs<span class="main">:</span> 
   <span class="keyword2"><span class="keyword">fixes</span></span> <span class="free">CS</span><span class="main">::</span><span class="quoted"><span class="quoted">"<span class="main">(</span><span class="main">(</span><span class="tfree">'a</span><span class="main">::</span>finite<span class="main">)</span> lang<span class="main">)</span> set"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> finite<span class="main">:</span> <span class="quoted"><span class="quoted">"finite <span class="free">CS</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"finite <span class="main">(</span>Init_rhs <span class="free">CS</span> <span class="free">X</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms <span class="keyword1"><span class="command">unfolding</span></span> Init_rhs_def transition_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 
 
-<span class="keyword1"><span class="command">lemma</span></span> Init_ES_satisfies_invariant<span class="main">:</span>
+<span class="keyword1" id="Myhill_1-Init_ES_satisfies_invariant"><span class="command">lemma</span></span> Init_ES_satisfies_invariant<span class="main">:</span>
   <span class="keyword2"><span class="keyword">fixes</span></span> <span class="free">A</span><span class="main">::</span><span class="quoted"><span class="quoted">"<span class="main">(</span><span class="main">(</span><span class="tfree">'a</span><span class="main">::</span>finite<span class="main">)</span> lang<span class="main">)</span>"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> finite_CS<span class="main">:</span> <span class="quoted"><span class="quoted">"finite <span class="main">(</span>UNIV <span class="main">//</span> <span class="main">≈</span><span class="free">A</span><span class="main">)</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"invariant <span class="main">(</span>Init <span class="main">(</span>UNIV <span class="main">//</span> <span class="main">≈</span><span class="free">A</span><span class="main">)</span><span class="main">)</span>"</span></span>
@@ -387,7 +387,7 @@
 
 <span class="keyword1"><span class="command">subsection</span></span> <span class="quoted"><span class="plain_text">‹Interations›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> Arden_preserves_soundness<span class="main">:</span>
+<span class="keyword1" id="Myhill_1-Arden_preserves_soundness"><span class="command">lemma</span></span> Arden_preserves_soundness<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> l_eq_r<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">X</span> <span class="main">=</span> lang_rhs <span class="free">rhs</span>"</span></span>
   <span class="keyword2"><span class="keyword">and</span></span> not_empty<span class="main">:</span> <span class="quoted"><span class="quoted">"ardenable <span class="free">rhs</span>"</span></span>
   <span class="keyword2"><span class="keyword">and</span></span> finite<span class="main">:</span> <span class="quoted"><span class="quoted">"finite <span class="free">rhs</span>"</span></span>
@@ -416,37 +416,37 @@
   <span class="keyword1"><span class="command">finally</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="quoted"><span class="quoted">"<span class="free">X</span> <span class="main">=</span> lang_rhs <span class="main">(</span>Arden <span class="free">X</span> <span class="free">rhs</span><span class="main">)</span>"</span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 <span class="keyword1"><span class="command">qed</span></span> 
 
-<span class="keyword1"><span class="command">lemma</span></span> Append_preserves_finite<span class="main">:</span>
+<span class="keyword1" id="Myhill_1-Append_preserves_finite"><span class="command">lemma</span></span> Append_preserves_finite<span class="main">:</span>
   <span class="quoted"><span class="quoted">"finite <span class="free">rhs</span> <span class="main">⟹</span> finite <span class="main">(</span>Append_rexp_rhs <span class="free">rhs</span> <span class="free">r</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span><span class="main"><span class="main">:</span></span> Append_rexp_rhs_def<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> Arden_preserves_finite<span class="main">:</span>
+<span class="keyword1" id="Myhill_1-Arden_preserves_finite"><span class="command">lemma</span></span> Arden_preserves_finite<span class="main">:</span>
   <span class="quoted"><span class="quoted">"finite <span class="free">rhs</span> <span class="main">⟹</span> finite <span class="main">(</span>Arden <span class="free">X</span> <span class="free">rhs</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span><span class="main"><span class="main">:</span></span> Arden_def Append_preserves_finite<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> Append_preserves_ardenable<span class="main">:</span>
+<span class="keyword1" id="Myhill_1-Append_preserves_ardenable"><span class="command">lemma</span></span> Append_preserves_ardenable<span class="main">:</span>
   <span class="quoted"><span class="quoted">"ardenable <span class="free">rhs</span> <span class="main">⟹</span> ardenable <span class="main">(</span>Append_rexp_rhs <span class="free">rhs</span> <span class="free">r</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span><span class="main"><span class="main">:</span></span> ardenable_def Append_rexp_rhs_def<span class="main">)</span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">case_tac</span> <span class="quoted"><span class="improper">x</span></span><span class="main"><span class="keyword3">,</span></span> <span class="operator">auto</span> <span class="quasi_keyword">simp</span><span class="main"><span class="main">:</span></span> conc_def<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ardenable_set_sub<span class="main">:</span>
+<span class="keyword1" id="Myhill_1-ardenable_set_sub"><span class="command">lemma</span></span> ardenable_set_sub<span class="main">:</span>
   <span class="quoted"><span class="quoted">"ardenable <span class="free">rhs</span> <span class="main">⟹</span> ardenable <span class="main">(</span><span class="free">rhs</span> <span class="main">-</span> <span class="free">A</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span><span class="main"><span class="main">:</span></span>ardenable_def<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> ardenable_set_union<span class="main">:</span>
+<span class="keyword1" id="Myhill_1-ardenable_set_union"><span class="command">lemma</span></span> ardenable_set_union<span class="main">:</span>
   <span class="quoted"><span class="quoted">"<span class="main">⟦</span>ardenable <span class="free">rhs</span><span class="main">;</span> ardenable <span class="free">rhs'</span><span class="main">⟧</span> <span class="main">⟹</span> ardenable <span class="main">(</span><span class="free">rhs</span> <span class="main">∪</span> <span class="free">rhs'</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span><span class="main"><span class="main">:</span></span>ardenable_def<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> Arden_preserves_ardenable<span class="main">:</span>
+<span class="keyword1" id="Myhill_1-Arden_preserves_ardenable"><span class="command">lemma</span></span> Arden_preserves_ardenable<span class="main">:</span>
   <span class="quoted"><span class="quoted">"ardenable <span class="free">rhs</span> <span class="main">⟹</span> ardenable <span class="main">(</span>Arden <span class="free">X</span> <span class="free">rhs</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">only</span><span class="main"><span class="main">:</span></span>Arden_def Append_preserves_ardenable ardenable_set_sub<span class="main">)</span>
 
 
-<span class="keyword1"><span class="command">lemma</span></span> Subst_preserves_ardenable<span class="main">:</span>
+<span class="keyword1" id="Myhill_1-Subst_preserves_ardenable"><span class="command">lemma</span></span> Subst_preserves_ardenable<span class="main">:</span>
   <span class="quoted"><span class="quoted">"<span class="main">⟦</span>ardenable <span class="free">rhs</span><span class="main">;</span> ardenable <span class="free">xrhs</span><span class="main">⟧</span> <span class="main">⟹</span> ardenable <span class="main">(</span>Subst <span class="free">rhs</span> <span class="free">X</span> <span class="free">xrhs</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">only</span><span class="main"><span class="main">:</span></span> Subst_def Append_preserves_ardenable ardenable_set_union ardenable_set_sub<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> Subst_preserves_soundness<span class="main">:</span>
+<span class="keyword1" id="Myhill_1-Subst_preserves_soundness"><span class="command">lemma</span></span> Subst_preserves_soundness<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> substor<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">X</span> <span class="main">=</span> lang_rhs <span class="free">xrhs</span>"</span></span>
   <span class="keyword2"><span class="keyword">and</span></span> finite<span class="main">:</span> <span class="quoted"><span class="quoted">"finite <span class="free">rhs</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"lang_rhs <span class="main">(</span>Subst <span class="free">rhs</span> <span class="free">X</span> <span class="free">xrhs</span><span class="main">)</span> <span class="main">=</span> lang_rhs <span class="free">rhs</span>"</span></span> <span class="main">(</span><span class="keyword2"><span class="keyword">is</span></span> <span class="quoted"><span class="quoted">"<span class="var">?Left</span> <span class="main">=</span> <span class="var">?Right</span>"</span></span><span class="main">)</span>
@@ -470,43 +470,43 @@
   <span class="keyword1"><span class="command">ultimately</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> Subst_preserves_finite_rhs<span class="main">:</span>
+<span class="keyword1" id="Myhill_1-Subst_preserves_finite_rhs"><span class="command">lemma</span></span> Subst_preserves_finite_rhs<span class="main">:</span>
   <span class="quoted"><span class="quoted">"<span class="main">⟦</span>finite <span class="free">rhs</span><span class="main">;</span> finite <span class="free">yrhs</span><span class="main">⟧</span> <span class="main">⟹</span> finite <span class="main">(</span>Subst <span class="free">rhs</span> <span class="free">Y</span> <span class="free">yrhs</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span><span class="main"><span class="main">:</span></span> Subst_def Append_preserves_finite<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> Subst_all_preserves_finite<span class="main">:</span>
+<span class="keyword1" id="Myhill_1-Subst_all_preserves_finite"><span class="command">lemma</span></span> Subst_all_preserves_finite<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> finite<span class="main">:</span> <span class="quoted"><span class="quoted">"finite <span class="free">ES</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"finite <span class="main">(</span>Subst_all <span class="free">ES</span> <span class="free">Y</span> <span class="free">yrhs</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms <span class="keyword1"><span class="command">unfolding</span></span> Subst_all_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 
 <span class="keyword1"><span class="command">declare</span></span> <span class="main">[</span><span class="main">[</span><span class="operator">simproc</span> <span class="quasi_keyword">del</span><span class="main"><span class="main">:</span></span> finite_Collect<span class="main">]</span><span class="main">]</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> Subst_all_preserves_finite_rhs<span class="main">:</span>
+<span class="keyword1" id="Myhill_1-Subst_all_preserves_finite_rhs"><span class="command">lemma</span></span> Subst_all_preserves_finite_rhs<span class="main">:</span>
   <span class="quoted"><span class="quoted">"<span class="main">⟦</span>finite_rhs <span class="free">ES</span><span class="main">;</span> finite <span class="free">yrhs</span><span class="main">⟧</span> <span class="main">⟹</span> finite_rhs <span class="main">(</span>Subst_all <span class="free">ES</span> <span class="free">Y</span> <span class="free">yrhs</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">intro</span><span class="main"><span class="main">:</span></span>Subst_preserves_finite_rhs <span class="quasi_keyword">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span>Subst_all_def finite_rhs_def<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> append_rhs_preserves_cls<span class="main">:</span>
+<span class="keyword1" id="Myhill_1-append_rhs_preserves_cls"><span class="command">lemma</span></span> append_rhs_preserves_cls<span class="main">:</span>
   <span class="quoted"><span class="quoted">"rhss <span class="main">(</span>Append_rexp_rhs <span class="free">rhs</span> <span class="free">r</span><span class="main">)</span> <span class="main">=</span> rhss <span class="free">rhs</span>"</span></span>
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span><span class="main"><span class="main">:</span></span> rhss_def Append_rexp_rhs_def<span class="main">)</span>
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span> <span class="main">(</span><span class="operator">case_tac</span> <span class="quoted"><span class="improper">xa</span></span><span class="main"><span class="keyword3">,</span></span> <span class="operator">auto</span> <span class="quasi_keyword">simp</span><span class="main"><span class="main">:</span></span> image_def<span class="main">)</span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">rule_tac</span> x <span class="main"><span class="main">=</span></span> <span class="quoted"><span class="quoted">"Times <span class="improper">ra</span> <span class="free">r</span>"</span></span> <span class="keyword2"><span class="keyword"><span class="quasi_keyword">in</span></span></span> exI<span class="main"><span class="keyword3">,</span></span> <span class="operator">rule_tac</span> x <span class="main"><span class="main">=</span></span> <span class="quoted"><span class="quoted">"Trn <span class="improper">x</span> <span class="improper">ra</span>"</span></span> <span class="keyword2"><span class="keyword"><span class="quasi_keyword">in</span></span></span> bexI<span class="main"><span class="keyword3">,</span></span> <span class="operator">simp</span><span class="main"><span class="keyword3">+</span></span><span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> Arden_removes_cl<span class="main">:</span>
+<span class="keyword1" id="Myhill_1-Arden_removes_cl"><span class="command">lemma</span></span> Arden_removes_cl<span class="main">:</span>
   <span class="quoted"><span class="quoted">"rhss <span class="main">(</span>Arden <span class="free">Y</span> <span class="free">yrhs</span><span class="main">)</span> <span class="main">=</span> rhss <span class="free">yrhs</span> <span class="main">-</span> <span class="main">{</span><span class="free">Y</span><span class="main">}</span>"</span></span>
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span>Arden_def append_rhs_preserves_cls<span class="main">)</span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span><span class="main"><span class="main">:</span></span> rhss_def<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> lhss_preserves_cls<span class="main">:</span>
+<span class="keyword1" id="Myhill_1-lhss_preserves_cls"><span class="command">lemma</span></span> lhss_preserves_cls<span class="main">:</span>
   <span class="quoted"><span class="quoted">"lhss <span class="main">(</span>Subst_all <span class="free">ES</span> <span class="free">Y</span> <span class="free">yrhs</span><span class="main">)</span> <span class="main">=</span> lhss <span class="free">ES</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span><span class="main"><span class="main">:</span></span> lhss_def Subst_all_def<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> Subst_updates_cls<span class="main">:</span>
+<span class="keyword1" id="Myhill_1-Subst_updates_cls"><span class="command">lemma</span></span> Subst_updates_cls<span class="main">:</span>
   <span class="quoted"><span class="quoted">"<span class="free">X</span> <span class="main">∉</span> rhss <span class="free">xrhs</span> <span class="main">⟹</span> 
       rhss <span class="main">(</span>Subst <span class="free">rhs</span> <span class="free">X</span> <span class="free">xrhs</span><span class="main">)</span> <span class="main">=</span> rhss <span class="free">rhs</span> <span class="main">∪</span> rhss <span class="free">xrhs</span> <span class="main">-</span> <span class="main">{</span><span class="free">X</span><span class="main">}</span>"</span></span>
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span> <span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">only</span><span class="main"><span class="main">:</span></span>Subst_def append_rhs_preserves_cls rhss_union_distrib<span class="main">)</span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span><span class="main"><span class="main">:</span></span> rhss_def<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> Subst_all_preserves_validity<span class="main">:</span>
+<span class="keyword1" id="Myhill_1-Subst_all_preserves_validity"><span class="command">lemma</span></span> Subst_all_preserves_validity<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> sc<span class="main">:</span> <span class="quoted"><span class="quoted">"validity <span class="main">(</span><span class="free">ES</span> <span class="main">∪</span> <span class="main">{</span><span class="main">(</span><span class="free">Y</span><span class="main">,</span> <span class="free">yrhs</span><span class="main">)</span><span class="main">}</span><span class="main">)</span>"</span></span>        <span class="main">(</span><span class="keyword2"><span class="keyword">is</span></span> <span class="quoted"><span class="quoted">"validity <span class="var">?A</span>"</span></span><span class="main">)</span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"validity <span class="main">(</span>Subst_all <span class="free">ES</span> <span class="free">Y</span> <span class="main">(</span>Arden <span class="free">Y</span> <span class="free">yrhs</span><span class="main">)</span><span class="main">)</span>"</span></span>  <span class="main">(</span><span class="keyword2"><span class="keyword">is</span></span> <span class="quoted"><span class="quoted">"validity <span class="var">?B</span>"</span></span><span class="main">)</span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
@@ -539,7 +539,7 @@
   <span class="keyword1"><span class="command">}</span></span> <span class="keyword3"><span class="command">thus</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span> <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span> <span class="quasi_keyword">only</span><span class="main"><span class="main">:</span></span>Subst_all_def validity_def<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> Subst_all_satisfies_invariant<span class="main">:</span>
+<span class="keyword1" id="Myhill_1-Subst_all_satisfies_invariant"><span class="command">lemma</span></span> Subst_all_satisfies_invariant<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> invariant_ES<span class="main">:</span> <span class="quoted"><span class="quoted">"invariant <span class="main">(</span><span class="free">ES</span> <span class="main">∪</span> <span class="main">{</span><span class="main">(</span><span class="free">Y</span><span class="main">,</span> <span class="free">yrhs</span><span class="main">)</span><span class="main">}</span><span class="main">)</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"invariant <span class="main">(</span>Subst_all <span class="free">ES</span> <span class="free">Y</span> <span class="main">(</span>Arden <span class="free">Y</span> <span class="free">yrhs</span><span class="main">)</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">rule</span> invariantI<span class="main">)</span>
@@ -597,7 +597,7 @@
     <span class="keyword1"><span class="command">using</span></span> invariant_ES Subst_all_preserves_validity <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> invariant_def<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> Remove_in_card_measure<span class="main">:</span>
+<span class="keyword1" id="Myhill_1-Remove_in_card_measure"><span class="command">lemma</span></span> Remove_in_card_measure<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> finite<span class="main">:</span> <span class="quoted"><span class="quoted">"finite <span class="free">ES</span>"</span></span>
   <span class="keyword2"><span class="keyword">and</span></span>     in_ES<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="free">X</span><span class="main">,</span> <span class="free">rhs</span><span class="main">)</span> <span class="main">∈</span> <span class="free">ES</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">(</span>Remove <span class="free">ES</span> <span class="free">X</span> <span class="free">rhs</span><span class="main">,</span> <span class="free">ES</span><span class="main">)</span> <span class="main">∈</span> measure card"</span></span>
@@ -616,11 +616,11 @@
 <span class="keyword1"><span class="command">qed</span></span>
     
 
-<span class="keyword1"><span class="command">lemma</span></span> Subst_all_cls_remains<span class="main">:</span> 
+<span class="keyword1" id="Myhill_1-Subst_all_cls_remains"><span class="command">lemma</span></span> Subst_all_cls_remains<span class="main">:</span> 
   <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="free">X</span><span class="main">,</span> <span class="free">xrhs</span><span class="main">)</span> <span class="main">∈</span> <span class="free">ES</span> <span class="main">⟹</span> <span class="main">∃</span> <span class="bound">xrhs'</span><span class="main">.</span> <span class="main">(</span><span class="free">X</span><span class="main">,</span> <span class="bound">xrhs'</span><span class="main">)</span> <span class="main">∈</span> <span class="main">(</span>Subst_all <span class="free">ES</span> <span class="free">Y</span> <span class="free">yrhs</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span><span class="main"><span class="main">:</span></span> Subst_all_def<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> card_noteq_1_has_more<span class="main">:</span>
+<span class="keyword1" id="Myhill_1-card_noteq_1_has_more"><span class="command">lemma</span></span> card_noteq_1_has_more<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> card<span class="main">:</span><span class="quoted"><span class="quoted">"Cond <span class="free">ES</span>"</span></span>
   <span class="keyword2"><span class="keyword">and</span></span> e_in<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="free">X</span><span class="main">,</span> <span class="free">xrhs</span><span class="main">)</span> <span class="main">∈</span> <span class="free">ES</span>"</span></span>
   <span class="keyword2"><span class="keyword">and</span></span> finite<span class="main">:</span> <span class="quoted"><span class="quoted">"finite <span class="free">ES</span>"</span></span>
@@ -635,7 +635,7 @@
     <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> iteration_step_measure<span class="main">:</span>
+<span class="keyword1" id="Myhill_1-iteration_step_measure"><span class="command">lemma</span></span> iteration_step_measure<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> Inv_ES<span class="main">:</span> <span class="quoted"><span class="quoted">"invariant <span class="free">ES</span>"</span></span>
   <span class="keyword2"><span class="keyword">and</span></span>    X_in_ES<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="free">X</span><span class="main">,</span> <span class="free">xrhs</span><span class="main">)</span> <span class="main">∈</span> <span class="free">ES</span>"</span></span>
   <span class="keyword2"><span class="keyword">and</span></span>    Cnd<span class="main">:</span>     <span class="quoted"><span class="quoted">"Cond <span class="free">ES</span> "</span></span>
@@ -655,7 +655,7 @@
   <span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> iteration_step_invariant<span class="main">:</span>
+<span class="keyword1" id="Myhill_1-iteration_step_invariant"><span class="command">lemma</span></span> iteration_step_invariant<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> Inv_ES<span class="main">:</span> <span class="quoted"><span class="quoted">"invariant <span class="free">ES</span>"</span></span>
   <span class="keyword2"><span class="keyword">and</span></span>    X_in_ES<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="free">X</span><span class="main">,</span> <span class="free">xrhs</span><span class="main">)</span> <span class="main">∈</span> <span class="free">ES</span>"</span></span>
   <span class="keyword2"><span class="keyword">and</span></span>    Cnd<span class="main">:</span> <span class="quoted"><span class="quoted">"Cond <span class="free">ES</span>"</span></span>
@@ -679,7 +679,7 @@
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> iteration_step_ex<span class="main">:</span>
+<span class="keyword1" id="Myhill_1-iteration_step_ex"><span class="command">lemma</span></span> iteration_step_ex<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> Inv_ES<span class="main">:</span> <span class="quoted"><span class="quoted">"invariant <span class="free">ES</span>"</span></span>
   <span class="keyword2"><span class="keyword">and</span></span>    X_in_ES<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="free">X</span><span class="main">,</span> <span class="free">xrhs</span><span class="main">)</span> <span class="main">∈</span> <span class="free">ES</span>"</span></span>
   <span class="keyword2"><span class="keyword">and</span></span>    Cnd<span class="main">:</span> <span class="quoted"><span class="quoted">"Cond <span class="free">ES</span>"</span></span>
@@ -704,7 +704,7 @@
 
 <span class="keyword1"><span class="command">subsection</span></span> <span class="quoted"><span class="plain_text">‹The conclusion of the first direction›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> Solve<span class="main">:</span>
+<span class="keyword1" id="Myhill_1-Solve"><span class="command">lemma</span></span> Solve<span class="main">:</span>
   <span class="keyword2"><span class="keyword">fixes</span></span> <span class="free">A</span><span class="main">::</span><span class="quoted"><span class="quoted">"<span class="main">(</span><span class="tfree">'a</span><span class="main">::</span>finite<span class="main">)</span> lang"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> fin<span class="main">:</span> <span class="quoted"><span class="quoted">"finite <span class="main">(</span>UNIV <span class="main">//</span> <span class="main">≈</span><span class="free">A</span><span class="main">)</span>"</span></span>
   <span class="keyword2"><span class="keyword">and</span></span>     X_in<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">X</span> <span class="main">∈</span> <span class="main">(</span>UNIV <span class="main">//</span> <span class="main">≈</span><span class="free">A</span><span class="main">)</span>"</span></span>
@@ -745,7 +745,7 @@
     <span class="keyword1"><span class="command">unfolding</span></span> Solve_def <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">rule</span> while_rule<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> every_eqcl_has_reg<span class="main">:</span>
+<span class="keyword1" id="Myhill_1-every_eqcl_has_reg"><span class="command">lemma</span></span> every_eqcl_has_reg<span class="main">:</span>
   <span class="keyword2"><span class="keyword">fixes</span></span> <span class="free">A</span><span class="main">::</span><span class="quoted"><span class="quoted">"<span class="main">(</span><span class="tfree">'a</span><span class="main">::</span>finite<span class="main">)</span> lang"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> finite_CS<span class="main">:</span> <span class="quoted"><span class="quoted">"finite <span class="main">(</span>UNIV <span class="main">//</span> <span class="main">≈</span><span class="free">A</span><span class="main">)</span>"</span></span>
   <span class="keyword2"><span class="keyword">and</span></span> X_in_CS<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">X</span> <span class="main">∈</span> <span class="main">(</span>UNIV <span class="main">//</span> <span class="main">≈</span><span class="free">A</span><span class="main">)</span>"</span></span>
@@ -778,7 +778,7 @@
   <span class="keyword1"><span class="command">then</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="quoted"><span class="quoted">"<span class="main">∃</span><span class="bound">r</span><span class="main">.</span> <span class="free">X</span> <span class="main">=</span> lang <span class="bound">r</span>"</span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">blast</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> bchoice_finite_set<span class="main">:</span>
+<span class="keyword1" id="Myhill_1-bchoice_finite_set"><span class="command">lemma</span></span> bchoice_finite_set<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> a<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">∀</span><span class="bound">x</span> <span class="main">∈</span> <span class="free">S</span><span class="main">.</span> <span class="main">∃</span><span class="bound">y</span><span class="main">.</span> <span class="bound">x</span> <span class="main">=</span> <span class="free">f</span> <span class="bound">y</span>"</span></span> 
   <span class="keyword2"><span class="keyword">and</span></span>     b<span class="main">:</span> <span class="quoted"><span class="quoted">"finite <span class="free">S</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">∃</span><span class="bound">ys</span><span class="main">.</span> <span class="main">(</span><span class="main">⋃</span> <span class="free">S</span><span class="main">)</span> <span class="main">=</span> <span class="main">⋃</span><span class="main">(</span><span class="free">f</span> <span class="main">`</span> <span class="bound">ys</span><span class="main">)</span> <span class="main">∧</span> finite <span class="bound">ys</span>"</span></span>
@@ -836,14 +836,14 @@
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="main">≈</span><span class="free">A</span><span class="main">)</span> <span class="main">``</span> <span class="main">{</span><span class="free">x</span><span class="main">}</span> <span class="main">=</span> <span class="main">(</span><span class="main">≈</span><span class="free">A</span><span class="main">)</span> <span class="main">``</span> <span class="main">{</span><span class="free">y</span><span class="main">}</span> <span class="main">⟷</span> <span class="free">x</span> <span class="main">≈</span><span class="free">A</span> <span class="free">y</span>"</span></span>
 <span class="keyword1"><span class="command">unfolding</span></span> str_eq_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> refined_intro<span class="main">:</span>
+<span class="keyword1" id="Myhill_2-refined_intro"><span class="command">lemma</span></span> refined_intro<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="main">⋀</span><span class="bound">x</span> <span class="bound">y</span> <span class="bound">z</span><span class="main">.</span> <span class="main">⟦</span><span class="bound">x</span> <span class="main">=</span><span class="free">tag</span><span class="main">=</span> <span class="bound">y</span><span class="main">;</span> <span class="bound">x</span> <span class="main">@</span> <span class="bound">z</span> <span class="main">∈</span> <span class="free">A</span><span class="main">⟧</span> <span class="main">⟹</span> <span class="bound">y</span> <span class="main">@</span> <span class="bound">z</span> <span class="main">∈</span> <span class="free">A</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">=</span><span class="free">tag</span><span class="main">=</span> <span class="main">⊆</span> <span class="main">≈</span><span class="free">A</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms <span class="keyword1"><span class="command">unfolding</span></span> str_eq_def tag_eq_def
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="main">(</span><span class="operator">clarify</span><span class="main"><span class="keyword3">,</span></span> <span class="operator">simp</span> <span class="main"><span class="main">(</span></span><span class="quasi_keyword">no_asm_use</span><span class="main"><span class="main">)</span></span><span class="main">)</span>
 <span class="keyword1"><span class="command">by</span></span> <span class="operator">metis</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> finite_eq_tag_rel<span class="main">:</span>
+<span class="keyword1" id="Myhill_2-finite_eq_tag_rel"><span class="command">lemma</span></span> finite_eq_tag_rel<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> rng_fnt<span class="main">:</span> <span class="quoted"><span class="quoted">"finite <span class="main">(</span>range <span class="free">tag</span><span class="main">)</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"finite <span class="main">(</span>UNIV <span class="main">//</span> <span class="main">=</span><span class="free">tag</span><span class="main">=</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
@@ -879,7 +879,7 @@
   <span class="keyword1"><span class="command">ultimately</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="quoted"><span class="quoted">"finite <span class="main">(</span>UNIV <span class="main">//</span> <span class="main">=</span><span class="free">tag</span><span class="main">=</span><span class="main">)</span>"</span></span> <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">rule</span> finite_imageD<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> refined_partition_finite<span class="main">:</span>
+<span class="keyword1" id="Myhill_2-refined_partition_finite"><span class="command">lemma</span></span> refined_partition_finite<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> fnt<span class="main">:</span> <span class="quoted"><span class="quoted">"finite <span class="main">(</span>UNIV <span class="main">//</span> <span class="free">R1</span><span class="main">)</span>"</span></span>
   <span class="keyword2"><span class="keyword">and</span></span> refined<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">R1</span> <span class="main">⊆</span> <span class="free">R2</span>"</span></span>
   <span class="keyword2"><span class="keyword">and</span></span> eq1<span class="main">:</span> <span class="quoted"><span class="quoted">"equiv UNIV <span class="free">R1</span>"</span></span> <span class="keyword2"><span class="keyword">and</span></span> eq2<span class="main">:</span> <span class="quoted"><span class="quoted">"equiv UNIV <span class="free">R2</span>"</span></span>
@@ -916,7 +916,7 @@
   <span class="keyword1"><span class="command">ultimately</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="quoted"><span class="quoted">"finite <span class="main">(</span>UNIV <span class="main">//</span> <span class="free">R2</span><span class="main">)</span>"</span></span> <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">rule</span> finite_imageD<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> tag_finite_imageD<span class="main">:</span>
+<span class="keyword1" id="Myhill_2-tag_finite_imageD"><span class="command">lemma</span></span> tag_finite_imageD<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> rng_fnt<span class="main">:</span> <span class="quoted"><span class="quoted">"finite <span class="main">(</span>range <span class="free">tag</span><span class="main">)</span>"</span></span> 
   <span class="keyword2"><span class="keyword">and</span></span>     refined<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">=</span><span class="free">tag</span><span class="main">=</span>  <span class="main">⊆</span> <span class="main">≈</span><span class="free">A</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"finite <span class="main">(</span>UNIV <span class="main">//</span> <span class="main">≈</span><span class="free">A</span><span class="main">)</span>"</span></span>
@@ -934,16 +934,16 @@
 
 <span class="keyword1"><span class="command">subsection</span></span> <span class="quoted"><span class="plain_text">‹Base cases: <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><span class="antiquote">@{</span></span><span class="operator"><span class="operator">const</span></span> Zero<span class="antiquote"><span class="antiquote">}</span></span></span></span>, <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><span class="antiquote">@{</span></span><span class="operator"><span class="operator">const</span></span> One<span class="antiquote"><span class="antiquote">}</span></span></span></span> and <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><span class="antiquote">@{</span></span><span class="operator"><span class="operator">const</span></span> Atom<span class="antiquote"><span class="antiquote">}</span></span></span></span>›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> quot_zero_eq<span class="main">:</span>
+<span class="keyword1" id="Myhill_2-quot_zero_eq"><span class="command">lemma</span></span> quot_zero_eq<span class="main">:</span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"UNIV <span class="main">//</span> <span class="main">≈</span><span class="main">{}</span> <span class="main">=</span> <span class="main">{</span>UNIV<span class="main">}</span>"</span></span>
 <span class="keyword1"><span class="command">unfolding</span></span> quotient_def Image_def str_eq_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> quot_zero_finiteI <span class="main">[</span><span class="operator">intro</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Myhill_2-quot_zero_finiteI"><span class="command">lemma</span></span> quot_zero_finiteI <span class="main">[</span><span class="operator">intro</span><span class="main">]</span><span class="main">:</span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"finite <span class="main">(</span>UNIV <span class="main">//</span> <span class="main">≈</span><span class="main">{}</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">unfolding</span></span> quot_zero_eq <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 
 
-<span class="keyword1"><span class="command">lemma</span></span> quot_one_subset<span class="main">:</span>
+<span class="keyword1" id="Myhill_2-quot_one_subset"><span class="command">lemma</span></span> quot_one_subset<span class="main">:</span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"UNIV <span class="main">//</span> <span class="main">≈</span><span class="main">{</span><span class="main">[]</span><span class="main">}</span> <span class="main">⊆</span> <span class="main">{</span><span class="main">{</span><span class="main">[]</span><span class="main">}</span><span class="main">,</span> UNIV <span class="main">-</span> <span class="main">{</span><span class="main">[]</span><span class="main">}</span><span class="main">}</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span>
   <span class="keyword3"><span class="command">fix</span></span> <span class="skolem">x</span>
@@ -960,12 +960,12 @@
   <span class="keyword1"><span class="command">ultimately</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="quoted"><span class="quoted">"<span class="skolem">x</span> <span class="main">∈</span> <span class="main">{</span><span class="main">{</span><span class="main">[]</span><span class="main">}</span><span class="main">,</span> UNIV <span class="main">-</span> <span class="main">{</span><span class="main">[]</span><span class="main">}</span><span class="main">}</span>"</span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">blast</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> quot_one_finiteI <span class="main">[</span><span class="operator">intro</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Myhill_2-quot_one_finiteI"><span class="command">lemma</span></span> quot_one_finiteI <span class="main">[</span><span class="operator">intro</span><span class="main">]</span><span class="main">:</span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"finite <span class="main">(</span>UNIV <span class="main">//</span> <span class="main">≈</span><span class="main">{</span><span class="main">[]</span><span class="main">}</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">rule</span> finite_subset<span class="main"><span class="main">[</span></span><span class="operator">OF</span> quot_one_subset<span class="main"><span class="main">]</span></span><span class="main">)</span> <span class="main">(</span><span class="operator">simp</span><span class="main">)</span>
 
 
-<span class="keyword1"><span class="command">lemma</span></span> quot_atom_subset<span class="main">:</span>
+<span class="keyword1" id="Myhill_2-quot_atom_subset"><span class="command">lemma</span></span> quot_atom_subset<span class="main">:</span>
   <span class="quoted"><span class="quoted">"UNIV <span class="main">//</span> <span class="main">(</span><span class="main">≈</span><span class="main">{</span><span class="main">[</span><span class="free">c</span><span class="main">]</span><span class="main">}</span><span class="main">)</span> <span class="main">⊆</span> <span class="main">{</span><span class="main">{</span><span class="main">[]</span><span class="main">}</span><span class="main">,</span><span class="main">{</span><span class="main">[</span><span class="free">c</span><span class="main">]</span><span class="main">}</span><span class="main">,</span> UNIV <span class="main">-</span> <span class="main">{</span><span class="main">[]</span><span class="main">,</span> <span class="main">[</span><span class="free">c</span><span class="main">]</span><span class="main">}</span><span class="main">}</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> 
   <span class="keyword3"><span class="command">fix</span></span> <span class="skolem">x</span> 
@@ -991,7 +991,7 @@
   <span class="keyword1"><span class="command">qed</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> quot_atom_finiteI <span class="main">[</span><span class="operator">intro</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Myhill_2-quot_atom_finiteI"><span class="command">lemma</span></span> quot_atom_finiteI <span class="main">[</span><span class="operator">intro</span><span class="main">]</span><span class="main">:</span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"finite <span class="main">(</span>UNIV <span class="main">//</span> <span class="main">≈</span><span class="main">{</span><span class="main">[</span><span class="free">c</span><span class="main">]</span><span class="main">}</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">rule</span> finite_subset<span class="main"><span class="main">[</span></span><span class="operator">OF</span> quot_atom_subset<span class="main"><span class="main">]</span></span><span class="main">)</span> <span class="main">(</span><span class="operator">simp</span><span class="main">)</span>
 
@@ -1003,7 +1003,7 @@
 <span class="keyword2"><span class="keyword">where</span></span>
   <span class="quoted"><span class="quoted">"<span class="free">tag_Plus</span> <span class="free"><span class="bound"><span class="entity">A</span></span></span> <span class="free"><span class="bound"><span class="entity">B</span></span></span> <span class="main">≡</span> <span class="main">λ</span><span class="bound">x</span><span class="main">.</span> <span class="main">(</span><span class="main">≈</span><span class="free"><span class="bound"><span class="entity">A</span></span></span> <span class="main">``</span> <span class="main">{</span><span class="bound">x</span><span class="main">}</span><span class="main">,</span> <span class="main">≈</span><span class="free"><span class="bound"><span class="entity">B</span></span></span> <span class="main">``</span> <span class="main">{</span><span class="bound">x</span><span class="main">}</span><span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> quot_plus_finiteI <span class="main">[</span><span class="operator">intro</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Myhill_2-quot_plus_finiteI"><span class="command">lemma</span></span> quot_plus_finiteI <span class="main">[</span><span class="operator">intro</span><span class="main">]</span><span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> finite1<span class="main">:</span> <span class="quoted"><span class="quoted">"finite <span class="main">(</span>UNIV <span class="main">//</span> <span class="main">≈</span><span class="free">A</span><span class="main">)</span>"</span></span>
   <span class="keyword2"><span class="keyword">and</span></span>     finite2<span class="main">:</span> <span class="quoted"><span class="quoted">"finite <span class="main">(</span>UNIV <span class="main">//</span> <span class="main">≈</span><span class="free">B</span><span class="main">)</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"finite <span class="main">(</span>UNIV <span class="main">//</span> <span class="main">≈</span><span class="main">(</span><span class="free">A</span> <span class="main">∪</span> <span class="free">B</span><span class="main">)</span><span class="main">)</span>"</span></span>
@@ -1024,19 +1024,19 @@
 <span class="keyword1"><span class="command">definition</span></span>
   <span class="quoted"><span class="quoted">"<span class="free">Partitions</span> <span class="free"><span class="bound"><span class="entity">x</span></span></span> <span class="main">≡</span> <span class="main">{</span><span class="main">(</span><span class="bound">x<span class="hidden">⇩</span><sub>p</sub></span><span class="main">,</span> <span class="bound">x<span class="hidden">⇩</span><sub>s</sub></span><span class="main">)</span><span class="main">.</span> <span class="bound">x<span class="hidden">⇩</span><sub>p</sub></span> <span class="main">@</span> <span class="bound">x<span class="hidden">⇩</span><sub>s</sub></span> <span class="main">=</span> <span class="free"><span class="bound"><span class="entity">x</span></span></span><span class="main">}</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> conc_partitions_elim<span class="main">:</span>
+<span class="keyword1" id="Myhill_2-conc_partitions_elim"><span class="command">lemma</span></span> conc_partitions_elim<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">x</span> <span class="main">∈</span> <span class="free">A</span> <span class="main">⋅</span> <span class="free">B</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">∃</span><span class="main">(</span><span class="bound">u</span><span class="main">,</span> <span class="bound">v</span><span class="main">)</span> <span class="main">∈</span> Partitions <span class="free">x</span><span class="main">.</span> <span class="bound">u</span> <span class="main">∈</span> <span class="free">A</span> <span class="main">∧</span> <span class="bound">v</span> <span class="main">∈</span> <span class="free">B</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms <span class="keyword1"><span class="command">unfolding</span></span> conc_def Partitions_def
 <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> conc_partitions_intro<span class="main">:</span>
+<span class="keyword1" id="Myhill_2-conc_partitions_intro"><span class="command">lemma</span></span> conc_partitions_intro<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="main">(</span><span class="free">u</span><span class="main">,</span> <span class="free">v</span><span class="main">)</span> <span class="main">∈</span> Partitions <span class="free">x</span> <span class="main">∧</span> <span class="free">u</span> <span class="main">∈</span> <span class="free">A</span> <span class="main">∧</span>  <span class="free">v</span> <span class="main">∈</span> <span class="free">B</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="free">x</span> <span class="main">∈</span> <span class="free">A</span> <span class="main">⋅</span> <span class="free">B</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms <span class="keyword1"><span class="command">unfolding</span></span> conc_def Partitions_def
 <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> equiv_class_member<span class="main">:</span>
+<span class="keyword1" id="Myhill_2-equiv_class_member"><span class="command">lemma</span></span> equiv_class_member<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">x</span> <span class="main">∈</span> <span class="free">A</span>"</span></span>
   <span class="keyword2"><span class="keyword">and</span></span> <span class="quoted"><span class="quoted">"<span class="main">≈</span><span class="free">A</span> <span class="main">``</span> <span class="main">{</span><span class="free">x</span><span class="main">}</span> <span class="main">=</span> <span class="main">≈</span><span class="free">A</span> <span class="main">``</span> <span class="main">{</span><span class="free">y</span><span class="main">}</span>"</span></span> 
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="free">y</span> <span class="main">∈</span> <span class="free">A</span>"</span></span>
@@ -1051,7 +1051,7 @@
 <span class="keyword2"><span class="keyword">where</span></span>
   <span class="quoted"><span class="quoted">"<span class="free">tag_Times</span> <span class="free"><span class="bound"><span class="entity">A</span></span></span> <span class="free"><span class="bound"><span class="entity">B</span></span></span> <span class="main">≡</span> <span class="main">λ</span><span class="bound">x</span><span class="main">.</span> <span class="main">(</span><span class="main">≈</span><span class="free"><span class="bound"><span class="entity">A</span></span></span> <span class="main">``</span> <span class="main">{</span><span class="bound">x</span><span class="main">}</span><span class="main">,</span> <span class="main">{</span><span class="main">(</span><span class="main">≈</span><span class="free"><span class="bound"><span class="entity">B</span></span></span> <span class="main">``</span> <span class="main">{</span><span class="bound">x<span class="hidden">⇩</span><sub>s</sub></span><span class="main">}</span><span class="main">)</span> <span class="main">|</span> <span class="bound">x<span class="hidden">⇩</span><sub>p</sub></span> <span class="bound">x<span class="hidden">⇩</span><sub>s</sub></span><span class="main">.</span> <span class="bound">x<span class="hidden">⇩</span><sub>p</sub></span> <span class="main">∈</span> <span class="free"><span class="bound"><span class="entity">A</span></span></span> <span class="main">∧</span> <span class="main">(</span><span class="bound">x<span class="hidden">⇩</span><sub>p</sub></span><span class="main">,</span> <span class="bound">x<span class="hidden">⇩</span><sub>s</sub></span><span class="main">)</span> <span class="main">∈</span> Partitions <span class="bound">x</span><span class="main">}</span><span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> tag_Times_injI<span class="main">:</span>
+<span class="keyword1" id="Myhill_2-tag_Times_injI"><span class="command">lemma</span></span> tag_Times_injI<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> a<span class="main">:</span> <span class="quoted"><span class="quoted">"tag_Times <span class="free">A</span> <span class="free">B</span> <span class="free">x</span> <span class="main">=</span> tag_Times <span class="free">A</span> <span class="free">B</span> <span class="free">y</span>"</span></span>
   <span class="keyword2"><span class="keyword">and</span></span>     c<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">x</span> <span class="main">@</span> <span class="free">z</span> <span class="main">∈</span> <span class="free">A</span> <span class="main">⋅</span> <span class="free">B</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="free">y</span> <span class="main">@</span> <span class="free">z</span> <span class="main">∈</span> <span class="free">A</span> <span class="main">⋅</span> <span class="free">B</span>"</span></span>
@@ -1102,7 +1102,7 @@
   <span class="keyword1"><span class="command">ultimately</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="quoted"><span class="quoted">"<span class="free">y</span> <span class="main">@</span> <span class="free">z</span> <span class="main">∈</span> <span class="free">A</span> <span class="main">⋅</span> <span class="free">B</span>"</span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">blast</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> quot_conc_finiteI <span class="main">[</span><span class="operator">intro</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Myhill_2-quot_conc_finiteI"><span class="command">lemma</span></span> quot_conc_finiteI <span class="main">[</span><span class="operator">intro</span><span class="main">]</span><span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> fin1<span class="main">:</span> <span class="quoted"><span class="quoted">"finite <span class="main">(</span>UNIV <span class="main">//</span> <span class="main">≈</span><span class="free">A</span><span class="main">)</span>"</span></span> 
   <span class="keyword2"><span class="keyword">and</span></span>     fin2<span class="main">:</span> <span class="quoted"><span class="quoted">"finite <span class="main">(</span>UNIV <span class="main">//</span> <span class="main">≈</span><span class="free">B</span><span class="main">)</span>"</span></span> 
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"finite <span class="main">(</span>UNIV <span class="main">//</span> <span class="main">≈</span><span class="main">(</span><span class="free">A</span> <span class="main">⋅</span> <span class="free">B</span><span class="main">)</span><span class="main">)</span>"</span></span>
@@ -1126,7 +1126,7 @@
 
 <span class="keyword1"><span class="command">subsection</span></span> <span class="quoted"><span class="plain_text">‹Case for <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><span class="antiquote">@{</span></span><span class="operator"><span class="operator">const</span></span> "Star"<span class="antiquote"><span class="antiquote">}</span></span></span></span>›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> star_partitions_elim<span class="main">:</span>
+<span class="keyword1" id="Myhill_2-star_partitions_elim"><span class="command">lemma</span></span> star_partitions_elim<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">x</span> <span class="main">@</span> <span class="free">z</span> <span class="main">∈</span> <span class="free">A</span><span class="main">⋆</span>"</span></span> <span class="quoted"><span class="quoted">"<span class="free">x</span> <span class="main">≠</span> <span class="main">[]</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">∃</span><span class="main">(</span><span class="bound">u</span><span class="main">,</span> <span class="bound">v</span><span class="main">)</span> <span class="main">∈</span> Partitions <span class="main">(</span><span class="free">x</span> <span class="main">@</span> <span class="free">z</span><span class="main">)</span><span class="main">.</span> strict_prefix <span class="bound">u</span> <span class="free">x</span> <span class="main">∧</span> <span class="bound">u</span> <span class="main">∈</span> <span class="free">A</span><span class="main">⋆</span> <span class="main">∧</span> <span class="bound">v</span> <span class="main">∈</span> <span class="free">A</span><span class="main">⋆</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
@@ -1136,25 +1136,25 @@
     <span class="keyword1"><span class="command">by</span></span> <span class="operator">blast</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> finite_set_has_max2<span class="main">:</span> 
+<span class="keyword1" id="Myhill_2-finite_set_has_max2"><span class="command">lemma</span></span> finite_set_has_max2<span class="main">:</span> 
   <span class="quoted"><span class="quoted">"<span class="main">⟦</span>finite <span class="free">A</span><span class="main">;</span> <span class="free">A</span> <span class="main">≠</span> <span class="main">{}</span><span class="main">⟧</span> <span class="main">⟹</span> <span class="main">∃</span> <span class="bound">max</span> <span class="main">∈</span> <span class="free">A</span><span class="main">.</span> <span class="main">∀</span> <span class="bound">a</span> <span class="main">∈</span> <span class="free">A</span><span class="main">.</span> length <span class="bound">a</span> <span class="main">≤</span> length <span class="bound">max</span>"</span></span>
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="main">(</span><span class="operator">induct</span> <span class="quasi_keyword">rule</span><span class="main"><span class="main">:</span></span>finite.induct<span class="main">)</span>
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="main">(</span><span class="operator">simp</span><span class="main">)</span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">metis</span> <span class="main"><span class="main">(</span></span>no_types<span class="main"><span class="main">)</span></span> all_not_in_conv insert_iff linorder_le_cases order_trans<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> finite_strict_prefix_set<span class="main">:</span> 
+<span class="keyword1" id="Myhill_2-finite_strict_prefix_set"><span class="command">lemma</span></span> finite_strict_prefix_set<span class="main">:</span> 
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"finite <span class="main">{</span><span class="bound">xa</span><span class="main">.</span> strict_prefix <span class="bound">xa</span> <span class="main">(</span><span class="free">x</span><span class="main">::</span><span class="tfree">'a</span> list<span class="main">)</span><span class="main">}</span>"</span></span>
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span> <span class="main">(</span><span class="operator">induct</span> <span class="quoted"><span class="free">x</span></span> <span class="quasi_keyword">rule</span><span class="main"><span class="main">:</span></span>rev_induct<span class="main"><span class="keyword3">,</span></span> <span class="operator">simp</span><span class="main">)</span>
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span> <span class="main">(</span><span class="operator">subgoal_tac</span> <span class="quoted"><span class="quoted">"<span class="main">{</span><span class="bound">xa</span><span class="main">.</span> strict_prefix <span class="bound">xa</span> <span class="main">(</span><span class="improper">xs</span> <span class="main">@</span> <span class="main">[</span><span class="improper">x</span><span class="main">]</span><span class="main">)</span><span class="main">}</span> <span class="main">=</span> <span class="main">{</span><span class="bound">xa</span><span class="main">.</span> strict_prefix <span class="bound">xa</span> <span class="improper">xs</span><span class="main">}</span> <span class="main">∪</span> <span class="main">{</span><span class="improper">xs</span><span class="main">}</span>"</span></span><span class="main">)</span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span><span class="main"><span class="main">:</span></span>strict_prefix_def<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> append_eq_cases<span class="main">:</span>
+<span class="keyword1" id="Myhill_2-append_eq_cases"><span class="command">lemma</span></span> append_eq_cases<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> a<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">x</span> <span class="main">@</span> <span class="free">y</span> <span class="main">=</span> <span class="free">m</span> <span class="main">@</span> <span class="free">n</span>"</span></span> <span class="quoted"><span class="quoted">"<span class="free">m</span> <span class="main">≠</span> <span class="main">[]</span>"</span></span>  
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"prefix <span class="free">x</span> <span class="free">m</span> <span class="main">∨</span> strict_prefix <span class="free">m</span> <span class="free">x</span>"</span></span>
 <span class="keyword1"><span class="command">unfolding</span></span> prefix_def strict_prefix_def <span class="keyword1"><span class="command">using</span></span> a
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> append_eq_append_conv2<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> star_spartitions_elim2<span class="main">:</span>
+<span class="keyword1" id="Myhill_2-star_spartitions_elim2"><span class="command">lemma</span></span> star_spartitions_elim2<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> a<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">x</span> <span class="main">@</span> <span class="free">z</span> <span class="main">∈</span> <span class="free">A</span><span class="main">⋆</span>"</span></span> 
   <span class="keyword2"><span class="keyword">and</span></span>     b<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">x</span> <span class="main">≠</span> <span class="main">[]</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">∃</span><span class="main">(</span><span class="bound">u</span><span class="main">,</span> <span class="bound">v</span><span class="main">)</span> <span class="main">∈</span> Partitions <span class="free">x</span><span class="main">.</span> <span class="main">∃</span> <span class="main">(</span><span class="bound">u'</span><span class="main">,</span> <span class="bound">v'</span><span class="main">)</span> <span class="main">∈</span> Partitions <span class="free">z</span><span class="main">.</span> strict_prefix <span class="bound">u</span> <span class="free">x</span> <span class="main">∧</span> <span class="bound">u</span> <span class="main">∈</span> <span class="free">A</span><span class="main">⋆</span> <span class="main">∧</span> <span class="bound">v</span> <span class="main">@</span> <span class="bound">u'</span> <span class="main">∈</span> <span class="free">A</span> <span class="main">∧</span> <span class="bound">v'</span> <span class="main">∈</span> <span class="free">A</span><span class="main">⋆</span>"</span></span>
@@ -1215,7 +1215,7 @@
 <span class="keyword2"><span class="keyword">where</span></span>
   <span class="quoted"><span class="quoted">"<span class="free">tag_Star</span> <span class="free"><span class="bound"><span class="entity">A</span></span></span> <span class="main">≡</span> <span class="main">λ</span><span class="bound">x</span><span class="main">.</span> <span class="main">{</span><span class="main">≈</span><span class="free"><span class="bound"><span class="entity">A</span></span></span> <span class="main">``</span> <span class="main">{</span><span class="bound">v</span><span class="main">}</span> <span class="main">|</span> <span class="bound">u</span> <span class="bound">v</span><span class="main">.</span> strict_prefix <span class="bound">u</span> <span class="bound">x</span> <span class="main">∧</span> <span class="bound">u</span> <span class="main">∈</span> <span class="free"><span class="bound"><span class="entity">A</span></span></span><span class="main">⋆</span> <span class="main">∧</span> <span class="main">(</span><span class="bound">u</span><span class="main">,</span> <span class="bound">v</span><span class="main">)</span> <span class="main">∈</span> Partitions <span class="bound">x</span><span class="main">}</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> tag_Star_non_empty_injI<span class="main">:</span>
+<span class="keyword1" id="Myhill_2-tag_Star_non_empty_injI"><span class="command">lemma</span></span> tag_Star_non_empty_injI<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> a<span class="main">:</span> <span class="quoted"><span class="quoted">"tag_Star <span class="free">A</span> <span class="free">x</span> <span class="main">=</span> tag_Star <span class="free">A</span> <span class="free">y</span>"</span></span>
   <span class="keyword2"><span class="keyword">and</span></span>     c<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">x</span> <span class="main">@</span> <span class="free">z</span> <span class="main">∈</span> <span class="free">A</span><span class="main">⋆</span>"</span></span>
   <span class="keyword2"><span class="keyword">and</span></span>     d<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">x</span> <span class="main">≠</span> <span class="main">[]</span>"</span></span>
@@ -1244,7 +1244,7 @@
     <span class="keyword1"><span class="command">unfolding</span></span> Partitions_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
     
-<span class="keyword1"><span class="command">lemma</span></span> tag_Star_empty_injI<span class="main">:</span>
+<span class="keyword1" id="Myhill_2-tag_Star_empty_injI"><span class="command">lemma</span></span> tag_Star_empty_injI<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> a<span class="main">:</span> <span class="quoted"><span class="quoted">"tag_Star <span class="free">A</span> <span class="free">x</span> <span class="main">=</span> tag_Star <span class="free">A</span> <span class="free">y</span>"</span></span>
   <span class="keyword2"><span class="keyword">and</span></span>     c<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">x</span> <span class="main">@</span> <span class="free">z</span> <span class="main">∈</span> <span class="free">A</span><span class="main">⋆</span>"</span></span>
   <span class="keyword2"><span class="keyword">and</span></span>     d<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">x</span> <span class="main">=</span> <span class="main">[]</span>"</span></span>
@@ -1257,7 +1257,7 @@
   <span class="keyword1"><span class="command">then</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="quoted"><span class="quoted">"<span class="free">y</span> <span class="main">@</span> <span class="free">z</span> <span class="main">∈</span> <span class="free">A</span><span class="main">⋆</span>"</span></span> <span class="keyword1"><span class="command">using</span></span> c d <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> quot_star_finiteI <span class="main">[</span><span class="operator">intro</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Myhill_2-quot_star_finiteI"><span class="command">lemma</span></span> quot_star_finiteI <span class="main">[</span><span class="operator">intro</span><span class="main">]</span><span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> finite1<span class="main">:</span> <span class="quoted"><span class="quoted">"finite <span class="main">(</span>UNIV <span class="main">//</span> <span class="main">≈</span><span class="free">A</span><span class="main">)</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"finite <span class="main">(</span>UNIV <span class="main">//</span> <span class="main">≈</span><span class="main">(</span><span class="free">A</span><span class="main">⋆</span><span class="main">)</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">rule_tac</span> tag <span class="main"><span class="main">=</span></span> <span class="quoted"><span class="quoted">"tag_Star <span class="free">A</span>"</span></span> <span class="keyword2"><span class="keyword"><span class="quasi_keyword">in</span></span></span> tag_finite_imageD<span class="main">)</span>
@@ -1276,7 +1276,7 @@
 
 <span class="keyword1"><span class="command">subsection</span></span> <span class="quoted"><span class="plain_text">‹The conclusion of the second direction›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> Myhill_Nerode2<span class="main">:</span>
+<span class="keyword1" id="Myhill_2-Myhill_Nerode2"><span class="command">lemma</span></span> Myhill_Nerode2<span class="main">:</span>
   <span class="keyword2"><span class="keyword">fixes</span></span> <span class="free">r</span><span class="main">::</span><span class="quoted"><span class="quoted">"<span class="tfree">'a</span> rexp"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"finite <span class="main">(</span>UNIV <span class="main">//</span> <span class="main">≈</span><span class="main">(</span>lang <span class="free">r</span><span class="main">)</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">induct</span> <span class="quoted"><span class="free">r</span></span><span class="main">)</span> <span class="main">(</span><span class="operator">auto</span><span class="main">)</span>
@@ -1308,12 +1308,12 @@
   expressions due to Antimirov \cite{Antimirov95}.
 ›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> MN_Rel_Derivs<span class="main">:</span>
+<span class="keyword1" id="Myhill-MN_Rel_Derivs"><span class="command">lemma</span></span> MN_Rel_Derivs<span class="main">:</span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="free">x</span> <span class="main">≈</span><span class="free">A</span> <span class="free">y</span> <span class="main">⟷</span> Derivs <span class="free">x</span> <span class="free">A</span> <span class="main">=</span> Derivs <span class="free">y</span> <span class="free">A</span>"</span></span>
 <span class="keyword1"><span class="command">unfolding</span></span> Derivs_def str_eq_def
 <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> Myhill_Nerode3<span class="main">:</span>
+<span class="keyword1" id="Myhill-Myhill_Nerode3"><span class="command">lemma</span></span> Myhill_Nerode3<span class="main">:</span>
   <span class="keyword2"><span class="keyword">fixes</span></span> <span class="free">r</span><span class="main">::</span><span class="quoted"><span class="quoted">"<span class="tfree">'a</span> rexp"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"finite <span class="main">(</span>UNIV <span class="main">//</span> <span class="main">≈</span><span class="main">(</span>lang <span class="free">r</span><span class="main">)</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
@@ -1363,7 +1363,7 @@
 
 <span class="keyword1"><span class="command">subsection</span></span> <span class="quoted"><span class="plain_text">‹Closure under <span class="antiquoted"><span class="raw_text"><span class="antiquoted"><span class="raw_text"><span class="operator"><span class="operator">‹</span></span>∪›</span></span></span></span>, <span class="antiquoted"><span class="raw_text"><span class="antiquoted"><span class="raw_text"><span class="operator"><span class="operator">‹</span></span>⋅›</span></span></span></span> and <span class="antiquoted"><span class="raw_text"><span class="antiquoted"><span class="raw_text"><span class="operator"><span class="operator">‹</span></span>⋆›</span></span></span></span>›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> closure_union <span class="main">[</span><span class="operator">intro</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Closures-closure_union"><span class="command">lemma</span></span> closure_union <span class="main">[</span><span class="operator">intro</span><span class="main">]</span><span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"regular <span class="free">A</span>"</span></span> <span class="quoted"><span class="quoted">"regular <span class="free">B</span>"</span></span> 
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"regular <span class="main">(</span><span class="free">A</span> <span class="main">∪</span> <span class="free">B</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
@@ -1372,7 +1372,7 @@
   <span class="keyword1"><span class="command">then</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="quoted"><span class="quoted">"regular <span class="main">(</span><span class="free">A</span> <span class="main">∪</span> <span class="free">B</span><span class="main">)</span>"</span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">blast</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> closure_seq <span class="main">[</span><span class="operator">intro</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Closures-closure_seq"><span class="command">lemma</span></span> closure_seq <span class="main">[</span><span class="operator">intro</span><span class="main">]</span><span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"regular <span class="free">A</span>"</span></span> <span class="quoted"><span class="quoted">"regular <span class="free">B</span>"</span></span> 
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"regular <span class="main">(</span><span class="free">A</span> <span class="main">⋅</span> <span class="free">B</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
@@ -1381,7 +1381,7 @@
   <span class="keyword1"><span class="command">then</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="quoted"><span class="quoted">"regular <span class="main">(</span><span class="free">A</span> <span class="main">⋅</span> <span class="free">B</span><span class="main">)</span>"</span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">blast</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> closure_star <span class="main">[</span><span class="operator">intro</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Closures-closure_star"><span class="command">lemma</span></span> closure_star <span class="main">[</span><span class="operator">intro</span><span class="main">]</span><span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"regular <span class="free">A</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"regular <span class="main">(</span><span class="free">A</span><span class="main">⋆</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
@@ -1395,7 +1395,7 @@
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹Closure under complementation is proved via the 
   Myhill-Nerode theorem›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> closure_complement <span class="main">[</span><span class="operator">intro</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Closures-closure_complement"><span class="command">lemma</span></span> closure_complement <span class="main">[</span><span class="operator">intro</span><span class="main">]</span><span class="main">:</span>
   <span class="keyword2"><span class="keyword">fixes</span></span> <span class="free">A</span><span class="main">::</span><span class="quoted"><span class="quoted">"<span class="main">(</span><span class="tfree">'a</span><span class="main">::</span>finite<span class="main">)</span> lang"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"regular <span class="free">A</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"regular <span class="main">(</span><span class="main">-</span> <span class="free">A</span><span class="main">)</span>"</span></span>
@@ -1407,7 +1407,7 @@
 
 <span class="keyword1"><span class="command">subsection</span></span> <span class="quoted"><span class="plain_text">‹Closure under <span class="antiquoted"><span class="raw_text"><span class="antiquoted"><span class="raw_text"><span class="operator"><span class="operator">‹</span></span>-›</span></span></span></span> and <span class="antiquoted"><span class="raw_text"><span class="antiquoted"><span class="raw_text"><span class="operator"><span class="operator">‹</span></span>∩›</span></span></span></span>›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> closure_difference <span class="main">[</span><span class="operator">intro</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Closures-closure_difference"><span class="command">lemma</span></span> closure_difference <span class="main">[</span><span class="operator">intro</span><span class="main">]</span><span class="main">:</span>
   <span class="keyword2"><span class="keyword">fixes</span></span> <span class="free">A</span><span class="main">::</span><span class="quoted"><span class="quoted">"<span class="main">(</span><span class="tfree">'a</span><span class="main">::</span>finite<span class="main">)</span> lang"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"regular <span class="free">A</span>"</span></span> <span class="quoted"><span class="quoted">"regular <span class="free">B</span>"</span></span> 
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"regular <span class="main">(</span><span class="free">A</span> <span class="main">-</span> <span class="free">B</span><span class="main">)</span>"</span></span>
@@ -1419,7 +1419,7 @@
   <span class="keyword1"><span class="command">ultimately</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="quoted"><span class="quoted">"regular <span class="main">(</span><span class="free">A</span> <span class="main">-</span> <span class="free">B</span><span class="main">)</span>"</span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> closure_intersection <span class="main">[</span><span class="operator">intro</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Closures-closure_intersection"><span class="command">lemma</span></span> closure_intersection <span class="main">[</span><span class="operator">intro</span><span class="main">]</span><span class="main">:</span>
   <span class="keyword2"><span class="keyword">fixes</span></span> <span class="free">A</span><span class="main">::</span><span class="quoted"><span class="quoted">"<span class="main">(</span><span class="tfree">'a</span><span class="main">::</span>finite<span class="main">)</span> lang"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"regular <span class="free">A</span>"</span></span> <span class="quoted"><span class="quoted">"regular <span class="free">B</span>"</span></span> 
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"regular <span class="main">(</span><span class="free">A</span> <span class="main">∩</span> <span class="free">B</span><span class="main">)</span>"</span></span>
@@ -1443,12 +1443,12 @@
 <span class="main">|</span> <span class="quoted"><span class="quoted">"<span class="free">Rev</span> <span class="main">(</span>Times <span class="free"><span class="bound"><span class="entity">r1</span></span></span> <span class="free"><span class="bound"><span class="entity">r2</span></span></span><span class="main">)</span> <span class="main">=</span> Times <span class="main">(</span><span class="free">Rev</span> <span class="free"><span class="bound"><span class="entity">r2</span></span></span><span class="main">)</span> <span class="main">(</span><span class="free">Rev</span> <span class="free"><span class="bound"><span class="entity">r1</span></span></span><span class="main">)</span>"</span></span>
 <span class="main">|</span> <span class="quoted"><span class="quoted">"<span class="free">Rev</span> <span class="main">(</span>Star <span class="free"><span class="bound"><span class="entity">r</span></span></span><span class="main">)</span> <span class="main">=</span> Star <span class="main">(</span><span class="free">Rev</span> <span class="free"><span class="bound"><span class="entity">r</span></span></span><span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> rev_seq<span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Closures-rev_seq"><span class="command">lemma</span></span> rev_seq<span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"rev <span class="main">`</span> <span class="main">(</span><span class="free">B</span> <span class="main">⋅</span> <span class="free">A</span><span class="main">)</span> <span class="main">=</span> <span class="main">(</span>rev <span class="main">`</span> <span class="free">A</span><span class="main">)</span> <span class="main">⋅</span> <span class="main">(</span>rev <span class="main">`</span> <span class="free">B</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">unfolding</span></span> conc_def image_def
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span><span class="main">)</span> <span class="main">(</span><span class="operator">metis</span> rev_append<span class="main">)</span><span class="main"><span class="keyword3">+</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> rev_star1<span class="main">:</span>
+<span class="keyword1" id="Closures-rev_star1"><span class="command">lemma</span></span> rev_star1<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> a<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">s</span> <span class="main">∈</span> <span class="main">(</span>rev <span class="main">`</span> <span class="free">A</span><span class="main">)</span><span class="main">⋆</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="free">s</span> <span class="main">∈</span> rev <span class="main">`</span> <span class="main">(</span><span class="free">A</span><span class="main">⋆</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> a
@@ -1463,7 +1463,7 @@
   <span class="keyword1"><span class="command">then</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="quoted"><span class="quoted">"<span class="skolem">s1</span> <span class="main">@</span> <span class="skolem">s2</span> <span class="main">∈</span>  rev <span class="main">`</span> <span class="free">A</span><span class="main">⋆</span>"</span></span> <span class="keyword1"><span class="command">using</span></span> eqs <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 <span class="keyword1"><span class="command">qed</span></span> <span class="main">(</span><span class="operator">auto</span><span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> rev_star2<span class="main">:</span>
+<span class="keyword1" id="Closures-rev_star2"><span class="command">lemma</span></span> rev_star2<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> a<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">s</span> <span class="main">∈</span> <span class="free">A</span><span class="main">⋆</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"rev <span class="free">s</span> <span class="main">∈</span> <span class="main">(</span>rev <span class="main">`</span> <span class="free">A</span><span class="main">)</span><span class="main">⋆</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> a
@@ -1478,15 +1478,15 @@
   <span class="keyword1"><span class="command">ultimately</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="quoted"><span class="quoted">"rev <span class="main">(</span><span class="skolem">s1</span> <span class="main">@</span> <span class="skolem">s2</span><span class="main">)</span> <span class="main">∈</span>  <span class="main">(</span>rev <span class="main">`</span> <span class="free">A</span><span class="main">)</span><span class="main">⋆</span>"</span></span> <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span><span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span> <span class="main">(</span><span class="operator">auto</span><span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> rev_star <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Closures-rev_star"><span class="command">lemma</span></span> rev_star <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">" rev <span class="main">`</span> <span class="main">(</span><span class="free">A</span><span class="main">⋆</span><span class="main">)</span> <span class="main">=</span> <span class="main">(</span>rev <span class="main">`</span> <span class="free">A</span><span class="main">)</span><span class="main">⋆</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> rev_star1 rev_star2 <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> rev_lang<span class="main">:</span>
+<span class="keyword1" id="Closures-rev_lang"><span class="command">lemma</span></span> rev_lang<span class="main">:</span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"rev <span class="main">`</span> <span class="main">(</span>lang <span class="free">r</span><span class="main">)</span> <span class="main">=</span> lang <span class="main">(</span>Rev <span class="free">r</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">induct</span> <span class="quoted"><span class="free">r</span></span><span class="main">)</span> <span class="main">(</span><span class="operator">simp_all</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> image_Un<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> closure_reversal <span class="main">[</span><span class="operator">intro</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Closures-closure_reversal"><span class="command">lemma</span></span> closure_reversal <span class="main">[</span><span class="operator">intro</span><span class="main">]</span><span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"regular <span class="free">A</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"regular <span class="main">(</span>rev <span class="main">`</span> <span class="free">A</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
@@ -1500,7 +1500,7 @@
 <span class="keyword1"><span class="command">abbreviation</span></span>
   <span class="quoted"><span class="quoted">"<span class="free">Deriv_lang</span> <span class="free"><span class="bound"><span class="entity">A</span></span></span> <span class="free"><span class="bound"><span class="entity">B</span></span></span> <span class="main">≡</span> <span class="main">⋃</span><span class="bound">x</span> <span class="main">∈</span> <span class="free"><span class="bound"><span class="entity">A</span></span></span><span class="main">.</span> Derivs <span class="bound">x</span> <span class="free"><span class="bound"><span class="entity">B</span></span></span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> closure_left_quotient<span class="main">:</span>
+<span class="keyword1" id="Closures-closure_left_quotient"><span class="command">lemma</span></span> closure_left_quotient<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"regular <span class="free">A</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"regular <span class="main">(</span>Deriv_lang <span class="free">B</span> <span class="free">A</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
@@ -1517,7 +1517,7 @@
 
 <span class="keyword1"><span class="command">subsection</span></span> <span class="quoted"><span class="plain_text">‹Finite and co-finite sets are regular›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> singleton_regular<span class="main">:</span>
+<span class="keyword1" id="Closures-singleton_regular"><span class="command">lemma</span></span> singleton_regular<span class="main">:</span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"regular <span class="main">{</span><span class="free">s</span><span class="main">}</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">induct</span> <span class="quoted"><span class="free">s</span></span><span class="main">)</span>
   <span class="keyword3"><span class="command">case</span></span> Nil
@@ -1532,7 +1532,7 @@
   <span class="keyword1"><span class="command">then</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="quoted"><span class="quoted">"regular <span class="main">{</span><span class="skolem">c</span> <span class="main">#</span> <span class="skolem">s</span><span class="main">}</span>"</span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">blast</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> finite_regular<span class="main">:</span>
+<span class="keyword1" id="Closures-finite_regular"><span class="command">lemma</span></span> finite_regular<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"finite <span class="free">A</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"regular <span class="free">A</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> assms
@@ -1549,7 +1549,7 @@
   <span class="keyword1"><span class="command">then</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="quoted"><span class="quoted">"regular <span class="main">(</span>insert <span class="skolem">s</span> <span class="skolem">A</span><span class="main">)</span>"</span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> cofinite_regular<span class="main">:</span>
+<span class="keyword1" id="Closures-cofinite_regular"><span class="command">lemma</span></span> cofinite_regular<span class="main">:</span>
   <span class="keyword2"><span class="keyword">fixes</span></span> <span class="free">A</span><span class="main">::</span><span class="quoted"><span class="quoted">"<span class="tfree">'a</span><span class="main">::</span>finite lang"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"finite <span class="main">(</span><span class="main">-</span> <span class="free">A</span><span class="main">)</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"regular <span class="free">A</span>"</span></span>
@@ -1562,7 +1562,7 @@
 
 <span class="keyword1"><span class="command">subsection</span></span> <span class="quoted"><span class="plain_text">‹Continuation lemma for showing non-regularity of languages›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> continuation_lemma<span class="main">:</span>
+<span class="keyword1" id="Closures-continuation_lemma"><span class="command">lemma</span></span> continuation_lemma<span class="main">:</span>
   <span class="keyword2"><span class="keyword">fixes</span></span> <span class="free">A</span> <span class="free">B</span><span class="main">::</span><span class="quoted"><span class="quoted">"<span class="tfree">'a</span><span class="main">::</span>finite lang"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> reg<span class="main">:</span> <span class="quoted"><span class="quoted">"regular <span class="free">A</span>"</span></span>
   <span class="keyword2"><span class="keyword">and</span></span>     inf<span class="main">:</span> <span class="quoted"><span class="quoted">"infinite <span class="free">B</span>"</span></span>
@@ -1601,7 +1601,7 @@
 <span class="keyword2"><span class="keyword">where</span></span>
   <span class="quoted"><span class="quoted">"<span class="free"><span class="bound"><span class="entity">a</span></span></span> <span class="main"><span class="free">^^^</span></span> <span class="free"><span class="bound"><span class="entity">n</span></span></span> <span class="main">≡</span> replicate <span class="free"><span class="bound"><span class="entity">n</span></span></span> <span class="free"><span class="bound"><span class="entity">a</span></span></span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> an_bn_not_regular<span class="main">:</span>
+<span class="keyword1" id="Closures-an_bn_not_regular"><span class="command">lemma</span></span> an_bn_not_regular<span class="main">:</span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">¬</span> regular <span class="main">(</span><span class="main">⋃</span><span class="bound">n</span><span class="main">.</span> <span class="main">{</span><span class="keyword1">CHR</span> <span class="inner_quoted">''a''</span> <span class="main">^^^</span> <span class="bound">n</span> <span class="main">@</span> <span class="keyword1">CHR</span> <span class="inner_quoted">''b''</span> <span class="main">^^^</span> <span class="bound">n</span><span class="main">}</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span>
   <span class="keyword3"><span class="command">define</span></span> <span class="skolem"><span class="skolem">A</span></span> <span class="keyword2"><span class="keyword">where</span></span> <span class="quoted"><span class="quoted">"<span class="skolem">A</span> <span class="main">=</span> <span class="main">(</span><span class="main">⋃</span><span class="bound">n</span><span class="main">.</span> <span class="main">{</span><span class="keyword1">CHR</span> <span class="inner_quoted">''a''</span> <span class="main">^^^</span> <span class="bound">n</span> <span class="main">@</span> <span class="keyword1">CHR</span> <span class="inner_quoted">''b''</span> <span class="main">^^^</span> <span class="bound">n</span><span class="main">}</span><span class="main">)</span>"</span></span>
@@ -1650,13 +1650,13 @@
 
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹Properties about the embedding relation›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> subseq_strict_length<span class="main">:</span>
+<span class="keyword1" id="Closures2-subseq_strict_length"><span class="command">lemma</span></span> subseq_strict_length<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> a<span class="main">:</span> <span class="quoted"><span class="quoted">"subseq <span class="free">x</span> <span class="free">y</span>"</span></span> <span class="quoted"><span class="quoted">"<span class="free">x</span> <span class="main">≠</span> <span class="free">y</span>"</span></span> 
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"length <span class="free">x</span> <span class="main">&lt;</span> length <span class="free">y</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> a
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">induct</span><span class="main">)</span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> less_Suc_eq<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> subseq_wf<span class="main">:</span>
+<span class="keyword1" id="Closures2-subseq_wf"><span class="command">lemma</span></span> subseq_wf<span class="main">:</span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"wf <span class="main">{</span><span class="main">(</span><span class="bound">x</span><span class="main">,</span> <span class="bound">y</span><span class="main">)</span><span class="main">.</span> subseq <span class="bound">x</span> <span class="bound">y</span> <span class="main">∧</span> <span class="bound">x</span> <span class="main">≠</span> <span class="bound">y</span><span class="main">}</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
   <span class="keyword1"><span class="command">have</span></span> <span class="quoted"><span class="quoted">"wf <span class="main">(</span>measure length<span class="main">)</span>"</span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
@@ -1667,12 +1667,12 @@
   <span class="keyword3"><span class="command">show</span></span> <span class="quoted"><span class="quoted">"wf <span class="main">{</span><span class="main">(</span><span class="bound">x</span><span class="main">,</span> <span class="bound">y</span><span class="main">)</span><span class="main">.</span> subseq <span class="bound">x</span> <span class="bound">y</span> <span class="main">∧</span> <span class="bound">x</span> <span class="main">≠</span> <span class="bound">y</span><span class="main">}</span>"</span></span> <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">rule</span> wf_subset<span class="main">)</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> subseq_good<span class="main">:</span>
+<span class="keyword1" id="Closures2-subseq_good"><span class="command">lemma</span></span> subseq_good<span class="main">:</span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"good subseq <span class="main">(</span><span class="free">f</span> <span class="main">::</span> nat <span class="main">⇒</span> <span class="main">(</span><span class="tfree">'a</span><span class="main">::</span>finite<span class="main">)</span> list<span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">using</span></span> wqo_on_imp_good<span class="main">[</span><span class="keyword2"><span class="keyword"><span class="operator">where</span></span></span> f<span class="main"><span class="main">=</span></span><span class="quoted"><span class="quoted">"<span class="free">f</span>"</span></span><span class="main">,</span> <span class="operator">OF</span> wqo_on_lists_over_finite_sets<span class="main">]</span>
 <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> subseq_Higman_antichains<span class="main">:</span>
+<span class="keyword1" id="Closures2-subseq_Higman_antichains"><span class="command">lemma</span></span> subseq_Higman_antichains<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> a<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">∀</span><span class="main">(</span><span class="bound">x</span><span class="main">::</span><span class="main">(</span><span class="tfree">'a</span><span class="main">::</span>finite<span class="main">)</span> list<span class="main">)</span> <span class="main">∈</span> <span class="free">A</span><span class="main">.</span> <span class="main">∀</span><span class="bound">y</span> <span class="main">∈</span> <span class="free">A</span><span class="main">.</span> <span class="bound">x</span> <span class="main">≠</span> <span class="bound">y</span> <span class="main">⟶</span> <span class="main">¬</span><span class="main">(</span>subseq <span class="bound">x</span> <span class="bound">y</span><span class="main">)</span> <span class="main">∧</span> <span class="main">¬</span><span class="main">(</span>subseq <span class="bound">y</span> <span class="bound">x</span><span class="main">)</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"finite <span class="free">A</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">rule</span> ccontr<span class="main">)</span>
@@ -1700,21 +1700,21 @@
 <span class="keyword1"><span class="command">definition</span></span>
  <span class="quoted"><span class="quoted">"<span class="free">SUPSEQ</span> <span class="free"><span class="bound"><span class="entity">A</span></span></span> <span class="main">≡</span> <span class="main">{</span><span class="bound">x</span><span class="main">::</span><span class="main">(</span><span class="tfree">'a</span><span class="main">::</span>finite<span class="main">)</span> list<span class="main">.</span> <span class="main">∃</span><span class="bound">y</span> <span class="main">∈</span> <span class="free"><span class="bound"><span class="entity">A</span></span></span><span class="main">.</span> subseq <span class="bound">y</span> <span class="bound">x</span><span class="main">}</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> SUPSEQ_simps <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Closures2-SUPSEQ_simps"><span class="command">lemma</span></span> SUPSEQ_simps <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"SUPSEQ <span class="main">{}</span> <span class="main">=</span> <span class="main">{}</span>"</span></span>
   <span class="keyword2"><span class="keyword">and</span></span>   <span class="quoted"><span class="quoted">"SUPSEQ <span class="main">{</span><span class="main">[]</span><span class="main">}</span> <span class="main">=</span> UNIV"</span></span>
 <span class="keyword1"><span class="command">unfolding</span></span> SUPSEQ_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> SUPSEQ_atom <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Closures2-SUPSEQ_atom"><span class="command">lemma</span></span> SUPSEQ_atom <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"SUPSEQ <span class="main">{</span><span class="main">[</span><span class="free">c</span><span class="main">]</span><span class="main">}</span> <span class="main">=</span> UNIV <span class="main">⋅</span> <span class="main">{</span><span class="main">[</span><span class="free">c</span><span class="main">]</span><span class="main">}</span> <span class="main">⋅</span> UNIV"</span></span>
 <span class="keyword1"><span class="command">unfolding</span></span> SUPSEQ_def conc_def
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">dest</span><span class="main"><span class="main">:</span></span> list_emb_ConsD<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> SUPSEQ_union <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Closures2-SUPSEQ_union"><span class="command">lemma</span></span> SUPSEQ_union <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"SUPSEQ <span class="main">(</span><span class="free">A</span> <span class="main">∪</span> <span class="free">B</span><span class="main">)</span> <span class="main">=</span> SUPSEQ <span class="free">A</span> <span class="main">∪</span> SUPSEQ <span class="free">B</span>"</span></span>
 <span class="keyword1"><span class="command">unfolding</span></span> SUPSEQ_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> SUPSEQ_conc <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Closures2-SUPSEQ_conc"><span class="command">lemma</span></span> SUPSEQ_conc <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"SUPSEQ <span class="main">(</span><span class="free">A</span> <span class="main">⋅</span> <span class="free">B</span><span class="main">)</span> <span class="main">=</span> SUPSEQ <span class="free">A</span> <span class="main">⋅</span> SUPSEQ <span class="free">B</span>"</span></span>
 <span class="keyword1"><span class="command">unfolding</span></span> SUPSEQ_def conc_def
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="main">(</span><span class="operator">auto</span><span class="main">)</span>
@@ -1722,7 +1722,7 @@
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="main">(</span><span class="operator">auto</span><span class="main">)</span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">metis</span> list_emb_append_mono<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> SUPSEQ_star <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Closures2-SUPSEQ_star"><span class="command">lemma</span></span> SUPSEQ_star <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"SUPSEQ <span class="main">(</span><span class="free">A</span><span class="main">⋆</span><span class="main">)</span> <span class="main">=</span> UNIV"</span></span>
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="main">(</span><span class="operator">subst</span> star_unfold_left<span class="main">)</span>
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="main">(</span><span class="operator">simp</span> <span class="quasi_keyword">only</span><span class="main"><span class="main">:</span></span> SUPSEQ_union<span class="main">)</span> 
@@ -1736,7 +1736,7 @@
 <span class="keyword2"><span class="keyword">where</span></span>
   <span class="quoted"><span class="quoted">"<span class="free">Allreg</span> <span class="main">≡</span> <span class="main">⨄</span><span class="main">(</span>Atom <span class="main">`</span> UNIV<span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> Allreg_lang <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Closures2-Allreg_lang"><span class="command">lemma</span></span> Allreg_lang <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"lang Allreg <span class="main">=</span> <span class="main">(</span><span class="main">⋃</span><span class="bound">a</span><span class="main">.</span> <span class="main">{</span><span class="main">[</span><span class="bound">a</span><span class="main">]</span><span class="main">}</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">unfolding</span></span> Allreg_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
@@ -1751,7 +1751,7 @@
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">apply</span></span></span></span><span class="main">(</span><span class="operator">auto</span><span class="main">)</span>
 <span class="keyword1"><span class="command"><span class="improper"><span class="command">done</span></span></span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> Star_Allreg_lang <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span>
+<span class="keyword1" id="Closures2-Star_Allreg_lang"><span class="command">lemma</span></span> Star_Allreg_lang <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"lang <span class="main">(</span>Star Allreg<span class="main">)</span> <span class="main">=</span> UNIV"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 
@@ -1765,12 +1765,12 @@
 <span class="main">|</span> <span class="quoted"><span class="quoted">"<span class="free">UP</span> <span class="main">(</span>Times <span class="free"><span class="bound"><span class="entity">r1</span></span></span> <span class="free"><span class="bound"><span class="entity">r2</span></span></span><span class="main">)</span> <span class="main">=</span> Times <span class="main">(</span><span class="free">UP</span> <span class="free"><span class="bound"><span class="entity">r1</span></span></span><span class="main">)</span> <span class="main">(</span><span class="free">UP</span> <span class="free"><span class="bound"><span class="entity">r2</span></span></span><span class="main">)</span>"</span></span>
 <span class="main">|</span> <span class="quoted"><span class="quoted">"<span class="free">UP</span> <span class="main">(</span>Star <span class="free"><span class="bound"><span class="entity">r</span></span></span><span class="main">)</span> <span class="main">=</span> Star Allreg"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> lang_UP<span class="main">:</span>
+<span class="keyword1" id="Closures2-lang_UP"><span class="command">lemma</span></span> lang_UP<span class="main">:</span>
   <span class="keyword2"><span class="keyword">fixes</span></span> <span class="free">r</span><span class="main">::</span><span class="quoted"><span class="quoted">"<span class="tfree">'a</span><span class="main">::</span>finite rexp"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"lang <span class="main">(</span>UP <span class="free">r</span><span class="main">)</span> <span class="main">=</span> SUPSEQ <span class="main">(</span>lang <span class="free">r</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">induct</span> <span class="quoted"><span class="free">r</span></span><span class="main">)</span> <span class="main">(</span><span class="operator">simp_all</span><span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> SUPSEQ_regular<span class="main">:</span> 
+<span class="keyword1" id="Closures2-SUPSEQ_regular"><span class="command">lemma</span></span> SUPSEQ_regular<span class="main">:</span> 
   <span class="keyword2"><span class="keyword">fixes</span></span> <span class="free">A</span><span class="main">::</span><span class="quoted"><span class="quoted">"<span class="tfree">'a</span><span class="main">::</span>finite lang"</span></span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"regular <span class="free">A</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"regular <span class="main">(</span>SUPSEQ <span class="free">A</span><span class="main">)</span>"</span></span>
@@ -1780,12 +1780,12 @@
   <span class="keyword1"><span class="command">then</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="quoted"><span class="quoted">"regular <span class="main">(</span>SUPSEQ <span class="free">A</span><span class="main">)</span>"</span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> SUPSEQ_subset<span class="main">:</span>
+<span class="keyword1" id="Closures2-SUPSEQ_subset"><span class="command">lemma</span></span> SUPSEQ_subset<span class="main">:</span>
   <span class="keyword2"><span class="keyword">fixes</span></span> <span class="free">A</span><span class="main">::</span><span class="quoted"><span class="quoted">"<span class="tfree">'a</span><span class="main">::</span>finite list set"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="free">A</span> <span class="main">⊆</span> SUPSEQ <span class="free">A</span>"</span></span>
 <span class="keyword1"><span class="command">unfolding</span></span> SUPSEQ_def <span class="keyword1"><span class="command">by</span></span> <span class="operator">auto</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> SUBSEQ_complement<span class="main">:</span>
+<span class="keyword1" id="Closures2-SUBSEQ_complement"><span class="command">lemma</span></span> SUBSEQ_complement<span class="main">:</span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">-</span> <span class="main">(</span>SUBSEQ <span class="free">A</span><span class="main">)</span> <span class="main">=</span> SUPSEQ <span class="main">(</span><span class="main">-</span> <span class="main">(</span>SUBSEQ <span class="free">A</span><span class="main">)</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
   <span class="keyword1"><span class="command">have</span></span> <span class="quoted"><span class="quoted">"<span class="main">-</span> <span class="main">(</span>SUBSEQ <span class="free">A</span><span class="main">)</span> <span class="main">⊆</span> SUPSEQ <span class="main">(</span><span class="main">-</span> <span class="main">(</span>SUBSEQ <span class="free">A</span><span class="main">)</span><span class="main">)</span>"</span></span>
@@ -1819,7 +1819,7 @@
 <span class="keyword2"><span class="keyword">where</span></span>
   <span class="quoted"><span class="quoted">"<span class="free">minimal</span> <span class="free"><span class="bound"><span class="entity">x</span></span></span> <span class="free"><span class="bound"><span class="entity">A</span></span></span> <span class="main">≡</span> <span class="main">(</span><span class="main">∀</span><span class="bound">y</span> <span class="main">∈</span> <span class="free"><span class="bound"><span class="entity">A</span></span></span><span class="main">.</span> subseq <span class="bound">y</span> <span class="free"><span class="bound"><span class="entity">x</span></span></span> <span class="main">⟶</span> subseq <span class="free"><span class="bound"><span class="entity">x</span></span></span> <span class="bound">y</span><span class="main">)</span>"</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> main_lemma<span class="main">:</span>
+<span class="keyword1" id="Closures2-main_lemma"><span class="command">lemma</span></span> main_lemma<span class="main">:</span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"<span class="main">∃</span><span class="bound">M</span><span class="main">.</span> finite <span class="bound">M</span> <span class="main">∧</span> SUPSEQ <span class="free">A</span> <span class="main">=</span> SUPSEQ <span class="bound">M</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
   <span class="keyword3"><span class="command">define</span></span> <span class="skolem"><span class="skolem">M</span></span> <span class="keyword2"><span class="keyword">where</span></span> <span class="quoted"><span class="quoted">"<span class="skolem">M</span> <span class="main">=</span> <span class="main">{</span><span class="bound"><span class="bound">x</span></span> <span class="main">∈</span> <span class="free">A</span><span class="main">.</span> minimal <span class="bound">x</span> <span class="free">A</span><span class="main">}</span>"</span></span>
@@ -1850,7 +1850,7 @@
 
 <span class="keyword1"><span class="command">subsection</span></span> <span class="quoted"><span class="plain_text">‹Closure of <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><span class="antiquote">@{</span></span><span class="operator"><span class="operator">const</span></span> SUBSEQ<span class="antiquote"><span class="antiquote">}</span></span></span></span> and <span class="antiquoted"><span class="antiquoted"><span class="antiquote"><span class="antiquote">@{</span></span><span class="operator"><span class="operator">const</span></span> SUPSEQ<span class="antiquote"><span class="antiquote">}</span></span></span></span>›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> closure_SUPSEQ<span class="main">:</span>
+<span class="keyword1" id="Closures2-closure_SUPSEQ"><span class="command">lemma</span></span> closure_SUPSEQ<span class="main">:</span>
   <span class="keyword2"><span class="keyword">fixes</span></span> <span class="free">A</span><span class="main">::</span><span class="quoted"><span class="quoted">"<span class="tfree">'a</span><span class="main">::</span>finite lang"</span></span> 
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"regular <span class="main">(</span>SUPSEQ <span class="free">A</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
@@ -1861,7 +1861,7 @@
   <span class="keyword1"><span class="command">then</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="quoted"><span class="quoted">"regular <span class="main">(</span>SUPSEQ <span class="free">A</span><span class="main">)</span>"</span></span> <span class="keyword1"><span class="command">using</span></span> b <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> closure_SUBSEQ<span class="main">:</span>
+<span class="keyword1" id="Closures2-closure_SUBSEQ"><span class="command">lemma</span></span> closure_SUBSEQ<span class="main">:</span>
   <span class="keyword2"><span class="keyword">fixes</span></span> <span class="free">A</span><span class="main">::</span><span class="quoted"><span class="quoted">"<span class="tfree">'a</span><span class="main">::</span>finite lang"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"regular <span class="main">(</span>SUBSEQ <span class="free">A</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
@@ -1891,11 +1891,11 @@
 
 <span class="keyword1"><span class="command">subsection</span></span> <span class="quoted"><span class="plain_text">‹Auxiliary material›</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> bij_betw_image_quotient<span class="main">:</span>
+<span class="keyword1" id="Non_Regular_Languages-bij_betw_image_quotient"><span class="command">lemma</span></span> bij_betw_image_quotient<span class="main">:</span>
   <span class="quoted"><span class="quoted">"bij_betw <span class="main">(</span><span class="main">λ</span><span class="bound">y</span><span class="main">.</span> <span class="free">f</span> <span class="main">-`</span> <span class="main">{</span><span class="bound">y</span><span class="main">}</span><span class="main">)</span> <span class="main">(</span><span class="free">f</span> <span class="main">`</span> <span class="free">A</span><span class="main">)</span> <span class="main">(</span><span class="free">A</span> <span class="main">//</span> <span class="main">{</span><span class="main">(</span><span class="bound">a</span><span class="main">,</span><span class="bound">b</span><span class="main">)</span><span class="main">.</span> <span class="free">f</span> <span class="bound">a</span> <span class="main">=</span> <span class="free">f</span> <span class="bound">b</span><span class="main">}</span><span class="main">)</span>"</span></span>
   <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">force</span> <span class="quasi_keyword">simp</span><span class="main"><span class="main">:</span></span> bij_betw_def inj_on_def image_image quotient_def<span class="main">)</span>
    
-<span class="keyword1"><span class="command">lemma</span></span> regular_Derivs_finite<span class="main">:</span>
+<span class="keyword1" id="Non_Regular_Languages-regular_Derivs_finite"><span class="command">lemma</span></span> regular_Derivs_finite<span class="main">:</span>
   <span class="keyword2"><span class="keyword">fixes</span></span> <span class="free">r</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="tfree">'a</span> <span class="main">::</span> finite rexp"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span> <span class="quoted"><span class="quoted">"finite <span class="main">(</span>range <span class="main">(</span><span class="main">λ</span><span class="bound">w</span><span class="main">.</span> Derivs <span class="bound">w</span> <span class="main">(</span>lang <span class="free">r</span><span class="main">)</span><span class="main">)</span><span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
@@ -1905,7 +1905,7 @@
   <span class="keyword1"><span class="command">finally</span></span> <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span> <span class="keyword1"><span class="command">.</span></span>
 <span class="keyword1"><span class="command">qed</span></span>
   
-<span class="keyword1"><span class="command">lemma</span></span> Nil_in_Derivs_iff<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">[]</span> <span class="main">∈</span> Derivs <span class="free">w</span> <span class="free">A</span> <span class="main">⟷</span> <span class="free">w</span> <span class="main">∈</span> <span class="free">A</span>"</span></span>
+<span class="keyword1" id="Non_Regular_Languages-Nil_in_Derivs_iff"><span class="command">lemma</span></span> Nil_in_Derivs_iff<span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="main">[]</span> <span class="main">∈</span> Derivs <span class="free">w</span> <span class="free">A</span> <span class="main">⟷</span> <span class="free">w</span> <span class="main">∈</span> <span class="free">A</span>"</span></span>
   <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span><span class="main"><span class="main">:</span></span> Derivs_def<span class="main">)</span>
 
 <span class="comment1">(* TODO: Move to distribution? *)</span>
@@ -1916,32 +1916,32 @@
   <span class="quoted"><span class="quoted">"<span class="free">repeat</span> <span class="main">0</span> <span class="free"><span class="bound"><span class="entity">xs</span></span></span> <span class="main">=</span> <span class="main">[]</span>"</span></span>
 <span class="main">|</span> <span class="quoted"><span class="quoted">"<span class="free">repeat</span> <span class="main">(</span>Suc <span class="free"><span class="bound"><span class="entity">n</span></span></span><span class="main">)</span> <span class="free"><span class="bound"><span class="entity">xs</span></span></span> <span class="main">=</span> <span class="free"><span class="bound"><span class="entity">xs</span></span></span> <span class="main">@</span> <span class="free">repeat</span> <span class="free"><span class="bound"><span class="entity">n</span></span></span> <span class="free"><span class="bound"><span class="entity">xs</span></span></span>"</span></span>
   
-<span class="keyword1"><span class="command">lemma</span></span> repeat_Cons_left<span class="main">:</span> <span class="quoted"><span class="quoted">"repeat <span class="main">(</span>Suc <span class="free">n</span><span class="main">)</span> <span class="free">xs</span> <span class="main">=</span> <span class="free">xs</span> <span class="main">@</span> repeat <span class="free">n</span> <span class="free">xs</span>"</span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
+<span class="keyword1" id="Non_Regular_Languages-repeat_Cons_left"><span class="command">lemma</span></span> repeat_Cons_left<span class="main">:</span> <span class="quoted"><span class="quoted">"repeat <span class="main">(</span>Suc <span class="free">n</span><span class="main">)</span> <span class="free">xs</span> <span class="main">=</span> <span class="free">xs</span> <span class="main">@</span> repeat <span class="free">n</span> <span class="free">xs</span>"</span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">simp</span>
     
-<span class="keyword1"><span class="command">lemma</span></span> repeat_Cons_right<span class="main">:</span> <span class="quoted"><span class="quoted">"repeat <span class="main">(</span>Suc <span class="free">n</span><span class="main">)</span> <span class="free">xs</span> <span class="main">=</span> repeat <span class="free">n</span> <span class="free">xs</span> <span class="main">@</span> <span class="free">xs</span>"</span></span>
+<span class="keyword1" id="Non_Regular_Languages-repeat_Cons_right"><span class="command">lemma</span></span> repeat_Cons_right<span class="main">:</span> <span class="quoted"><span class="quoted">"repeat <span class="main">(</span>Suc <span class="free">n</span><span class="main">)</span> <span class="free">xs</span> <span class="main">=</span> repeat <span class="free">n</span> <span class="free">xs</span> <span class="main">@</span> <span class="free">xs</span>"</span></span>
   <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">induction</span> <span class="quoted"><span class="free">n</span></span><span class="main">)</span> <span class="operator">simp_all</span>
     
-<span class="keyword1"><span class="command">lemma</span></span> repeat_Cons_append_commute <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span> <span class="quoted"><span class="quoted">"repeat <span class="free">n</span> <span class="free">xs</span> <span class="main">@</span> <span class="free">xs</span> <span class="main">=</span> <span class="free">xs</span> <span class="main">@</span> repeat <span class="free">n</span> <span class="free">xs</span>"</span></span>
+<span class="keyword1" id="Non_Regular_Languages-repeat_Cons_append_commute"><span class="command">lemma</span></span> repeat_Cons_append_commute <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span> <span class="quoted"><span class="quoted">"repeat <span class="free">n</span> <span class="free">xs</span> <span class="main">@</span> <span class="free">xs</span> <span class="main">=</span> <span class="free">xs</span> <span class="main">@</span> repeat <span class="free">n</span> <span class="free">xs</span>"</span></span>
   <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">subst</span> repeat_Cons_right <span class="main"><span class="main">[</span></span><span class="operator">symmetric</span><span class="main"><span class="main">]</span></span><span class="main">)</span> <span class="operator">simp</span>
     
-<span class="keyword1"><span class="command">lemma</span></span> repeat_Cons_add <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span> <span class="quoted"><span class="quoted">"repeat <span class="main">(</span><span class="free">m</span> <span class="main">+</span> <span class="free">n</span><span class="main">)</span> <span class="free">xs</span> <span class="main">=</span> repeat <span class="free">m</span> <span class="free">xs</span> <span class="main">@</span> repeat <span class="free">n</span> <span class="free">xs</span>"</span></span>
+<span class="keyword1" id="Non_Regular_Languages-repeat_Cons_add"><span class="command">lemma</span></span> repeat_Cons_add <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span> <span class="quoted"><span class="quoted">"repeat <span class="main">(</span><span class="free">m</span> <span class="main">+</span> <span class="free">n</span><span class="main">)</span> <span class="free">xs</span> <span class="main">=</span> repeat <span class="free">m</span> <span class="free">xs</span> <span class="main">@</span> repeat <span class="free">n</span> <span class="free">xs</span>"</span></span>
   <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">induction</span> <span class="quoted"><span class="free">m</span></span><span class="main">)</span> <span class="operator">simp_all</span>
     
-<span class="keyword1"><span class="command">lemma</span></span> repeat_Nil <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span> <span class="quoted"><span class="quoted">"repeat <span class="free">n</span> <span class="main">[]</span> <span class="main">=</span> <span class="main">[]</span>"</span></span>
+<span class="keyword1" id="Non_Regular_Languages-repeat_Nil"><span class="command">lemma</span></span> repeat_Nil <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span> <span class="quoted"><span class="quoted">"repeat <span class="free">n</span> <span class="main">[]</span> <span class="main">=</span> <span class="main">[]</span>"</span></span>
   <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">induction</span> <span class="quoted"><span class="free">n</span></span><span class="main">)</span> <span class="operator">simp_all</span>
     
-<span class="keyword1"><span class="command">lemma</span></span> repeat_conv_replicate<span class="main">:</span> <span class="quoted"><span class="quoted">"repeat <span class="free">n</span> <span class="free">xs</span> <span class="main">=</span> concat <span class="main">(</span>replicate <span class="free">n</span> <span class="free">xs</span><span class="main">)</span>"</span></span>
+<span class="keyword1" id="Non_Regular_Languages-repeat_conv_replicate"><span class="command">lemma</span></span> repeat_conv_replicate<span class="main">:</span> <span class="quoted"><span class="quoted">"repeat <span class="free">n</span> <span class="free">xs</span> <span class="main">=</span> concat <span class="main">(</span>replicate <span class="free">n</span> <span class="free">xs</span><span class="main">)</span>"</span></span>
   <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">induction</span> <span class="quoted"><span class="free">n</span></span><span class="main">)</span> <span class="operator">simp_all</span>
 
     
 <span class="comment1">(* TODO: Move to distribution? *)</span>
-<span class="keyword1"><span class="command">lemma</span></span> nth_prefixes <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">n</span> <span class="main">≤</span> length <span class="free">xs</span> <span class="main">⟹</span> prefixes <span class="free">xs</span> <span class="main">!</span> <span class="free">n</span> <span class="main">=</span> take <span class="free">n</span> <span class="free">xs</span>"</span></span>
+<span class="keyword1" id="Non_Regular_Languages-nth_prefixes"><span class="command">lemma</span></span> nth_prefixes <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">n</span> <span class="main">≤</span> length <span class="free">xs</span> <span class="main">⟹</span> prefixes <span class="free">xs</span> <span class="main">!</span> <span class="free">n</span> <span class="main">=</span> take <span class="free">n</span> <span class="free">xs</span>"</span></span>
   <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">induction</span> <span class="quoted"><span class="free">xs</span></span> <span class="quasi_keyword">arbitrary</span><span class="main"><span class="main">:</span></span> <span class="quoted"><span class="free">n</span></span><span class="main">)</span> <span class="main">(</span><span class="operator">auto</span> <span class="quasi_keyword">simp</span><span class="main"><span class="main">:</span></span> nth_Cons <span class="quasi_keyword">split</span><span class="main"><span class="main">:</span></span> nat.splits<span class="main">)</span>
     
-<span class="keyword1"><span class="command">lemma</span></span> nth_suffixes <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">n</span> <span class="main">≤</span> length <span class="free">xs</span> <span class="main">⟹</span> suffixes <span class="free">xs</span> <span class="main">!</span> <span class="free">n</span> <span class="main">=</span> drop <span class="main">(</span>length <span class="free">xs</span> <span class="main">-</span> <span class="free">n</span><span class="main">)</span> <span class="free">xs</span>"</span></span>
+<span class="keyword1" id="Non_Regular_Languages-nth_suffixes"><span class="command">lemma</span></span> nth_suffixes <span class="main">[</span><span class="operator">simp</span><span class="main">]</span><span class="main">:</span> <span class="quoted"><span class="quoted">"<span class="free">n</span> <span class="main">≤</span> length <span class="free">xs</span> <span class="main">⟹</span> suffixes <span class="free">xs</span> <span class="main">!</span> <span class="free">n</span> <span class="main">=</span> drop <span class="main">(</span>length <span class="free">xs</span> <span class="main">-</span> <span class="free">n</span><span class="main">)</span> <span class="free">xs</span>"</span></span>
   <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">subst</span> suffixes_conv_prefixes<span class="main">)</span> <span class="main">(</span><span class="operator">simp_all</span> <span class="quasi_keyword">add</span><span class="main"><span class="main">:</span></span> rev_take<span class="main">)</span>
 
-<span class="keyword1"><span class="command">lemma</span></span> length_take_prefixes<span class="main">:</span>
+<span class="keyword1" id="Non_Regular_Languages-length_take_prefixes"><span class="command">lemma</span></span> length_take_prefixes<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">xs</span> <span class="main">∈</span> set <span class="main">(</span>take <span class="free">n</span> <span class="main">(</span>prefixes <span class="free">ys</span><span class="main">)</span><span class="main">)</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span>   <span class="quoted"><span class="quoted">"length <span class="free">xs</span> <span class="main">&lt;</span> <span class="free">n</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">cases</span> <span class="quoted"><span class="quoted">"<span class="free">n</span> <span class="main">≤</span> Suc <span class="main">(</span>length <span class="free">ys</span><span class="main">)</span>"</span></span><span class="main">)</span>
@@ -1964,7 +1964,7 @@
   Non-regularity can be shown by giving an infinite set of non-equivalent words (w.r.t. the 
   Myhill--Nerode relation).
 ›</span></span>
-<span class="keyword1"><span class="command">lemma</span></span> not_regular_langI<span class="main">:</span>
+<span class="keyword1" id="Non_Regular_Languages-not_regular_langI"><span class="command">lemma</span></span> not_regular_langI<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"infinite <span class="free">B</span>"</span></span> <span class="quoted"><span class="quoted">"<span class="main">⋀</span><span class="bound">x</span> <span class="bound">y</span><span class="main">.</span> <span class="bound">x</span> <span class="main">∈</span> <span class="free">B</span> <span class="main">⟹</span> <span class="bound">y</span> <span class="main">∈</span> <span class="free">B</span> <span class="main">⟹</span> <span class="bound">x</span> <span class="main">≠</span> <span class="bound">y</span> <span class="main">⟹</span> <span class="main">∃</span><span class="bound">w</span><span class="main">.</span> <span class="main">¬</span><span class="main">(</span><span class="bound">x</span> <span class="main">@</span> <span class="bound">w</span> <span class="main">∈</span> <span class="free">A</span> <span class="main">⟷</span> <span class="bound">y</span> <span class="main">@</span> <span class="bound">w</span> <span class="main">∈</span> <span class="free">A</span><span class="main">)</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span>   <span class="quoted"><span class="quoted">"<span class="main">¬</span>regular_lang <span class="main">(</span><span class="free">A</span> <span class="main">::</span> <span class="tfree">'a</span> <span class="main">::</span> finite list set<span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
@@ -1977,7 +1977,7 @@
   <span class="keyword1"><span class="command">with</span></span> regular_Derivs_finite <span class="keyword3"><span class="command">show</span></span> <span class="var"><span class="quoted"><span class="var">?thesis</span></span></span> <span class="keyword1"><span class="command">by</span></span> <span class="operator">blast</span>
 <span class="keyword1"><span class="command">qed</span></span>
 
-<span class="keyword1"><span class="command">lemma</span></span> not_regular_langI'<span class="main">:</span>
+<span class="keyword1" id="Non_Regular_Languages-not_regular_langI'"><span class="command">lemma</span></span> not_regular_langI'<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"infinite <span class="free">B</span>"</span></span> <span class="quoted"><span class="quoted">"<span class="main">⋀</span><span class="bound">x</span> <span class="bound">y</span><span class="main">.</span> <span class="bound">x</span> <span class="main">∈</span> <span class="free">B</span> <span class="main">⟹</span> <span class="bound">y</span> <span class="main">∈</span> <span class="free">B</span> <span class="main">⟹</span> <span class="bound">x</span> <span class="main">≠</span> <span class="bound">y</span> <span class="main">⟹</span> <span class="main">∃</span><span class="bound">w</span><span class="main">.</span> <span class="main">¬</span><span class="main">(</span><span class="free">f</span> <span class="bound">x</span> <span class="main">@</span> <span class="bound">w</span> <span class="main">∈</span> <span class="free">A</span> <span class="main">⟷</span> <span class="free">f</span> <span class="bound">y</span> <span class="main">@</span> <span class="bound">w</span> <span class="main">∈</span> <span class="free">A</span><span class="main">)</span>"</span></span>
   <span class="keyword2"><span class="keyword">shows</span></span>   <span class="quoted"><span class="quoted">"<span class="main">¬</span>regular_lang <span class="main">(</span><span class="free">A</span> <span class="main">::</span> <span class="tfree">'a</span> <span class="main">::</span> finite list set<span class="main">)</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="main">(</span><span class="operator">rule</span> not_regular_langI<span class="main">)</span>
@@ -1994,7 +1994,7 @@
   have two different prefixes in the same class and the difference between these two 
   prefixes can then be ``pumped''.
 ›</span></span>
-<span class="keyword1"><span class="command">lemma</span></span> pumping_lemma_aux<span class="main">:</span>
+<span class="keyword1" id="Non_Regular_Languages-pumping_lemma_aux"><span class="command">lemma</span></span> pumping_lemma_aux<span class="main">:</span>
   <span class="keyword2"><span class="keyword">fixes</span></span> <span class="free">A</span> <span class="main">::</span> <span class="quoted"><span class="quoted">"<span class="tfree">'a</span> list set"</span></span>
   <span class="keyword2"><span class="keyword">defines</span></span> <span class="quoted"><span class="quoted">"<span class="free">δ</span> <span class="main">≡</span> <span class="main">λ</span><span class="bound">w</span><span class="main">.</span> Derivs <span class="bound">w</span> <span class="free">A</span>"</span></span>
   <span class="keyword2"><span class="keyword">defines</span></span> <span class="quoted"><span class="quoted">"<span class="free">n</span> <span class="main">≡</span> card <span class="main">(</span>range <span class="free">δ</span><span class="main">)</span>"</span></span>
@@ -2089,11 +2089,11 @@
 <span class="keyword1"><span class="command">text</span></span> <span class="quoted"><span class="plain_text">‹
   The language $\{a^i b^i\ |\ i \in \mathbb{N}\}$ is not regular.
 ›</span></span>
-<span class="keyword1"><span class="command">lemma</span></span> eq_replicate_iff<span class="main">:</span>
+<span class="keyword1" id="Non_Regular_Languages-eq_replicate_iff"><span class="command">lemma</span></span> eq_replicate_iff<span class="main">:</span>
   <span class="quoted"><span class="quoted">"<span class="free">xs</span> <span class="main">=</span> replicate <span class="free">n</span> <span class="free">x</span> <span class="main">⟷</span> set <span class="free">xs</span> <span class="main">⊆</span> <span class="main">{</span><span class="free">x</span><span class="main">}</span> <span class="main">∧</span> length <span class="free">xs</span> <span class="main">=</span> <span class="free">n</span>"</span></span>
   <span class="keyword1"><span class="command">using</span></span> replicate_length_same<span class="main">[</span><span class="operator">of</span> <span class="quoted"><span class="free">xs</span></span> <span class="quoted"><span class="free">x</span></span><span class="main">]</span> <span class="keyword1"><span class="command">by</span></span> <span class="main">(</span><span class="operator">subst</span> eq_commute<span class="main">)</span> <span class="operator">auto</span>
     
-<span class="keyword1"><span class="command">lemma</span></span> replicate_eq_appendE<span class="main">:</span>
+<span class="keyword1" id="Non_Regular_Languages-replicate_eq_appendE"><span class="command">lemma</span></span> replicate_eq_appendE<span class="main">:</span>
   <span class="keyword2"><span class="keyword">assumes</span></span> <span class="quoted"><span class="quoted">"<span class="free">xs</span> <span class="main">@</span> <span class="free">ys</span> <span class="main">=</span> replicate <span class="free">n</span> <span class="free">x</span>"</span></span>
   <span class="keyword2"><span class="keyword">obtains</span></span> <span class="free">i</span> <span class="free">j</span> <span class="keyword2"><span class="keyword">where</span></span> <span class="quoted"><span class="quoted">"<span class="free">n</span> <span class="main">=</span> <span class="free">i</span> <span class="main">+</span> <span class="free">j</span>"</span></span> <span class="quoted"><span class="quoted">"<span class="free">xs</span> <span class="main">=</span> replicate <span class="free">i</span> <span class="free">x</span>"</span></span> <span class="quoted"><span class="quoted">"<span class="free">ys</span> <span class="main">=</span> replicate <span class="free">j</span> <span class="free">x</span>"</span></span>
 <span class="keyword1"><span class="command">proof</span></span> <span class="operator">-</span>
