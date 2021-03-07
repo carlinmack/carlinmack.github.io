@@ -45,14 +45,14 @@ jobs:
 
       - name: Download metadata/ and thys/
         run: |
-          wget https://foss.heptapod.net/isa-afp/afp-2021/-/archive/branch/default/afp-devel-branch-default.tar.gz?path=thys -O thys.tar.gz &&
+          wget https://foss.heptapod.net/isa-afp/afp-2021/-/archive/branch/default/afp-2021-branch-default.zip?path=thys -O thys.tar.gz &&
           tar -xf thys.tar.gz
           wget https://foss.heptapod.net/isa-afp/afp-2021/-/raw/branch/default/metadata/metadata
 
       - name: Overwrite repo files
         run: |
           rm -rf afp/src/afp-devel/thys
-          mv afp-devel-branch-default-thys/thys afp/src/afp-devel/
+          mv afp-2021-branch-default-thys/thys afp/src/afp-devel/
           mv -f metadata afp/src/afp-devel/metadata/metadata
 
       - name: Install dependencies and run exportMetadata.py
