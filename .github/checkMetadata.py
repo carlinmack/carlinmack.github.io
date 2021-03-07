@@ -8,7 +8,7 @@ if os.path.isfile("Last-Modified-SHA.txt"):
 else:
     prevLastModifiedSha = ""
     
-r = requests.head("https://foss.heptapod.net/api/v4/projects/317/repository/files/metadata%2Fmetadata?ref=branch%2Fdefault")
+r = requests.head("https://foss.heptapod.net/api/v4/projects/407/repository/files/metadata%2Fmetadata?ref=branch%2Fdefault")
 lastModifiedSha = r.headers["X-Gitlab-Content-Sha256"]
 
 if prevLastModifiedSha == lastModifiedSha:
