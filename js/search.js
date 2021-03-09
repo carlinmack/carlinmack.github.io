@@ -146,7 +146,7 @@ function loadSearch(entries, authors, topics, keywords) {
         body += '"maxFacets":5}';
 
         const response = await fetch(
-            "https://search.isabelle.in.tum.de/v1/default_Isabelle2020_AFP2020/facet",
+            "https://search.isabelle.in.tum.de/v1/default_Isabelle2021_AFP2021/facet",
             {
                 method: "POST",
                 headers: {
