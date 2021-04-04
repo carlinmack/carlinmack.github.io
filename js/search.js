@@ -47,12 +47,17 @@ function loadSearch(entries, authors, topics, keywords) {
     indices["topic"].add(topics);
     indices["suggest"].add(keywords);
 
-    const input = document.getElementById("searchInput");
+    var memoQueryFindFacts = memoizer(queryFindFacts);
 
     var searchQuery = input.value;
     if (searchQuery) {
         executeSearch(indices, searchQuery);
+        memoQueryFindFacts(searchTerm).then((results) =>
+            populateFindFactsResults(searchTerm, results)
+        );
     }
+
+    const input = document.getElementById("searchInput");
 
     input.addEventListener("keyup", function (event) {
         switch (event.key) {
@@ -84,18 +89,14 @@ function loadSearch(entries, authors, topics, keywords) {
         }
     });
 
-    var memoQueryFindFacts = memoizer(queryFindFacts);
-    input.addEventListener(
-        "keyup",
-        debounce(() => {
-            var searchTerm = input.value;
-            if (searchTerm && searchTerm.length > 2) {
-                memoQueryFindFacts(searchTerm).then((results) =>
-                    populateFindFactsResults(searchTerm, results)
-                );
-            }
-        }, 300)
-    );
+    input.addEventListener("keyup", debounce(() => {
+        var searchTerm = input.value;
+        if (searchTerm && searchTerm.length > 2) {
+            memoQueryFindFacts(searchTerm).then((results) =>
+                populateFindFactsResults(searchTerm, results)
+            );
+        }
+    }, 300));
 
     input.addEventListener("blur", () => {
         setTimeout(hideAutocomplete, 100);
