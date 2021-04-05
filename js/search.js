@@ -208,10 +208,7 @@ function executeSearch(indices, searchQuery) {
     if (entryResults.length > 0) {
         populateResults(entryResults, searchQuery, indices);
     } else {
-        var text =
-            "<p>No matches found</p><br>Search on all pages of the AFP, including";
-        text += ' PDFs, with <a href="https://www.google.com/search?q=' + searchQuery;
-        text += ' site:isa-afp.org" target="_blank" rel="noreferrer noopener">';
+        var text = "<p>No results</p>";
         setInnerHTMLOfID("search-results", text);
     }
 
