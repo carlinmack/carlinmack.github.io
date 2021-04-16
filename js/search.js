@@ -69,15 +69,12 @@ function loadSearch(entries, authors, topics, keywords) {
             case "ArrowLeft":
             case "Right":
             case "ArrowRight":
-                break;
             case "Escape":
-                hideAutocomplete();
                 break;
             default:
                 if (this.value && this.value.length > 1) {
                     executeSearch(indices, this.value);
                 } else {
-                    hideAutocomplete();
                     hideFindFacts();
                     setInnerHTMLOfID("authorTopic", "");
                     setInnerHTMLOfID(
@@ -97,47 +94,15 @@ function loadSearch(entries, authors, topics, keywords) {
         }
     }, 300));
 
-    input.addEventListener("blur", () => {
-        setTimeout(hideAutocomplete, 100);
-    });
-
-    input.addEventListener("focus", () => {
-        clearAutocomplete();
-        input.dispatchEvent(new KeyboardEvent("keyup"));
-    });
-
-    var currentFocus = -1;
-    var items = getItems();
-
     input.addEventListener("keydown", function (event) {
         switch (event.key) {
             case "Enter":
                 event.preventDefault(); // prevent the form from being submitted
-                if (currentFocus > -1) {
-                    items[currentFocus].click();
-                    currentFocus = -1;
-                } else {
-                    handleSubmit(this.value);
-                }
-                break;
-            case "Up": // IE/Edge specific value
-            case "ArrowUp":
-                currentFocus--;
-                addActive(items, currentFocus);
-                break;
-            case "Down": // IE/Edge specific value
-            case "ArrowDown":
-                currentFocus++;
-                addActive(items, currentFocus);
+                handleSubmit(this.value);
                 break;
             default:
         }
     });
-
-    for (var item of items) {
-        item.addEventListener("touchstart", handleClick);
-        item.addEventListener("click", handleClick);
-    }
 
     async function queryFindFacts(searchTerm) {
         var body = '{"filters":[{"field":"SourceCode","filter":{"Term":{"inner":"';
@@ -219,8 +184,11 @@ function executeSearch(indices, searchQuery) {
     if (topicResults.length > 0)
         populateSmallResults(topicResults, searchQuery, "topic", indices);
 
-    clearAutocomplete();
-    filterAutocomplete(suggestResults);
+    if (!(suggestResults.length === 1 && suggestResults[0].keyword === searchQuery)){
+        filterAutocomplete(suggestResults);
+    } else {
+        filterAutocomplete();
+    }
 }
 
 function populateResults(results, searchQuery, indices, all = false) {
@@ -396,7 +364,7 @@ function populateFindFactsResults(searchTerm, data) {
         setInnerHTMLOfID("find-facts-results", "");
         resultsElement.insertAdjacentElement("beforeend", list);
     } else {
-        setInnerHTMLOfID("find-facts-results", "No results");
+        // setInnerHTMLOfID("find-facts-results", "No results");
     }
 }
 
@@ -411,84 +379,32 @@ function handleSubmit(value) {
 
 // Autocomplete ------------------------------------------------------------------------
 
-function hideAutocomplete() {
-    var list = document.getElementById("searchInputautocomplete-list");
-    if (list) {
-        list.style = "display: none";
-    }
-}
-
-function clearAutocomplete() {
-    var items = getItems();
-    for (var i = items.length - 1; i > -1; i--) {
-        items[i].parentNode.removeChild(items[i]);
-    }
-}
-
 function filterAutocomplete(values) {
-    var added = false;
-    var input = document.getElementById("searchInput");
-    values.forEach((value, _key) => {
-        if (value.keyword != input.value) {
-            addItem(value.keyword);
-            added = true;
-        }
-    });
-
-    if (!added) {
-        hideAutocomplete();
-    }
-}
-
-function addItem(value) {
-    var item = document.createElement("DIV");
-
-    item.innerHTML = value;
-
-    item.addEventListener("touchstart", handleClick);
-    item.addEventListener("click", handleClick);
-
-    var list = document.getElementById("searchInputautocomplete-list");
+    const list = document.getElementById("autocomplete");
     if (list) {
-        list.appendChild(item);
-        list.style = "";
-    }
-}
+        if (values) {
 
-function handleClick(event) {
-    event.preventDefault(); // so that two click events aren't registered
-    var input = document.getElementById("searchInput");
-    var currentValue = this.innerHTML;
-    input.value = currentValue;
-    clearAutocomplete();
-    input.dispatchEvent(new KeyboardEvent("keyup"));
-    input.focus();
-}
-
-function addActive(items, currentFocus) {
-    if (!items) return false;
-
-    removeActive(items);
-    if (currentFocus >= items.length) currentFocus = 0;
-    if (currentFocus < 0) {
-        currentFocus = -1;
-    } else {
-        items[currentFocus].classList.add("autocomplete-active");
-    }
-}
-
-function removeActive() {
-    var items = getItems();
-    for (var item of items) {
-        item.classList.remove("autocomplete-active");
-    }
-}
-
-function getItems() {
-    var items = document.getElementById("searchInputautocomplete-list");
-    if (items) {
-        items = items.getElementsByTagName("div");
-        if (items) return items;
+            let i = 0;
+            for (let value of values) {
+                let elem = document.createElement("option");
+                elem.value = value.keyword;
+                if (i < list.childNodes.length) {
+                    list.childNodes[i].replaceWith(elem);
+                    i++;
+                } else {
+                    list.appendChild(elem);
+                }
+            }
+            if (values.length < list.childNodes.length) {
+                for (let j = 0; j < list.childNodes.length - values.length; j++) {
+                    list.removeChild(list.lastChild);
+                }
+            }
+        } else {
+            while (list.firstChild) {
+                list.removeChild(list.lastChild);
+            }
+        }
     }
 }
 
@@ -497,7 +413,7 @@ function setInnerHTMLOfID(id, str) {
     if (elem) {
         elem.innerHTML = str;
     } else {
-        console.log("Failed to find:", id, "for innerHTML");
+        console.log("Failed to find:", id, "for innerHTML. Would have set it to " + str);
     }
 }
 
