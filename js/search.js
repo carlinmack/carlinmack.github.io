@@ -2,9 +2,10 @@ function loadSearch(entries, authors, topics, keywords) {
     var entryIndex = new FlexSearch({
         encode: "advanced",
         tokenize: "forward",
+        bool: "or",
         doc: {
             id: "id",
-            field: ["title", "abstract"],
+            field: ["title", "abstract", "date", "authors"],
         },
     });
 
@@ -75,12 +76,7 @@ function loadSearch(entries, authors, topics, keywords) {
                 if (this.value && this.value.length > 1) {
                     executeSearch(indices, this.value);
                 } else {
-                    hideFindFacts();
-                    setInnerHTMLOfID("authorTopic", "");
-                    setInnerHTMLOfID(
-                        "search-results",
-                        "<p>Please enter a word or phrase above</p>"
-                    );
+                    clearResults();
                 }
         }
     });
@@ -157,12 +153,12 @@ function executeSearch(indices, searchQuery) {
 
     var topicResults = indices["topic"].search({
         query: searchQuery,
-        limit: 3,
+        limit: 5,
     });
 
     var authorResults = indices["author"].search({
         query: searchQuery,
-        limit: 3,
+        limit: 5,
     });
 
     var suggestResults = indices["suggest"].search({
@@ -173,18 +169,22 @@ function executeSearch(indices, searchQuery) {
     if (entryResults.length > 0) {
         populateResults(entryResults, searchQuery, indices);
     } else {
-        var text = "<p>No results</p>";
-        setInnerHTMLOfID("search-results", text);
+        setInnerHTMLOfID("search-results", "<p>No results</p>");
     }
 
-    setInnerHTMLOfID("authorTopic", "");
-
-    if (authorResults.length > 0)
+    if (authorResults.length > 0) {
         populateSmallResults(authorResults, searchQuery, "author", indices);
-    if (topicResults.length > 0)
-        populateSmallResults(topicResults, searchQuery, "topic", indices);
+    } else {
+        setInnerHTMLOfID("author-results", "<p>No results</p>");
+    }
 
-    if (!(suggestResults.length === 1 && suggestResults[0].keyword === searchQuery)){
+    if (topicResults.length > 0) {
+        populateSmallResults(topicResults, searchQuery, "topic", indices);
+    } else {
+        setInnerHTMLOfID("topic-results", "<p>No results</p>");
+    }
+
+    if (!(suggestResults.length === 1 && suggestResults[0].keyword === searchQuery)) {
         filterAutocomplete(suggestResults);
     } else {
         filterAutocomplete();
@@ -193,24 +193,14 @@ function executeSearch(indices, searchQuery) {
 
 function populateResults(results, searchQuery, indices, all = false) {
     if (searchQuery.length < 3) {
-        hideFindFacts();
+        setInnerHTMLOfID("find-facts-results", "");
     } else {
-        var findFacts = document.getElementById("findFacts");
-        if (!findFacts) {
-            // create FindFacts results table
-            findFactsTable = '<div id="findFacts"><h3>FindFacts Results</h3><div';
-            findFactsTable += ' id="find-facts-results">...</div></div>';
-            document
-                .getElementById("authorTopic")
-                .insertAdjacentHTML("afterend", findFactsTable);
-        } else {
-            setInnerHTMLOfID("find-facts-results", "...");
-        }
+        setInnerHTMLOfID("find-facts-results", "...");
     }
 
     const resultsTable = document.getElementById("search-results");
 
-    setInnerHTMLOfID("search-results", "<h3>Entries</h3>");
+    setInnerHTMLOfID("search-results", "");
 
     var limit = all ? results.length : 15;
 
@@ -285,28 +275,18 @@ function populateResults(results, searchQuery, indices, all = false) {
     }
 }
 
-function hideFindFacts() {
-    var findFacts = document.getElementById("findFacts");
-    if (findFacts) {
-        findFacts.outerHTML = "";
-    }
+function clearResults() {
+    setInnerHTMLOfID("author-results", "");
+    setInnerHTMLOfID("topic-results", "");
+    setInnerHTMLOfID("find-facts-results", "");
+    setInnerHTMLOfID("search-results", "<p>Please enter a search term above</p>");
 }
 
 function populateSmallResults(results, searchQuery, key, indices, all = false) {
-    const maxResults = 5;
+    const maxResults = 4;
+    setInnerHTMLOfID(key + "-results", "");
 
     var resultsTable = document.getElementById(key + "-results");
-    var name = key[0].toUpperCase() + key.substring(1) + "s";
-
-    if (!resultsTable) {
-        var base = '<div id="' + key + '-results">';
-        base += "<h3>" + name + "</h3>";
-
-        document.getElementById("authorTopic").insertAdjacentHTML("beforeend", base);
-        resultsTable = document.getElementById(key + "-results");
-    } else {
-        setInnerHTMLOfID(key + "-results", '<td class="head">' + name + "</div>");
-    }
 
     var limit = all ? results.length : maxResults;
     var list = document.createElement("ul");
@@ -323,7 +303,7 @@ function populateSmallResults(results, searchQuery, key, indices, all = false) {
     resultsTable.insertAdjacentElement("beforeend", list);
 
     if (results.length > maxResults && !all) {
-        var btn = document.createElement("button");
+        const btn = document.createElement("button");
         btn.innerHTML = "Show all";
 
         btn.addEventListener("click", function () {
@@ -333,7 +313,7 @@ function populateSmallResults(results, searchQuery, key, indices, all = false) {
 
             populateSmallResults(entryResults, searchQuery, key, indices, true);
         });
-        
+
         resultsTable.insertAdjacentElement("beforeend", btn);
     }
 
@@ -364,7 +344,7 @@ function populateFindFactsResults(searchTerm, data) {
         setInnerHTMLOfID("find-facts-results", "");
         resultsElement.insertAdjacentElement("beforeend", list);
     } else {
-        // setInnerHTMLOfID("find-facts-results", "No results");
+        setInnerHTMLOfID("find-facts-results", "<p>No results</p>");
     }
 }
 
@@ -383,7 +363,6 @@ function filterAutocomplete(values) {
     const list = document.getElementById("autocomplete");
     if (list) {
         if (values) {
-
             let i = 0;
             for (let value of values) {
                 let elem = document.createElement("option");
@@ -413,7 +392,7 @@ function setInnerHTMLOfID(id, str) {
     if (elem) {
         elem.innerHTML = str;
     } else {
-        console.log("Failed to find:", id, "for innerHTML. Would have set it to " + str);
+        console.log("Failed to find:", id, "for innerHTML. Would have set it to", str);
     }
 }
 
