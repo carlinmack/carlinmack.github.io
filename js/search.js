@@ -204,27 +204,22 @@ function populateResults(results, searchQuery, indices, all = false) {
 
     var limit = all ? results.length : 15;
 
-    results.slice(0, limit).forEach(function (value, resultKey) {
-        var topicHrefs = value.topics
-            .map((x) => x.toLowerCase())
-            .map((x) => x.replace(/\s+/, "-"))
-            .map((x) => "/topics/" + x + "/");
-
+    results.slice(0, limit).forEach(function (result, resultKey) {
         var topics = [];
 
-        value.topics.forEach((value, key) => {
-            topics[key] = "<a href=" + topicHrefs[key] + ">" + value + "</a>";
+        result.topics.forEach((value, key) => {
+            topics[key] = "<a href=/topics/" + result.topicLinks[key] + ">" + value + "</a>";
         });
 
         var topicString = niceList(topics);
-        var authorString = niceList(value.authors);
+        var authorString = niceList(result.authors);
 
-        var title = value.title;
-        var link = value.shortname.toLowerCase();
-        var shortname = value.shortname;
-        var abstract = value.abstract;
-        var usedBy = value.usedBy;
-        var year = value.date.substring(0, 4);
+        var title = result.title;
+        var link = result.shortname.toLowerCase();
+        var shortname = result.shortname;
+        var abstract = result.abstract;
+        var usedBy = result.usedBy;
+        var year = result.date.substring(0, 4);
 
         var output = `<div id="summary-${resultKey}">
   <div class='title'>
@@ -240,8 +235,8 @@ function populateResults(results, searchQuery, indices, all = false) {
         ? `<div>Used by <a href="/dependencies/${link}">${usedBy}</a> | ${
                 topicString ? `${topicString} ` : ""
             }</div>`
-        : ""
-    } ${topicString ? `<div>${topicString}</div>` : ""}
+        : topicString ? `<div>${topicString}</div>` : ""
+    } 
 </div>`;
 
         resultsTable.insertAdjacentHTML("beforeend", output);
