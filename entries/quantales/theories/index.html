@@ -10,8 +10,8 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Qu
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Models of Dioids›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Dioid_Models_New
-  <span class=keyword2><span class=keyword>imports</span></span> <a href=../Kleene_Algebra/Dioid.html>Kleene_Algebra.Dioid</a>
-          <a href=../../HOL/HOL/Real.html>HOL.Real</a>
+  <span class=keyword2><span class=keyword>imports</span></span> <a href=../../kleene_algebra/theories/#Dioid>Kleene_Algebra.Dioid</a>
+          <a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL/Real.html>HOL.Real</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>text</span></span> <span class=quoted><span class=plain_text>‹In this section we consider some well known models of
@@ -875,8 +875,8 @@ numbers as an example.›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Quantales
   <span class=keyword2><span class=keyword>imports</span></span>
-    <span class=quoted>"<a href=../Order_Lattice_Props/Closure_Operators.html>Order_Lattice_Props.Closure_Operators</a>"</span>
-   <a href=../Kleene_Algebra/Dioid.html>Kleene_Algebra.Dioid</a>
+    <span class=quoted>"<a href=../../order_lattice_props/theories/#Closure_Operators>Order_Lattice_Props.Closure_Operators</a>"</span>
+   <a href=../../kleene_algebra/theories/#Dioid>Kleene_Algebra.Dioid</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>subsection</span></span> <span class=quoted><span class=plain_text>‹Families of Proto-Quantales›</span></span>
@@ -984,7 +984,7 @@ for semirings and Kleene algebras.›</span></span>
   <span class=keyword1><span class=command>using</span></span> dual_order.antisym fres_canc1 fres_canc2 mult_isor <span class=keyword1><span class=command>by</span></span> <span class=operator>fastforce</span>
 
 <span class=keyword1 id=Quantales-sol_fres><span class=command>lemma</span></span> sol_fres<span class=main>:</span> <span class=quoted><span class=quoted>"<span class=main>(</span><span class=main>(</span><span class=free>y</span> <span class=main>⋅</span> <span class=free>x</span><span class=main>)</span> <span class=main>←</span> <span class=free>x</span> <span class=main>=</span> <span class=free>y</span><span class=main>)</span> <span class=main>=</span> <span class=main>(</span><span class=main>∃</span><span class=bound>z</span><span class=main>.</span> <span class=free>y</span> <span class=main>=</span> <span class=bound>z</span> <span class=main>←</span> <span class=free>x</span><span class=main>)</span>"</span></span>
-  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> fres_canc1 fres_canc2 fres_sol eq_iff fres_galois<span class=main>)</span>
+  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> fres_canc1 fres_canc2 fres_sol order.eq_iff fres_galois<span class=main>)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
 
@@ -1083,10 +1083,10 @@ for semirings and Kleene algebras.›</span></span>
   <span class=keyword1><span class=command>using</span></span> bres_galois fres_galois inf_fres <span class=keyword1><span class=command>by</span></span> <span class=operator>force</span>
 
 <span class=keyword1 id=Quantales-bres_sol><span class=command>lemma</span></span> bres_sol<span class=main>:</span> <span class=quoted><span class=quoted>"<span class=main>(</span><span class=free>x</span> <span class=main>⋅</span> <span class=main>(</span><span class=free>x</span> <span class=main>→</span> <span class=free>y</span><span class=main>)</span> <span class=main>=</span> <span class=free>y</span><span class=main>)</span> <span class=main>=</span> <span class=main>(</span><span class=main>∃</span><span class=bound>z</span><span class=main>.</span> <span class=free>x</span> <span class=main>⋅</span> <span class=bound>z</span> <span class=main>=</span> <span class=free>y</span><span class=main>)</span>"</span></span>
-  <span class=keyword1><span class=command>using</span></span> bres_galois antisym mult_isol <span class=keyword1><span class=command>by</span></span> <span class=operator>force</span>
+  <span class=keyword1><span class=command>using</span></span> bres_galois order.antisym mult_isol <span class=keyword1><span class=command>by</span></span> <span class=operator>force</span>
 
 <span class=keyword1 id=Quantales-sol_bres><span class=command>lemma</span></span> sol_bres<span class=main>:</span> <span class=quoted><span class=quoted>"<span class=main>(</span><span class=free>x</span> <span class=main>→</span> <span class=main>(</span><span class=free>x</span> <span class=main>⋅</span> <span class=free>y</span><span class=main>)</span> <span class=main>=</span> <span class=free>y</span><span class=main>)</span> <span class=main>=</span> <span class=main>(</span><span class=main>∃</span><span class=bound>z</span><span class=main>.</span> <span class=free>y</span> <span class=main>=</span> <span class=free>x</span> <span class=main>→</span> <span class=bound>z</span><span class=main>)</span>"</span></span>
-  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> bres_canc1 bres_canc2 bres_iso eq_iff<span class=main>)</span>
+  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> bres_canc1 bres_canc2 bres_iso order.eq_iff<span class=main>)</span>
 
 <span class=keyword2><span class=keyword>end</span></span> 
 
@@ -1115,7 +1115,7 @@ for semirings and Kleene algebras.›</span></span>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1 id=Quantales-fres_curry><span class=command>lemma</span></span> fres_curry<span class=main>:</span> <span class=quoted><span class=quoted>"<span class=main>(</span><span class=free>z</span> <span class=main>←</span> <span class=free>y</span><span class=main>)</span> <span class=main>←</span> <span class=free>x</span> <span class=main>=</span> <span class=free>z</span> <span class=main>←</span> <span class=main>(</span><span class=free>x</span> <span class=main>⋅</span> <span class=free>y</span><span class=main>)</span>"</span></span>
-  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> eq_iff fres_canc1 fres_galois mult_assoc<span class=main>)</span>
+  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> order.eq_iff fres_canc1 fres_galois mult_assoc<span class=main>)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
   
@@ -1247,7 +1247,7 @@ the absence of right annihilation.›</span></span>
     <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> fres_galois<span class=main>)</span>
   <span class=keyword1><span class=command>finally</span></span> <span class=keyword1><span class=command>have</span></span> <span class=quoted><span class=quoted>"<span class=main>(</span><span class=skolem>w</span> <span class=main>≤</span> <span class=free>x</span> <span class=main>→</span> <span class=main>(</span><span class=free>y</span> <span class=main>←</span> <span class=free>z</span><span class=main>)</span><span class=main>)</span> <span class=main>=</span> <span class=main>(</span><span class=skolem>w</span> <span class=main>≤</span> <span class=main>(</span><span class=free>x</span> <span class=main>→</span> <span class=free>y</span><span class=main>)</span> <span class=main>←</span> <span class=free>z</span><span class=main>)</span>"</span></span><span class=keyword1><span class=command>.</span></span><span class=keyword1><span class=command>}</span></span>
   <span class=keyword3><span class=command>thus</span></span> <span class=var><span class=quoted><span class=var>?thesis</span></span></span>
-    <span class=keyword1><span class=command>using</span></span> eq_iff <span class=keyword1><span class=command>by</span></span> <span class=operator>blast</span>
+    <span class=keyword1><span class=command>using</span></span> order.eq_iff <span class=keyword1><span class=command>by</span></span> <span class=operator>blast</span>
 <span class=keyword1><span class=command>qed</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
@@ -1308,7 +1308,7 @@ the absence of right annihilation.›</span></span>
   <span class=keyword1><span class=command>using</span></span> cba_bres1 shunt1 <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
     
 <span class=keyword1 id=Quantales-cba_bres_prop><span class=command>lemma</span></span> cba_bres_prop<span class=main>:</span> <span class=quoted><span class=quoted>"cba_quantale.bres <span class=free>x</span> <span class=free>y</span> <span class=main>=</span> <span class=main>-</span><span class=free>x</span> <span class=main>⊔</span> <span class=free>y</span>"</span></span>
-  <span class=keyword1><span class=command>using</span></span> cba_bres2 eq_iff <span class=keyword1><span class=command>by</span></span> <span class=operator>blast</span>
+  <span class=keyword1><span class=command>using</span></span> cba_bres2 order.eq_iff <span class=keyword1><span class=command>by</span></span> <span class=operator>blast</span>
   
 <span class=keyword2><span class=keyword>end</span></span>
 
@@ -1569,8 +1569,8 @@ and left-sided elements.›</span></span>
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Star and Fixpoints in Quantales›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Quantale_Star
-  <span class=keyword2><span class=keyword>imports</span></span> <a href=Quantales.html>Quantales</a> 
-          <a href=../Kleene_Algebra/Kleene_Algebra.html>Kleene_Algebra.Kleene_Algebra</a>
+  <span class=keyword2><span class=keyword>imports</span></span> <a href=#Quantales>Quantales</a> 
+          <a href=../../kleene_algebra/theories/#Kleene_Algebra>Kleene_Algebra.Kleene_Algebra</a>
 
 <span class=keyword2><span class=keyword>begin</span></span>
 
@@ -1634,7 +1634,7 @@ at the end of this section, to bring properties into scope.›</span></span>
   <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>only</span><span class=main><span class=main>:</span></span> Sup_iter_unfold<span class=main><span class=main>[</span></span><span class=operator>symmetric</span><span class=main><span class=main>]</span></span><span class=main>)</span> <span class=operator>auto</span>
 
 <span class=keyword1 id=Quantale_Star-power_inductr><span class=command>lemma</span></span> power_inductr<span class=main>:</span> <span class=quoted><span class=quoted>"<span class=free>z</span> <span class=main>⊔</span> <span class=free>y</span> <span class=main>⋅</span> <span class=free>x</span> <span class=main>≤</span> <span class=free>y</span> <span class=main>⟹</span> <span class=free>z</span> <span class=main>⋅</span> <span class=free>x</span> <span class=main>^</span> <span class=free>i</span> <span class=main>≤</span> <span class=free>y</span>"</span></span>
-  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>induct</span> <span class=quoted><span class=free>i</span></span><span class=main><span class=keyword3>,</span></span> <span class=operator>simp_all</span><span class=main><span class=keyword3>,</span></span> <span class=operator>metis</span> power_commutes eq_iff mult_isor order.trans mult_assoc power.power.power_Suc<span class=main>)</span>
+  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>induct</span> <span class=quoted><span class=free>i</span></span><span class=main><span class=keyword3>,</span></span> <span class=operator>simp_all</span><span class=main><span class=keyword3>,</span></span> <span class=operator>metis</span> power_commutes order.eq_iff mult_isor order.trans mult_assoc power.power.power_Suc<span class=main>)</span>
     
 <span class=keyword2><span class=keyword>end</span></span>
 
@@ -1727,7 +1727,7 @@ where these algebras are located.›</span></span>
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Quantale Modules and Semidirect Products›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Quantale_Modules
-  <span class=keyword2><span class=keyword>imports</span></span> <a href=Quantale_Star.html>Quantale_Star</a>
+  <span class=keyword2><span class=keyword>imports</span></span> <a href=#Quantale_Star>Quantale_Star</a>
 
 <span class=keyword2><span class=keyword>begin</span></span>
 
@@ -1930,8 +1930,8 @@ and prove a characteristic property.›</span></span>
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Models of Quantales›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Quantale_Models
-  <span class=keyword2><span class=keyword>imports</span></span> <a href=Quantales.html>Quantales</a>
-  <span class=quoted>"<a href=Dioid_Models_New.html>Dioid_Models_New</a>"</span>
+  <span class=keyword2><span class=keyword>imports</span></span> <a href=#Quantales>Quantales</a>
+  <span class=quoted>"<a href=#Dioid_Models_New>Dioid_Models_New</a>"</span>
 
 <span class=keyword2><span class=keyword>begin</span></span>
 
@@ -2038,7 +2038,7 @@ one is important to Lawvere's categorical generalisation of metric spaces. These
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Quantic Nuclei and Conuclei›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Quantic_Nuclei_Conuclei
-  <span class=keyword2><span class=keyword>imports</span></span> <a href=Quantale_Models.html>Quantale_Models</a> 
+  <span class=keyword2><span class=keyword>imports</span></span> <a href=#Quantale_Models>Quantale_Models</a> 
 
 <span class=keyword2><span class=keyword>begin</span></span>
 
@@ -2492,7 +2492,7 @@ be learned. I provide this proof in the section on left-sided elements, where th
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Left-Sided Elements in Quantales›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Quantale_Left_Sided
-  <span class=keyword2><span class=keyword>imports</span></span> <a href=Quantic_Nuclei_Conuclei.html>Quantic_Nuclei_Conuclei</a>
+  <span class=keyword2><span class=keyword>imports</span></span> <a href=#Quantic_Nuclei_Conuclei>Quantic_Nuclei_Conuclei</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>context</span></span> quantale
@@ -2639,10 +2639,10 @@ duality, which is not formalised.›</span></span>
 <span class=keyword1><span class=command>text</span></span> <span class=quoted><span class=plain_text>‹Left-sidedness and strict left-sidedness now coincide.›</span></span>
 
 <span class=keyword1 id=Quantale_Left_Sided-lsided_eq><span class=command>lemma</span></span> lsided_eq<span class=main>:</span> <span class=quoted><span class=quoted>"lsd <span class=main>=</span> slsd"</span></span>
-  <span class=keyword1><span class=command>unfolding</span></span> fun_eq_iff <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> eq_iff le_top lsd_def slsd_def<span class=main>)</span>
+  <span class=keyword1><span class=command>unfolding</span></span> fun_eq_iff <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> order.eq_iff le_top lsd_def slsd_def<span class=main>)</span>
 
 <span class=keyword1 id=Quantale_Left_Sided-lsided_eq_var1><span class=command>lemma</span></span> lsided_eq_var1<span class=main>:</span>  <span class=quoted><span class=quoted>"<span class=main>(</span><span class=free>x</span> <span class=main>≤</span> <span class=main>⊤</span> <span class=main>→</span> <span class=free>x</span><span class=main>)</span> <span class=main>=</span> <span class=main>(</span><span class=free>x</span> <span class=main>=</span> <span class=main>⊤</span> <span class=main>→</span> <span class=free>x</span><span class=main>)</span>"</span></span>
-  <span class=keyword1><span class=command>using</span></span> bres_galois dual_order.trans eq_iff le_top <span class=keyword1><span class=command>by</span></span> <span class=operator>blast</span>
+  <span class=keyword1><span class=command>using</span></span> bres_galois dual_order.trans order.eq_iff le_top <span class=keyword1><span class=command>by</span></span> <span class=operator>blast</span>
 
 <span class=keyword1 id=Quantale_Left_Sided-lsided_eq_var2><span class=command>lemma</span></span> lsided_eq_var2<span class=main>:</span> <span class=quoted><span class=quoted>"lsd <span class=free>x</span> <span class=main>=</span> <span class=main>(</span><span class=free>x</span> <span class=main>=</span> <span class=main>⊤</span> <span class=main>→</span> <span class=free>x</span><span class=main>)</span>"</span></span>
   <span class=keyword1><span class=command>using</span></span> bres_galois lsided_eq lsided_eq_var1 lsd_def <span class=keyword1><span class=command>by</span></span> <span class=operator>simp</span>
@@ -2656,7 +2656,7 @@ duality, which is not formalised.›</span></span>
   <span class=keyword1><span class=command>unfolding</span></span> Fix_def <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> lsided_def3<span class=main>)</span> 
 
 <span class=keyword1 id=Quantale_Left_Sided-Fix_lsl_left_slsided><span class=command>lemma</span></span> Fix_lsl_left_slsided<span class=main>:</span> <span class=quoted><span class=quoted>"Fix <span class=keyword1>ν</span> <span class=main>=</span> <span class=main>{</span><span class=main>(</span><span class=bound>x</span><span class=main>::</span><span class=tfree>'a</span><span class=main>::</span>unital_quantale<span class=main>)</span><span class=main>.</span> lsd <span class=bound>x</span><span class=main>}</span>"</span></span>
-  <span class=keyword1><span class=command>unfolding</span></span> Fix_def lsl_def lsd_def <span class=keyword1><span class=command>using</span></span> eq_iff le_top <span class=keyword1><span class=command>by</span></span> <span class=operator>blast</span>
+  <span class=keyword1><span class=command>unfolding</span></span> Fix_def lsl_def lsd_def <span class=keyword1><span class=command>using</span></span> order.eq_iff le_top <span class=keyword1><span class=command>by</span></span> <span class=operator>blast</span>
 
 <span class=keyword1 id=Quantale_Left_Sided-Fix_lsl_iff><span class=command>lemma</span></span> Fix_lsl_iff <span class=main>[</span><span class=operator>simp</span><span class=main>]</span><span class=main>:</span> <span class=quoted><span class=quoted>"<span class=main>(</span><span class=free>x</span> <span class=main>∈</span> Fix <span class=keyword1>ν</span><span class=main>)</span> <span class=main>=</span> <span class=main>(</span><span class=keyword1>ν</span> <span class=free>x</span> <span class=main>=</span> <span class=free>x</span><span class=main>)</span>"</span></span>
   <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> Fix_def<span class=main>)</span>

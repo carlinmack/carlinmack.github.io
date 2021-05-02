@@ -28,7 +28,7 @@ with IsaFoR/CeTA. If not, see &lt;http://www.gnu.org/licenses/&gt;.
 
 <span class=keyword1><span class=command>theory</span></span> Sqrt_Babylonian_Auxiliary
 <span class=keyword2><span class=keyword>imports</span></span> 
-  <a href=../../HOL/HOL/Complex_Main.html>Complex_Main</a>
+  <a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL/Complex_Main.html>Complex_Main</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1 id=Sqrt_Babylonian_Auxiliary-mod_div_equality_int><span class=command>lemma</span></span> mod_div_equality_int<span class=main>:</span> <span class=quoted><span class=quoted>"<span class=main>(</span><span class=free>n</span> <span class=main>::</span> int<span class=main>)</span> <span class=keyword1>div</span> <span class=free>x</span> <span class=main>*</span> <span class=free>x</span> <span class=main>=</span> <span class=free>n</span> <span class=main>-</span> <span class=free>n</span> <span class=keyword1>mod</span> <span class=free>x</span>"</span></span>
@@ -111,10 +111,11 @@ with IsaFoR/CeTA. If not, see &lt;http://www.gnu.org/licenses/&gt;.
   <span class=keyword1><span class=command>using</span></span> that <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>induct</span> <span class=quoted><span class=free>p</span></span><span class=main>)</span> <span class=operator>simp_all</span>
 
 <span class=keyword1 id=Sqrt_Babylonian_Auxiliary-compare_pow_le_iff><span class=command>lemma</span></span> compare_pow_le_iff<span class=main>:</span> <span class=quoted><span class=quoted>"<span class=free>p</span> <span class=main>&gt;</span> <span class=main>0</span> <span class=main>⟹</span> <span class=main>(</span><span class=free>x</span> <span class=main>::</span> <span class=tfree>'a</span><span class=main>)</span> <span class=main>≥</span> <span class=main>0</span> <span class=main>⟹</span> <span class=free>y</span> <span class=main>≥</span> <span class=main>0</span> <span class=main>⟹</span> <span class=main>(</span><span class=free>x</span> <span class=main>^</span> <span class=free>p</span> <span class=main>≤</span> <span class=free>y</span> <span class=main>^</span> <span class=free>p</span><span class=main>)</span> <span class=main>=</span> <span class=main>(</span><span class=free>x</span> <span class=main>≤</span> <span class=free>y</span><span class=main>)</span>"</span></span>
-  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> eq_iff linear power_eq_imp_eq_base power_mono<span class=main>)</span>
+  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>rule</span> power_mono_iff<span class=main>)</span>
 
 <span class=keyword1 id=Sqrt_Babylonian_Auxiliary-compare_pow_less_iff><span class=command>lemma</span></span> compare_pow_less_iff<span class=main>:</span> <span class=quoted><span class=quoted>"<span class=free>p</span> <span class=main>&gt;</span> <span class=main>0</span> <span class=main>⟹</span> <span class=main>(</span><span class=free>x</span> <span class=main>::</span> <span class=tfree>'a</span><span class=main>)</span> <span class=main>≥</span> <span class=main>0</span> <span class=main>⟹</span> <span class=free>y</span> <span class=main>≥</span> <span class=main>0</span> <span class=main>⟹</span> <span class=main>(</span><span class=free>x</span> <span class=main>^</span> <span class=free>p</span> <span class=main>&lt;</span> <span class=free>y</span> <span class=main>^</span> <span class=free>p</span><span class=main>)</span> <span class=main>=</span> <span class=main>(</span><span class=free>x</span> <span class=main>&lt;</span> <span class=free>y</span><span class=main>)</span>"</span></span>
-  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> power_less_imp_less_base power_strict_mono<span class=main>)</span>
+  <span class=keyword1><span class=command>using</span></span> compare_pow_le_iff <span class=main>[</span><span class=operator>of</span> <span class=quoted><span class=free>p</span></span> <span class=quoted><span class=free>x</span></span> <span class=quoted><span class=free>y</span></span><span class=main>]</span>
+  <span class=keyword1><span class=command>using</span></span> local.dual_order.order_iff_strict local.power_strict_mono <span class=keyword1><span class=command>by</span></span> <span class=operator>blast</span>
     
 <span class=keyword2><span class=keyword>end</span></span>
 
@@ -146,7 +147,7 @@ with IsaFoR/CeTA. If not, see &lt;http://www.gnu.org/licenses/&gt;.
 
 <span class=keyword1><span class=command>theory</span></span> Log_Impl
 <span class=keyword2><span class=keyword>imports</span></span> 
-  <a href=Sqrt_Babylonian_Auxiliary.html>Sqrt_Babylonian_Auxiliary</a>
+  <a href=#Sqrt_Babylonian_Auxiliary>Sqrt_Babylonian_Auxiliary</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>text</span></span> <span class=quoted><span class=plain_text>‹We implement the discrete logarithm function in a manner similar to
@@ -361,8 +362,8 @@ with IsaFoR/CeTA. If not, see &lt;http://www.gnu.org/licenses/&gt;.
 
 <span class=keyword1><span class=command>theory</span></span> NthRoot_Impl
 <span class=keyword2><span class=keyword>imports</span></span>
-  <a href=Log_Impl.html>Log_Impl</a>
-  <a href=../Cauchy/CauchysMeanTheorem.html>Cauchy.CauchysMeanTheorem</a>
+  <a href=#Log_Impl>Log_Impl</a>
+  <a href=../../cauchy/theories/#CauchysMeanTheorem>Cauchy.CauchysMeanTheorem</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>text</span></span> <span class=quoted><span class=plain_text>‹
@@ -1296,8 +1297,8 @@ with IsaFoR/CeTA. If not, see &lt;http://www.gnu.org/licenses/&gt;.
 
 <span class=keyword1><span class=command>theory</span></span> Sqrt_Babylonian
 <span class=keyword2><span class=keyword>imports</span></span> 
-  <a href=Sqrt_Babylonian_Auxiliary.html>Sqrt_Babylonian_Auxiliary</a>
-  <a href=NthRoot_Impl.html>NthRoot_Impl</a>
+  <a href=#Sqrt_Babylonian_Auxiliary>Sqrt_Babylonian_Auxiliary</a>
+  <a href=#NthRoot_Impl>NthRoot_Impl</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Executable algorithms for square roots›</span></span>

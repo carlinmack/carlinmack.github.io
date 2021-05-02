@@ -7,8 +7,8 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Se
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Locale Sort›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Sort
-<span class=keyword2><span class=keyword>imports</span></span> <a href=../../HOL/HOL/Main.html>Main</a> 
-  <span class=quoted>"<a href=../../HOL/HOL-Library/List_Permutation.html>HOL-Library.List_Permutation</a>"</span>
+<span class=keyword2><span class=keyword>imports</span></span> <a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL/Main.html>Main</a> 
+  <span class=quoted>"<a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL-Library/Multiset.html>HOL-Library.Multiset</a>"</span>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>text</span></span> <span class=quoted><span class=plain_text>‹
@@ -33,7 +33,7 @@ basic features any sorting algorithm must satisfy:
 <span class=keyword1><span class=command>locale</span></span> Sort <span class=main>=</span>
   <span class=keyword2><span class=keyword>fixes</span></span> <span class=free>sort</span> <span class=main>::</span> <span class=quoted><span class=quoted>"<span class=tfree>'a</span><span class=main>::</span>linorder list <span class=main>⇒</span> <span class=tfree>'a</span> list"</span></span>
   <span class=keyword2><span class=keyword>assumes</span></span> sorted<span class=main>:</span> <span class=quoted><span class=quoted>"sorted <span class=main>(</span><span class=free>sort</span> <span class=free>l</span><span class=main>)</span>"</span></span>
-  <span class=keyword2><span class=keyword>assumes</span></span> permutation<span class=main>:</span> <span class=quoted><span class=quoted>"<span class=free>sort</span> <span class=free>l</span> <span class=main>&lt;~~&gt;</span> <span class=free>l</span>"</span></span>
+  <span class=keyword2><span class=keyword>assumes</span></span> permutation<span class=main>:</span> <span class=quoted><span class=quoted>"mset <span class=main>(</span><span class=free>sort</span> <span class=free>l</span><span class=main>)</span> <span class=main>=</span> mset <span class=free>l</span>"</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
 </pre></div><div id=RemoveMax><div class=head><h1>Theory RemoveMax</h1></div><pre class=source><span class=comment1>(*  Title:      Sort.thy
@@ -43,7 +43,7 @@ basic features any sorting algorithm must satisfy:
           key function remove\_max›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> RemoveMax
-<span class=keyword2><span class=keyword>imports</span></span> <a href=Sort.html>Sort</a>
+<span class=keyword2><span class=keyword>imports</span></span> <a href=#Sort>Sort</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>subsection</span></span> <span class=quoted><span class=plain_text>‹Describing data structure›</span></span>
@@ -287,14 +287,12 @@ mechanism that enables total function to appear as partial one:›</span></span>
 <span class=keyword1><span class=command>using</span></span> sorted_ssort'<span class=main>[</span><span class=operator>of</span> <span class=quoted><span class=quoted>"<span class=free>of_list</span> <span class=free>i</span>"</span></span> <span class=quoted><span class=quoted>"<span class=main>[]</span>"</span></span><span class=main>]</span> of_list_inv
 <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
 
-<span class=keyword1 id=RemoveMax-permutation_ssort><span class=command>lemma</span></span> permutation_ssort<span class=main>:</span> <span class=quoted><span class=quoted>"ssort <span class=free>l</span> <span class=main>&lt;~~&gt;</span> <span class=free>l</span>"</span></span>
-<span class=keyword1><span class=command>proof</span></span> <span class=main>(</span><span class=operator>subst</span> mset_eq_perm<span class=main><span class=main>[</span></span><span class=operator>symmetric</span><span class=main><span class=main>]</span></span><span class=main>)</span>
-  <span class=keyword3><span class=command>show</span></span> <span class=quoted><span class=quoted>"mset <span class=main>(</span>ssort <span class=free>l</span><span class=main>)</span> <span class=main>=</span> mset <span class=free>l</span>"</span></span>
-    <span class=keyword1><span class=command>unfolding</span></span> ssort_def
-    <span class=keyword1><span class=command>using</span></span> mset_ssort'<span class=main>[</span><span class=operator>of</span> <span class=quoted><span class=quoted>"<span class=free>of_list</span> <span class=free>l</span>"</span></span> <span class=quoted><span class=quoted>"<span class=main>[]</span>"</span></span><span class=main>]</span>
-    <span class=keyword1><span class=command>using</span></span> multiset_of_list of_list_inv
-    <span class=keyword1><span class=command>by</span></span> <span class=operator>simp</span>
-<span class=keyword1><span class=command>qed</span></span>
+<span class=keyword1 id=RemoveMax-permutation_ssort><span class=command>lemma</span></span> permutation_ssort<span class=main>:</span> <span class=quoted><span class=quoted>"mset <span class=main>(</span>ssort <span class=free>l</span><span class=main>)</span> <span class=main>=</span> mset <span class=free>l</span>"</span></span>
+  <span class=keyword1><span class=command>unfolding</span></span> ssort_def
+  <span class=keyword1><span class=command>using</span></span> mset_ssort'<span class=main>[</span><span class=operator>of</span> <span class=quoted><span class=quoted>"<span class=free>of_list</span> <span class=free>l</span>"</span></span> <span class=quoted><span class=quoted>"<span class=main>[]</span>"</span></span><span class=main>]</span>
+  <span class=keyword1><span class=command>using</span></span> multiset_of_list of_list_inv
+  <span class=keyword1><span class=command>by</span></span> <span class=operator>simp</span>
+
 <span class=keyword2><span class=keyword>end</span></span>
 
 <span class=keyword1><span class=command>text</span></span><span class=quoted><span class=plain_text>‹Using assumptions given in the definitions of the locales {\em
@@ -312,7 +310,7 @@ difficulty to show:›</span></span>
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Verification of functional Selection Sort›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> SelectionSort_Functional
-<span class=keyword2><span class=keyword>imports</span></span> <a href=RemoveMax.html>RemoveMax</a>
+<span class=keyword2><span class=keyword>imports</span></span> <a href=#RemoveMax>RemoveMax</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>subsection</span></span> <span class=quoted><span class=plain_text>‹Defining data structure›</span></span>
@@ -411,8 +409,6 @@ from the list except the maximum element.›</span></span>
 <span class=keyword1><span class=command>using</span></span> remove_max_max
 <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>unfold_locales</span><span class=main><span class=keyword3>,</span></span> <span class=operator>auto</span> <span class=quasi_keyword>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> remove_max_mset<span class=main>)</span>
 
-
-  
 <span class=keyword2><span class=keyword>end</span></span>
 </pre></div><div id=Heap><div class=head><h1>Theory Heap</h1></div><pre class=source><span class=comment1>(*  Title:      Sort.thy
     Author:     Danijela Petrovi\'c, Facylty of Mathematics, University of Belgrade *)</span>
@@ -420,7 +416,7 @@ from the list except the maximum element.›</span></span>
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Verification of Heap Sort›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Heap
-<span class=keyword2><span class=keyword>imports</span></span> <a href=RemoveMax.html>RemoveMax</a>
+<span class=keyword2><span class=keyword>imports</span></span> <a href=#RemoveMax>RemoveMax</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>subsection</span></span> <span class=quoted><span class=plain_text>‹Defining tree and properties of heap›</span></span>
@@ -551,7 +547,7 @@ in functional or in imperative manner.
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Verification of Functional Heap Sort›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> HeapFunctional
-<span class=keyword2><span class=keyword>imports</span></span> <a href=Heap.html>Heap</a>
+<span class=keyword2><span class=keyword>imports</span></span> <a href=#Heap>Heap</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>text</span></span><span class=quoted><span class=plain_text>‹As we
@@ -969,7 +965,7 @@ be combined into one tree that satisfies heap condition:›</span></span>
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Verification of Imperative Heap Sort›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> HeapImperative
-<span class=keyword2><span class=keyword>imports</span></span> <a href=Heap.html>Heap</a>
+<span class=keyword2><span class=keyword>imports</span></span> <a href=#Heap>Heap</a>
 <span class=keyword2><span class=keyword>begin</span></span> 
 
 <span class=keyword1><span class=command>primrec</span></span> <span class=entity>left</span> <span class=main>::</span> <span class=quoted><span class=quoted>"<span class=tfree>'a</span> Tree <span class=main>⇒</span> <span class=tfree>'a</span> Tree"</span></span> <span class=keyword2><span class=keyword>where</span></span>

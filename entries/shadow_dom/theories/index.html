@@ -33,8 +33,8 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Sh
 
 <span class=keyword1><span class=command>theory</span></span> ShadowRootClass
   <span class=keyword2><span class=keyword>imports</span></span>
-    <a href=../Core_DOM/ShadowRootPointer.html>Core_DOM.ShadowRootPointer</a>
-    <a href=../Core_DOM/DocumentClass.html>Core_DOM.DocumentClass</a>
+    <a href=../../core_dom/theories/#ShadowRootPointer>Core_DOM.ShadowRootPointer</a>
+    <a href=../../core_dom/theories/#DocumentClass>Core_DOM.DocumentClass</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>subsection</span></span> <span class=quoted><span class=plain_text>‹ShadowRoot›</span></span>
@@ -494,8 +494,8 @@ get<span class=hidden>⇩</span><sub>S</sub><span class=hidden>⇩</span><sub>h<
 <span class=keyword1><span class=command>section</span></span><span class=quoted><span class=plain_text>‹Shadow Root Monad›</span></span>
 <span class=keyword1><span class=command>theory</span></span> ShadowRootMonad
   <span class=keyword2><span class=keyword>imports</span></span>
-    <span class=quoted>"<a href=../Core_DOM/DocumentMonad.html>Core_DOM.DocumentMonad</a>"</span>
-    <span class=quoted>"<a href=ShadowRootClass.html>../classes/ShadowRootClass</a>"</span>
+    <span class=quoted>"<a href=../../core_dom/theories/#DocumentMonad>Core_DOM.DocumentMonad</a>"</span>
+    <span class=quoted>"<a href=#ShadowRootClass>../classes/ShadowRootClass</a>"</span>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 
@@ -1205,8 +1205,8 @@ preserved <span class=main>(</span>get_M<span class=hidden>⇩</span><sub>S</sub
 <span class=keyword1><span class=command>section</span></span><span class=quoted><span class=plain_text>‹The Shadow DOM›</span></span>
 <span class=keyword1><span class=command>theory</span></span> Shadow_DOM
   <span class=keyword2><span class=keyword>imports</span></span>
-    <span class=quoted>"<a href=ShadowRootMonad.html>monads/ShadowRootMonad</a>"</span>
-    <a href=../Core_DOM/Core_DOM.html>Core_DOM.Core_DOM</a>
+    <span class=quoted>"<a href=#ShadowRootMonad>monads/ShadowRootMonad</a>"</span>
+    <a href=../../core_dom/theories/#Core_DOM>Core_DOM.Core_DOM</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>abbreviation</span></span> <span class=quoted><span class=quoted>"<span class=free>safe_shadow_root_element_types</span> <span class=main>≡</span> <span class=main>{</span><span class=inner_quoted>''article''</span><span class=main>,</span> <span class=inner_quoted>''aside''</span><span class=main>,</span> <span class=inner_quoted>''blockquote''</span><span class=main>,</span> <span class=inner_quoted>''body''</span><span class=main>,</span>
@@ -1644,13 +1644,9 @@ preserved <span class=main>(</span>get_M<span class=hidden>⇩</span><sub>S</sub
 
 <span class=keyword1 id=Shadow_DOM-set_child_nodes_is_l_set_child_nodes><span class=command>lemma</span></span> set_child_nodes_is_l_set_child_nodes <span class=main>[</span><span class=operator>instances</span><span class=main>]</span><span class=main>:</span> <span class=quoted><span class=quoted>"l_set_child_nodes type_wf set_child_nodes
     set_child_nodes_locs"</span></span>
-  <span class=keyword1><span class=command>using</span></span> <span class=dynamic><span class=dynamic>instances</span></span>
-  <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span><span class=main>(</span><span class=operator>auto</span> <span class=quasi_keyword>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> l_set_child_nodes_def<span class=main>)</span><span class=main><span class=keyword3>[</span></span>1<span class=main><span class=keyword3>]</span></span>
-  <span class=keyword1><span class=command>using</span></span>  set_child_nodes_writes <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=operator>fast</span>
-  <span class=keyword1><span class=command>using</span></span> set_child_nodes_pointers_preserved <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span><span class=main>(</span><span class=operator>fast</span><span class=main><span class=keyword3>,</span></span> <span class=operator>fast</span><span class=main>)</span>
-  <span class=keyword1><span class=command>using</span></span> set_child_nodes_types_preserved <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span><span class=main>(</span><span class=operator>fast</span><span class=main><span class=keyword3>,</span></span> <span class=operator>fast</span><span class=main>)</span>
-  <span class=keyword1><span class=command><span class=improper><span class=command>done</span></span></span></span>
-
+  <span class=keyword1><span class=command>using</span></span> <span class=dynamic><span class=dynamic>instances</span></span> Shadow_DOM.i_set_child_nodes.set_child_nodes_pointers_preserved Shadow_DOM.i_set_child_nodes.set_child_nodes_writes i_set_child_nodes.set_child_nodes_types_preserved
+  <span class=keyword1><span class=command>unfolding</span></span> l_set_child_nodes_def
+  <span class=keyword1><span class=command>by</span></span> <span class=operator>blast</span>
 
 
 <span class=keyword1><span class=command>paragraph</span></span> <span class=quoted><span class=plain_text>‹get\_child\_nodes›</span></span>
@@ -1926,11 +1922,8 @@ preserved <span class=main>(</span>get_M<span class=hidden>⇩</span><sub>S</sub
 <span class=keyword1 id=Shadow_DOM-get_shadow_root_is_l_get_shadow_root><span class=command>lemma</span></span> get_shadow_root_is_l_get_shadow_root <span class=main>[</span><span class=operator>instances</span><span class=main>]</span><span class=main>:</span>
   <span class=quoted><span class=quoted>"l_get_shadow_root type_wf get_shadow_root get_shadow_root_locs"</span></span>
   <span class=keyword1><span class=command>using</span></span> <span class=dynamic><span class=dynamic>instances</span></span>
-  <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span><span class=main>(</span><span class=operator>auto</span> <span class=quasi_keyword>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> l_get_shadow_root_def<span class=main>)</span><span class=main><span class=keyword3>[</span></span>1<span class=main><span class=keyword3>]</span></span>
-  <span class=keyword1><span class=command>using</span></span> get_shadow_root_reads <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=operator>blast</span>
-  <span class=keyword1><span class=command>using</span></span> get_shadow_root_ok <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=operator>blast</span>
-  <span class=keyword1><span class=command>using</span></span> get_shadow_root_ptr_in_heap <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=operator>blast</span>
-  <span class=keyword1><span class=command><span class=improper><span class=command>done</span></span></span></span>
+  <span class=keyword1><span class=command>unfolding</span></span> l_get_shadow_root_def
+  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> <span class=main><span class=main>(</span></span>no_types<span class=main><span class=main>,</span></span> lifting<span class=main><span class=main>)</span></span> ElementClass.l_type_wf<span class=hidden>⇩</span><sub>E</sub><span class=hidden>⇩</span><sub>l</sub><span class=hidden>⇩</span><sub>e</sub><span class=hidden>⇩</span><sub>m</sub><span class=hidden>⇩</span><sub>e</sub><span class=hidden>⇩</span><sub>n</sub><span class=hidden>⇩</span><sub>t</sub>_axioms get_shadow_root_ok get_shadow_root_pure get_shadow_root_reads l_get_M<span class=hidden>⇩</span><sub>E</sub><span class=hidden>⇩</span><sub>l</sub><span class=hidden>⇩</span><sub>e</sub><span class=hidden>⇩</span><sub>m</sub><span class=hidden>⇩</span><sub>e</sub><span class=hidden>⇩</span><sub>n</sub><span class=hidden>⇩</span><sub>t</sub>_lemmas.get_M<span class=hidden>⇩</span><sub>E</sub><span class=hidden>⇩</span><sub>l</sub><span class=hidden>⇩</span><sub>e</sub><span class=hidden>⇩</span><sub>m</sub><span class=hidden>⇩</span><sub>e</sub><span class=hidden>⇩</span><sub>n</sub><span class=hidden>⇩</span><sub>t</sub>_ptr_in_heap l_get_M<span class=hidden>⇩</span><sub>E</sub><span class=hidden>⇩</span><sub>l</sub><span class=hidden>⇩</span><sub>e</sub><span class=hidden>⇩</span><sub>m</sub><span class=hidden>⇩</span><sub>e</sub><span class=hidden>⇩</span><sub>n</sub><span class=hidden>⇩</span><sub>t</sub>_lemmas.intro l_get_shadow_root<span class=hidden>⇩</span><sub>S</sub><span class=hidden>⇩</span><sub>h</sub><span class=hidden>⇩</span><sub>a</sub><span class=hidden>⇩</span><sub>d</sub><span class=hidden>⇩</span><sub>o</sub><span class=hidden>⇩</span><sub>w</sub><span class=hidden>⇩</span><sub>_</sub><span class=hidden>⇩</span><sub>D</sub><span class=hidden>⇩</span><sub>O</sub><span class=hidden>⇩</span><sub>M</sub>.get_shadow_root_def<span class=main>)</span>
 
 
 <span class=keyword1><span class=command>paragraph</span></span> <span class=quoted><span class=plain_text>‹set\_disconnected\_nodes›</span></span>
@@ -11714,7 +11707,7 @@ a_host_shadow_root_rel <span class=skolem>h3</span>›</span></span><span class=
 
 <span class=keyword1><span class=command>theory</span></span> Shadow_DOM_BaseTest
   <span class=keyword2><span class=keyword>imports</span></span>
-    <span class=quoted>"<a href=Shadow_DOM.html>../Shadow_DOM</a>"</span>
+    <span class=quoted>"<a href=#Shadow_DOM>../Shadow_DOM</a>"</span>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 
@@ -12090,7 +12083,7 @@ a_host_shadow_root_rel <span class=skolem>h3</span>›</span></span><span class=
 
 <span class=keyword1><span class=command>theory</span></span> slots
 <span class=keyword2><span class=keyword>imports</span></span>
-  <span class=quoted>"<a href=Shadow_DOM_BaseTest.html>Shadow_DOM_BaseTest</a>"</span>
+  <span class=quoted>"<a href=#Shadow_DOM_BaseTest>Shadow_DOM_BaseTest</a>"</span>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>definition</span></span> <span class=entity>slots_heap</span> <span class=main>::</span> <span class=quoted><span class=quoted>"heap<span class=hidden>⇩</span><sub>f</sub><span class=hidden>⇩</span><sub>i</sub><span class=hidden>⇩</span><sub>n</sub><span class=hidden>⇩</span><sub>a</sub><span class=hidden>⇩</span><sub>l</sub>"</span></span> <span class=keyword2><span class=keyword>where</span></span>
@@ -13037,7 +13030,7 @@ a_host_shadow_root_rel <span class=skolem>h3</span>›</span></span><span class=
 
 <span class=keyword1><span class=command>theory</span></span> slots_fallback
 <span class=keyword2><span class=keyword>imports</span></span>
-  <span class=quoted>"<a href=Shadow_DOM_BaseTest.html>Shadow_DOM_BaseTest</a>"</span>
+  <span class=quoted>"<a href=#Shadow_DOM_BaseTest>Shadow_DOM_BaseTest</a>"</span>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>definition</span></span> <span class=entity>slots_fallback_heap</span> <span class=main>::</span> <span class=quoted><span class=quoted>"heap<span class=hidden>⇩</span><sub>f</sub><span class=hidden>⇩</span><sub>i</sub><span class=hidden>⇩</span><sub>n</sub><span class=hidden>⇩</span><sub>a</sub><span class=hidden>⇩</span><sub>l</sub>"</span></span> <span class=keyword2><span class=keyword>where</span></span>
@@ -13544,7 +13537,7 @@ a_host_shadow_root_rel <span class=skolem>h3</span>›</span></span><span class=
 
 <span class=keyword1><span class=command>theory</span></span> Shadow_DOM_Document_adoptNode
 <span class=keyword2><span class=keyword>imports</span></span>
-  <span class=quoted>"<a href=Shadow_DOM_BaseTest.html>Shadow_DOM_BaseTest</a>"</span>
+  <span class=quoted>"<a href=#Shadow_DOM_BaseTest>Shadow_DOM_BaseTest</a>"</span>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>definition</span></span> <span class=entity>Document_adoptNode_heap</span> <span class=main>::</span> <span class=quoted>heap<span class=hidden>⇩</span><sub>f</sub><span class=hidden>⇩</span><sub>i</sub><span class=hidden>⇩</span><sub>n</sub><span class=hidden>⇩</span><sub>a</sub><span class=hidden>⇩</span><sub>l</sub></span> <span class=keyword2><span class=keyword>where</span></span>
@@ -13658,7 +13651,7 @@ a_host_shadow_root_rel <span class=skolem>h3</span>›</span></span><span class=
 
 <span class=keyword1><span class=command>theory</span></span> Shadow_DOM_Document_getElementById
 <span class=keyword2><span class=keyword>imports</span></span>
-  <span class=quoted>"<a href=Shadow_DOM_BaseTest.html>Shadow_DOM_BaseTest</a>"</span>
+  <span class=quoted>"<a href=#Shadow_DOM_BaseTest>Shadow_DOM_BaseTest</a>"</span>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>definition</span></span> <span class=entity>Document_getElementById_heap</span> <span class=main>::</span> <span class=quoted>heap<span class=hidden>⇩</span><sub>f</sub><span class=hidden>⇩</span><sub>i</sub><span class=hidden>⇩</span><sub>n</sub><span class=hidden>⇩</span><sub>a</sub><span class=hidden>⇩</span><sub>l</sub></span> <span class=keyword2><span class=keyword>where</span></span>
@@ -13936,7 +13929,7 @@ a_host_shadow_root_rel <span class=skolem>h3</span>›</span></span><span class=
 
 <span class=keyword1><span class=command>theory</span></span> Shadow_DOM_Node_insertBefore
 <span class=keyword2><span class=keyword>imports</span></span>
-  <span class=quoted>"<a href=Shadow_DOM_BaseTest.html>Shadow_DOM_BaseTest</a>"</span>
+  <span class=quoted>"<a href=#Shadow_DOM_BaseTest>Shadow_DOM_BaseTest</a>"</span>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>definition</span></span> <span class=entity>Node_insertBefore_heap</span> <span class=main>::</span> <span class=quoted>heap<span class=hidden>⇩</span><sub>f</sub><span class=hidden>⇩</span><sub>i</sub><span class=hidden>⇩</span><sub>n</sub><span class=hidden>⇩</span><sub>a</sub><span class=hidden>⇩</span><sub>l</sub></span> <span class=keyword2><span class=keyword>where</span></span>
@@ -14065,7 +14058,7 @@ a_host_shadow_root_rel <span class=skolem>h3</span>›</span></span><span class=
 
 <span class=keyword1><span class=command>theory</span></span> Shadow_DOM_Node_removeChild
 <span class=keyword2><span class=keyword>imports</span></span>
-  <span class=quoted>"<a href=Shadow_DOM_BaseTest.html>Shadow_DOM_BaseTest</a>"</span>
+  <span class=quoted>"<a href=#Shadow_DOM_BaseTest>Shadow_DOM_BaseTest</a>"</span>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>definition</span></span> <span class=entity>Node_removeChild_heap</span> <span class=main>::</span> <span class=quoted>heap<span class=hidden>⇩</span><sub>f</sub><span class=hidden>⇩</span><sub>i</sub><span class=hidden>⇩</span><sub>n</sub><span class=hidden>⇩</span><sub>a</sub><span class=hidden>⇩</span><sub>l</sub></span> <span class=keyword2><span class=keyword>where</span></span>
@@ -14222,12 +14215,12 @@ a_host_shadow_root_rel <span class=skolem>h3</span>›</span></span><span class=
 
 <span class=keyword1><span class=command>theory</span></span> Shadow_DOM_Tests
   <span class=keyword2><span class=keyword>imports</span></span>
-  <span class=quoted>"<a href=slots.html>tests/slots</a>"</span>
-  <span class=quoted>"<a href=slots_fallback.html>tests/slots_fallback</a>"</span>
-  <span class=quoted>"<a href=Shadow_DOM_Document_adoptNode.html>tests/Shadow_DOM_Document_adoptNode</a>"</span>
-  <span class=quoted>"<a href=Shadow_DOM_Document_getElementById.html>tests/Shadow_DOM_Document_getElementById</a>"</span>
-  <span class=quoted>"<a href=Shadow_DOM_Node_insertBefore.html>tests/Shadow_DOM_Node_insertBefore</a>"</span>
-  <span class=quoted>"<a href=Shadow_DOM_Node_removeChild.html>tests/Shadow_DOM_Node_removeChild</a>"</span>
+  <span class=quoted>"<a href=#slots>tests/slots</a>"</span>
+  <span class=quoted>"<a href=#slots_fallback>tests/slots_fallback</a>"</span>
+  <span class=quoted>"<a href=#Shadow_DOM_Document_adoptNode>tests/Shadow_DOM_Document_adoptNode</a>"</span>
+  <span class=quoted>"<a href=#Shadow_DOM_Document_getElementById>tests/Shadow_DOM_Document_getElementById</a>"</span>
+  <span class=quoted>"<a href=#Shadow_DOM_Node_insertBefore>tests/Shadow_DOM_Node_insertBefore</a>"</span>
+  <span class=quoted>"<a href=#Shadow_DOM_Node_removeChild>tests/Shadow_DOM_Node_removeChild</a>"</span>
 <span class=keyword2><span class=keyword>begin</span></span>
 <span class=keyword2><span class=keyword>end</span></span>
 </pre></div></main></div></div></body></html>

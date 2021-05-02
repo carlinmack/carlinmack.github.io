@@ -14,7 +14,7 @@ This theory provides notations, basic definitions and facts of lattice-related s
 
 <span class=keyword1><span class=command>theory</span></span> Lattice_Basics
 
-<span class=keyword2><span class=keyword>imports</span></span> <a href=../../HOL/HOL/Main.html>Main</a>
+<span class=keyword2><span class=keyword>imports</span></span> <a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL/Main.html>Main</a>
 
 <span class=keyword2><span class=keyword>begin</span></span>
 
@@ -129,7 +129,7 @@ We also give basic properties of Galois connections and lift orders to functions
 
 <span class=keyword1 id=Lattice_Basics-galois_closure><span class=command>lemma</span></span> galois_closure<span class=main>:</span>
   <span class=quoted><span class=quoted>"galois <span class=free>l</span> <span class=free>u</span> <span class=main>⟹</span> <span class=free>l</span> <span class=free>x</span> <span class=main>=</span> <span class=free>l</span> <span class=main>(</span><span class=free>u</span> <span class=main>(</span><span class=free>l</span> <span class=free>x</span><span class=main>)</span><span class=main>)</span> <span class=main>∧</span> <span class=free>u</span> <span class=free>x</span> <span class=main>=</span> <span class=free>u</span> <span class=main>(</span><span class=free>l</span> <span class=main>(</span><span class=free>u</span> <span class=free>x</span><span class=main>)</span><span class=main>)</span>"</span></span>
-  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> galois_char isotone_def antisym<span class=main>)</span>
+  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> galois_char isotone_def order.antisym<span class=main>)</span>
 
 <span class=keyword1 id=Lattice_Basics-lifted_reflexive><span class=command>lemma</span></span> lifted_reflexive<span class=main>:</span>
   <span class=quoted><span class=quoted>"<span class=free>f</span> <span class=main>=</span> <span class=free>g</span> <span class=main>⟹</span> <span class=free>f</span> <span class=main>≤≤</span> <span class=free>g</span>"</span></span>
@@ -141,7 +141,7 @@ We also give basic properties of Galois connections and lift orders to functions
 
 <span class=keyword1 id=Lattice_Basics-lifted_antisymmetric><span class=command>lemma</span></span> lifted_antisymmetric<span class=main>:</span>
   <span class=quoted><span class=quoted>"<span class=free>f</span> <span class=main>≤≤</span> <span class=free>g</span> <span class=main>⟹</span> <span class=free>g</span> <span class=main>≤≤</span> <span class=free>f</span> <span class=main>⟹</span> <span class=free>f</span> <span class=main>=</span> <span class=free>g</span>"</span></span>
-  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> <span class=main><span class=main>(</span></span>full_types<span class=main><span class=main>)</span></span> antisym ext lifted_less_eq_def<span class=main>)</span>
+  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>rule</span> ext<span class=main><span class=keyword3>,</span></span> <span class=operator>rule</span> order.antisym<span class=main>)</span> <span class=main>(</span><span class=operator>simp_all</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> lifted_less_eq_def<span class=main>)</span>
 
 <span class=keyword1><span class=command>text</span></span> <span class=quoted><span class=plain_text>‹
 If the image of a finite non-empty set under <span class=antiquoted><span class=raw_text><span class=antiquoted><span class=raw_text><span class=operator><span class=operator>‹</span></span>f›</span></span></span></span> is a totally ordered, there is an element that minimises the value of <span class=antiquoted><span class=raw_text><span class=antiquoted><span class=raw_text><span class=operator><span class=operator>‹</span></span>f›</span></span></span></span>.
@@ -217,7 +217,7 @@ Finite sums defined in commutative monoids are available via the following sublo
 
 <span class=keyword1 id=Lattice_Basics-inf_same_context><span class=command>lemma</span></span> inf_same_context<span class=main>:</span>
   <span class=quoted><span class=quoted>"<span class=free>x</span> <span class=main>≤</span> <span class=free>y</span> <span class=main>⊓</span> <span class=free>z</span> <span class=main>⟹</span> <span class=free>y</span> <span class=main>≤</span> <span class=free>x</span> <span class=main>⊓</span> <span class=free>z</span> <span class=main>⟹</span> <span class=free>x</span> <span class=main>⊓</span> <span class=free>z</span> <span class=main>=</span> <span class=free>y</span> <span class=main>⊓</span> <span class=free>z</span>"</span></span>
-  <span class=keyword1><span class=command>using</span></span> antisym <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
+  <span class=keyword1><span class=command>using</span></span> order.antisym <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
 
@@ -367,8 +367,11 @@ Moreover, the lattice is automatically distributive.
   <span class=keyword1><span class=command>using</span></span> sup_inf_selective <span class=keyword1><span class=command>by</span></span> <span class=operator>blast</span>
 
 <span class=keyword1><span class=command>subclass</span></span> distrib_lattice
-  <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=operator>unfold_locales</span>
-  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> inf_selective antisym distrib_sup_le inf.commute inf_le2<span class=main>)</span>
+  <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=operator>standard</span>
+  <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>rule</span> order.antisym<span class=main>)</span>
+   <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>auto</span> <span class=quasi_keyword>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> le_supI2<span class=main>)</span>
+  <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>metis</span> inf_selective inf.coboundedI1 inf.coboundedI2 order.eq_iff<span class=main>)</span>
+  <span class=keyword1><span class=command><span class=improper><span class=command>done</span></span></span></span>
 
 <span class=keyword1 id=Lattice_Basics-sup_less_eq><span class=command>lemma</span></span> sup_less_eq<span class=main>:</span>
   <span class=quoted><span class=quoted>"<span class=free>x</span> <span class=main>≤</span> <span class=free>y</span> <span class=main>⊔</span> <span class=free>z</span> <span class=main>⟷</span> <span class=free>x</span> <span class=main>≤</span> <span class=free>y</span> <span class=main>∨</span> <span class=free>x</span> <span class=main>≤</span> <span class=free>z</span>"</span></span>
@@ -585,7 +588,7 @@ Most of these structures and many results in this theory are discussed in \cite{
 
 <span class=keyword1><span class=command>theory</span></span> P_Algebras
 
-<span class=keyword2><span class=keyword>imports</span></span> <a href=Lattice_Basics.html>Lattice_Basics</a>
+<span class=keyword2><span class=keyword>imports</span></span> <a href=#Lattice_Basics>Lattice_Basics</a>
 
 <span class=keyword2><span class=keyword>begin</span></span>
 
@@ -654,7 +657,7 @@ The double complement is a closure operation.
 
 <span class=keyword1 id=P_Algebras-ppp><span class=command>lemma</span></span> ppp <span class=main>[</span><span class=operator>simp</span><span class=main>]</span><span class=main>:</span>
   <span class=quoted><span class=quoted>"<span class=main>-</span><span class=main>-</span><span class=main>-</span><span class=free>x</span> <span class=main>=</span> <span class=main>-</span><span class=free>x</span>"</span></span>
-  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> antisym inf.commute order_trans pseudo_complement pp_increasing<span class=main>)</span>
+  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> order.antisym inf.commute order_trans pseudo_complement pp_increasing<span class=main>)</span>
 
 <span class=keyword1 id=P_Algebras-pp_idempotent><span class=command>lemma</span></span> pp_idempotent<span class=main>:</span>
   <span class=quoted><span class=quoted>"<span class=main>-</span><span class=main>-</span><span class=main>-</span><span class=main>-</span><span class=free>x</span> <span class=main>=</span> <span class=main>-</span><span class=main>-</span><span class=free>x</span>"</span></span>
@@ -702,7 +705,7 @@ One of De Morgan's laws holds in pseudocomplemented lattices.
 
 <span class=keyword1 id=P_Algebras-p_dist_sup><span class=command>lemma</span></span> p_dist_sup <span class=main>[</span><span class=operator>simp</span><span class=main>]</span><span class=main>:</span>
   <span class=quoted><span class=quoted>"<span class=main>-</span><span class=main>(</span><span class=free>x</span> <span class=main>⊔</span> <span class=free>y</span><span class=main>)</span> <span class=main>=</span> <span class=main>-</span><span class=free>x</span> <span class=main>⊓</span> <span class=main>-</span><span class=free>y</span>"</span></span>
-  <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>rule</span> antisym<span class=main>)</span>
+  <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>rule</span> order.antisym<span class=main>)</span>
   <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> p_antitone<span class=main>)</span>
   <span class=keyword1><span class=command>using</span></span> inf_le1 inf_le2 le_sup_iff p_antitone_iff <span class=keyword1><span class=command>by</span></span> <span class=operator>blast</span>
 
@@ -753,7 +756,7 @@ Most require a pseudocomplemented element on the right-hand side.
 
 <span class=keyword1 id=P_Algebras-p_inf_pp><span class=command>lemma</span></span> p_inf_pp <span class=main>[</span><span class=operator>simp</span><span class=main>]</span><span class=main>:</span>
   <span class=quoted><span class=quoted>"<span class=main>-</span><span class=main>(</span><span class=free>x</span> <span class=main>⊓</span> <span class=main>-</span><span class=main>-</span><span class=free>y</span><span class=main>)</span> <span class=main>=</span> <span class=main>-</span><span class=main>(</span><span class=free>x</span> <span class=main>⊓</span> <span class=free>y</span><span class=main>)</span>"</span></span>
-  <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>rule</span> antisym<span class=main>)</span>
+  <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>rule</span> order.antisym<span class=main>)</span>
   <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> inf.coboundedI2 p_antitone pp_increasing<span class=main>)</span>
   <span class=keyword1><span class=command>using</span></span> inf_commute p_antitone_iff pp_inf_below_iff <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
 
@@ -787,7 +790,7 @@ Most require a pseudocomplemented element on the right-hand side.
 
 <span class=keyword1 id=P_Algebras-inf_import_p><span class=command>lemma</span></span> inf_import_p <span class=main>[</span><span class=operator>simp</span><span class=main>]</span><span class=main>:</span>
   <span class=quoted><span class=quoted>"<span class=free>x</span> <span class=main>⊓</span> <span class=main>-</span><span class=main>(</span><span class=free>x</span> <span class=main>⊓</span> <span class=free>y</span><span class=main>)</span> <span class=main>=</span> <span class=free>x</span> <span class=main>⊓</span> <span class=main>-</span><span class=free>y</span>"</span></span>
-  <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>rule</span> antisym<span class=main>)</span>
+  <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>rule</span> order.antisym<span class=main>)</span>
   <span class=keyword1><span class=command>using</span></span> p_shunting_swap <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=operator>fastforce</span>
   <span class=keyword1><span class=command>using</span></span> inf.sup_right_isotone p_antitone <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
 
@@ -797,7 +800,7 @@ Pseudocomplements are unique.
 
 <span class=keyword1 id=P_Algebras-p_unique><span class=command>lemma</span></span> p_unique<span class=main>:</span>
   <span class=quoted><span class=quoted>"<span class=main>(</span><span class=main>∀</span><span class=bound>x</span> <span class=main>.</span> <span class=bound>x</span> <span class=main>⊓</span> <span class=free>y</span> <span class=main>=</span> bot <span class=main>⟷</span> <span class=bound>x</span> <span class=main>≤</span> <span class=free>z</span><span class=main>)</span> <span class=main>⟹</span> <span class=free>z</span> <span class=main>=</span> <span class=main>-</span><span class=free>y</span>"</span></span>
-  <span class=keyword1><span class=command>using</span></span> inf.eq_iff pseudo_complement <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
+  <span class=keyword1><span class=command>using</span></span> inf.order_eq_iff pseudo_complement <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
 
 <span class=keyword1 id=P_Algebras-maddux_3_5><span class=command>lemma</span></span> maddux_3_5<span class=main>:</span>
   <span class=quoted><span class=quoted>"<span class=free>x</span> <span class=main>⊔</span> <span class=free>x</span> <span class=main>=</span> <span class=free>x</span> <span class=main>⊔</span> <span class=main>-</span><span class=main>(</span><span class=free>y</span> <span class=main>⊔</span> <span class=main>-</span><span class=free>y</span><span class=main>)</span>"</span></span>
@@ -887,7 +890,7 @@ Conjugates are usually studied for Boolean algebras, however, some of their prop
   <span class=keyword1><span class=command>hence</span></span> <span class=quoted><span class=quoted>"<span class=main>∀</span><span class=bound>x</span> <span class=bound>y</span> <span class=main>.</span> <span class=bound>x</span> <span class=main>≤</span> <span class=main>-</span><span class=main>(</span><span class=free>g</span> <span class=bound>y</span><span class=main>)</span> <span class=main>⟷</span> <span class=bound>x</span> <span class=main>≤</span> <span class=main>-</span><span class=main>(</span><span class=free>h</span> <span class=bound>y</span><span class=main>)</span>"</span></span>
     <span class=keyword1><span class=command>using</span></span> inf.commute pseudo_complement <span class=keyword1><span class=command>by</span></span> <span class=operator>simp</span>
   <span class=keyword1><span class=command>hence</span></span> <span class=quoted><span class=quoted>"<span class=main>∀</span><span class=bound>y</span> <span class=main>.</span> <span class=main>-</span><span class=main>(</span><span class=free>g</span> <span class=bound>y</span><span class=main>)</span> <span class=main>=</span> <span class=main>-</span><span class=main>(</span><span class=free>h</span> <span class=bound>y</span><span class=main>)</span>"</span></span>
-    <span class=keyword1><span class=command>using</span></span> eq_iff <span class=keyword1><span class=command>by</span></span> <span class=operator>blast</span>
+    <span class=keyword1><span class=command>using</span></span> order.eq_iff <span class=keyword1><span class=command>by</span></span> <span class=operator>blast</span>
   <span class=keyword3><span class=command>thus</span></span> <span class=var><span class=quoted><span class=var>?thesis</span></span></span>
     <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
 <span class=keyword1><span class=command>qed</span></span>
@@ -946,7 +949,7 @@ Conjugates are usually studied for Boolean algebras, however, some of their prop
     <span class=keyword1><span class=command>hence</span></span> <span class=quoted><span class=quoted>"<span class=main>-</span><span class=main>(</span><span class=free>f</span> <span class=skolem>x</span><span class=main>)</span> <span class=main>⊓</span> <span class=main>-</span><span class=main>(</span><span class=free>f</span> <span class=skolem>y</span><span class=main>)</span> <span class=main>≤</span> <span class=main>-</span><span class=main>(</span><span class=free>f</span> <span class=main>(</span><span class=skolem>x</span> <span class=main>⊔</span> <span class=skolem>y</span><span class=main>)</span><span class=main>)</span>"</span></span>
       <span class=keyword1><span class=command>using</span></span> 1 <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> inf_le1 inf_le2<span class=main>)</span>
     <span class=keyword3><span class=command>thus</span></span> <span class=quoted><span class=quoted>"<span class=main>-</span><span class=main>(</span><span class=free>f</span> <span class=main>(</span><span class=skolem>x</span> <span class=main>⊔</span> <span class=skolem>y</span><span class=main>)</span><span class=main>)</span> <span class=main>=</span> <span class=main>-</span><span class=main>(</span><span class=free>f</span> <span class=skolem>x</span><span class=main>)</span> <span class=main>⊓</span> <span class=main>-</span><span class=main>(</span><span class=free>f</span> <span class=skolem>y</span><span class=main>)</span>"</span></span>
-      <span class=keyword1><span class=command>using</span></span> 1 antisym <span class=keyword1><span class=command>by</span></span> <span class=operator>fastforce</span>
+      <span class=keyword1><span class=command>using</span></span> 1 order.antisym <span class=keyword1><span class=command>by</span></span> <span class=operator>fastforce</span>
   <span class=keyword1><span class=command>qed</span></span>
   <span class=keyword3><span class=command>thus</span></span> <span class=var><span class=quoted><span class=var>?thesis</span></span></span>
     <span class=keyword1><span class=command>using</span></span> dual_additive_def <span class=keyword1><span class=command>by</span></span> <span class=operator>simp</span>
@@ -1439,7 +1442,7 @@ Many properties can already be shown if the underlying structure is just a semil
 
 <span class=keyword1 id=P_Algebras-implies_curry><span class=command>lemma</span></span> implies_curry<span class=main>:</span>
   <span class=quoted><span class=quoted>"<span class=free>x</span> <span class=main>↝</span> <span class=main>(</span><span class=free>y</span> <span class=main>↝</span> <span class=free>z</span><span class=main>)</span> <span class=main>=</span> <span class=main>(</span><span class=free>x</span> <span class=main>⊓</span> <span class=free>y</span><span class=main>)</span> <span class=main>↝</span> <span class=free>z</span>"</span></span>
-  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> implies_galois_decreasing implies_galois inf_assoc antisym<span class=main>)</span>
+  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> implies_galois_decreasing implies_galois inf_assoc order.antisym<span class=main>)</span>
 
 <span class=keyword1 id=P_Algebras-implies_curry_flip><span class=command>lemma</span></span> implies_curry_flip<span class=main>:</span>
   <span class=quoted><span class=quoted>"<span class=free>x</span> <span class=main>↝</span> <span class=main>(</span><span class=free>y</span> <span class=main>↝</span> <span class=free>z</span><span class=main>)</span> <span class=main>=</span> <span class=free>y</span> <span class=main>↝</span> <span class=main>(</span><span class=free>x</span> <span class=main>↝</span> <span class=free>z</span><span class=main>)</span>"</span></span>
@@ -1447,7 +1450,7 @@ Many properties can already be shown if the underlying structure is just a semil
 
 <span class=keyword1 id=P_Algebras-triple_implies><span class=command>lemma</span></span> triple_implies <span class=main>[</span><span class=operator>simp</span><span class=main>]</span><span class=main>:</span>
   <span class=quoted><span class=quoted>"<span class=main>(</span><span class=main>(</span><span class=free>x</span> <span class=main>↝</span> <span class=free>y</span><span class=main>)</span> <span class=main>↝</span> <span class=free>y</span><span class=main>)</span> <span class=main>↝</span> <span class=free>y</span> <span class=main>=</span> <span class=free>x</span> <span class=main>↝</span> <span class=free>y</span>"</span></span>
-  <span class=keyword1><span class=command>using</span></span> implies_antitone implies_galois_swap eq_iff <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
+  <span class=keyword1><span class=command>using</span></span> implies_antitone implies_galois_swap order.eq_iff <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
 
 <span class=keyword1 id=P_Algebras-implies_mp_eq><span class=command>lemma</span></span> implies_mp_eq <span class=main>[</span><span class=operator>simp</span><span class=main>]</span><span class=main>:</span>
   <span class=quoted><span class=quoted>"<span class=free>x</span> <span class=main>⊓</span> <span class=main>(</span><span class=free>x</span> <span class=main>↝</span> <span class=free>y</span><span class=main>)</span> <span class=main>=</span> <span class=free>x</span> <span class=main>⊓</span> <span class=free>y</span>"</span></span>
@@ -1469,7 +1472,7 @@ Many properties can already be shown if the underlying structure is just a semil
   <span class=keyword1><span class=command>hence</span></span> <span class=quoted><span class=quoted>"<span class=main>(</span><span class=free>x</span> <span class=main>↝</span> <span class=free>y</span><span class=main>)</span> <span class=main>⊓</span> <span class=main>(</span><span class=free>x</span> <span class=main>↝</span> <span class=free>z</span><span class=main>)</span> <span class=main>≤</span> <span class=free>x</span> <span class=main>↝</span> <span class=main>(</span><span class=free>y</span> <span class=main>⊓</span> <span class=free>z</span><span class=main>)</span>"</span></span>
     <span class=keyword1><span class=command>using</span></span> implies_galois <span class=keyword1><span class=command>by</span></span> <span class=operator>blast</span>
   <span class=keyword3><span class=command>thus</span></span> <span class=var><span class=quoted><span class=var>?thesis</span></span></span>
-    <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> implies_isotone eq_iff<span class=main>)</span>
+    <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> implies_isotone order.eq_iff<span class=main>)</span>
 <span class=keyword1><span class=command>qed</span></span>
 
 <span class=keyword1 id=P_Algebras-implies_itself_top><span class=command>lemma</span></span> implies_itself_top<span class=main>:</span>
@@ -1514,7 +1517,7 @@ Many properties can already be shown if the underlying structure is just a semil
 
 <span class=keyword1 id=P_Algebras-implies_itself_same><span class=command>lemma</span></span> implies_itself_same<span class=main>:</span>
   <span class=quoted><span class=quoted>"<span class=free>x</span> <span class=main>↝</span> <span class=free>x</span> <span class=main>=</span> <span class=free>y</span> <span class=main>↝</span> <span class=free>y</span>"</span></span>
-  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> le_implies_top eq_iff<span class=main>)</span>
+  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> le_implies_top order.eq_iff<span class=main>)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
 
@@ -1584,7 +1587,7 @@ In particular, the lattice operations are automatically distributive in this cas
 
 <span class=keyword1><span class=command>subclass</span></span> distrib_lattice
   <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=operator>unfold_locales</span>
-  <span class=keyword1><span class=command>using</span></span> distrib_sup_le eq_iff sup_distrib_inf_le <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
+  <span class=keyword1><span class=command>using</span></span> distrib_sup_le order.eq_iff sup_distrib_inf_le <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
 
 <span class=keyword1 id=P_Algebras-implies_isotone_sup><span class=command>lemma</span></span> implies_isotone_sup<span class=main>:</span>
   <span class=quoted><span class=quoted>"<span class=free>x</span> <span class=main>↝</span> <span class=free>y</span> <span class=main>≤</span> <span class=free>x</span> <span class=main>↝</span> <span class=main>(</span><span class=free>y</span> <span class=main>⊔</span> <span class=free>z</span><span class=main>)</span>"</span></span>
@@ -1607,7 +1610,7 @@ In particular, the lattice operations are automatically distributive in this cas
 
 <span class=keyword1 id=P_Algebras-implies_dist_sup><span class=command>lemma</span></span> implies_dist_sup<span class=main>:</span>
   <span class=quoted><span class=quoted>"<span class=main>(</span><span class=free>x</span> <span class=main>⊔</span> <span class=free>y</span><span class=main>)</span> <span class=main>↝</span> <span class=free>z</span> <span class=main>=</span> <span class=main>(</span><span class=free>x</span> <span class=main>↝</span> <span class=free>z</span><span class=main>)</span> <span class=main>⊓</span> <span class=main>(</span><span class=free>y</span> <span class=main>↝</span> <span class=free>z</span><span class=main>)</span>"</span></span>
-  <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>rule</span> antisym<span class=main>)</span>
+  <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>rule</span> order.antisym<span class=main>)</span>
   <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> implies_antitone<span class=main>)</span>
   <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> implies_sup implies_galois<span class=main>)</span>
 
@@ -1673,7 +1676,7 @@ We add the definition as an axiom so that we can use the class hierarchy, for ex
 
 <span class=keyword1 id=P_Algebras-negation_implies><span class=command>lemma</span></span> negation_implies<span class=main>:</span>
   <span class=quoted><span class=quoted>"<span class=main>-</span><span class=main>(</span><span class=free>x</span> <span class=main>↝</span> <span class=free>y</span><span class=main>)</span> <span class=main>=</span> <span class=main>-</span><span class=main>-</span><span class=free>x</span> <span class=main>⊓</span> <span class=main>-</span><span class=free>y</span>"</span></span>
-<span class=keyword1><span class=command>proof</span></span> <span class=main>(</span><span class=operator>rule</span> antisym<span class=main>)</span>
+<span class=keyword1><span class=command>proof</span></span> <span class=main>(</span><span class=operator>rule</span> order.antisym<span class=main>)</span>
   <span class=keyword3><span class=command>show</span></span> <span class=quoted><span class=quoted>"<span class=main>-</span><span class=main>(</span><span class=free>x</span> <span class=main>↝</span> <span class=free>y</span><span class=main>)</span> <span class=main>≤</span> <span class=main>-</span><span class=main>-</span><span class=free>x</span> <span class=main>⊓</span> <span class=main>-</span><span class=free>y</span>"</span></span>
     <span class=keyword1><span class=command>using</span></span> boolean_implies_below p_antitone <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
 <span class=keyword1><span class=command>next</span></span>
@@ -1687,7 +1690,7 @@ We add the definition as an axiom so that we can use the class hierarchy, for ex
 
 <span class=keyword1 id=P_Algebras-double_negation_dist_implies><span class=command>lemma</span></span> double_negation_dist_implies<span class=main>:</span>
   <span class=quoted><span class=quoted>"<span class=main>-</span><span class=main>-</span><span class=main>(</span><span class=free>x</span> <span class=main>↝</span> <span class=free>y</span><span class=main>)</span> <span class=main>=</span> <span class=main>-</span><span class=main>-</span><span class=free>x</span> <span class=main>↝</span> <span class=main>-</span><span class=main>-</span><span class=free>y</span>"</span></span>
-  <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>rule</span> antisym<span class=main>)</span>
+  <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>rule</span> order.antisym<span class=main>)</span>
   <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>metis</span> pp_inf_below_iff implies_galois_decreasing implies_galois negation_implies ppp<span class=main>)</span>
   <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> p_antitone_iff negation_implies<span class=main>)</span>
 
@@ -1908,7 +1911,7 @@ See, for example, \cite{BalbesDwinger1974,Birkhoff1967,Blyth2005,DaveyPriestley2
 
 <span class=keyword1><span class=command>theory</span></span> Filters
 
-<span class=keyword2><span class=keyword>imports</span></span> <a href=Lattice_Basics.html>Lattice_Basics</a>
+<span class=keyword2><span class=keyword>imports</span></span> <a href=#Lattice_Basics>Lattice_Basics</a>
 
 <span class=keyword2><span class=keyword>begin</span></span>
 
@@ -2026,7 +2029,7 @@ A filter is a non-empty, downward directed, up-closed set.
 
 <span class=keyword1 id=Filters-up_injective><span class=command>lemma</span></span> up_injective<span class=main>:</span>
   <span class=quoted><span class=quoted>"<span class=main>↑</span><span class=free>x</span> <span class=main>=</span> <span class=main>↑</span><span class=free>y</span> <span class=main>⟹</span> <span class=free>x</span> <span class=main>=</span> <span class=free>y</span>"</span></span>
-  <span class=keyword1><span class=command>using</span></span> antisym <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
+  <span class=keyword1><span class=command>using</span></span> order.antisym <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
 
 <span class=keyword1 id=Filters-up_antitone><span class=command>lemma</span></span> up_antitone<span class=main>:</span>
   <span class=quoted><span class=quoted>"<span class=free>x</span> <span class=main>≤</span> <span class=free>y</span> <span class=main>⟷</span> <span class=main>↑</span><span class=free>y</span> <span class=main>⊆</span> <span class=main>↑</span><span class=free>x</span>"</span></span>
@@ -2183,7 +2186,7 @@ The existence of proper filters and ultrafilters requires that the underlying or
   <span class=keyword1><span class=command>from</span></span> consistent <span class=keyword3><span class=command>obtain</span></span> <span class=skolem><span class=skolem>x</span></span> <span class=skolem><span class=skolem>y</span></span> <span class=main>::</span> <span class=tfree><span class=quoted><span class=tfree>'a</span></span></span> <span class=keyword2><span class=keyword>where</span></span> <span class=quoted><span class=quoted>"<span class=skolem>x</span> <span class=main>≠</span> <span class=skolem>y</span>"</span></span>
     <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
   <span class=keyword1><span class=command>hence</span></span> <span class=quoted><span class=quoted>"<span class=main>↑</span><span class=skolem>x</span> <span class=main>≠</span> UNIV <span class=main>∨</span> <span class=main>↑</span><span class=skolem>y</span> <span class=main>≠</span> UNIV"</span></span>
-    <span class=keyword1><span class=command>using</span></span> antisym <span class=keyword1><span class=command>by</span></span> <span class=operator>blast</span>
+    <span class=keyword1><span class=command>using</span></span> order.antisym <span class=keyword1><span class=command>by</span></span> <span class=operator>blast</span>
   <span class=keyword1><span class=command>hence</span></span> <span class=quoted><span class=quoted>"proper_filter <span class=main>(</span><span class=main>↑</span><span class=skolem>x</span><span class=main>)</span> <span class=main>∨</span> proper_filter <span class=main>(</span><span class=main>↑</span><span class=skolem>y</span><span class=main>)</span>"</span></span>
     <span class=keyword1><span class=command>by</span></span> <span class=operator>simp</span>
   <span class=keyword3><span class=command>thus</span></span> <span class=var><span class=quoted><span class=var>?thesis</span></span></span>
@@ -2622,7 +2625,7 @@ We also prove a lemma of Gr\"atzer and Schmidt about principal filters.
   <span class=keyword1><span class=command>hence</span></span> <span class=quoted><span class=quoted>"<span class=skolem>y</span> <span class=main>≤</span> <span class=main>(</span><span class=skolem>t</span> <span class=main>⊓</span> <span class=skolem>v</span><span class=main>)</span> <span class=main>⊔</span> <span class=main>(</span><span class=skolem>u</span> <span class=main>⊓</span> <span class=skolem>w</span><span class=main>)</span>"</span></span>
     <span class=keyword1><span class=command>using</span></span> 1 Int_iff <span class=keyword1><span class=command>by</span></span> <span class=operator>blast</span>
   <span class=keyword1><span class=command>hence</span></span> 5<span class=main>:</span> <span class=quoted><span class=quoted>"<span class=main>(</span><span class=skolem>t</span> <span class=main>⊓</span> <span class=skolem>v</span><span class=main>)</span> <span class=main>⊔</span> <span class=main>(</span><span class=skolem>u</span> <span class=main>⊓</span> <span class=skolem>w</span><span class=main>)</span> <span class=main>=</span> <span class=skolem>y</span>"</span></span>
-    <span class=keyword1><span class=command>using</span></span> 2 <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> antisym inf.coboundedI1<span class=main>)</span>
+    <span class=keyword1><span class=command>using</span></span> 2 <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> order.antisym inf.coboundedI1<span class=main>)</span>
   <span class=keyword1><span class=command>have</span></span> <span class=quoted><span class=quoted>"<span class=free>F</span> <span class=main>=</span> <span class=main>↑</span><span class=main>(</span><span class=skolem>t</span> <span class=main>⊓</span> <span class=skolem>v</span><span class=main>)</span>"</span></span>
   <span class=keyword1><span class=command>proof</span></span>
     <span class=keyword3><span class=command>show</span></span> <span class=quoted><span class=quoted>"<span class=free>F</span> <span class=main>⊆</span> <span class=main>↑</span><span class=main>(</span><span class=skolem>t</span> <span class=main>⊓</span> <span class=skolem>v</span><span class=main>)</span>"</span></span>
@@ -2872,7 +2875,7 @@ Because $S(T)$ is implemented by lifted pairs, so are $B(S(T))$ and $D(S(T))$; w
 
 <span class=keyword1><span class=command>theory</span></span> Stone_Construction
 
-<span class=keyword2><span class=keyword>imports</span></span> <a href=P_Algebras.html>P_Algebras</a> <a href=Filters.html>Filters</a>
+<span class=keyword2><span class=keyword>imports</span></span> <a href=#P_Algebras>P_Algebras</a> <a href=#Filters>Filters</a>
 
 <span class=keyword2><span class=keyword>begin</span></span>
 
@@ -5133,5 +5136,4 @@ The commutativity property states that the same result is obtained in two ways b
 <span class=keyword1><span class=command>qed</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-
 </pre></div></main></div></div></body></html>

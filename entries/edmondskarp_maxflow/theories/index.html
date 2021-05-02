@@ -4,8 +4,8 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Ed
 <datalist id=autocomplete></datalist></div></form><h1><span class=first>S</span>ession <span class=first>E</span>dmonds<span class=first>K</span>arp_<span class=first>M</span>axflow</h1><div></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><div id=FordFulkerson_Algo><div class=head><h1>Theory FordFulkerson_Algo</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹The Ford-Fulkerson Method›</span></span>
 <span class=keyword1><span class=command>theory</span></span> FordFulkerson_Algo
 <span class=keyword2><span class=keyword>imports</span></span> 
-  <a href=../Flow_Networks/Ford_Fulkerson.html>Flow_Networks.Ford_Fulkerson</a>
-  <a href=../Flow_Networks/Refine_Add_Fofu.html>Flow_Networks.Refine_Add_Fofu</a>
+  <a href=../../flow_networks/theories/#Ford_Fulkerson>Flow_Networks.Ford_Fulkerson</a>
+  <a href=../../flow_networks/theories/#Refine_Add_Fofu>Flow_Networks.Refine_Add_Fofu</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 <span class=keyword1><span class=command>text</span></span> <span class=quoted><span class=plain_text>‹In this theory, we formalize the abstract Ford-Fulkerson
   method, which is independent of how an augmenting path is chosen›</span></span>
@@ -155,7 +155,7 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Ed
 </pre></div><div id=EdmondsKarp_Termination_Abstract><div class=head><h1>Theory EdmondsKarp_Termination_Abstract</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Edmonds-Karp Algorithm›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> EdmondsKarp_Termination_Abstract <span class=keyword2><span class=keyword>imports</span></span>
-  <a href=../Flow_Networks/Ford_Fulkerson.html>Flow_Networks.Ford_Fulkerson</a>
+  <a href=../../flow_networks/theories/#Ford_Fulkerson>Flow_Networks.Ford_Fulkerson</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1 id=EdmondsKarp_Termination_Abstract-mlex_fst_decrI><span class=command>lemma</span></span> mlex_fst_decrI<span class=main>:</span>
@@ -701,7 +701,7 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Ed
 
 <span class=keyword2><span class=keyword>end</span></span>
 </pre></div><div id=EdmondsKarp_Algo><div class=head><h1>Theory EdmondsKarp_Algo</h1></div><pre class=source><span class=keyword1><span class=command>theory</span></span> EdmondsKarp_Algo
-<span class=keyword2><span class=keyword>imports</span></span> <a href=EdmondsKarp_Termination_Abstract.html>EdmondsKarp_Termination_Abstract</a> <a href=FordFulkerson_Algo.html>FordFulkerson_Algo</a>
+<span class=keyword2><span class=keyword>imports</span></span> <a href=#EdmondsKarp_Termination_Abstract>EdmondsKarp_Termination_Abstract</a> <a href=#FordFulkerson_Algo>FordFulkerson_Algo</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 <span class=keyword1><span class=command>text</span></span> <span class=quoted><span class=plain_text>‹
   In this theory, we formalize an abstract version of
@@ -947,8 +947,8 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Ed
 </pre></div><div id=Augmenting_Path_BFS><div class=head><h1>Theory Augmenting_Path_BFS</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Breadth First Search›</span></span>
 <span class=keyword1><span class=command>theory</span></span> Augmenting_Path_BFS
 <span class=keyword2><span class=keyword>imports</span></span> 
-  <a href=../Flow_Networks/Refine_Add_Fofu.html>Flow_Networks.Refine_Add_Fofu</a>
-  <a href=../Flow_Networks/Graph_Impl.html>Flow_Networks.Graph_Impl</a>
+  <a href=../../flow_networks/theories/#Refine_Add_Fofu>Flow_Networks.Refine_Add_Fofu</a>
+  <a href=../../flow_networks/theories/#Graph_Impl>Flow_Networks.Graph_Impl</a>
 <span class=keyword2><span class=keyword>begin</span></span>
   <span class=keyword1><span class=command>text</span></span> <span class=quoted><span class=plain_text>‹
     In this theory, we present a verified breadth-first search
@@ -1680,9 +1680,9 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Ed
 </pre></div><div id=EdmondsKarp_Impl><div class=head><h1>Theory EdmondsKarp_Impl</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Implementation of the Edmonds-Karp Algorithm›</span></span>
 <span class=keyword1><span class=command>theory</span></span> EdmondsKarp_Impl
 <span class=keyword2><span class=keyword>imports</span></span> 
-  <a href=EdmondsKarp_Algo.html>EdmondsKarp_Algo</a>
-  <a href=Augmenting_Path_BFS.html>Augmenting_Path_BFS</a>
-  <a href=../Refine_Imperative_HOL/IICF.html>Refine_Imperative_HOL.IICF</a>
+  <a href=#EdmondsKarp_Algo>EdmondsKarp_Algo</a>
+  <a href=#Augmenting_Path_BFS>Augmenting_Path_BFS</a>
+  <a href=../../refine_imperative_hol/theories/#IICF>Refine_Imperative_HOL.IICF</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
   <span class=keyword1><span class=command>text</span></span> <span class=quoted><span class=plain_text>‹We now implement the Edmonds-Karp algorithm.
@@ -2691,7 +2691,7 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Ed
 <span class=keyword2><span class=keyword>end</span></span>
 </pre></div><div id=Edka_Checked_Impl><div class=head><h1>Theory Edka_Checked_Impl</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Combination with Network Checker›</span></span>
 <span class=keyword1><span class=command>theory</span></span> Edka_Checked_Impl
-<span class=keyword2><span class=keyword>imports</span></span> <a href=../Flow_Networks/NetCheck.html>Flow_Networks.NetCheck</a> <a href=EdmondsKarp_Impl.html>EdmondsKarp_Impl</a>
+<span class=keyword2><span class=keyword>imports</span></span> <a href=../../flow_networks/theories/#NetCheck>Flow_Networks.NetCheck</a> <a href=#EdmondsKarp_Impl>EdmondsKarp_Impl</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 <span class=keyword1><span class=command>text</span></span> <span class=quoted><span class=plain_text>‹
   In this theory, we combine the Edmonds-Karp implementation with the 
@@ -2975,7 +2975,7 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Ed
 <span class=keyword2><span class=keyword>end</span></span>
 </pre></div><div id=Edka_Benchmark_Export><div class=head><h1>Theory Edka_Benchmark_Export</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Exporting Code›</span></span>
 <span class=keyword1><span class=command>theory</span></span> Edka_Benchmark_Export 
-<span class=keyword2><span class=keyword>imports</span></span> <a href=Edka_Checked_Impl.html>Edka_Checked_Impl</a>
+<span class=keyword2><span class=keyword>imports</span></span> <a href=#Edka_Checked_Impl>Edka_Checked_Impl</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>text</span></span> <span class=quoted><span class=plain_text>‹Moved to own theory, as code-export makes theory unusable for inclusion from

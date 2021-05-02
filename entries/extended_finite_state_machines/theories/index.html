@@ -19,7 +19,7 @@ The \texttt{trilean} datatype is used to implement three-valued Bochvar logic
 and prove some other useful lemmas.›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Trilean
-<span class=keyword2><span class=keyword>imports</span></span> <a href=../../HOL/HOL/Main.html>Main</a>
+<span class=keyword2><span class=keyword>imports</span></span> <a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL/Main.html>Main</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>datatype</span></span> trilean <span class=main>=</span> true <span class=main>|</span> false <span class=main>|</span> invalid
@@ -289,7 +289,7 @@ which combines these. We also define an arithmetic in terms of values such that 
 to be strongly typed.›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Value
-<span class=keyword2><span class=keyword>imports</span></span> <a href=Trilean.html>Trilean</a>
+<span class=keyword2><span class=keyword>imports</span></span> <a href=#Trilean>Trilean</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>text_raw</span></span><span class=quoted><span class=plain_text>‹\snip{valuetype}{1}{2}{%›</span></span>
@@ -388,7 +388,7 @@ the \texttt{vname} datatype a member of linorder such that we can establish a li
 arithmetic expressions, guards, and subsequently transitions.›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> VName
-<span class=keyword2><span class=keyword>imports</span></span> <a href=../../HOL/HOL/Main.html>Main</a>
+<span class=keyword2><span class=keyword>imports</span></span> <a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL/Main.html>Main</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>text_raw</span></span><span class=quoted><span class=plain_text>‹\snip{vnametype}{1}{2}{%›</span></span>
@@ -410,18 +410,12 @@ arithmetic expressions, guards, and subsequently transitions.›</span></span>
 
 <span class=keyword1><span class=command>instance</span></span>
   <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=operator>standard</span>
-      <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>metis</span> <span class=main><span class=main>(</span></span>full_types<span class=main><span class=main>)</span></span> dual_order.asym less_eq_vname_def less_vname.simps<span class=main><span class=main>(</span></span>2<span class=main><span class=main>)</span></span> less_vname.simps<span class=main><span class=main>(</span></span>3<span class=main><span class=main>)</span></span> less_vname.simps<span class=main><span class=main>(</span></span>4<span class=main><span class=main>)</span></span> vname.exhaust<span class=main>)</span>
-     <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=operator>simp</span>
+      <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>auto</span> <span class=quasi_keyword>elim</span><span class=main><span class=main>:</span></span> less_vname.elims<span class=main>)</span>
   <span class=keyword1><span class=command><span class=improper><span class=command>subgoal</span></span></span></span> <span class=keyword2><span class=keyword>for</span></span> x y z
-    <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>induct</span> <span class=quoted><span class=skolem>x</span></span> <span class=quoted><span class=skolem>y</span></span> <span class=quasi_keyword>rule</span><span class=main><span class=main>:</span></span> less_vname.induct<span class=main>)</span>
-       <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>metis</span> less_eq_vname_def less_vname.elims<span class=main><span class=main>(</span></span>2<span class=main><span class=main>)</span></span> less_vname.elims<span class=main><span class=main>(</span></span>3<span class=main><span class=main>)</span></span> vname.simps<span class=main><span class=main>(</span></span>4<span class=main><span class=main>)</span></span><span class=main>)</span>
-      <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=operator>simp</span>
-     <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>metis</span> less_eq_vname_def less_trans less_vname.elims<span class=main><span class=main>(</span></span>3<span class=main><span class=main>)</span></span> less_vname.simps<span class=main><span class=main>(</span></span>3<span class=main><span class=main>)</span></span> vname.simps<span class=main><span class=main>(</span></span>4<span class=main><span class=main>)</span></span><span class=main>)</span>
-    <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> le_less_trans less_eq_vname_def less_imp_le_nat less_vname.elims<span class=main><span class=main>(</span></span>2<span class=main><span class=main>)</span></span> less_vname.simps<span class=main><span class=main>(</span></span>4<span class=main><span class=main>)</span></span> vname.simps<span class=main><span class=main>(</span></span>4<span class=main><span class=main>)</span></span><span class=main>)</span>
-   <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>metis</span> dual_order.asym less_eq_vname_def less_vname.elims<span class=main><span class=main>(</span></span>2<span class=main><span class=main>)</span></span> less_vname.simps<span class=main><span class=main>(</span></span>3<span class=main><span class=main>)</span></span> less_vname.simps<span class=main><span class=main>(</span></span>4<span class=main><span class=main>)</span></span><span class=main>)</span>
-   <span class=keyword1><span class=command><span class=improper><span class=command>subgoal</span></span></span></span> <span class=keyword2><span class=keyword>for</span></span> x y
-     <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>induct</span> <span class=quoted><span class=skolem>x</span></span> <span class=quoted><span class=skolem>y</span></span> <span class=quasi_keyword>rule</span><span class=main><span class=main>:</span></span> less_vname.induct<span class=main><span class=keyword3>,</span></span> <span class=operator>auto</span><span class=main>)</span>
-   <span class=keyword1><span class=command><span class=improper><span class=command>done</span></span></span></span>
+    <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>cases</span> <span class=quoted><span class=skolem>x</span></span><span class=main><span class=keyword3>;</span></span> <span class=operator>cases</span> <span class=quoted><span class=skolem>y</span></span><span class=main><span class=keyword3>;</span></span> <span class=operator>cases</span> <span class=quoted><span class=skolem>z</span></span><span class=main>)</span>
+           <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=operator>simp_all</span>
+    <span class=keyword1><span class=command><span class=improper><span class=command>done</span></span></span></span>
+  <span class=keyword1><span class=command><span class=improper><span class=command>done</span></span></span></span>
 <span class=keyword2><span class=keyword>end</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
@@ -432,7 +426,7 @@ arithmetic expressions and guards. Here, numbers are defined as less than string
 ordering on the respective datatypes is used.›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Value_Lexorder
-<span class=keyword2><span class=keyword>imports</span></span> <a href=Value.html>Value</a>
+<span class=keyword2><span class=keyword>imports</span></span> <a href=#Value>Value</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>instantiation</span></span> <span class=quoted>"value"</span> <span class=main>::</span> <span class=quoted>linorder</span> <span class=keyword2><span class=keyword>begin</span></span>
@@ -475,7 +469,7 @@ concept.
 ›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> AExp
-  <span class=keyword2><span class=keyword>imports</span></span> <a href=Value_Lexorder.html>Value_Lexorder</a> <a href=VName.html>VName</a> <a href=../FinFun/FinFun.html>FinFun.FinFun</a> <span class=quoted>"<a href=../../HOL/HOL-Library/Option_ord.html>HOL-Library.Option_ord</a>"</span>
+  <span class=keyword2><span class=keyword>imports</span></span> <a href=#Value_Lexorder>Value_Lexorder</a> <a href=#VName>VName</a> <a href=../../finfun/theories/#FinFun>FinFun.FinFun</a> <span class=quoted>"<a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL-Library/Option_ord.html>HOL-Library.Option_ord</a>"</span>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>declare</span></span> One_nat_def <span class=main>[</span><span class=operator>simp</span> <span class=quasi_keyword>del</span><span class=main>]</span>
@@ -1122,7 +1116,7 @@ orderings for guards and, subsequently, transitions. We make use of the previous
 orderings on variable names and values.›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> AExp_Lexorder
-<span class=keyword2><span class=keyword>imports</span></span> <a href=AExp.html>AExp</a> <a href=Value_Lexorder.html>Value_Lexorder</a>
+<span class=keyword2><span class=keyword>imports</span></span> <a href=#AExp>AExp</a> <a href=#Value_Lexorder>Value_Lexorder</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>text_raw</span></span><span class=quoted><span class=plain_text>‹\snip{height}{1}{2}{%›</span></span>
@@ -1299,7 +1293,7 @@ equal to, and not equal to as well as the expression of logical conjunction, dis
 negation in terms of nor logic.›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> GExp
-<span class=keyword2><span class=keyword>imports</span></span> <a href=AExp.html>AExp</a> <a href=Trilean.html>Trilean</a>
+<span class=keyword2><span class=keyword>imports</span></span> <a href=#AExp>AExp</a> <a href=#Trilean>Trilean</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>text_raw</span></span><span class=quoted><span class=plain_text>‹\snip{gexptype}{1}{2}{%›</span></span>
@@ -2132,9 +2126,9 @@ expressions.›</span></span>
 <span class=keyword1><span class=command>theory</span></span>
 GExp_Lexorder
 <span class=keyword2><span class=keyword>imports</span></span>
-  <span class=quoted>"<a href=GExp.html>GExp</a>"</span>
-  <span class=quoted>"<a href=AExp_Lexorder.html>AExp_Lexorder</a>"</span>
-  <span class=quoted>"<a href=../../HOL/HOL-Library/List_Lexorder.html>HOL-Library.List_Lexorder</a>"</span>
+  <span class=quoted>"<a href=#GExp>GExp</a>"</span>
+  <span class=quoted>"<a href=#AExp_Lexorder>AExp_Lexorder</a>"</span>
+  <span class=quoted>"<a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL-Library/List_Lexorder.html>HOL-Library.List_Lexorder</a>"</span>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>fun</span></span> <span class=entity>height</span> <span class=main>::</span> <span class=quoted><span class=quoted>"<span class=tfree>'a</span> gexp <span class=main>⇒</span> nat"</span></span> <span class=keyword2><span class=keyword>where</span></span>
@@ -2379,7 +2373,7 @@ GExp_Lexorder
 </pre></div><div id=FSet_Utils><div class=head><h1>Theory FSet_Utils</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span><span class=quoted><span class=plain_text>‹FSet Utilities›</span></span>
 <span class=keyword1><span class=command>text</span></span><span class=quoted><span class=plain_text>‹This theory provides various additional lemmas, definitions, and syntax over the fset data type.›</span></span>
 <span class=keyword1><span class=command>theory</span></span> FSet_Utils
-  <span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=../../HOL/HOL-Library/FSet.html>HOL-Library.FSet</a>"</span>
+  <span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL-Library/FSet.html>HOL-Library.FSet</a>"</span>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>notation</span></span> <span class=main>(</span>latex <span class=keyword2><span class=keyword>output</span></span><span class=main>)</span>
@@ -2729,7 +2723,7 @@ has a label and an arity and, optionally, guards, outputs, and updates. To imple
 the record type such that each component of the transition can be accessed.›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Transition
-<span class=keyword2><span class=keyword>imports</span></span> <a href=GExp.html>GExp</a>
+<span class=keyword2><span class=keyword>imports</span></span> <a href=#GExp>GExp</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>type_synonym</span></span> label <span class=main>=</span> <span class=quoted>String.literal</span>
@@ -2911,9 +2905,9 @@ the record type such that each component of the transition can be accessed.›</
 the set representation of EFSMs to a sorted list that we can recurse over.›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Transition_Lexorder
-  <span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=Transition.html>Transition</a>"</span>
-    <a href=GExp_Lexorder.html>GExp_Lexorder</a>
-    <span class=quoted>"<a href=../../HOL/HOL-Library/Product_Lexorder.html>HOL-Library.Product_Lexorder</a>"</span>
+  <span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=#Transition>Transition</a>"</span>
+    <a href=#GExp_Lexorder>GExp_Lexorder</a>
+    <span class=quoted>"<a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL-Library/Product_Lexorder.html>HOL-Library.Product_Lexorder</a>"</span>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>instantiation</span></span> <span class=quoted>"transition_ext"</span> <span class=main>::</span> <span class=main>(</span><span class=quoted>linorder</span><span class=main>)</span> <span class=quoted>linorder</span> <span class=keyword2><span class=keyword>begin</span></span>
@@ -2946,7 +2940,7 @@ $((s_1, s_2), t)$ in which $s_1$ is the origin state, $s_2$ is the destination s
 transition.›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> EFSM
-  <span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=../../HOL/HOL-Library/FSet.html>HOL-Library.FSet</a>"</span> <a href=Transition.html>Transition</a> <a href=FSet_Utils.html>FSet_Utils</a>
+  <span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL-Library/FSet.html>HOL-Library.FSet</a>"</span> <a href=#Transition>Transition</a> <a href=#FSet_Utils>FSet_Utils</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>declare</span></span> One_nat_def <span class=main>[</span><span class=operator>simp</span> <span class=quasi_keyword>del</span><span class=main>]</span>
@@ -4437,7 +4431,7 @@ library and defines functions to ease the expression of LTL properties over EFSM
 operators effectively act over traces of models we must find a way to express models as streams.›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> EFSM_LTL
-<span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=EFSM.html>Extended_Finite_State_Machines.EFSM</a>"</span> <span class=quoted>"<a href=../../HOL/HOL-Library/Linear_Temporal_Logic_on_Streams.html>HOL-Library.Linear_Temporal_Logic_on_Streams</a>"</span>
+<span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=#EFSM>Extended_Finite_State_Machines.EFSM</a>"</span> <span class=quoted>"<a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL-Library/Linear_Temporal_Logic_on_Streams.html>HOL-Library.Linear_Temporal_Logic_on_Streams</a>"</span>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>text_raw</span></span><span class=quoted><span class=plain_text>‹\snip{statedef}{1}{2}{%›</span></span>
@@ -4661,7 +4655,7 @@ henceforth.›</span></span>
   <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> alw_iff_sdrop <span class=quasi_keyword>del</span><span class=main><span class=main>:</span></span> sdrop.simps<span class=main>)</span>
 
 <span class=keyword1 id=EFSM_LTL-snth_sconst><span class=command>lemma</span></span> snth_sconst<span class=main>:</span> <span class=quoted><span class=quoted>"<span class=main>(</span><span class=main>∀</span><span class=bound>i</span><span class=main>.</span> <span class=free>s</span> <span class=main>!!</span> <span class=bound>i</span> <span class=main>=</span> <span class=free>h</span><span class=main>)</span> <span class=main>=</span> <span class=main>(</span><span class=free>s</span> <span class=main>=</span> sconst <span class=free>h</span><span class=main>)</span>"</span></span>
-  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> funpow_code_def id_funpow sdrop_simps<span class=main><span class=main>(</span></span>1<span class=main><span class=main>)</span></span> sdrop_siterate siterate.simps<span class=main><span class=main>(</span></span>1<span class=main><span class=main>)</span></span> smap_alt smap_sconst snth.simps<span class=main><span class=main>(</span></span>1<span class=main><span class=main>)</span></span> stream.map_id<span class=main>)</span>
+  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>auto</span> <span class=quasi_keyword>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> sconst_alt sset_range<span class=main>)</span>
 
 <span class=keyword1 id=EFSM_LTL-alw_sconst><span class=command>lemma</span></span> alw_sconst<span class=main>:</span> <span class=quoted><span class=quoted>"<span class=main>(</span>alw <span class=main>(</span><span class=main>λ</span><span class=bound>xs</span><span class=main>.</span> shd <span class=bound>xs</span> <span class=main>=</span> <span class=free>h</span><span class=main>)</span> <span class=free>t</span><span class=main>)</span> <span class=main>=</span> <span class=main>(</span><span class=free>t</span> <span class=main>=</span> sconst <span class=free>h</span><span class=main>)</span>"</span></span>
   <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> snth_sconst<span class=main><span class=main>[</span></span><span class=operator>symmetric</span><span class=main><span class=main>]</span></span> alw_iff_sdrop<span class=main>)</span>
@@ -4729,7 +4723,7 @@ Note that, while statename has four elements, the drinks machine presented here 
 states. The fourth element is included here so that the \emph{statename} datatype may be used in
 the next example.›</span></span>
 <span class=keyword1><span class=command>theory</span></span> Drinks_Machine
-  <span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=EFSM.html>Extended_Finite_State_Machines.EFSM</a>"</span>
+  <span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=#EFSM>Extended_Finite_State_Machines.EFSM</a>"</span>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>text_raw</span></span><span class=quoted><span class=plain_text>‹\snip{selectdef}{1}{2}{%›</span></span>
@@ -4999,7 +4993,7 @@ the next example.›</span></span>
 identical output to the first model. This property is called \emph{observational equivalence} and is
 discussed in more detail in \cite{foster2018}.›</span></span>
 <span class=keyword1><span class=command>theory</span></span> Drinks_Machine_2
-  <span class=keyword2><span class=keyword>imports</span></span> <a href=Drinks_Machine.html>Drinks_Machine</a>
+  <span class=keyword2><span class=keyword>imports</span></span> <a href=#Drinks_Machine>Drinks_Machine</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=comment1>(* Only imports Drinks_Machine_LTL so I can easily open all three at once for testing *)</span>
@@ -5220,7 +5214,7 @@ discussed in more detail in \cite{foster2018}.›</span></span>
 <span class=keyword1><span class=command>text</span></span><span class=quoted><span class=plain_text>‹This theory presents some examples of temporal properties over the simple drinks machine.›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Drinks_Machine_LTL
-<span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=Drinks_Machine.html>Drinks_Machine</a>"</span> <span class=quoted>"<a href=EFSM_LTL.html>Extended_Finite_State_Machines.EFSM_LTL</a>"</span>
+<span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=#Drinks_Machine>Drinks_Machine</a>"</span> <span class=quoted>"<a href=#EFSM_LTL>Extended_Finite_State_Machines.EFSM_LTL</a>"</span>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>declare</span></span> One_nat_def <span class=main>[</span><span class=operator>simp</span> <span class=quasi_keyword>del</span><span class=main>]</span>

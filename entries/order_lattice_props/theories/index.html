@@ -10,8 +10,8 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Or
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Sup-Lattices and Other Simplifications›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Sup_Lattice
-  <span class=keyword2><span class=keyword>imports</span></span>  <a href=../../HOL/HOL/Main.html>Main</a> 
-           <span class=quoted>"<a href=../../HOL/HOL-Library/Lattice_Syntax.html>HOL-Library.Lattice_Syntax</a>"</span>
+  <span class=keyword2><span class=keyword>imports</span></span>  <a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL/Main.html>Main</a> 
+           <span class=quoted>"<a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL-Library/Lattice_Syntax.html>HOL-Library.Lattice_Syntax</a>"</span>
 
 <span class=keyword2><span class=keyword>begin</span></span>
 
@@ -172,7 +172,7 @@ At least, it does not carry any proof obligations.›</span></span>
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Ad-Hoc Duality for Orderings and Lattices›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Order_Duality
-  <span class=keyword2><span class=keyword>imports</span></span> <a href=Sup_Lattice.html>Sup_Lattice</a>
+  <span class=keyword2><span class=keyword>imports</span></span> <a href=#Sup_Lattice>Sup_Lattice</a>
 
 <span class=keyword2><span class=keyword>begin</span></span>
 
@@ -492,7 +492,7 @@ is well known.›</span></span>
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Properties of Orderings and Lattices›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Order_Lattice_Props
-  <span class=keyword2><span class=keyword>imports</span></span> <a href=Order_Duality.html>Order_Duality</a>
+  <span class=keyword2><span class=keyword>imports</span></span> <a href=#Order_Duality>Order_Duality</a>
 
 <span class=keyword2><span class=keyword>begin</span></span>
 
@@ -949,7 +949,7 @@ for instance for proving Tarski's fixpoint theorem, but does not really belong h
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1 id=Order_Lattice_Props-downset_inj><span class=command>lemma</span></span> downset_inj<span class=main>:</span> <span class=quoted><span class=quoted>"inj <span class=main>↓</span>"</span></span>
-  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> injI downset_iso_iff eq_iff<span class=main>)</span>
+  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> injI downset_iso_iff order.eq_iff<span class=main>)</span>
 
 <span class=keyword1><span class=command>lemma</span></span> <span class=quoted><span class=quoted>"<span class=main>(</span><span class=free>X</span> <span class=main>⊆</span> <span class=free>Y</span><span class=main>)</span> <span class=main>=</span> <span class=main>(</span><span class=main>⇓</span><span class=free>X</span> <span class=main>⊆</span> <span class=main>⇓</span><span class=free>Y</span><span class=main>)</span>"</span></span> <span class=comment1>(*nitpick*)</span>
   <span class=keyword1><span class=command>oops</span></span>
@@ -1171,7 +1171,7 @@ Such laws rather belong into Isabelle Main.›</span></span>
   <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> shunt1<span class=main>)</span>
 
 <span class=keyword1 id=Order_Lattice_Props-meet_shunt><span class=command>lemma</span></span> meet_shunt<span class=main>:</span> <span class=quoted><span class=quoted>"<span class=main>(</span><span class=free>x</span> <span class=main>⊓</span> <span class=free>y</span> <span class=main>=</span> <span class=main>⊥</span><span class=main>)</span> <span class=main>=</span> <span class=main>(</span><span class=free>x</span> <span class=main>≤</span> <span class=main>-</span><span class=free>y</span><span class=main>)</span>"</span></span>
-  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> eq_iff shunt1<span class=main>)</span>
+  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> order.eq_iff shunt1<span class=main>)</span>
   
 <span class=keyword1 id=Order_Lattice_Props-join_shunt><span class=command>lemma</span></span> join_shunt<span class=main>:</span> <span class=quoted><span class=quoted>"<span class=main>(</span><span class=free>x</span> <span class=main>⊔</span> <span class=free>y</span> <span class=main>=</span> <span class=main>⊤</span><span class=main>)</span> <span class=main>=</span> <span class=main>(</span><span class=main>-</span><span class=free>x</span> <span class=main>≤</span> <span class=free>y</span><span class=main>)</span>"</span></span>
   <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> compl_sup compl_top_eq double_compl meet_shunt<span class=main>)</span>
@@ -1212,14 +1212,14 @@ consequences of Sup-ones. In addition, duality between sup and inf is currently 
 iterations and fixpoints.›</span></span>
 
 <span class=keyword1 id=Order_Lattice_Props-fSup_unfold><span class=command>lemma</span></span> fSup_unfold<span class=main>:</span> <span class=quoted><span class=quoted>"<span class=main>(</span><span class=free>f</span><span class=main>::</span>nat <span class=main>⇒</span> <span class=tfree>'a</span><span class=main>)</span> <span class=main>0</span> <span class=main>⊔</span> <span class=main>(</span><span class=main>⨆</span><span class=bound>n</span><span class=main>.</span> <span class=free>f</span> <span class=main>(</span>Suc <span class=bound>n</span><span class=main>)</span><span class=main>)</span> <span class=main>=</span> <span class=main>(</span><span class=main>⨆</span><span class=bound>n</span><span class=main>.</span> <span class=free>f</span> <span class=bound>n</span><span class=main>)</span>"</span></span>
-  <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>intro</span> antisym sup_least<span class=main>)</span>
+  <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>intro</span> order.antisym sup_least<span class=main>)</span>
     <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>rule</span> Sup_upper<span class=main><span class=keyword3>,</span></span> <span class=operator>force</span><span class=main>)</span>
    <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>rule</span> Sup_mono<span class=main><span class=keyword3>,</span></span> <span class=operator>force</span><span class=main>)</span>
   <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>safe</span> <span class=quasi_keyword>intro</span><span class=main><span class=main>!</span></span><span class=main><span class=main>:</span></span> Sup_least<span class=main>)</span>
  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>case_tac</span> <span class=quoted><span class=improper>n</span></span><span class=main><span class=keyword3>,</span></span> <span class=operator>simp_all</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> Sup_upper le_supI2<span class=main>)</span>
 
 <span class=keyword1 id=Order_Lattice_Props-fInf_unfold><span class=command>lemma</span></span> fInf_unfold<span class=main>:</span> <span class=quoted><span class=quoted>"<span class=main>(</span><span class=free>f</span><span class=main>::</span>nat <span class=main>⇒</span> <span class=tfree>'a</span><span class=main>)</span> <span class=main>0</span> <span class=main>⊓</span> <span class=main>(</span><span class=main>⨅</span><span class=bound>n</span><span class=main>.</span> <span class=free>f</span> <span class=main>(</span>Suc <span class=bound>n</span><span class=main>)</span><span class=main>)</span> <span class=main>=</span> <span class=main>(</span><span class=main>⨅</span><span class=bound>n</span><span class=main>.</span> <span class=free>f</span> <span class=bound>n</span><span class=main>)</span>"</span></span>
-  <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>intro</span> antisym inf_greatest<span class=main>)</span>
+  <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>intro</span> order.antisym inf_greatest<span class=main>)</span>
   <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>rule</span> Inf_greatest<span class=main><span class=keyword3>,</span></span> <span class=operator>safe</span><span class=main>)</span>
   <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>case_tac</span> <span class=quoted><span class=improper>n</span></span><span class=main>)</span>
    <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=operator>simp_all</span>
@@ -1606,12 +1606,12 @@ in topology, where weaker laws are needed --- for instance for frames and locale
     <span class=keyword1><span class=command>finally</span></span> <span class=keyword1><span class=command>have</span></span> <span class=quoted><span class=quoted>"<span class=main>(</span><span class=skolem>x</span> <span class=main>⊓</span> <span class=main>⨆</span><span class=skolem>Y</span> <span class=main>≤</span> <span class=skolem>t</span><span class=main>)</span> <span class=main>=</span> <span class=main>(</span><span class=main>(</span><span class=main>⨆</span><span class=bound>y</span><span class=main>∈</span><span class=skolem>Y</span><span class=main>.</span> <span class=skolem>x</span> <span class=main>⊓</span> <span class=bound>y</span><span class=main>)</span> <span class=main>≤</span> <span class=skolem>t</span><span class=main>)</span>"</span></span>
       <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> local.SUP_le_iff<span class=main>)</span><span class=keyword1><span class=command>}</span></span>
   <span class=keyword3><span class=command>thus</span></span> <span class=quoted><span class=quoted>"<span class=skolem>x</span> <span class=main>⊓</span> <span class=main>⨆</span><span class=skolem>Y</span> <span class=main>=</span> <span class=main>(</span><span class=main>⨆</span><span class=bound>y</span><span class=main>∈</span><span class=skolem>Y</span><span class=main>.</span> <span class=skolem>x</span> <span class=main>⊓</span> <span class=bound>y</span><span class=main>)</span>"</span></span>
-    <span class=keyword1><span class=command>using</span></span> eq_iff <span class=keyword1><span class=command>by</span></span> <span class=operator>blast</span>
+    <span class=keyword1><span class=command>using</span></span> order.eq_iff <span class=keyword1><span class=command>by</span></span> <span class=operator>blast</span>
 <span class=keyword1><span class=command>qed</span></span>
 
 <span class=keyword1><span class=command>subclass</span></span> complete_co_heyting_algebra
   <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=operator>unfold_locales</span>
-  <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>rule</span> antisym<span class=main>)</span>
+  <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>rule</span> order.antisym<span class=main>)</span>
    <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> INF_greatest Inf_lower2<span class=main>)</span>
   <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>meson</span> eq_refl le_INF_iff le_Inf_iff shunt2<span class=main>)</span>
 
@@ -1628,7 +1628,7 @@ in topology, where weaker laws are needed --- for instance for frames and locale
     <span class=keyword1><span class=command>using</span></span> le_INF_iff <span class=keyword1><span class=command>by</span></span> <span class=operator>force</span>
   <span class=keyword1><span class=command>finally</span></span> <span class=keyword1><span class=command>have</span></span> <span class=quoted><span class=quoted>"<span class=main>(</span><span class=skolem>y</span> <span class=main>≤</span> <span class=main>-</span><span class=main>(</span><span class=main>⨆</span><span class=free>X</span><span class=main>)</span><span class=main>)</span> <span class=main>=</span> <span class=main>(</span><span class=skolem>y</span> <span class=main>≤</span><span class=main>(</span><span class=main>⨅</span><span class=bound>x</span> <span class=main>∈</span> <span class=free>X</span><span class=main>.</span> <span class=main>-</span><span class=bound>x</span><span class=main>)</span><span class=main>)</span>"</span></span><span class=keyword1><span class=command>.</span></span><span class=keyword1><span class=command>}</span></span>
   <span class=keyword3><span class=command>thus</span></span> <span class=var><span class=quoted><span class=var>?thesis</span></span></span>
-    <span class=keyword1><span class=command>using</span></span> antisym <span class=keyword1><span class=command>by</span></span> <span class=operator>blast</span>
+    <span class=keyword1><span class=command>using</span></span> order.antisym <span class=keyword1><span class=command>by</span></span> <span class=operator>blast</span>
 <span class=keyword1><span class=command>qed</span></span>
 
 <span class=keyword1 id=Order_Lattice_Props-de_morgan2><span class=command>lemma</span></span> de_morgan2<span class=main>:</span> <span class=quoted><span class=quoted>"<span class=main>-</span><span class=main>(</span><span class=main>⨅</span><span class=free>X</span><span class=main>)</span> <span class=main>=</span> <span class=main>(</span><span class=main>⨆</span><span class=bound>x</span> <span class=main>∈</span> <span class=free>X</span><span class=main>.</span> <span class=main>-</span><span class=bound>x</span><span class=main>)</span>"</span></span>
@@ -1752,10 +1752,6 @@ boolean algebras.›</span></span>
 <span class=keyword2><span class=keyword>end</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-
-
-
-
 </pre></div><div id=Representations><div class=head><h1>Theory Representations</h1></div><pre class=source><span class=comment1>(* 
   Title: Representation Theorems for Orderings and Lattices
   Author: Georg Struth 
@@ -1765,7 +1761,7 @@ boolean algebras.›</span></span>
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Representation Theorems for Orderings and Lattices›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Representations
-  <span class=keyword2><span class=keyword>imports</span></span> <a href=Order_Lattice_Props.html>Order_Lattice_Props</a>
+  <span class=keyword2><span class=keyword>imports</span></span> <a href=#Order_Lattice_Props>Order_Lattice_Props</a>
 
 <span class=keyword2><span class=keyword>begin</span></span>
 
@@ -2390,7 +2386,7 @@ setup_lifting type_definition_Fix
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Galois Connections›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Galois_Connections
-  <span class=keyword2><span class=keyword>imports</span></span> <a href=Order_Lattice_Props.html>Order_Lattice_Props</a>
+  <span class=keyword2><span class=keyword>imports</span></span> <a href=#Order_Lattice_Props>Order_Lattice_Props</a>
 
 <span class=keyword2><span class=keyword>begin</span></span>
 
@@ -2632,7 +2628,7 @@ First, left and right adjoints of a Galois connection are defined.›</span></sp
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Fixpoint Fusion›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Fixpoint_Fusion
-  <span class=keyword2><span class=keyword>imports</span></span> <a href=Galois_Connections.html>Galois_Connections</a>
+  <span class=keyword2><span class=keyword>imports</span></span> <a href=#Galois_Connections>Galois_Connections</a>
 
 <span class=keyword2><span class=keyword>begin</span></span>
 
@@ -2783,7 +2779,7 @@ A dual statement for least fixpoints can be proved, but is not spelled out here.
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Closure and Co-Closure Operators›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Closure_Operators
-  <span class=keyword2><span class=keyword>imports</span></span> <a href=Galois_Connections.html>Galois_Connections</a> 
+  <span class=keyword2><span class=keyword>imports</span></span> <a href=#Galois_Connections>Galois_Connections</a> 
 
 <span class=keyword2><span class=keyword>begin</span></span>
 
@@ -3128,7 +3124,7 @@ lattice (with respect to some closure operation) form themselves a complete latt
   <span class=keyword1><span class=command>using</span></span> clop_ext clop_wtrans order.antisym <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
 
 <span class=keyword1 id=Closure_Operators-clop_idem_var><span class=command>lemma</span></span> clop_idem_var <span class=main>[</span><span class=operator>simp</span><span class=main>]</span><span class=main>:</span> <span class=quoted><span class=quoted>"cl_op <span class=main>(</span>cl_op <span class=free>x</span><span class=main>)</span> <span class=main>=</span> cl_op <span class=free>x</span>"</span></span>
-  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> antisym clop_ext clop_wtrans<span class=main>)</span>
+  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> order.antisym clop_ext clop_wtrans<span class=main>)</span>
 
 <span class=keyword1 id=Closure_Operators-clop_range_Fix><span class=command>lemma</span></span> clop_range_Fix<span class=main>:</span> <span class=quoted><span class=quoted>"range cl_op <span class=main>=</span> Fix cl_op"</span></span>
   <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> retraction_prop_fix<span class=main>)</span>
@@ -3297,8 +3293,8 @@ the least complete lattice that contains all Sups and Infs of the underlying pos
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Locale-Based Duality›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Order_Lattice_Props_Loc
-  <span class=keyword2><span class=keyword>imports</span></span> <a href=../../HOL/HOL/Main.html>Main</a> 
-          <span class=quoted>"<a href=../../HOL/HOL-Library/Lattice_Syntax.html>HOL-Library.Lattice_Syntax</a>"</span>
+  <span class=keyword2><span class=keyword>imports</span></span> <a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL/Main.html>Main</a> 
+          <span class=quoted>"<a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL-Library/Lattice_Syntax.html>HOL-Library.Lattice_Syntax</a>"</span>
 
 <span class=keyword2><span class=keyword>begin</span></span>
 
@@ -3576,7 +3572,7 @@ cannot be used for dualising theorems. Examples are properties of  functions bet
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1 id=Order_Lattice_Props_Loc-downset_inj><span class=command>lemma</span></span> downset_inj<span class=main>:</span> <span class=quoted><span class=quoted>"inj <span class=main>↓</span>"</span></span>
-  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> injI downset_iso_iff eq_iff<span class=main>)</span>
+  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> injI downset_iso_iff order.eq_iff<span class=main>)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
 
@@ -3737,7 +3733,7 @@ or locale!›</span></span>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1 id=Order_Lattice_Props_Loc-fSup_unfold><span class=command>lemma</span></span> fSup_unfold<span class=main>:</span> <span class=quoted><span class=quoted>"<span class=main>(</span><span class=free>f</span><span class=main>::</span>nat <span class=main>⇒</span> <span class=tfree>'a</span><span class=main>)</span> <span class=main>0</span> <span class=main>⊔</span> <span class=main>(</span><span class=main>⨆</span><span class=bound>n</span><span class=main>.</span> <span class=free>f</span> <span class=main>(</span>Suc <span class=bound>n</span><span class=main>)</span><span class=main>)</span> <span class=main>=</span> <span class=main>(</span><span class=main>⨆</span><span class=bound>n</span><span class=main>.</span> <span class=free>f</span> <span class=bound>n</span><span class=main>)</span>"</span></span>
-  <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>intro</span> antisym sup_least<span class=main>)</span>
+  <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>intro</span> order.antisym sup_least<span class=main>)</span>
     <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>rule</span> Sup_upper<span class=main><span class=keyword3>,</span></span> <span class=operator>force</span><span class=main>)</span>
    <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>rule</span> Sup_mono<span class=main><span class=keyword3>,</span></span> <span class=operator>force</span><span class=main>)</span>
   <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>safe</span> <span class=quasi_keyword>intro</span><span class=main><span class=main>!</span></span><span class=main><span class=main>:</span></span> Sup_least<span class=main>)</span>
@@ -3745,7 +3741,7 @@ or locale!›</span></span>
 
 
 <span class=keyword1 id=Order_Lattice_Props_Loc-fInf_unfold><span class=command>lemma</span></span> fInf_unfold<span class=main>:</span> <span class=quoted><span class=quoted>"<span class=main>(</span><span class=free>f</span><span class=main>::</span>nat <span class=main>⇒</span> <span class=tfree>'a</span><span class=main>)</span> <span class=main>0</span> <span class=main>⊓</span> <span class=main>(</span><span class=main>⨅</span><span class=bound>n</span><span class=main>.</span> <span class=free>f</span> <span class=main>(</span>Suc <span class=bound>n</span><span class=main>)</span><span class=main>)</span> <span class=main>=</span> <span class=main>(</span><span class=main>⨅</span><span class=bound>n</span><span class=main>.</span> <span class=free>f</span> <span class=bound>n</span><span class=main>)</span>"</span></span>
-  <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>intro</span> antisym inf_greatest<span class=main>)</span>
+  <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>intro</span> order.antisym inf_greatest<span class=main>)</span>
   <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>rule</span> Inf_greatest<span class=main><span class=keyword3>,</span></span> <span class=operator>safe</span><span class=main>)</span>
   <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>case_tac</span> <span class=quoted><span class=improper>n</span></span><span class=main>)</span>
    <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=operator>simp_all</span>
@@ -3871,8 +3867,8 @@ or locale!›</span></span>
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Duality Based on a Data Type›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Order_Lattice_Props_Wenzel
-  <span class=keyword2><span class=keyword>imports</span></span> <a href=../../HOL/HOL/Main.html>Main</a> 
-          <span class=quoted>"<a href=../../HOL/HOL-Library/Lattice_Syntax.html>HOL-Library.Lattice_Syntax</a>"</span>
+  <span class=keyword2><span class=keyword>imports</span></span> <a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL/Main.html>Main</a> 
+          <span class=quoted>"<a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL-Library/Lattice_Syntax.html>HOL-Library.Lattice_Syntax</a>"</span>
 
 <span class=keyword2><span class=keyword>begin</span></span>
 

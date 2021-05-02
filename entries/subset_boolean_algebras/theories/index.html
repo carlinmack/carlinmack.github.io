@@ -8,7 +8,7 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Su
 
 <span class=keyword1><span class=command>theory</span></span> Subset_Boolean_Algebras
 
-<span class=keyword2><span class=keyword>imports</span></span> <a href=../Stone_Algebras/P_Algebras.html>Stone_Algebras.P_Algebras</a>
+<span class=keyword2><span class=keyword>imports</span></span> <a href=../../stone_algebras/theories/#P_Algebras>Stone_Algebras.P_Algebras</a>
 
 <span class=keyword2><span class=keyword>begin</span></span>
 
@@ -1729,7 +1729,7 @@ Some variants have been implemented in \cite{GomesGuttmannHoefnerStruthWeber2016
 
 <span class=keyword1 id=Subset_Boolean_Algebras-neg_unique><span class=command>lemma</span></span> neg_unique<span class=main>:</span>
   <span class=quoted><span class=quoted>"are_complementary <span class=free>x</span> <span class=free>y</span> <span class=main>⟹</span> are_complementary <span class=free>x</span> <span class=free>z</span> <span class=main>⟹</span> <span class=free>y</span> <span class=main>=</span> <span class=free>z</span>"</span></span>
-  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> antisym il_inf_left_unit il_inf_right_dist_sup il_inf_right_unit il_sub_inf_right_isotone_var<span class=main>)</span>
+  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> order.antisym il_inf_left_unit il_inf_right_dist_sup il_inf_right_unit il_sub_inf_right_isotone_var<span class=main>)</span>
 
 <span class=keyword1><span class=command>definition</span></span> <span class=entity>neg</span> <span class=main>::</span> <span class=quoted><span class=quoted>"<span class=tfree>'a</span> <span class=main>⇒</span> <span class=tfree>'a</span>"</span></span> <span class=main>(</span><span class=quoted>"<span class=keyword1>!</span>"</span><span class=main>)</span>
   <span class=keyword2><span class=keyword>where</span></span> <span class=quoted><span class=quoted>"<span class=main><span class=free>!</span></span><span class=free><span class=bound><span class=entity>x</span></span></span> <span class=main>≡</span> <span class=keyword1>THE</span> <span class=bound>y</span> <span class=main>.</span> are_complementary <span class=free><span class=bound><span class=entity>x</span></span></span> <span class=bound>y</span>"</span></span>
@@ -1811,7 +1811,7 @@ Some variants have been implemented in \cite{GomesGuttmannHoefnerStruthWeber2016
 
 <span class=keyword1 id=Subset_Boolean_Algebras-test_inf_commutative><span class=command>lemma</span></span> test_inf_commutative<span class=main>:</span>
   <span class=quoted><span class=quoted>"test <span class=free>x</span> <span class=main>⟹</span> test <span class=free>y</span> <span class=main>⟹</span> <span class=free>x</span> <span class=main>⊓</span> <span class=free>y</span> <span class=main>=</span> <span class=free>y</span> <span class=main>⊓</span> <span class=free>x</span>"</span></span>
-  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> antisym test_inf_semicommutative<span class=main>)</span>
+  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> order.antisym test_inf_semicommutative<span class=main>)</span>
 
 <span class=keyword1 id=Subset_Boolean_Algebras-test_inf_bot><span class=command>lemma</span></span> test_inf_bot<span class=main>:</span>
   <span class=quoted><span class=quoted>"test <span class=free>x</span> <span class=main>⟹</span> <span class=free>x</span> <span class=main>⊓</span> bot <span class=main>=</span> bot"</span></span>
@@ -1827,7 +1827,7 @@ Some variants have been implemented in \cite{GomesGuttmannHoefnerStruthWeber2016
 
 <span class=keyword1 id=Subset_Boolean_Algebras-test_absorb_3><span class=command>lemma</span></span> test_absorb_3<span class=main>:</span>
   <span class=quoted><span class=quoted>"test <span class=free>x</span> <span class=main>⟹</span> test <span class=free>y</span> <span class=main>⟹</span> <span class=free>x</span> <span class=main>⊓</span> <span class=main>(</span><span class=free>x</span> <span class=main>⊔</span> <span class=free>y</span><span class=main>)</span> <span class=main>=</span> <span class=free>x</span>"</span></span>
-  <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>rule</span> antisym<span class=main>)</span>
+  <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>rule</span> order.antisym<span class=main>)</span>
   <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>metis</span> il_associative il_inf_right_unit il_less_eq il_sub_inf_right_isotone test_sub_identity<span class=main>)</span>
   <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> il_sub_inf_right_isotone_var test_absorb_1 test_inf_idempotent<span class=main>)</span>
 
@@ -1975,7 +1975,7 @@ Some variants have been implemented in \cite{GomesGuttmannHoefnerStruthWeber2016
       <span class=keyword2><span class=keyword>and</span></span> <span class=quoted><span class=quoted>"test <span class=free>y</span>"</span></span>
       <span class=keyword2><span class=keyword>and</span></span> <span class=quoted><span class=quoted>"test <span class=main>(</span><span class=free>x</span> <span class=main>⊓</span> <span class=free>y</span><span class=main>)</span>"</span></span>
     <span class=keyword2><span class=keyword>shows</span></span> <span class=quoted><span class=quoted>"<span class=main>!</span><span class=main>(</span><span class=free>x</span> <span class=main>⊓</span> <span class=free>y</span><span class=main>)</span> <span class=main>=</span> <span class=main>!</span><span class=free>x</span> <span class=main>⊔</span> <span class=main>!</span><span class=free>y</span>"</span></span>
-<span class=keyword1><span class=command>proof</span></span> <span class=main>(</span><span class=operator>rule</span> antisym<span class=main>)</span>
+<span class=keyword1><span class=command>proof</span></span> <span class=main>(</span><span class=operator>rule</span> order.antisym<span class=main>)</span>
   <span class=keyword1><span class=command>have</span></span> 1<span class=main>:</span> <span class=quoted><span class=quoted>"test <span class=main>(</span><span class=main>!</span><span class=main>(</span><span class=free>x</span> <span class=main>⊓</span> <span class=free>y</span><span class=main>)</span><span class=main>)</span>"</span></span>
     <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> assms neg_test<span class=main>)</span>
   <span class=keyword1><span class=command>have</span></span> <span class=quoted><span class=quoted>"<span class=free>x</span> <span class=main>≤</span> <span class=main>(</span><span class=free>x</span> <span class=main>⊓</span> <span class=free>y</span><span class=main>)</span> <span class=main>⊔</span> <span class=main>!</span><span class=free>y</span>"</span></span>
@@ -1999,7 +1999,7 @@ Some variants have been implemented in \cite{GomesGuttmannHoefnerStruthWeber2016
       <span class=keyword2><span class=keyword>and</span></span> <span class=quoted><span class=quoted>"test <span class=free>y</span>"</span></span>
       <span class=keyword2><span class=keyword>and</span></span> <span class=quoted><span class=quoted>"test <span class=main>(</span><span class=free>x</span> <span class=main>⊔</span> <span class=free>y</span><span class=main>)</span>"</span></span>
     <span class=keyword2><span class=keyword>shows</span></span> <span class=quoted><span class=quoted>"<span class=main>!</span><span class=main>(</span><span class=free>x</span> <span class=main>⊔</span> <span class=free>y</span><span class=main>)</span> <span class=main>=</span> <span class=main>!</span><span class=free>x</span> <span class=main>⊓</span> <span class=main>!</span><span class=free>y</span>"</span></span>
-<span class=keyword1><span class=command>proof</span></span> <span class=main>(</span><span class=operator>rule</span> antisym<span class=main>)</span>
+<span class=keyword1><span class=command>proof</span></span> <span class=main>(</span><span class=operator>rule</span> order.antisym<span class=main>)</span>
   <span class=keyword1><span class=command>have</span></span> 1<span class=main>:</span> <span class=quoted><span class=quoted>"<span class=main>!</span><span class=main>(</span><span class=free>x</span> <span class=main>⊔</span> <span class=free>y</span><span class=main>)</span> <span class=main>≤</span> <span class=main>!</span><span class=free>x</span>"</span></span>
     <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> assms il_inf_left_unit il_sub_inf_left_isotone neg_antitone test_absorb_3 test_sub_identity<span class=main>)</span>
   <span class=keyword1><span class=command>have</span></span> <span class=quoted><span class=quoted>"<span class=main>!</span><span class=main>(</span><span class=free>x</span> <span class=main>⊔</span> <span class=free>y</span><span class=main>)</span> <span class=main>≤</span> <span class=main>!</span><span class=free>y</span>"</span></span>
@@ -2102,7 +2102,7 @@ Some variants have been implemented in \cite{GomesGuttmannHoefnerStruthWeber2016
 
 <span class=keyword1 id=Subset_Boolean_Algebras-test_d_fixpoint><span class=command>lemma</span></span> test_d_fixpoint<span class=main>:</span>
   <span class=quoted><span class=quoted>"test <span class=free>x</span> <span class=main>⟹</span> d <span class=free>x</span> <span class=main>=</span> <span class=free>x</span>"</span></span>
-  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> antisym d1_eq d2 test_inf_idempotent test_inf_right_below<span class=main>)</span>
+  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> order.antisym d1_eq d2 test_inf_idempotent test_inf_right_below<span class=main>)</span>
 
 <span class=keyword1 id=Subset_Boolean_Algebras-d_surjective><span class=command>lemma</span></span> d_surjective<span class=main>:</span>
   <span class=quoted><span class=quoted>"test <span class=free>x</span> <span class=main>⟹</span> <span class=main>∃</span><span class=bound>y</span> <span class=main>.</span> d <span class=bound>y</span> <span class=main>=</span> <span class=free>x</span>"</span></span>
@@ -2123,7 +2123,7 @@ Some variants have been implemented in \cite{GomesGuttmannHoefnerStruthWeber2016
 <span class=keyword1 id=Subset_Boolean_Algebras-llp><span class=command>lemma</span></span> llp<span class=main>:</span>
   <span class=keyword2><span class=keyword>assumes</span></span> <span class=quoted><span class=quoted>"test <span class=free>y</span>"</span></span>
     <span class=keyword2><span class=keyword>shows</span></span> <span class=quoted><span class=quoted>"d <span class=free>x</span> <span class=main>≤</span> <span class=free>y</span> <span class=main>⟷</span> <span class=free>x</span> <span class=main>≤</span> <span class=free>y</span> <span class=main>⊓</span> <span class=free>x</span>"</span></span>
-  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> assms d1_eq d2 eq_iff il_sub_inf_left_isotone test_inf_left_below<span class=main>)</span>
+  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> assms d1_eq d2 order.eq_iff il_sub_inf_left_isotone test_inf_left_below<span class=main>)</span>
 
 <span class=keyword1 id=Subset_Boolean_Algebras-gla><span class=command>lemma</span></span> gla<span class=main>:</span>
   <span class=keyword2><span class=keyword>assumes</span></span> <span class=quoted><span class=quoted>"test <span class=free>y</span>"</span></span>
@@ -2209,7 +2209,7 @@ Some variants have been implemented in \cite{GomesGuttmannHoefnerStruthWeber2016
   <span class=keyword2><span class=keyword>assumes</span></span> <span class=quoted><span class=quoted>"test <span class=free>x</span>"</span></span>
       <span class=keyword2><span class=keyword>and</span></span> <span class=quoted><span class=quoted>"test <span class=free>y</span>"</span></span>
     <span class=keyword2><span class=keyword>shows</span></span> <span class=quoted><span class=quoted>"d <span class=main>(</span><span class=free>x</span> <span class=main>⊓</span> <span class=free>y</span><span class=main>)</span> <span class=main>=</span> <span class=free>x</span> <span class=main>⊓</span> <span class=free>y</span>"</span></span>
-<span class=keyword1><span class=command>proof</span></span> <span class=main>(</span><span class=operator>rule</span> antisym<span class=main>)</span>
+<span class=keyword1><span class=command>proof</span></span> <span class=main>(</span><span class=operator>rule</span> order.antisym<span class=main>)</span>
   <span class=keyword1><span class=command>have</span></span> <span class=quoted><span class=quoted>"d <span class=main>(</span><span class=free>x</span> <span class=main>⊓</span> <span class=free>y</span><span class=main>)</span> <span class=main>=</span> d <span class=main>(</span><span class=free>x</span> <span class=main>⊓</span> <span class=free>y</span><span class=main>)</span> <span class=main>⊓</span> d <span class=main>(</span><span class=free>x</span> <span class=main>⊓</span> <span class=free>y</span><span class=main>)</span>"</span></span>
     <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> d_test_inf_idempotent<span class=main>)</span>
   <span class=keyword1><span class=command>also</span></span> <span class=keyword1><span class=command>have</span></span> <span class=quoted><span class=quoted>"<span class=main>...</span> <span class=main>≤</span> <span class=free>x</span> <span class=main>⊓</span> d <span class=main>(</span><span class=free>x</span> <span class=main>⊓</span> <span class=free>y</span><span class=main>)</span>"</span></span>
@@ -2233,7 +2233,7 @@ Some variants have been implemented in \cite{GomesGuttmannHoefnerStruthWeber2016
 <span class=keyword1 id=Subset_Boolean_Algebras-d_export><span class=command>lemma</span></span> d_export<span class=main>:</span>
   <span class=keyword2><span class=keyword>assumes</span></span> <span class=quoted><span class=quoted>"test <span class=free>x</span>"</span></span>
     <span class=keyword2><span class=keyword>shows</span></span> <span class=quoted><span class=quoted>"d <span class=main>(</span><span class=free>x</span> <span class=main>⊓</span> <span class=free>y</span><span class=main>)</span> <span class=main>=</span> <span class=free>x</span> <span class=main>⊓</span> d <span class=free>y</span>"</span></span>
-<span class=keyword1><span class=command>proof</span></span> <span class=main>(</span><span class=operator>rule</span> antisym<span class=main>)</span>
+<span class=keyword1><span class=command>proof</span></span> <span class=main>(</span><span class=operator>rule</span> order.antisym<span class=main>)</span>
   <span class=keyword1><span class=command>have</span></span> 1<span class=main>:</span> <span class=quoted><span class=quoted>"d <span class=main>(</span><span class=free>x</span> <span class=main>⊓</span> <span class=free>y</span><span class=main>)</span> <span class=main>≤</span> <span class=free>x</span>"</span></span>
     <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> assms d2<span class=main>)</span>
   <span class=keyword1><span class=command>have</span></span> <span class=quoted><span class=quoted>"d <span class=main>(</span><span class=free>x</span> <span class=main>⊓</span> <span class=free>y</span><span class=main>)</span> <span class=main>≤</span> d <span class=free>y</span>"</span></span>
@@ -2311,7 +2311,7 @@ Some variants have been implemented in \cite{GomesGuttmannHoefnerStruthWeber2016
 
 <span class=keyword1 id=Subset_Boolean_Algebras-d_dist_sup><span class=command>lemma</span></span> d_dist_sup<span class=main>:</span>
   <span class=quoted><span class=quoted>"d <span class=main>(</span><span class=free>x</span> <span class=main>⊔</span> <span class=free>y</span><span class=main>)</span> <span class=main>=</span> d <span class=free>x</span> <span class=main>⊔</span> d <span class=free>y</span>"</span></span>
-<span class=keyword1><span class=command>proof</span></span> <span class=main>(</span><span class=operator>rule</span> antisym<span class=main>)</span>
+<span class=keyword1><span class=command>proof</span></span> <span class=main>(</span><span class=operator>rule</span> order.antisym<span class=main>)</span>
   <span class=keyword1><span class=command>have</span></span> <span class=quoted><span class=quoted>"<span class=free>x</span> <span class=main>≤</span> d <span class=free>x</span> <span class=main>⊓</span> <span class=free>x</span>"</span></span>
     <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> d1<span class=main>)</span>
   <span class=keyword1><span class=command>also</span></span> <span class=keyword1><span class=command>have</span></span> <span class=quoted><span class=quoted>"<span class=main>...</span> <span class=main>≤</span> <span class=main>(</span>d <span class=free>x</span> <span class=main>⊔</span> d <span class=free>y</span><span class=main>)</span> <span class=main>⊓</span> <span class=main>(</span><span class=free>x</span> <span class=main>⊔</span> <span class=free>y</span><span class=main>)</span>"</span></span>
@@ -2350,7 +2350,7 @@ Some variants have been implemented in \cite{GomesGuttmannHoefnerStruthWeber2016
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1 id=Subset_Boolean_Algebras-d3_eq><span class=command>lemma</span></span> d3_eq<span class=main>:</span> <span class=quoted><span class=quoted>"d <span class=main>(</span><span class=free>x</span> <span class=main>⊓</span> d <span class=free>y</span><span class=main>)</span> <span class=main>=</span> d <span class=main>(</span><span class=free>x</span> <span class=main>⊓</span> <span class=free>y</span><span class=main>)</span>"</span></span>
-  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> antisym d3 d3_conv<span class=main>)</span>
+  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> order.antisym d3 d3_conv<span class=main>)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
 
@@ -2464,7 +2464,7 @@ See \cite{DesharnaisStruth2008b,DesharnaisStruth2008a,DesharnaisStruth2011} for 
 
 <span class=keyword1 id=Subset_Boolean_Algebras-l4><span class=command>lemma</span></span> l4<span class=main>:</span>
   <span class=quoted><span class=quoted>"<span class=main>-</span><span class=main>-</span><span class=main>-</span><span class=free>x</span> <span class=main>=</span> <span class=main>-</span><span class=free>x</span>"</span></span>
-  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> l5 a_inf_complement_bot a_stone antisym bot_least il_inf_left_unit il_inf_right_dist_sup il_inf_right_unit il_sub_inf_right_isotone il_unit_bot<span class=main>)</span>
+  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> l5 a_inf_complement_bot a_stone order.antisym bot_least il_inf_left_unit il_inf_right_dist_sup il_inf_right_unit il_sub_inf_right_isotone il_unit_bot<span class=main>)</span>
 
 <span class=keyword1 id=Subset_Boolean_Algebras-l6><span class=command>lemma</span></span> l6<span class=main>:</span>
   <span class=quoted><span class=quoted>"<span class=main>-</span><span class=free>x</span> <span class=main>⊓</span> <span class=main>-</span><span class=main>-</span><span class=free>x</span> <span class=main>=</span> bot"</span></span>
@@ -3462,7 +3462,7 @@ lemma "- x ⊔ - y = - - (- x ⊔ - y)" nitpick [card=8, expect=genuine] oops
 
 <span class=keyword1 id=Subset_Boolean_Algebras-l17><span class=command>lemma</span></span> l17<span class=main>:</span>
   <span class=quoted><span class=quoted>"<span class=main>-</span><span class=main>(</span><span class=free>x</span> <span class=main>⊓</span> <span class=free>y</span><span class=main>)</span> <span class=main>=</span> <span class=main>-</span><span class=main>(</span><span class=free>x</span> <span class=main>⊓</span> <span class=main>-</span><span class=main>-</span><span class=free>y</span><span class=main>)</span>"</span></span>
-  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> ad3 antisym l14<span class=main>)</span>
+  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> ad3 order.antisym l14<span class=main>)</span>
 
 <span class=keyword1 id=Subset_Boolean_Algebras-a_complement_inf_double_complement><span class=command>lemma</span></span> a_complement_inf_double_complement<span class=main>:</span>
   <span class=quoted><span class=quoted>"<span class=main>-</span><span class=main>(</span><span class=free>x</span> <span class=main>⊓</span> <span class=main>-</span><span class=main>-</span><span class=free>y</span><span class=main>)</span> <span class=main>=</span> <span class=main>-</span><span class=main>(</span><span class=free>x</span> <span class=main>⊓</span> <span class=free>y</span><span class=main>)</span>"</span></span>

@@ -31,7 +31,7 @@ We have applied results from this theory in \cite{Guttmann2012c} and subsequent 
 
 <span class=keyword1><span class=command>theory</span></span> Fixpoints
 
-<span class=keyword2><span class=keyword>imports</span></span> <a href=../Stone_Algebras/Lattice_Basics.html>Stone_Algebras.Lattice_Basics</a>
+<span class=keyword2><span class=keyword>imports</span></span> <a href=../../stone_algebras/theories/#Lattice_Basics>Stone_Algebras.Lattice_Basics</a>
 
 <span class=keyword2><span class=keyword>begin</span></span>
 
@@ -81,19 +81,19 @@ We start with basic consequences of the above definitions.
 
 <span class=keyword1 id=Fixpoints-least_fixpoint_unique><span class=command>lemma</span></span> least_fixpoint_unique<span class=main>:</span>
   <span class=quoted><span class=quoted>"has_least_fixpoint <span class=free>f</span> <span class=main>⟹</span> <span class=main>∃!</span><span class=bound>x</span> <span class=main>.</span> is_least_fixpoint <span class=free>f</span> <span class=bound>x</span>"</span></span>
-  <span class=keyword1><span class=command>using</span></span> has_least_fixpoint_def is_least_fixpoint_def antisym <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
+  <span class=keyword1><span class=command>using</span></span> has_least_fixpoint_def is_least_fixpoint_def order.antisym <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
 
 <span class=keyword1 id=Fixpoints-greatest_fixpoint_unique><span class=command>lemma</span></span> greatest_fixpoint_unique<span class=main>:</span>
   <span class=quoted><span class=quoted>"has_greatest_fixpoint <span class=free>f</span> <span class=main>⟹</span> <span class=main>∃!</span><span class=bound>x</span> <span class=main>.</span> is_greatest_fixpoint <span class=free>f</span> <span class=bound>x</span>"</span></span>
-  <span class=keyword1><span class=command>using</span></span> has_greatest_fixpoint_def is_greatest_fixpoint_def antisym <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
+  <span class=keyword1><span class=command>using</span></span> has_greatest_fixpoint_def is_greatest_fixpoint_def order.antisym <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
 
 <span class=keyword1 id=Fixpoints-least_prefixpoint_unique><span class=command>lemma</span></span> least_prefixpoint_unique<span class=main>:</span>
   <span class=quoted><span class=quoted>"has_least_prefixpoint <span class=free>f</span> <span class=main>⟹</span> <span class=main>∃!</span><span class=bound>x</span> <span class=main>.</span> is_least_prefixpoint <span class=free>f</span> <span class=bound>x</span>"</span></span>
-  <span class=keyword1><span class=command>using</span></span> has_least_prefixpoint_def is_least_prefixpoint_def antisym <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
+  <span class=keyword1><span class=command>using</span></span> has_least_prefixpoint_def is_least_prefixpoint_def order.antisym <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
 
 <span class=keyword1 id=Fixpoints-greatest_postfixpoint_unique><span class=command>lemma</span></span> greatest_postfixpoint_unique<span class=main>:</span>
   <span class=quoted><span class=quoted>"has_greatest_postfixpoint <span class=free>f</span> <span class=main>⟹</span> <span class=main>∃!</span><span class=bound>x</span> <span class=main>.</span> is_greatest_postfixpoint <span class=free>f</span> <span class=bound>x</span>"</span></span>
-  <span class=keyword1><span class=command>using</span></span> has_greatest_postfixpoint_def is_greatest_postfixpoint_def antisym <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
+  <span class=keyword1><span class=command>using</span></span> has_greatest_postfixpoint_def is_greatest_postfixpoint_def order.antisym <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
 
 <span class=keyword1 id=Fixpoints-least_fixpoint><span class=command>lemma</span></span> least_fixpoint<span class=main>:</span>
   <span class=quoted><span class=quoted>"has_least_fixpoint <span class=free>f</span> <span class=main>⟹</span> is_least_fixpoint <span class=free>f</span> <span class=main>(</span><span class=keyword1>μ</span> <span class=free>f</span><span class=main>)</span>"</span></span>
@@ -113,7 +113,7 @@ We start with basic consequences of the above definitions.
 
 <span class=keyword1 id=Fixpoints-least_fixpoint_same><span class=command>lemma</span></span> least_fixpoint_same<span class=main>:</span>
   <span class=quoted><span class=quoted>"is_least_fixpoint <span class=free>f</span> <span class=free>x</span> <span class=main>⟹</span> <span class=free>x</span> <span class=main>=</span> <span class=keyword1>μ</span> <span class=free>f</span>"</span></span>
-  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> is_least_fixpoint_def antisym the_equality the_least_fixpoint_def<span class=main>)</span>
+  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> is_least_fixpoint_def order.antisym the_equality the_least_fixpoint_def<span class=main>)</span>
 
 <span class=keyword1 id=Fixpoints-greatest_fixpoint_same><span class=command>lemma</span></span> greatest_fixpoint_same<span class=main>:</span>
   <span class=quoted><span class=quoted>"is_greatest_fixpoint <span class=free>f</span> <span class=free>x</span> <span class=main>⟹</span> <span class=free>x</span> <span class=main>=</span> <span class=keyword1>ν</span> <span class=free>f</span>"</span></span>
@@ -169,7 +169,7 @@ Pre-/postfixpoints of isotone functions are fixpoints.
 
 <span class=keyword1 id=Fixpoints-least_prefixpoint_fixpoint><span class=command>lemma</span></span> least_prefixpoint_fixpoint<span class=main>:</span>
   <span class=quoted><span class=quoted>"has_least_prefixpoint <span class=free>f</span> <span class=main>⟹</span> isotone <span class=free>f</span> <span class=main>⟹</span> is_least_fixpoint <span class=free>f</span> <span class=main>(</span><span class=keyword1>pμ</span> <span class=free>f</span><span class=main>)</span>"</span></span>
-  <span class=keyword1><span class=command>using</span></span> is_least_fixpoint_def is_least_prefixpoint_def least_prefixpoint antisym isotone_def <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
+  <span class=keyword1><span class=command>using</span></span> is_least_fixpoint_def is_least_prefixpoint_def least_prefixpoint order.antisym isotone_def <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
 
 <span class=keyword1 id=Fixpoints-pmu_mu><span class=command>lemma</span></span> pmu_mu<span class=main>:</span>
   <span class=quoted><span class=quoted>"has_least_prefixpoint <span class=free>f</span> <span class=main>⟹</span> isotone <span class=free>f</span> <span class=main>⟹</span> <span class=keyword1>pμ</span> <span class=free>f</span> <span class=main>=</span> <span class=keyword1>μ</span> <span class=free>f</span>"</span></span>
@@ -177,7 +177,7 @@ Pre-/postfixpoints of isotone functions are fixpoints.
 
 <span class=keyword1 id=Fixpoints-greatest_postfixpoint_fixpoint><span class=command>lemma</span></span> greatest_postfixpoint_fixpoint<span class=main>:</span>
   <span class=quoted><span class=quoted>"has_greatest_postfixpoint <span class=free>f</span> <span class=main>⟹</span> isotone <span class=free>f</span> <span class=main>⟹</span> is_greatest_fixpoint <span class=free>f</span> <span class=main>(</span><span class=keyword1>pν</span> <span class=free>f</span><span class=main>)</span>"</span></span>
-  <span class=keyword1><span class=command>using</span></span> greatest_postfixpoint is_greatest_fixpoint_def is_greatest_postfixpoint_def antisym isotone_def <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
+  <span class=keyword1><span class=command>using</span></span> greatest_postfixpoint is_greatest_fixpoint_def is_greatest_postfixpoint_def order.antisym isotone_def <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
 
 <span class=keyword1 id=Fixpoints-pnu_nu><span class=command>lemma</span></span> pnu_nu<span class=main>:</span>
   <span class=quoted><span class=quoted>"has_greatest_postfixpoint <span class=free>f</span> <span class=main>⟹</span> isotone <span class=free>f</span> <span class=main>⟹</span> <span class=keyword1>pν</span> <span class=free>f</span> <span class=main>=</span> <span class=keyword1>ν</span> <span class=free>f</span>"</span></span>
@@ -209,11 +209,11 @@ The square rule for fixpoints of a function applied twice.
 
 <span class=keyword1 id=Fixpoints-mu_square><span class=command>lemma</span></span> mu_square<span class=main>:</span>
   <span class=quoted><span class=quoted>"isotone <span class=free>f</span> <span class=main>⟹</span> has_least_fixpoint <span class=free>f</span> <span class=main>⟹</span> has_least_fixpoint <span class=main>(</span><span class=free>f</span> <span class=main>∘</span> <span class=free>f</span><span class=main>)</span> <span class=main>⟹</span> <span class=keyword1>μ</span> <span class=free>f</span> <span class=main>=</span> <span class=keyword1>μ</span> <span class=main>(</span><span class=free>f</span> <span class=main>∘</span> <span class=free>f</span><span class=main>)</span>"</span></span>
-  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> <span class=main><span class=main>(</span></span>no_types<span class=main><span class=main>,</span></span> hide_lams<span class=main><span class=main>)</span></span> antisym is_least_fixpoint_def isotone_def least_fixpoint_char least_fixpoint_unique o_apply<span class=main>)</span>
+  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> <span class=main><span class=main>(</span></span>no_types<span class=main><span class=main>,</span></span> hide_lams<span class=main><span class=main>)</span></span> order.antisym is_least_fixpoint_def isotone_def least_fixpoint_char least_fixpoint_unique o_apply<span class=main>)</span>
 
 <span class=keyword1 id=Fixpoints-nu_square><span class=command>lemma</span></span> nu_square<span class=main>:</span>
   <span class=quoted><span class=quoted>"isotone <span class=free>f</span> <span class=main>⟹</span> has_greatest_fixpoint <span class=free>f</span> <span class=main>⟹</span> has_greatest_fixpoint <span class=main>(</span><span class=free>f</span> <span class=main>∘</span> <span class=free>f</span><span class=main>)</span> <span class=main>⟹</span> <span class=keyword1>ν</span> <span class=free>f</span> <span class=main>=</span> <span class=keyword1>ν</span> <span class=main>(</span><span class=free>f</span> <span class=main>∘</span> <span class=free>f</span><span class=main>)</span>"</span></span>
-  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> <span class=main><span class=main>(</span></span>no_types<span class=main><span class=main>,</span></span> hide_lams<span class=main><span class=main>)</span></span> antisym is_greatest_fixpoint_def isotone_def greatest_fixpoint_char greatest_fixpoint_unique o_apply<span class=main>)</span>
+  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> <span class=main><span class=main>(</span></span>no_types<span class=main><span class=main>,</span></span> hide_lams<span class=main><span class=main>)</span></span> order.antisym is_greatest_fixpoint_def isotone_def greatest_fixpoint_char greatest_fixpoint_unique o_apply<span class=main>)</span>
 
 <span class=keyword1><span class=command>text</span></span> <span class=quoted><span class=plain_text>‹
 The rolling rule for fixpoints of the composition of two functions.
@@ -224,7 +224,7 @@ The rolling rule for fixpoints of the composition of two functions.
       <span class=keyword2><span class=keyword>and</span></span> <span class=quoted><span class=quoted>"has_least_fixpoint <span class=main>(</span><span class=free>f</span> <span class=main>∘</span> <span class=free>g</span><span class=main>)</span>"</span></span>
       <span class=keyword2><span class=keyword>and</span></span> <span class=quoted><span class=quoted>"has_least_fixpoint <span class=main>(</span><span class=free>g</span> <span class=main>∘</span> <span class=free>f</span><span class=main>)</span>"</span></span>
     <span class=keyword2><span class=keyword>shows</span></span> <span class=quoted><span class=quoted>"<span class=keyword1>μ</span> <span class=main>(</span><span class=free>g</span> <span class=main>∘</span> <span class=free>f</span><span class=main>)</span> <span class=main>=</span> <span class=free>g</span> <span class=main>(</span><span class=keyword1>μ</span> <span class=main>(</span><span class=free>f</span> <span class=main>∘</span> <span class=free>g</span><span class=main>)</span><span class=main>)</span>"</span></span>
-<span class=keyword1><span class=command>proof</span></span> <span class=main>(</span><span class=operator>rule</span> antisym<span class=main>)</span>
+<span class=keyword1><span class=command>proof</span></span> <span class=main>(</span><span class=operator>rule</span> order.antisym<span class=main>)</span>
   <span class=keyword3><span class=command>show</span></span> <span class=quoted><span class=quoted>"<span class=keyword1>μ</span> <span class=main>(</span><span class=free>g</span> <span class=main>∘</span> <span class=free>f</span><span class=main>)</span> <span class=main>≤</span> <span class=free>g</span> <span class=main>(</span><span class=keyword1>μ</span> <span class=main>(</span><span class=free>f</span> <span class=main>∘</span> <span class=free>g</span><span class=main>)</span><span class=main>)</span>"</span></span>
     <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> assms<span class=main><span class=main>(</span></span>2-3<span class=main><span class=main>)</span></span> comp_apply is_least_fixpoint_def least_fixpoint<span class=main>)</span>
 <span class=keyword1><span class=command>next</span></span>
@@ -239,7 +239,7 @@ The rolling rule for fixpoints of the composition of two functions.
       <span class=keyword2><span class=keyword>and</span></span> <span class=quoted><span class=quoted>"has_greatest_fixpoint <span class=main>(</span><span class=free>f</span> <span class=main>∘</span> <span class=free>g</span><span class=main>)</span>"</span></span>
       <span class=keyword2><span class=keyword>and</span></span> <span class=quoted><span class=quoted>"has_greatest_fixpoint <span class=main>(</span><span class=free>g</span> <span class=main>∘</span> <span class=free>f</span><span class=main>)</span>"</span></span>
     <span class=keyword2><span class=keyword>shows</span></span> <span class=quoted><span class=quoted>"<span class=keyword1>ν</span> <span class=main>(</span><span class=free>g</span> <span class=main>∘</span> <span class=free>f</span><span class=main>)</span> <span class=main>=</span> <span class=free>g</span> <span class=main>(</span><span class=keyword1>ν</span> <span class=main>(</span><span class=free>f</span> <span class=main>∘</span> <span class=free>g</span><span class=main>)</span><span class=main>)</span>"</span></span>
-<span class=keyword1><span class=command>proof</span></span> <span class=main>(</span><span class=operator>rule</span> antisym<span class=main>)</span>
+<span class=keyword1><span class=command>proof</span></span> <span class=main>(</span><span class=operator>rule</span> order.antisym<span class=main>)</span>
   <span class=keyword1><span class=command>have</span></span> 1<span class=main>:</span> <span class=quoted><span class=quoted>"is_greatest_fixpoint <span class=main>(</span><span class=free>f</span> <span class=main>∘</span> <span class=free>g</span><span class=main>)</span> <span class=main>(</span><span class=keyword1>ν</span> <span class=main>(</span><span class=free>f</span> <span class=main>∘</span> <span class=free>g</span><span class=main>)</span><span class=main>)</span>"</span></span>
     <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> assms<span class=main><span class=main>(</span></span>2<span class=main><span class=main>)</span></span> greatest_fixpoint<span class=main>)</span>
   <span class=keyword1><span class=command>have</span></span> <span class=quoted><span class=quoted>"is_greatest_fixpoint <span class=main>(</span><span class=free>g</span> <span class=main>∘</span> <span class=free>f</span><span class=main>)</span> <span class=main>(</span><span class=keyword1>ν</span> <span class=main>(</span><span class=free>g</span> <span class=main>∘</span> <span class=free>f</span><span class=main>)</span><span class=main>)</span>"</span></span>
@@ -291,11 +291,11 @@ Several variants of the fusion rule for fixpoints follow.
 
 <span class=keyword1 id=Fixpoints-mu_fusion_equal_1><span class=command>lemma</span></span> mu_fusion_equal_1<span class=main>:</span>
   <span class=quoted><span class=quoted>"galois <span class=free>l</span> <span class=free>u</span> <span class=main>⟹</span> isotone <span class=free>g</span> <span class=main>⟹</span> isotone <span class=free>h</span> <span class=main>⟹</span> has_least_prefixpoint <span class=free>g</span> <span class=main>⟹</span> has_least_fixpoint <span class=free>h</span> <span class=main>⟹</span> <span class=free>l</span> <span class=main>(</span><span class=free>g</span> <span class=main>(</span><span class=free>u</span> <span class=main>(</span><span class=keyword1>μ</span> <span class=free>h</span><span class=main>)</span><span class=main>)</span><span class=main>)</span> <span class=main>≤</span> <span class=free>h</span><span class=main>(</span><span class=free>l</span><span class=main>(</span><span class=free>u</span><span class=main>(</span><span class=keyword1>μ</span> <span class=free>h</span><span class=main>)</span><span class=main>)</span><span class=main>)</span> <span class=main>⟹</span> <span class=free>l</span> <span class=main>(</span><span class=free>g</span> <span class=main>(</span><span class=keyword1>pμ</span> <span class=free>g</span><span class=main>)</span><span class=main>)</span> <span class=main>=</span> <span class=free>h</span> <span class=main>(</span><span class=free>l</span> <span class=main>(</span><span class=keyword1>pμ</span> <span class=free>g</span><span class=main>)</span><span class=main>)</span> <span class=main>⟹</span> <span class=keyword1>μ</span> <span class=free>h</span> <span class=main>=</span> <span class=free>l</span> <span class=main>(</span><span class=keyword1>pμ</span> <span class=free>g</span><span class=main>)</span> <span class=main>∧</span> <span class=keyword1>μ</span> <span class=free>h</span> <span class=main>=</span> <span class=free>l</span> <span class=main>(</span><span class=keyword1>μ</span> <span class=free>g</span><span class=main>)</span>"</span></span>
-  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> antisym least_fixpoint least_prefixpoint_fixpoint is_least_fixpoint_def mu_fusion_1 pmu_mu<span class=main>)</span>
+  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> order.antisym least_fixpoint least_prefixpoint_fixpoint is_least_fixpoint_def mu_fusion_1 pmu_mu<span class=main>)</span>
 
 <span class=keyword1 id=Fixpoints-mu_fusion_equal_2><span class=command>lemma</span></span> mu_fusion_equal_2<span class=main>:</span>
   <span class=quoted><span class=quoted>"galois <span class=free>l</span> <span class=free>u</span> <span class=main>⟹</span> isotone <span class=free>h</span> <span class=main>⟹</span> has_least_prefixpoint <span class=free>g</span> <span class=main>⟹</span> has_least_prefixpoint <span class=free>h</span> <span class=main>⟹</span> <span class=free>l</span> <span class=main>(</span><span class=free>g</span> <span class=main>(</span><span class=free>u</span> <span class=main>(</span><span class=keyword1>μ</span> <span class=free>h</span><span class=main>)</span><span class=main>)</span><span class=main>)</span> <span class=main>≤</span> <span class=free>h</span> <span class=main>(</span><span class=free>l</span> <span class=main>(</span><span class=free>u</span> <span class=main>(</span><span class=keyword1>μ</span> <span class=free>h</span><span class=main>)</span><span class=main>)</span><span class=main>)</span> <span class=main>∧</span> <span class=free>l</span> <span class=main>(</span><span class=free>g</span> <span class=main>(</span><span class=keyword1>pμ</span> <span class=free>g</span><span class=main>)</span><span class=main>)</span> <span class=main>=</span> <span class=free>h</span> <span class=main>(</span><span class=free>l</span> <span class=main>(</span><span class=keyword1>pμ</span> <span class=free>g</span><span class=main>)</span><span class=main>)</span> <span class=main>⟶</span> <span class=keyword1>pμ</span> <span class=free>h</span> <span class=main>=</span> <span class=free>l</span> <span class=main>(</span><span class=keyword1>pμ</span> <span class=free>g</span><span class=main>)</span> <span class=main>∧</span> <span class=keyword1>μ</span> <span class=free>h</span> <span class=main>=</span> <span class=free>l</span> <span class=main>(</span><span class=keyword1>pμ</span> <span class=free>g</span><span class=main>)</span>"</span></span>
-  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> is_least_prefixpoint_def least_fixpoint_char least_prefixpoint least_prefixpoint_fixpoint antisym galois_char isotone_def mu_fusion_1<span class=main>)</span>
+  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> is_least_prefixpoint_def least_fixpoint_char least_prefixpoint least_prefixpoint_fixpoint order.antisym galois_char isotone_def mu_fusion_1<span class=main>)</span>
 
 <span class=keyword1 id=Fixpoints-mu_fusion_equal_3><span class=command>lemma</span></span> mu_fusion_equal_3<span class=main>:</span>
   <span class=keyword2><span class=keyword>assumes</span></span> <span class=quoted><span class=quoted>"galois <span class=free>l</span> <span class=free>u</span>"</span></span>
@@ -352,11 +352,11 @@ Several variants of the fusion rule for fixpoints follow.
 
 <span class=keyword1 id=Fixpoints-nu_fusion_equal_1><span class=command>lemma</span></span> nu_fusion_equal_1<span class=main>:</span>
   <span class=quoted><span class=quoted>"galois <span class=free>l</span> <span class=free>u</span> <span class=main>⟹</span> isotone <span class=free>g</span> <span class=main>⟹</span> isotone <span class=free>h</span> <span class=main>⟹</span> has_greatest_postfixpoint <span class=free>g</span> <span class=main>⟹</span> has_greatest_fixpoint <span class=free>h</span> <span class=main>⟹</span> <span class=free>h</span> <span class=main>(</span><span class=free>u</span> <span class=main>(</span><span class=free>l</span> <span class=main>(</span><span class=keyword1>ν</span> <span class=free>h</span><span class=main>)</span><span class=main>)</span><span class=main>)</span> <span class=main>≤</span> <span class=free>u</span> <span class=main>(</span><span class=free>g</span> <span class=main>(</span><span class=free>l</span> <span class=main>(</span><span class=keyword1>ν</span> <span class=free>h</span><span class=main>)</span><span class=main>)</span><span class=main>)</span> <span class=main>⟹</span> <span class=free>h</span> <span class=main>(</span><span class=free>u</span> <span class=main>(</span><span class=keyword1>pν</span> <span class=free>g</span><span class=main>)</span><span class=main>)</span> <span class=main>=</span> <span class=free>u</span> <span class=main>(</span><span class=free>g</span> <span class=main>(</span><span class=keyword1>pν</span> <span class=free>g</span><span class=main>)</span><span class=main>)</span> <span class=main>⟹</span> <span class=keyword1>ν</span> <span class=free>h</span> <span class=main>=</span> <span class=free>u</span> <span class=main>(</span><span class=keyword1>pν</span> <span class=free>g</span><span class=main>)</span> <span class=main>∧</span> <span class=keyword1>ν</span> <span class=free>h</span> <span class=main>=</span> <span class=free>u</span> <span class=main>(</span><span class=keyword1>ν</span> <span class=free>g</span><span class=main>)</span>"</span></span>
-  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> greatest_fixpoint_char greatest_postfixpoint_fixpoint is_greatest_fixpoint_def antisym nu_fusion_1<span class=main>)</span>
+  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> greatest_fixpoint_char greatest_postfixpoint_fixpoint is_greatest_fixpoint_def order.antisym nu_fusion_1<span class=main>)</span>
 
 <span class=keyword1 id=Fixpoints-nu_fusion_equal_2><span class=command>lemma</span></span> nu_fusion_equal_2<span class=main>:</span>
   <span class=quoted><span class=quoted>"galois <span class=free>l</span> <span class=free>u</span> <span class=main>⟹</span> isotone <span class=free>h</span> <span class=main>⟹</span> has_greatest_postfixpoint <span class=free>g</span> <span class=main>⟹</span> has_greatest_postfixpoint <span class=free>h</span> <span class=main>⟹</span> <span class=free>h</span> <span class=main>(</span><span class=free>u</span> <span class=main>(</span><span class=free>l</span> <span class=main>(</span><span class=keyword1>ν</span> <span class=free>h</span><span class=main>)</span><span class=main>)</span><span class=main>)</span> <span class=main>≤</span> <span class=free>u</span> <span class=main>(</span><span class=free>g</span> <span class=main>(</span><span class=free>l</span> <span class=main>(</span><span class=keyword1>ν</span> <span class=free>h</span><span class=main>)</span><span class=main>)</span><span class=main>)</span> <span class=main>∧</span> <span class=free>h</span> <span class=main>(</span><span class=free>u</span> <span class=main>(</span><span class=keyword1>pν</span> <span class=free>g</span><span class=main>)</span><span class=main>)</span> <span class=main>=</span> <span class=free>u</span> <span class=main>(</span><span class=free>g</span> <span class=main>(</span><span class=keyword1>pν</span> <span class=free>g</span><span class=main>)</span><span class=main>)</span> <span class=main>⟹</span> <span class=keyword1>pν</span> <span class=free>h</span> <span class=main>=</span> <span class=free>u</span> <span class=main>(</span><span class=keyword1>pν</span> <span class=free>g</span><span class=main>)</span> <span class=main>∧</span> <span class=keyword1>ν</span> <span class=free>h</span> <span class=main>=</span> <span class=free>u</span> <span class=main>(</span><span class=keyword1>pν</span> <span class=free>g</span><span class=main>)</span>"</span></span>
-  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> greatest_fixpoint_char greatest_postfixpoint greatest_postfixpoint_fixpoint is_greatest_postfixpoint_def antisym galois_char nu_fusion_1 isotone_def<span class=main>)</span>
+  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> greatest_fixpoint_char greatest_postfixpoint greatest_postfixpoint_fixpoint is_greatest_postfixpoint_def order.antisym galois_char nu_fusion_1 isotone_def<span class=main>)</span>
 
 <span class=keyword1 id=Fixpoints-nu_fusion_equal_3><span class=command>lemma</span></span> nu_fusion_equal_3<span class=main>:</span>
   <span class=keyword2><span class=keyword>assumes</span></span> <span class=quoted><span class=quoted>"galois <span class=free>l</span> <span class=free>u</span>"</span></span>
@@ -462,9 +462,9 @@ Next come the exchange rules for replacing the first/second function in a compos
   <span class=keyword1><span class=command>have</span></span> 4<span class=main>:</span> <span class=quoted><span class=quoted>"has_least_fixpoint <span class=main>(</span><span class=free>h</span> <span class=main>∘</span> <span class=free>l</span><span class=main>)</span>"</span></span>
     <span class=keyword1><span class=command>using</span></span> assms<span class=main>(</span>1<span class=main>,</span>3<span class=main>,</span>5<span class=main>)</span> least_fixpoint_char least_prefixpoint_fixpoint galois_char isotone_def <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
   <span class=keyword3><span class=command>show</span></span> <span class=quoted><span class=quoted>"<span class=keyword1>μ</span> <span class=main>(</span><span class=free>h</span> <span class=main>∘</span> <span class=free>l</span><span class=main>)</span> <span class=main>=</span> <span class=keyword1>μ</span> <span class=main>(</span><span class=free>h</span> <span class=main>∘</span> <span class=free>k</span><span class=main>)</span>"</span></span>
-    <span class=keyword1><span class=command>using</span></span> 1 2 3 4 assms antisym galois_char lifted_reflexive mu_exchange_2 <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
+    <span class=keyword1><span class=command>using</span></span> 1 2 3 4 assms order.antisym galois_char lifted_reflexive mu_exchange_2 <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
   <span class=keyword3><span class=command>show</span></span> <span class=quoted><span class=quoted>"<span class=keyword1>μ</span> <span class=main>(</span><span class=free>l</span> <span class=main>∘</span> <span class=free>h</span><span class=main>)</span> <span class=main>=</span> <span class=keyword1>μ</span> <span class=main>(</span><span class=free>k</span> <span class=main>∘</span> <span class=free>h</span><span class=main>)</span>"</span></span>
-    <span class=keyword1><span class=command>using</span></span> 1 2 3 4 assms antisym galois_char lifted_reflexive mu_exchange_1 <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
+    <span class=keyword1><span class=command>using</span></span> 1 2 3 4 assms order.antisym galois_char lifted_reflexive mu_exchange_1 <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
 <span class=keyword1><span class=command>qed</span></span>
 
 <span class=keyword1 id=Fixpoints-nu_exchange_1><span class=command>lemma</span></span> nu_exchange_1<span class=main>:</span>
@@ -532,9 +532,9 @@ Next come the exchange rules for replacing the first/second function in a compos
   <span class=keyword1><span class=command>have</span></span> 4<span class=main>:</span> <span class=quoted><span class=quoted>"has_greatest_fixpoint <span class=main>(</span><span class=free>h</span> <span class=main>∘</span> <span class=free>t</span><span class=main>)</span>"</span></span>
     <span class=keyword1><span class=command>using</span></span> assms<span class=main>(</span>2<span class=main>,</span>3<span class=main>,</span>7<span class=main>)</span> greatest_fixpoint_char greatest_postfixpoint_fixpoint galois_char isotone_def <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
   <span class=keyword3><span class=command>show</span></span> <span class=quoted><span class=quoted>"<span class=keyword1>ν</span> <span class=main>(</span><span class=free>u</span> <span class=main>∘</span> <span class=free>h</span><span class=main>)</span> <span class=main>=</span> <span class=keyword1>ν</span> <span class=main>(</span><span class=free>t</span> <span class=main>∘</span> <span class=free>h</span><span class=main>)</span>"</span></span>
-    <span class=keyword1><span class=command>using</span></span> 1 2 3 4 assms antisym galois_char lifted_reflexive nu_exchange_1 <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
+    <span class=keyword1><span class=command>using</span></span> 1 2 3 4 assms order.antisym galois_char lifted_reflexive nu_exchange_1 <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
   <span class=keyword3><span class=command>show</span></span> <span class=quoted><span class=quoted>"<span class=keyword1>ν</span> <span class=main>(</span><span class=free>h</span> <span class=main>∘</span> <span class=free>u</span><span class=main>)</span> <span class=main>=</span> <span class=keyword1>ν</span> <span class=main>(</span><span class=free>h</span> <span class=main>∘</span> <span class=free>t</span><span class=main>)</span>"</span></span>
-    <span class=keyword1><span class=command>using</span></span> 1 2 3 4 assms antisym galois_char lifted_reflexive nu_exchange_2 <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
+    <span class=keyword1><span class=command>using</span></span> 1 2 3 4 assms order.antisym galois_char lifted_reflexive nu_exchange_2 <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
 <span class=keyword1><span class=command>qed</span></span>
 
 <span class=keyword1><span class=command>text</span></span> <span class=quoted><span class=plain_text>‹
@@ -651,7 +651,7 @@ The main results in this theory relate different ways of defining reflexive-tran
 
 <span class=keyword1><span class=command>theory</span></span> Semirings
 
-<span class=keyword2><span class=keyword>imports</span></span> <a href=Fixpoints.html>Fixpoints</a>
+<span class=keyword2><span class=keyword>imports</span></span> <a href=#Fixpoints>Fixpoints</a>
 
 <span class=keyword2><span class=keyword>begin</span></span>
 
@@ -815,7 +815,7 @@ Next we consider under which semiring operations the above properties are closed
 
 <span class=keyword1 id=Semirings-preorder_idempotent><span class=command>lemma</span></span> preorder_idempotent<span class=main>:</span>
   <span class=quoted><span class=quoted>"preorder <span class=free>x</span> <span class=main>⟹</span> idempotent <span class=free>x</span>"</span></span>
-  <span class=keyword1><span class=command>using</span></span> antisym mult_isotone <span class=keyword1><span class=command>by</span></span> <span class=operator>fastforce</span>
+  <span class=keyword1><span class=command>using</span></span> order.antisym mult_isotone <span class=keyword1><span class=command>by</span></span> <span class=operator>fastforce</span>
 
 <span class=keyword1><span class=command>text</span></span> <span class=quoted><span class=plain_text>‹
 We study the following three ways of defining reflexive-transitive closures.
@@ -1013,7 +1013,7 @@ The next proof follows an argument of \cite[Satz 10.1.5]{Berghammer2012}.
   <span class=keyword1><span class=command>hence</span></span> <span class=quoted><span class=quoted>"sstar <span class=free>y</span> <span class=main>≤</span> rstar <span class=free>y</span>"</span></span>
     <span class=keyword1><span class=command>using</span></span> assms<span class=main>(</span>2<span class=main>)</span> is_least_prefixpoint_def least_prefixpoint <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
   <span class=keyword3><span class=command>thus</span></span> <span class=var><span class=quoted><span class=var>?thesis</span></span></span>
-    <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> assms antisym rstar_below_sstar<span class=main>)</span>
+    <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> assms order.antisym rstar_below_sstar<span class=main>)</span>
 <span class=keyword1><span class=command>qed</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
@@ -1050,7 +1050,7 @@ The point here is that only very few properties of tests are needed to show the 
   <span class=keyword1><span class=command>also</span></span> <span class=keyword1><span class=command>have</span></span> <span class=quoted><span class=quoted>"<span class=main>...</span> <span class=main>≤</span> <span class=free>p</span> <span class=main>*</span> <span class=free>x</span> <span class=main>*</span> <span class=free>p</span>"</span></span>
     <span class=keyword1><span class=command>using</span></span> 1 <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> mult_right_isotone mult_assoc<span class=main>)</span>
   <span class=keyword1><span class=command>finally</span></span> <span class=keyword3><span class=command>show</span></span> <span class=quoted><span class=quoted>"<span class=free>p</span> <span class=main>*</span> <span class=free>x</span> <span class=main>=</span> <span class=free>p</span> <span class=main>*</span> <span class=free>x</span> <span class=main>*</span> <span class=free>p</span>"</span></span>
-    <span class=keyword1><span class=command>using</span></span> assms<span class=main>(</span>2<span class=main>)</span> antisym mult_right_isotone <span class=keyword1><span class=command>by</span></span> <span class=operator>fastforce</span>
+    <span class=keyword1><span class=command>using</span></span> assms<span class=main>(</span>2<span class=main>)</span> order.antisym mult_right_isotone <span class=keyword1><span class=command>by</span></span> <span class=operator>fastforce</span>
 <span class=keyword1><span class=command>next</span></span>
   <span class=keyword3><span class=command>assume</span></span> <span class=quoted><span class=quoted>"<span class=free>p</span> <span class=main>*</span> <span class=free>x</span> <span class=main>=</span> <span class=free>p</span> <span class=main>*</span> <span class=free>x</span> <span class=main>*</span> <span class=free>p</span>"</span></span>
   <span class=keyword3><span class=command>thus</span></span> <span class=quoted><span class=quoted>"<span class=free>p</span> <span class=main>*</span> <span class=free>x</span> <span class=main>≤</span> <span class=free>x</span> <span class=main>*</span> <span class=free>p</span>"</span></span>
@@ -1163,7 +1163,7 @@ We first give basic properties of the greatest element.
 
 <span class=keyword1 id=Semirings-top_mult_top><span class=command>lemma</span></span> top_mult_top <span class=main>[</span><span class=operator>simp</span><span class=main>]</span><span class=main>:</span>
   <span class=quoted><span class=quoted>"top <span class=main>*</span> top <span class=main>=</span> top"</span></span>
-  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> antisym top_left_mult_increasing<span class=main>)</span>
+  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> order.antisym top_left_mult_increasing<span class=main>)</span>
 
 <span class=keyword1><span class=command>text</span></span> <span class=quoted><span class=plain_text>‹
 Closure of the above properties under the semiring operations is considered next.
@@ -1199,7 +1199,7 @@ Closure of the above properties under the semiring operations is considered next
 
 <span class=keyword1 id=Semirings-surjective_one_closed><span class=command>lemma</span></span> surjective_one_closed<span class=main>:</span>
   <span class=quoted><span class=quoted>"surjective <span class=main>1</span>"</span></span>
-  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> antisym mult_sub_right_one<span class=main>)</span>
+  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> order.antisym mult_sub_right_one<span class=main>)</span>
 
 <span class=keyword1 id=Semirings-surjective_top_closed><span class=command>lemma</span></span> surjective_top_closed<span class=main>:</span>
   <span class=quoted><span class=quoted>"surjective top"</span></span>
@@ -1240,11 +1240,11 @@ Some closure properties require at least half of associativity.
 
 <span class=keyword1 id=Semirings-vector_mult_closed><span class=command>lemma</span></span> vector_mult_closed<span class=main>:</span>
   <span class=quoted><span class=quoted>"vector <span class=free>y</span> <span class=main>⟹</span> vector <span class=main>(</span><span class=free>x</span> <span class=main>*</span> <span class=free>y</span><span class=main>)</span>"</span></span>
-  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> antisym mult_semi_associative top_right_mult_increasing<span class=main>)</span>
+  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> order.antisym mult_semi_associative top_right_mult_increasing<span class=main>)</span>
 
 <span class=keyword1 id=Semirings-surjective_mult_closed><span class=command>lemma</span></span> surjective_mult_closed<span class=main>:</span>
   <span class=quoted><span class=quoted>"surjective <span class=free>x</span> <span class=main>⟹</span> surjective <span class=free>y</span> <span class=main>⟹</span> surjective <span class=main>(</span><span class=free>x</span> <span class=main>*</span> <span class=free>y</span><span class=main>)</span>"</span></span>
-  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> antisym mult_semi_associative top_greatest<span class=main>)</span>
+  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> order.antisym mult_semi_associative top_greatest<span class=main>)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
 
@@ -1261,11 +1261,11 @@ We next consider residuals with the greatest element.
 
 <span class=keyword1 id=Semirings-top_lres_absorb><span class=command>lemma</span></span> top_lres_absorb <span class=main>[</span><span class=operator>simp</span><span class=main>]</span><span class=main>:</span>
   <span class=quoted><span class=quoted>"top <span class=main>/</span> <span class=free>x</span> <span class=main>=</span> top"</span></span>
-  <span class=keyword1><span class=command>using</span></span> antisym lres_galois top_greatest <span class=keyword1><span class=command>by</span></span> <span class=operator>blast</span>
+  <span class=keyword1><span class=command>using</span></span> order.antisym lres_galois top_greatest <span class=keyword1><span class=command>by</span></span> <span class=operator>blast</span>
 
 <span class=keyword1 id=Semirings-covector_lres_closed><span class=command>lemma</span></span> covector_lres_closed<span class=main>:</span>
   <span class=quoted><span class=quoted>"covector <span class=free>x</span> <span class=main>⟹</span> covector <span class=main>(</span><span class=free>x</span> <span class=main>/</span> <span class=free>y</span><span class=main>)</span>"</span></span>
-  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> antisym mult_lres_sub_assoc top_left_mult_increasing<span class=main>)</span>
+  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> order.antisym mult_lres_sub_assoc top_left_mult_increasing<span class=main>)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
 
@@ -1343,7 +1343,7 @@ See, for example, \cite{BirdMoor1997,HirschHodkinson2002,Maddux1996,Maddux2006,S
 
 <span class=keyword1><span class=command>theory</span></span> Relation_Algebras
 
-<span class=keyword2><span class=keyword>imports</span></span> <a href=../Stone_Algebras/P_Algebras.html>Stone_Algebras.P_Algebras</a> <a href=Semirings.html>Semirings</a>
+<span class=keyword2><span class=keyword>imports</span></span> <a href=../../stone_algebras/theories/#P_Algebras>Stone_Algebras.P_Algebras</a> <a href=#Semirings>Semirings</a>
 
 <span class=keyword2><span class=keyword>begin</span></span>
 
@@ -1423,11 +1423,11 @@ Many properties of relation algebras already follow in bounded distributive alle
 
 <span class=keyword1 id=Relation_Algebras-conv_top><span class=command>lemma</span></span> conv_top <span class=main>[</span><span class=operator>simp</span><span class=main>]</span><span class=main>:</span>
   <span class=quoted><span class=quoted>"top<span class=keyword1><span class=hidden>⇧</span><sup>T</sup></span> <span class=main>=</span> top"</span></span>
-  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> conv_involutive conv_order eq_iff top_greatest<span class=main>)</span>
+  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> conv_involutive conv_order order.eq_iff top_greatest<span class=main>)</span>
 
 <span class=keyword1 id=Relation_Algebras-conv_dist_inf><span class=command>lemma</span></span> conv_dist_inf<span class=main>:</span>
   <span class=quoted><span class=quoted>"<span class=main>(</span><span class=free>x</span> <span class=main>⊓</span> <span class=free>y</span><span class=main>)</span><span class=keyword1><span class=hidden>⇧</span><sup>T</sup></span> <span class=main>=</span> <span class=free>x</span><span class=keyword1><span class=hidden>⇧</span><sup>T</sup></span> <span class=main>⊓</span> <span class=free>y</span><span class=keyword1><span class=hidden>⇧</span><sup>T</sup></span>"</span></span>
-  <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>rule</span> antisym<span class=main>)</span>
+  <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>rule</span> order.antisym<span class=main>)</span>
   <span class=keyword1><span class=command>using</span></span> conv_order <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=operator>simp</span>
   <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> conv_order conv_involutive inf.boundedI inf.cobounded1 inf.cobounded2<span class=main>)</span>
 
@@ -1522,7 +1522,7 @@ The intersection with a vector can still be exported from the first argument of 
 
 <span class=keyword1 id=Relation_Algebras-vector_inf_comp><span class=command>lemma</span></span> vector_inf_comp<span class=main>:</span>
   <span class=quoted><span class=quoted>"vector <span class=free>x</span> <span class=main>⟹</span> <span class=main>(</span><span class=free>x</span> <span class=main>⊓</span> <span class=free>y</span><span class=main>)</span> <span class=main>*</span> <span class=free>z</span> <span class=main>=</span> <span class=free>x</span> <span class=main>⊓</span> <span class=main>(</span><span class=free>y</span> <span class=main>*</span> <span class=free>z</span><span class=main>)</span>"</span></span>
-  <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>rule</span> antisym<span class=main>)</span>
+  <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>rule</span> order.antisym<span class=main>)</span>
   <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>metis</span> comp_left_subdist_inf comp_right_isotone inf.sup_left_isotone order_lesseq_imp top_greatest<span class=main>)</span>
   <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> comp_left_isotone comp_right_isotone dedekind_2 inf_commute inf_mono order_refl order_trans top_greatest<span class=main>)</span>
 
@@ -1543,7 +1543,7 @@ The intersection with a vector can still be exported from the first argument of 
   <span class=keyword1><span class=command>also</span></span> <span class=keyword1><span class=command>have</span></span> <span class=quoted><span class=quoted>"<span class=main>...</span> <span class=main>≤</span> <span class=main>(</span><span class=free>y</span> <span class=main>⊓</span> <span class=free>x</span><span class=keyword1><span class=hidden>⇧</span><sup>T</sup></span><span class=main>)</span> <span class=main>*</span> <span class=main>(</span><span class=free>x</span> <span class=main>⊓</span> <span class=free>z</span><span class=main>)</span>"</span></span>
     <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> assms comp_left_isotone comp_right_isotone inf_le2 inf_mono order_refl inf_commute<span class=main>)</span>
   <span class=keyword1><span class=command>finally</span></span> <span class=keyword3><span class=command>show</span></span> <span class=var><span class=quoted><span class=var>?thesis</span></span></span>
-    <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> comp_right_isotone antisym<span class=main>)</span>
+    <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> comp_right_isotone order.antisym<span class=main>)</span>
 <span class=keyword1><span class=command>qed</span></span>
 
 <span class=keyword1 id=Relation_Algebras-covector_inf_comp_2><span class=command>lemma</span></span> covector_inf_comp_2<span class=main>:</span>
@@ -1555,7 +1555,7 @@ The intersection with a vector can still be exported from the first argument of 
   <span class=keyword1><span class=command>also</span></span> <span class=keyword1><span class=command>have</span></span> <span class=quoted><span class=quoted>"<span class=main>...</span> <span class=main>≤</span> <span class=main>(</span><span class=free>y</span> <span class=main>⊓</span> <span class=free>x</span><span class=keyword1><span class=hidden>⇧</span><sup>T</sup></span><span class=main>)</span> <span class=main>*</span> <span class=main>(</span><span class=free>x</span> <span class=main>⊓</span> <span class=free>z</span><span class=main>)</span>"</span></span>
     <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> assms comp_left_isotone conv_dist_comp conv_order conv_top eq_refl inf_le1 inf_mono<span class=main>)</span>
   <span class=keyword1><span class=command>finally</span></span> <span class=keyword3><span class=command>show</span></span> <span class=var><span class=quoted><span class=var>?thesis</span></span></span>
-    <span class=keyword1><span class=command>using</span></span> comp_left_subdist_inf antisym <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
+    <span class=keyword1><span class=command>using</span></span> comp_left_subdist_inf order.antisym <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
 <span class=keyword1><span class=command>qed</span></span>
 
 <span class=keyword1 id=Relation_Algebras-covector_inf_comp_3><span class=command>lemma</span></span> covector_inf_comp_3<span class=main>:</span>
@@ -1564,7 +1564,7 @@ The intersection with a vector can still be exported from the first argument of 
 
 <span class=keyword1 id=Relation_Algebras-covector_inf_closed><span class=command>lemma</span></span> covector_inf_closed<span class=main>:</span>
   <span class=quoted><span class=quoted>"covector <span class=free>x</span> <span class=main>⟹</span> covector <span class=free>y</span> <span class=main>⟹</span> covector <span class=main>(</span><span class=free>x</span> <span class=main>⊓</span> <span class=free>y</span><span class=main>)</span>"</span></span>
-  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> comp_right_subdist_inf inf.antisym top_left_mult_increasing<span class=main>)</span>
+  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> comp_right_subdist_inf order.antisym top_left_mult_increasing<span class=main>)</span>
 
 <span class=keyword1 id=Relation_Algebras-vector_conv_covector><span class=command>lemma</span></span> vector_conv_covector<span class=main>:</span>
   <span class=quoted><span class=quoted>"vector <span class=free>v</span> <span class=main>⟷</span> covector <span class=main>(</span><span class=free>v</span><span class=keyword1><span class=hidden>⇧</span><sup>T</sup></span><span class=main>)</span>"</span></span>
@@ -1576,7 +1576,7 @@ The intersection with a vector can still be exported from the first argument of 
 
 <span class=keyword1 id=Relation_Algebras-covector_comp_inf><span class=command>lemma</span></span> covector_comp_inf<span class=main>:</span>
   <span class=quoted><span class=quoted>"covector <span class=free>z</span> <span class=main>⟹</span> <span class=free>x</span> <span class=main>*</span> <span class=main>(</span><span class=free>y</span> <span class=main>⊓</span> <span class=free>z</span><span class=main>)</span> <span class=main>=</span> <span class=free>x</span> <span class=main>*</span> <span class=free>y</span> <span class=main>⊓</span> <span class=free>z</span>"</span></span>
-  <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>rule</span> antisym<span class=main>)</span>
+  <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>rule</span> order.antisym<span class=main>)</span>
   <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>metis</span> comp_isotone comp_right_subdist_inf inf.boundedE inf.boundedI inf.cobounded2 top.extremum<span class=main>)</span>
   <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> comp_left_isotone comp_right_isotone dedekind_1 inf_commute inf_mono order_refl order_trans top_greatest<span class=main>)</span>
 
@@ -1864,7 +1864,7 @@ We show a fact about equivalences.
 
 <span class=keyword1 id=Relation_Algebras-equivalence_comp_dist_inf><span class=command>lemma</span></span> equivalence_comp_dist_inf<span class=main>:</span>
   <span class=quoted><span class=quoted>"equivalence <span class=free>x</span> <span class=main>⟹</span> <span class=free>x</span> <span class=main>*</span> <span class=free>y</span> <span class=main>⊓</span> <span class=free>x</span> <span class=main>*</span> <span class=free>z</span> <span class=main>=</span> <span class=free>x</span> <span class=main>*</span> <span class=main>(</span><span class=free>y</span> <span class=main>⊓</span> <span class=free>x</span> <span class=main>*</span> <span class=free>z</span><span class=main>)</span>"</span></span>
-  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> antisym comp_right_subdist_inf dedekind_1 eq_iff inf.absorb1 inf.absorb2 mult_1_right mult_assoc<span class=main>)</span>
+  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> order.antisym comp_right_subdist_inf dedekind_1 order.eq_iff inf.absorb1 inf.absorb2 mult_1_right mult_assoc<span class=main>)</span>
 
 <span class=keyword1><span class=command>text</span></span> <span class=quoted><span class=plain_text>‹
 The following result generalises the fact that composition with a test amounts to intersection with the corresponding vector.
@@ -1873,7 +1873,7 @@ Both tests and vectors can be used to represent sets as relations.
 
 <span class=keyword1 id=Relation_Algebras-coreflexive_comp_top_inf><span class=command>lemma</span></span> coreflexive_comp_top_inf<span class=main>:</span>
   <span class=quoted><span class=quoted>"coreflexive <span class=free>x</span> <span class=main>⟹</span> <span class=free>x</span> <span class=main>*</span> top <span class=main>⊓</span> <span class=free>y</span> <span class=main>=</span> <span class=free>x</span> <span class=main>*</span> <span class=free>y</span>"</span></span>
-  <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>rule</span> antisym<span class=main>)</span>
+  <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>rule</span> order.antisym<span class=main>)</span>
   <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>metis</span> comp_left_isotone comp_left_one coreflexive_symmetric dedekind_1 inf_top_left order_trans<span class=main>)</span>
   <span class=keyword1><span class=command>using</span></span> comp_left_isotone comp_right_isotone <span class=keyword1><span class=command>by</span></span> <span class=operator>fastforce</span>
 
@@ -1941,7 +1941,7 @@ Also the equational version of the Dedekind rule continues to hold.
 
 <span class=keyword1 id=Relation_Algebras-dedekind_eq><span class=command>lemma</span></span> dedekind_eq<span class=main>:</span>
   <span class=quoted><span class=quoted>"<span class=free>x</span> <span class=main>*</span> <span class=free>y</span> <span class=main>⊓</span> <span class=free>z</span> <span class=main>=</span> <span class=main>(</span><span class=free>x</span> <span class=main>⊓</span> <span class=main>(</span><span class=free>z</span> <span class=main>*</span> <span class=free>y</span><span class=keyword1><span class=hidden>⇧</span><sup>T</sup></span><span class=main>)</span><span class=main>)</span> <span class=main>*</span> <span class=main>(</span><span class=free>y</span> <span class=main>⊓</span> <span class=main>(</span><span class=free>x</span><span class=keyword1><span class=hidden>⇧</span><sup>T</sup></span> <span class=main>*</span> <span class=free>z</span><span class=main>)</span><span class=main>)</span> <span class=main>⊓</span> <span class=free>z</span>"</span></span>
-<span class=keyword1><span class=command>proof</span></span> <span class=main>(</span><span class=operator>rule</span> antisym<span class=main>)</span>
+<span class=keyword1><span class=command>proof</span></span> <span class=main>(</span><span class=operator>rule</span> order.antisym<span class=main>)</span>
   <span class=keyword1><span class=command>have</span></span> <span class=quoted><span class=quoted>"<span class=free>x</span> <span class=main>*</span> <span class=free>y</span> <span class=main>⊓</span> <span class=free>z</span> <span class=main>≤</span> <span class=free>x</span> <span class=main>*</span> <span class=main>(</span><span class=free>y</span> <span class=main>⊓</span> <span class=main>(</span><span class=free>x</span><span class=keyword1><span class=hidden>⇧</span><sup>T</sup></span> <span class=main>*</span> <span class=free>z</span><span class=main>)</span><span class=main>)</span> <span class=main>⊓</span> <span class=free>z</span>"</span></span>
     <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> dedekind_1<span class=main>)</span>
   <span class=keyword1><span class=command>also</span></span> <span class=keyword1><span class=command>have</span></span> <span class=quoted><span class=quoted>"<span class=main>...</span> <span class=main>≤</span> <span class=main>(</span><span class=free>x</span> <span class=main>⊓</span> <span class=main>(</span><span class=free>z</span> <span class=main>*</span> <span class=main>(</span><span class=free>y</span> <span class=main>⊓</span> <span class=main>(</span><span class=free>x</span><span class=keyword1><span class=hidden>⇧</span><sup>T</sup></span> <span class=main>*</span> <span class=free>z</span><span class=main>)</span><span class=main>)</span><span class=keyword1><span class=hidden>⇧</span><sup>T</sup></span><span class=main>)</span><span class=main>)</span> <span class=main>*</span> <span class=main>(</span><span class=free>y</span> <span class=main>⊓</span> <span class=main>(</span><span class=free>x</span><span class=keyword1><span class=hidden>⇧</span><sup>T</sup></span> <span class=main>*</span> <span class=free>z</span><span class=main>)</span><span class=main>)</span> <span class=main>⊓</span> <span class=free>z</span>"</span></span>
@@ -1994,7 +1994,7 @@ We solve a few exercises from \cite{SchmidtStroehlein1993}.
 
 <span class=keyword1 id=Relation_Algebras-ex231e><span class=command>lemma</span></span> ex231e <span class=main>[</span><span class=operator>simp</span><span class=main>]</span><span class=main>:</span>
   <span class=quoted><span class=quoted>"<span class=free>x</span> <span class=main>*</span> top <span class=main>*</span> <span class=free>x</span> <span class=main>*</span> top <span class=main>=</span> <span class=free>x</span> <span class=main>*</span> top"</span></span>
-  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> ex231d antisym comp_associative mult_right_isotone top.extremum<span class=main>)</span>
+  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> ex231d order.antisym comp_associative mult_right_isotone top.extremum<span class=main>)</span>
 
 <span class=keyword1 id=Relation_Algebras-arc_injective><span class=command>lemma</span></span> arc_injective<span class=main>:</span>
   <span class=quoted><span class=quoted>"arc <span class=free>x</span> <span class=main>⟹</span> injective <span class=free>x</span>"</span></span>
@@ -2011,7 +2011,7 @@ We solve a few exercises from \cite{SchmidtStroehlein1993}.
 <span class=keyword1 id=Relation_Algebras-injective_codomain><span class=command>lemma</span></span> injective_codomain<span class=main>:</span>
   <span class=keyword2><span class=keyword>assumes</span></span> <span class=quoted><span class=quoted>"injective <span class=free>x</span>"</span></span>
   <span class=keyword2><span class=keyword>shows</span></span> <span class=quoted><span class=quoted>"<span class=free>x</span> <span class=main>*</span> <span class=main>(</span><span class=free>x</span> <span class=main>⊓</span> <span class=main>1</span><span class=main>)</span> <span class=main>=</span> <span class=free>x</span> <span class=main>⊓</span> <span class=main>1</span>"</span></span>
-<span class=keyword1><span class=command>proof</span></span> <span class=main>(</span><span class=operator>rule</span> antisym<span class=main>)</span>
+<span class=keyword1><span class=command>proof</span></span> <span class=main>(</span><span class=operator>rule</span> order.antisym<span class=main>)</span>
   <span class=keyword3><span class=command>show</span></span> <span class=quoted><span class=quoted>"<span class=free>x</span> <span class=main>*</span> <span class=main>(</span><span class=free>x</span> <span class=main>⊓</span> <span class=main>1</span><span class=main>)</span> <span class=main>≤</span> <span class=free>x</span> <span class=main>⊓</span> <span class=main>1</span>"</span></span>
     <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> assms comp_right_one dual_order.trans inf.boundedI inf.cobounded1 inf.sup_monoid.add_commute mult_right_isotone one_inf_conv<span class=main>)</span>
 <span class=keyword1><span class=command>next</span></span>
@@ -2064,7 +2064,7 @@ It is used to show that the while-loop preserves injectivity of the constructed 
   <span class=keyword1><span class=command>also</span></span> <span class=keyword1><span class=command>have</span></span> <span class=quoted><span class=quoted>"<span class=main>...</span> <span class=main>≤</span> <span class=free>e</span>"</span></span>
     <span class=keyword1><span class=command>using</span></span> assms<span class=main>(</span>2<span class=main>)</span> coreflexive_comp_top_inf inf.sup_right_divisibility <span class=keyword1><span class=command>by</span></span> <span class=operator>blast</span>
   <span class=keyword1><span class=command>finally</span></span> <span class=keyword3><span class=command>show</span></span> <span class=var><span class=quoted><span class=var>?thesis</span></span></span>
-    <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> assms<span class=main><span class=main>(</span></span>1<span class=main><span class=main>)</span></span> top_left_mult_increasing antisym<span class=main>)</span>
+    <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> assms<span class=main><span class=main>(</span></span>1<span class=main><span class=main>)</span></span> top_left_mult_increasing order.antisym<span class=main>)</span>
 <span class=keyword1><span class=command>qed</span></span>
 
 <span class=keyword1 id=Relation_Algebras-comp_inf_vector><span class=command>lemma</span></span> comp_inf_vector<span class=main>:</span>
@@ -2086,7 +2086,7 @@ Well-known distributivity properties of univalent and injective relations over m
 <span class=keyword1 id=Relation_Algebras-univalent_comp_left_dist_inf><span class=command>lemma</span></span> univalent_comp_left_dist_inf<span class=main>:</span>
   <span class=keyword2><span class=keyword>assumes</span></span> <span class=quoted><span class=quoted>"univalent <span class=free>x</span>"</span></span>
     <span class=keyword2><span class=keyword>shows</span></span> <span class=quoted><span class=quoted>"<span class=free>x</span> <span class=main>*</span> <span class=main>(</span><span class=free>y</span> <span class=main>⊓</span> <span class=free>z</span><span class=main>)</span> <span class=main>=</span> <span class=free>x</span> <span class=main>*</span> <span class=free>y</span> <span class=main>⊓</span> <span class=free>x</span> <span class=main>*</span> <span class=free>z</span>"</span></span>
-<span class=keyword1><span class=command>proof</span></span> <span class=main>(</span><span class=operator>rule</span> antisym<span class=main>)</span>
+<span class=keyword1><span class=command>proof</span></span> <span class=main>(</span><span class=operator>rule</span> order.antisym<span class=main>)</span>
   <span class=keyword3><span class=command>show</span></span> <span class=quoted><span class=quoted>"<span class=free>x</span> <span class=main>*</span> <span class=main>(</span><span class=free>y</span> <span class=main>⊓</span> <span class=free>z</span><span class=main>)</span> <span class=main>≤</span> <span class=free>x</span> <span class=main>*</span> <span class=free>y</span> <span class=main>⊓</span> <span class=free>x</span> <span class=main>*</span> <span class=free>z</span>"</span></span>
     <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> comp_right_isotone<span class=main>)</span>
 <span class=keyword1><span class=command>next</span></span>
@@ -2190,7 +2190,7 @@ The shunting properties for bijective relations and mappings continue to hold.
   <span class=keyword1><span class=command>finally</span></span> <span class=keyword1><span class=command>have</span></span> <span class=quoted><span class=quoted>"<span class=free>x</span> <span class=main>*</span> <span class=free>x</span><span class=keyword1><span class=hidden>⇧</span><sup>T</sup></span> <span class=main>*</span> <span class=free>x</span> <span class=main>≤</span> <span class=free>x</span>"</span></span>
     <span class=keyword1><span class=command>by</span></span> <span class=operator>simp</span>
   <span class=keyword3><span class=command>thus</span></span> <span class=var><span class=quoted><span class=var>?thesis</span></span></span>
-    <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> antisym ex231c<span class=main>)</span>
+    <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> order.antisym ex231c<span class=main>)</span>
 <span class=keyword1><span class=command>qed</span></span>
 
 <span class=keyword1 id=Relation_Algebras-arc_eq_2><span class=command>lemma</span></span> arc_eq_2<span class=main>:</span>
@@ -2289,7 +2289,7 @@ The following result looks similar to a property of (anti)domain.
 
 <span class=keyword1 id=Relation_Algebras-p_comp_pp><span class=command>lemma</span></span> p_comp_pp <span class=main>[</span><span class=operator>simp</span><span class=main>]</span><span class=main>:</span>
   <span class=quoted><span class=quoted>"<span class=main>-</span><span class=main>(</span><span class=free>x</span> <span class=main>*</span> <span class=main>-</span><span class=main>-</span><span class=free>y</span><span class=main>)</span> <span class=main>=</span> <span class=main>-</span><span class=main>(</span><span class=free>x</span> <span class=main>*</span> <span class=free>y</span><span class=main>)</span>"</span></span>
-  <span class=keyword1><span class=command>using</span></span> comp_pp_semi_commute comp_right_isotone inf.eq_iff p_antitone pp_increasing <span class=keyword1><span class=command>by</span></span> <span class=operator>fastforce</span>
+  <span class=keyword1><span class=command>using</span></span> comp_pp_semi_commute comp_right_isotone order.eq_iff p_antitone pp_increasing <span class=keyword1><span class=command>by</span></span> <span class=operator>fastforce</span>
 
 <span class=keyword1 id=Relation_Algebras-pp_comp_semi_commute><span class=command>lemma</span></span> pp_comp_semi_commute<span class=main>:</span>
   <span class=quoted><span class=quoted>"<span class=main>-</span><span class=main>-</span><span class=free>x</span> <span class=main>*</span> <span class=free>y</span> <span class=main>≤</span> <span class=main>-</span><span class=main>-</span><span class=main>(</span><span class=free>x</span> <span class=main>*</span> <span class=free>y</span><span class=main>)</span>"</span></span>
@@ -2297,7 +2297,7 @@ The following result looks similar to a property of (anti)domain.
 
 <span class=keyword1 id=Relation_Algebras-p_pp_comp><span class=command>lemma</span></span> p_pp_comp <span class=main>[</span><span class=operator>simp</span><span class=main>]</span><span class=main>:</span>
   <span class=quoted><span class=quoted>"<span class=main>-</span><span class=main>(</span><span class=main>-</span><span class=main>-</span><span class=free>x</span> <span class=main>*</span> <span class=free>y</span><span class=main>)</span> <span class=main>=</span> <span class=main>-</span><span class=main>(</span><span class=free>x</span> <span class=main>*</span> <span class=free>y</span><span class=main>)</span>"</span></span>
-  <span class=keyword1><span class=command>using</span></span> pp_comp_semi_commute comp_left_isotone inf.eq_iff p_antitone pp_increasing <span class=keyword1><span class=command>by</span></span> <span class=operator>fastforce</span>
+  <span class=keyword1><span class=command>using</span></span> pp_comp_semi_commute comp_left_isotone order.eq_iff p_antitone pp_increasing <span class=keyword1><span class=command>by</span></span> <span class=operator>fastforce</span>
 
 <span class=keyword1 id=Relation_Algebras-pp_comp_subdist><span class=command>lemma</span></span> pp_comp_subdist<span class=main>:</span>
   <span class=quoted><span class=quoted>"<span class=main>-</span><span class=main>-</span><span class=free>x</span> <span class=main>*</span> <span class=main>-</span><span class=main>-</span><span class=free>y</span> <span class=main>≤</span> <span class=main>-</span><span class=main>-</span><span class=main>(</span><span class=free>x</span> <span class=main>*</span> <span class=free>y</span><span class=main>)</span>"</span></span>
@@ -2311,7 +2311,7 @@ The following result looks similar to a property of (anti)domain.
   <span class=keyword1><span class=command>also</span></span> <span class=keyword1><span class=command>have</span></span> <span class=quoted><span class=quoted>"<span class=main>...</span> <span class=main>≤</span> <span class=free>x</span> <span class=main>*</span> <span class=main>(</span><span class=free>y</span> <span class=main>⊓</span> <span class=main>-</span><span class=free>z</span><span class=main>)</span>"</span></span>
     <span class=keyword1><span class=command>using</span></span> comp_right_isotone conv_complement_sub_leq inf.sup_right_isotone <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
   <span class=keyword1><span class=command>finally</span></span> <span class=keyword3><span class=command>show</span></span> <span class=var><span class=quoted><span class=var>?thesis</span></span></span>
-    <span class=keyword1><span class=command>using</span></span> comp_right_subdist_inf antisym inf.coboundedI2 inf.commute <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
+    <span class=keyword1><span class=command>using</span></span> comp_right_subdist_inf order.antisym inf.coboundedI2 inf.commute <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
 <span class=keyword1><span class=command>qed</span></span>
 
 <span class=keyword1><span class=command>text</span></span> <span class=quoted><span class=plain_text>‹
@@ -2320,11 +2320,11 @@ Even in Stone relation algebras, we do not obtain the backward implication in th
 
 <span class=keyword1 id=Relation_Algebras-vector_complement_closed><span class=command>lemma</span></span> vector_complement_closed<span class=main>:</span>
   <span class=quoted><span class=quoted>"vector <span class=free>x</span> <span class=main>⟹</span> vector <span class=main>(</span><span class=main>-</span><span class=free>x</span><span class=main>)</span>"</span></span>
-  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> complement_conv_sub conv_top eq_iff top_right_mult_increasing<span class=main>)</span>
+  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> complement_conv_sub conv_top order.eq_iff top_right_mult_increasing<span class=main>)</span>
 
 <span class=keyword1 id=Relation_Algebras-covector_complement_closed><span class=command>lemma</span></span> covector_complement_closed<span class=main>:</span>
   <span class=quoted><span class=quoted>"covector <span class=free>x</span> <span class=main>⟹</span> covector <span class=main>(</span><span class=main>-</span><span class=free>x</span><span class=main>)</span>"</span></span>
-  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> conv_complement_sub_leq conv_top eq_iff top_left_mult_increasing<span class=main>)</span>
+  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> conv_complement_sub_leq conv_top order.eq_iff top_left_mult_increasing<span class=main>)</span>
 
 <span class=keyword1 id=Relation_Algebras-covector_vector_comp><span class=command>lemma</span></span> covector_vector_comp<span class=main>:</span>
   <span class=quoted><span class=quoted>"vector <span class=free>v</span> <span class=main>⟹</span> <span class=main>-</span><span class=free>v</span><span class=keyword1><span class=hidden>⇧</span><sup>T</sup></span> <span class=main>*</span> <span class=free>v</span> <span class=main>=</span> bot"</span></span>
@@ -2407,7 +2407,7 @@ Even in Stone relation algebras, we do not obtain the backward implication in th
   <span class=keyword1><span class=command>also</span></span> <span class=keyword1><span class=command>have</span></span> <span class=quoted><span class=quoted>"<span class=main>...</span> <span class=main>=</span> <span class=main>(</span><span class=free>x</span> <span class=main>⊓</span> <span class=free>x</span><span class=keyword1><span class=hidden>⇧</span><sup>T</sup></span> <span class=main>⊓</span> <span class=main>-</span><span class=main>1</span><span class=main>)</span> <span class=main>*</span> <span class=main>(</span><span class=free>x</span> <span class=main>⊓</span> <span class=free>x</span><span class=keyword1><span class=hidden>⇧</span><sup>T</sup></span> <span class=main>⊓</span> <span class=main>-</span><span class=main>1</span><span class=main>)</span>"</span></span>
     <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> conv_complement conv_dist_inf inf.absorb2 inf.sup_monoid.add_assoc<span class=main>)</span>
   <span class=keyword1><span class=command>also</span></span> <span class=keyword1><span class=command>have</span></span> <span class=quoted><span class=quoted>"<span class=main>...</span> <span class=main>=</span> bot"</span></span>
-    <span class=keyword1><span class=command>using</span></span> assms inf.antisym reflexive_conv_closed <span class=keyword1><span class=command>by</span></span> <span class=operator>fastforce</span>
+    <span class=keyword1><span class=command>using</span></span> assms order.antisym reflexive_conv_closed <span class=keyword1><span class=command>by</span></span> <span class=operator>fastforce</span>
   <span class=keyword1><span class=command>finally</span></span> <span class=keyword1><span class=command>have</span></span> <span class=quoted><span class=quoted>"<span class=main>(</span><span class=free>x</span> <span class=main>⊓</span> <span class=main>-</span><span class=main>1</span><span class=main>)</span> <span class=main>*</span> <span class=main>(</span><span class=free>x</span> <span class=main>⊓</span> <span class=main>-</span><span class=main>1</span><span class=main>)</span> <span class=main>≤</span> <span class=main>-</span><span class=main>1</span>"</span></span>
     <span class=keyword1><span class=command>using</span></span> le_bot pseudo_complement <span class=keyword1><span class=command>by</span></span> <span class=operator>blast</span>
   <span class=keyword3><span class=command>thus</span></span> <span class=quoted><span class=quoted>"transitive <span class=main>(</span><span class=free>x</span> <span class=main>⊓</span> <span class=main>-</span><span class=main>1</span><span class=main>)</span>"</span></span>
@@ -2429,7 +2429,7 @@ Even in Stone relation algebras, we do not obtain the backward implication in th
   <span class=quoted><span class=quoted>"linear_order <span class=free>x</span> <span class=main>⟹</span> linear_strict_order <span class=main>(</span><span class=free>x</span> <span class=main>⊓</span> <span class=main>-</span><span class=main>1</span><span class=main>)</span>"</span></span>
   <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>rule</span> conjI<span class=main>)</span>
   <span class=keyword1><span class=command>using</span></span> order_strict_order <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=operator>simp</span>
-  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> conv_complement conv_dist_inf coreflexive_symmetric eq_iff inf.absorb2 inf.distrib_left inf.sup_monoid.add_commute top.extremum<span class=main>)</span>
+  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> conv_complement conv_dist_inf coreflexive_symmetric order.eq_iff inf.absorb2 inf.distrib_left inf.sup_monoid.add_commute top.extremum<span class=main>)</span>
 
 <span class=keyword1 id=Relation_Algebras-regular_conv_closed><span class=command>lemma</span></span> regular_conv_closed<span class=main>:</span>
   <span class=quoted><span class=quoted>"regular <span class=free>x</span> <span class=main>⟹</span> regular <span class=main>(</span><span class=free>x</span><span class=keyword1><span class=hidden>⇧</span><sup>T</sup></span><span class=main>)</span>"</span></span>
@@ -2441,7 +2441,7 @@ We show a number of facts about equivalences.
 
 <span class=keyword1 id=Relation_Algebras-equivalence_comp_left_complement><span class=command>lemma</span></span> equivalence_comp_left_complement<span class=main>:</span>
   <span class=quoted><span class=quoted>"equivalence <span class=free>x</span> <span class=main>⟹</span> <span class=free>x</span> <span class=main>*</span> <span class=main>-</span><span class=free>x</span> <span class=main>=</span> <span class=main>-</span><span class=free>x</span>"</span></span>
-  <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>rule</span> antisym<span class=main>)</span>
+  <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>rule</span> order.antisym<span class=main>)</span>
   <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>metis</span> conv_complement_sub_leq preorder_idempotent<span class=main>)</span>
   <span class=keyword1><span class=command>using</span></span> mult_left_isotone <span class=keyword1><span class=command>by</span></span> <span class=operator>fastforce</span>
 
@@ -2642,7 +2642,7 @@ Many of the following results have been derived for verifying Prim's minimum spa
   <span class=keyword1><span class=command>also</span></span> <span class=keyword1><span class=command>have</span></span> <span class=quoted><span class=quoted>"<span class=main>...</span> <span class=main>≤</span> <span class=free>e</span><span class=keyword1><span class=hidden>⇧</span><sup>T</sup></span> <span class=main>*</span> <span class=free>e</span>"</span></span>
     <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> assms<span class=main><span class=main>(</span></span>3<span class=main><span class=main>)</span></span> coreflexive_comp_top_inf le_infE mult_semi_associative point_injective<span class=main>)</span>
   <span class=keyword1><span class=command>finally</span></span> <span class=keyword1><span class=command>have</span></span> 2<span class=main>:</span> <span class=quoted><span class=quoted>"<span class=free>e</span><span class=keyword1><span class=hidden>⇧</span><sup>T</sup></span> <span class=main>*</span> top <span class=main>*</span> <span class=free>e</span> <span class=main>=</span> <span class=free>e</span><span class=keyword1><span class=hidden>⇧</span><sup>T</sup></span> <span class=main>*</span> <span class=free>e</span>"</span></span>
-    <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> inf.antisym mult_left_isotone top_right_mult_increasing<span class=main>)</span>
+    <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> order.antisym mult_left_isotone top_right_mult_increasing<span class=main>)</span>
   <span class=keyword1><span class=command>have</span></span> <span class=quoted><span class=quoted>"<span class=main>(</span><span class=free>v</span> <span class=main>⊔</span> <span class=free>e</span><span class=keyword1><span class=hidden>⇧</span><sup>T</sup></span> <span class=main>*</span> top<span class=main>)</span> <span class=main>*</span> <span class=main>(</span><span class=free>v</span> <span class=main>⊔</span> <span class=free>e</span><span class=keyword1><span class=hidden>⇧</span><sup>T</sup></span> <span class=main>*</span> top<span class=main>)</span><span class=keyword1><span class=hidden>⇧</span><sup>T</sup></span> <span class=main>=</span> <span class=main>(</span><span class=free>v</span> <span class=main>⊔</span> <span class=free>e</span><span class=keyword1><span class=hidden>⇧</span><sup>T</sup></span> <span class=main>*</span> top<span class=main>)</span> <span class=main>*</span> <span class=main>(</span><span class=free>v</span><span class=keyword1><span class=hidden>⇧</span><sup>T</sup></span> <span class=main>⊔</span> top <span class=main>*</span> <span class=free>e</span><span class=main>)</span>"</span></span>
     <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> conv_dist_comp conv_dist_sup<span class=main>)</span>
   <span class=keyword1><span class=command>also</span></span> <span class=keyword1><span class=command>have</span></span> <span class=quoted><span class=quoted>"<span class=main>...</span> <span class=main>=</span> <span class=free>v</span> <span class=main>*</span> <span class=free>v</span><span class=keyword1><span class=hidden>⇧</span><sup>T</sup></span> <span class=main>⊔</span> <span class=free>v</span> <span class=main>*</span> top <span class=main>*</span> <span class=free>e</span> <span class=main>⊔</span> <span class=free>e</span><span class=keyword1><span class=hidden>⇧</span><sup>T</sup></span> <span class=main>*</span> top <span class=main>*</span> <span class=free>v</span><span class=keyword1><span class=hidden>⇧</span><sup>T</sup></span> <span class=main>⊔</span> <span class=free>e</span><span class=keyword1><span class=hidden>⇧</span><sup>T</sup></span> <span class=main>*</span> top <span class=main>*</span> top <span class=main>*</span> <span class=free>e</span>"</span></span>
@@ -2657,7 +2657,7 @@ Many of the following results have been derived for verifying Prim's minimum spa
 
 <span class=keyword1 id=Relation_Algebras-ev><span class=command>lemma</span></span> ev<span class=main>:</span>
   <span class=quoted><span class=quoted>"vector <span class=free>v</span> <span class=main>⟹</span> <span class=free>e</span> <span class=main>≤</span> <span class=free>v</span> <span class=main>*</span> <span class=main>-</span><span class=free>v</span><span class=keyword1><span class=hidden>⇧</span><sup>T</sup></span> <span class=main>⟹</span> <span class=free>e</span> <span class=main>*</span> <span class=free>v</span> <span class=main>=</span> bot"</span></span>
-  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> covector_vector_comp antisym bot_least comp_associative mult_left_isotone mult_right_zero<span class=main>)</span>
+  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> covector_vector_comp order.antisym bot_least comp_associative mult_left_isotone mult_right_zero<span class=main>)</span>
 
 <span class=keyword1 id=Relation_Algebras-vTeT><span class=command>lemma</span></span> vTeT<span class=main>:</span>
   <span class=quoted><span class=quoted>"vector <span class=free>v</span> <span class=main>⟹</span> <span class=free>e</span> <span class=main>≤</span> <span class=free>v</span> <span class=main>*</span> <span class=main>-</span><span class=free>v</span><span class=keyword1><span class=hidden>⇧</span><sup>T</sup></span> <span class=main>⟹</span> <span class=free>v</span><span class=keyword1><span class=hidden>⇧</span><sup>T</sup></span> <span class=main>*</span> <span class=free>e</span><span class=keyword1><span class=hidden>⇧</span><sup>T</sup></span> <span class=main>=</span> bot"</span></span>
@@ -2744,7 +2744,7 @@ Bijective relations and mappings can be exported from a pseudocomplement.
 
 <span class=keyword1 id=Relation_Algebras-comp_bijective_complement><span class=command>lemma</span></span> comp_bijective_complement<span class=main>:</span>
   <span class=quoted><span class=quoted>"bijective <span class=free>y</span> <span class=main>⟹</span> <span class=main>-</span><span class=free>x</span> <span class=main>*</span> <span class=free>y</span> <span class=main>=</span> <span class=main>-</span><span class=main>(</span><span class=free>x</span> <span class=main>*</span> <span class=free>y</span><span class=main>)</span>"</span></span>
-  <span class=keyword1><span class=command>using</span></span> comp_injective_below_complement complement_conv_sub antisym shunt_bijective <span class=keyword1><span class=command>by</span></span> <span class=operator>blast</span>
+  <span class=keyword1><span class=command>using</span></span> comp_injective_below_complement complement_conv_sub order.antisym shunt_bijective <span class=keyword1><span class=command>by</span></span> <span class=operator>blast</span>
 
 <span class=keyword1 id=Relation_Algebras-comp_mapping_complement><span class=command>lemma</span></span> comp_mapping_complement<span class=main>:</span>
   <span class=quoted><span class=quoted>"mapping <span class=free>x</span> <span class=main>⟹</span> <span class=free>x</span> <span class=main>*</span> <span class=main>-</span><span class=free>y</span> <span class=main>=</span> <span class=main>-</span><span class=main>(</span><span class=free>x</span> <span class=main>*</span> <span class=free>y</span><span class=main>)</span>"</span></span>
@@ -2954,7 +2954,7 @@ Moreover, also arcs are regular.
   <span class=keyword1><span class=command>also</span></span> <span class=keyword1><span class=command>have</span></span> <span class=quoted><span class=quoted>"<span class=main>...</span> <span class=main>≤</span> <span class=free>x</span>"</span></span>
     <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> assms comp_right_one conv_top comp_associative conv_dist_comp conv_involutive mult_right_isotone vector_top_closed<span class=main>)</span>
   <span class=keyword1><span class=command>finally</span></span> <span class=keyword3><span class=command>show</span></span> <span class=var><span class=quoted><span class=var>?thesis</span></span></span>
-    <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> antisym pp_increasing<span class=main>)</span>
+    <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> order.antisym pp_increasing<span class=main>)</span>
 <span class=keyword1><span class=command>qed</span></span>
 
 <span class=comment1>(*
@@ -3169,7 +3169,7 @@ We can then show, for example, that every arc is contained in a pseudocomplement
     <span class=keyword2><span class=keyword>and</span></span> <span class=quoted><span class=quoted>"point <span class=free>y</span>"</span></span>
     <span class=keyword2><span class=keyword>and</span></span> <span class=quoted><span class=quoted>"<span class=free>x</span> <span class=main>≠</span> <span class=free>y</span>"</span></span>
   <span class=keyword2><span class=keyword>shows</span></span> <span class=quoted><span class=quoted>"<span class=free>x</span> <span class=main>⊓</span> <span class=free>y</span> <span class=main>=</span> bot"</span></span>
-  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> assms antisym comp_bijective_complement inf.sup_monoid.add_commute mult_left_one pseudo_complement regular_one_closed point_in_vector_or_pseudo_complement<span class=main>)</span>
+  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> assms order.antisym comp_bijective_complement inf.sup_monoid.add_commute mult_left_one pseudo_complement regular_one_closed point_in_vector_or_pseudo_complement<span class=main>)</span>
 
 <span class=keyword1 id=Relation_Algebras-point_in_vector_or_complement><span class=command>lemma</span></span> point_in_vector_or_complement<span class=main>:</span>
   <span class=keyword2><span class=keyword>assumes</span></span> <span class=quoted><span class=quoted>"point <span class=free>p</span>"</span></span>
@@ -3248,7 +3248,7 @@ We can then show, for example, that every arc is contained in a pseudocomplement
     <span class=keyword2><span class=keyword>shows</span></span> <span class=quoted><span class=quoted>"<span class=free>x</span> <span class=main>≤</span> <span class=free>z</span>"</span></span>
 <span class=keyword1><span class=command>proof</span></span> <span class=operator>-</span>
   <span class=keyword1><span class=command>have</span></span> <span class=quoted><span class=quoted>"<span class=free>x</span> <span class=main>≤</span> <span class=main>-</span><span class=free>y</span>"</span></span>
-    <span class=keyword1><span class=command>using</span></span> arc_in_arc_or_complement assms<span class=main>(</span>1<span class=main>,</span>2<span class=main>,</span>4<span class=main>)</span> eq_iff p_antitone_iff <span class=keyword1><span class=command>by</span></span> <span class=operator>blast</span>
+    <span class=keyword1><span class=command>using</span></span> arc_in_arc_or_complement assms<span class=main>(</span>1<span class=main>,</span>2<span class=main>,</span>4<span class=main>)</span> order.eq_iff p_antitone_iff <span class=keyword1><span class=command>by</span></span> <span class=operator>blast</span>
   <span class=keyword1><span class=command>hence</span></span> <span class=quoted><span class=quoted>"<span class=free>x</span> <span class=main>≤</span> <span class=main>-</span><span class=free>y</span> <span class=main>⊓</span> <span class=main>(</span><span class=free>z</span> <span class=main>⊔</span> <span class=free>y</span><span class=main>)</span>"</span></span>
     <span class=keyword1><span class=command>using</span></span> assms arc_in_sup_arc <span class=keyword1><span class=command>by</span></span> <span class=operator>simp</span>
   <span class=keyword3><span class=command>thus</span></span> <span class=var><span class=quoted><span class=var>?thesis</span></span></span>
@@ -3301,7 +3301,7 @@ These elements form important subalgebras and substructures of relation algebras
 
 <span class=keyword1><span class=command>theory</span></span> Relation_Subalgebras
 
-<span class=keyword2><span class=keyword>imports</span></span> <a href=../Stone_Algebras/Stone_Construction.html>Stone_Algebras.Stone_Construction</a> <a href=Relation_Algebras.html>Relation_Algebras</a>
+<span class=keyword2><span class=keyword>imports</span></span> <a href=../../stone_algebras/theories/#Stone_Construction>Stone_Algebras.Stone_Construction</a> <a href=#Relation_Algebras>Relation_Algebras</a>
 
 <span class=keyword2><span class=keyword>begin</span></span>
 
@@ -3538,7 +3538,7 @@ Reusing results from both theories is beneficial for relation algebras, but not 
 
 <span class=keyword1><span class=command>theory</span></span> Matrix_Relation_Algebras
 
-<span class=keyword2><span class=keyword>imports</span></span> <a href=Relation_Algebras.html>Relation_Algebras</a>
+<span class=keyword2><span class=keyword>imports</span></span> <a href=#Relation_Algebras>Relation_Algebras</a>
 
 <span class=keyword2><span class=keyword>begin</span></span>
 
@@ -4142,7 +4142,7 @@ We also consider the effect of composition with the matrix of greatest elements 
 
 <span class=keyword1><span class=command>theory</span></span> Linear_Order_Matrices
 
-<span class=keyword2><span class=keyword>imports</span></span> <a href=Matrix_Relation_Algebras.html>Matrix_Relation_Algebras</a>
+<span class=keyword2><span class=keyword>imports</span></span> <a href=#Matrix_Relation_Algebras>Matrix_Relation_Algebras</a>
 
 <span class=keyword2><span class=keyword>begin</span></span>
 

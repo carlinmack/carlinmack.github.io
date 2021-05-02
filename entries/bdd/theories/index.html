@@ -32,7 +32,7 @@ USA
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹BDD Abstractions›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> BinDag
-<span class=keyword2><span class=keyword>imports</span></span> <a href=../Simpl/Simpl_Heap.html>Simpl.Simpl_Heap</a>
+<span class=keyword2><span class=keyword>imports</span></span> <a href=../../simpl/theories/#Simpl_Heap>Simpl.Simpl_Heap</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>datatype</span></span> dag <span class=main>=</span> Tip <span class=main>|</span> Node <span class=quoted>dag</span> <span class=quoted>ref</span> <span class=quoted>dag</span>
@@ -462,7 +462,7 @@ USA
 
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹General Lemmas on BDD Abstractions›</span></span>
 
-<span class=keyword1><span class=command>theory</span></span> General <span class=keyword2><span class=keyword>imports</span></span> <a href=BinDag.html>BinDag</a> <span class=keyword2><span class=keyword>begin</span></span>
+<span class=keyword1><span class=command>theory</span></span> General <span class=keyword2><span class=keyword>imports</span></span> <a href=#BinDag>BinDag</a> <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>definition</span></span> <span class=entity>subdag_eq</span><span class=main>::</span> <span class=quoted><span class=quoted>"dag <span class=main>⇒</span> dag <span class=main>⇒</span> bool"</span></span> <span class=keyword2><span class=keyword>where</span></span>
 <span class=quoted><span class=quoted>"<span class=free>subdag_eq</span> <span class=free><span class=bound><span class=entity>t<span class=hidden>⇩</span><sub>1</sub></span></span></span> <span class=free><span class=bound><span class=entity>t<span class=hidden>⇩</span><sub>2</sub></span></span></span> <span class=main>=</span> <span class=main>(</span><span class=free><span class=bound><span class=entity>t<span class=hidden>⇩</span><sub>1</sub></span></span></span> <span class=main>=</span> <span class=free><span class=bound><span class=entity>t<span class=hidden>⇩</span><sub>2</sub></span></span></span> <span class=main>∨</span> subdag <span class=free><span class=bound><span class=entity>t<span class=hidden>⇩</span><sub>1</sub></span></span></span> <span class=free><span class=bound><span class=entity>t<span class=hidden>⇩</span><sub>2</sub></span></span></span><span class=main>)</span>"</span></span>
@@ -2374,7 +2374,7 @@ USA
 
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Definitions of Procedures›</span></span>
 <span class=keyword1><span class=command>theory</span></span> ProcedureSpecs
-<span class=keyword2><span class=keyword>imports</span></span> <a href=General.html>General</a> <a href=../Simpl/Vcg.html>Simpl.Vcg</a>
+<span class=keyword2><span class=keyword>imports</span></span> <a href=#General>General</a> <a href=../../simpl/theories/#Vcg>Simpl.Vcg</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>record</span></span> <span class=quoted>"globals"</span> <span class=main>=</span>
@@ -2510,7 +2510,7 @@ USA
 *)</span>
 
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Proof of Procedure Eval›</span></span>
-<span class=keyword1><span class=command>theory</span></span> EvalProof <span class=keyword2><span class=keyword>imports</span></span> <a href=ProcedureSpecs.html>ProcedureSpecs</a> <span class=keyword2><span class=keyword>begin</span></span>
+<span class=keyword1><span class=command>theory</span></span> EvalProof <span class=keyword2><span class=keyword>imports</span></span> <a href=#ProcedureSpecs>ProcedureSpecs</a> <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>lemma</span></span> <span class=main>(</span><span class=keyword2><span class=keyword>in</span></span> Eval_impl<span class=main>)</span> Eval_modifies<span class=main>:</span>
   <span class=keyword2><span class=keyword>shows</span></span> <span class=quoted><span class=quoted>"<span class=main>∀</span><span class=bound>σ</span><span class=main>.</span> <span class=free>Γ</span><span class=main>⊢</span><span class=main>{</span><span class=bound>σ</span><span class=main>}</span>  <span class=keyword1>PROC</span> Eval <span class=main>(</span><span class=main>´</span>p<span class=main>,</span> <span class=main>´</span>varval<span class=main>,</span> <span class=main>´</span>R<span class=main>)</span> 
@@ -2580,7 +2580,7 @@ USA
 *)</span>
 
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Proof of Procedure Levellist›</span></span>
-<span class=keyword1><span class=command>theory</span></span> LevellistProof <span class=keyword2><span class=keyword>imports</span></span> <a href=ProcedureSpecs.html>ProcedureSpecs</a> <a href=../Simpl/HeapList.html>Simpl.HeapList</a> <span class=keyword2><span class=keyword>begin</span></span>
+<span class=keyword1><span class=command>theory</span></span> LevellistProof <span class=keyword2><span class=keyword>imports</span></span> <a href=#ProcedureSpecs>ProcedureSpecs</a> <a href=../../simpl/theories/#HeapList>Simpl.HeapList</a> <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>hide_const</span></span> <span class=main>(</span><span class=keyword2><span class=keyword>open</span></span><span class=main>)</span> DistinctTreeProver.set_of tree.Node tree.Tip
 
@@ -3954,7 +3954,7 @@ USA
 *)</span>
 
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Proof of Procedure ShareRep›</span></span>
-<span class=keyword1><span class=command>theory</span></span> ShareRepProof <span class=keyword2><span class=keyword>imports</span></span> <a href=ProcedureSpecs.html>ProcedureSpecs</a> <a href=../Simpl/HeapList.html>Simpl.HeapList</a> <span class=keyword2><span class=keyword>begin</span></span>
+<span class=keyword1><span class=command>theory</span></span> ShareRepProof <span class=keyword2><span class=keyword>imports</span></span> <a href=#ProcedureSpecs>ProcedureSpecs</a> <a href=../../simpl/theories/#HeapList>Simpl.HeapList</a> <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>lemma</span></span> <span class=main>(</span><span class=keyword2><span class=keyword>in</span></span> ShareRep_impl<span class=main>)</span> ShareRep_modifies<span class=main>:</span>
   <span class=keyword2><span class=keyword>shows</span></span> <span class=quoted><span class=quoted>"<span class=main>∀</span><span class=bound>σ</span><span class=main>.</span> <span class=free>Γ</span><span class=main>⊢</span><span class=main>{</span><span class=bound>σ</span><span class=main>}</span>  <span class=keyword1>PROC</span> ShareRep <span class=main>(</span><span class=main>´</span>nodeslist<span class=main>,</span> <span class=main>´</span>p<span class=main>)</span> 
@@ -4249,7 +4249,7 @@ USA
 *)</span>
 
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Proof of Procedure ShareReduceRepList›</span></span>
-<span class=keyword1><span class=command>theory</span></span> ShareReduceRepListProof <span class=keyword2><span class=keyword>imports</span></span> <a href=ShareRepProof.html>ShareRepProof</a> <span class=keyword2><span class=keyword>begin</span></span>
+<span class=keyword1><span class=command>theory</span></span> ShareReduceRepListProof <span class=keyword2><span class=keyword>imports</span></span> <a href=#ShareRepProof>ShareRepProof</a> <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>lemma</span></span> <span class=main>(</span><span class=keyword2><span class=keyword>in</span></span> ShareReduceRepList_impl<span class=main>)</span> ShareReduceRepList_modifies<span class=main>:</span>
   <span class=keyword2><span class=keyword>shows</span></span> <span class=quoted><span class=quoted>"<span class=main>∀</span><span class=bound>σ</span><span class=main>.</span> <span class=free>Γ</span><span class=main>⊢</span><span class=main>{</span><span class=bound>σ</span><span class=main>}</span>  <span class=keyword1>PROC</span> ShareReduceRepList <span class=main>(</span><span class=main>´</span>nodeslist<span class=main>)</span>
@@ -6385,7 +6385,7 @@ USA
 *)</span>
 
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Proof of Procedure Repoint›</span></span>
-<span class=keyword1><span class=command>theory</span></span> RepointProof <span class=keyword2><span class=keyword>imports</span></span> <a href=ProcedureSpecs.html>ProcedureSpecs</a> <span class=keyword2><span class=keyword>begin</span></span>
+<span class=keyword1><span class=command>theory</span></span> RepointProof <span class=keyword2><span class=keyword>imports</span></span> <a href=#ProcedureSpecs>ProcedureSpecs</a> <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>hide_const</span></span> <span class=main>(</span><span class=keyword2><span class=keyword>open</span></span><span class=main>)</span> DistinctTreeProver.set_of tree.Node tree.Tip
 
@@ -7270,8 +7270,8 @@ USA
 *)</span>
 
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Proof of Procedure Normalize›</span></span>
-<span class=keyword1><span class=command>theory</span></span> NormalizeTotalProof <span class=keyword2><span class=keyword>imports</span></span> <a href=LevellistProof.html>LevellistProof</a> <a href=ShareReduceRepListProof.html>ShareReduceRepListProof</a> 
-                        <a href=RepointProof.html>RepointProof</a> <span class=keyword2><span class=keyword>begin</span></span>
+<span class=keyword1><span class=command>theory</span></span> NormalizeTotalProof <span class=keyword2><span class=keyword>imports</span></span> <a href=#LevellistProof>LevellistProof</a> <a href=#ShareReduceRepListProof>ShareReduceRepListProof</a> 
+                        <a href=#RepointProof>RepointProof</a> <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>hide_const</span></span> <span class=main>(</span><span class=keyword2><span class=keyword>open</span></span><span class=main>)</span> DistinctTreeProver.set_of tree.Node tree.Tip
 

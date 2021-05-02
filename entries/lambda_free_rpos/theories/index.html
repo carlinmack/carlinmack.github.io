@@ -9,7 +9,7 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/La
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Utilities for Lambda-Free Orders›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Lambda_Free_Util
-<span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=../../HOL/HOL-Library/Extended_Nat.html>HOL-Library.Extended_Nat</a>"</span> <span class=quoted>"<a href=../../HOL/HOL-Library/Multiset_Order.html>HOL-Library.Multiset_Order</a>"</span>
+<span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL-Library/Extended_Nat.html>HOL-Library.Extended_Nat</a>"</span> <span class=quoted>"<a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL-Library/Multiset_Order.html>HOL-Library.Multiset_Order</a>"</span>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>text</span></span> <span class=quoted><span class=plain_text>‹
@@ -638,7 +638,7 @@ used to formalize orders on <span class=antiquoted><span class=raw_text><span cl
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Lambda-Free Higher-Order Terms›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Lambda_Free_Term
-<span class=keyword2><span class=keyword>imports</span></span> <a href=Lambda_Free_Util.html>Lambda_Free_Util</a>
+<span class=keyword2><span class=keyword>imports</span></span> <a href=#Lambda_Free_Util>Lambda_Free_Util</a>
 <span class=keyword2><span class=keyword>abbrevs</span></span> <span class=quoted>"&gt;s"</span> <span class=main>=</span> <span class=quoted>"&gt;<span class=hidden>⇩</span><sub>s</sub>"</span>
   <span class=keyword2><span class=keyword>and</span></span> <span class=quoted>"&gt;h"</span> <span class=main>=</span> <span class=quoted>"&gt;<span class=hidden>⇩</span><sub>h</sub><span class=hidden>⇩</span><sub>d</sub>"</span>
   <span class=keyword2><span class=keyword>and</span></span> <span class=quoted>"≤≥h"</span> <span class=main>=</span> <span class=quoted>"≤≥<span class=hidden>⇩</span><sub>h</sub><span class=hidden>⇩</span><sub>d</sub>"</span>
@@ -1237,7 +1237,7 @@ This theory defines <span class=antiquoted><span class=raw_text><span class=anti
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Infinite (Non-Well-Founded) Chains›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Infinite_Chain
-<span class=keyword2><span class=keyword>imports</span></span> <a href=Lambda_Free_Util.html>Lambda_Free_Util</a>
+<span class=keyword2><span class=keyword>imports</span></span> <a href=#Lambda_Free_Util>Lambda_Free_Util</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>text</span></span> <span class=quoted><span class=plain_text>‹
@@ -1395,7 +1395,7 @@ well-foundedness of syntactic term orders.
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Extension Orders›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Extension_Orders
-<span class=keyword2><span class=keyword>imports</span></span> <a href=Lambda_Free_Util.html>Lambda_Free_Util</a> <a href=Infinite_Chain.html>Infinite_Chain</a> <span class=quoted>"<a href=../../HOL/HOL-Cardinals/Wellorder_Extension.html>HOL-Cardinals.Wellorder_Extension</a>"</span>
+<span class=keyword2><span class=keyword>imports</span></span> <a href=#Lambda_Free_Util>Lambda_Free_Util</a> <a href=#Infinite_Chain>Infinite_Chain</a> <span class=quoted>"<a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL-Cardinals/Wellorder_Extension.html>HOL-Cardinals.Wellorder_Extension</a>"</span>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>text</span></span> <span class=quoted><span class=plain_text>‹
@@ -2518,8 +2518,7 @@ The following proof is based on that of <span class=antiquoted><span class=antiq
   <span class=keyword3><span class=command>show</span></span> <span class=quoted><span class=quoted>"<span class=var>?Y</span> <span class=main>⊆#</span> mset <span class=free>ys</span>"</span></span>
     <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
   <span class=keyword3><span class=command>show</span></span> <span class=quoted><span class=quoted>"mset <span class=free>xs</span> <span class=main>=</span> mset <span class=free>ys</span> <span class=main>-</span> <span class=var>?Y</span> <span class=main>+</span> <span class=var>?X</span>"</span></span>
-    <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> add.commute diff_intersect_right_idem multiset_inter_def subset_mset.inf.cobounded2
-      subset_mset.le_imp_diff_is_add<span class=main>)</span>
+    <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>rule</span> multiset_eqI<span class=main>)</span> <span class=operator>simp</span>
   <span class=keyword3><span class=command>show</span></span> <span class=quoted><span class=quoted>"<span class=main>∀</span><span class=bound>x</span><span class=main>.</span> <span class=bound>x</span> <span class=main>∈#</span> <span class=var>?X</span> <span class=main>⟶</span> <span class=main>(</span><span class=main>∃</span><span class=bound>y</span><span class=main>.</span> <span class=bound>y</span> <span class=main>∈#</span> <span class=var>?Y</span> <span class=main>∧</span> <span class=free>gt</span> <span class=bound>y</span> <span class=bound>x</span><span class=main>)</span>"</span></span>
     <span class=keyword1><span class=command>using</span></span> huet<span class=main>[</span><span class=operator>unfolded</span> msetext_huet_def Let_def<span class=main>,</span> <span class=operator>THEN</span> conjunct2<span class=main>]</span> <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>meson</span> in_diff_count<span class=main>)</span>
 <span class=keyword1><span class=command>qed</span></span>
@@ -3449,7 +3448,7 @@ The following proof is based on that of <span class=antiquoted><span class=antiq
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹The Applicative Recursive Path Order for Lambda-Free Higher-Order Terms›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Lambda_Free_RPO_App
-<span class=keyword2><span class=keyword>imports</span></span> <a href=Lambda_Free_Term.html>Lambda_Free_Term</a> <a href=Extension_Orders.html>Extension_Orders</a>
+<span class=keyword2><span class=keyword>imports</span></span> <a href=#Lambda_Free_Term>Lambda_Free_Term</a> <a href=#Extension_Orders>Extension_Orders</a>
 <span class=keyword2><span class=keyword>abbrevs</span></span> <span class=quoted>"&gt;t"</span> <span class=main>=</span> <span class=quoted>"&gt;<span class=hidden>⇩</span><sub>t</sub>"</span>
   <span class=keyword2><span class=keyword>and</span></span> <span class=quoted>"≥t"</span> <span class=main>=</span> <span class=quoted>"≥<span class=hidden>⇩</span><sub>t</sub>"</span>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -3495,7 +3494,7 @@ terms and assigning the lowest precedence to the application symbol.
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹The Graceful Recursive Path Order for Lambda-Free Higher-Order Terms›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Lambda_Free_RPO_Std
-<span class=keyword2><span class=keyword>imports</span></span> <a href=Lambda_Free_Term.html>Lambda_Free_Term</a> <a href=Extension_Orders.html>Extension_Orders</a> <a href=../Nested_Multisets_Ordinals/Multiset_More.html>Nested_Multisets_Ordinals.Multiset_More</a>
+<span class=keyword2><span class=keyword>imports</span></span> <a href=#Lambda_Free_Term>Lambda_Free_Term</a> <a href=#Extension_Orders>Extension_Orders</a> <a href=../../nested_multisets_ordinals/theories/#Multiset_More>Nested_Multisets_Ordinals.Multiset_More</a>
 <span class=keyword2><span class=keyword>abbrevs</span></span> <span class=quoted>"&gt;t"</span> <span class=main>=</span> <span class=quoted>"&gt;<span class=hidden>⇩</span><sub>t</sub>"</span>
   <span class=keyword2><span class=keyword>and</span></span> <span class=quoted>"≥t"</span> <span class=main>=</span> <span class=quoted>"≥<span class=hidden>⇩</span><sub>t</sub>"</span>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -4319,7 +4318,7 @@ higher-order terms.
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹The Optimized Graceful Recursive Path Order for Lambda-Free Higher-Order Terms›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Lambda_Free_RPO_Optim
-<span class=keyword2><span class=keyword>imports</span></span> <a href=Lambda_Free_RPO_Std.html>Lambda_Free_RPO_Std</a>
+<span class=keyword2><span class=keyword>imports</span></span> <a href=#Lambda_Free_RPO_Std>Lambda_Free_RPO_Std</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>text</span></span> <span class=quoted><span class=plain_text>‹
@@ -4739,7 +4738,7 @@ This theory defines the optimized variant of the graceful recursive path order
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹An Encoding of Lambdas in Lambda-Free Higher-Order Logic›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Lambda_Encoding
-<span class=keyword2><span class=keyword>imports</span></span> <a href=Lambda_Free_Term.html>Lambda_Free_Term</a>
+<span class=keyword2><span class=keyword>imports</span></span> <a href=#Lambda_Free_Term>Lambda_Free_Term</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>text</span></span> <span class=quoted><span class=plain_text>‹
@@ -4790,7 +4789,7 @@ This theory defines an encoding of <span class=antiquoted><span class=raw_text><
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Recursive Path Orders for Lambda-Free Higher-Order Terms›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Lambda_Free_RPOs
-<span class=keyword2><span class=keyword>imports</span></span> <a href=Lambda_Free_RPO_App.html>Lambda_Free_RPO_App</a> <a href=Lambda_Free_RPO_Optim.html>Lambda_Free_RPO_Optim</a> <a href=Lambda_Encoding.html>Lambda_Encoding</a>
+<span class=keyword2><span class=keyword>imports</span></span> <a href=#Lambda_Free_RPO_App>Lambda_Free_RPO_App</a> <a href=#Lambda_Free_RPO_Optim>Lambda_Free_RPO_Optim</a> <a href=#Lambda_Encoding>Lambda_Encoding</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>locale</span></span> simple_rpo_instances

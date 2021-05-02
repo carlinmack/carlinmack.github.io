@@ -9,7 +9,7 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/La
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Utilities for Knuth--Bendix Orders for Lambda-Free Higher-Order Terms›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Lambda_Free_KBO_Util
-<span class=keyword2><span class=keyword>imports</span></span> <a href=../Lambda_Free_RPOs/Lambda_Free_Term.html>Lambda_Free_RPOs.Lambda_Free_Term</a> <a href=../Lambda_Free_RPOs/Extension_Orders.html>Lambda_Free_RPOs.Extension_Orders</a> <a href=../Polynomials/Polynomials.html>Polynomials.Polynomials</a>
+<span class=keyword2><span class=keyword>imports</span></span> <a href=../../lambda_free_rpos/theories/#Lambda_Free_Term>Lambda_Free_RPOs.Lambda_Free_Term</a> <a href=../../lambda_free_rpos/theories/#Extension_Orders>Lambda_Free_RPOs.Extension_Orders</a> <a href=../../polynomials/theories/#Polynomials>Polynomials.Polynomials</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>locale</span></span> kbo_basic_basis <span class=main>=</span> gt_sym <span class=quoted><span class=quoted>"<span class=keyword1><span class=free>(&gt;<span class=hidden>⇩</span><sub>s</sub>)</span></span>"</span></span>
@@ -124,7 +124,7 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/La
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹The Applicative Knuth--Bendix Order for Lambda-Free Higher-Order Terms›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Lambda_Free_KBO_App
-<span class=keyword2><span class=keyword>imports</span></span> <a href=Lambda_Free_KBO_Util.html>Lambda_Free_KBO_Util</a>
+<span class=keyword2><span class=keyword>imports</span></span> <a href=#Lambda_Free_KBO_Util>Lambda_Free_KBO_Util</a>
 <span class=keyword2><span class=keyword>abbrevs</span></span> <span class=quoted>"&gt;t"</span> <span class=main>=</span> <span class=quoted>"&gt;<span class=hidden>⇩</span><sub>t</sub>"</span>
   <span class=keyword2><span class=keyword>and</span></span> <span class=quoted>"≥t"</span> <span class=main>=</span> <span class=quoted>"≥<span class=hidden>⇩</span><sub>t</sub>"</span>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -182,7 +182,7 @@ application symbol.
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹The Graceful Standard Knuth--Bendix Order for Lambda-Free Higher-Order Terms›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Lambda_Free_KBO_Std
-<span class=keyword2><span class=keyword>imports</span></span> <a href=Lambda_Free_KBO_Util.html>Lambda_Free_KBO_Util</a> <a href=../Nested_Multisets_Ordinals/Multiset_More.html>Nested_Multisets_Ordinals.Multiset_More</a>
+<span class=keyword2><span class=keyword>imports</span></span> <a href=#Lambda_Free_KBO_Util>Lambda_Free_KBO_Util</a> <a href=../../nested_multisets_ordinals/theories/#Multiset_More>Nested_Multisets_Ordinals.Multiset_More</a>
 <span class=keyword2><span class=keyword>abbrevs</span></span> <span class=quoted>"&gt;t"</span> <span class=main>=</span> <span class=quoted>"&gt;<span class=hidden>⇩</span><sub>t</sub>"</span>
   <span class=keyword2><span class=keyword>and</span></span> <span class=quoted>"≥t"</span> <span class=main>=</span> <span class=quoted>"≥<span class=hidden>⇩</span><sub>t</sub>"</span>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -346,7 +346,7 @@ higher-order terms. Standard means that one symbol is allowed to have a weight o
   <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>subst</span> gt.simps<span class=main>)</span> <span class=main>(</span><span class=operator>auto</span> <span class=quasi_keyword>simp</span><span class=main><span class=main>:</span></span> gt_wt.simps gt_unary.simps gt_diff.simps gt_same.simps<span class=main>)</span>
 
 <span class=keyword1 id=Lambda_Free_KBO_Std-gt_imp_vars_mset><span class=command>lemma</span></span> gt_imp_vars_mset<span class=main>:</span> <span class=quoted><span class=quoted>"<span class=free>t</span> <span class=keyword1>&gt;<span class=hidden>⇩</span><sub>t</sub></span> <span class=free>s</span> <span class=main>⟹</span> vars_mset <span class=free>t</span> <span class=main>⊇#</span> vars_mset <span class=free>s</span>"</span></span>
-  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>induct</span> <span class=quasi_keyword>rule</span><span class=main><span class=main>:</span></span> gt.induct<span class=main>)</span> <span class=main>(</span><span class=operator>auto</span> <span class=quasi_keyword>intro</span><span class=main><span class=main>:</span></span> subset_mset.order.trans<span class=main>)</span>
+  <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>induct</span> <span class=quasi_keyword>rule</span><span class=main><span class=main>:</span></span> gt.induct<span class=main>)</span> <span class=main>(</span><span class=operator>auto</span> <span class=quasi_keyword>intro</span><span class=main><span class=main>:</span></span> subset_mset.trans<span class=main>)</span>
 
 <span class=keyword1 id=Lambda_Free_KBO_Std-gt_imp_vars><span class=command>lemma</span></span> gt_imp_vars<span class=main>:</span> <span class=quoted><span class=quoted>"<span class=free>t</span> <span class=keyword1>&gt;<span class=hidden>⇩</span><sub>t</sub></span> <span class=free>s</span> <span class=main>⟹</span> vars <span class=free>t</span> <span class=main>⊇</span> vars <span class=free>s</span>"</span></span>
   <span class=keyword1><span class=command>using</span></span> set_mset_mono<span class=main>[</span><span class=operator>OF</span> gt_imp_vars_mset<span class=main>]</span> <span class=keyword1><span class=command>by</span></span> <span class=operator>simp</span>
@@ -1448,7 +1448,7 @@ higher-order terms. Standard means that one symbol is allowed to have a weight o
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹The Graceful Basic Knuth--Bendix Order for Lambda-Free Higher-Order Terms›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Lambda_Free_KBO_Basic
-<span class=keyword2><span class=keyword>imports</span></span> <a href=Lambda_Free_KBO_Std.html>Lambda_Free_KBO_Std</a>
+<span class=keyword2><span class=keyword>imports</span></span> <a href=#Lambda_Free_KBO_Std>Lambda_Free_KBO_Std</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>text</span></span> <span class=quoted><span class=plain_text>‹
@@ -1570,7 +1570,7 @@ positive weight. The results are lifted from the standard KBO.
   Lambda-Free Higher-Order Terms›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Lambda_Free_TKBO_Coefs
-<span class=keyword2><span class=keyword>imports</span></span> <a href=Lambda_Free_KBO_Util.html>Lambda_Free_KBO_Util</a> <a href=../Nested_Multisets_Ordinals/Signed_Syntactic_Ordinal.html>Nested_Multisets_Ordinals.Signed_Syntactic_Ordinal</a>
+<span class=keyword2><span class=keyword>imports</span></span> <a href=#Lambda_Free_KBO_Util>Lambda_Free_KBO_Util</a> <a href=../../nested_multisets_ordinals/theories/#Signed_Syntactic_Ordinal>Nested_Multisets_Ordinals.Signed_Syntactic_Ordinal</a>
 <span class=keyword2><span class=keyword>abbrevs</span></span> <span class=quoted>"=p"</span> <span class=main>=</span> <span class=quoted>"=<span class=hidden>⇩</span><sub>p</sub>"</span>
   <span class=keyword2><span class=keyword>and</span></span> <span class=quoted>"&gt;p"</span> <span class=main>=</span> <span class=quoted>"&gt;<span class=hidden>⇩</span><sub>p</sub>"</span>
   <span class=keyword2><span class=keyword>and</span></span> <span class=quoted>"≥p"</span> <span class=main>=</span> <span class=quoted>"≥<span class=hidden>⇩</span><sub>p</sub>"</span>
@@ -3565,7 +3565,7 @@ definitions and proofs substantially.
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Properties of Lambda-Free KBO on the Lambda Encoding›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Lambda_Encoding_KBO
-<span class=keyword2><span class=keyword>imports</span></span> <a href=../Lambda_Free_RPOs/Lambda_Encoding.html>Lambda_Free_RPOs.Lambda_Encoding</a> <a href=Lambda_Free_KBO_Basic.html>Lambda_Free_KBO_Basic</a>
+<span class=keyword2><span class=keyword>imports</span></span> <a href=../../lambda_free_rpos/theories/#Lambda_Encoding>Lambda_Free_RPOs.Lambda_Encoding</a> <a href=#Lambda_Free_KBO_Basic>Lambda_Free_KBO_Basic</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>text</span></span> <span class=quoted><span class=plain_text>‹
@@ -3716,7 +3716,7 @@ This theory explores the properties of the <span class=antiquoted><span class=ra
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Knuth--Bendix Orders for Lambda-Free Higher-Order Terms›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Lambda_Free_KBOs
-<span class=keyword2><span class=keyword>imports</span></span> <a href=Lambda_Free_KBO_App.html>Lambda_Free_KBO_App</a> <a href=Lambda_Free_KBO_Basic.html>Lambda_Free_KBO_Basic</a> <a href=Lambda_Free_TKBO_Coefs.html>Lambda_Free_TKBO_Coefs</a> <a href=Lambda_Encoding_KBO.html>Lambda_Encoding_KBO</a>
+<span class=keyword2><span class=keyword>imports</span></span> <a href=#Lambda_Free_KBO_App>Lambda_Free_KBO_App</a> <a href=#Lambda_Free_KBO_Basic>Lambda_Free_KBO_Basic</a> <a href=#Lambda_Free_TKBO_Coefs>Lambda_Free_TKBO_Coefs</a> <a href=#Lambda_Encoding_KBO>Lambda_Encoding_KBO</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>locale</span></span> simple_kbo_instances

@@ -3,7 +3,7 @@ outline</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Gab
 document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Gabow_SCC/session_graph.pdf>Theory dependencies</a></li></ul></div></aside><div class="content theories"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
 <datalist id=autocomplete></datalist></div></form><h1><span class=first>S</span>ession <span class=first>G</span>abow_<span class=first>S</span><span class=first>C</span><span class=first>C</span></h1><div></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><div id=Gabow_Skeleton><div class=head><h1>Theory Gabow_Skeleton</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Skeleton for Gabow's SCC Algorithm \label{sec:skel}›</span></span>
 <span class=keyword1><span class=command>theory</span></span> Gabow_Skeleton
-<span class=keyword2><span class=keyword>imports</span></span> <a href=../CAVA_Automata/Digraph.html>CAVA_Automata.Digraph</a>
+<span class=keyword2><span class=keyword>imports</span></span> <a href=../../cava_automata/theories/#Digraph>CAVA_Automata.Digraph</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=comment1>(* TODO: convenience locale, consider merging this with invariants *)</span>
@@ -2658,7 +2658,7 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Ga
 <span class=keyword2><span class=keyword>end</span></span>
 </pre></div><div id=Gabow_SCC><div class=head><h1>Theory Gabow_SCC</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Enumerating the SCCs of a Graph \label{sec:scc}›</span></span>
 <span class=keyword1><span class=command>theory</span></span> Gabow_SCC
-<span class=keyword2><span class=keyword>imports</span></span> <a href=Gabow_Skeleton.html>Gabow_Skeleton</a>
+<span class=keyword2><span class=keyword>imports</span></span> <a href=#Gabow_Skeleton>Gabow_Skeleton</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>text</span></span> <span class=quoted><span class=plain_text>‹
@@ -3208,8 +3208,8 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Ga
 </pre></div><div id=Find_Path><div class=head><h1>Theory Find_Path</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Safety-Property Model-Checker\label{sec:find_path}›</span></span>
 <span class=keyword1><span class=command>theory</span></span> Find_Path
 <span class=keyword2><span class=keyword>imports</span></span>
-  <a href=../CAVA_Automata/Digraph.html>CAVA_Automata.Digraph</a>
-  <a href=../CAVA_Base/CAVA_Code_Target.html>CAVA_Base.CAVA_Code_Target</a>
+  <a href=../../cava_automata/theories/#Digraph>CAVA_Automata.Digraph</a>
+  <a href=../../cava_base/theories/#CAVA_Code_Target>CAVA_Base.CAVA_Code_Target</a>
 <span class=keyword2><span class=keyword>begin</span></span>
   <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Finding Path to Error›</span></span>
   <span class=keyword1><span class=command>text</span></span> <span class=quoted><span class=plain_text>‹
@@ -3256,9 +3256,9 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Ga
 </pre></div><div id=Gabow_GBG><div class=head><h1>Theory Gabow_GBG</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Lasso Finding Algorithm for Generalized B\"uchi Graphs \label{sec:gbg}›</span></span>
 <span class=keyword1><span class=command>theory</span></span> Gabow_GBG
 <span class=keyword2><span class=keyword>imports</span></span> 
-  <a href=Gabow_Skeleton.html>Gabow_Skeleton</a> 
-  <a href=../CAVA_Automata/Lasso.html>CAVA_Automata.Lasso</a>
-  <a href=Find_Path.html>Find_Path</a>
+  <a href=#Gabow_Skeleton>Gabow_Skeleton</a> 
+  <a href=../../cava_automata/theories/#Lasso>CAVA_Automata.Lasso</a>
+  <a href=#Find_Path>Find_Path</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=comment1>(* TODO: convenience locale, consider merging this with invariants *)</span>
@@ -5302,7 +5302,8 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Ga
       <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
     <span class=keyword1><span class=command>moreover</span></span> <span class=keyword1><span class=command>from</span></span> INV 1 <span class=keyword1><span class=command>have</span></span> <span class=quoted><span class=quoted>"insert <span class=skolem>v</span> <span class=main>(</span>set <span class=skolem>p</span><span class=main>)</span> <span class=main>⊆</span> set <span class=skolem>p</span> <span class=main>∪</span> set <span class=skolem>p'</span>"</span></span>
       <span class=keyword1><span class=command>unfolding</span></span> rec_loop_invar_def
-      <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>cases</span> <span class=quoted><span class=skolem>p</span></span><span class=main><span class=keyword3>,</span></span> <span class=operator>simp</span><span class=main>)</span>
+      <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>cases</span> <span class=quoted><span class=skolem>p</span></span><span class=main>)</span>
+      <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=operator>blast</span>
       <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>cases</span> <span class=quoted><span class=skolem>p'</span></span><span class=main>)</span>
       <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>auto</span> <span class=quasi_keyword>simp</span><span class=main><span class=main>:</span></span> path_simps<span class=main>)</span>
       <span class=keyword1><span class=command><span class=improper><span class=command>done</span></span></span></span>
@@ -5357,9 +5358,9 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Ga
 </pre></div><div id=Gabow_Skeleton_Code><div class=head><h1>Theory Gabow_Skeleton_Code</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Code Generation for the Skeleton Algorithm \label{sec:skel_code}›</span></span>
 <span class=keyword1><span class=command>theory</span></span> Gabow_Skeleton_Code
 <span class=keyword2><span class=keyword>imports</span></span> 
-  <a href=Gabow_Skeleton.html>Gabow_Skeleton</a>
-  <a href=../CAVA_Automata/Digraph_Impl.html>CAVA_Automata.Digraph_Impl</a>
-  <a href=../CAVA_Base/CAVA_Code_Target.html>CAVA_Base.CAVA_Code_Target</a>
+  <a href=#Gabow_Skeleton>Gabow_Skeleton</a>
+  <a href=../../cava_automata/theories/#Digraph_Impl>CAVA_Automata.Digraph_Impl</a>
+  <a href=../../cava_base/theories/#CAVA_Code_Target>CAVA_Base.CAVA_Code_Target</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Statistics›</span></span>
@@ -5628,9 +5629,9 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Ga
 </pre></div><div id=Gabow_SCC_Code><div class=head><h1>Theory Gabow_SCC_Code</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Code Generation for SCC-Computation \label{sec:scc_code}›</span></span>
 <span class=keyword1><span class=command>theory</span></span> Gabow_SCC_Code
 <span class=keyword2><span class=keyword>imports</span></span> 
-  <a href=Gabow_SCC.html>Gabow_SCC</a> 
-  <a href=Gabow_Skeleton_Code.html>Gabow_Skeleton_Code</a>
-  <a href=../CAVA_Base/CAVA_Code_Target.html>CAVA_Base.CAVA_Code_Target</a>
+  <a href=#Gabow_SCC>Gabow_SCC</a> 
+  <a href=#Gabow_Skeleton_Code>Gabow_Skeleton_Code</a>
+  <a href=../../cava_base/theories/#CAVA_Code_Target>CAVA_Base.CAVA_Code_Target</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 
@@ -5736,8 +5737,8 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Ga
 </pre></div><div id=Find_Path_Impl><div class=head><h1>Theory Find_Path_Impl</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Implementation of Safety Property Model Checker \label{sec:find_path_impl}›</span></span>
 <span class=keyword1><span class=command>theory</span></span> Find_Path_Impl
 <span class=keyword2><span class=keyword>imports</span></span> 
-  <a href=Find_Path.html>Find_Path</a>
-  <a href=../CAVA_Automata/Digraph_Impl.html>CAVA_Automata.Digraph_Impl</a>
+  <a href=#Find_Path>Find_Path</a>
+  <a href=../../cava_automata/theories/#Digraph_Impl>CAVA_Automata.Digraph_Impl</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
   <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Workset Algorithm›</span></span>
@@ -6148,11 +6149,11 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Ga
 </pre></div><div id=Gabow_GBG_Code><div class=head><h1>Theory Gabow_GBG_Code</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Code Generation for GBG Lasso Finding Algorithm\label{sec:gbg_code}›</span></span>
 <span class=keyword1><span class=command>theory</span></span> Gabow_GBG_Code
 <span class=keyword2><span class=keyword>imports</span></span>
-  <a href=Gabow_GBG.html>Gabow_GBG</a> 
-  <a href=Gabow_Skeleton_Code.html>Gabow_Skeleton_Code</a> 
-  <a href=../CAVA_Automata/Automata_Impl.html>CAVA_Automata.Automata_Impl</a>
-  <a href=Find_Path_Impl.html>Find_Path_Impl</a>
-  <a href=../CAVA_Base/CAVA_Code_Target.html>CAVA_Base.CAVA_Code_Target</a>
+  <a href=#Gabow_GBG>Gabow_GBG</a> 
+  <a href=#Gabow_Skeleton_Code>Gabow_Skeleton_Code</a> 
+  <a href=../../cava_automata/theories/#Automata_Impl>CAVA_Automata.Automata_Impl</a>
+  <a href=#Find_Path_Impl>Find_Path_Impl</a>
+  <a href=../../cava_base/theories/#CAVA_Code_Target>CAVA_Base.CAVA_Code_Target</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Autoref Setup›</span></span>
@@ -6535,15 +6536,15 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Ga
 </pre></div><div id=All_Of_Gabow_SCC><div class=head><h1>Theory All_Of_Gabow_SCC</h1></div><pre class=source><span class=comment1>(*&lt;*)</span>
 <span class=keyword1><span class=command>theory</span></span> All_Of_Gabow_SCC
 <span class=keyword2><span class=keyword>imports</span></span> 
-  <a href=Gabow_Skeleton.html>Gabow_Skeleton</a>
-  <a href=Gabow_SCC.html>Gabow_SCC</a>
-  <a href=Find_Path.html>Find_Path</a>
-  <a href=Gabow_GBG.html>Gabow_GBG</a>
+  <a href=#Gabow_Skeleton>Gabow_Skeleton</a>
+  <a href=#Gabow_SCC>Gabow_SCC</a>
+  <a href=#Find_Path>Find_Path</a>
+  <a href=#Gabow_GBG>Gabow_GBG</a>
 
-  <a href=Gabow_Skeleton_Code.html>Gabow_Skeleton_Code</a>
-  <a href=Gabow_SCC_Code.html>Gabow_SCC_Code</a>
-  <a href=Find_Path_Impl.html>Find_Path_Impl</a>
-  <a href=Gabow_GBG_Code.html>Gabow_GBG_Code</a>
+  <a href=#Gabow_Skeleton_Code>Gabow_Skeleton_Code</a>
+  <a href=#Gabow_SCC_Code>Gabow_SCC_Code</a>
+  <a href=#Find_Path_Impl>Find_Path_Impl</a>
+  <a href=#Gabow_GBG_Code>Gabow_GBG_Code</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 <span class=keyword2><span class=keyword>end</span></span>
 <span class=comment1>(*&gt;*)</span>

@@ -10,7 +10,7 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Re
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹(More) Boolean Algebra›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> More_Boolean_Algebra
-  <span class=keyword2><span class=keyword>imports</span></span> <a href=../../HOL/HOL/Main.html>Main</a>
+  <span class=keyword2><span class=keyword>imports</span></span> <a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL/Main.html>Main</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>subsection</span></span> <span class=quoted><span class=plain_text>‹Laws of Boolean Algebra›</span></span>
@@ -140,7 +140,7 @@ symmetric and that conjugates are uniqely defined.›</span></span>
 <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> inf.commute is_conjugation_def<span class=main>)</span>
 
 <span class=keyword1 id=More_Boolean_Algebra-is_conjugation_unique><span class=command>lemma</span></span> is_conjugation_unique<span class=main>:</span> <span class=quoted><span class=quoted>"<span class=main>⟦</span>is_conjugation <span class=free>f</span> <span class=free>g</span><span class=main>;</span> is_conjugation <span class=free>f</span> <span class=free>h</span><span class=main>⟧</span> <span class=main>⟹</span> <span class=free>g</span> <span class=main>=</span> <span class=free>h</span>"</span></span>
-<span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> galois_aux inf.commute double_compl eq_iff ext is_conjugation_def<span class=main>)</span>
+<span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> galois_aux inf.commute double_compl order.eq_iff ext is_conjugation_def<span class=main>)</span>
 
 <span class=keyword1><span class=command>text</span></span> <span class=quoted><span class=plain_text>‹Next we show that conjugates give rise to adjoints in a Galois
 connection.›</span></span>
@@ -176,7 +176,7 @@ suprema. We display the next proof in detail because it is elegant.›</span></s
 <span class=keyword1 id=More_Boolean_Algebra-f_additive><span class=command>lemma</span></span> f_additive<span class=main>:</span>
   <span class=keyword2><span class=keyword>assumes</span></span> <span class=quoted><span class=quoted>"is_conjugation <span class=free>f</span> <span class=free>g</span>"</span></span>
   <span class=keyword2><span class=keyword>shows</span></span> <span class=quoted><span class=quoted>"<span class=free>f</span> <span class=main>(</span>sup <span class=free>x</span> <span class=free>y</span><span class=main>)</span> <span class=main>=</span> sup <span class=main>(</span><span class=free>f</span> <span class=free>x</span><span class=main>)</span> <span class=main>(</span><span class=free>f</span> <span class=free>y</span><span class=main>)</span>"</span></span>
-<span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> assms eq_iff f_pre_additive<span class=main>)</span>
+<span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> assms order.eq_iff f_pre_additive<span class=main>)</span>
 
 <span class=keyword1 id=More_Boolean_Algebra-g_pre_additive><span class=command>lemma</span></span> g_pre_additive<span class=main>:</span>
   <span class=keyword2><span class=keyword>assumes</span></span> <span class=quoted><span class=quoted>"is_conjugation <span class=free>f</span> <span class=free>g</span>"</span></span>
@@ -303,7 +303,7 @@ in relation algebra.›</span></span>
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Relation Algebra›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Relation_Algebra
-  <span class=keyword2><span class=keyword>imports</span></span> <a href=More_Boolean_Algebra.html>More_Boolean_Algebra</a> <a href=../Kleene_Algebra/Kleene_Algebra.html>Kleene_Algebra.Kleene_Algebra</a>
+  <span class=keyword2><span class=keyword>imports</span></span> <a href=#More_Boolean_Algebra>More_Boolean_Algebra</a> <a href=../../kleene_algebra/theories/#Kleene_Algebra>Kleene_Algebra.Kleene_Algebra</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>text</span></span> <span class=quoted><span class=plain_text>‹We follow Tarski's original article and Maddux's book, in particular we
@@ -530,7 +530,7 @@ Maddux and Schmidt and Str\"ohlein. Most of them do not carry any meaningful
 names.›</span></span>
 
 <span class=keyword1 id=Relation_Algebra-ra_1><span class=command>lemma</span></span> ra_1<span class=main>:</span> <span class=quoted><span class=quoted>"<span class=main>(</span><span class=free>x</span> <span class=main>⋅</span> <span class=free>y</span> <span class=main>;</span> <span class=main>1</span><span class=main>)</span> <span class=main>;</span> <span class=free>z</span> <span class=main>=</span> <span class=free>x</span> <span class=main>;</span> <span class=free>z</span> <span class=main>⋅</span> <span class=free>y</span> <span class=main>;</span> <span class=main>1</span>"</span></span>
-<span class=keyword1><span class=command>proof</span></span> <span class=main>(</span><span class=operator>rule</span> antisym<span class=main>)</span>
+<span class=keyword1><span class=command>proof</span></span> <span class=main>(</span><span class=operator>rule</span> order.antisym<span class=main>)</span>
   <span class=keyword3><span class=command>show</span></span> <span class=quoted><span class=quoted>"<span class=free>x</span> <span class=main>;</span> <span class=free>z</span> <span class=main>⋅</span> <span class=free>y</span> <span class=main>;</span> <span class=main>1</span> <span class=main>≤</span> <span class=main>(</span><span class=free>x</span> <span class=main>⋅</span> <span class=free>y</span> <span class=main>;</span> <span class=main>1</span><span class=main>)</span> <span class=main>;</span> <span class=free>z</span>"</span></span>
     <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> modular_2_var comp_assoc order_trans eq_refl inf_mono inf_top_left mult_isor mult_subdistl<span class=main>)</span>
   <span class=keyword3><span class=command>show</span></span> <span class=quoted><span class=quoted>"<span class=main>(</span><span class=free>x</span> <span class=main>⋅</span> <span class=free>y</span> <span class=main>;</span> <span class=main>1</span><span class=main>)</span> <span class=main>;</span> <span class=free>z</span> <span class=main>≤</span> <span class=free>x</span> <span class=main>;</span> <span class=free>z</span> <span class=main>⋅</span> <span class=free>y</span> <span class=main>;</span> <span class=main>1</span>"</span></span>
@@ -538,7 +538,7 @@ names.›</span></span>
 <span class=keyword1><span class=command>qed</span></span>
 
 <span class=keyword1 id=Relation_Algebra-ra_2><span class=command>lemma</span></span> ra_2<span class=main>:</span> <span class=quoted><span class=quoted>"<span class=free>x</span> <span class=main>;</span> <span class=main>(</span><span class=free>z</span> <span class=main>⋅</span> <span class=free>y</span> <span class=main>;</span> <span class=main>1</span><span class=main>)</span> <span class=main>=</span> <span class=main>(</span><span class=free>x</span> <span class=main>⋅</span> <span class=main>(</span><span class=free>y</span> <span class=main>;</span> <span class=main>1</span><span class=main>)</span><span class=main><span class=hidden>⇧</span><sup>⌣</sup></span><span class=main>)</span> <span class=main>;</span> <span class=free>z</span>"</span></span>
-<span class=keyword1><span class=command>proof</span></span> <span class=main>(</span><span class=operator>rule</span> antisym<span class=main>)</span>
+<span class=keyword1><span class=command>proof</span></span> <span class=main>(</span><span class=operator>rule</span> order.antisym<span class=main>)</span>
   <span class=keyword1><span class=command>have</span></span> <span class=quoted><span class=quoted>"<span class=main>(</span><span class=free>x</span> <span class=main>⋅</span> <span class=main>1</span> <span class=main>;</span> <span class=main>(</span><span class=free>z</span> <span class=main>⋅</span> <span class=free>y</span> <span class=main>;</span> <span class=main>1</span><span class=main>)</span><span class=main><span class=hidden>⇧</span><sup>⌣</sup></span><span class=main>)</span> <span class=main>;</span> <span class=free>z</span> <span class=main>≤</span> <span class=main>(</span><span class=free>x</span> <span class=main>⋅</span> <span class=main>(</span><span class=free>y</span> <span class=main>;</span> <span class=main>1</span><span class=main>)</span><span class=main><span class=hidden>⇧</span><sup>⌣</sup></span><span class=main>)</span> <span class=main>;</span> <span class=free>z</span>"</span></span>
     <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> conv_contrav conv_invol conv_one conv_times inf.idem inf.left_commute le_iff_inf meet_assoc mult_isor ra_1<span class=main>)</span>
   <span class=keyword3><span class=command>thus</span></span> <span class=quoted><span class=quoted>"<span class=free>x</span> <span class=main>;</span> <span class=main>(</span><span class=free>z</span> <span class=main>⋅</span> <span class=free>y</span> <span class=main>;</span> <span class=main>1</span><span class=main>)</span> <span class=main>≤</span> <span class=main>(</span><span class=free>x</span> <span class=main>⋅</span> <span class=main>(</span><span class=free>y</span> <span class=main>;</span> <span class=main>1</span><span class=main>)</span><span class=main><span class=hidden>⇧</span><sup>⌣</sup></span><span class=main>)</span> <span class=main>;</span> <span class=free>z</span>"</span></span>
@@ -573,7 +573,7 @@ names.›</span></span>
 <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> mult_isor mult_onel top_greatest<span class=main>)</span>
 
 <span class=keyword1 id=Relation_Algebra-maddux_23><span class=command>lemma</span></span> maddux_23<span class=main>:</span> <span class=quoted><span class=quoted>"<span class=free>x</span> <span class=main>;</span> <span class=free>y</span> <span class=main>⋅</span> <span class=main>-</span><span class=main>(</span><span class=free>x</span> <span class=main>;</span> <span class=free>z</span><span class=main>)</span> <span class=main>=</span> <span class=free>x</span> <span class=main>;</span> <span class=main>(</span><span class=free>y</span> <span class=main>⋅</span> <span class=main>-</span><span class=free>z</span><span class=main>)</span> <span class=main>⋅</span> <span class=main>-</span><span class=main>(</span><span class=free>x</span> <span class=main>;</span> <span class=free>z</span><span class=main>)</span>"</span></span>
-<span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>rule</span> antisym<span class=main>)</span>
+<span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>rule</span> order.antisym<span class=main>)</span>
 <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=main>(</span><span class=operator>metis</span> local.aux6 local.aux6_var local.aux9 local.compl_inf_bot local.compl_sup_top local.compl_unique local.distrib_left local.galois_2 local.sup_ge2<span class=main>)</span>
 <span class=keyword1><span class=command>using</span></span> local.meet_iso local.mult_subdistl <span class=keyword1><span class=command>by</span></span> <span class=operator>blast</span>
 
@@ -581,7 +581,7 @@ names.›</span></span>
 <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> de_morgan_3 double_compl maddux_23<span class=main>)</span>
 
 <span class=keyword1 id=Relation_Algebra-one_compl><span class=command>lemma</span></span> one_compl<span class=main>:</span> <span class=quoted><span class=quoted>"<span class=main>-</span><span class=main>(</span><span class=free>x</span> <span class=main>;</span> <span class=main>1</span><span class=main>)</span> <span class=main>;</span> <span class=main>1</span> <span class=main>=</span> <span class=main>-</span><span class=main>(</span><span class=free>x</span> <span class=main>;</span> <span class=main>1</span><span class=main>)</span>"</span></span>
-<span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> antisym conv_one maddux_12 mult.assoc one_idem_mult maddux_20<span class=main>)</span>
+<span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> order.antisym conv_one maddux_12 mult.assoc one_idem_mult maddux_20<span class=main>)</span>
 
 <span class=keyword1 id=Relation_Algebra-ss_p18><span class=command>lemma</span></span> ss_p18<span class=main>:</span> <span class=quoted><span class=quoted>"<span class=free>x</span> <span class=main>;</span> <span class=main>1</span> <span class=main>=</span> <span class=main>0</span> <span class=main>⟷</span> <span class=free>x</span> <span class=main>=</span> <span class=main>0</span>"</span></span>
 <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> annil le_bot maddux_20<span class=main>)</span>
@@ -603,7 +603,7 @@ subidentities, and, in particular, functions.›</span></span>
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Vectors›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Relation_Algebra_Vectors
-  <span class=keyword2><span class=keyword>imports</span></span> <a href=Relation_Algebra.html>Relation_Algebra</a>
+  <span class=keyword2><span class=keyword>imports</span></span> <a href=#Relation_Algebra>Relation_Algebra</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>text</span></span> <span class=quoted><span class=plain_text>‹Vectors can be used for modelling sets of states. In this section we
@@ -661,7 +661,7 @@ follow Maddux's book to derive some of their most important properties.›</span
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Tests›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Relation_Algebra_Tests
-  <span class=keyword2><span class=keyword>imports</span></span> <a href=Relation_Algebra.html>Relation_Algebra</a>
+  <span class=keyword2><span class=keyword>imports</span></span> <a href=#Relation_Algebra>Relation_Algebra</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>subsection</span></span> <span class=quoted><span class=plain_text>‹Tests›</span></span>
@@ -682,12 +682,12 @@ we prove the basic properties, most of which stem from Maddux's book.›</span><
 <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> test_conv is_test_def<span class=main>)</span>
 
 <span class=keyword1 id=Relation_Algebra_Tests-test_eq_conv><span class=command>lemma</span></span> test_eq_conv <span class=main>[</span><span class=operator>simp</span><span class=main>]</span><span class=main>:</span> <span class=quoted><span class=quoted>"is_test <span class=free>x</span> <span class=main>⟹</span> <span class=free>x</span><span class=main><span class=hidden>⇧</span><sup>⌣</sup></span> <span class=main>=</span> <span class=free>x</span>"</span></span>
-<span class=keyword1><span class=command>proof</span></span> <span class=main>(</span><span class=operator>rule</span> antisym<span class=main>)</span>
+<span class=keyword1><span class=command>proof</span></span> <span class=main>(</span><span class=operator>rule</span> order.antisym<span class=main>)</span>
   <span class=keyword3><span class=command>assume</span></span> hyp<span class=main>:</span> <span class=quoted><span class=quoted>"is_test <span class=free>x</span>"</span></span>
   <span class=keyword1><span class=command>hence</span></span> <span class=quoted><span class=quoted>"<span class=free>x</span> <span class=main>≤</span> <span class=free>x</span> <span class=main>;</span> <span class=main>(</span><span class=main>1'</span> <span class=main>⋅</span> <span class=free>x</span><span class=main><span class=hidden>⇧</span><sup>⌣</sup></span> <span class=main>;</span> <span class=main>1'</span><span class=main>)</span>"</span></span>
     <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> inf.commute inf_absorb2 inf_le2 modular_1' mult.right_neutral is_test_def<span class=main>)</span>
   <span class=keyword3><span class=command>thus</span></span> <span class=quoted><span class=quoted>"<span class=free>x</span> <span class=main>≤</span> <span class=free>x</span><span class=main><span class=hidden>⇧</span><sup>⌣</sup></span>"</span></span>
-    <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> comp_unitr conv_contrav conv_invol eq_iff hyp inf_absorb2 mult_subdistl test_conv_var<span class=main>)</span>
+    <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> comp_unitr conv_contrav conv_invol order.eq_iff hyp inf_absorb2 mult_subdistl test_conv_var<span class=main>)</span>
   <span class=keyword3><span class=command>thus</span></span> <span class=quoted><span class=quoted>"<span class=free>x</span><span class=main><span class=hidden>⇧</span><sup>⌣</sup></span> <span class=main>≤</span> <span class=free>x</span>"</span></span>
     <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> conv_invol conv_times le_iff_inf<span class=main>)</span>
 <span class=keyword1><span class=command>qed</span></span>
@@ -705,7 +705,7 @@ we prove the basic properties, most of which stem from Maddux's book.›</span><
   <span class=keyword2><span class=keyword>assumes</span></span> <span class=quoted><span class=quoted>"is_test <span class=free>x</span>"</span></span>
     <span class=keyword2><span class=keyword>and</span></span> <span class=quoted><span class=quoted>"is_test <span class=free>y</span>"</span></span>
   <span class=keyword2><span class=keyword>shows</span></span> <span class=quoted><span class=quoted>"<span class=free>x</span> <span class=main>;</span> <span class=free>y</span> <span class=main>=</span> <span class=free>x</span> <span class=main>⋅</span> <span class=free>y</span>"</span></span>
-<span class=keyword1><span class=command>proof</span></span> <span class=main>(</span><span class=operator>rule</span> antisym<span class=main>)</span>
+<span class=keyword1><span class=command>proof</span></span> <span class=main>(</span><span class=operator>rule</span> order.antisym<span class=main>)</span>
   <span class=keyword3><span class=command>show</span></span> <span class=quoted><span class=quoted>"<span class=free>x</span> <span class=main>;</span> <span class=free>y</span> <span class=main>≤</span> <span class=free>x</span> <span class=main>⋅</span> <span class=free>y</span>"</span></span>
     <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> assms comp_unitr inf_absorb2 le_inf_iff mult_onel mult_subdistl mult_subdistr is_test_def<span class=main>)</span>
 <span class=keyword1><span class=command>next</span></span>
@@ -719,7 +719,7 @@ we prove the basic properties, most of which stem from Maddux's book.›</span><
 <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> inf.commute inf.idem inf_absorb2 mult.left_neutral one_conv ra_1 test_comp_eq_mult test_eq_conv is_test_def<span class=main>)</span>
 
 <span class=keyword1 id=Relation_Algebra_Tests-maddux_32><span class=command>lemma</span></span> maddux_32 <span class=main>[</span><span class=operator>simp</span><span class=main>]</span><span class=main>:</span> <span class=quoted><span class=quoted>"is_test <span class=free>x</span> <span class=main>⟹</span> <span class=main>-</span><span class=main>(</span><span class=free>x</span> <span class=main>;</span> <span class=main>1</span><span class=main>)</span> <span class=main>⋅</span> <span class=main>1'</span> <span class=main>=</span> <span class=main>-</span><span class=free>x</span> <span class=main>⋅</span> <span class=main>1'</span>"</span></span>
-<span class=keyword1><span class=command>proof</span></span> <span class=main>(</span><span class=operator>rule</span> antisym<span class=main>)</span>
+<span class=keyword1><span class=command>proof</span></span> <span class=main>(</span><span class=operator>rule</span> order.antisym<span class=main>)</span>
   <span class=keyword3><span class=command>assume</span></span> <span class=quoted><span class=quoted>"is_test <span class=free>x</span>"</span></span>
   <span class=keyword3><span class=command>show</span></span> <span class=quoted><span class=quoted>"<span class=main>-</span><span class=main>(</span><span class=free>x</span> <span class=main>;</span> <span class=main>1</span><span class=main>)</span> <span class=main>⋅</span> <span class=main>1'</span> <span class=main>≤</span> <span class=main>-</span><span class=free>x</span> <span class=main>⋅</span> <span class=main>1'</span>"</span></span>
     <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> maddux_20 comp_anti inf.commute meet_isor<span class=main>)</span>
@@ -730,7 +730,7 @@ we prove the basic properties, most of which stem from Maddux's book.›</span><
   <span class=keyword1><span class=command>hence</span></span> two<span class=main>:</span> <span class=quoted><span class=quoted>"<span class=free>x</span> <span class=main>;</span> <span class=main>1</span> <span class=main>⋅</span> <span class=main>(</span><span class=main>-</span><span class=free>x</span> <span class=main>⋅</span> <span class=main>1'</span><span class=main>)</span> <span class=main>≤</span> <span class=main>-</span><span class=free>x</span>"</span></span>
     <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> inf.commute inf_le1 le_infE<span class=main>)</span>
   <span class=keyword1><span class=command>hence</span></span> <span class=quoted><span class=quoted>"<span class=free>x</span> <span class=main>;</span> <span class=main>1</span> <span class=main>⋅</span> <span class=main>(</span><span class=main>-</span><span class=free>x</span> <span class=main>⋅</span> <span class=main>1'</span><span class=main>)</span> <span class=main>≤</span> <span class=free>x</span>"</span></span>
-    <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> one inf.commute le_infE meet_iso one_conv <span class=quoted><span class=quoted>‹is_test <span class=free>x</span>›</span></span> eq_iff test_1 test_eq_conv<span class=main>)</span>
+    <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> one inf.commute le_infE meet_iso one_conv <span class=quoted><span class=quoted>‹is_test <span class=free>x</span>›</span></span> order.eq_iff test_1 test_eq_conv<span class=main>)</span>
   <span class=keyword1><span class=command>hence</span></span> <span class=quoted><span class=quoted>"<span class=free>x</span> <span class=main>;</span> <span class=main>1</span> <span class=main>⋅</span> <span class=main>(</span><span class=main>-</span><span class=free>x</span> <span class=main>⋅</span> <span class=main>1'</span><span class=main>)</span> <span class=main>=</span> <span class=main>0</span>"</span></span>
     <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> two galois_aux2 le_iff_inf<span class=main>)</span>
   <span class=keyword3><span class=command>thus</span></span> <span class=quoted><span class=quoted>"<span class=main>-</span><span class=free>x</span> <span class=main>⋅</span> <span class=main>1'</span> <span class=main>≤</span> <span class=main>-</span><span class=main>(</span><span class=free>x</span> <span class=main>;</span> <span class=main>1</span><span class=main>)</span> <span class=main>⋅</span> <span class=main>1'</span>"</span></span>
@@ -741,7 +741,7 @@ we prove the basic properties, most of which stem from Maddux's book.›</span><
   <span class=keyword2><span class=keyword>assumes</span></span> <span class=quoted><span class=quoted>"is_test <span class=free>x</span>"</span></span>
     <span class=keyword2><span class=keyword>and</span></span> <span class=quoted><span class=quoted>"is_test <span class=free>y</span>"</span></span>
   <span class=keyword2><span class=keyword>shows</span></span> <span class=quoted><span class=quoted>"<span class=free>x</span> <span class=main>;</span> <span class=free>z</span> <span class=main>⋅</span> <span class=free>y</span> <span class=main>;</span> <span class=free>z</span> <span class=main>=</span> <span class=main>(</span><span class=free>x</span> <span class=main>⋅</span> <span class=free>y</span><span class=main>)</span> <span class=main>;</span> <span class=free>z</span>"</span></span>
-<span class=keyword1><span class=command>proof</span></span> <span class=main>(</span><span class=operator>rule</span> antisym<span class=main>)</span>
+<span class=keyword1><span class=command>proof</span></span> <span class=main>(</span><span class=operator>rule</span> order.antisym<span class=main>)</span>
   <span class=keyword1><span class=command>have</span></span> <span class=quoted><span class=quoted>"<span class=free>x</span> <span class=main>;</span> <span class=free>z</span> <span class=main>⋅</span> <span class=free>y</span> <span class=main>;</span> <span class=free>z</span> <span class=main>≤</span> <span class=free>x</span> <span class=main>;</span> <span class=main>1</span> <span class=main>⋅</span> <span class=free>y</span> <span class=main>;</span> <span class=free>z</span>"</span></span>
     <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> inf_top_left meet_iso mult_subdistl<span class=main>)</span>
   <span class=keyword1><span class=command>also</span></span> <span class=keyword1><span class=command>have</span></span> <span class=quoted><span class=quoted>"<span class=main>…</span> <span class=main>=</span> <span class=free>x</span> <span class=main>;</span> <span class=free>y</span> <span class=main>;</span> <span class=free>z</span>"</span></span>
@@ -754,12 +754,12 @@ we prove the basic properties, most of which stem from Maddux's book.›</span><
 <span class=keyword1><span class=command>qed</span></span>
 
 <span class=keyword1 id=Relation_Algebra_Tests-maddux_35><span class=command>lemma</span></span> maddux_35<span class=main>:</span> <span class=quoted><span class=quoted>"is_test <span class=free>x</span> <span class=main>⟹</span> <span class=free>x</span> <span class=main>;</span> <span class=free>y</span> <span class=main>⋅</span> <span class=main>-</span><span class=free>z</span> <span class=main>=</span> <span class=free>x</span> <span class=main>;</span> <span class=free>y</span> <span class=main>⋅</span> <span class=main>-</span><span class=main>(</span><span class=free>x</span> <span class=main>;</span> <span class=free>z</span><span class=main>)</span>"</span></span>
-<span class=keyword1><span class=command>proof</span></span> <span class=main>(</span><span class=operator>rule</span> antisym<span class=main>)</span>
+<span class=keyword1><span class=command>proof</span></span> <span class=main>(</span><span class=operator>rule</span> order.antisym<span class=main>)</span>
   <span class=keyword3><span class=command>assume</span></span> <span class=quoted><span class=quoted>"is_test <span class=free>x</span>"</span></span>
   <span class=keyword3><span class=command>show</span></span> <span class=quoted><span class=quoted>"<span class=free>x</span> <span class=main>;</span> <span class=free>y</span> <span class=main>⋅</span> <span class=main>-</span><span class=free>z</span> <span class=main>≤</span> <span class=free>x</span> <span class=main>;</span> <span class=free>y</span> <span class=main>⋅</span> <span class=main>-</span><span class=main>(</span><span class=free>x</span> <span class=main>;</span> <span class=free>z</span><span class=main>)</span>"</span></span>
     <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> <span class=quoted><span class=quoted>‹is_test <span class=free>x</span>›</span></span> comp_anti mult_isor mult_onel is_test_def inf.commute inf_le2 le_infI le_infI1<span class=main>)</span>
   <span class=keyword1><span class=command>have</span></span> one<span class=main>:</span> <span class=quoted><span class=quoted>"<span class=free>x</span> <span class=main>;</span> <span class=free>y</span> <span class=main>⋅</span> <span class=main>-</span><span class=main>(</span><span class=free>x</span> <span class=main>;</span> <span class=free>z</span><span class=main>)</span> <span class=main>≤</span> <span class=free>x</span> <span class=main>;</span> <span class=main>(</span><span class=free>y</span> <span class=main>⋅</span> <span class=main>-</span><span class=free>z</span><span class=main>)</span>"</span></span>
-    <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> eq_iff le_infE maddux_23<span class=main>)</span>
+    <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> order.eq_iff le_infE maddux_23<span class=main>)</span>
   <span class=keyword1><span class=command>hence</span></span> two<span class=main>:</span> <span class=quoted><span class=quoted>"<span class=free>x</span> <span class=main>;</span> <span class=free>y</span> <span class=main>⋅</span> <span class=main>-</span><span class=main>(</span><span class=free>x</span> <span class=main>;</span> <span class=free>z</span><span class=main>)</span> <span class=main>≤</span> <span class=free>x</span> <span class=main>;</span> <span class=free>y</span>"</span></span>
     <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> inf_le1<span class=main>)</span>
   <span class=keyword1><span class=command>have</span></span> <span class=quoted><span class=quoted>"<span class=free>x</span> <span class=main>;</span> <span class=free>y</span> <span class=main>⋅</span> <span class=main>-</span><span class=main>(</span><span class=free>x</span> <span class=main>;</span> <span class=free>z</span><span class=main>)</span> <span class=main>≤</span>  <span class=free>x</span> <span class=main>;</span> <span class=main>-</span><span class=free>z</span>"</span></span>
@@ -814,7 +814,7 @@ the multiplicative unit.›</span></span>
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Functions›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Relation_Algebra_Functions
-  <span class=keyword2><span class=keyword>imports</span></span> <a href=Relation_Algebra_Vectors.html>Relation_Algebra_Vectors</a> <a href=Relation_Algebra_Tests.html>Relation_Algebra_Tests</a>
+  <span class=keyword2><span class=keyword>imports</span></span> <a href=#Relation_Algebra_Vectors>Relation_Algebra_Vectors</a> <a href=#Relation_Algebra_Tests>Relation_Algebra_Tests</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>subsection</span></span> <span class=quoted><span class=plain_text>‹Functions›</span></span>
@@ -938,7 +938,7 @@ meets from the left.›</span></span>
   <span class=keyword1><span class=command>hence</span></span>  <span class=quoted><span class=quoted>"<span class=free>x</span> <span class=main>;</span> <span class=free>y</span> <span class=main>⋅</span> <span class=free>x</span> <span class=main>;</span> <span class=free>z</span> <span class=main>≤</span> <span class=free>x</span> <span class=main>;</span> <span class=main>(</span><span class=free>z</span> <span class=main>⋅</span> <span class=free>y</span><span class=main>)</span>"</span></span>
     <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> inf.commute mult.assoc order_trans modular_1_var<span class=main>)</span>
   <span class=keyword3><span class=command>thus</span></span> <span class=quoted><span class=quoted>"<span class=free>x</span> <span class=main>;</span> <span class=main>(</span><span class=free>y</span> <span class=main>⋅</span> <span class=free>z</span><span class=main>)</span> <span class=main>=</span> <span class=free>x</span> <span class=main>;</span> <span class=free>y</span> <span class=main>⋅</span> <span class=free>x</span> <span class=main>;</span> <span class=free>z</span>"</span></span>
-    <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> eq_iff inf.commute le_infI mult_subdistl<span class=main>)</span>
+    <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> order.eq_iff inf.commute le_infI mult_subdistl<span class=main>)</span>
 <span class=keyword1><span class=command>qed</span></span>
 
 <span class=keyword1 id=Relation_Algebra_Functions-map_distl><span class=command>lemma</span></span> map_distl<span class=main>:</span> <span class=quoted><span class=quoted>"is_map <span class=free>x</span> <span class=main>⟹</span> <span class=free>x</span> <span class=main>;</span> <span class=main>(</span><span class=free>y</span> <span class=main>⋅</span> <span class=free>z</span><span class=main>)</span> <span class=main>=</span> <span class=free>x</span> <span class=main>;</span> <span class=free>y</span> <span class=main>⋅</span> <span class=free>x</span> <span class=main>;</span> <span class=free>z</span>"</span></span>
@@ -965,7 +965,7 @@ definitions of those concepts.›</span></span>
 <span class=keyword1 id=Relation_Algebra_Functions-bij_is_maprop><span class=command>lemma</span></span> bij_is_maprop<span class=main>:</span>
   <span class=keyword2><span class=keyword>assumes</span></span> <span class=quoted><span class=quoted>"is_bij <span class=free>x</span>"</span></span> <span class=keyword2><span class=keyword>and</span></span> <span class=quoted><span class=quoted>"is_map <span class=free>x</span>"</span></span>
   <span class=keyword2><span class=keyword>shows</span></span> <span class=quoted><span class=quoted>"<span class=free>x</span><span class=main><span class=hidden>⇧</span><sup>⌣</sup></span> <span class=main>;</span> <span class=free>x</span>  <span class=main>=</span> <span class=main>1'</span> <span class=main>∧</span> <span class=free>x</span> <span class=main>;</span> <span class=free>x</span><span class=main><span class=hidden>⇧</span><sup>⌣</sup></span> <span class=main>=</span> <span class=main>1'</span>"</span></span>
-<span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> assms is_bij_def eq_iff is_inj_def is_map_def is_p_fun_def is_sur_def is_total_def<span class=main>)</span>
+<span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> assms is_bij_def order.eq_iff is_inj_def is_map_def is_p_fun_def is_sur_def is_total_def<span class=main>)</span>
 
 <span class=keyword1><span class=command>text</span></span><span class=quoted><span class=plain_text>‹We now provide alternative definitions for functions. These can be found
 in Schmidt and Str\"ohlein's book.›</span></span>
@@ -989,13 +989,13 @@ in Schmidt and Str\"ohlein's book.›</span></span>
 <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> conv_galois_2 double_compl galois_aux inf.commute is_inj_def<span class=main>)</span>
 
 <span class=keyword1 id=Relation_Algebra_Functions-is_maprop><span class=command>lemma</span></span> is_maprop<span class=main>:</span> <span class=quoted><span class=quoted>"is_map <span class=free>x</span> <span class=main>⟷</span> <span class=free>x</span> <span class=main>;</span> <span class=main>-</span><span class=main>(</span><span class=main>1'</span><span class=main>)</span> <span class=main>=</span> <span class=main>-</span><span class=free>x</span>"</span></span>
-<span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> eq_iff is_map_def p_fun_def_var total_def_var_2<span class=main>)</span>
+<span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> order.eq_iff is_map_def p_fun_def_var total_def_var_2<span class=main>)</span>
 
 <span class=keyword1><span class=command>text</span></span> <span class=quoted><span class=plain_text>‹Finally we prove miscellaneous properties of functions.›</span></span>
 
 <span class=keyword1 id=Relation_Algebra_Functions-ss_422iii><span class=command>lemma</span></span> ss_422iii<span class=main>:</span> <span class=quoted><span class=quoted>"is_p_fun <span class=free>y</span> <span class=main>⟹</span> <span class=main>(</span><span class=free>x</span> <span class=main>⋅</span> <span class=free>z</span> <span class=main>;</span> <span class=free>y</span><span class=main><span class=hidden>⇧</span><sup>⌣</sup></span><span class=main>)</span> <span class=main>;</span> <span class=free>y</span> <span class=main>=</span> <span class=free>x</span> <span class=main>;</span> <span class=free>y</span> <span class=main>⋅</span> <span class=free>z</span>"</span></span>
 <span class=comment1>(* by (smt antisym comp_assoc inf_commute maddux_17 meet_iso mult_isol mult_oner mult_subdistr_var order_trans is_p_fun_def) *)</span>
-<span class=keyword1><span class=command>proof</span></span> <span class=main>(</span><span class=operator>rule</span> antisym<span class=main>)</span>
+<span class=keyword1><span class=command>proof</span></span> <span class=main>(</span><span class=operator>rule</span> order.antisym<span class=main>)</span>
   <span class=keyword3><span class=command>assume</span></span> <span class=quoted><span class=quoted>"is_p_fun <span class=free>y</span>"</span></span>
   <span class=keyword3><span class=command>show</span></span> <span class=quoted><span class=quoted>"<span class=free>x</span> <span class=main>;</span> <span class=free>y</span> <span class=main>⋅</span> <span class=free>z</span> <span class=main>≤</span> <span class=main>(</span><span class=free>x</span> <span class=main>⋅</span> <span class=free>z</span> <span class=main>;</span> <span class=free>y</span><span class=main><span class=hidden>⇧</span><sup>⌣</sup></span><span class=main>)</span> <span class=main>;</span> <span class=free>y</span>"</span></span>
     <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> maddux_17<span class=main>)</span>
@@ -1057,7 +1057,7 @@ Tarski's rule which we omit.›</span></span>
 <span class=keyword1 id=Relation_Algebra_Functions-p_fun_sur_id><span class=command>lemma</span></span> p_fun_sur_id <span class=main>[</span><span class=operator>simp</span><span class=main>]</span><span class=main>:</span>
   <span class=keyword2><span class=keyword>assumes</span></span> <span class=quoted><span class=quoted>"is_p_fun <span class=free>x</span>"</span></span> <span class=keyword2><span class=keyword>and</span></span> <span class=quoted><span class=quoted>"is_sur <span class=free>x</span>"</span></span>
   <span class=keyword2><span class=keyword>shows</span></span> <span class=quoted><span class=quoted>"<span class=free>x</span><span class=main><span class=hidden>⇧</span><sup>⌣</sup></span> <span class=main>;</span> <span class=free>x</span> <span class=main>=</span> <span class=main>1'</span>"</span></span>
-<span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> assms eq_iff is_p_fun_def is_sur_def<span class=main>)</span>
+<span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> assms order.eq_iff is_p_fun_def is_sur_def<span class=main>)</span>
 
 <span class=keyword1 id=Relation_Algebra_Functions-total_inj_id><span class=command>lemma</span></span> total_inj_id <span class=main>[</span><span class=operator>simp</span><span class=main>]</span><span class=main>:</span>
   <span class=keyword2><span class=keyword>assumes</span></span> <span class=quoted><span class=quoted>"is_total <span class=free>x</span>"</span></span> <span class=keyword2><span class=keyword>and</span></span> <span class=quoted><span class=quoted>"is_inj <span class=free>x</span>"</span></span>
@@ -1080,7 +1080,7 @@ Tarski's rule which we omit.›</span></span>
 <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> is_map_def mult.assoc mult.right_neutral total_inj_id<span class=main>)</span>
 
 <span class=keyword1 id=Relation_Algebra_Functions-sur_map_epimorph><span class=command>lemma</span></span> sur_map_epimorph<span class=main>:</span> <span class=quoted><span class=quoted>"<span class=main>⟦</span>is_sur <span class=free>x</span><span class=main>;</span> is_map <span class=free>x</span><span class=main>⟧</span> <span class=main>⟹</span> <span class=main>(</span><span class=main>∀</span><span class=bound>y</span> <span class=bound>z</span><span class=main>.</span> <span class=free>x</span> <span class=main>;</span> <span class=bound>y</span> <span class=main>=</span> <span class=free>x</span> <span class=main>;</span> <span class=bound>z</span> <span class=main>⟶</span> <span class=bound>y</span> <span class=main>=</span> <span class=bound>z</span><span class=main>)</span>"</span></span>
-<span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> eq_iff mult.assoc mult.left_neutral ss423 is_sur_def<span class=main>)</span>
+<span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> order.eq_iff mult.assoc mult.left_neutral ss423 is_sur_def<span class=main>)</span>
 
 <span class=keyword1><span class=command>subsection</span></span> <span class=quoted><span class=plain_text>‹Points and Rectangles›</span></span>
 
@@ -1094,7 +1094,7 @@ beginning.›</span></span>
   <span class=keyword2><span class=keyword>where</span></span> <span class=quoted><span class=quoted>"<span class=free>is_rectangle</span> <span class=free><span class=bound><span class=entity>x</span></span></span> <span class=main>≡</span> <span class=free><span class=bound><span class=entity>x</span></span></span> <span class=main>;</span> <span class=main>1</span> <span class=main>;</span> <span class=free><span class=bound><span class=entity>x</span></span></span> <span class=main>≤</span> <span class=free><span class=bound><span class=entity>x</span></span></span>"</span></span>
 
 <span class=keyword1 id=Relation_Algebra_Functions-rectangle_eq><span class=command>lemma</span></span> rectangle_eq <span class=main>[</span><span class=operator>simp</span><span class=main>]</span><span class=main>:</span> <span class=quoted><span class=quoted>"is_rectangle <span class=free>x</span> <span class=main>⟷</span> <span class=free>x</span> <span class=main>;</span> <span class=main>1</span> <span class=main>;</span> <span class=free>x</span> <span class=main>=</span> <span class=free>x</span>"</span></span>
-<span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> conv_one dedekind eq_iff inf_top_left mult.assoc one_idem_mult is_rectangle_def<span class=main>)</span>
+<span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> conv_one dedekind order.eq_iff inf_top_left mult.assoc one_idem_mult is_rectangle_def<span class=main>)</span>
 
 <span class=keyword1><span class=command>subsection</span></span> <span class=quoted><span class=plain_text>‹Antidomain›</span></span>
 
@@ -1173,7 +1173,7 @@ proof since we haven't formalized the latter.›</span></span>
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Direct Products›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Relation_Algebra_Direct_Products
-  <span class=keyword2><span class=keyword>imports</span></span> <a href=Relation_Algebra_Functions.html>Relation_Algebra_Functions</a>
+  <span class=keyword2><span class=keyword>imports</span></span> <a href=#Relation_Algebra_Functions>Relation_Algebra_Functions</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>text</span></span> <span class=quoted><span class=plain_text>‹This section uses the definition of direct products from Schmidt and
@@ -1382,7 +1382,7 @@ construction.›</span></span>
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Reflexive Transitive Closure›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Relation_Algebra_RTC
-  <span class=keyword2><span class=keyword>imports</span></span> <a href=Relation_Algebra.html>Relation_Algebra</a>
+  <span class=keyword2><span class=keyword>imports</span></span> <a href=#Relation_Algebra>Relation_Algebra</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>text</span></span> <span class=quoted><span class=plain_text>‹We impose the Kleene algebra axioms for the star on relation algebras.
@@ -1407,7 +1407,7 @@ This gives us a reflexive transitive closure operation.›</span></span>
 converse is captured by the axioms.›</span></span>
 
 <span class=keyword1 id=Relation_Algebra_RTC-star_conv><span class=command>lemma</span></span> star_conv<span class=main>:</span> <span class=quoted><span class=quoted>"<span class=main>(</span><span class=free>x</span><span class=main><span class=hidden>⇧</span><sup>⋆</sup></span><span class=main>)</span><span class=main><span class=hidden>⇧</span><sup>⌣</sup></span> <span class=main>=</span> <span class=main>(</span><span class=free>x</span><span class=main><span class=hidden>⇧</span><sup>⌣</sup></span><span class=main>)</span><span class=main><span class=hidden>⇧</span><sup>⋆</sup></span>"</span></span>
-<span class=keyword1><span class=command>proof</span></span> <span class=main>(</span><span class=operator>rule</span> antisym<span class=main>)</span>
+<span class=keyword1><span class=command>proof</span></span> <span class=main>(</span><span class=operator>rule</span> order.antisym<span class=main>)</span>
   <span class=keyword3><span class=command>show</span></span> <span class=quoted><span class=quoted>"<span class=main>(</span><span class=free>x</span><span class=main><span class=hidden>⇧</span><sup>⌣</sup></span><span class=main>)</span><span class=main><span class=hidden>⇧</span><sup>⋆</sup></span> <span class=main>≤</span> <span class=main>(</span><span class=free>x</span><span class=main><span class=hidden>⇧</span><sup>⋆</sup></span><span class=main>)</span><span class=main><span class=hidden>⇧</span><sup>⌣</sup></span>"</span></span>
     <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> local.conv_add local.conv_contrav local.conv_e local.conv_iso local.star_rtc1 local.star_rtc_least<span class=main>)</span>
   <span class=keyword3><span class=command>show</span></span> <span class=quoted><span class=quoted>"<span class=main>(</span><span class=free>x</span><span class=main><span class=hidden>⇧</span><sup>⋆</sup></span><span class=main>)</span><span class=main><span class=hidden>⇧</span><sup>⌣</sup></span> <span class=main>≤</span> <span class=main>(</span><span class=free>x</span><span class=main><span class=hidden>⇧</span><sup>⌣</sup></span><span class=main>)</span><span class=main><span class=hidden>⇧</span><sup>⋆</sup></span>"</span></span>
@@ -1432,7 +1432,7 @@ picked up in relation algebra.›</span></span>
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Models of Relation Algebra›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Relation_Algebra_Models
-  <span class=keyword2><span class=keyword>imports</span></span> <a href=Relation_Algebra.html>Relation_Algebra</a> <a href=../Kleene_Algebra/Inf_Matrix.html>Kleene_Algebra.Inf_Matrix</a>
+  <span class=keyword2><span class=keyword>imports</span></span> <a href=#Relation_Algebra>Relation_Algebra</a> <a href=../../kleene_algebra/theories/#Inf_Matrix>Kleene_Algebra.Inf_Matrix</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword1><span class=command>text</span></span> <span class=quoted><span class=plain_text>‹We formalise two models. First we show the obvious: binary relations
