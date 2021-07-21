@@ -1,7 +1,343 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Session MFOTL_Monitor - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session MFOTL_Monitor"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/mfotl_monitor/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Session MFOTL_Monitor"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css><link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script><script src=/js/banner.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><li><a href=/entries/mfotl_monitor>Return to entry</a></li></ul><hr><ul><li><a href=#Trace>Trace</a><ul><li><a href=#Trace-ssorted_siterate>ssorted_siterate</a></li><li><a href=#Trace-ssortedD>ssortedD</a></li><li><a href=#Trace-ssorted_sdrop>ssorted_sdrop</a></li><li><a href=#Trace-ssorted_monoD>ssorted_monoD</a></li><li><a href=#Trace-sorted_stake>sorted_stake</a></li><li><a href=#Trace-ssorted_monoI>ssorted_monoI</a></li><li><a href=#Trace-ssorted_iff_mono>ssorted_iff_mono</a></li><li><a href=#Trace-ssorted_iff_le_Suc>ssorted_iff_le_Suc</a></li><li><a href=#Trace-sincreasingI>sincreasingI</a></li><li><a href=#Trace-sincreasing_grD>sincreasing_grD</a></li><li><a href=#Trace-sincreasing_siterate_nat>sincreasing_siterate_nat</a></li><li><a href=#Trace-sincreasing_stl>sincreasing_stl</a></li><li><a href=#Trace-stream_eq_iff>stream_eq_iff</a></li><li><a href=#Trace-trace_eqI>trace_eqI</a></li><li><a href=#Trace-%cf%84_mono>τ_mono</a></li><li><a href=#Trace-ex_le_%cf%84>ex_le_τ</a></li><li><a href=#Trace-le_%cf%84_less>le_τ_less</a></li><li><a href=#Trace-less_%cf%84D>less_τD</a></li><li><a href=#Trace-%ce%93_map_%ce%93>Γ_map_Γ</a></li><li><a href=#Trace-%cf%84_map_%ce%93>τ_map_Γ</a></li><li><a href=#Trace-map_%ce%93_id>map_Γ_id</a></li><li><a href=#Trace-map_%ce%93_comp>map_Γ_comp</a></li><li><a href=#Trace-map_%ce%93_cong>map_Γ_cong</a></li><li><a href=#Trace-psnoc_inject>psnoc_inject</a></li><li><a href=#Trace-prefix_of_pnil>prefix_of_pnil</a></li><li><a href=#Trace-plen_pnil>plen_pnil</a></li><li><a href=#Trace-prefix_of_pmap_%ce%93>prefix_of_pmap_Γ</a></li><li><a href=#Trace-plen_mono>plen_mono</a></li><li><a href=#Trace-prefix_of_psnocE>prefix_of_psnocE</a></li><li><a href=#Trace-le_pnil>le_pnil</a></li><li><a href=#Trace-plen_take_prefix>plen_take_prefix</a></li><li><a href=#Trace-plen_psnoc>plen_psnoc</a></li><li><a href=#Trace-prefix_of_take_prefix>prefix_of_take_prefix</a></li><li><a href=#Trace-pdrop_0>pdrop_0</a></li><li><a href=#Trace-prefix_of_antimono>prefix_of_antimono</a></li><li><a href=#Trace-prefix_of_imp_linear>prefix_of_imp_linear</a></li><li><a href=#Trace-ex_prefix_of>ex_prefix_of</a></li><li><a href=#Trace-%cf%84_prefix_conv>τ_prefix_conv</a></li><li><a href=#Trace-%ce%93_prefix_conv>Γ_prefix_conv</a></li><li><a href=#Trace-sincreasing_sdrop>sincreasing_sdrop</a></li><li><a href=#Trace-ssorted_shift>ssorted_shift</a></li><li><a href=#Trace-sincreasing_shift>sincreasing_shift</a></li><li><a href=#Trace-prefix_of_replace_prefix>prefix_of_replace_prefix</a></li><li><a href=#Trace-map_%ce%93_replace_prefix>map_Γ_replace_prefix</a></li><li><a href=#Trace-prefix_of_pmap_%ce%93_D>prefix_of_pmap_Γ_D</a></li><li><a href=#Trace-prefix_of_map_%ce%93_D>prefix_of_map_Γ_D</a></li><li><a href=#Trace-pts_pmap_%ce%93>pts_pmap_Γ</a></li></ul></li><li><a href=#Table>Table</a><ul><li><a href=#Table-tabulate_alt>tabulate_alt</a></li><li><a href=#Table-length_tabulate>length_tabulate</a></li><li><a href=#Table-map_tabulate>map_tabulate</a></li><li><a href=#Table-nth_tabulate>nth_tabulate</a></li><li><a href=#Table-in_empty_table>in_empty_table</a></li><li><a href=#Table-empty_table>empty_table</a></li><li><a href=#Table-unit_table_wf_tuple>unit_table_wf_tuple</a></li><li><a href=#Table-unit_table>unit_table</a></li><li><a href=#Table-in_unit_table>in_unit_table</a></li><li><a href=#Table-singleton_table_wf_tuple>singleton_table_wf_tuple</a></li><li><a href=#Table-singleton_table>singleton_table</a></li><li><a href=#Table-table_Un>table_Un</a></li><li><a href=#Table-wf_tuple_length>wf_tuple_length</a></li><li><a href=#Table-join_True_code>join_True_code</a></li><li><a href=#Table-join_False_alt>join_False_alt</a></li><li><a href=#Table-self_join1>self_join1</a></li><li><a href=#Table-join_False_code>join_False_code</a></li><li><a href=#Table-wf_tuple_Nil>wf_tuple_Nil</a></li><li><a href=#Table-Suc_pred%27>Suc_pred'</a></li><li><a href=#Table-wf_tuple_Cons>wf_tuple_Cons</a></li><li><a href=#Table-join1_wf_tuple>join1_wf_tuple</a></li><li><a href=#Table-join_wf_tuple>join_wf_tuple</a></li><li><a href=#Table-join_table>join_table</a></li><li><a href=#Table-wf_tuple_Suc>wf_tuple_Suc</a></li><li><a href=#Table-table_project>table_project</a></li><li><a href=#Table-restrict_Nil>restrict_Nil</a></li><li><a href=#Table-restrict_Cons>restrict_Cons</a></li><li><a href=#Table-wf_tuple_restrict>wf_tuple_restrict</a></li><li><a href=#Table-wf_tuple_restrict_simple>wf_tuple_restrict_simple</a></li><li><a href=#Table-nth_restrict>nth_restrict</a></li><li><a href=#Table-restrict_eq_Nil>restrict_eq_Nil</a></li><li><a href=#Table-length_restrict>length_restrict</a></li><li><a href=#Table-join1_Some_restrict>join1_Some_restrict</a></li><li><a href=#Table-restrict_idle>restrict_idle</a></li><li><a href=#Table-map_the_restrict>map_the_restrict</a></li><li><a href=#Table-join_restrict>join_restrict</a></li><li><a href=#Table-join_restrict_table>join_restrict_table</a></li><li><a href=#Table-join_restrict_annotated>join_restrict_annotated</a></li><li><a href=#Table-in_joinI>in_joinI</a></li><li><a href=#Table-in_joinE>in_joinE</a></li><li><a href=#Table-wf_table_iff>wf_table_iff</a></li><li><a href=#Table-table_wf_table>table_wf_table</a></li><li><a href=#Table-qtableI>qtableI</a></li><li><a href=#Table-in_qtableI>in_qtableI</a></li><li><a href=#Table-in_qtableE>in_qtableE</a></li><li><a href=#Table-qtable_empty>qtable_empty</a></li><li><a href=#Table-qtable_empty_iff>qtable_empty_iff</a></li><li><a href=#Table-qtable_unit_table>qtable_unit_table</a></li><li><a href=#Table-qtable_union>qtable_union</a></li><li><a href=#Table-qtable_Union>qtable_Union</a></li><li><a href=#Table-qtable_join>qtable_join</a></li><li><a href=#Table-qtable_join_fixed>qtable_join_fixed</a></li><li><a href=#Table-wf_tuple_cong>wf_tuple_cong</a></li><li><a href=#Table-mem_restrI>mem_restrI</a></li><li><a href=#Table-mem_restrE>mem_restrE</a></li><li><a href=#Table-mem_restr_IntD>mem_restr_IntD</a></li><li><a href=#Table-mem_restr_Un_iff>mem_restr_Un_iff</a></li><li><a href=#Table-mem_restr_UNIV>mem_restr_UNIV</a></li><li><a href=#Table-restrict_mem_restr>restrict_mem_restr</a></li><li><a href=#Table-lift_envs_mem_restr>lift_envs_mem_restr</a></li><li><a href=#Table-qtable_project>qtable_project</a></li><li><a href=#Table-qtable_cong>qtable_cong</a></li></ul></li><li><a href=#Abstract_Monitor>Abstract_Monitor</a><ul><li><a href=#Abstract_Monitor-cosafety>cosafety</a></li><li><a href=#Abstract_Monitor-M_limit_eq>M_limit_eq</a></li><li><a href=#Abstract_Monitor-M_alt>M_alt</a></li><li><a href=#Abstract_Monitor-prefix_of_psliceI>prefix_of_psliceI</a></li><li><a href=#Abstract_Monitor-plen_pslice>plen_pslice</a></li><li><a href=#Abstract_Monitor-pslice_pnil>pslice_pnil</a></li><li><a href=#Abstract_Monitor-last_ts_pslice>last_ts_pslice</a></li><li><a href=#Abstract_Monitor-union_verdicts_slice>union_verdicts_slice</a></li><li><a href=#Abstract_Monitor-union_M_pslice>union_M_pslice</a></li><li><a href=#Abstract_Monitor-progress_pslice>progress_pslice</a></li></ul></li><li><a href=#Interval>Interval</a><ul><li><a href=#Interval-left_right>left_right</a></li><li><a href=#Interval-point_simps>point_simps</a></li><li><a href=#Interval-init_simps>init_simps</a></li><li><a href=#Interval-subtract_simps>subtract_simps</a></li><li><a href=#Interval-subtract_too_much>subtract_too_much</a></li><li><a href=#Interval-subtract_shifted>subtract_shifted</a></li><li><a href=#Interval-finite_shifted>finite_shifted</a></li></ul></li><li><a href=#MFOTL>MFOTL</a><ul><li><a href=#MFOTL-eval_trm_cong>eval_trm_cong</a></li><li><a href=#MFOTL-finite_fvi_trm>finite_fvi_trm</a></li><li><a href=#MFOTL-finite_fvi>finite_fvi</a></li><li><a href=#MFOTL-fvi_trm_Suc>fvi_trm_Suc</a></li><li><a href=#MFOTL-fvi_Suc>fvi_Suc</a></li><li><a href=#MFOTL-fvi_Suc_bound>fvi_Suc_bound</a></li><li><a href=#MFOTL-nfv_simps>nfv_simps</a></li><li><a href=#MFOTL-fvi_less_nfv>fvi_less_nfv</a></li><li><a href=#MFOTL-sat_Until_rec>sat_Until_rec</a></li><li><a href=#MFOTL-sat_Since_rec>sat_Since_rec</a></li><li><a href=#MFOTL-sat_Since_0>sat_Since_0</a></li><li><a href=#MFOTL-sat_Since_point>sat_Since_point</a></li><li><a href=#MFOTL-sat_Since_pointD>sat_Since_pointD</a></li><li><a href=#MFOTL-eval_trm_fvi_cong>eval_trm_fvi_cong</a></li><li><a href=#MFOTL-sat_fvi_cong>sat_fvi_cong</a></li><li><a href=#MFOTL-fvi_And>fvi_And</a></li><li><a href=#MFOTL-nfv_And>nfv_And</a></li><li><a href=#MFOTL-future_reach_And>future_reach_And</a></li><li><a href=#MFOTL-sat_And>sat_And</a></li><li><a href=#MFOTL-fvi_And_Not>fvi_And_Not</a></li><li><a href=#MFOTL-nfv_And_Not>nfv_And_Not</a></li><li><a href=#MFOTL-future_reach_And_Not>future_reach_And_Not</a></li><li><a href=#MFOTL-sat_And_Not>sat_And_Not</a></li><li><a href=#MFOTL-disjE_Not2>disjE_Not2</a></li><li><a href=#MFOTL-safe_formula_induct>safe_formula_induct</a></li><li><a href=#MFOTL-matches_fvi_cong>matches_fvi_cong</a></li><li><a href=#MFOTL-sat_slice_strong>sat_slice_strong</a></li><li><a href=#MFOTL-sat_slice_iff>sat_slice_iff</a></li><li><a href=#MFOTL-slice_replace_prefix>slice_replace_prefix</a></li></ul></li><li><a href=#Monitor>Monitor</a><ul><li><a href=#Monitor-plus_eq_enat_iff>plus_eq_enat_iff</a></li><li><a href=#Monitor-minus_eq_enat_iff>minus_eq_enat_iff</a></li><li><a href=#Monitor-safe_formula_mmonitorable_exec>safe_formula_mmonitorable_exec</a></li><li><a href=#Monitor-mmonitorable_exec_mmonitorable>mmonitorable_exec_mmonitorable</a></li><li><a href=#Monitor-monitorable_formula_code>monitorable_formula_code</a></li><li><a href=#Monitor-mstep_alt>mstep_alt</a></li><li><a href=#Monitor-progress_And>progress_And</a></li><li><a href=#Monitor-progress_And_Not>progress_And_Not</a></li><li><a href=#Monitor-progress_mono>progress_mono</a></li><li><a href=#Monitor-progress_le>progress_le</a></li><li><a href=#Monitor-progress_0>progress_0</a></li><li><a href=#Monitor-progress_ge>progress_ge</a></li><li><a href=#Monitor-cInf_restrict_nat>cInf_restrict_nat</a></li><li><a href=#Monitor-progress_time_conv>progress_time_conv</a></li><li><a href=#Monitor-Inf_UNIV_nat>Inf_UNIV_nat</a></li><li><a href=#Monitor-progress_prefix_conv>progress_prefix_conv</a></li><li><a href=#Monitor-sat_prefix_conv>sat_prefix_conv</a></li><li><a href=#Monitor-pprogress_eq>pprogress_eq</a></li><li><a href=#Monitor-wf_mbuf2%27_UNIV_alt>wf_mbuf2'_UNIV_alt</a></li><li><a href=#Monitor-qtable_mem_restr_UNIV>qtable_mem_restr_UNIV</a></li><li><a href=#Monitor-wf_since_aux_UNIV_alt>wf_since_aux_UNIV_alt</a></li><li><a href=#Monitor-wf_until_aux_UNIV_alt>wf_until_aux_UNIV_alt</a></li><li><a href=#Monitor-minit0_And>minit0_And</a></li><li><a href=#Monitor-minit0_And_Not>minit0_And_Not</a></li><li><a href=#Monitor-wf_mbuf2%27_0>wf_mbuf2'_0</a></li><li><a href=#Monitor-wf_ts_0>wf_ts_0</a></li><li><a href=#Monitor-wf_since_aux_Nil>wf_since_aux_Nil</a></li><li><a href=#Monitor-wf_until_aux_Nil>wf_until_aux_Nil</a></li><li><a href=#Monitor-wf_minit0>wf_minit0</a></li><li><a href=#Monitor-wf_mstate_minit>wf_mstate_minit</a></li><li><a href=#Monitor-match_wf_tuple>match_wf_tuple</a></li><li><a href=#Monitor-match_fvi_trm_None>match_fvi_trm_None</a></li><li><a href=#Monitor-match_fvi_trm_Some>match_fvi_trm_Some</a></li><li><a href=#Monitor-match_eval_trm>match_eval_trm</a></li><li><a href=#Monitor-wf_tuple_tabulate_Some>wf_tuple_tabulate_Some</a></li><li><a href=#Monitor-ex_match>ex_match</a></li><li><a href=#Monitor-eq_rel_eval_trm>eq_rel_eval_trm</a></li><li><a href=#Monitor-in_eq_rel>in_eq_rel</a></li><li><a href=#Monitor-table_eq_rel>table_eq_rel</a></li><li><a href=#Monitor-wf_tuple_Suc_fviD>wf_tuple_Suc_fviD</a></li><li><a href=#Monitor-table_fvi_tl>table_fvi_tl</a></li><li><a href=#Monitor-wf_tuple_Suc_fvi_SomeI>wf_tuple_Suc_fvi_SomeI</a></li><li><a href=#Monitor-wf_tuple_Suc_fvi_NoneI>wf_tuple_Suc_fvi_NoneI</a></li><li><a href=#Monitor-qtable_project_fv>qtable_project_fv</a></li><li><a href=#Monitor-mprev>mprev</a></li><li><a href=#Monitor-mnext>mnext</a></li><li><a href=#Monitor-in_foldr_UnI>in_foldr_UnI</a></li><li><a href=#Monitor-in_foldr_UnE>in_foldr_UnE</a></li><li><a href=#Monitor-sat_the_restrict>sat_the_restrict</a></li><li><a href=#Monitor-update_since>update_since</a></li><li><a href=#Monitor-length_update_until>length_update_until</a></li><li><a href=#Monitor-wf_update_until>wf_update_until</a></li><li><a href=#Monitor-wf_until_aux_Cons>wf_until_aux_Cons</a></li><li><a href=#Monitor-wf_until_aux_Cons1>wf_until_aux_Cons1</a></li><li><a href=#Monitor-wf_until_aux_Cons3>wf_until_aux_Cons3</a></li><li><a href=#Monitor-upt_append>upt_append</a></li><li><a href=#Monitor-wf_mbuf2_add>wf_mbuf2_add</a></li><li><a href=#Monitor-mbuf2_take_eqD>mbuf2_take_eqD</a></li><li><a href=#Monitor-mbuf2t_take_eqD>mbuf2t_take_eqD</a></li><li><a href=#Monitor-mbuf2t_take_induct>mbuf2t_take_induct</a></li><li><a href=#Monitor-mbuf2_take_add%27>mbuf2_take_add'</a></li><li><a href=#Monitor-mbuf2t_take_add%27>mbuf2t_take_add'</a></li><li><a href=#Monitor-mbuf2t_take_add_induct%27>mbuf2t_take_add_induct'</a></li><li><a href=#Monitor-progress_Until_le>progress_Until_le</a></li><li><a href=#Monitor-list_all2_upt_Cons>list_all2_upt_Cons</a></li><li><a href=#Monitor-list_all2_upt_append>list_all2_upt_append</a></li><li><a href=#Monitor-meval>meval</a></li><li><a href=#Monitor-wf_mstate_mstep>wf_mstate_mstep</a></li><li><a href=#Monitor-mstep_output_iff>mstep_output_iff</a></li><li><a href=#Monitor-minit_safe_minit>minit_safe_minit</a></li><li><a href=#Monitor-msteps0_msteps0_stateless>msteps0_msteps0_stateless</a></li><li><a href=#Monitor-msteps_msteps_stateless>msteps_msteps_stateless</a></li><li><a href=#Monitor-msteps0_snoc>msteps0_snoc</a></li><li><a href=#Monitor-msteps_psnoc>msteps_psnoc</a></li><li><a href=#Monitor-Suc_length_conv_snoc>Suc_length_conv_snoc</a></li><li><a href=#Monitor-wf_mstate_minit_safe>wf_mstate_minit_safe</a></li></ul></li><li><a href=#Slicing>Slicing</a><ul><li><a href=#Slicing-mono_splitter>mono_splitter</a></li><li><a href=#Slicing-splitter_pslice>splitter_pslice</a></li><li><a href=#Slicing-monitor_split>monitor_split</a></li><li><a href=#Slicing-sat_inter_names_cong>sat_inter_names_cong</a></li><li><a href=#Slicing-matches_in_names>matches_in_names</a></li><li><a href=#Slicing-unique_names_matches_absorb>unique_names_matches_absorb</a></li><li><a href=#Slicing-mergeable_envsI>mergeable_envsI</a></li><li><a href=#Slicing-in_listset_nth>in_listset_nth</a></li><li><a href=#Slicing-all_nth_in_listset>all_nth_in_listset</a></li><li><a href=#Slicing-mergeable_envs_listset>mergeable_envs_listset</a></li><li><a href=#Slicing-mergeable_envs_Ex>mergeable_envs_Ex</a></li><li><a href=#Slicing-in_set_ConsE>in_set_ConsE</a></li><li><a href=#Slicing-mergeable_envs_set_Cons>mergeable_envs_set_Cons</a></li><li><a href=#Slicing-slice_Exists>slice_Exists</a></li><li><a href=#Slicing-image_Suc_fvi>image_Suc_fvi</a></li><li><a href=#Slicing-nfv_Exists>nfv_Exists</a></li><li><a href=#Slicing-set_Cons_empty_iff>set_Cons_empty_iff</a></li><li><a href=#Slicing-unique_sat_slice_mem>unique_sat_slice_mem</a></li><li><a href=#Slicing-unique_sat_slice>unique_sat_slice</a></li><li><a href=#Slicing-skip_joiner>skip_joiner</a></li></ul></li><li><a href=#Monitor_Code>Monitor_Code</a><ul><li><a href=#Monitor_Code-image_these>image_these</a></li><li><a href=#Monitor_Code-meval_MPred>meval_MPred</a></li><li><a href=#Monitor_Code-meval_MPred%27>meval_MPred'</a></li><li><a href=#Monitor_Code-these_UNION>these_UNION</a></li><li><a href=#Monitor_Code-meval_MPred%27%27>meval_MPred''</a></li></ul></li><li><a href=#Examples>Examples</a></li></ul></div><ul><li><a href=https://www.isa-afp.org/browser_info/current/AFP/MFOTL_Monitor/outline.pdf>Proof
-outline</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/MFOTL_Monitor/document.pdf>Proof
-document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/MFOTL_Monitor/session_graph.pdf>Theory dependencies</a></li></ul></div></aside><div class="content theories"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
-<datalist id=autocomplete></datalist></div></form><h1><span class=first>S</span>ession <span class=first>M</span><span class=first>F</span><span class=first>O</span><span class=first>T</span><span class=first>L</span>_<span class=first>M</span>onitor</h1><div></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><div id=Trace><div class=head><h1>Theory Trace</h1></div><pre class=source><span class=comment1>(*&lt;*)</span>
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Session MFOTL_Monitor - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session MFOTL_Monitor">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="/entries/mfotl_monitor/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories">
+<meta property="og:site_name" content="Archive of Formal Proofs">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="/images/afp.png">
+<meta name=twitter:title content="Session MFOTL_Monitor">
+<meta name=twitter:description content>
+<link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css>
+<link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script>
+<script src=/js/banner.js></script><script src=/js/header-search.js></script></head>
+<body class=mathjax_ignore>
+<aside>
+<div>
+<div>
+<a href=/>
+<img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo>
+</a>
+<ul>
+<li><a href=/entries/mfotl_monitor>Return to entry</a></li>
+</ul>
+<hr>
+<ul><li><a href=#Trace>Trace</a>
+<ul>
+<li><a href=#Trace-ssorted_siterate>ssorted_siterate</a></li>
+<li><a href=#Trace-ssortedD>ssortedD</a></li>
+<li><a href=#Trace-ssorted_sdrop>ssorted_sdrop</a></li>
+<li><a href=#Trace-ssorted_monoD>ssorted_monoD</a></li>
+<li><a href=#Trace-sorted_stake>sorted_stake</a></li>
+<li><a href=#Trace-ssorted_monoI>ssorted_monoI</a></li>
+<li><a href=#Trace-ssorted_iff_mono>ssorted_iff_mono</a></li>
+<li><a href=#Trace-ssorted_iff_le_Suc>ssorted_iff_le_Suc</a></li>
+<li><a href=#Trace-sincreasingI>sincreasingI</a></li>
+<li><a href=#Trace-sincreasing_grD>sincreasing_grD</a></li>
+<li><a href=#Trace-sincreasing_siterate_nat>sincreasing_siterate_nat</a></li>
+<li><a href=#Trace-sincreasing_stl>sincreasing_stl</a></li>
+<li><a href=#Trace-stream_eq_iff>stream_eq_iff</a></li>
+<li><a href=#Trace-trace_eqI>trace_eqI</a></li>
+<li><a href=#Trace-%cf%84_mono>τ_mono</a></li>
+<li><a href=#Trace-ex_le_%cf%84>ex_le_τ</a></li>
+<li><a href=#Trace-le_%cf%84_less>le_τ_less</a></li>
+<li><a href=#Trace-less_%cf%84D>less_τD</a></li>
+<li><a href=#Trace-%ce%93_map_%ce%93>Γ_map_Γ</a></li>
+<li><a href=#Trace-%cf%84_map_%ce%93>τ_map_Γ</a></li>
+<li><a href=#Trace-map_%ce%93_id>map_Γ_id</a></li>
+<li><a href=#Trace-map_%ce%93_comp>map_Γ_comp</a></li>
+<li><a href=#Trace-map_%ce%93_cong>map_Γ_cong</a></li>
+<li><a href=#Trace-psnoc_inject>psnoc_inject</a></li>
+<li><a href=#Trace-prefix_of_pnil>prefix_of_pnil</a></li>
+<li><a href=#Trace-plen_pnil>plen_pnil</a></li>
+<li><a href=#Trace-prefix_of_pmap_%ce%93>prefix_of_pmap_Γ</a></li>
+<li><a href=#Trace-plen_mono>plen_mono</a></li>
+<li><a href=#Trace-prefix_of_psnocE>prefix_of_psnocE</a></li>
+<li><a href=#Trace-le_pnil>le_pnil</a></li>
+<li><a href=#Trace-plen_take_prefix>plen_take_prefix</a></li>
+<li><a href=#Trace-plen_psnoc>plen_psnoc</a></li>
+<li><a href=#Trace-prefix_of_take_prefix>prefix_of_take_prefix</a></li>
+<li><a href=#Trace-pdrop_0>pdrop_0</a></li>
+<li><a href=#Trace-prefix_of_antimono>prefix_of_antimono</a></li>
+<li><a href=#Trace-prefix_of_imp_linear>prefix_of_imp_linear</a></li>
+<li><a href=#Trace-ex_prefix_of>ex_prefix_of</a></li>
+<li><a href=#Trace-%cf%84_prefix_conv>τ_prefix_conv</a></li>
+<li><a href=#Trace-%ce%93_prefix_conv>Γ_prefix_conv</a></li>
+<li><a href=#Trace-sincreasing_sdrop>sincreasing_sdrop</a></li>
+<li><a href=#Trace-ssorted_shift>ssorted_shift</a></li>
+<li><a href=#Trace-sincreasing_shift>sincreasing_shift</a></li>
+<li><a href=#Trace-prefix_of_replace_prefix>prefix_of_replace_prefix</a></li>
+<li><a href=#Trace-map_%ce%93_replace_prefix>map_Γ_replace_prefix</a></li>
+<li><a href=#Trace-prefix_of_pmap_%ce%93_D>prefix_of_pmap_Γ_D</a></li>
+<li><a href=#Trace-prefix_of_map_%ce%93_D>prefix_of_map_Γ_D</a></li>
+<li><a href=#Trace-pts_pmap_%ce%93>pts_pmap_Γ</a></li>
+</ul>
+</li><li><a href=#Table>Table</a>
+<ul>
+<li><a href=#Table-tabulate_alt>tabulate_alt</a></li>
+<li><a href=#Table-length_tabulate>length_tabulate</a></li>
+<li><a href=#Table-map_tabulate>map_tabulate</a></li>
+<li><a href=#Table-nth_tabulate>nth_tabulate</a></li>
+<li><a href=#Table-in_empty_table>in_empty_table</a></li>
+<li><a href=#Table-empty_table>empty_table</a></li>
+<li><a href=#Table-unit_table_wf_tuple>unit_table_wf_tuple</a></li>
+<li><a href=#Table-unit_table>unit_table</a></li>
+<li><a href=#Table-in_unit_table>in_unit_table</a></li>
+<li><a href=#Table-singleton_table_wf_tuple>singleton_table_wf_tuple</a></li>
+<li><a href=#Table-singleton_table>singleton_table</a></li>
+<li><a href=#Table-table_Un>table_Un</a></li>
+<li><a href=#Table-wf_tuple_length>wf_tuple_length</a></li>
+<li><a href=#Table-join_True_code>join_True_code</a></li>
+<li><a href=#Table-join_False_alt>join_False_alt</a></li>
+<li><a href=#Table-self_join1>self_join1</a></li>
+<li><a href=#Table-join_False_code>join_False_code</a></li>
+<li><a href=#Table-wf_tuple_Nil>wf_tuple_Nil</a></li>
+<li><a href=#Table-Suc_pred%27>Suc_pred'</a></li>
+<li><a href=#Table-wf_tuple_Cons>wf_tuple_Cons</a></li>
+<li><a href=#Table-join1_wf_tuple>join1_wf_tuple</a></li>
+<li><a href=#Table-join_wf_tuple>join_wf_tuple</a></li>
+<li><a href=#Table-join_table>join_table</a></li>
+<li><a href=#Table-wf_tuple_Suc>wf_tuple_Suc</a></li>
+<li><a href=#Table-table_project>table_project</a></li>
+<li><a href=#Table-restrict_Nil>restrict_Nil</a></li>
+<li><a href=#Table-restrict_Cons>restrict_Cons</a></li>
+<li><a href=#Table-wf_tuple_restrict>wf_tuple_restrict</a></li>
+<li><a href=#Table-wf_tuple_restrict_simple>wf_tuple_restrict_simple</a></li>
+<li><a href=#Table-nth_restrict>nth_restrict</a></li>
+<li><a href=#Table-restrict_eq_Nil>restrict_eq_Nil</a></li>
+<li><a href=#Table-length_restrict>length_restrict</a></li>
+<li><a href=#Table-join1_Some_restrict>join1_Some_restrict</a></li>
+<li><a href=#Table-restrict_idle>restrict_idle</a></li>
+<li><a href=#Table-map_the_restrict>map_the_restrict</a></li>
+<li><a href=#Table-join_restrict>join_restrict</a></li>
+<li><a href=#Table-join_restrict_table>join_restrict_table</a></li>
+<li><a href=#Table-join_restrict_annotated>join_restrict_annotated</a></li>
+<li><a href=#Table-in_joinI>in_joinI</a></li>
+<li><a href=#Table-in_joinE>in_joinE</a></li>
+<li><a href=#Table-wf_table_iff>wf_table_iff</a></li>
+<li><a href=#Table-table_wf_table>table_wf_table</a></li>
+<li><a href=#Table-qtableI>qtableI</a></li>
+<li><a href=#Table-in_qtableI>in_qtableI</a></li>
+<li><a href=#Table-in_qtableE>in_qtableE</a></li>
+<li><a href=#Table-qtable_empty>qtable_empty</a></li>
+<li><a href=#Table-qtable_empty_iff>qtable_empty_iff</a></li>
+<li><a href=#Table-qtable_unit_table>qtable_unit_table</a></li>
+<li><a href=#Table-qtable_union>qtable_union</a></li>
+<li><a href=#Table-qtable_Union>qtable_Union</a></li>
+<li><a href=#Table-qtable_join>qtable_join</a></li>
+<li><a href=#Table-qtable_join_fixed>qtable_join_fixed</a></li>
+<li><a href=#Table-wf_tuple_cong>wf_tuple_cong</a></li>
+<li><a href=#Table-mem_restrI>mem_restrI</a></li>
+<li><a href=#Table-mem_restrE>mem_restrE</a></li>
+<li><a href=#Table-mem_restr_IntD>mem_restr_IntD</a></li>
+<li><a href=#Table-mem_restr_Un_iff>mem_restr_Un_iff</a></li>
+<li><a href=#Table-mem_restr_UNIV>mem_restr_UNIV</a></li>
+<li><a href=#Table-restrict_mem_restr>restrict_mem_restr</a></li>
+<li><a href=#Table-lift_envs_mem_restr>lift_envs_mem_restr</a></li>
+<li><a href=#Table-qtable_project>qtable_project</a></li>
+<li><a href=#Table-qtable_cong>qtable_cong</a></li>
+</ul>
+</li><li><a href=#Abstract_Monitor>Abstract_Monitor</a>
+<ul>
+<li><a href=#Abstract_Monitor-cosafety>cosafety</a></li>
+<li><a href=#Abstract_Monitor-M_limit_eq>M_limit_eq</a></li>
+<li><a href=#Abstract_Monitor-M_alt>M_alt</a></li>
+<li><a href=#Abstract_Monitor-prefix_of_psliceI>prefix_of_psliceI</a></li>
+<li><a href=#Abstract_Monitor-plen_pslice>plen_pslice</a></li>
+<li><a href=#Abstract_Monitor-pslice_pnil>pslice_pnil</a></li>
+<li><a href=#Abstract_Monitor-last_ts_pslice>last_ts_pslice</a></li>
+<li><a href=#Abstract_Monitor-union_verdicts_slice>union_verdicts_slice</a></li>
+<li><a href=#Abstract_Monitor-union_M_pslice>union_M_pslice</a></li>
+<li><a href=#Abstract_Monitor-progress_pslice>progress_pslice</a></li>
+</ul>
+</li><li><a href=#Interval>Interval</a>
+<ul>
+<li><a href=#Interval-left_right>left_right</a></li>
+<li><a href=#Interval-point_simps>point_simps</a></li>
+<li><a href=#Interval-init_simps>init_simps</a></li>
+<li><a href=#Interval-subtract_simps>subtract_simps</a></li>
+<li><a href=#Interval-subtract_too_much>subtract_too_much</a></li>
+<li><a href=#Interval-subtract_shifted>subtract_shifted</a></li>
+<li><a href=#Interval-finite_shifted>finite_shifted</a></li>
+</ul>
+</li><li><a href=#MFOTL>MFOTL</a>
+<ul>
+<li><a href=#MFOTL-eval_trm_cong>eval_trm_cong</a></li>
+<li><a href=#MFOTL-finite_fvi_trm>finite_fvi_trm</a></li>
+<li><a href=#MFOTL-finite_fvi>finite_fvi</a></li>
+<li><a href=#MFOTL-fvi_trm_Suc>fvi_trm_Suc</a></li>
+<li><a href=#MFOTL-fvi_Suc>fvi_Suc</a></li>
+<li><a href=#MFOTL-fvi_Suc_bound>fvi_Suc_bound</a></li>
+<li><a href=#MFOTL-nfv_simps>nfv_simps</a></li>
+<li><a href=#MFOTL-fvi_less_nfv>fvi_less_nfv</a></li>
+<li><a href=#MFOTL-sat_Until_rec>sat_Until_rec</a></li>
+<li><a href=#MFOTL-sat_Since_rec>sat_Since_rec</a></li>
+<li><a href=#MFOTL-sat_Since_0>sat_Since_0</a></li>
+<li><a href=#MFOTL-sat_Since_point>sat_Since_point</a></li>
+<li><a href=#MFOTL-sat_Since_pointD>sat_Since_pointD</a></li>
+<li><a href=#MFOTL-eval_trm_fvi_cong>eval_trm_fvi_cong</a></li>
+<li><a href=#MFOTL-sat_fvi_cong>sat_fvi_cong</a></li>
+<li><a href=#MFOTL-fvi_And>fvi_And</a></li>
+<li><a href=#MFOTL-nfv_And>nfv_And</a></li>
+<li><a href=#MFOTL-future_reach_And>future_reach_And</a></li>
+<li><a href=#MFOTL-sat_And>sat_And</a></li>
+<li><a href=#MFOTL-fvi_And_Not>fvi_And_Not</a></li>
+<li><a href=#MFOTL-nfv_And_Not>nfv_And_Not</a></li>
+<li><a href=#MFOTL-future_reach_And_Not>future_reach_And_Not</a></li>
+<li><a href=#MFOTL-sat_And_Not>sat_And_Not</a></li>
+<li><a href=#MFOTL-disjE_Not2>disjE_Not2</a></li>
+<li><a href=#MFOTL-safe_formula_induct>safe_formula_induct</a></li>
+<li><a href=#MFOTL-matches_fvi_cong>matches_fvi_cong</a></li>
+<li><a href=#MFOTL-sat_slice_strong>sat_slice_strong</a></li>
+<li><a href=#MFOTL-sat_slice_iff>sat_slice_iff</a></li>
+<li><a href=#MFOTL-slice_replace_prefix>slice_replace_prefix</a></li>
+</ul>
+</li><li><a href=#Monitor>Monitor</a>
+<ul>
+<li><a href=#Monitor-plus_eq_enat_iff>plus_eq_enat_iff</a></li>
+<li><a href=#Monitor-minus_eq_enat_iff>minus_eq_enat_iff</a></li>
+<li><a href=#Monitor-safe_formula_mmonitorable_exec>safe_formula_mmonitorable_exec</a></li>
+<li><a href=#Monitor-mmonitorable_exec_mmonitorable>mmonitorable_exec_mmonitorable</a></li>
+<li><a href=#Monitor-monitorable_formula_code>monitorable_formula_code</a></li>
+<li><a href=#Monitor-mstep_alt>mstep_alt</a></li>
+<li><a href=#Monitor-progress_And>progress_And</a></li>
+<li><a href=#Monitor-progress_And_Not>progress_And_Not</a></li>
+<li><a href=#Monitor-progress_mono>progress_mono</a></li>
+<li><a href=#Monitor-progress_le>progress_le</a></li>
+<li><a href=#Monitor-progress_0>progress_0</a></li>
+<li><a href=#Monitor-progress_ge>progress_ge</a></li>
+<li><a href=#Monitor-cInf_restrict_nat>cInf_restrict_nat</a></li>
+<li><a href=#Monitor-progress_time_conv>progress_time_conv</a></li>
+<li><a href=#Monitor-Inf_UNIV_nat>Inf_UNIV_nat</a></li>
+<li><a href=#Monitor-progress_prefix_conv>progress_prefix_conv</a></li>
+<li><a href=#Monitor-sat_prefix_conv>sat_prefix_conv</a></li>
+<li><a href=#Monitor-pprogress_eq>pprogress_eq</a></li>
+<li><a href=#Monitor-wf_mbuf2%27_UNIV_alt>wf_mbuf2'_UNIV_alt</a></li>
+<li><a href=#Monitor-qtable_mem_restr_UNIV>qtable_mem_restr_UNIV</a></li>
+<li><a href=#Monitor-wf_since_aux_UNIV_alt>wf_since_aux_UNIV_alt</a></li>
+<li><a href=#Monitor-wf_until_aux_UNIV_alt>wf_until_aux_UNIV_alt</a></li>
+<li><a href=#Monitor-minit0_And>minit0_And</a></li>
+<li><a href=#Monitor-minit0_And_Not>minit0_And_Not</a></li>
+<li><a href=#Monitor-wf_mbuf2%27_0>wf_mbuf2'_0</a></li>
+<li><a href=#Monitor-wf_ts_0>wf_ts_0</a></li>
+<li><a href=#Monitor-wf_since_aux_Nil>wf_since_aux_Nil</a></li>
+<li><a href=#Monitor-wf_until_aux_Nil>wf_until_aux_Nil</a></li>
+<li><a href=#Monitor-wf_minit0>wf_minit0</a></li>
+<li><a href=#Monitor-wf_mstate_minit>wf_mstate_minit</a></li>
+<li><a href=#Monitor-match_wf_tuple>match_wf_tuple</a></li>
+<li><a href=#Monitor-match_fvi_trm_None>match_fvi_trm_None</a></li>
+<li><a href=#Monitor-match_fvi_trm_Some>match_fvi_trm_Some</a></li>
+<li><a href=#Monitor-match_eval_trm>match_eval_trm</a></li>
+<li><a href=#Monitor-wf_tuple_tabulate_Some>wf_tuple_tabulate_Some</a></li>
+<li><a href=#Monitor-ex_match>ex_match</a></li>
+<li><a href=#Monitor-eq_rel_eval_trm>eq_rel_eval_trm</a></li>
+<li><a href=#Monitor-in_eq_rel>in_eq_rel</a></li>
+<li><a href=#Monitor-table_eq_rel>table_eq_rel</a></li>
+<li><a href=#Monitor-wf_tuple_Suc_fviD>wf_tuple_Suc_fviD</a></li>
+<li><a href=#Monitor-table_fvi_tl>table_fvi_tl</a></li>
+<li><a href=#Monitor-wf_tuple_Suc_fvi_SomeI>wf_tuple_Suc_fvi_SomeI</a></li>
+<li><a href=#Monitor-wf_tuple_Suc_fvi_NoneI>wf_tuple_Suc_fvi_NoneI</a></li>
+<li><a href=#Monitor-qtable_project_fv>qtable_project_fv</a></li>
+<li><a href=#Monitor-mprev>mprev</a></li>
+<li><a href=#Monitor-mnext>mnext</a></li>
+<li><a href=#Monitor-in_foldr_UnI>in_foldr_UnI</a></li>
+<li><a href=#Monitor-in_foldr_UnE>in_foldr_UnE</a></li>
+<li><a href=#Monitor-sat_the_restrict>sat_the_restrict</a></li>
+<li><a href=#Monitor-update_since>update_since</a></li>
+<li><a href=#Monitor-length_update_until>length_update_until</a></li>
+<li><a href=#Monitor-wf_update_until>wf_update_until</a></li>
+<li><a href=#Monitor-wf_until_aux_Cons>wf_until_aux_Cons</a></li>
+<li><a href=#Monitor-wf_until_aux_Cons1>wf_until_aux_Cons1</a></li>
+<li><a href=#Monitor-wf_until_aux_Cons3>wf_until_aux_Cons3</a></li>
+<li><a href=#Monitor-upt_append>upt_append</a></li>
+<li><a href=#Monitor-wf_mbuf2_add>wf_mbuf2_add</a></li>
+<li><a href=#Monitor-mbuf2_take_eqD>mbuf2_take_eqD</a></li>
+<li><a href=#Monitor-mbuf2t_take_eqD>mbuf2t_take_eqD</a></li>
+<li><a href=#Monitor-mbuf2t_take_induct>mbuf2t_take_induct</a></li>
+<li><a href=#Monitor-mbuf2_take_add%27>mbuf2_take_add'</a></li>
+<li><a href=#Monitor-mbuf2t_take_add%27>mbuf2t_take_add'</a></li>
+<li><a href=#Monitor-mbuf2t_take_add_induct%27>mbuf2t_take_add_induct'</a></li>
+<li><a href=#Monitor-progress_Until_le>progress_Until_le</a></li>
+<li><a href=#Monitor-list_all2_upt_Cons>list_all2_upt_Cons</a></li>
+<li><a href=#Monitor-list_all2_upt_append>list_all2_upt_append</a></li>
+<li><a href=#Monitor-meval>meval</a></li>
+<li><a href=#Monitor-wf_mstate_mstep>wf_mstate_mstep</a></li>
+<li><a href=#Monitor-mstep_output_iff>mstep_output_iff</a></li>
+<li><a href=#Monitor-minit_safe_minit>minit_safe_minit</a></li>
+<li><a href=#Monitor-msteps0_msteps0_stateless>msteps0_msteps0_stateless</a></li>
+<li><a href=#Monitor-msteps_msteps_stateless>msteps_msteps_stateless</a></li>
+<li><a href=#Monitor-msteps0_snoc>msteps0_snoc</a></li>
+<li><a href=#Monitor-msteps_psnoc>msteps_psnoc</a></li>
+<li><a href=#Monitor-Suc_length_conv_snoc>Suc_length_conv_snoc</a></li>
+<li><a href=#Monitor-wf_mstate_minit_safe>wf_mstate_minit_safe</a></li>
+</ul>
+</li><li><a href=#Slicing>Slicing</a>
+<ul>
+<li><a href=#Slicing-mono_splitter>mono_splitter</a></li>
+<li><a href=#Slicing-splitter_pslice>splitter_pslice</a></li>
+<li><a href=#Slicing-monitor_split>monitor_split</a></li>
+<li><a href=#Slicing-sat_inter_names_cong>sat_inter_names_cong</a></li>
+<li><a href=#Slicing-matches_in_names>matches_in_names</a></li>
+<li><a href=#Slicing-unique_names_matches_absorb>unique_names_matches_absorb</a></li>
+<li><a href=#Slicing-mergeable_envsI>mergeable_envsI</a></li>
+<li><a href=#Slicing-in_listset_nth>in_listset_nth</a></li>
+<li><a href=#Slicing-all_nth_in_listset>all_nth_in_listset</a></li>
+<li><a href=#Slicing-mergeable_envs_listset>mergeable_envs_listset</a></li>
+<li><a href=#Slicing-mergeable_envs_Ex>mergeable_envs_Ex</a></li>
+<li><a href=#Slicing-in_set_ConsE>in_set_ConsE</a></li>
+<li><a href=#Slicing-mergeable_envs_set_Cons>mergeable_envs_set_Cons</a></li>
+<li><a href=#Slicing-slice_Exists>slice_Exists</a></li>
+<li><a href=#Slicing-image_Suc_fvi>image_Suc_fvi</a></li>
+<li><a href=#Slicing-nfv_Exists>nfv_Exists</a></li>
+<li><a href=#Slicing-set_Cons_empty_iff>set_Cons_empty_iff</a></li>
+<li><a href=#Slicing-unique_sat_slice_mem>unique_sat_slice_mem</a></li>
+<li><a href=#Slicing-unique_sat_slice>unique_sat_slice</a></li>
+<li><a href=#Slicing-skip_joiner>skip_joiner</a></li>
+</ul>
+</li><li><a href=#Monitor_Code>Monitor_Code</a>
+<ul>
+<li><a href=#Monitor_Code-image_these>image_these</a></li>
+<li><a href=#Monitor_Code-meval_MPred>meval_MPred</a></li>
+<li><a href=#Monitor_Code-meval_MPred%27>meval_MPred'</a></li>
+<li><a href=#Monitor_Code-these_UNION>these_UNION</a></li>
+<li><a href=#Monitor_Code-meval_MPred%27%27>meval_MPred''</a></li>
+</ul>
+</li><li><a href=#Examples>Examples</a>
+</li>
+</ul>
+</div>
+<ul>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/MFOTL_Monitor/outline.pdf>Proof
+outline</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/MFOTL_Monitor/document.pdf>Proof
+document</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/MFOTL_Monitor/session_graph.pdf>Theory dependencies</a></li>
+</ul>
+</div>
+</aside>
+<div class="content theories"><header>
+<form action=/%20search>
+<div class=form-container>
+<input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
+<datalist id=autocomplete>
+</datalist>
+</div>
+</form>
+<h1><span class=first>S</span>ession <span class=first>M</span><span class=first>F</span><span class=first>O</span><span class=first>T</span><span class=first>L</span>_<span class=first>M</span>onitor</h1>
+<div>
+</div>
+</header><div id=banner data-id=0>
+<p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button>
+</div>
+<div><main>
+<div id=Trace>
+<div class=head>
+<h1>Theory Trace</h1>
+</div>
+<pre class=source><span class=comment1>(*&lt;*)</span>
 <span class=keyword1><span class=command>theory</span></span> Trace
   <span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL-Library/Stream.html>HOL-Library.Stream</a>"</span>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -393,7 +729,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/MF
 <span class=comment1>(*&lt;*)</span>
 <span class=keyword2><span class=keyword>end</span></span>
 <span class=comment1>(*&gt;*)</span>
-</pre></div><div id=Table><div class=head><h1>Theory Table</h1></div><pre class=source><span class=comment1>(*&lt;*)</span>
+</pre>
+</div><div id=Table>
+<div class=head>
+<h1>Theory Table</h1>
+</div>
+<pre class=source><span class=comment1>(*&lt;*)</span>
 <span class=keyword1><span class=command>theory</span></span> Table
   <span class=keyword2><span class=keyword>imports</span></span> <a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL/Main.html>Main</a>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -765,7 +1106,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/MF
 <span class=comment1>(*&lt;*)</span>
 <span class=keyword2><span class=keyword>end</span></span>
 <span class=comment1>(*&gt;*)</span>
-</pre></div><div id=Abstract_Monitor><div class=head><h1>Theory Abstract_Monitor</h1></div><pre class=source><span class=comment1>(*&lt;*)</span>
+</pre>
+</div><div id=Abstract_Monitor>
+<div class=head>
+<h1>Theory Abstract_Monitor</h1>
+</div>
+<pre class=source><span class=comment1>(*&lt;*)</span>
 <span class=keyword1><span class=command>theory</span></span> Abstract_Monitor
   <span class=keyword2><span class=keyword>imports</span></span> <a href=#Trace>Trace</a> <a href=#Table>Table</a>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -1087,7 +1433,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/MF
 <span class=comment1>(*&lt;*)</span>
 <span class=keyword2><span class=keyword>end</span></span>
 <span class=comment1>(*&gt;*)</span>
-</pre></div><div id=Interval><div class=head><h1>Theory Interval</h1></div><pre class=source><span class=comment1>(*&lt;*)</span>
+</pre>
+</div><div id=Interval>
+<div class=head>
+<h1>Theory Interval</h1>
+</div>
+<pre class=source><span class=comment1>(*&lt;*)</span>
 <span class=keyword1><span class=command>theory</span></span> Interval
   <span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL-Library/Extended_Nat.html>HOL-Library.Extended_Nat</a>"</span> <span class=quoted>"<a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL-Library/Product_Lexorder.html>HOL-Library.Product_Lexorder</a>"</span>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -1165,7 +1516,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/MF
 
 <span class=comment1>(*&lt;*)</span>
 <span class=keyword2><span class=keyword>end</span></span>
-<span class=comment1>(*&gt;*)</span></pre></div><div id=MFOTL><div class=head><h1>Theory MFOTL</h1></div><pre class=source><span class=comment1>(*&lt;*)</span>
+<span class=comment1>(*&gt;*)</span></pre>
+</div><div id=MFOTL>
+<div class=head>
+<h1>Theory MFOTL</h1>
+</div>
+<pre class=source><span class=comment1>(*&lt;*)</span>
 <span class=keyword1><span class=command>theory</span></span> MFOTL
   <span class=keyword2><span class=keyword>imports</span></span> <a href=#Interval>Interval</a> <a href=#Trace>Trace</a> <a href=#Abstract_Monitor>Abstract_Monitor</a>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -1536,7 +1892,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/MF
 
 <span class=comment1>(*&lt;*)</span>
 <span class=keyword2><span class=keyword>end</span></span>
-<span class=comment1>(*&gt;*)</span></pre></div><div id=Monitor><div class=head><h1>Theory Monitor</h1></div><pre class=source><span class=comment1>(*&lt;*)</span>
+<span class=comment1>(*&gt;*)</span></pre>
+</div><div id=Monitor>
+<div class=head>
+<h1>Theory Monitor</h1>
+</div>
+<pre class=source><span class=comment1>(*&lt;*)</span>
 <span class=keyword1><span class=command>theory</span></span> Monitor
   <span class=keyword2><span class=keyword>imports</span></span> <a href=#Abstract_Monitor>Abstract_Monitor</a> <a href=#MFOTL>MFOTL</a> <a href=#Table>Table</a>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -3145,7 +3506,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/MF
 <span class=comment1>(*&lt;*)</span>
 <span class=keyword2><span class=keyword>end</span></span>
 <span class=comment1>(*&gt;*)</span>
-</pre></div><div id=Slicing><div class=head><h1>Theory Slicing</h1></div><pre class=source><span class=comment1>(*&lt;*)</span>
+</pre>
+</div><div id=Slicing>
+<div class=head>
+<h1>Theory Slicing</h1>
+</div>
+<pre class=source><span class=comment1>(*&lt;*)</span>
 <span class=keyword1><span class=command>theory</span></span> Slicing
   <span class=keyword2><span class=keyword>imports</span></span> <a href=#Abstract_Monitor>Abstract_Monitor</a> <a href=#MFOTL>MFOTL</a>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -3613,7 +3979,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/MF
 <span class=comment1>(*&lt;*)</span>
 <span class=keyword2><span class=keyword>end</span></span>
 <span class=comment1>(*&gt;*)</span>
-</pre></div><div id=Monitor_Code><div class=head><h1>Theory Monitor_Code</h1></div><pre class=source><span class=comment1>(*&lt;*)</span>
+</pre>
+</div><div id=Monitor_Code>
+<div class=head>
+<h1>Theory Monitor_Code</h1>
+</div>
+<pre class=source><span class=comment1>(*&lt;*)</span>
 <span class=keyword1><span class=command>theory</span></span> Monitor_Code
   <span class=keyword2><span class=keyword>imports</span></span> <a href=#Monitor>Monitor</a>
     <span class=quoted>"<a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL-Library/Code_Target_Nat.html>HOL-Library.Code_Target_Nat</a>"</span>
@@ -3671,7 +4042,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/MF
 <span class=comment1>(*&lt;*)</span>
 <span class=keyword2><span class=keyword>end</span></span>
 <span class=comment1>(*&gt;*)</span>
-</pre></div><div id=Examples><div class=head><h1>Theory Examples</h1></div><pre class=source><span class=comment1>(*&lt;*)</span>
+</pre>
+</div><div id=Examples>
+<div class=head>
+<h1>Theory Examples</h1>
+</div>
+<pre class=source><span class=comment1>(*&lt;*)</span>
 <span class=keyword1><span class=command>theory</span></span> Examples
   <span class=keyword2><span class=keyword>imports</span></span> <a href=#Monitor_Code>Monitor_Code</a>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -3742,4 +4118,10 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/MF
 <span class=comment1>(*&lt;*)</span>
 <span class=keyword2><span class=keyword>end</span></span>
 <span class=comment1>(*&gt;*)</span>
-</pre></div></main></div></div></body></html>
+</pre>
+</div>
+</main>
+</div>
+</div>
+</body>
+</html>

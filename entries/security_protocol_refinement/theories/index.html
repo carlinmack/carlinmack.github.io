@@ -1,7 +1,1249 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Session Security_Protocol_Refinement - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session Security_Protocol_Refinement"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/security_protocol_refinement/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Session Security_Protocol_Refinement"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css><link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script><script src=/js/banner.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><li><a href=/entries/security_protocol_refinement>Return to entry</a></li></ul><hr><ul><li><a href=#Infra>Infra</a><ul><li><a href=#Infra-map_definedness>map_definedness</a></li><li><a href=#Infra-map_definedness_contra>map_definedness_contra</a></li><li><a href=#Infra-vimage_image_subset>vimage_image_subset</a></li><li><a href=#Infra-Image_compose>Image_compose</a></li><li><a href=#Infra-map_id>map_id</a></li><li><a href=#Infra-map_comp>map_comp</a></li><li><a href=#Infra-take_prefix>take_prefix</a></li><li><a href=#Infra-finite_positive_cardI>finite_positive_cardI</a></li><li><a href=#Infra-finite_positive_cardD>finite_positive_cardD</a></li><li><a href=#Infra-finite_zero_cardI>finite_zero_cardI</a></li><li><a href=#Infra-finite_zero_cardD>finite_zero_cardD</a></li></ul></li><li><a href=#Refinement>Refinement</a><ul><li><a href=#Refinement-beh_immediate_prefix_closed>beh_immediate_prefix_closed</a></li><li><a href=#Refinement-beh_prefix_closed>beh_prefix_closed</a></li><li><a href=#Refinement-beh_in_reach>beh_in_reach</a></li><li><a href=#Refinement-reach_in_beh>reach_in_beh</a></li><li><a href=#Refinement-reach_equiv_beh_states>reach_equiv_beh_states</a></li><li><a href=#Refinement-beh_obs_upd>beh_obs_upd</a></li><li><a href=#Refinement-reach_obs_upd>reach_obs_upd</a></li><li><a href=#Refinement-oreach_equiv_obeh_states>oreach_equiv_obeh_states</a></li><li><a href=#Refinement-obeh_pi_translation>obeh_pi_translation</a></li><li><a href=#Refinement-oreach_pi_translation>oreach_pi_translation</a></li><li><a href=#Refinement-observableE>observableE</a></li><li><a href=#Refinement-observable2_equiv_observable>observable2_equiv_observable</a></li><li><a href=#Refinement-observable3_equiv_observable2>observable3_equiv_observable2</a></li><li><a href=#Refinement-observable_id>observable_id</a></li><li><a href=#Refinement-image_vimage_adjoints>image_vimage_adjoints</a></li><li><a href=#Refinement-image_r_vimage_l>image_r_vimage_l</a></li><li><a href=#Refinement-vimage_l_image_r>vimage_l_image_r</a></li><li><a href=#Refinement-external_from_internal_invariant>external_from_internal_invariant</a></li><li><a href=#Refinement-external_from_internal_invariant_vimage>external_from_internal_invariant_vimage</a></li><li><a href=#Refinement-external_to_internal_invariant_vimage>external_to_internal_invariant_vimage</a></li><li><a href=#Refinement-external_to_internal_invariant>external_to_internal_invariant</a></li><li><a href=#Refinement-external_equiv_internal_invariant_vimage>external_equiv_internal_invariant_vimage</a></li><li><a href=#Refinement-external_equiv_internal_invariant>external_equiv_internal_invariant</a></li><li><a href=#Refinement-implements_refl>implements_refl</a></li><li><a href=#Refinement-implements_trans>implements_trans</a></li><li><a href=#Refinement-implements_oreach>implements_oreach</a></li><li><a href=#Refinement-external_invariant_preservation>external_invariant_preservation</a></li><li><a href=#Refinement-external_invariant_translation>external_invariant_translation</a></li><li><a href=#Refinement-internal_invariant_translation>internal_invariant_translation</a></li><li><a href=#Refinement-hoare_conseq_left>hoare_conseq_left</a></li><li><a href=#Refinement-hoare_conseq_right>hoare_conseq_right</a></li><li><a href=#Refinement-hoare_false_left>hoare_false_left</a></li><li><a href=#Refinement-hoare_true_right>hoare_true_right</a></li><li><a href=#Refinement-hoare_conj_right>hoare_conj_right</a></li><li><a href=#Refinement-hoare_stop>hoare_stop</a></li><li><a href=#Refinement-hoare_skip>hoare_skip</a></li><li><a href=#Refinement-hoare_trans_Un>hoare_trans_Un</a></li><li><a href=#Refinement-hoare_trans_UN>hoare_trans_UN</a></li><li><a href=#Refinement-reach_init>reach_init</a></li><li><a href=#Refinement-reach_trans>reach_trans</a></li><li><a href=#Refinement-inv_rule_basic>inv_rule_basic</a></li><li><a href=#Refinement-inv_rule>inv_rule</a></li><li><a href=#Refinement-INV_rule>INV_rule</a></li><li><a href=#Refinement-inv_rule_from_INV_rule>inv_rule_from_INV_rule</a></li><li><a href=#Refinement-INV_rule_from_inv_rule>INV_rule_from_inv_rule</a></li><li><a href=#Refinement-inv_rule_incr>inv_rule_incr</a></li><li><a href=#Refinement-relhoare_conseq_left>relhoare_conseq_left</a></li><li><a href=#Refinement-relhoare_conseq_right>relhoare_conseq_right</a></li><li><a href=#Refinement-relhoare_false_left>relhoare_false_left</a></li><li><a href=#Refinement-relhoare_true_right>relhoare_true_right</a></li><li><a href=#Refinement-Domain_rel_comp>Domain_rel_comp</a></li><li><a href=#Refinement-rel_hoare_skip>rel_hoare_skip</a></li><li><a href=#Refinement-relhoare_refl>relhoare_refl</a></li><li><a href=#Refinement-rhoare_trans>rhoare_trans</a></li><li><a href=#Refinement-relhoare_conj_right_det>relhoare_conj_right_det</a></li><li><a href=#Refinement-relhoare_conj_right_cartesian>relhoare_conj_right_cartesian</a></li><li><a href=#Refinement-relhoare_concrete_Un>relhoare_concrete_Un</a></li><li><a href=#Refinement-relhoare_concrete_UN>relhoare_concrete_UN</a></li><li><a href=#Refinement-relhoare_abstract_Un_left>relhoare_abstract_Un_left</a></li><li><a href=#Refinement-relhoare_abstract_Un_right>relhoare_abstract_Un_right</a></li><li><a href=#Refinement-relhoare_abstract_UN>relhoare_abstract_UN</a></li><li><a href=#Refinement-PO_refinesI>PO_refinesI</a></li><li><a href=#Refinement-PO_refinesE>PO_refinesE</a></li><li><a href=#Refinement-refine_basic>refine_basic</a></li><li><a href=#Refinement-refine_init_using_invariants>refine_init_using_invariants</a></li><li><a href=#Refinement-refine_trans_using_invariants>refine_trans_using_invariants</a></li><li><a href=#Refinement-refine_using_invariants>refine_using_invariants</a></li><li><a href=#Refinement-PO_refines_implies_Range_init>PO_refines_implies_Range_init</a></li><li><a href=#Refinement-PO_refines_implies_Range_trans>PO_refines_implies_Range_trans</a></li><li><a href=#Refinement-PO_refines_implies_Range_invariant>PO_refines_implies_Range_invariant</a></li><li><a href=#Refinement-behaviour_refinement>behaviour_refinement</a></li><li><a href=#Refinement-obs_consistent_refl>obs_consistent_refl</a></li><li><a href=#Refinement-obs_consistent_trans>obs_consistent_trans</a></li><li><a href=#Refinement-obs_consistent_empty>obs_consistent_empty</a></li><li><a href=#Refinement-obs_consistent_conj1>obs_consistent_conj1</a></li><li><a href=#Refinement-obs_consistent_conj2>obs_consistent_conj2</a></li><li><a href=#Refinement-obs_consistent_behaviours>obs_consistent_behaviours</a></li><li><a href=#Refinement-refinesI>refinesI</a></li><li><a href=#Refinement-refinesE>refinesE</a></li><li><a href=#Refinement-refinement_reflexive>refinement_reflexive</a></li><li><a href=#Refinement-refinement_transitive>refinement_transitive</a></li><li><a href=#Refinement-observable_behaviour_refinement>observable_behaviour_refinement</a></li><li><a href=#Refinement-refines_reachable_strengthening>refines_reachable_strengthening</a></li><li><a href=#Refinement-INV_init_from_Refinement>INV_init_from_Refinement</a></li><li><a href=#Refinement-INV_trans_from_Refinement>INV_trans_from_Refinement</a></li><li><a href=#Refinement-INV_from_Refinement_basic>INV_from_Refinement_basic</a></li><li><a href=#Refinement-INV_from_Refinement_using_invariants>INV_from_Refinement_using_invariants</a></li></ul></li><li><a href=#Agents>Agents</a></li><li><a href=#Keys>Keys</a><ul><li><a href=#Keys-invKey_K>invKey_K</a></li><li><a href=#Keys-invKey_invKey_id>invKey_invKey_id</a></li><li><a href=#Keys-invKey_eq>invKey_eq</a></li><li><a href=#Keys-privateKey_neq_publicKey>privateKey_neq_publicKey</a></li><li><a href=#Keys-publicKey_neq_privateKey>publicKey_neq_privateKey</a></li><li><a href=#Keys-publicKey_inject>publicKey_inject</a></li><li><a href=#Keys-not_symKeys_pubK>not_symKeys_pubK</a></li><li><a href=#Keys-not_symKeys_priK>not_symKeys_priK</a></li><li><a href=#Keys-symKey_neq_priK>symKey_neq_priK</a></li><li><a href=#Keys-symKeys_neq_imp_neq>symKeys_neq_imp_neq</a></li><li><a href=#Keys-symKeys_invKey_iff>symKeys_invKey_iff</a></li><li><a href=#Keys-invKey_image_eq>invKey_image_eq</a></li><li><a href=#Keys-invKey_pubK_image_priK_image>invKey_pubK_image_priK_image</a></li><li><a href=#Keys-publicKey_notin_image_privateKey>publicKey_notin_image_privateKey</a></li><li><a href=#Keys-privateKey_notin_image_publicKey>privateKey_notin_image_publicKey</a></li><li><a href=#Keys-publicKey_image_eq>publicKey_image_eq</a></li><li><a href=#Keys-privateKey_image_eq>privateKey_image_eq</a></li><li><a href=#Keys-sym_sesK>sym_sesK</a></li><li><a href=#Keys-sym_shrK>sym_shrK</a></li><li><a href=#Keys-symK_eq_invKey>symK_eq_invKey</a></li><li><a href=#Keys-publicKey_notin_image_shrK>publicKey_notin_image_shrK</a></li><li><a href=#Keys-privateKey_notin_image_shrK>privateKey_notin_image_shrK</a></li><li><a href=#Keys-shrK_notin_image_publicKey>shrK_notin_image_publicKey</a></li><li><a href=#Keys-shrK_notin_image_privateKey>shrK_notin_image_privateKey</a></li><li><a href=#Keys-sesK_notin_image_shrK>sesK_notin_image_shrK</a></li><li><a href=#Keys-shrK_notin_image_sesK>shrK_notin_image_sesK</a></li><li><a href=#Keys-sesK_image_eq>sesK_image_eq</a></li><li><a href=#Keys-shrK_image_eq>shrK_image_eq</a></li></ul></li><li><a href=#Atoms>Atoms</a><ul><li><a href=#Atoms-corrKey_Dom_keySetup>corrKey_Dom_keySetup</a></li><li><a href=#Atoms-keySetup_noSessionKeys>keySetup_noSessionKeys</a></li><li><a href=#Atoms-corrKey_noSessionKeys>corrKey_noSessionKeys</a></li></ul></li><li><a href=#Runs>Runs</a><ul><li><a href=#Runs-map_runs_empty>map_runs_empty</a></li><li><a href=#Runs-map_runs_dom>map_runs_dom</a></li><li><a href=#Runs-map_runs_update>map_runs_update</a></li></ul></li><li><a href=#Channels>Channels</a><ul><li><a href=#Channels-keys_forI>keys_forI</a></li><li><a href=#Channels-keys_for_empty>keys_for_empty</a></li><li><a href=#Channels-keys_for_monotone>keys_for_monotone</a></li><li><a href=#Channels-keys_for_insert_StatCh>keys_for_insert_StatCh</a></li><li><a href=#Channels-keys_for_insert_DynCh>keys_for_insert_DynCh</a></li><li><a href=#Channels-atoms_empty>atoms_empty</a></li><li><a href=#Channels-atoms_monotone>atoms_monotone</a></li><li><a href=#Channels-atoms_insert_StatCh>atoms_insert_StatCh</a></li><li><a href=#Channels-atoms_insert_DynCh>atoms_insert_DynCh</a></li><li><a href=#Channels-ik0_aAgt>ik0_aAgt</a></li><li><a href=#Channels-ik0_aNum>ik0_aNum</a></li><li><a href=#Channels-ik0_aNon>ik0_aNon</a></li><li><a href=#Channels-ik0_aKey_corr>ik0_aKey_corr</a></li><li><a href=#Channels-extr_empty>extr_empty</a></li><li><a href=#Channels-extr_monotone>extr_monotone</a></li><li><a href=#Channels-extr_monotone_param>extr_monotone_param</a></li><li><a href=#Channels-extr_insert>extr_insert</a></li><li><a href=#Channels-extr_into_atoms>extr_into_atoms</a></li><li><a href=#Channels-extr_insert_non_key_param>extr_insert_non_key_param</a></li><li><a href=#Channels-extr_insert_unused_key_param>extr_insert_unused_key_param</a></li><li><a href=#Channels-extr_insert_StatCh>extr_insert_StatCh</a></li><li><a href=#Channels-extr_insert_DynCh>extr_insert_DynCh</a></li><li><a href=#Channels-rkeys_sesK>rkeys_sesK</a></li><li><a href=#Channels-fake_expanding>fake_expanding</a></li><li><a href=#Channels-fake_monotone>fake_monotone</a></li><li><a href=#Channels-fake_monotone_param1>fake_monotone_param1</a></li><li><a href=#Channels-atoms_fake>atoms_fake</a></li><li><a href=#Channels-extr_fake>extr_fake</a></li></ul></li><li><a href=#Message>Message</a><ul><li><a href=#Message-Un_idem_collapse>Un_idem_collapse</a></li><li><a href=#Message-parts_mono>parts_mono</a></li><li><a href=#Message-Other_image_eq>Other_image_eq</a></li><li><a href=#Message-Key_image_eq>Key_image_eq</a></li><li><a href=#Message-Nonce_Key_image_eq>Nonce_Key_image_eq</a></li><li><a href=#Message-keysFor_empty>keysFor_empty</a></li><li><a href=#Message-keysFor_Un>keysFor_Un</a></li><li><a href=#Message-keysFor_UN>keysFor_UN</a></li><li><a href=#Message-keysFor_mono>keysFor_mono</a></li><li><a href=#Message-keysFor_insert_Agent>keysFor_insert_Agent</a></li><li><a href=#Message-keysFor_insert_Nonce>keysFor_insert_Nonce</a></li><li><a href=#Message-keysFor_insert_Number>keysFor_insert_Number</a></li><li><a href=#Message-keysFor_insert_Key>keysFor_insert_Key</a></li><li><a href=#Message-keysFor_insert_Hash>keysFor_insert_Hash</a></li><li><a href=#Message-keysFor_insert_MPair>keysFor_insert_MPair</a></li><li><a href=#Message-keysFor_insert_Crypt>keysFor_insert_Crypt</a></li><li><a href=#Message-keysFor_image_Key>keysFor_image_Key</a></li><li><a href=#Message-Crypt_imp_invKey_keysFor>Crypt_imp_invKey_keysFor</a></li><li><a href=#Message-MPair_parts>MPair_parts</a></li><li><a href=#Message-parts_increasing>parts_increasing</a></li><li><a href=#Message-parts_empty>parts_empty</a></li><li><a href=#Message-parts_emptyE>parts_emptyE</a></li><li><a href=#Message-parts_singleton>parts_singleton</a></li><li><a href=#Message-parts_Un_subset1>parts_Un_subset1</a></li><li><a href=#Message-parts_Un_subset2>parts_Un_subset2</a></li><li><a href=#Message-parts_Un>parts_Un</a></li><li><a href=#Message-parts_insert>parts_insert</a></li><li><a href=#Message-parts_insert2>parts_insert2</a></li><li><a href=#Message-parts_UN_subset1>parts_UN_subset1</a></li><li><a href=#Message-parts_UN_subset2>parts_UN_subset2</a></li><li><a href=#Message-parts_UN>parts_UN</a></li><li><a href=#Message-parts_insert_subset>parts_insert_subset</a></li><li><a href=#Message-parts_partsD>parts_partsD</a></li><li><a href=#Message-parts_idem>parts_idem</a></li><li><a href=#Message-parts_subset_iff>parts_subset_iff</a></li><li><a href=#Message-parts_trans>parts_trans</a></li><li><a href=#Message-parts_cut>parts_cut</a></li><li><a href=#Message-parts_cut_eq>parts_cut_eq</a></li><li><a href=#Message-parts_insert_Agent>parts_insert_Agent</a></li><li><a href=#Message-parts_insert_Nonce>parts_insert_Nonce</a></li><li><a href=#Message-parts_insert_Number>parts_insert_Number</a></li><li><a href=#Message-parts_insert_Key>parts_insert_Key</a></li><li><a href=#Message-parts_insert_Hash>parts_insert_Hash</a></li><li><a href=#Message-parts_insert_Crypt>parts_insert_Crypt</a></li><li><a href=#Message-parts_insert_MPair>parts_insert_MPair</a></li><li><a href=#Message-parts_image_Key>parts_image_Key</a></li><li><a href=#Message-analz_mono>analz_mono</a></li><li><a href=#Message-MPair_analz>MPair_analz</a></li><li><a href=#Message-analz_increasing>analz_increasing</a></li><li><a href=#Message-analz_subset_parts>analz_subset_parts</a></li><li><a href=#Message-parts_analz>parts_analz</a></li><li><a href=#Message-analz_parts>analz_parts</a></li><li><a href=#Message-analz_empty>analz_empty</a></li><li><a href=#Message-analz_Un>analz_Un</a></li><li><a href=#Message-analz_insert>analz_insert</a></li><li><a href=#Message-analz_insert_Agent>analz_insert_Agent</a></li><li><a href=#Message-analz_insert_Nonce>analz_insert_Nonce</a></li><li><a href=#Message-analz_insert_Number>analz_insert_Number</a></li><li><a href=#Message-analz_insert_Hash>analz_insert_Hash</a></li><li><a href=#Message-analz_insert_Key>analz_insert_Key</a></li><li><a href=#Message-analz_insert_MPair>analz_insert_MPair</a></li><li><a href=#Message-analz_insert_Crypt>analz_insert_Crypt</a></li><li><a href=#Message-lemma1>lemma1</a></li><li><a href=#Message-lemma2>lemma2</a></li><li><a href=#Message-analz_insert_Decrypt>analz_insert_Decrypt</a></li><li><a href=#Message-analz_Crypt_if>analz_Crypt_if</a></li><li><a href=#Message-analz_insert_Crypt_subset>analz_insert_Crypt_subset</a></li><li><a href=#Message-analz_image_Key>analz_image_Key</a></li><li><a href=#Message-analz_analzD>analz_analzD</a></li><li><a href=#Message-analz_idem>analz_idem</a></li><li><a href=#Message-analz_subset_iff>analz_subset_iff</a></li><li><a href=#Message-analz_trans>analz_trans</a></li><li><a href=#Message-analz_cut>analz_cut</a></li><li><a href=#Message-analz_insert_eq>analz_insert_eq</a></li><li><a href=#Message-analz_subset_cong>analz_subset_cong</a></li><li><a href=#Message-analz_cong>analz_cong</a></li><li><a href=#Message-analz_insert_cong>analz_insert_cong</a></li><li><a href=#Message-analz_trivial>analz_trivial</a></li><li><a href=#Message-analz_UN_analz_lemma>analz_UN_analz_lemma</a></li><li><a href=#Message-analz_UN_analz>analz_UN_analz</a></li><li><a href=#Message-synth_mono>synth_mono</a></li><li><a href=#Message-synth_increasing>synth_increasing</a></li><li><a href=#Message-synth_Un>synth_Un</a></li><li><a href=#Message-synth_insert>synth_insert</a></li><li><a href=#Message-synth_synthD>synth_synthD</a></li><li><a href=#Message-synth_idem>synth_idem</a></li><li><a href=#Message-synth_subset_iff>synth_subset_iff</a></li><li><a href=#Message-synth_trans>synth_trans</a></li><li><a href=#Message-synth_cut>synth_cut</a></li><li><a href=#Message-Agent_synth>Agent_synth</a></li><li><a href=#Message-Number_synth>Number_synth</a></li><li><a href=#Message-Nonce_synth_eq>Nonce_synth_eq</a></li><li><a href=#Message-Key_synth_eq>Key_synth_eq</a></li><li><a href=#Message-Crypt_synth_eq>Crypt_synth_eq</a></li><li><a href=#Message-keysFor_synth>keysFor_synth</a></li><li><a href=#Message-parts_synth>parts_synth</a></li><li><a href=#Message-analz_analz_Un>analz_analz_Un</a></li><li><a href=#Message-analz_synth_Un>analz_synth_Un</a></li><li><a href=#Message-analz_synth>analz_synth</a></li><li><a href=#Message-analz_Un_analz>analz_Un_analz</a></li><li><a href=#Message-analz_synth_Un2>analz_synth_Un2</a></li><li><a href=#Message-parts_insert_subset_Un>parts_insert_subset_Un</a></li><li><a href=#Message-Fake_parts_insert>Fake_parts_insert</a></li><li><a href=#Message-Fake_parts_insert_in_Un>Fake_parts_insert_in_Un</a></li><li><a href=#Message-Fake_analz_insert>Fake_analz_insert</a></li><li><a href=#Message-analz_conj_parts>analz_conj_parts</a></li><li><a href=#Message-analz_disj_parts>analz_disj_parts</a></li><li><a href=#Message-MPair_synth_analz>MPair_synth_analz</a></li><li><a href=#Message-Crypt_synth_analz>Crypt_synth_analz</a></li><li><a href=#Message-Hash_synth_analz>Hash_synth_analz</a></li><li><a href=#Message-Agent_neq_HPair>Agent_neq_HPair</a></li><li><a href=#Message-Nonce_neq_HPair>Nonce_neq_HPair</a></li><li><a href=#Message-Number_neq_HPair>Number_neq_HPair</a></li><li><a href=#Message-Key_neq_HPair>Key_neq_HPair</a></li><li><a href=#Message-Hash_neq_HPair>Hash_neq_HPair</a></li><li><a href=#Message-Crypt_neq_HPair>Crypt_neq_HPair</a></li><li><a href=#Message-HPair_eq>HPair_eq</a></li><li><a href=#Message-MPair_eq_HPair>MPair_eq_HPair</a></li><li><a href=#Message-HPair_eq_MPair>HPair_eq_MPair</a></li><li><a href=#Message-keysFor_insert_HPair>keysFor_insert_HPair</a></li><li><a href=#Message-parts_insert_HPair>parts_insert_HPair</a></li><li><a href=#Message-analz_insert_HPair>analz_insert_HPair</a></li><li><a href=#Message-HPair_synth_analz>HPair_synth_analz</a></li><li><a href=#Message-Crypt_notin_image_Key>Crypt_notin_image_Key</a></li><li><a href=#Message-Hash_notin_image_Key>Hash_notin_image_Key</a></li><li><a href=#Message-synth_analz_mono>synth_analz_mono</a></li><li><a href=#Message-Fake_analz_eq>Fake_analz_eq</a></li><li><a href=#Message-gen_analz_insert_eq>gen_analz_insert_eq</a></li><li><a href=#Message-synth_analz_insert_eq>synth_analz_insert_eq</a></li><li><a href=#Message-Fake_parts_sing>Fake_parts_sing</a></li></ul></li><li><a href=#s0g_secrecy>s0g_secrecy</a><ul><li><a href=#s0g_secrecy-s0g_obs_id>s0g_obs_id</a></li><li><a href=#s0g_secrecy-s0g_anyP_observable>s0g_anyP_observable</a></li><li><a href=#s0g_secrecy-PO_s0g_secrecy_init>PO_s0g_secrecy_init</a></li><li><a href=#s0g_secrecy-PO_s0g_secrecy_trans>PO_s0g_secrecy_trans</a></li><li><a href=#s0g_secrecy-PO_s0g_secrecy>PO_s0g_secrecy</a></li><li><a href=#s0g_secrecy-PO_s0g_obs_secrecy>PO_s0g_obs_secrecy</a></li><li><a href=#s0g_secrecy-PO_s0g_dom_init>PO_s0g_dom_init</a></li><li><a href=#s0g_secrecy-PO_s0g_dom_trans>PO_s0g_dom_trans</a></li><li><a href=#s0g_secrecy-PO_s0g_dom>PO_s0g_dom</a></li><li><a href=#s0g_secrecy-PO_s0g_obs_dom>PO_s0g_obs_dom</a></li></ul></li><li><a href=#a0n_agree>a0n_agree</a><ul><li><a href=#a0n_agree-a0n_obs>a0n_obs</a></li><li><a href=#a0n_agree-a0n_anyP_observable>a0n_anyP_observable</a></li><li><a href=#a0n_agree-PO_a0n_inv1_niagree_init>PO_a0n_inv1_niagree_init</a></li><li><a href=#a0n_agree-PO_a0n_inv1_niagree_trans>PO_a0n_inv1_niagree_trans</a></li><li><a href=#a0n_agree-PO_a0n_inv1_niagree>PO_a0n_inv1_niagree</a></li><li><a href=#a0n_agree-a0n_obs_inv1_niagree>a0n_obs_inv1_niagree</a></li></ul></li><li><a href=#a0i_agree>a0i_agree</a><ul><li><a href=#a0i_agree-a0i_obs>a0i_obs</a></li><li><a href=#a0i_agree-a0i_anyP_observable>a0i_anyP_observable</a></li><li><a href=#a0i_agree-PO_a0i_inv1_iagree_init>PO_a0i_inv1_iagree_init</a></li><li><a href=#a0i_agree-PO_a0i_inv1_iagree_trans>PO_a0i_inv1_iagree_trans</a></li><li><a href=#a0i_agree-PO_a0i_inv1_iagree>PO_a0i_inv1_iagree</a></li><li><a href=#a0i_agree-PO_a0i_obs_inv1_iagree>PO_a0i_obs_inv1_iagree</a></li><li><a href=#a0i_agree-PO_a0i_running_refines_a0n_running>PO_a0i_running_refines_a0n_running</a></li><li><a href=#a0i_agree-PO_a0i_commit_refines_a0n_commit>PO_a0i_commit_refines_a0n_commit</a></li><li><a href=#a0i_agree-PO_a0i_corrupt_refines_a0n_corrupt>PO_a0i_corrupt_refines_a0n_corrupt</a></li><li><a href=#a0i_agree-PO_m1_refines_init_a0n>PO_m1_refines_init_a0n</a></li><li><a href=#a0i_agree-PO_m1_refines_trans_a0n>PO_m1_refines_trans_a0n</a></li><li><a href=#a0i_agree-PO_obs_consistent>PO_obs_consistent</a></li><li><a href=#a0i_agree-PO_a0i_refines_a0n>PO_a0i_refines_a0n</a></li><li><a href=#a0i_agree-iagree_implies_niagree>iagree_implies_niagree</a></li><li><a href=#a0i_agree-PO_a0i_a0n_inv1_niagree>PO_a0i_a0n_inv1_niagree</a></li><li><a href=#a0i_agree-PO_a0i_obs_a0n_inv1_niagree>PO_a0i_obs_a0n_inv1_niagree</a></li></ul></li><li><a href=#m1_auth>m1_auth</a><ul><li><a href=#m1_auth-runs2sigs_empty>runs2sigs_empty</a></li><li><a href=#m1_auth-runs2sigs_upd_init_none>runs2sigs_upd_init_none</a></li><li><a href=#m1_auth-runs2sigs_upd_init_some>runs2sigs_upd_init_some</a></li><li><a href=#m1_auth-runs2sigs_upd_resp>runs2sigs_upd_resp</a></li><li><a href=#m1_auth-PO_m1_step1_refines_skip>PO_m1_step1_refines_skip</a></li><li><a href=#m1_auth-PO_m1_step2_refines_a0i_running>PO_m1_step2_refines_a0i_running</a></li><li><a href=#m1_auth-PO_m1_step3_refines_a0i_commit>PO_m1_step3_refines_a0i_commit</a></li><li><a href=#m1_auth-PO_m1_refines_init_a0i>PO_m1_refines_init_a0i</a></li><li><a href=#m1_auth-PO_m1_refines_trans_a0i>PO_m1_refines_trans_a0i</a></li><li><a href=#m1_auth-PO_obs_consistent>PO_obs_consistent</a></li><li><a href=#m1_auth-PO_m1_refines_a0i>PO_m1_refines_a0i</a></li></ul></li><li><a href=#m2_auth_chan>m2_auth_chan</a><ul><li><a href=#m2_auth_chan-PO_m2_inv2_init>PO_m2_inv2_init</a></li><li><a href=#m2_auth_chan-PO_m2_inv2_trans>PO_m2_inv2_trans</a></li><li><a href=#m2_auth_chan-PO_m2_inv2>PO_m2_inv2</a></li><li><a href=#m2_auth_chan-PO_m2_step1_refines_m1_step1>PO_m2_step1_refines_m1_step1</a></li><li><a href=#m2_auth_chan-PO_m2_step2_refines_m1_step2>PO_m2_step2_refines_m1_step2</a></li><li><a href=#m2_auth_chan-PO_m2_step3_refines_m1_step3>PO_m2_step3_refines_m1_step3</a></li><li><a href=#m2_auth_chan-PO_m2_fake_refines_m1_skip>PO_m2_fake_refines_m1_skip</a></li><li><a href=#m2_auth_chan-PO_m2_refines_init_m1>PO_m2_refines_init_m1</a></li><li><a href=#m2_auth_chan-PO_m2_refines_trans_m1>PO_m2_refines_trans_m1</a></li><li><a href=#m2_auth_chan-PO_obs_consistent>PO_obs_consistent</a></li><li><a href=#m2_auth_chan-m2_refines_m1>m2_refines_m1</a></li></ul></li><li><a href=#m2_confid_chan>m2_confid_chan</a><ul><li><a href=#m2_confid_chan-PO_m2_inv1_init>PO_m2_inv1_init</a></li><li><a href=#m2_confid_chan-PO_m2_inv1_trans>PO_m2_inv1_trans</a></li><li><a href=#m2_confid_chan-PO_m2_inv012>PO_m2_inv012</a></li><li><a href=#m2_confid_chan-PO_m2_inv4_init>PO_m2_inv4_init</a></li><li><a href=#m2_confid_chan-PO_m2_inv4_trans>PO_m2_inv4_trans</a></li><li><a href=#m2_confid_chan-PO_m2_inv4>PO_m2_inv4</a></li><li><a href=#m2_confid_chan-PO_m2_inv3_init>PO_m2_inv3_init</a></li><li><a href=#m2_confid_chan-PO_m2_inv3_trans>PO_m2_inv3_trans</a></li><li><a href=#m2_confid_chan-PO_m2_inv3>PO_m2_inv3</a></li><li><a href=#m2_confid_chan-PO_m2_step1_refines_m1_step1>PO_m2_step1_refines_m1_step1</a></li><li><a href=#m2_confid_chan-PO_m2_step2_refines_m1_step2>PO_m2_step2_refines_m1_step2</a></li><li><a href=#m2_confid_chan-PO_m2_step3_refines_m1_step3>PO_m2_step3_refines_m1_step3</a></li><li><a href=#m2_confid_chan-PO_m2_fake_refines_skip>PO_m2_fake_refines_skip</a></li><li><a href=#m2_confid_chan-PO_m2_refines_init_m1>PO_m2_refines_init_m1</a></li><li><a href=#m2_confid_chan-PO_m2_refines_trans_m1>PO_m2_refines_trans_m1</a></li><li><a href=#m2_confid_chan-PO_R12_obs_consistent>PO_R12_obs_consistent</a></li><li><a href=#m2_confid_chan-PO_m3_refines_m2>PO_m3_refines_m2</a></li></ul></li><li><a href=#m3_sig>m3_sig</a><ul><li><a href=#m3_sig-PO_m3_inv1_lkeysec_init>PO_m3_inv1_lkeysec_init</a></li><li><a href=#m3_sig-PO_m3_inv1_lkeysec_trans>PO_m3_inv1_lkeysec_trans</a></li><li><a href=#m3_sig-PO_m3_inv1_lkeysec>PO_m3_inv1_lkeysec</a></li><li><a href=#m3_sig-PO_m3_inv2_badkeys_init>PO_m3_inv2_badkeys_init</a></li><li><a href=#m3_sig-PO_m3_inv2_badkeys_trans>PO_m3_inv2_badkeys_trans</a></li><li><a href=#m3_sig-PO_m3_inv2_badkeys>PO_m3_inv2_badkeys</a></li><li><a href=#m3_sig-PO_m3_inv3_pubkeys_init>PO_m3_inv3_pubkeys_init</a></li><li><a href=#m3_sig-PO_m3_inv3_pubkeys_trans>PO_m3_inv3_pubkeys_trans</a></li><li><a href=#m3_sig-PO_m3_inv3_pubkeys>PO_m3_inv3_pubkeys</a></li><li><a href=#m3_sig-abs_msg_empty>abs_msg_empty</a></li><li><a href=#m3_sig-abs_msg_Un>abs_msg_Un</a></li><li><a href=#m3_sig-abs_msg_mono>abs_msg_mono</a></li><li><a href=#m3_sig-abs_msg_insert_mono>abs_msg_insert_mono</a></li><li><a href=#m3_sig-abs_msg_DY_subset_fakeable>abs_msg_DY_subset_fakeable</a></li><li><a href=#m3_sig-absmsg_parts_subset_fakeable>absmsg_parts_subset_fakeable</a></li><li><a href=#m3_sig-PO_m3_step1_refines_m2_step1>PO_m3_step1_refines_m2_step1</a></li><li><a href=#m3_sig-PO_m3_step2_refines_m2_step2>PO_m3_step2_refines_m2_step2</a></li><li><a href=#m3_sig-PO_m3_step3_refines_m2_step3>PO_m3_step3_refines_m2_step3</a></li><li><a href=#m3_sig-PO_m3_DY_fake_refines_m2_fake>PO_m3_DY_fake_refines_m2_fake</a></li><li><a href=#m3_sig-PO_m3_refines_init_m2>PO_m3_refines_init_m2</a></li><li><a href=#m3_sig-PO_m3_refines_trans_m2>PO_m3_refines_trans_m2</a></li><li><a href=#m3_sig-PO_obs_consistent>PO_obs_consistent</a></li><li><a href=#m3_sig-PO_m3_refines_m2>PO_m3_refines_m2</a></li></ul></li><li><a href=#m3_enc>m3_enc</a><ul><li><a href=#m3_enc-PO_m3_inv1_keys_init>PO_m3_inv1_keys_init</a></li><li><a href=#m3_enc-PO_m3_inv1_keys_trans>PO_m3_inv1_keys_trans</a></li><li><a href=#m3_enc-PO_m3_inv1_keys>PO_m3_inv1_keys</a></li><li><a href=#m3_enc-abs_msg_empty>abs_msg_empty</a></li><li><a href=#m3_enc-abs_msg_Un>abs_msg_Un</a></li><li><a href=#m3_enc-abs_msg_mono>abs_msg_mono</a></li><li><a href=#m3_enc-abs_msg_insert_mono>abs_msg_insert_mono</a></li><li><a href=#m3_enc-abs_msg_DY_subset_fake>abs_msg_DY_subset_fake</a></li><li><a href=#m3_enc-abs_msg_parts_subset_fake>abs_msg_parts_subset_fake</a></li><li><a href=#m3_enc-PO_m3_step1_refines_m2_step1>PO_m3_step1_refines_m2_step1</a></li><li><a href=#m3_enc-PO_m3_step2_refines_m2_step2>PO_m3_step2_refines_m2_step2</a></li><li><a href=#m3_enc-PO_m3_step3_refines_m2_step3>PO_m3_step3_refines_m2_step3</a></li><li><a href=#m3_enc-PO_m3_DY_fake_refines_m2_fake>PO_m3_DY_fake_refines_m2_fake</a></li><li><a href=#m3_enc-PO_m3_refines_init_m2>PO_m3_refines_init_m2</a></li><li><a href=#m3_enc-PO_m3_refines_trans_m2>PO_m3_refines_trans_m2</a></li><li><a href=#m3_enc-PO_R23_obs_consistent>PO_R23_obs_consistent</a></li><li><a href=#m3_enc-PO_m3_refines_m2>PO_m3_refines_m2</a></li></ul></li><li><a href=#m1_keydist>m1_keydist</a><ul><li><a href=#m1_keydist-knC_empty>knC_empty</a></li><li><a href=#m1_keydist-azC_empty>azC_empty</a></li><li><a href=#m1_keydist-azC_map_runs>azC_map_runs</a></li><li><a href=#m1_keydist-knC_upd_Init_Resp_None>knC_upd_Init_Resp_None</a></li><li><a href=#m1_keydist-knC_upd_Init_Some>knC_upd_Init_Some</a></li><li><a href=#m1_keydist-knC_upd_Resp_Some>knC_upd_Resp_Some</a></li><li><a href=#m1_keydist-knC_upd_Server>knC_upd_Server</a></li><li><a href=#m1_keydist-azC_upd_Init_None>azC_upd_Init_None</a></li><li><a href=#m1_keydist-azC_upd_Resp_None>azC_upd_Resp_None</a></li><li><a href=#m1_keydist-azC_upd_Init_Some>azC_upd_Init_Some</a></li><li><a href=#m1_keydist-azC_upd_Resp_Some>azC_upd_Resp_Some</a></li><li><a href=#m1_keydist-azC_upd_Serv_bad>azC_upd_Serv_bad</a></li><li><a href=#m1_keydist-azC_upd_Serv_good>azC_upd_Serv_good</a></li><li><a href=#m1_keydist-azC_upd_Serv>azC_upd_Serv</a></li><li><a href=#m1_keydist-m1x_obs_id>m1x_obs_id</a></li><li><a href=#m1_keydist-PO_m1x_inv1_key_init>PO_m1x_inv1_key_init</a></li><li><a href=#m1_keydist-PO_m1x_inv1_key_trans>PO_m1x_inv1_key_trans</a></li><li><a href=#m1_keydist-PO_m1x_inv1_key>PO_m1x_inv1_key</a></li><li><a href=#m1_keydist-PO_m1x_step1_refines_skip>PO_m1x_step1_refines_skip</a></li><li><a href=#m1_keydist-PO_m1x_step2_refines_skip>PO_m1x_step2_refines_skip</a></li><li><a href=#m1_keydist-PO_m1x_step3_refines_s0g_gen>PO_m1x_step3_refines_s0g_gen</a></li><li><a href=#m1_keydist-PO_m1x_step4_refines_s0g_learn>PO_m1x_step4_refines_s0g_learn</a></li><li><a href=#m1_keydist-PO_m1x_step5_refines_s0g_learn>PO_m1x_step5_refines_s0g_learn</a></li><li><a href=#m1_keydist-PO_m1x_leak_refines_s0g_leak>PO_m1x_leak_refines_s0g_leak</a></li><li><a href=#m1_keydist-PO_m1x_refines_init_s0g>PO_m1x_refines_init_s0g</a></li><li><a href=#m1_keydist-PO_m1x_refines_trans_s0g>PO_m1x_refines_trans_s0g</a></li><li><a href=#m1_keydist-obs_consistent_med01x>obs_consistent_med01x</a></li><li><a href=#m1_keydist-PO_m1x_refines_s0g>PO_m1x_refines_s0g</a></li><li><a href=#m1_keydist-m1x_implements_s0g>m1x_implements_s0g</a></li><li><a href=#m1_keydist-PO_m1x_obs_secrecy>PO_m1x_obs_secrecy</a></li><li><a href=#m1_keydist-PO_m1x_secrecy>PO_m1x_secrecy</a></li></ul></li><li><a href=#m1_keydist_iirn>m1_keydist_iirn</a><ul><li><a href=#m1_keydist_iirn-init_m1a>init_m1a</a></li><li><a href=#m1_keydist_iirn-trans_m1a>trans_m1a</a></li><li><a href=#m1_keydist_iirn-obs_m1a>obs_m1a</a></li><li><a href=#m1_keydist_iirn-PO_m1a_inv0_fin_init>PO_m1a_inv0_fin_init</a></li><li><a href=#m1_keydist_iirn-PO_m1a_inv0_fin_trans>PO_m1a_inv0_fin_trans</a></li><li><a href=#m1_keydist_iirn-PO_m1a_inv0_fin>PO_m1a_inv0_fin</a></li><li><a href=#m1_keydist_iirn-PO_m1a_step1_refines_m1x_step1>PO_m1a_step1_refines_m1x_step1</a></li><li><a href=#m1_keydist_iirn-PO_m1a_step2_refines_m1x_step2>PO_m1a_step2_refines_m1x_step2</a></li><li><a href=#m1_keydist_iirn-PO_m1a_step3_refines_m1x_step3>PO_m1a_step3_refines_m1x_step3</a></li><li><a href=#m1_keydist_iirn-PO_m1a_step4_refines_m1x_step4>PO_m1a_step4_refines_m1x_step4</a></li><li><a href=#m1_keydist_iirn-PO_m1a_step5_refines_m1x_step5>PO_m1a_step5_refines_m1x_step5</a></li><li><a href=#m1_keydist_iirn-PO_m1a_leak_refines_m1x_leak>PO_m1a_leak_refines_m1x_leak</a></li><li><a href=#m1_keydist_iirn-PO_m1a_refines_init_m1x>PO_m1a_refines_init_m1x</a></li><li><a href=#m1_keydist_iirn-PO_m1a_refines_trans_m1x>PO_m1a_refines_trans_m1x</a></li><li><a href=#m1_keydist_iirn-obs_consistent_med1x1a>obs_consistent_med1x1a</a></li><li><a href=#m1_keydist_iirn-PO_m1a_refines_m1x>PO_m1a_refines_m1x</a></li><li><a href=#m1_keydist_iirn-m1a_implements_m1x>m1a_implements_m1x</a></li><li><a href=#m1_keydist_iirn-m1a_implements_s0g>m1a_implements_s0g</a></li><li><a href=#m1_keydist_iirn-knC_runs1x1a>knC_runs1x1a</a></li><li><a href=#m1_keydist_iirn-PO_m1a_obs_secrecy>PO_m1a_obs_secrecy</a></li><li><a href=#m1_keydist_iirn-PO_m1a_secrecy>PO_m1a_secrecy</a></li><li><a href=#m1_keydist_iirn-is_runs2sigs_empty>is_runs2sigs_empty</a></li><li><a href=#m1_keydist_iirn-is_runs2sigs_upd_init_none>is_runs2sigs_upd_init_none</a></li><li><a href=#m1_keydist_iirn-is_runs2sigs_upd_resp_none>is_runs2sigs_upd_resp_none</a></li><li><a href=#m1_keydist_iirn-is_runs2sigs_upd_serv>is_runs2sigs_upd_serv</a></li><li><a href=#m1_keydist_iirn-is_runs2sigs_upd_init_some>is_runs2sigs_upd_init_some</a></li><li><a href=#m1_keydist_iirn-is_runs2sigs_upd_resp_some>is_runs2sigs_upd_resp_some</a></li><li><a href=#m1_keydist_iirn-PO_m1a_step1_refines_a0_is_skip>PO_m1a_step1_refines_a0_is_skip</a></li><li><a href=#m1_keydist_iirn-PO_m1a_step2_refines_a0_is_skip>PO_m1a_step2_refines_a0_is_skip</a></li><li><a href=#m1_keydist_iirn-PO_m1a_step3_refines_a0_is_running>PO_m1a_step3_refines_a0_is_running</a></li><li><a href=#m1_keydist_iirn-PO_m1a_step4_refines_a0_is_commit>PO_m1a_step4_refines_a0_is_commit</a></li><li><a href=#m1_keydist_iirn-PO_m1a_step5_refines_a0_is_skip>PO_m1a_step5_refines_a0_is_skip</a></li><li><a href=#m1_keydist_iirn-PO_m1a_leak_refines_a0_is_skip>PO_m1a_leak_refines_a0_is_skip</a></li><li><a href=#m1_keydist_iirn-PO_m1a_refines_init_a0_is>PO_m1a_refines_init_a0_is</a></li><li><a href=#m1_keydist_iirn-PO_m1a_refines_trans_a0_is>PO_m1a_refines_trans_a0_is</a></li><li><a href=#m1_keydist_iirn-obs_consistent_med_a0m1a_is>obs_consistent_med_a0m1a_is</a></li><li><a href=#m1_keydist_iirn-PO_m1a_refines_a0_is>PO_m1a_refines_a0_is</a></li><li><a href=#m1_keydist_iirn-m1a_implements_a0_is>m1a_implements_a0_is</a></li><li><a href=#m1_keydist_iirn-PO_m1a_inv2i_serv>PO_m1a_inv2i_serv</a></li><li><a href=#m1_keydist_iirn-PO_m1a_inv1_ifresh_init>PO_m1a_inv1_ifresh_init</a></li><li><a href=#m1_keydist_iirn-PO_m1a_inv1_ifresh_step4>PO_m1a_inv1_ifresh_step4</a></li><li><a href=#m1_keydist_iirn-PO_m1a_inv1_ifresh_trans>PO_m1a_inv1_ifresh_trans</a></li><li><a href=#m1_keydist_iirn-PO_m1a_inv1_ifresh>PO_m1a_inv1_ifresh</a></li><li><a href=#m1_keydist_iirn-rs_runs2sigs_empty>rs_runs2sigs_empty</a></li><li><a href=#m1_keydist_iirn-rs_commit_finite>rs_commit_finite</a></li><li><a href=#m1_keydist_iirn-rs_runs2sigs_upd_init_none>rs_runs2sigs_upd_init_none</a></li><li><a href=#m1_keydist_iirn-rs_runs2sigs_upd_resp_none>rs_runs2sigs_upd_resp_none</a></li><li><a href=#m1_keydist_iirn-rs_runs2sigs_upd_serv>rs_runs2sigs_upd_serv</a></li><li><a href=#m1_keydist_iirn-rs_runs2sigs_upd_init_some>rs_runs2sigs_upd_init_some</a></li><li><a href=#m1_keydist_iirn-rs_runs2sigs_upd_resp_some>rs_runs2sigs_upd_resp_some</a></li><li><a href=#m1_keydist_iirn-PO_m1a_step1_refines_a0_rs_skip>PO_m1a_step1_refines_a0_rs_skip</a></li><li><a href=#m1_keydist_iirn-PO_m1a_step2_refines_a0_rs_skip>PO_m1a_step2_refines_a0_rs_skip</a></li><li><a href=#m1_keydist_iirn-PO_m1a_step3_refines_a0_rs_running>PO_m1a_step3_refines_a0_rs_running</a></li><li><a href=#m1_keydist_iirn-PO_m1a_step4_refines_a0_rs_skip>PO_m1a_step4_refines_a0_rs_skip</a></li><li><a href=#m1_keydist_iirn-PO_m1a_step5_refines_a0_rs_commit>PO_m1a_step5_refines_a0_rs_commit</a></li><li><a href=#m1_keydist_iirn-PO_m1a_leak_refines_a0_rs_skip>PO_m1a_leak_refines_a0_rs_skip</a></li><li><a href=#m1_keydist_iirn-PO_m1a_refines_init_ra0n>PO_m1a_refines_init_ra0n</a></li><li><a href=#m1_keydist_iirn-PO_m1a_refines_trans_ra0n>PO_m1a_refines_trans_ra0n</a></li><li><a href=#m1_keydist_iirn-obs_consistent_med_a0m1a_rs>obs_consistent_med_a0m1a_rs</a></li><li><a href=#m1_keydist_iirn-PO_m1a_refines_a0_rs>PO_m1a_refines_a0_rs</a></li><li><a href=#m1_keydist_iirn-m1a_implements_ra0n>m1a_implements_ra0n</a></li><li><a href=#m1_keydist_iirn-PO_m1a_inv2r_serv>PO_m1a_inv2r_serv</a></li></ul></li><li><a href=#m1_keydist_inrn>m1_keydist_inrn</a><ul><li><a href=#m1_keydist_inrn-init_m1a>init_m1a</a></li><li><a href=#m1_keydist_inrn-trans_m1a>trans_m1a</a></li><li><a href=#m1_keydist_inrn-obs_m1a>obs_m1a</a></li><li><a href=#m1_keydist_inrn-PO_m1a_inv0_fin_init>PO_m1a_inv0_fin_init</a></li><li><a href=#m1_keydist_inrn-PO_m1a_inv0_fin_trans>PO_m1a_inv0_fin_trans</a></li><li><a href=#m1_keydist_inrn-PO_m1a_inv0_fin>PO_m1a_inv0_fin</a></li><li><a href=#m1_keydist_inrn-PO_m1a_step1_refines_m1x_step1>PO_m1a_step1_refines_m1x_step1</a></li><li><a href=#m1_keydist_inrn-PO_m1a_step2_refines_m1x_step2>PO_m1a_step2_refines_m1x_step2</a></li><li><a href=#m1_keydist_inrn-PO_m1a_step3_refines_m1x_step3>PO_m1a_step3_refines_m1x_step3</a></li><li><a href=#m1_keydist_inrn-PO_m1a_step4_refines_m1x_step4>PO_m1a_step4_refines_m1x_step4</a></li><li><a href=#m1_keydist_inrn-PO_m1a_step5_refines_m1x_step5>PO_m1a_step5_refines_m1x_step5</a></li><li><a href=#m1_keydist_inrn-PO_m1a_leak_refines_m1x_leak>PO_m1a_leak_refines_m1x_leak</a></li><li><a href=#m1_keydist_inrn-PO_m1a_refines_init_m1x>PO_m1a_refines_init_m1x</a></li><li><a href=#m1_keydist_inrn-PO_m1a_refines_trans_m1x>PO_m1a_refines_trans_m1x</a></li><li><a href=#m1_keydist_inrn-obs_consistent_med1x1a>obs_consistent_med1x1a</a></li><li><a href=#m1_keydist_inrn-PO_m1a_refines_m1x>PO_m1a_refines_m1x</a></li><li><a href=#m1_keydist_inrn-m1a_implements_m1x>m1a_implements_m1x</a></li><li><a href=#m1_keydist_inrn-is_runs2sigs_empty>is_runs2sigs_empty</a></li><li><a href=#m1_keydist_inrn-is_commit_finite>is_commit_finite</a></li><li><a href=#m1_keydist_inrn-is_runs2sigs_upd_init_none>is_runs2sigs_upd_init_none</a></li><li><a href=#m1_keydist_inrn-is_runs2sigs_upd_resp_none>is_runs2sigs_upd_resp_none</a></li><li><a href=#m1_keydist_inrn-is_runs2sigs_upd_serv>is_runs2sigs_upd_serv</a></li><li><a href=#m1_keydist_inrn-is_runs2sigs_upd_init_some>is_runs2sigs_upd_init_some</a></li><li><a href=#m1_keydist_inrn-is_runs2sigs_upd_resp_some>is_runs2sigs_upd_resp_some</a></li><li><a href=#m1_keydist_inrn-PO_m1a_step1_refines_a0_is_skip>PO_m1a_step1_refines_a0_is_skip</a></li><li><a href=#m1_keydist_inrn-PO_m1a_step2_refines_a0_is_skip>PO_m1a_step2_refines_a0_is_skip</a></li><li><a href=#m1_keydist_inrn-PO_m1a_step3_refines_a0_is_running>PO_m1a_step3_refines_a0_is_running</a></li><li><a href=#m1_keydist_inrn-PO_m1a_step4_refines_a0_is_commit>PO_m1a_step4_refines_a0_is_commit</a></li><li><a href=#m1_keydist_inrn-PO_m1a_step5_refines_a0_is_skip>PO_m1a_step5_refines_a0_is_skip</a></li><li><a href=#m1_keydist_inrn-PO_m1a_leak_refines_a0_is_skip>PO_m1a_leak_refines_a0_is_skip</a></li><li><a href=#m1_keydist_inrn-PO_m1a_refines_init_a0_is>PO_m1a_refines_init_a0_is</a></li><li><a href=#m1_keydist_inrn-PO_m1a_refines_trans_a0_is>PO_m1a_refines_trans_a0_is</a></li><li><a href=#m1_keydist_inrn-obs_consistent_med_a0m1a_is>obs_consistent_med_a0m1a_is</a></li><li><a href=#m1_keydist_inrn-PO_m1a_refines_a0_is>PO_m1a_refines_a0_is</a></li><li><a href=#m1_keydist_inrn-m1a_implements_a0_is>m1a_implements_a0_is</a></li><li><a href=#m1_keydist_inrn-rs_runs2sigs_empty>rs_runs2sigs_empty</a></li><li><a href=#m1_keydist_inrn-rs_commit_finite>rs_commit_finite</a></li><li><a href=#m1_keydist_inrn-rs_runs2sigs_upd_init_none>rs_runs2sigs_upd_init_none</a></li><li><a href=#m1_keydist_inrn-rs_runs2sigs_upd_resp_none>rs_runs2sigs_upd_resp_none</a></li><li><a href=#m1_keydist_inrn-rs_runs2sigs_upd_serv>rs_runs2sigs_upd_serv</a></li><li><a href=#m1_keydist_inrn-rs_runs2sigs_upd_init_some>rs_runs2sigs_upd_init_some</a></li><li><a href=#m1_keydist_inrn-rs_runs2sigs_upd_resp_some>rs_runs2sigs_upd_resp_some</a></li><li><a href=#m1_keydist_inrn-PO_m1a_step1_refines_a0_rs_skip>PO_m1a_step1_refines_a0_rs_skip</a></li><li><a href=#m1_keydist_inrn-PO_m1a_step2_refines_a0_rs_skip>PO_m1a_step2_refines_a0_rs_skip</a></li><li><a href=#m1_keydist_inrn-PO_m1a_step3_refines_a0_rs_running>PO_m1a_step3_refines_a0_rs_running</a></li><li><a href=#m1_keydist_inrn-PO_m1a_step4_refines_a0_rs_skip>PO_m1a_step4_refines_a0_rs_skip</a></li><li><a href=#m1_keydist_inrn-PO_m1a_step5_refines_a0_rs_commit>PO_m1a_step5_refines_a0_rs_commit</a></li><li><a href=#m1_keydist_inrn-PO_m1a_leak_refines_a0_rs_skip>PO_m1a_leak_refines_a0_rs_skip</a></li><li><a href=#m1_keydist_inrn-PO_m1a_refines_init_ra0n>PO_m1a_refines_init_ra0n</a></li><li><a href=#m1_keydist_inrn-PO_m1a_refines_trans_ra0n>PO_m1a_refines_trans_ra0n</a></li><li><a href=#m1_keydist_inrn-obs_consistent_med_a0m1a_rs>obs_consistent_med_a0m1a_rs</a></li><li><a href=#m1_keydist_inrn-PO_m1a_refines_a0_rs>PO_m1a_refines_a0_rs</a></li><li><a href=#m1_keydist_inrn-m1a_implements_ra0n>m1a_implements_ra0n</a></li></ul></li><li><a href=#m1_kerberos>m1_kerberos</a><ul><li><a href=#m1_kerberos-m1_obs_id>m1_obs_id</a></li><li><a href=#m1_kerberos-PO_m1_inv0_fin_init>PO_m1_inv0_fin_init</a></li><li><a href=#m1_kerberos-PO_m1_inv0_fin_trans>PO_m1_inv0_fin_trans</a></li><li><a href=#m1_kerberos-PO_m1_inv0_fin>PO_m1_inv0_fin</a></li><li><a href=#m1_kerberos-PO_m1_inv1r_cache_init>PO_m1_inv1r_cache_init</a></li><li><a href=#m1_kerberos-PO_m1_inv1r_cache_trans>PO_m1_inv1r_cache_trans</a></li><li><a href=#m1_kerberos-PO_m1_inv1r_cache>PO_m1_inv1r_cache</a></li><li><a href=#m1_kerberos-knC_runs1a1>knC_runs1a1</a></li><li><a href=#m1_kerberos-PO_m1_step1_refines_m1a_step1>PO_m1_step1_refines_m1a_step1</a></li><li><a href=#m1_kerberos-PO_m1_step2_refines_m1a_step2>PO_m1_step2_refines_m1a_step2</a></li><li><a href=#m1_kerberos-PO_m1_step3_refines_m1a_step3>PO_m1_step3_refines_m1a_step3</a></li><li><a href=#m1_kerberos-PO_m1_step4_refines_m1a_step4>PO_m1_step4_refines_m1a_step4</a></li><li><a href=#m1_kerberos-PO_m1_step5_refines_m1a_step5>PO_m1_step5_refines_m1a_step5</a></li><li><a href=#m1_kerberos-PO_m1_step6_refines_m1a_skip>PO_m1_step6_refines_m1a_skip</a></li><li><a href=#m1_kerberos-PO_m1_leak_refines_m1a_leak>PO_m1_leak_refines_m1a_leak</a></li><li><a href=#m1_kerberos-PO_m1_tick_refines_m1a_skip>PO_m1_tick_refines_m1a_skip</a></li><li><a href=#m1_kerberos-PO_m1_purge_refines_m1a_skip>PO_m1_purge_refines_m1a_skip</a></li><li><a href=#m1_kerberos-PO_m1_refines_init_m1a>PO_m1_refines_init_m1a</a></li><li><a href=#m1_kerberos-PO_m1_refines_trans_m1a>PO_m1_refines_trans_m1a</a></li><li><a href=#m1_kerberos-obs_consistent_med1a1>obs_consistent_med1a1</a></li><li><a href=#m1_kerberos-PO_m1_refines_m1a>PO_m1_refines_m1a</a></li><li><a href=#m1_kerberos-m1_implements_m1a>m1_implements_m1a</a></li><li><a href=#m1_kerberos-PO_m1_obs_secrecy>PO_m1_obs_secrecy</a></li><li><a href=#m1_kerberos-PO_m1_secrecy>PO_m1_secrecy</a></li><li><a href=#m1_kerberos-PO_m1_inv2r_serv>PO_m1_inv2r_serv</a></li><li><a href=#m1_kerberos-PO_m1_inv2i_serv>PO_m1_inv2i_serv</a></li><li><a href=#m1_kerberos-PO_m1_ifresh>PO_m1_ifresh</a></li><li><a href=#m1_kerberos-ri_runs2sigs_empty>ri_runs2sigs_empty</a></li><li><a href=#m1_kerberos-finite_ri_running>finite_ri_running</a></li><li><a href=#m1_kerberos-finite_ri_commit>finite_ri_commit</a></li><li><a href=#m1_kerberos-ri_runs2sigs_upd_init_none>ri_runs2sigs_upd_init_none</a></li><li><a href=#m1_kerberos-ri_runs2sigs_upd_resp_none>ri_runs2sigs_upd_resp_none</a></li><li><a href=#m1_kerberos-ri_runs2sigs_upd_serv>ri_runs2sigs_upd_serv</a></li><li><a href=#m1_kerberos-ri_runs2sigs_upd_init_some>ri_runs2sigs_upd_init_some</a></li><li><a href=#m1_kerberos-ri_runs2sigs_upd_resp_some>ri_runs2sigs_upd_resp_some</a></li><li><a href=#m1_kerberos-ri_runs2sigs_upd_init_some2>ri_runs2sigs_upd_init_some2</a></li><li><a href=#m1_kerberos-PO_m1_step1_refines_a0_ri_skip>PO_m1_step1_refines_a0_ri_skip</a></li><li><a href=#m1_kerberos-PO_m1_step2_refines_a0_ri_skip>PO_m1_step2_refines_a0_ri_skip</a></li><li><a href=#m1_kerberos-PO_m1_step3_refines_a0_ri_skip>PO_m1_step3_refines_a0_ri_skip</a></li><li><a href=#m1_kerberos-PO_m1_step4_refines_a0_ri_running>PO_m1_step4_refines_a0_ri_running</a></li><li><a href=#m1_kerberos-PO_m1_step5_refines_a0_ri_commit>PO_m1_step5_refines_a0_ri_commit</a></li><li><a href=#m1_kerberos-PO_m1_step6_refines_a0_ri_skip>PO_m1_step6_refines_a0_ri_skip</a></li><li><a href=#m1_kerberos-PO_m1_leak_refines_a0_ri_skip>PO_m1_leak_refines_a0_ri_skip</a></li><li><a href=#m1_kerberos-PO_m1_tick_refines_a0_ri_skip>PO_m1_tick_refines_a0_ri_skip</a></li><li><a href=#m1_kerberos-PO_m1_purge_refines_a0_ri_skip>PO_m1_purge_refines_a0_ri_skip</a></li><li><a href=#m1_kerberos-PO_m1_refines_init_a0_ri>PO_m1_refines_init_a0_ri</a></li><li><a href=#m1_kerberos-PO_m1_refines_trans_a0_ri>PO_m1_refines_trans_a0_ri</a></li><li><a href=#m1_kerberos-obs_consistent_med_a0iim1_ri>obs_consistent_med_a0iim1_ri</a></li><li><a href=#m1_kerberos-PO_m1_refines_a0ii_ri>PO_m1_refines_a0ii_ri</a></li><li><a href=#m1_kerberos-m1_implements_a0ii_ri>m1_implements_a0ii_ri</a></li><li><a href=#m1_kerberos-PO_m1_inv3r_init>PO_m1_inv3r_init</a></li><li><a href=#m1_kerberos-PO_m1_inv4_rfresh_step5>PO_m1_inv4_rfresh_step5</a></li><li><a href=#m1_kerberos-PO_m1_inv4_rfresh_init>PO_m1_inv4_rfresh_init</a></li><li><a href=#m1_kerberos-PO_m1_inv4_rfresh_trans>PO_m1_inv4_rfresh_trans</a></li><li><a href=#m1_kerberos-PO_m1_inv4_rfresh>PO_m1_inv4_rfresh</a></li><li><a href=#m1_kerberos-PO_m1_obs_inv4_rfresh>PO_m1_obs_inv4_rfresh</a></li><li><a href=#m1_kerberos-ir_runs2sigs_empty>ir_runs2sigs_empty</a></li><li><a href=#m1_kerberos-ir_commit_finite>ir_commit_finite</a></li><li><a href=#m1_kerberos-ir_runs2sigs_upd_init_none>ir_runs2sigs_upd_init_none</a></li><li><a href=#m1_kerberos-ir_runs2sigs_upd_resp_none>ir_runs2sigs_upd_resp_none</a></li><li><a href=#m1_kerberos-ir_runs2sigs_upd_serv>ir_runs2sigs_upd_serv</a></li><li><a href=#m1_kerberos-ir_runs2sigs_upd_init_some>ir_runs2sigs_upd_init_some</a></li><li><a href=#m1_kerberos-ir_runs2sigs_upd_resp_some_raw>ir_runs2sigs_upd_resp_some_raw</a></li><li><a href=#m1_kerberos-ir_runs2sigs_upd_resp_some>ir_runs2sigs_upd_resp_some</a></li><li><a href=#m1_kerberos-ir_runs2sigs_upd_init_some2_raw>ir_runs2sigs_upd_init_some2_raw</a></li><li><a href=#m1_kerberos-ir_runs2sigs_upd_init_some2>ir_runs2sigs_upd_init_some2</a></li><li><a href=#m1_kerberos-PO_m1_step1_refines_ir_a0ii_skip>PO_m1_step1_refines_ir_a0ii_skip</a></li><li><a href=#m1_kerberos-PO_m1_step2_refines_ir_a0ii_skip>PO_m1_step2_refines_ir_a0ii_skip</a></li><li><a href=#m1_kerberos-PO_m1_step3_refines_ir_a0ii_skip>PO_m1_step3_refines_ir_a0ii_skip</a></li><li><a href=#m1_kerberos-PO_m1_step4_refines_ir_a0ii_skip>PO_m1_step4_refines_ir_a0ii_skip</a></li><li><a href=#m1_kerberos-PO_m1_step5_refines_ir_a0ii_running>PO_m1_step5_refines_ir_a0ii_running</a></li><li><a href=#m1_kerberos-PO_m1_step6_refines_ir_a0ii_commit>PO_m1_step6_refines_ir_a0ii_commit</a></li><li><a href=#m1_kerberos-PO_m1_leak_refines_ir_a0ii_skip>PO_m1_leak_refines_ir_a0ii_skip</a></li><li><a href=#m1_kerberos-PO_m1_tick_refines_ir_a0ii_skip>PO_m1_tick_refines_ir_a0ii_skip</a></li><li><a href=#m1_kerberos-PO_m1_purge_refines_ir_a0ii_skip>PO_m1_purge_refines_ir_a0ii_skip</a></li><li><a href=#m1_kerberos-PO_m1_refines_init_ir_a0ii>PO_m1_refines_init_ir_a0ii</a></li><li><a href=#m1_kerberos-PO_m1_refines_trans_ir_a0ii>PO_m1_refines_trans_ir_a0ii</a></li><li><a href=#m1_kerberos-obs_consistent_med_a0iim1_ir>obs_consistent_med_a0iim1_ir</a></li><li><a href=#m1_kerberos-PO_m1_refines_a0ii_ir>PO_m1_refines_a0ii_ir</a></li><li><a href=#m1_kerberos-m1_implements_a0ii_ir>m1_implements_a0ii_ir</a></li></ul></li><li><a href=#m2_kerberos>m2_kerberos</a><ul><li><a href=#m2_kerberos-PO_m2_inv1_keys_init>PO_m2_inv1_keys_init</a></li><li><a href=#m2_kerberos-PO_m2_inv1_keys_trans>PO_m2_inv1_keys_trans</a></li><li><a href=#m2_kerberos-PO_m2_inv1_keys>PO_m2_inv1_keys</a></li><li><a href=#m2_kerberos-PO_m2_inv2_keys_for_init>PO_m2_inv2_keys_for_init</a></li><li><a href=#m2_kerberos-PO_m2_inv2_keys_for_trans>PO_m2_inv2_keys_for_trans</a></li><li><a href=#m2_kerberos-PO_m2_inv2_keys_for>PO_m2_inv2_keys_for</a></li><li><a href=#m2_kerberos-PO_m2_inv3a_sesK_compr_init>PO_m2_inv3a_sesK_compr_init</a></li><li><a href=#m2_kerberos-PO_m2_inv3a_sesK_compr_trans>PO_m2_inv3a_sesK_compr_trans</a></li><li><a href=#m2_kerberos-PO_m2_inv3a_sesK_compr>PO_m2_inv3a_sesK_compr</a></li><li><a href=#m2_kerberos-PO_m2_inv3b_leak_init>PO_m2_inv3b_leak_init</a></li><li><a href=#m2_kerberos-PO_m2_inv3b_leak_trans>PO_m2_inv3b_leak_trans</a></li><li><a href=#m2_kerberos-PO_m2_inv3b_leak>PO_m2_inv3b_leak</a></li><li><a href=#m2_kerberos-PO_m2_inv3_extrKey_init>PO_m2_inv3_extrKey_init</a></li><li><a href=#m2_kerberos-PO_m2_inv3_extrKey_trans>PO_m2_inv3_extrKey_trans</a></li><li><a href=#m2_kerberos-PO_m2_inv3_extrKey>PO_m2_inv3_extrKey</a></li><li><a href=#m2_kerberos-PO_m2_inv4_M2a_init>PO_m2_inv4_M2a_init</a></li><li><a href=#m2_kerberos-PO_m2_inv4_M2a_trans>PO_m2_inv4_M2a_trans</a></li><li><a href=#m2_kerberos-PO_m2_inv4_M2a>PO_m2_inv4_M2a</a></li><li><a href=#m2_kerberos-PO_m2_inv4_M2b_init>PO_m2_inv4_M2b_init</a></li><li><a href=#m2_kerberos-PO_m2_inv4_M2b_trans>PO_m2_inv4_M2b_trans</a></li><li><a href=#m2_kerberos-PO_m2_inv4_M2b>PO_m2_inv4_M2b</a></li><li><a href=#m2_kerberos-m2_inv4_M2a_M2b_match>m2_inv4_M2a_M2b_match</a></li><li><a href=#m2_kerberos-m2_inv34_M2a_authorized>m2_inv34_M2a_authorized</a></li><li><a href=#m2_kerberos-m2_inv34_M2b_authorized>m2_inv34_M2b_authorized</a></li><li><a href=#m2_kerberos-m2_inv5_ikk_sv_derived>m2_inv5_ikk_sv_derived</a></li><li><a href=#m2_kerberos-PO_m2_inv5_ikk_sv>PO_m2_inv5_ikk_sv</a></li><li><a href=#m2_kerberos-PO_m2_inv8_M4_init>PO_m2_inv8_M4_init</a></li><li><a href=#m2_kerberos-PO_m2_inv8_M4_trans>PO_m2_inv8_M4_trans</a></li><li><a href=#m2_kerberos-PO_m2_inv8_M4>PO_m2_inv8_M4</a></li><li><a href=#m2_kerberos-PO_m2_inv9a_init_M2a_init>PO_m2_inv9a_init_M2a_init</a></li><li><a href=#m2_kerberos-PO_m2_inv9a_init_M2a_trans>PO_m2_inv9a_init_M2a_trans</a></li><li><a href=#m2_kerberos-PO_m2_inv9a_init_M2a>PO_m2_inv9a_init_M2a</a></li><li><a href=#m2_kerberos-PO_m2_inv9_M3_init>PO_m2_inv9_M3_init</a></li><li><a href=#m2_kerberos-PO_m2_inv9_M3_trans>PO_m2_inv9_M3_trans</a></li><li><a href=#m2_kerberos-PO_m2_inv9_M3>PO_m2_inv9_M3</a></li><li><a href=#m2_kerberos-PO_m2_step1_refines_m1_step1>PO_m2_step1_refines_m1_step1</a></li><li><a href=#m2_kerberos-PO_m2_step2_refines_m1_step2>PO_m2_step2_refines_m1_step2</a></li><li><a href=#m2_kerberos-PO_m2_step3_refines_m1_step3>PO_m2_step3_refines_m1_step3</a></li><li><a href=#m2_kerberos-PO_m2_step4_refines_m1_step4>PO_m2_step4_refines_m1_step4</a></li><li><a href=#m2_kerberos-PO_m2_step5_refines_m1_step5>PO_m2_step5_refines_m1_step5</a></li><li><a href=#m2_kerberos-PO_m2_step6_refines_m1_step6>PO_m2_step6_refines_m1_step6</a></li><li><a href=#m2_kerberos-PO_m2_tick_refines_m1_tick>PO_m2_tick_refines_m1_tick</a></li><li><a href=#m2_kerberos-PO_m2_purge_refines_m1_purge>PO_m2_purge_refines_m1_purge</a></li><li><a href=#m2_kerberos-PO_m2_leak_refines_leak>PO_m2_leak_refines_leak</a></li><li><a href=#m2_kerberos-PO_m2_fake_refines_skip>PO_m2_fake_refines_skip</a></li><li><a href=#m2_kerberos-PO_m2_refines_init_m1>PO_m2_refines_init_m1</a></li><li><a href=#m2_kerberos-PO_m2_refines_trans_m1>PO_m2_refines_trans_m1</a></li><li><a href=#m2_kerberos-PO_obs_consistent_R12>PO_obs_consistent_R12</a></li><li><a href=#m2_kerberos-m2_refines_m1>m2_refines_m1</a></li><li><a href=#m2_kerberos-m2_implements_m1>m2_implements_m1</a></li><li><a href=#m2_kerberos-PO_m2_sat_m1_inv2i_serv>PO_m2_sat_m1_inv2i_serv</a></li><li><a href=#m2_kerberos-PO_m2_sat_m1_inv2r_serv>PO_m2_sat_m1_inv2r_serv</a></li><li><a href=#m2_kerberos-PO_m2_inv6_init_ikk>PO_m2_inv6_init_ikk</a></li><li><a href=#m2_kerberos-PO_m2_inv6_resp_ikk>PO_m2_inv6_resp_ikk</a></li></ul></li><li><a href=#m3_kerberos_par>m3_kerberos_par</a><ul><li><a href=#m3_kerberos_par-corrKey_shrK_bad>corrKey_shrK_bad</a></li><li><a href=#m3_kerberos_par-PO_m3_inv1_lkeysec_init>PO_m3_inv1_lkeysec_init</a></li><li><a href=#m3_kerberos_par-PO_m3_inv1_lkeysec_trans>PO_m3_inv1_lkeysec_trans</a></li><li><a href=#m3_kerberos_par-PO_m3_inv1_lkeysec>PO_m3_inv1_lkeysec</a></li><li><a href=#m3_kerberos_par-m3_inv1_lkeysec_for_parts>m3_inv1_lkeysec_for_parts</a></li><li><a href=#m3_kerberos_par-m3_inv1_lkeysec_for_analz>m3_inv1_lkeysec_for_analz</a></li><li><a href=#m3_kerberos_par-abs_msg_empty>abs_msg_empty</a></li><li><a href=#m3_kerberos_par-abs_msg_Un>abs_msg_Un</a></li><li><a href=#m3_kerberos_par-abs_msg_mono>abs_msg_mono</a></li><li><a href=#m3_kerberos_par-abs_msg_insert_mono>abs_msg_insert_mono</a></li><li><a href=#m3_kerberos_par-abs_msg_DY_subset_fakeable>abs_msg_DY_subset_fakeable</a></li><li><a href=#m3_kerberos_par-PO_m3_step1_refines_m2_step1>PO_m3_step1_refines_m2_step1</a></li><li><a href=#m3_kerberos_par-PO_m3_step2_refines_m2_step2>PO_m3_step2_refines_m2_step2</a></li><li><a href=#m3_kerberos_par-PO_m3_step3_refines_m2_step3>PO_m3_step3_refines_m2_step3</a></li><li><a href=#m3_kerberos_par-PO_m3_step4_refines_m2_step4>PO_m3_step4_refines_m2_step4</a></li><li><a href=#m3_kerberos_par-PO_m3_step5_refines_m2_step5>PO_m3_step5_refines_m2_step5</a></li><li><a href=#m3_kerberos_par-PO_m3_step6_refines_m2_step6>PO_m3_step6_refines_m2_step6</a></li><li><a href=#m3_kerberos_par-PO_m3_tick_refines_m2_tick>PO_m3_tick_refines_m2_tick</a></li><li><a href=#m3_kerberos_par-PO_m3_purge_refines_m2_purge>PO_m3_purge_refines_m2_purge</a></li><li><a href=#m3_kerberos_par-PO_m3_leak_refines_m2_leak>PO_m3_leak_refines_m2_leak</a></li><li><a href=#m3_kerberos_par-PO_m3_DY_fake_refines_m2_fake>PO_m3_DY_fake_refines_m2_fake</a></li><li><a href=#m3_kerberos_par-PO_m3_refines_init_m2>PO_m3_refines_init_m2</a></li><li><a href=#m3_kerberos_par-PO_m3_refines_trans_m2>PO_m3_refines_trans_m2</a></li><li><a href=#m3_kerberos_par-PO_m3_observation_consistent>PO_m3_observation_consistent</a></li><li><a href=#m3_kerberos_par-m3_refines_m2>m3_refines_m2</a></li><li><a href=#m3_kerberos_par-m3_implements_m2>m3_implements_m2</a></li><li><a href=#m3_kerberos_par-PO_m3_inv3_ikk_init>PO_m3_inv3_ikk_init</a></li><li><a href=#m3_kerberos_par-PO_m3_inv4_ikk_resp>PO_m3_inv4_ikk_resp</a></li></ul></li><li><a href=#m3_kerberos5>m3_kerberos5</a><ul><li><a href=#m3_kerberos5-corrKey_shrK_bad>corrKey_shrK_bad</a></li><li><a href=#m3_kerberos5-PO_m3_inv1_lkeysec_init>PO_m3_inv1_lkeysec_init</a></li><li><a href=#m3_kerberos5-PO_m3_inv1_lkeysec_trans>PO_m3_inv1_lkeysec_trans</a></li><li><a href=#m3_kerberos5-PO_m3_inv1_lkeysec>PO_m3_inv1_lkeysec</a></li><li><a href=#m3_kerberos5-m3_inv1_lkeysec_for_parts>m3_inv1_lkeysec_for_parts</a></li><li><a href=#m3_kerberos5-m3_inv1_lkeysec_for_analz>m3_inv1_lkeysec_for_analz</a></li><li><a href=#m3_kerberos5-abs_msg_empty>abs_msg_empty</a></li><li><a href=#m3_kerberos5-abs_msg_Un>abs_msg_Un</a></li><li><a href=#m3_kerberos5-abs_msg_mono>abs_msg_mono</a></li><li><a href=#m3_kerberos5-abs_msg_insert_mono>abs_msg_insert_mono</a></li><li><a href=#m3_kerberos5-abs_msg_DY_subset_fakeable>abs_msg_DY_subset_fakeable</a></li><li><a href=#m3_kerberos5-PO_m3_step1_refines_m2_step1>PO_m3_step1_refines_m2_step1</a></li><li><a href=#m3_kerberos5-PO_m3_step2_refines_m2_step2>PO_m3_step2_refines_m2_step2</a></li><li><a href=#m3_kerberos5-PO_m3_step3_refines_m2_step3>PO_m3_step3_refines_m2_step3</a></li><li><a href=#m3_kerberos5-PO_m3_step4_refines_m2_step4>PO_m3_step4_refines_m2_step4</a></li><li><a href=#m3_kerberos5-PO_m3_step5_refines_m2_step5>PO_m3_step5_refines_m2_step5</a></li><li><a href=#m3_kerberos5-PO_m3_step6_refines_m2_step6>PO_m3_step6_refines_m2_step6</a></li><li><a href=#m3_kerberos5-PO_m3_tick_refines_m2_tick>PO_m3_tick_refines_m2_tick</a></li><li><a href=#m3_kerberos5-PO_m3_purge_refines_m2_purge>PO_m3_purge_refines_m2_purge</a></li><li><a href=#m3_kerberos5-PO_m3_leak_refines_m2_leak>PO_m3_leak_refines_m2_leak</a></li><li><a href=#m3_kerberos5-PO_m3_DY_fake_refines_m2_fake>PO_m3_DY_fake_refines_m2_fake</a></li><li><a href=#m3_kerberos5-PO_m3_refines_init_m2>PO_m3_refines_init_m2</a></li><li><a href=#m3_kerberos5-PO_m3_refines_trans_m2>PO_m3_refines_trans_m2</a></li><li><a href=#m3_kerberos5-PO_m3_observation_consistent>PO_m3_observation_consistent</a></li><li><a href=#m3_kerberos5-m3_refines_m2>m3_refines_m2</a></li><li><a href=#m3_kerberos5-m3_implements_m2>m3_implements_m2</a></li><li><a href=#m3_kerberos5-PO_m3_inv3_ikk_init>PO_m3_inv3_ikk_init</a></li><li><a href=#m3_kerberos5-PO_m3_inv4_ikk_resp>PO_m3_inv4_ikk_resp</a></li></ul></li><li><a href=#m3_kerberos4>m3_kerberos4</a><ul><li><a href=#m3_kerberos4-corrKey_shrK_bad>corrKey_shrK_bad</a></li><li><a href=#m3_kerberos4-PO_m3_inv4_lkeysec_init>PO_m3_inv4_lkeysec_init</a></li><li><a href=#m3_kerberos4-PO_m3_inv4_lkeysec_trans>PO_m3_inv4_lkeysec_trans</a></li><li><a href=#m3_kerberos4-PO_m3_inv4_lkeysec>PO_m3_inv4_lkeysec</a></li><li><a href=#m3_kerberos4-m3_inv4_lkeysec_for_parts>m3_inv4_lkeysec_for_parts</a></li><li><a href=#m3_kerberos4-m3_inv4_lkeysec_for_analz>m3_inv4_lkeysec_for_analz</a></li><li><a href=#m3_kerberos4-PO_m3_inv6_ticket_init>PO_m3_inv6_ticket_init</a></li><li><a href=#m3_kerberos4-PO_m3_inv6_ticket_trans>PO_m3_inv6_ticket_trans</a></li><li><a href=#m3_kerberos4-PO_m3_inv6_ticket>PO_m3_inv6_ticket</a></li><li><a href=#m3_kerberos4-PO_m3_inv7a_sesK_compr_step4>PO_m3_inv7a_sesK_compr_step4</a></li><li><a href=#m3_kerberos4-PO_m3_inv7a_sesK_compr_init>PO_m3_inv7a_sesK_compr_init</a></li><li><a href=#m3_kerberos4-PO_m3_inv7a_sesK_compr_trans>PO_m3_inv7a_sesK_compr_trans</a></li><li><a href=#m3_kerberos4-PO_m3_inv7a_sesK_compr>PO_m3_inv7a_sesK_compr</a></li><li><a href=#m3_kerberos4-PO_m3_inv7b_sesK_compr_non_step3>PO_m3_inv7b_sesK_compr_non_step3</a></li><li><a href=#m3_kerberos4-PO_m3_inv7b_sesK_compr_non_step4>PO_m3_inv7b_sesK_compr_non_step4</a></li><li><a href=#m3_kerberos4-PO_m3_inv7b_sesK_compr_non_init>PO_m3_inv7b_sesK_compr_non_init</a></li><li><a href=#m3_kerberos4-PO_m3_inv7b_sesK_compr_non_trans>PO_m3_inv7b_sesK_compr_non_trans</a></li><li><a href=#m3_kerberos4-PO_m3_inv7b_sesK_compr_non>PO_m3_inv7b_sesK_compr_non</a></li><li><a href=#m3_kerberos4-abs_msg_empty>abs_msg_empty</a></li><li><a href=#m3_kerberos4-abs_msg_Un>abs_msg_Un</a></li><li><a href=#m3_kerberos4-abs_msg_mono>abs_msg_mono</a></li><li><a href=#m3_kerberos4-abs_msg_insert_mono>abs_msg_insert_mono</a></li><li><a href=#m3_kerberos4-abs_msg_DY_subset_fakeable>abs_msg_DY_subset_fakeable</a></li><li><a href=#m3_kerberos4-PO_m3_step1_refines_m2_step1>PO_m3_step1_refines_m2_step1</a></li><li><a href=#m3_kerberos4-PO_m3_step2_refines_m2_step2>PO_m3_step2_refines_m2_step2</a></li><li><a href=#m3_kerberos4-PO_m3_step3_refines_m2_step3>PO_m3_step3_refines_m2_step3</a></li><li><a href=#m3_kerberos4-PO_m3_step4_refines_m2_step4>PO_m3_step4_refines_m2_step4</a></li><li><a href=#m3_kerberos4-PO_m3_step5_refines_m2_step5>PO_m3_step5_refines_m2_step5</a></li><li><a href=#m3_kerberos4-PO_m3_step6_refines_m2_step6>PO_m3_step6_refines_m2_step6</a></li><li><a href=#m3_kerberos4-PO_m3_tick_refines_m2_tick>PO_m3_tick_refines_m2_tick</a></li><li><a href=#m3_kerberos4-PO_m3_purge_refines_m2_purge>PO_m3_purge_refines_m2_purge</a></li><li><a href=#m3_kerberos4-PO_m3_leak_refines_m2_leak>PO_m3_leak_refines_m2_leak</a></li><li><a href=#m3_kerberos4-PO_m3_DY_fake_refines_m2_fake>PO_m3_DY_fake_refines_m2_fake</a></li><li><a href=#m3_kerberos4-PO_m3_refines_init_m2>PO_m3_refines_init_m2</a></li><li><a href=#m3_kerberos4-PO_m3_refines_trans_m2>PO_m3_refines_trans_m2</a></li><li><a href=#m3_kerberos4-PO_m3_observation_consistent>PO_m3_observation_consistent</a></li><li><a href=#m3_kerberos4-m3_refines_m2>m3_refines_m2</a></li><li><a href=#m3_kerberos4-m3_implements_m2>m3_implements_m2</a></li><li><a href=#m3_kerberos4-PO_m3_inv3_ikk_init>PO_m3_inv3_ikk_init</a></li><li><a href=#m3_kerberos4-PO_m3_inv4_ikk_resp>PO_m3_inv4_ikk_resp</a></li></ul></li><li><a href=#m1_nssk>m1_nssk</a><ul><li><a href=#m1_nssk-m1_obs_id>m1_obs_id</a></li><li><a href=#m1_nssk-PO_m1_inv0_fin_init>PO_m1_inv0_fin_init</a></li><li><a href=#m1_nssk-PO_m1_inv0_fin_trans>PO_m1_inv0_fin_trans</a></li><li><a href=#m1_nssk-PO_m1_inv0_fin>PO_m1_inv0_fin</a></li><li><a href=#m1_nssk-knC_runs1a1>knC_runs1a1</a></li><li><a href=#m1_nssk-PO_m1_step1_refines_m1a_step1>PO_m1_step1_refines_m1a_step1</a></li><li><a href=#m1_nssk-PO_m1_step2_refines_m1a_step2>PO_m1_step2_refines_m1a_step2</a></li><li><a href=#m1_nssk-PO_m1_step3_refines_m1a_step3>PO_m1_step3_refines_m1a_step3</a></li><li><a href=#m1_nssk-PO_m1_step4_refines_m1a_step4>PO_m1_step4_refines_m1a_step4</a></li><li><a href=#m1_nssk-PO_m1_step5_refines_m1a_step5>PO_m1_step5_refines_m1a_step5</a></li><li><a href=#m1_nssk-PO_m1_step6_refines_m1a_skip>PO_m1_step6_refines_m1a_skip</a></li><li><a href=#m1_nssk-PO_m1_step7_refines_m1a_skip>PO_m1_step7_refines_m1a_skip</a></li><li><a href=#m1_nssk-PO_m1_leak_refines_m1a_leak>PO_m1_leak_refines_m1a_leak</a></li><li><a href=#m1_nssk-PO_m1_refines_init_m1a>PO_m1_refines_init_m1a</a></li><li><a href=#m1_nssk-PO_m1_refines_trans_m1a>PO_m1_refines_trans_m1a</a></li><li><a href=#m1_nssk-obs_consistent_med1a1>obs_consistent_med1a1</a></li><li><a href=#m1_nssk-PO_m1_refines_m1a>PO_m1_refines_m1a</a></li><li><a href=#m1_nssk-m1_implements_m1a>m1_implements_m1a</a></li><li><a href=#m1_nssk-PO_m1_obs_secrecy>PO_m1_obs_secrecy</a></li><li><a href=#m1_nssk-PO_m1_secrecy>PO_m1_secrecy</a></li><li><a href=#m1_nssk-PO_m1_inv2i_serv>PO_m1_inv2i_serv</a></li><li><a href=#m1_nssk-PO_m1_inv2r_serv>PO_m1_inv2r_serv</a></li><li><a href=#m1_nssk-PO_m1_inv3_ifresh>PO_m1_inv3_ifresh</a></li><li><a href=#m1_nssk-ir_runs2sigs_empty>ir_runs2sigs_empty</a></li><li><a href=#m1_nssk-finite_ir_commit>finite_ir_commit</a></li><li><a href=#m1_nssk-ir_runs2sigs_upd_init_none>ir_runs2sigs_upd_init_none</a></li><li><a href=#m1_nssk-ir_runs2sigs_upd_resp_none>ir_runs2sigs_upd_resp_none</a></li><li><a href=#m1_nssk-ir_runs2sigs_upd_serv_none>ir_runs2sigs_upd_serv_none</a></li><li><a href=#m1_nssk-ir_runs2sigs_upd_init_some>ir_runs2sigs_upd_init_some</a></li><li><a href=#m1_nssk-ir_runs2sigs_upd_resp>ir_runs2sigs_upd_resp</a></li><li><a href=#m1_nssk-ir_runs2sigs_upd_init>ir_runs2sigs_upd_init</a></li><li><a href=#m1_nssk-ir_runs2sigs_upd_resp_some>ir_runs2sigs_upd_resp_some</a></li><li><a href=#m1_nssk-m1_inv2i_serv_lemma>m1_inv2i_serv_lemma</a></li><li><a href=#m1_nssk-PO_m1_step1_refines_ir_a0i_skip>PO_m1_step1_refines_ir_a0i_skip</a></li><li><a href=#m1_nssk-PO_m1_step2_refines_ir_a0i_skip>PO_m1_step2_refines_ir_a0i_skip</a></li><li><a href=#m1_nssk-PO_m1_step3_refines_ir_a0i_skip>PO_m1_step3_refines_ir_a0i_skip</a></li><li><a href=#m1_nssk-PO_m1_step4_refines_ir_a0i_skip>PO_m1_step4_refines_ir_a0i_skip</a></li><li><a href=#m1_nssk-PO_m1_step5_refines_ir_a0i_running>PO_m1_step5_refines_ir_a0i_running</a></li><li><a href=#m1_nssk-PO_m1_step6_refines_ir_a0i_commit>PO_m1_step6_refines_ir_a0i_commit</a></li><li><a href=#m1_nssk-PO_m1_step7_refines_ir_a0i_skip>PO_m1_step7_refines_ir_a0i_skip</a></li><li><a href=#m1_nssk-PO_m1_leak_refines_ir_a0i_corrupt>PO_m1_leak_refines_ir_a0i_corrupt</a></li><li><a href=#m1_nssk-PO_m1_refines_ir_init_a0i>PO_m1_refines_ir_init_a0i</a></li><li><a href=#m1_nssk-PO_m1_refines_ir_trans_a0i>PO_m1_refines_ir_trans_a0i</a></li><li><a href=#m1_nssk-obs_consistent_med_a0im1_ir>obs_consistent_med_a0im1_ir</a></li><li><a href=#m1_nssk-PO_m1_refines_ir_a0i>PO_m1_refines_ir_a0i</a></li><li><a href=#m1_nssk-m1_implements_ir_a0i>m1_implements_ir_a0i</a></li><li><a href=#m1_nssk-ri_runs2sigs_empty>ri_runs2sigs_empty</a></li><li><a href=#m1_nssk-finite_inv_ri_running>finite_inv_ri_running</a></li><li><a href=#m1_nssk-ri_runs2sigs_upd_init_none>ri_runs2sigs_upd_init_none</a></li><li><a href=#m1_nssk-ri_runs2sigs_upd_resp_none>ri_runs2sigs_upd_resp_none</a></li><li><a href=#m1_nssk-ri_runs2sigs_upd_serv_none>ri_runs2sigs_upd_serv_none</a></li><li><a href=#m1_nssk-ri_runs2sigs_upd_init>ri_runs2sigs_upd_init</a></li><li><a href=#m1_nssk-ri_runs2sigs_upd_init_some>ri_runs2sigs_upd_init_some</a></li><li><a href=#m1_nssk-ri_runs2sigs_upd_resp_some>ri_runs2sigs_upd_resp_some</a></li><li><a href=#m1_nssk-ri_runs2sigs_upd_resp_some2>ri_runs2sigs_upd_resp_some2</a></li><li><a href=#m1_nssk-PO_m1_step1_refines_ri_a0i_skip>PO_m1_step1_refines_ri_a0i_skip</a></li><li><a href=#m1_nssk-PO_m1_step2_refines_ri_a0i_skip>PO_m1_step2_refines_ri_a0i_skip</a></li><li><a href=#m1_nssk-PO_m1_step3_refines_ri_a0i_skip>PO_m1_step3_refines_ri_a0i_skip</a></li><li><a href=#m1_nssk-PO_m1_step4_refines_ri_a0i_skip>PO_m1_step4_refines_ri_a0i_skip</a></li><li><a href=#m1_nssk-PO_m1_step5_refines_ri_a0i_skip>PO_m1_step5_refines_ri_a0i_skip</a></li><li><a href=#m1_nssk-PO_m1_step6_refines_ri_a0i_running>PO_m1_step6_refines_ri_a0i_running</a></li><li><a href=#m1_nssk-PO_m1_step7_refines_ri_a0i_commit>PO_m1_step7_refines_ri_a0i_commit</a></li><li><a href=#m1_nssk-PO_m1_leak_refines_ri_a0i_corrupt>PO_m1_leak_refines_ri_a0i_corrupt</a></li><li><a href=#m1_nssk-PO_m1_refines_ri_init_a0i>PO_m1_refines_ri_init_a0i</a></li><li><a href=#m1_nssk-PO_m1_refines_ri_trans_a0i>PO_m1_refines_ri_trans_a0i</a></li><li><a href=#m1_nssk-obs_consistent_med_a0im1_ri>obs_consistent_med_a0im1_ri</a></li><li><a href=#m1_nssk-PO_m1_refines_ri_a0i>PO_m1_refines_ri_a0i</a></li><li><a href=#m1_nssk-m1_implements_ri_a0i>m1_implements_ri_a0i</a></li><li><a href=#m1_nssk-PO_m1_inv3r_init>PO_m1_inv3r_init</a></li><li><a href=#m1_nssk-PO_m1_inv4_rfresh_init>PO_m1_inv4_rfresh_init</a></li><li><a href=#m1_nssk-PO_m1_inv4_rfresh_trans>PO_m1_inv4_rfresh_trans</a></li><li><a href=#m1_nssk-PO_m1_inv4_rfresh>PO_m1_inv4_rfresh</a></li><li><a href=#m1_nssk-PO_m1_obs_inv4_rfresh>PO_m1_obs_inv4_rfresh</a></li></ul></li><li><a href=#m2_nssk>m2_nssk</a><ul><li><a href=#m2_nssk-PO_m2_inv1_keys_init>PO_m2_inv1_keys_init</a></li><li><a href=#m2_nssk-PO_m2_inv1_keys_trans>PO_m2_inv1_keys_trans</a></li><li><a href=#m2_nssk-PO_m2_inv1_keys>PO_m2_inv1_keys</a></li><li><a href=#m2_nssk-PO_m2_inv2_keys_for_init>PO_m2_inv2_keys_for_init</a></li><li><a href=#m2_nssk-PO_m2_inv2_keys_for_trans>PO_m2_inv2_keys_for_trans</a></li><li><a href=#m2_nssk-PO_m2_inv2_keys_for>PO_m2_inv2_keys_for</a></li><li><a href=#m2_nssk-m2_inv2_keys_for__extr_insert_key>m2_inv2_keys_for__extr_insert_key</a></li><li><a href=#m2_nssk-PO_m2_inv2b_corrKey_leaked_init>PO_m2_inv2b_corrKey_leaked_init</a></li><li><a href=#m2_nssk-PO_m2_inv2b_corrKey_leaked_trans>PO_m2_inv2b_corrKey_leaked_trans</a></li><li><a href=#m2_nssk-PO_m2_inv2b_corrKey_leaked>PO_m2_inv2b_corrKey_leaked</a></li><li><a href=#m2_nssk-PO_m2_inv3a_sesK_compr_init>PO_m2_inv3a_sesK_compr_init</a></li><li><a href=#m2_nssk-PO_m2_inv3a_sesK_compr_trans>PO_m2_inv3a_sesK_compr_trans</a></li><li><a href=#m2_nssk-PO_m2_inv3a_sesK_compr>PO_m2_inv3a_sesK_compr</a></li><li><a href=#m2_nssk-PO_m2_inv3b_sesK_compr_non_init>PO_m2_inv3b_sesK_compr_non_init</a></li><li><a href=#m2_nssk-PO_m2_inv3b_sesK_compr_non_trans>PO_m2_inv3b_sesK_compr_non_trans</a></li><li><a href=#m2_nssk-PO_m2_inv3b_sesK_compr_non>PO_m2_inv3b_sesK_compr_non</a></li><li><a href=#m2_nssk-PO_m2_inv3_extrKey_init>PO_m2_inv3_extrKey_init</a></li><li><a href=#m2_nssk-PO_m2_inv3_extrKey_trans>PO_m2_inv3_extrKey_trans</a></li><li><a href=#m2_nssk-PO_m2_inv3_extrKey>PO_m2_inv3_extrKey</a></li><li><a href=#m2_nssk-PO_m2_inv4_M2_init>PO_m2_inv4_M2_init</a></li><li><a href=#m2_nssk-PO_m2_inv4_M2_trans>PO_m2_inv4_M2_trans</a></li><li><a href=#m2_nssk-PO_m2_inv4_M2>PO_m2_inv4_M2</a></li><li><a href=#m2_nssk-PO_m2_inv4_M3_init>PO_m2_inv4_M3_init</a></li><li><a href=#m2_nssk-PO_m2_inv4_M3_trans>PO_m2_inv4_M3_trans</a></li><li><a href=#m2_nssk-PO_m2_inv4_M3>PO_m2_inv4_M3</a></li><li><a href=#m2_nssk-m2_inv4_M2_M3_unique_names>m2_inv4_M2_M3_unique_names</a></li><li><a href=#m2_nssk-m2_inv34_M2_authorized>m2_inv34_M2_authorized</a></li><li><a href=#m2_nssk-m2_inv34_M3_authorized>m2_inv34_M3_authorized</a></li><li><a href=#m2_nssk-m2_inv5_ikk_sv_derived>m2_inv5_ikk_sv_derived</a></li><li><a href=#m2_nssk-PO_m2_inv5_ikk_sv>PO_m2_inv5_ikk_sv</a></li><li><a href=#m2_nssk-PO_m2_inv8_M4_step1>PO_m2_inv8_M4_step1</a></li><li><a href=#m2_nssk-PO_m2_inv8_M4_step2>PO_m2_inv8_M4_step2</a></li><li><a href=#m2_nssk-PO_m2_inv8_M4_step3>PO_m2_inv8_M4_step3</a></li><li><a href=#m2_nssk-PO_m2_inv8_M4_step4>PO_m2_inv8_M4_step4</a></li><li><a href=#m2_nssk-PO_m2_inv8_M4_step5>PO_m2_inv8_M4_step5</a></li><li><a href=#m2_nssk-PO_m2_inv8_M4_step6>PO_m2_inv8_M4_step6</a></li><li><a href=#m2_nssk-PO_m2_inv8_M4_step7>PO_m2_inv8_M4_step7</a></li><li><a href=#m2_nssk-PO_m2_inv8_M4_leak>PO_m2_inv8_M4_leak</a></li><li><a href=#m2_nssk-PO_m2_inv8_M4_fake>PO_m2_inv8_M4_fake</a></li><li><a href=#m2_nssk-PO_m2_inv8_M4_init>PO_m2_inv8_M4_init</a></li><li><a href=#m2_nssk-PO_m2_inv8_M4_trans>PO_m2_inv8_M4_trans</a></li><li><a href=#m2_nssk-PO_m2_inv8_M4>PO_m2_inv8_M4</a></li><li><a href=#m2_nssk-PO_m2_inv8a_init_M2_init>PO_m2_inv8a_init_M2_init</a></li><li><a href=#m2_nssk-PO_m2_inv8a_init_M2_trans>PO_m2_inv8a_init_M2_trans</a></li><li><a href=#m2_nssk-PO_m2_inv8a_init_M2>PO_m2_inv8a_init_M2</a></li><li><a href=#m2_nssk-PO_m2_inv9a_resp_M3_init>PO_m2_inv9a_resp_M3_init</a></li><li><a href=#m2_nssk-PO_m2_inv9a_resp_M3_trans>PO_m2_inv9a_resp_M3_trans</a></li><li><a href=#m2_nssk-PO_m2_inv9a_resp_M3>PO_m2_inv9a_resp_M3</a></li><li><a href=#m2_nssk-PO_m2_inv9_M5_step1>PO_m2_inv9_M5_step1</a></li><li><a href=#m2_nssk-PO_m2_inv9_M5_step2>PO_m2_inv9_M5_step2</a></li><li><a href=#m2_nssk-PO_m2_inv9_M5_step3>PO_m2_inv9_M5_step3</a></li><li><a href=#m2_nssk-PO_m2_inv9_M5_step4>PO_m2_inv9_M5_step4</a></li><li><a href=#m2_nssk-PO_m2_inv9_M5_step5>PO_m2_inv9_M5_step5</a></li><li><a href=#m2_nssk-PO_m2_inv9_M5_step6>PO_m2_inv9_M5_step6</a></li><li><a href=#m2_nssk-PO_m2_inv9_M5_step7>PO_m2_inv9_M5_step7</a></li><li><a href=#m2_nssk-PO_m2_inv9_M5_leak>PO_m2_inv9_M5_leak</a></li><li><a href=#m2_nssk-PO_m2_inv9_M5_fake>PO_m2_inv9_M5_fake</a></li><li><a href=#m2_nssk-PO_m2_inv9_M5_init>PO_m2_inv9_M5_init</a></li><li><a href=#m2_nssk-PO_m2_inv9_M5_trans>PO_m2_inv9_M5_trans</a></li><li><a href=#m2_nssk-PO_m2_inv9_M5>PO_m2_inv9_M5</a></li><li><a href=#m2_nssk-PO_m2_step1_refines_m1_step1>PO_m2_step1_refines_m1_step1</a></li><li><a href=#m2_nssk-PO_m2_step2_refines_m1_step2>PO_m2_step2_refines_m1_step2</a></li><li><a href=#m2_nssk-PO_m2_step3_refines_m1_step3>PO_m2_step3_refines_m1_step3</a></li><li><a href=#m2_nssk-PO_m2_step4_refines_m1_step4>PO_m2_step4_refines_m1_step4</a></li><li><a href=#m2_nssk-PO_m2_step5_refines_m1_step5>PO_m2_step5_refines_m1_step5</a></li><li><a href=#m2_nssk-PO_m2_step6_refines_m1_step6>PO_m2_step6_refines_m1_step6</a></li><li><a href=#m2_nssk-PO_m2_step7_refines_m1_step7>PO_m2_step7_refines_m1_step7</a></li><li><a href=#m2_nssk-PO_m2_leak_refines_leak>PO_m2_leak_refines_leak</a></li><li><a href=#m2_nssk-PO_m2_fake_refines_skip>PO_m2_fake_refines_skip</a></li><li><a href=#m2_nssk-m2_inv6_ikk_init_derived>m2_inv6_ikk_init_derived</a></li><li><a href=#m2_nssk-m2_inv7_ikk_resp_derived>m2_inv7_ikk_resp_derived</a></li><li><a href=#m2_nssk-PO_m2_refines_init_m1>PO_m2_refines_init_m1</a></li><li><a href=#m2_nssk-PO_m2_refines_trans_m1>PO_m2_refines_trans_m1</a></li><li><a href=#m2_nssk-PO_obs_consistent_R12>PO_obs_consistent_R12</a></li><li><a href=#m2_nssk-m2_refines_m1>m2_refines_m1</a></li><li><a href=#m2_nssk-m2_implements_m1>m2_implements_m1</a></li><li><a href=#m2_nssk-PO_m2_sat_m1_inv2i_serv>PO_m2_sat_m1_inv2i_serv</a></li><li><a href=#m2_nssk-PO_m2_sat_m1_inv2r_serv>PO_m2_sat_m1_inv2r_serv</a></li><li><a href=#m2_nssk-PO_m2_inv6_init_ikk>PO_m2_inv6_init_ikk</a></li><li><a href=#m2_nssk-PO_m2_inv6_resp_ikk>PO_m2_inv6_resp_ikk</a></li></ul></li><li><a href=#m3_nssk_par>m3_nssk_par</a><ul><li><a href=#m3_nssk_par-corrKey_shrK_bad>corrKey_shrK_bad</a></li><li><a href=#m3_nssk_par-PO_m3_inv1_lkeysec_init>PO_m3_inv1_lkeysec_init</a></li><li><a href=#m3_nssk_par-PO_m3_inv1_lkeysec_trans>PO_m3_inv1_lkeysec_trans</a></li><li><a href=#m3_nssk_par-PO_m3_inv1_lkeysec>PO_m3_inv1_lkeysec</a></li><li><a href=#m3_nssk_par-m3_inv1_lkeysec_for_parts>m3_inv1_lkeysec_for_parts</a></li><li><a href=#m3_nssk_par-m3_inv1_lkeysec_for_analz>m3_inv1_lkeysec_for_analz</a></li><li><a href=#m3_nssk_par-abs_msg_empty>abs_msg_empty</a></li><li><a href=#m3_nssk_par-abs_msg_Un>abs_msg_Un</a></li><li><a href=#m3_nssk_par-abs_msg_mono>abs_msg_mono</a></li><li><a href=#m3_nssk_par-abs_msg_insert_mono>abs_msg_insert_mono</a></li><li><a href=#m3_nssk_par-abs_msg_DY_subset_fakeable>abs_msg_DY_subset_fakeable</a></li><li><a href=#m3_nssk_par-PO_m3_step1_refines_m2_step1>PO_m3_step1_refines_m2_step1</a></li><li><a href=#m3_nssk_par-PO_m3_step2_refines_m2_step2>PO_m3_step2_refines_m2_step2</a></li><li><a href=#m3_nssk_par-PO_m3_step3_refines_m2_step3>PO_m3_step3_refines_m2_step3</a></li><li><a href=#m3_nssk_par-PO_m3_step4_refines_m2_step4>PO_m3_step4_refines_m2_step4</a></li><li><a href=#m3_nssk_par-PO_m3_step5_refines_m2_step5>PO_m3_step5_refines_m2_step5</a></li><li><a href=#m3_nssk_par-PO_m3_step6_refines_m2_step6>PO_m3_step6_refines_m2_step6</a></li><li><a href=#m3_nssk_par-PO_m3_step7_refines_m2_step7>PO_m3_step7_refines_m2_step7</a></li><li><a href=#m3_nssk_par-PO_m3_leak_refines_m2_leak>PO_m3_leak_refines_m2_leak</a></li><li><a href=#m3_nssk_par-PO_m3_DY_fake_refines_m2_fake>PO_m3_DY_fake_refines_m2_fake</a></li><li><a href=#m3_nssk_par-PO_m3_refines_init_m2>PO_m3_refines_init_m2</a></li><li><a href=#m3_nssk_par-PO_m3_refines_trans_m2>PO_m3_refines_trans_m2</a></li><li><a href=#m3_nssk_par-PO_m3_observation_consistent>PO_m3_observation_consistent</a></li><li><a href=#m3_nssk_par-m3_refines_m2>m3_refines_m2</a></li><li><a href=#m3_nssk_par-m3_implements_m2>m3_implements_m2</a></li><li><a href=#m3_nssk_par-PO_m3_inv4_ikk_init>PO_m3_inv4_ikk_init</a></li><li><a href=#m3_nssk_par-PO_m3_inv4_ikk_resp>PO_m3_inv4_ikk_resp</a></li></ul></li><li><a href=#m3_nssk>m3_nssk</a><ul><li><a href=#m3_nssk-corrKey_shrK_bad>corrKey_shrK_bad</a></li><li><a href=#m3_nssk-PO_m3_inv1_lkeysec_init>PO_m3_inv1_lkeysec_init</a></li><li><a href=#m3_nssk-PO_m3_inv1_lkeysec_trans>PO_m3_inv1_lkeysec_trans</a></li><li><a href=#m3_nssk-PO_m3_inv1_lkeysec>PO_m3_inv1_lkeysec</a></li><li><a href=#m3_nssk-m3_inv1_lkeysec_for_parts>m3_inv1_lkeysec_for_parts</a></li><li><a href=#m3_nssk-m3_inv1_lkeysec_for_analz>m3_inv1_lkeysec_for_analz</a></li><li><a href=#m3_nssk-PO_m3_inv2_ticket_init>PO_m3_inv2_ticket_init</a></li><li><a href=#m3_nssk-PO_m3_inv2_ticket_trans>PO_m3_inv2_ticket_trans</a></li><li><a href=#m3_nssk-PO_m3_inv2_ticket>PO_m3_inv2_ticket</a></li><li><a href=#m3_nssk-PO_m3_inv3_sesK_compr_step4>PO_m3_inv3_sesK_compr_step4</a></li><li><a href=#m3_nssk-PO_m3_inv3_sesK_compr_init>PO_m3_inv3_sesK_compr_init</a></li><li><a href=#m3_nssk-PO_m3_inv3_sesK_compr_trans>PO_m3_inv3_sesK_compr_trans</a></li><li><a href=#m3_nssk-PO_m3_inv3_sesK_compr>PO_m3_inv3_sesK_compr</a></li><li><a href=#m3_nssk-abs_msg_empty>abs_msg_empty</a></li><li><a href=#m3_nssk-abs_msg_Un>abs_msg_Un</a></li><li><a href=#m3_nssk-abs_msg_mono>abs_msg_mono</a></li><li><a href=#m3_nssk-abs_msg_insert_mono>abs_msg_insert_mono</a></li><li><a href=#m3_nssk-abs_msg_DY_subset_fakeable>abs_msg_DY_subset_fakeable</a></li><li><a href=#m3_nssk-PO_m3_step1_refines_m2_step1>PO_m3_step1_refines_m2_step1</a></li><li><a href=#m3_nssk-PO_m3_step2_refines_m2_step2>PO_m3_step2_refines_m2_step2</a></li><li><a href=#m3_nssk-PO_m3_step3_refines_m2_step3>PO_m3_step3_refines_m2_step3</a></li><li><a href=#m3_nssk-PO_m3_step4_refines_m2_step4>PO_m3_step4_refines_m2_step4</a></li><li><a href=#m3_nssk-PO_m3_step5_refines_m2_step5>PO_m3_step5_refines_m2_step5</a></li><li><a href=#m3_nssk-PO_m3_step6_refines_m2_step6>PO_m3_step6_refines_m2_step6</a></li><li><a href=#m3_nssk-PO_m3_step7_refines_m2_step7>PO_m3_step7_refines_m2_step7</a></li><li><a href=#m3_nssk-PO_m3_leak_refines_m2_leak>PO_m3_leak_refines_m2_leak</a></li><li><a href=#m3_nssk-PO_m3_DY_fake_refines_m2_fake>PO_m3_DY_fake_refines_m2_fake</a></li><li><a href=#m3_nssk-PO_m3_refines_init_m2>PO_m3_refines_init_m2</a></li><li><a href=#m3_nssk-PO_m3_refines_trans_m2>PO_m3_refines_trans_m2</a></li><li><a href=#m3_nssk-PO_m3_observation_consistent>PO_m3_observation_consistent</a></li><li><a href=#m3_nssk-m3_refines_m2>m3_refines_m2</a></li><li><a href=#m3_nssk-m3_implements_m2>m3_implements_m2</a></li><li><a href=#m3_nssk-PO_m3_inv4_ikk_init>PO_m3_inv4_ikk_init</a></li><li><a href=#m3_nssk-PO_m3_inv4_ikk_resp>PO_m3_inv4_ikk_resp</a></li></ul></li><li><a href=#m1_ds>m1_ds</a><ul><li><a href=#m1_ds-m1_obs_id>m1_obs_id</a></li><li><a href=#m1_ds-PO_m1_inv0_fin_init>PO_m1_inv0_fin_init</a></li><li><a href=#m1_ds-PO_m1_inv0_fin_trans>PO_m1_inv0_fin_trans</a></li><li><a href=#m1_ds-PO_m1_inv0_fin>PO_m1_inv0_fin</a></li><li><a href=#m1_ds-PO_m1_step1_refines_m1a_step1>PO_m1_step1_refines_m1a_step1</a></li><li><a href=#m1_ds-PO_m1_step2_refines_m1a_step2>PO_m1_step2_refines_m1a_step2</a></li><li><a href=#m1_ds-PO_m1_step3_refines_m1a_step3>PO_m1_step3_refines_m1a_step3</a></li><li><a href=#m1_ds-PO_m1_step4_refines_m1a_step4>PO_m1_step4_refines_m1a_step4</a></li><li><a href=#m1_ds-PO_m1_step5_refines_m1a_step5>PO_m1_step5_refines_m1a_step5</a></li><li><a href=#m1_ds-PO_m1_leak_refines_m1a_leak>PO_m1_leak_refines_m1a_leak</a></li><li><a href=#m1_ds-PO_m1_tick_refines_m1a_skip>PO_m1_tick_refines_m1a_skip</a></li><li><a href=#m1_ds-PO_m1_refines_init_m1a>PO_m1_refines_init_m1a</a></li><li><a href=#m1_ds-PO_m1_refines_trans_m1a>PO_m1_refines_trans_m1a</a></li><li><a href=#m1_ds-obs_consistent_med1a1>obs_consistent_med1a1</a></li><li><a href=#m1_ds-PO_m1_refines_m1a>PO_m1_refines_m1a</a></li><li><a href=#m1_ds-m1_implements_m1>m1_implements_m1</a></li></ul></li><li><a href=#m2_ds>m2_ds</a><ul><li><a href=#m2_ds-PO_m2_inv3a_sesK_compr_init>PO_m2_inv3a_sesK_compr_init</a></li><li><a href=#m2_ds-PO_m2_inv3a_sesK_compr_trans>PO_m2_inv3a_sesK_compr_trans</a></li><li><a href=#m2_ds-PO_m2_inv3a_sesK_compr>PO_m2_inv3a_sesK_compr</a></li><li><a href=#m2_ds-PO_m2_inv3_extrKey_init>PO_m2_inv3_extrKey_init</a></li><li><a href=#m2_ds-PO_m2_inv3_extrKey_trans>PO_m2_inv3_extrKey_trans</a></li><li><a href=#m2_ds-PO_m2_inv3_extrKey>PO_m2_inv3_extrKey</a></li><li><a href=#m2_ds-PO_m2_inv4_M2a_init>PO_m2_inv4_M2a_init</a></li><li><a href=#m2_ds-PO_m2_inv4_M2a_trans>PO_m2_inv4_M2a_trans</a></li><li><a href=#m2_ds-PO_m2_inv4_M2a>PO_m2_inv4_M2a</a></li><li><a href=#m2_ds-PO_m2_inv4_M2b_init>PO_m2_inv4_M2b_init</a></li><li><a href=#m2_ds-PO_m2_inv4_M2b_trans>PO_m2_inv4_M2b_trans</a></li><li><a href=#m2_ds-PO_m2_inv4_M2b>PO_m2_inv4_M2b</a></li><li><a href=#m2_ds-m2_inv4_M2a_M2b_match>m2_inv4_M2a_M2b_match</a></li><li><a href=#m2_ds-m2_inv34_M2a_authorized>m2_inv34_M2a_authorized</a></li><li><a href=#m2_ds-m2_inv34_M2b_authorized>m2_inv34_M2b_authorized</a></li><li><a href=#m2_ds-PO_m2_inv5_ikk_sv_init>PO_m2_inv5_ikk_sv_init</a></li><li><a href=#m2_ds-PO_m2_inv5_ikk_sv_trans>PO_m2_inv5_ikk_sv_trans</a></li><li><a href=#m2_ds-PO_m2_inv5_ikk_sv>PO_m2_inv5_ikk_sv</a></li><li><a href=#m2_ds-PO_m2_step1_refines_m1_step1>PO_m2_step1_refines_m1_step1</a></li><li><a href=#m2_ds-PO_m2_step2_refines_m1_step2>PO_m2_step2_refines_m1_step2</a></li><li><a href=#m2_ds-PO_m2_step3_refines_m1_step3>PO_m2_step3_refines_m1_step3</a></li><li><a href=#m2_ds-PO_m2_step4_refines_m1_step4>PO_m2_step4_refines_m1_step4</a></li><li><a href=#m2_ds-PO_m2_step5_refines_m1_step5>PO_m2_step5_refines_m1_step5</a></li><li><a href=#m2_ds-PO_m2_tick_refines_m1_tick>PO_m2_tick_refines_m1_tick</a></li><li><a href=#m2_ds-PO_m2_leak_refines_m1_leak>PO_m2_leak_refines_m1_leak</a></li><li><a href=#m2_ds-PO_m2_fake_refines_skip>PO_m2_fake_refines_skip</a></li><li><a href=#m2_ds-PO_m2_refines_init_m1>PO_m2_refines_init_m1</a></li><li><a href=#m2_ds-PO_m2_refines_trans_m1>PO_m2_refines_trans_m1</a></li><li><a href=#m2_ds-PO_obs_consistent_R12>PO_obs_consistent_R12</a></li><li><a href=#m2_ds-m2_refines_m1>m2_refines_m1</a></li><li><a href=#m2_ds-m2_implements_m1>m2_implements_m1</a></li></ul></li><li><a href=#m3_ds_par>m3_ds_par</a><ul><li><a href=#m3_ds_par-corrKey_shrK_bad>corrKey_shrK_bad</a></li><li><a href=#m3_ds_par-PO_m3_inv1_lkeysec_init>PO_m3_inv1_lkeysec_init</a></li><li><a href=#m3_ds_par-PO_m3_inv1_lkeysec_trans>PO_m3_inv1_lkeysec_trans</a></li><li><a href=#m3_ds_par-PO_m3_inv1_lkeysec>PO_m3_inv1_lkeysec</a></li><li><a href=#m3_ds_par-m3_inv1_lkeysec_for_parts>m3_inv1_lkeysec_for_parts</a></li><li><a href=#m3_ds_par-m3_inv1_lkeysec_for_analz>m3_inv1_lkeysec_for_analz</a></li><li><a href=#m3_ds_par-abs_msg_empty>abs_msg_empty</a></li><li><a href=#m3_ds_par-abs_msg_Un>abs_msg_Un</a></li><li><a href=#m3_ds_par-abs_msg_mono>abs_msg_mono</a></li><li><a href=#m3_ds_par-abs_msg_insert_mono>abs_msg_insert_mono</a></li><li><a href=#m3_ds_par-abs_msg_DY_subset_fakeable>abs_msg_DY_subset_fakeable</a></li><li><a href=#m3_ds_par-PO_m3_step1_refines_m2_step1>PO_m3_step1_refines_m2_step1</a></li><li><a href=#m3_ds_par-PO_m3_step2_refines_m2_step2>PO_m3_step2_refines_m2_step2</a></li><li><a href=#m3_ds_par-PO_m3_step3_refines_m2_step3>PO_m3_step3_refines_m2_step3</a></li><li><a href=#m3_ds_par-PO_m3_step4_refines_m2_step4>PO_m3_step4_refines_m2_step4</a></li><li><a href=#m3_ds_par-PO_m3_step5_refines_m2_step5>PO_m3_step5_refines_m2_step5</a></li><li><a href=#m3_ds_par-PO_m3_tick_refines_m2_tick>PO_m3_tick_refines_m2_tick</a></li><li><a href=#m3_ds_par-PO_m3_leak_refines_m2_leak>PO_m3_leak_refines_m2_leak</a></li><li><a href=#m3_ds_par-PO_m3_DY_fake_refines_m2_fake>PO_m3_DY_fake_refines_m2_fake</a></li><li><a href=#m3_ds_par-PO_m3_refines_init_m2>PO_m3_refines_init_m2</a></li><li><a href=#m3_ds_par-PO_m3_refines_trans_m2>PO_m3_refines_trans_m2</a></li><li><a href=#m3_ds_par-PO_m3_observation_consistent>PO_m3_observation_consistent</a></li><li><a href=#m3_ds_par-m3_refines_m2>m3_refines_m2</a></li><li><a href=#m3_ds_par-m3_implements_m2>m3_implements_m2</a></li></ul></li><li><a href=#m3_ds>m3_ds</a><ul><li><a href=#m3_ds-corrKey_shrK_bad>corrKey_shrK_bad</a></li><li><a href=#m3_ds-PO_m3_inv1_lkeysec_init>PO_m3_inv1_lkeysec_init</a></li><li><a href=#m3_ds-PO_m3_inv1_lkeysec_trans>PO_m3_inv1_lkeysec_trans</a></li><li><a href=#m3_ds-PO_m3_inv1_lkeysec>PO_m3_inv1_lkeysec</a></li><li><a href=#m3_ds-m3_inv1_lkeysec_for_parts>m3_inv1_lkeysec_for_parts</a></li><li><a href=#m3_ds-m3_inv1_lkeysec_for_analz>m3_inv1_lkeysec_for_analz</a></li><li><a href=#m3_ds-PO_m3_inv2_ticket_init>PO_m3_inv2_ticket_init</a></li><li><a href=#m3_ds-PO_m3_inv2_ticket_trans>PO_m3_inv2_ticket_trans</a></li><li><a href=#m3_ds-PO_m3_inv2_ticket>PO_m3_inv2_ticket</a></li><li><a href=#m3_ds-PO_m3_inv3_sesK_compr_step4>PO_m3_inv3_sesK_compr_step4</a></li><li><a href=#m3_ds-PO_m3_inv3_sesK_compr_init>PO_m3_inv3_sesK_compr_init</a></li><li><a href=#m3_ds-PO_m3_inv3_sesK_compr_trans>PO_m3_inv3_sesK_compr_trans</a></li><li><a href=#m3_ds-PO_m3_inv3_sesK_compr>PO_m3_inv3_sesK_compr</a></li><li><a href=#m3_ds-abs_msg_empty>abs_msg_empty</a></li><li><a href=#m3_ds-abs_msg_Un>abs_msg_Un</a></li><li><a href=#m3_ds-abs_msg_mono>abs_msg_mono</a></li><li><a href=#m3_ds-abs_msg_insert_mono>abs_msg_insert_mono</a></li><li><a href=#m3_ds-abs_msg_DY_subset_fakeable>abs_msg_DY_subset_fakeable</a></li><li><a href=#m3_ds-PO_m3_step1_refines_m2_step1>PO_m3_step1_refines_m2_step1</a></li><li><a href=#m3_ds-PO_m3_step2_refines_m2_step2>PO_m3_step2_refines_m2_step2</a></li><li><a href=#m3_ds-PO_m3_step3_refines_m2_step3>PO_m3_step3_refines_m2_step3</a></li><li><a href=#m3_ds-PO_m3_step4_refines_m2_step4>PO_m3_step4_refines_m2_step4</a></li><li><a href=#m3_ds-PO_m3_step5_refines_m2_step5>PO_m3_step5_refines_m2_step5</a></li><li><a href=#m3_ds-PO_m3_tick_refines_m2_tick>PO_m3_tick_refines_m2_tick</a></li><li><a href=#m3_ds-PO_m3_leak_refines_m2_leak>PO_m3_leak_refines_m2_leak</a></li><li><a href=#m3_ds-PO_m3_DY_fake_refines_m2_fake>PO_m3_DY_fake_refines_m2_fake</a></li><li><a href=#m3_ds-PO_m3_refines_init_m2>PO_m3_refines_init_m2</a></li><li><a href=#m3_ds-PO_m3_refines_trans_m2>PO_m3_refines_trans_m2</a></li><li><a href=#m3_ds-PO_m3_observation_consistent>PO_m3_observation_consistent</a></li><li><a href=#m3_ds-m3_refines_m2>m3_refines_m2</a></li><li><a href=#m3_ds-m3_implements_m2>m3_implements_m2</a></li></ul></li></ul></div><ul><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Security_Protocol_Refinement/outline.pdf>Proof
-outline</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Security_Protocol_Refinement/document.pdf>Proof
-document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Security_Protocol_Refinement/session_graph.pdf>Theory dependencies</a></li></ul></div></aside><div class="content theories"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
-<datalist id=autocomplete></datalist></div></form><h1><span class=first>S</span>ession <span class=first>S</span>ecurity_<span class=first>P</span>rotocol_<span class=first>R</span>efinement</h1><div></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><div id=Infra><div class=head><h1>Theory Infra</h1></div><pre class=source><span class=comment1>(*******************************************************************************
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Session Security_Protocol_Refinement - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session Security_Protocol_Refinement">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="/entries/security_protocol_refinement/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories">
+<meta property="og:site_name" content="Archive of Formal Proofs">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="/images/afp.png">
+<meta name=twitter:title content="Session Security_Protocol_Refinement">
+<meta name=twitter:description content>
+<link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css>
+<link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script>
+<script src=/js/banner.js></script><script src=/js/header-search.js></script></head>
+<body class=mathjax_ignore>
+<aside>
+<div>
+<div>
+<a href=/>
+<img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo>
+</a>
+<ul>
+<li><a href=/entries/security_protocol_refinement>Return to entry</a></li>
+</ul>
+<hr>
+<ul><li><a href=#Infra>Infra</a>
+<ul>
+<li><a href=#Infra-map_definedness>map_definedness</a></li>
+<li><a href=#Infra-map_definedness_contra>map_definedness_contra</a></li>
+<li><a href=#Infra-vimage_image_subset>vimage_image_subset</a></li>
+<li><a href=#Infra-Image_compose>Image_compose</a></li>
+<li><a href=#Infra-map_id>map_id</a></li>
+<li><a href=#Infra-map_comp>map_comp</a></li>
+<li><a href=#Infra-take_prefix>take_prefix</a></li>
+<li><a href=#Infra-finite_positive_cardI>finite_positive_cardI</a></li>
+<li><a href=#Infra-finite_positive_cardD>finite_positive_cardD</a></li>
+<li><a href=#Infra-finite_zero_cardI>finite_zero_cardI</a></li>
+<li><a href=#Infra-finite_zero_cardD>finite_zero_cardD</a></li>
+</ul>
+</li><li><a href=#Refinement>Refinement</a>
+<ul>
+<li><a href=#Refinement-beh_immediate_prefix_closed>beh_immediate_prefix_closed</a></li>
+<li><a href=#Refinement-beh_prefix_closed>beh_prefix_closed</a></li>
+<li><a href=#Refinement-beh_in_reach>beh_in_reach</a></li>
+<li><a href=#Refinement-reach_in_beh>reach_in_beh</a></li>
+<li><a href=#Refinement-reach_equiv_beh_states>reach_equiv_beh_states</a></li>
+<li><a href=#Refinement-beh_obs_upd>beh_obs_upd</a></li>
+<li><a href=#Refinement-reach_obs_upd>reach_obs_upd</a></li>
+<li><a href=#Refinement-oreach_equiv_obeh_states>oreach_equiv_obeh_states</a></li>
+<li><a href=#Refinement-obeh_pi_translation>obeh_pi_translation</a></li>
+<li><a href=#Refinement-oreach_pi_translation>oreach_pi_translation</a></li>
+<li><a href=#Refinement-observableE>observableE</a></li>
+<li><a href=#Refinement-observable2_equiv_observable>observable2_equiv_observable</a></li>
+<li><a href=#Refinement-observable3_equiv_observable2>observable3_equiv_observable2</a></li>
+<li><a href=#Refinement-observable_id>observable_id</a></li>
+<li><a href=#Refinement-image_vimage_adjoints>image_vimage_adjoints</a></li>
+<li><a href=#Refinement-image_r_vimage_l>image_r_vimage_l</a></li>
+<li><a href=#Refinement-vimage_l_image_r>vimage_l_image_r</a></li>
+<li><a href=#Refinement-external_from_internal_invariant>external_from_internal_invariant</a></li>
+<li><a href=#Refinement-external_from_internal_invariant_vimage>external_from_internal_invariant_vimage</a></li>
+<li><a href=#Refinement-external_to_internal_invariant_vimage>external_to_internal_invariant_vimage</a></li>
+<li><a href=#Refinement-external_to_internal_invariant>external_to_internal_invariant</a></li>
+<li><a href=#Refinement-external_equiv_internal_invariant_vimage>external_equiv_internal_invariant_vimage</a></li>
+<li><a href=#Refinement-external_equiv_internal_invariant>external_equiv_internal_invariant</a></li>
+<li><a href=#Refinement-implements_refl>implements_refl</a></li>
+<li><a href=#Refinement-implements_trans>implements_trans</a></li>
+<li><a href=#Refinement-implements_oreach>implements_oreach</a></li>
+<li><a href=#Refinement-external_invariant_preservation>external_invariant_preservation</a></li>
+<li><a href=#Refinement-external_invariant_translation>external_invariant_translation</a></li>
+<li><a href=#Refinement-internal_invariant_translation>internal_invariant_translation</a></li>
+<li><a href=#Refinement-hoare_conseq_left>hoare_conseq_left</a></li>
+<li><a href=#Refinement-hoare_conseq_right>hoare_conseq_right</a></li>
+<li><a href=#Refinement-hoare_false_left>hoare_false_left</a></li>
+<li><a href=#Refinement-hoare_true_right>hoare_true_right</a></li>
+<li><a href=#Refinement-hoare_conj_right>hoare_conj_right</a></li>
+<li><a href=#Refinement-hoare_stop>hoare_stop</a></li>
+<li><a href=#Refinement-hoare_skip>hoare_skip</a></li>
+<li><a href=#Refinement-hoare_trans_Un>hoare_trans_Un</a></li>
+<li><a href=#Refinement-hoare_trans_UN>hoare_trans_UN</a></li>
+<li><a href=#Refinement-reach_init>reach_init</a></li>
+<li><a href=#Refinement-reach_trans>reach_trans</a></li>
+<li><a href=#Refinement-inv_rule_basic>inv_rule_basic</a></li>
+<li><a href=#Refinement-inv_rule>inv_rule</a></li>
+<li><a href=#Refinement-INV_rule>INV_rule</a></li>
+<li><a href=#Refinement-inv_rule_from_INV_rule>inv_rule_from_INV_rule</a></li>
+<li><a href=#Refinement-INV_rule_from_inv_rule>INV_rule_from_inv_rule</a></li>
+<li><a href=#Refinement-inv_rule_incr>inv_rule_incr</a></li>
+<li><a href=#Refinement-relhoare_conseq_left>relhoare_conseq_left</a></li>
+<li><a href=#Refinement-relhoare_conseq_right>relhoare_conseq_right</a></li>
+<li><a href=#Refinement-relhoare_false_left>relhoare_false_left</a></li>
+<li><a href=#Refinement-relhoare_true_right>relhoare_true_right</a></li>
+<li><a href=#Refinement-Domain_rel_comp>Domain_rel_comp</a></li>
+<li><a href=#Refinement-rel_hoare_skip>rel_hoare_skip</a></li>
+<li><a href=#Refinement-relhoare_refl>relhoare_refl</a></li>
+<li><a href=#Refinement-rhoare_trans>rhoare_trans</a></li>
+<li><a href=#Refinement-relhoare_conj_right_det>relhoare_conj_right_det</a></li>
+<li><a href=#Refinement-relhoare_conj_right_cartesian>relhoare_conj_right_cartesian</a></li>
+<li><a href=#Refinement-relhoare_concrete_Un>relhoare_concrete_Un</a></li>
+<li><a href=#Refinement-relhoare_concrete_UN>relhoare_concrete_UN</a></li>
+<li><a href=#Refinement-relhoare_abstract_Un_left>relhoare_abstract_Un_left</a></li>
+<li><a href=#Refinement-relhoare_abstract_Un_right>relhoare_abstract_Un_right</a></li>
+<li><a href=#Refinement-relhoare_abstract_UN>relhoare_abstract_UN</a></li>
+<li><a href=#Refinement-PO_refinesI>PO_refinesI</a></li>
+<li><a href=#Refinement-PO_refinesE>PO_refinesE</a></li>
+<li><a href=#Refinement-refine_basic>refine_basic</a></li>
+<li><a href=#Refinement-refine_init_using_invariants>refine_init_using_invariants</a></li>
+<li><a href=#Refinement-refine_trans_using_invariants>refine_trans_using_invariants</a></li>
+<li><a href=#Refinement-refine_using_invariants>refine_using_invariants</a></li>
+<li><a href=#Refinement-PO_refines_implies_Range_init>PO_refines_implies_Range_init</a></li>
+<li><a href=#Refinement-PO_refines_implies_Range_trans>PO_refines_implies_Range_trans</a></li>
+<li><a href=#Refinement-PO_refines_implies_Range_invariant>PO_refines_implies_Range_invariant</a></li>
+<li><a href=#Refinement-behaviour_refinement>behaviour_refinement</a></li>
+<li><a href=#Refinement-obs_consistent_refl>obs_consistent_refl</a></li>
+<li><a href=#Refinement-obs_consistent_trans>obs_consistent_trans</a></li>
+<li><a href=#Refinement-obs_consistent_empty>obs_consistent_empty</a></li>
+<li><a href=#Refinement-obs_consistent_conj1>obs_consistent_conj1</a></li>
+<li><a href=#Refinement-obs_consistent_conj2>obs_consistent_conj2</a></li>
+<li><a href=#Refinement-obs_consistent_behaviours>obs_consistent_behaviours</a></li>
+<li><a href=#Refinement-refinesI>refinesI</a></li>
+<li><a href=#Refinement-refinesE>refinesE</a></li>
+<li><a href=#Refinement-refinement_reflexive>refinement_reflexive</a></li>
+<li><a href=#Refinement-refinement_transitive>refinement_transitive</a></li>
+<li><a href=#Refinement-observable_behaviour_refinement>observable_behaviour_refinement</a></li>
+<li><a href=#Refinement-refines_reachable_strengthening>refines_reachable_strengthening</a></li>
+<li><a href=#Refinement-INV_init_from_Refinement>INV_init_from_Refinement</a></li>
+<li><a href=#Refinement-INV_trans_from_Refinement>INV_trans_from_Refinement</a></li>
+<li><a href=#Refinement-INV_from_Refinement_basic>INV_from_Refinement_basic</a></li>
+<li><a href=#Refinement-INV_from_Refinement_using_invariants>INV_from_Refinement_using_invariants</a></li>
+</ul>
+</li><li><a href=#Agents>Agents</a>
+</li><li><a href=#Keys>Keys</a>
+<ul>
+<li><a href=#Keys-invKey_K>invKey_K</a></li>
+<li><a href=#Keys-invKey_invKey_id>invKey_invKey_id</a></li>
+<li><a href=#Keys-invKey_eq>invKey_eq</a></li>
+<li><a href=#Keys-privateKey_neq_publicKey>privateKey_neq_publicKey</a></li>
+<li><a href=#Keys-publicKey_neq_privateKey>publicKey_neq_privateKey</a></li>
+<li><a href=#Keys-publicKey_inject>publicKey_inject</a></li>
+<li><a href=#Keys-not_symKeys_pubK>not_symKeys_pubK</a></li>
+<li><a href=#Keys-not_symKeys_priK>not_symKeys_priK</a></li>
+<li><a href=#Keys-symKey_neq_priK>symKey_neq_priK</a></li>
+<li><a href=#Keys-symKeys_neq_imp_neq>symKeys_neq_imp_neq</a></li>
+<li><a href=#Keys-symKeys_invKey_iff>symKeys_invKey_iff</a></li>
+<li><a href=#Keys-invKey_image_eq>invKey_image_eq</a></li>
+<li><a href=#Keys-invKey_pubK_image_priK_image>invKey_pubK_image_priK_image</a></li>
+<li><a href=#Keys-publicKey_notin_image_privateKey>publicKey_notin_image_privateKey</a></li>
+<li><a href=#Keys-privateKey_notin_image_publicKey>privateKey_notin_image_publicKey</a></li>
+<li><a href=#Keys-publicKey_image_eq>publicKey_image_eq</a></li>
+<li><a href=#Keys-privateKey_image_eq>privateKey_image_eq</a></li>
+<li><a href=#Keys-sym_sesK>sym_sesK</a></li>
+<li><a href=#Keys-sym_shrK>sym_shrK</a></li>
+<li><a href=#Keys-symK_eq_invKey>symK_eq_invKey</a></li>
+<li><a href=#Keys-publicKey_notin_image_shrK>publicKey_notin_image_shrK</a></li>
+<li><a href=#Keys-privateKey_notin_image_shrK>privateKey_notin_image_shrK</a></li>
+<li><a href=#Keys-shrK_notin_image_publicKey>shrK_notin_image_publicKey</a></li>
+<li><a href=#Keys-shrK_notin_image_privateKey>shrK_notin_image_privateKey</a></li>
+<li><a href=#Keys-sesK_notin_image_shrK>sesK_notin_image_shrK</a></li>
+<li><a href=#Keys-shrK_notin_image_sesK>shrK_notin_image_sesK</a></li>
+<li><a href=#Keys-sesK_image_eq>sesK_image_eq</a></li>
+<li><a href=#Keys-shrK_image_eq>shrK_image_eq</a></li>
+</ul>
+</li><li><a href=#Atoms>Atoms</a>
+<ul>
+<li><a href=#Atoms-corrKey_Dom_keySetup>corrKey_Dom_keySetup</a></li>
+<li><a href=#Atoms-keySetup_noSessionKeys>keySetup_noSessionKeys</a></li>
+<li><a href=#Atoms-corrKey_noSessionKeys>corrKey_noSessionKeys</a></li>
+</ul>
+</li><li><a href=#Runs>Runs</a>
+<ul>
+<li><a href=#Runs-map_runs_empty>map_runs_empty</a></li>
+<li><a href=#Runs-map_runs_dom>map_runs_dom</a></li>
+<li><a href=#Runs-map_runs_update>map_runs_update</a></li>
+</ul>
+</li><li><a href=#Channels>Channels</a>
+<ul>
+<li><a href=#Channels-keys_forI>keys_forI</a></li>
+<li><a href=#Channels-keys_for_empty>keys_for_empty</a></li>
+<li><a href=#Channels-keys_for_monotone>keys_for_monotone</a></li>
+<li><a href=#Channels-keys_for_insert_StatCh>keys_for_insert_StatCh</a></li>
+<li><a href=#Channels-keys_for_insert_DynCh>keys_for_insert_DynCh</a></li>
+<li><a href=#Channels-atoms_empty>atoms_empty</a></li>
+<li><a href=#Channels-atoms_monotone>atoms_monotone</a></li>
+<li><a href=#Channels-atoms_insert_StatCh>atoms_insert_StatCh</a></li>
+<li><a href=#Channels-atoms_insert_DynCh>atoms_insert_DynCh</a></li>
+<li><a href=#Channels-ik0_aAgt>ik0_aAgt</a></li>
+<li><a href=#Channels-ik0_aNum>ik0_aNum</a></li>
+<li><a href=#Channels-ik0_aNon>ik0_aNon</a></li>
+<li><a href=#Channels-ik0_aKey_corr>ik0_aKey_corr</a></li>
+<li><a href=#Channels-extr_empty>extr_empty</a></li>
+<li><a href=#Channels-extr_monotone>extr_monotone</a></li>
+<li><a href=#Channels-extr_monotone_param>extr_monotone_param</a></li>
+<li><a href=#Channels-extr_insert>extr_insert</a></li>
+<li><a href=#Channels-extr_into_atoms>extr_into_atoms</a></li>
+<li><a href=#Channels-extr_insert_non_key_param>extr_insert_non_key_param</a></li>
+<li><a href=#Channels-extr_insert_unused_key_param>extr_insert_unused_key_param</a></li>
+<li><a href=#Channels-extr_insert_StatCh>extr_insert_StatCh</a></li>
+<li><a href=#Channels-extr_insert_DynCh>extr_insert_DynCh</a></li>
+<li><a href=#Channels-rkeys_sesK>rkeys_sesK</a></li>
+<li><a href=#Channels-fake_expanding>fake_expanding</a></li>
+<li><a href=#Channels-fake_monotone>fake_monotone</a></li>
+<li><a href=#Channels-fake_monotone_param1>fake_monotone_param1</a></li>
+<li><a href=#Channels-atoms_fake>atoms_fake</a></li>
+<li><a href=#Channels-extr_fake>extr_fake</a></li>
+</ul>
+</li><li><a href=#Message>Message</a>
+<ul>
+<li><a href=#Message-Un_idem_collapse>Un_idem_collapse</a></li>
+<li><a href=#Message-parts_mono>parts_mono</a></li>
+<li><a href=#Message-Other_image_eq>Other_image_eq</a></li>
+<li><a href=#Message-Key_image_eq>Key_image_eq</a></li>
+<li><a href=#Message-Nonce_Key_image_eq>Nonce_Key_image_eq</a></li>
+<li><a href=#Message-keysFor_empty>keysFor_empty</a></li>
+<li><a href=#Message-keysFor_Un>keysFor_Un</a></li>
+<li><a href=#Message-keysFor_UN>keysFor_UN</a></li>
+<li><a href=#Message-keysFor_mono>keysFor_mono</a></li>
+<li><a href=#Message-keysFor_insert_Agent>keysFor_insert_Agent</a></li>
+<li><a href=#Message-keysFor_insert_Nonce>keysFor_insert_Nonce</a></li>
+<li><a href=#Message-keysFor_insert_Number>keysFor_insert_Number</a></li>
+<li><a href=#Message-keysFor_insert_Key>keysFor_insert_Key</a></li>
+<li><a href=#Message-keysFor_insert_Hash>keysFor_insert_Hash</a></li>
+<li><a href=#Message-keysFor_insert_MPair>keysFor_insert_MPair</a></li>
+<li><a href=#Message-keysFor_insert_Crypt>keysFor_insert_Crypt</a></li>
+<li><a href=#Message-keysFor_image_Key>keysFor_image_Key</a></li>
+<li><a href=#Message-Crypt_imp_invKey_keysFor>Crypt_imp_invKey_keysFor</a></li>
+<li><a href=#Message-MPair_parts>MPair_parts</a></li>
+<li><a href=#Message-parts_increasing>parts_increasing</a></li>
+<li><a href=#Message-parts_empty>parts_empty</a></li>
+<li><a href=#Message-parts_emptyE>parts_emptyE</a></li>
+<li><a href=#Message-parts_singleton>parts_singleton</a></li>
+<li><a href=#Message-parts_Un_subset1>parts_Un_subset1</a></li>
+<li><a href=#Message-parts_Un_subset2>parts_Un_subset2</a></li>
+<li><a href=#Message-parts_Un>parts_Un</a></li>
+<li><a href=#Message-parts_insert>parts_insert</a></li>
+<li><a href=#Message-parts_insert2>parts_insert2</a></li>
+<li><a href=#Message-parts_UN_subset1>parts_UN_subset1</a></li>
+<li><a href=#Message-parts_UN_subset2>parts_UN_subset2</a></li>
+<li><a href=#Message-parts_UN>parts_UN</a></li>
+<li><a href=#Message-parts_insert_subset>parts_insert_subset</a></li>
+<li><a href=#Message-parts_partsD>parts_partsD</a></li>
+<li><a href=#Message-parts_idem>parts_idem</a></li>
+<li><a href=#Message-parts_subset_iff>parts_subset_iff</a></li>
+<li><a href=#Message-parts_trans>parts_trans</a></li>
+<li><a href=#Message-parts_cut>parts_cut</a></li>
+<li><a href=#Message-parts_cut_eq>parts_cut_eq</a></li>
+<li><a href=#Message-parts_insert_Agent>parts_insert_Agent</a></li>
+<li><a href=#Message-parts_insert_Nonce>parts_insert_Nonce</a></li>
+<li><a href=#Message-parts_insert_Number>parts_insert_Number</a></li>
+<li><a href=#Message-parts_insert_Key>parts_insert_Key</a></li>
+<li><a href=#Message-parts_insert_Hash>parts_insert_Hash</a></li>
+<li><a href=#Message-parts_insert_Crypt>parts_insert_Crypt</a></li>
+<li><a href=#Message-parts_insert_MPair>parts_insert_MPair</a></li>
+<li><a href=#Message-parts_image_Key>parts_image_Key</a></li>
+<li><a href=#Message-analz_mono>analz_mono</a></li>
+<li><a href=#Message-MPair_analz>MPair_analz</a></li>
+<li><a href=#Message-analz_increasing>analz_increasing</a></li>
+<li><a href=#Message-analz_subset_parts>analz_subset_parts</a></li>
+<li><a href=#Message-parts_analz>parts_analz</a></li>
+<li><a href=#Message-analz_parts>analz_parts</a></li>
+<li><a href=#Message-analz_empty>analz_empty</a></li>
+<li><a href=#Message-analz_Un>analz_Un</a></li>
+<li><a href=#Message-analz_insert>analz_insert</a></li>
+<li><a href=#Message-analz_insert_Agent>analz_insert_Agent</a></li>
+<li><a href=#Message-analz_insert_Nonce>analz_insert_Nonce</a></li>
+<li><a href=#Message-analz_insert_Number>analz_insert_Number</a></li>
+<li><a href=#Message-analz_insert_Hash>analz_insert_Hash</a></li>
+<li><a href=#Message-analz_insert_Key>analz_insert_Key</a></li>
+<li><a href=#Message-analz_insert_MPair>analz_insert_MPair</a></li>
+<li><a href=#Message-analz_insert_Crypt>analz_insert_Crypt</a></li>
+<li><a href=#Message-lemma1>lemma1</a></li>
+<li><a href=#Message-lemma2>lemma2</a></li>
+<li><a href=#Message-analz_insert_Decrypt>analz_insert_Decrypt</a></li>
+<li><a href=#Message-analz_Crypt_if>analz_Crypt_if</a></li>
+<li><a href=#Message-analz_insert_Crypt_subset>analz_insert_Crypt_subset</a></li>
+<li><a href=#Message-analz_image_Key>analz_image_Key</a></li>
+<li><a href=#Message-analz_analzD>analz_analzD</a></li>
+<li><a href=#Message-analz_idem>analz_idem</a></li>
+<li><a href=#Message-analz_subset_iff>analz_subset_iff</a></li>
+<li><a href=#Message-analz_trans>analz_trans</a></li>
+<li><a href=#Message-analz_cut>analz_cut</a></li>
+<li><a href=#Message-analz_insert_eq>analz_insert_eq</a></li>
+<li><a href=#Message-analz_subset_cong>analz_subset_cong</a></li>
+<li><a href=#Message-analz_cong>analz_cong</a></li>
+<li><a href=#Message-analz_insert_cong>analz_insert_cong</a></li>
+<li><a href=#Message-analz_trivial>analz_trivial</a></li>
+<li><a href=#Message-analz_UN_analz_lemma>analz_UN_analz_lemma</a></li>
+<li><a href=#Message-analz_UN_analz>analz_UN_analz</a></li>
+<li><a href=#Message-synth_mono>synth_mono</a></li>
+<li><a href=#Message-synth_increasing>synth_increasing</a></li>
+<li><a href=#Message-synth_Un>synth_Un</a></li>
+<li><a href=#Message-synth_insert>synth_insert</a></li>
+<li><a href=#Message-synth_synthD>synth_synthD</a></li>
+<li><a href=#Message-synth_idem>synth_idem</a></li>
+<li><a href=#Message-synth_subset_iff>synth_subset_iff</a></li>
+<li><a href=#Message-synth_trans>synth_trans</a></li>
+<li><a href=#Message-synth_cut>synth_cut</a></li>
+<li><a href=#Message-Agent_synth>Agent_synth</a></li>
+<li><a href=#Message-Number_synth>Number_synth</a></li>
+<li><a href=#Message-Nonce_synth_eq>Nonce_synth_eq</a></li>
+<li><a href=#Message-Key_synth_eq>Key_synth_eq</a></li>
+<li><a href=#Message-Crypt_synth_eq>Crypt_synth_eq</a></li>
+<li><a href=#Message-keysFor_synth>keysFor_synth</a></li>
+<li><a href=#Message-parts_synth>parts_synth</a></li>
+<li><a href=#Message-analz_analz_Un>analz_analz_Un</a></li>
+<li><a href=#Message-analz_synth_Un>analz_synth_Un</a></li>
+<li><a href=#Message-analz_synth>analz_synth</a></li>
+<li><a href=#Message-analz_Un_analz>analz_Un_analz</a></li>
+<li><a href=#Message-analz_synth_Un2>analz_synth_Un2</a></li>
+<li><a href=#Message-parts_insert_subset_Un>parts_insert_subset_Un</a></li>
+<li><a href=#Message-Fake_parts_insert>Fake_parts_insert</a></li>
+<li><a href=#Message-Fake_parts_insert_in_Un>Fake_parts_insert_in_Un</a></li>
+<li><a href=#Message-Fake_analz_insert>Fake_analz_insert</a></li>
+<li><a href=#Message-analz_conj_parts>analz_conj_parts</a></li>
+<li><a href=#Message-analz_disj_parts>analz_disj_parts</a></li>
+<li><a href=#Message-MPair_synth_analz>MPair_synth_analz</a></li>
+<li><a href=#Message-Crypt_synth_analz>Crypt_synth_analz</a></li>
+<li><a href=#Message-Hash_synth_analz>Hash_synth_analz</a></li>
+<li><a href=#Message-Agent_neq_HPair>Agent_neq_HPair</a></li>
+<li><a href=#Message-Nonce_neq_HPair>Nonce_neq_HPair</a></li>
+<li><a href=#Message-Number_neq_HPair>Number_neq_HPair</a></li>
+<li><a href=#Message-Key_neq_HPair>Key_neq_HPair</a></li>
+<li><a href=#Message-Hash_neq_HPair>Hash_neq_HPair</a></li>
+<li><a href=#Message-Crypt_neq_HPair>Crypt_neq_HPair</a></li>
+<li><a href=#Message-HPair_eq>HPair_eq</a></li>
+<li><a href=#Message-MPair_eq_HPair>MPair_eq_HPair</a></li>
+<li><a href=#Message-HPair_eq_MPair>HPair_eq_MPair</a></li>
+<li><a href=#Message-keysFor_insert_HPair>keysFor_insert_HPair</a></li>
+<li><a href=#Message-parts_insert_HPair>parts_insert_HPair</a></li>
+<li><a href=#Message-analz_insert_HPair>analz_insert_HPair</a></li>
+<li><a href=#Message-HPair_synth_analz>HPair_synth_analz</a></li>
+<li><a href=#Message-Crypt_notin_image_Key>Crypt_notin_image_Key</a></li>
+<li><a href=#Message-Hash_notin_image_Key>Hash_notin_image_Key</a></li>
+<li><a href=#Message-synth_analz_mono>synth_analz_mono</a></li>
+<li><a href=#Message-Fake_analz_eq>Fake_analz_eq</a></li>
+<li><a href=#Message-gen_analz_insert_eq>gen_analz_insert_eq</a></li>
+<li><a href=#Message-synth_analz_insert_eq>synth_analz_insert_eq</a></li>
+<li><a href=#Message-Fake_parts_sing>Fake_parts_sing</a></li>
+</ul>
+</li><li><a href=#s0g_secrecy>s0g_secrecy</a>
+<ul>
+<li><a href=#s0g_secrecy-s0g_obs_id>s0g_obs_id</a></li>
+<li><a href=#s0g_secrecy-s0g_anyP_observable>s0g_anyP_observable</a></li>
+<li><a href=#s0g_secrecy-PO_s0g_secrecy_init>PO_s0g_secrecy_init</a></li>
+<li><a href=#s0g_secrecy-PO_s0g_secrecy_trans>PO_s0g_secrecy_trans</a></li>
+<li><a href=#s0g_secrecy-PO_s0g_secrecy>PO_s0g_secrecy</a></li>
+<li><a href=#s0g_secrecy-PO_s0g_obs_secrecy>PO_s0g_obs_secrecy</a></li>
+<li><a href=#s0g_secrecy-PO_s0g_dom_init>PO_s0g_dom_init</a></li>
+<li><a href=#s0g_secrecy-PO_s0g_dom_trans>PO_s0g_dom_trans</a></li>
+<li><a href=#s0g_secrecy-PO_s0g_dom>PO_s0g_dom</a></li>
+<li><a href=#s0g_secrecy-PO_s0g_obs_dom>PO_s0g_obs_dom</a></li>
+</ul>
+</li><li><a href=#a0n_agree>a0n_agree</a>
+<ul>
+<li><a href=#a0n_agree-a0n_obs>a0n_obs</a></li>
+<li><a href=#a0n_agree-a0n_anyP_observable>a0n_anyP_observable</a></li>
+<li><a href=#a0n_agree-PO_a0n_inv1_niagree_init>PO_a0n_inv1_niagree_init</a></li>
+<li><a href=#a0n_agree-PO_a0n_inv1_niagree_trans>PO_a0n_inv1_niagree_trans</a></li>
+<li><a href=#a0n_agree-PO_a0n_inv1_niagree>PO_a0n_inv1_niagree</a></li>
+<li><a href=#a0n_agree-a0n_obs_inv1_niagree>a0n_obs_inv1_niagree</a></li>
+</ul>
+</li><li><a href=#a0i_agree>a0i_agree</a>
+<ul>
+<li><a href=#a0i_agree-a0i_obs>a0i_obs</a></li>
+<li><a href=#a0i_agree-a0i_anyP_observable>a0i_anyP_observable</a></li>
+<li><a href=#a0i_agree-PO_a0i_inv1_iagree_init>PO_a0i_inv1_iagree_init</a></li>
+<li><a href=#a0i_agree-PO_a0i_inv1_iagree_trans>PO_a0i_inv1_iagree_trans</a></li>
+<li><a href=#a0i_agree-PO_a0i_inv1_iagree>PO_a0i_inv1_iagree</a></li>
+<li><a href=#a0i_agree-PO_a0i_obs_inv1_iagree>PO_a0i_obs_inv1_iagree</a></li>
+<li><a href=#a0i_agree-PO_a0i_running_refines_a0n_running>PO_a0i_running_refines_a0n_running</a></li>
+<li><a href=#a0i_agree-PO_a0i_commit_refines_a0n_commit>PO_a0i_commit_refines_a0n_commit</a></li>
+<li><a href=#a0i_agree-PO_a0i_corrupt_refines_a0n_corrupt>PO_a0i_corrupt_refines_a0n_corrupt</a></li>
+<li><a href=#a0i_agree-PO_m1_refines_init_a0n>PO_m1_refines_init_a0n</a></li>
+<li><a href=#a0i_agree-PO_m1_refines_trans_a0n>PO_m1_refines_trans_a0n</a></li>
+<li><a href=#a0i_agree-PO_obs_consistent>PO_obs_consistent</a></li>
+<li><a href=#a0i_agree-PO_a0i_refines_a0n>PO_a0i_refines_a0n</a></li>
+<li><a href=#a0i_agree-iagree_implies_niagree>iagree_implies_niagree</a></li>
+<li><a href=#a0i_agree-PO_a0i_a0n_inv1_niagree>PO_a0i_a0n_inv1_niagree</a></li>
+<li><a href=#a0i_agree-PO_a0i_obs_a0n_inv1_niagree>PO_a0i_obs_a0n_inv1_niagree</a></li>
+</ul>
+</li><li><a href=#m1_auth>m1_auth</a>
+<ul>
+<li><a href=#m1_auth-runs2sigs_empty>runs2sigs_empty</a></li>
+<li><a href=#m1_auth-runs2sigs_upd_init_none>runs2sigs_upd_init_none</a></li>
+<li><a href=#m1_auth-runs2sigs_upd_init_some>runs2sigs_upd_init_some</a></li>
+<li><a href=#m1_auth-runs2sigs_upd_resp>runs2sigs_upd_resp</a></li>
+<li><a href=#m1_auth-PO_m1_step1_refines_skip>PO_m1_step1_refines_skip</a></li>
+<li><a href=#m1_auth-PO_m1_step2_refines_a0i_running>PO_m1_step2_refines_a0i_running</a></li>
+<li><a href=#m1_auth-PO_m1_step3_refines_a0i_commit>PO_m1_step3_refines_a0i_commit</a></li>
+<li><a href=#m1_auth-PO_m1_refines_init_a0i>PO_m1_refines_init_a0i</a></li>
+<li><a href=#m1_auth-PO_m1_refines_trans_a0i>PO_m1_refines_trans_a0i</a></li>
+<li><a href=#m1_auth-PO_obs_consistent>PO_obs_consistent</a></li>
+<li><a href=#m1_auth-PO_m1_refines_a0i>PO_m1_refines_a0i</a></li>
+</ul>
+</li><li><a href=#m2_auth_chan>m2_auth_chan</a>
+<ul>
+<li><a href=#m2_auth_chan-PO_m2_inv2_init>PO_m2_inv2_init</a></li>
+<li><a href=#m2_auth_chan-PO_m2_inv2_trans>PO_m2_inv2_trans</a></li>
+<li><a href=#m2_auth_chan-PO_m2_inv2>PO_m2_inv2</a></li>
+<li><a href=#m2_auth_chan-PO_m2_step1_refines_m1_step1>PO_m2_step1_refines_m1_step1</a></li>
+<li><a href=#m2_auth_chan-PO_m2_step2_refines_m1_step2>PO_m2_step2_refines_m1_step2</a></li>
+<li><a href=#m2_auth_chan-PO_m2_step3_refines_m1_step3>PO_m2_step3_refines_m1_step3</a></li>
+<li><a href=#m2_auth_chan-PO_m2_fake_refines_m1_skip>PO_m2_fake_refines_m1_skip</a></li>
+<li><a href=#m2_auth_chan-PO_m2_refines_init_m1>PO_m2_refines_init_m1</a></li>
+<li><a href=#m2_auth_chan-PO_m2_refines_trans_m1>PO_m2_refines_trans_m1</a></li>
+<li><a href=#m2_auth_chan-PO_obs_consistent>PO_obs_consistent</a></li>
+<li><a href=#m2_auth_chan-m2_refines_m1>m2_refines_m1</a></li>
+</ul>
+</li><li><a href=#m2_confid_chan>m2_confid_chan</a>
+<ul>
+<li><a href=#m2_confid_chan-PO_m2_inv1_init>PO_m2_inv1_init</a></li>
+<li><a href=#m2_confid_chan-PO_m2_inv1_trans>PO_m2_inv1_trans</a></li>
+<li><a href=#m2_confid_chan-PO_m2_inv012>PO_m2_inv012</a></li>
+<li><a href=#m2_confid_chan-PO_m2_inv4_init>PO_m2_inv4_init</a></li>
+<li><a href=#m2_confid_chan-PO_m2_inv4_trans>PO_m2_inv4_trans</a></li>
+<li><a href=#m2_confid_chan-PO_m2_inv4>PO_m2_inv4</a></li>
+<li><a href=#m2_confid_chan-PO_m2_inv3_init>PO_m2_inv3_init</a></li>
+<li><a href=#m2_confid_chan-PO_m2_inv3_trans>PO_m2_inv3_trans</a></li>
+<li><a href=#m2_confid_chan-PO_m2_inv3>PO_m2_inv3</a></li>
+<li><a href=#m2_confid_chan-PO_m2_step1_refines_m1_step1>PO_m2_step1_refines_m1_step1</a></li>
+<li><a href=#m2_confid_chan-PO_m2_step2_refines_m1_step2>PO_m2_step2_refines_m1_step2</a></li>
+<li><a href=#m2_confid_chan-PO_m2_step3_refines_m1_step3>PO_m2_step3_refines_m1_step3</a></li>
+<li><a href=#m2_confid_chan-PO_m2_fake_refines_skip>PO_m2_fake_refines_skip</a></li>
+<li><a href=#m2_confid_chan-PO_m2_refines_init_m1>PO_m2_refines_init_m1</a></li>
+<li><a href=#m2_confid_chan-PO_m2_refines_trans_m1>PO_m2_refines_trans_m1</a></li>
+<li><a href=#m2_confid_chan-PO_R12_obs_consistent>PO_R12_obs_consistent</a></li>
+<li><a href=#m2_confid_chan-PO_m3_refines_m2>PO_m3_refines_m2</a></li>
+</ul>
+</li><li><a href=#m3_sig>m3_sig</a>
+<ul>
+<li><a href=#m3_sig-PO_m3_inv1_lkeysec_init>PO_m3_inv1_lkeysec_init</a></li>
+<li><a href=#m3_sig-PO_m3_inv1_lkeysec_trans>PO_m3_inv1_lkeysec_trans</a></li>
+<li><a href=#m3_sig-PO_m3_inv1_lkeysec>PO_m3_inv1_lkeysec</a></li>
+<li><a href=#m3_sig-PO_m3_inv2_badkeys_init>PO_m3_inv2_badkeys_init</a></li>
+<li><a href=#m3_sig-PO_m3_inv2_badkeys_trans>PO_m3_inv2_badkeys_trans</a></li>
+<li><a href=#m3_sig-PO_m3_inv2_badkeys>PO_m3_inv2_badkeys</a></li>
+<li><a href=#m3_sig-PO_m3_inv3_pubkeys_init>PO_m3_inv3_pubkeys_init</a></li>
+<li><a href=#m3_sig-PO_m3_inv3_pubkeys_trans>PO_m3_inv3_pubkeys_trans</a></li>
+<li><a href=#m3_sig-PO_m3_inv3_pubkeys>PO_m3_inv3_pubkeys</a></li>
+<li><a href=#m3_sig-abs_msg_empty>abs_msg_empty</a></li>
+<li><a href=#m3_sig-abs_msg_Un>abs_msg_Un</a></li>
+<li><a href=#m3_sig-abs_msg_mono>abs_msg_mono</a></li>
+<li><a href=#m3_sig-abs_msg_insert_mono>abs_msg_insert_mono</a></li>
+<li><a href=#m3_sig-abs_msg_DY_subset_fakeable>abs_msg_DY_subset_fakeable</a></li>
+<li><a href=#m3_sig-absmsg_parts_subset_fakeable>absmsg_parts_subset_fakeable</a></li>
+<li><a href=#m3_sig-PO_m3_step1_refines_m2_step1>PO_m3_step1_refines_m2_step1</a></li>
+<li><a href=#m3_sig-PO_m3_step2_refines_m2_step2>PO_m3_step2_refines_m2_step2</a></li>
+<li><a href=#m3_sig-PO_m3_step3_refines_m2_step3>PO_m3_step3_refines_m2_step3</a></li>
+<li><a href=#m3_sig-PO_m3_DY_fake_refines_m2_fake>PO_m3_DY_fake_refines_m2_fake</a></li>
+<li><a href=#m3_sig-PO_m3_refines_init_m2>PO_m3_refines_init_m2</a></li>
+<li><a href=#m3_sig-PO_m3_refines_trans_m2>PO_m3_refines_trans_m2</a></li>
+<li><a href=#m3_sig-PO_obs_consistent>PO_obs_consistent</a></li>
+<li><a href=#m3_sig-PO_m3_refines_m2>PO_m3_refines_m2</a></li>
+</ul>
+</li><li><a href=#m3_enc>m3_enc</a>
+<ul>
+<li><a href=#m3_enc-PO_m3_inv1_keys_init>PO_m3_inv1_keys_init</a></li>
+<li><a href=#m3_enc-PO_m3_inv1_keys_trans>PO_m3_inv1_keys_trans</a></li>
+<li><a href=#m3_enc-PO_m3_inv1_keys>PO_m3_inv1_keys</a></li>
+<li><a href=#m3_enc-abs_msg_empty>abs_msg_empty</a></li>
+<li><a href=#m3_enc-abs_msg_Un>abs_msg_Un</a></li>
+<li><a href=#m3_enc-abs_msg_mono>abs_msg_mono</a></li>
+<li><a href=#m3_enc-abs_msg_insert_mono>abs_msg_insert_mono</a></li>
+<li><a href=#m3_enc-abs_msg_DY_subset_fake>abs_msg_DY_subset_fake</a></li>
+<li><a href=#m3_enc-abs_msg_parts_subset_fake>abs_msg_parts_subset_fake</a></li>
+<li><a href=#m3_enc-PO_m3_step1_refines_m2_step1>PO_m3_step1_refines_m2_step1</a></li>
+<li><a href=#m3_enc-PO_m3_step2_refines_m2_step2>PO_m3_step2_refines_m2_step2</a></li>
+<li><a href=#m3_enc-PO_m3_step3_refines_m2_step3>PO_m3_step3_refines_m2_step3</a></li>
+<li><a href=#m3_enc-PO_m3_DY_fake_refines_m2_fake>PO_m3_DY_fake_refines_m2_fake</a></li>
+<li><a href=#m3_enc-PO_m3_refines_init_m2>PO_m3_refines_init_m2</a></li>
+<li><a href=#m3_enc-PO_m3_refines_trans_m2>PO_m3_refines_trans_m2</a></li>
+<li><a href=#m3_enc-PO_R23_obs_consistent>PO_R23_obs_consistent</a></li>
+<li><a href=#m3_enc-PO_m3_refines_m2>PO_m3_refines_m2</a></li>
+</ul>
+</li><li><a href=#m1_keydist>m1_keydist</a>
+<ul>
+<li><a href=#m1_keydist-knC_empty>knC_empty</a></li>
+<li><a href=#m1_keydist-azC_empty>azC_empty</a></li>
+<li><a href=#m1_keydist-azC_map_runs>azC_map_runs</a></li>
+<li><a href=#m1_keydist-knC_upd_Init_Resp_None>knC_upd_Init_Resp_None</a></li>
+<li><a href=#m1_keydist-knC_upd_Init_Some>knC_upd_Init_Some</a></li>
+<li><a href=#m1_keydist-knC_upd_Resp_Some>knC_upd_Resp_Some</a></li>
+<li><a href=#m1_keydist-knC_upd_Server>knC_upd_Server</a></li>
+<li><a href=#m1_keydist-azC_upd_Init_None>azC_upd_Init_None</a></li>
+<li><a href=#m1_keydist-azC_upd_Resp_None>azC_upd_Resp_None</a></li>
+<li><a href=#m1_keydist-azC_upd_Init_Some>azC_upd_Init_Some</a></li>
+<li><a href=#m1_keydist-azC_upd_Resp_Some>azC_upd_Resp_Some</a></li>
+<li><a href=#m1_keydist-azC_upd_Serv_bad>azC_upd_Serv_bad</a></li>
+<li><a href=#m1_keydist-azC_upd_Serv_good>azC_upd_Serv_good</a></li>
+<li><a href=#m1_keydist-azC_upd_Serv>azC_upd_Serv</a></li>
+<li><a href=#m1_keydist-m1x_obs_id>m1x_obs_id</a></li>
+<li><a href=#m1_keydist-PO_m1x_inv1_key_init>PO_m1x_inv1_key_init</a></li>
+<li><a href=#m1_keydist-PO_m1x_inv1_key_trans>PO_m1x_inv1_key_trans</a></li>
+<li><a href=#m1_keydist-PO_m1x_inv1_key>PO_m1x_inv1_key</a></li>
+<li><a href=#m1_keydist-PO_m1x_step1_refines_skip>PO_m1x_step1_refines_skip</a></li>
+<li><a href=#m1_keydist-PO_m1x_step2_refines_skip>PO_m1x_step2_refines_skip</a></li>
+<li><a href=#m1_keydist-PO_m1x_step3_refines_s0g_gen>PO_m1x_step3_refines_s0g_gen</a></li>
+<li><a href=#m1_keydist-PO_m1x_step4_refines_s0g_learn>PO_m1x_step4_refines_s0g_learn</a></li>
+<li><a href=#m1_keydist-PO_m1x_step5_refines_s0g_learn>PO_m1x_step5_refines_s0g_learn</a></li>
+<li><a href=#m1_keydist-PO_m1x_leak_refines_s0g_leak>PO_m1x_leak_refines_s0g_leak</a></li>
+<li><a href=#m1_keydist-PO_m1x_refines_init_s0g>PO_m1x_refines_init_s0g</a></li>
+<li><a href=#m1_keydist-PO_m1x_refines_trans_s0g>PO_m1x_refines_trans_s0g</a></li>
+<li><a href=#m1_keydist-obs_consistent_med01x>obs_consistent_med01x</a></li>
+<li><a href=#m1_keydist-PO_m1x_refines_s0g>PO_m1x_refines_s0g</a></li>
+<li><a href=#m1_keydist-m1x_implements_s0g>m1x_implements_s0g</a></li>
+<li><a href=#m1_keydist-PO_m1x_obs_secrecy>PO_m1x_obs_secrecy</a></li>
+<li><a href=#m1_keydist-PO_m1x_secrecy>PO_m1x_secrecy</a></li>
+</ul>
+</li><li><a href=#m1_keydist_iirn>m1_keydist_iirn</a>
+<ul>
+<li><a href=#m1_keydist_iirn-init_m1a>init_m1a</a></li>
+<li><a href=#m1_keydist_iirn-trans_m1a>trans_m1a</a></li>
+<li><a href=#m1_keydist_iirn-obs_m1a>obs_m1a</a></li>
+<li><a href=#m1_keydist_iirn-PO_m1a_inv0_fin_init>PO_m1a_inv0_fin_init</a></li>
+<li><a href=#m1_keydist_iirn-PO_m1a_inv0_fin_trans>PO_m1a_inv0_fin_trans</a></li>
+<li><a href=#m1_keydist_iirn-PO_m1a_inv0_fin>PO_m1a_inv0_fin</a></li>
+<li><a href=#m1_keydist_iirn-PO_m1a_step1_refines_m1x_step1>PO_m1a_step1_refines_m1x_step1</a></li>
+<li><a href=#m1_keydist_iirn-PO_m1a_step2_refines_m1x_step2>PO_m1a_step2_refines_m1x_step2</a></li>
+<li><a href=#m1_keydist_iirn-PO_m1a_step3_refines_m1x_step3>PO_m1a_step3_refines_m1x_step3</a></li>
+<li><a href=#m1_keydist_iirn-PO_m1a_step4_refines_m1x_step4>PO_m1a_step4_refines_m1x_step4</a></li>
+<li><a href=#m1_keydist_iirn-PO_m1a_step5_refines_m1x_step5>PO_m1a_step5_refines_m1x_step5</a></li>
+<li><a href=#m1_keydist_iirn-PO_m1a_leak_refines_m1x_leak>PO_m1a_leak_refines_m1x_leak</a></li>
+<li><a href=#m1_keydist_iirn-PO_m1a_refines_init_m1x>PO_m1a_refines_init_m1x</a></li>
+<li><a href=#m1_keydist_iirn-PO_m1a_refines_trans_m1x>PO_m1a_refines_trans_m1x</a></li>
+<li><a href=#m1_keydist_iirn-obs_consistent_med1x1a>obs_consistent_med1x1a</a></li>
+<li><a href=#m1_keydist_iirn-PO_m1a_refines_m1x>PO_m1a_refines_m1x</a></li>
+<li><a href=#m1_keydist_iirn-m1a_implements_m1x>m1a_implements_m1x</a></li>
+<li><a href=#m1_keydist_iirn-m1a_implements_s0g>m1a_implements_s0g</a></li>
+<li><a href=#m1_keydist_iirn-knC_runs1x1a>knC_runs1x1a</a></li>
+<li><a href=#m1_keydist_iirn-PO_m1a_obs_secrecy>PO_m1a_obs_secrecy</a></li>
+<li><a href=#m1_keydist_iirn-PO_m1a_secrecy>PO_m1a_secrecy</a></li>
+<li><a href=#m1_keydist_iirn-is_runs2sigs_empty>is_runs2sigs_empty</a></li>
+<li><a href=#m1_keydist_iirn-is_runs2sigs_upd_init_none>is_runs2sigs_upd_init_none</a></li>
+<li><a href=#m1_keydist_iirn-is_runs2sigs_upd_resp_none>is_runs2sigs_upd_resp_none</a></li>
+<li><a href=#m1_keydist_iirn-is_runs2sigs_upd_serv>is_runs2sigs_upd_serv</a></li>
+<li><a href=#m1_keydist_iirn-is_runs2sigs_upd_init_some>is_runs2sigs_upd_init_some</a></li>
+<li><a href=#m1_keydist_iirn-is_runs2sigs_upd_resp_some>is_runs2sigs_upd_resp_some</a></li>
+<li><a href=#m1_keydist_iirn-PO_m1a_step1_refines_a0_is_skip>PO_m1a_step1_refines_a0_is_skip</a></li>
+<li><a href=#m1_keydist_iirn-PO_m1a_step2_refines_a0_is_skip>PO_m1a_step2_refines_a0_is_skip</a></li>
+<li><a href=#m1_keydist_iirn-PO_m1a_step3_refines_a0_is_running>PO_m1a_step3_refines_a0_is_running</a></li>
+<li><a href=#m1_keydist_iirn-PO_m1a_step4_refines_a0_is_commit>PO_m1a_step4_refines_a0_is_commit</a></li>
+<li><a href=#m1_keydist_iirn-PO_m1a_step5_refines_a0_is_skip>PO_m1a_step5_refines_a0_is_skip</a></li>
+<li><a href=#m1_keydist_iirn-PO_m1a_leak_refines_a0_is_skip>PO_m1a_leak_refines_a0_is_skip</a></li>
+<li><a href=#m1_keydist_iirn-PO_m1a_refines_init_a0_is>PO_m1a_refines_init_a0_is</a></li>
+<li><a href=#m1_keydist_iirn-PO_m1a_refines_trans_a0_is>PO_m1a_refines_trans_a0_is</a></li>
+<li><a href=#m1_keydist_iirn-obs_consistent_med_a0m1a_is>obs_consistent_med_a0m1a_is</a></li>
+<li><a href=#m1_keydist_iirn-PO_m1a_refines_a0_is>PO_m1a_refines_a0_is</a></li>
+<li><a href=#m1_keydist_iirn-m1a_implements_a0_is>m1a_implements_a0_is</a></li>
+<li><a href=#m1_keydist_iirn-PO_m1a_inv2i_serv>PO_m1a_inv2i_serv</a></li>
+<li><a href=#m1_keydist_iirn-PO_m1a_inv1_ifresh_init>PO_m1a_inv1_ifresh_init</a></li>
+<li><a href=#m1_keydist_iirn-PO_m1a_inv1_ifresh_step4>PO_m1a_inv1_ifresh_step4</a></li>
+<li><a href=#m1_keydist_iirn-PO_m1a_inv1_ifresh_trans>PO_m1a_inv1_ifresh_trans</a></li>
+<li><a href=#m1_keydist_iirn-PO_m1a_inv1_ifresh>PO_m1a_inv1_ifresh</a></li>
+<li><a href=#m1_keydist_iirn-rs_runs2sigs_empty>rs_runs2sigs_empty</a></li>
+<li><a href=#m1_keydist_iirn-rs_commit_finite>rs_commit_finite</a></li>
+<li><a href=#m1_keydist_iirn-rs_runs2sigs_upd_init_none>rs_runs2sigs_upd_init_none</a></li>
+<li><a href=#m1_keydist_iirn-rs_runs2sigs_upd_resp_none>rs_runs2sigs_upd_resp_none</a></li>
+<li><a href=#m1_keydist_iirn-rs_runs2sigs_upd_serv>rs_runs2sigs_upd_serv</a></li>
+<li><a href=#m1_keydist_iirn-rs_runs2sigs_upd_init_some>rs_runs2sigs_upd_init_some</a></li>
+<li><a href=#m1_keydist_iirn-rs_runs2sigs_upd_resp_some>rs_runs2sigs_upd_resp_some</a></li>
+<li><a href=#m1_keydist_iirn-PO_m1a_step1_refines_a0_rs_skip>PO_m1a_step1_refines_a0_rs_skip</a></li>
+<li><a href=#m1_keydist_iirn-PO_m1a_step2_refines_a0_rs_skip>PO_m1a_step2_refines_a0_rs_skip</a></li>
+<li><a href=#m1_keydist_iirn-PO_m1a_step3_refines_a0_rs_running>PO_m1a_step3_refines_a0_rs_running</a></li>
+<li><a href=#m1_keydist_iirn-PO_m1a_step4_refines_a0_rs_skip>PO_m1a_step4_refines_a0_rs_skip</a></li>
+<li><a href=#m1_keydist_iirn-PO_m1a_step5_refines_a0_rs_commit>PO_m1a_step5_refines_a0_rs_commit</a></li>
+<li><a href=#m1_keydist_iirn-PO_m1a_leak_refines_a0_rs_skip>PO_m1a_leak_refines_a0_rs_skip</a></li>
+<li><a href=#m1_keydist_iirn-PO_m1a_refines_init_ra0n>PO_m1a_refines_init_ra0n</a></li>
+<li><a href=#m1_keydist_iirn-PO_m1a_refines_trans_ra0n>PO_m1a_refines_trans_ra0n</a></li>
+<li><a href=#m1_keydist_iirn-obs_consistent_med_a0m1a_rs>obs_consistent_med_a0m1a_rs</a></li>
+<li><a href=#m1_keydist_iirn-PO_m1a_refines_a0_rs>PO_m1a_refines_a0_rs</a></li>
+<li><a href=#m1_keydist_iirn-m1a_implements_ra0n>m1a_implements_ra0n</a></li>
+<li><a href=#m1_keydist_iirn-PO_m1a_inv2r_serv>PO_m1a_inv2r_serv</a></li>
+</ul>
+</li><li><a href=#m1_keydist_inrn>m1_keydist_inrn</a>
+<ul>
+<li><a href=#m1_keydist_inrn-init_m1a>init_m1a</a></li>
+<li><a href=#m1_keydist_inrn-trans_m1a>trans_m1a</a></li>
+<li><a href=#m1_keydist_inrn-obs_m1a>obs_m1a</a></li>
+<li><a href=#m1_keydist_inrn-PO_m1a_inv0_fin_init>PO_m1a_inv0_fin_init</a></li>
+<li><a href=#m1_keydist_inrn-PO_m1a_inv0_fin_trans>PO_m1a_inv0_fin_trans</a></li>
+<li><a href=#m1_keydist_inrn-PO_m1a_inv0_fin>PO_m1a_inv0_fin</a></li>
+<li><a href=#m1_keydist_inrn-PO_m1a_step1_refines_m1x_step1>PO_m1a_step1_refines_m1x_step1</a></li>
+<li><a href=#m1_keydist_inrn-PO_m1a_step2_refines_m1x_step2>PO_m1a_step2_refines_m1x_step2</a></li>
+<li><a href=#m1_keydist_inrn-PO_m1a_step3_refines_m1x_step3>PO_m1a_step3_refines_m1x_step3</a></li>
+<li><a href=#m1_keydist_inrn-PO_m1a_step4_refines_m1x_step4>PO_m1a_step4_refines_m1x_step4</a></li>
+<li><a href=#m1_keydist_inrn-PO_m1a_step5_refines_m1x_step5>PO_m1a_step5_refines_m1x_step5</a></li>
+<li><a href=#m1_keydist_inrn-PO_m1a_leak_refines_m1x_leak>PO_m1a_leak_refines_m1x_leak</a></li>
+<li><a href=#m1_keydist_inrn-PO_m1a_refines_init_m1x>PO_m1a_refines_init_m1x</a></li>
+<li><a href=#m1_keydist_inrn-PO_m1a_refines_trans_m1x>PO_m1a_refines_trans_m1x</a></li>
+<li><a href=#m1_keydist_inrn-obs_consistent_med1x1a>obs_consistent_med1x1a</a></li>
+<li><a href=#m1_keydist_inrn-PO_m1a_refines_m1x>PO_m1a_refines_m1x</a></li>
+<li><a href=#m1_keydist_inrn-m1a_implements_m1x>m1a_implements_m1x</a></li>
+<li><a href=#m1_keydist_inrn-is_runs2sigs_empty>is_runs2sigs_empty</a></li>
+<li><a href=#m1_keydist_inrn-is_commit_finite>is_commit_finite</a></li>
+<li><a href=#m1_keydist_inrn-is_runs2sigs_upd_init_none>is_runs2sigs_upd_init_none</a></li>
+<li><a href=#m1_keydist_inrn-is_runs2sigs_upd_resp_none>is_runs2sigs_upd_resp_none</a></li>
+<li><a href=#m1_keydist_inrn-is_runs2sigs_upd_serv>is_runs2sigs_upd_serv</a></li>
+<li><a href=#m1_keydist_inrn-is_runs2sigs_upd_init_some>is_runs2sigs_upd_init_some</a></li>
+<li><a href=#m1_keydist_inrn-is_runs2sigs_upd_resp_some>is_runs2sigs_upd_resp_some</a></li>
+<li><a href=#m1_keydist_inrn-PO_m1a_step1_refines_a0_is_skip>PO_m1a_step1_refines_a0_is_skip</a></li>
+<li><a href=#m1_keydist_inrn-PO_m1a_step2_refines_a0_is_skip>PO_m1a_step2_refines_a0_is_skip</a></li>
+<li><a href=#m1_keydist_inrn-PO_m1a_step3_refines_a0_is_running>PO_m1a_step3_refines_a0_is_running</a></li>
+<li><a href=#m1_keydist_inrn-PO_m1a_step4_refines_a0_is_commit>PO_m1a_step4_refines_a0_is_commit</a></li>
+<li><a href=#m1_keydist_inrn-PO_m1a_step5_refines_a0_is_skip>PO_m1a_step5_refines_a0_is_skip</a></li>
+<li><a href=#m1_keydist_inrn-PO_m1a_leak_refines_a0_is_skip>PO_m1a_leak_refines_a0_is_skip</a></li>
+<li><a href=#m1_keydist_inrn-PO_m1a_refines_init_a0_is>PO_m1a_refines_init_a0_is</a></li>
+<li><a href=#m1_keydist_inrn-PO_m1a_refines_trans_a0_is>PO_m1a_refines_trans_a0_is</a></li>
+<li><a href=#m1_keydist_inrn-obs_consistent_med_a0m1a_is>obs_consistent_med_a0m1a_is</a></li>
+<li><a href=#m1_keydist_inrn-PO_m1a_refines_a0_is>PO_m1a_refines_a0_is</a></li>
+<li><a href=#m1_keydist_inrn-m1a_implements_a0_is>m1a_implements_a0_is</a></li>
+<li><a href=#m1_keydist_inrn-rs_runs2sigs_empty>rs_runs2sigs_empty</a></li>
+<li><a href=#m1_keydist_inrn-rs_commit_finite>rs_commit_finite</a></li>
+<li><a href=#m1_keydist_inrn-rs_runs2sigs_upd_init_none>rs_runs2sigs_upd_init_none</a></li>
+<li><a href=#m1_keydist_inrn-rs_runs2sigs_upd_resp_none>rs_runs2sigs_upd_resp_none</a></li>
+<li><a href=#m1_keydist_inrn-rs_runs2sigs_upd_serv>rs_runs2sigs_upd_serv</a></li>
+<li><a href=#m1_keydist_inrn-rs_runs2sigs_upd_init_some>rs_runs2sigs_upd_init_some</a></li>
+<li><a href=#m1_keydist_inrn-rs_runs2sigs_upd_resp_some>rs_runs2sigs_upd_resp_some</a></li>
+<li><a href=#m1_keydist_inrn-PO_m1a_step1_refines_a0_rs_skip>PO_m1a_step1_refines_a0_rs_skip</a></li>
+<li><a href=#m1_keydist_inrn-PO_m1a_step2_refines_a0_rs_skip>PO_m1a_step2_refines_a0_rs_skip</a></li>
+<li><a href=#m1_keydist_inrn-PO_m1a_step3_refines_a0_rs_running>PO_m1a_step3_refines_a0_rs_running</a></li>
+<li><a href=#m1_keydist_inrn-PO_m1a_step4_refines_a0_rs_skip>PO_m1a_step4_refines_a0_rs_skip</a></li>
+<li><a href=#m1_keydist_inrn-PO_m1a_step5_refines_a0_rs_commit>PO_m1a_step5_refines_a0_rs_commit</a></li>
+<li><a href=#m1_keydist_inrn-PO_m1a_leak_refines_a0_rs_skip>PO_m1a_leak_refines_a0_rs_skip</a></li>
+<li><a href=#m1_keydist_inrn-PO_m1a_refines_init_ra0n>PO_m1a_refines_init_ra0n</a></li>
+<li><a href=#m1_keydist_inrn-PO_m1a_refines_trans_ra0n>PO_m1a_refines_trans_ra0n</a></li>
+<li><a href=#m1_keydist_inrn-obs_consistent_med_a0m1a_rs>obs_consistent_med_a0m1a_rs</a></li>
+<li><a href=#m1_keydist_inrn-PO_m1a_refines_a0_rs>PO_m1a_refines_a0_rs</a></li>
+<li><a href=#m1_keydist_inrn-m1a_implements_ra0n>m1a_implements_ra0n</a></li>
+</ul>
+</li><li><a href=#m1_kerberos>m1_kerberos</a>
+<ul>
+<li><a href=#m1_kerberos-m1_obs_id>m1_obs_id</a></li>
+<li><a href=#m1_kerberos-PO_m1_inv0_fin_init>PO_m1_inv0_fin_init</a></li>
+<li><a href=#m1_kerberos-PO_m1_inv0_fin_trans>PO_m1_inv0_fin_trans</a></li>
+<li><a href=#m1_kerberos-PO_m1_inv0_fin>PO_m1_inv0_fin</a></li>
+<li><a href=#m1_kerberos-PO_m1_inv1r_cache_init>PO_m1_inv1r_cache_init</a></li>
+<li><a href=#m1_kerberos-PO_m1_inv1r_cache_trans>PO_m1_inv1r_cache_trans</a></li>
+<li><a href=#m1_kerberos-PO_m1_inv1r_cache>PO_m1_inv1r_cache</a></li>
+<li><a href=#m1_kerberos-knC_runs1a1>knC_runs1a1</a></li>
+<li><a href=#m1_kerberos-PO_m1_step1_refines_m1a_step1>PO_m1_step1_refines_m1a_step1</a></li>
+<li><a href=#m1_kerberos-PO_m1_step2_refines_m1a_step2>PO_m1_step2_refines_m1a_step2</a></li>
+<li><a href=#m1_kerberos-PO_m1_step3_refines_m1a_step3>PO_m1_step3_refines_m1a_step3</a></li>
+<li><a href=#m1_kerberos-PO_m1_step4_refines_m1a_step4>PO_m1_step4_refines_m1a_step4</a></li>
+<li><a href=#m1_kerberos-PO_m1_step5_refines_m1a_step5>PO_m1_step5_refines_m1a_step5</a></li>
+<li><a href=#m1_kerberos-PO_m1_step6_refines_m1a_skip>PO_m1_step6_refines_m1a_skip</a></li>
+<li><a href=#m1_kerberos-PO_m1_leak_refines_m1a_leak>PO_m1_leak_refines_m1a_leak</a></li>
+<li><a href=#m1_kerberos-PO_m1_tick_refines_m1a_skip>PO_m1_tick_refines_m1a_skip</a></li>
+<li><a href=#m1_kerberos-PO_m1_purge_refines_m1a_skip>PO_m1_purge_refines_m1a_skip</a></li>
+<li><a href=#m1_kerberos-PO_m1_refines_init_m1a>PO_m1_refines_init_m1a</a></li>
+<li><a href=#m1_kerberos-PO_m1_refines_trans_m1a>PO_m1_refines_trans_m1a</a></li>
+<li><a href=#m1_kerberos-obs_consistent_med1a1>obs_consistent_med1a1</a></li>
+<li><a href=#m1_kerberos-PO_m1_refines_m1a>PO_m1_refines_m1a</a></li>
+<li><a href=#m1_kerberos-m1_implements_m1a>m1_implements_m1a</a></li>
+<li><a href=#m1_kerberos-PO_m1_obs_secrecy>PO_m1_obs_secrecy</a></li>
+<li><a href=#m1_kerberos-PO_m1_secrecy>PO_m1_secrecy</a></li>
+<li><a href=#m1_kerberos-PO_m1_inv2r_serv>PO_m1_inv2r_serv</a></li>
+<li><a href=#m1_kerberos-PO_m1_inv2i_serv>PO_m1_inv2i_serv</a></li>
+<li><a href=#m1_kerberos-PO_m1_ifresh>PO_m1_ifresh</a></li>
+<li><a href=#m1_kerberos-ri_runs2sigs_empty>ri_runs2sigs_empty</a></li>
+<li><a href=#m1_kerberos-finite_ri_running>finite_ri_running</a></li>
+<li><a href=#m1_kerberos-finite_ri_commit>finite_ri_commit</a></li>
+<li><a href=#m1_kerberos-ri_runs2sigs_upd_init_none>ri_runs2sigs_upd_init_none</a></li>
+<li><a href=#m1_kerberos-ri_runs2sigs_upd_resp_none>ri_runs2sigs_upd_resp_none</a></li>
+<li><a href=#m1_kerberos-ri_runs2sigs_upd_serv>ri_runs2sigs_upd_serv</a></li>
+<li><a href=#m1_kerberos-ri_runs2sigs_upd_init_some>ri_runs2sigs_upd_init_some</a></li>
+<li><a href=#m1_kerberos-ri_runs2sigs_upd_resp_some>ri_runs2sigs_upd_resp_some</a></li>
+<li><a href=#m1_kerberos-ri_runs2sigs_upd_init_some2>ri_runs2sigs_upd_init_some2</a></li>
+<li><a href=#m1_kerberos-PO_m1_step1_refines_a0_ri_skip>PO_m1_step1_refines_a0_ri_skip</a></li>
+<li><a href=#m1_kerberos-PO_m1_step2_refines_a0_ri_skip>PO_m1_step2_refines_a0_ri_skip</a></li>
+<li><a href=#m1_kerberos-PO_m1_step3_refines_a0_ri_skip>PO_m1_step3_refines_a0_ri_skip</a></li>
+<li><a href=#m1_kerberos-PO_m1_step4_refines_a0_ri_running>PO_m1_step4_refines_a0_ri_running</a></li>
+<li><a href=#m1_kerberos-PO_m1_step5_refines_a0_ri_commit>PO_m1_step5_refines_a0_ri_commit</a></li>
+<li><a href=#m1_kerberos-PO_m1_step6_refines_a0_ri_skip>PO_m1_step6_refines_a0_ri_skip</a></li>
+<li><a href=#m1_kerberos-PO_m1_leak_refines_a0_ri_skip>PO_m1_leak_refines_a0_ri_skip</a></li>
+<li><a href=#m1_kerberos-PO_m1_tick_refines_a0_ri_skip>PO_m1_tick_refines_a0_ri_skip</a></li>
+<li><a href=#m1_kerberos-PO_m1_purge_refines_a0_ri_skip>PO_m1_purge_refines_a0_ri_skip</a></li>
+<li><a href=#m1_kerberos-PO_m1_refines_init_a0_ri>PO_m1_refines_init_a0_ri</a></li>
+<li><a href=#m1_kerberos-PO_m1_refines_trans_a0_ri>PO_m1_refines_trans_a0_ri</a></li>
+<li><a href=#m1_kerberos-obs_consistent_med_a0iim1_ri>obs_consistent_med_a0iim1_ri</a></li>
+<li><a href=#m1_kerberos-PO_m1_refines_a0ii_ri>PO_m1_refines_a0ii_ri</a></li>
+<li><a href=#m1_kerberos-m1_implements_a0ii_ri>m1_implements_a0ii_ri</a></li>
+<li><a href=#m1_kerberos-PO_m1_inv3r_init>PO_m1_inv3r_init</a></li>
+<li><a href=#m1_kerberos-PO_m1_inv4_rfresh_step5>PO_m1_inv4_rfresh_step5</a></li>
+<li><a href=#m1_kerberos-PO_m1_inv4_rfresh_init>PO_m1_inv4_rfresh_init</a></li>
+<li><a href=#m1_kerberos-PO_m1_inv4_rfresh_trans>PO_m1_inv4_rfresh_trans</a></li>
+<li><a href=#m1_kerberos-PO_m1_inv4_rfresh>PO_m1_inv4_rfresh</a></li>
+<li><a href=#m1_kerberos-PO_m1_obs_inv4_rfresh>PO_m1_obs_inv4_rfresh</a></li>
+<li><a href=#m1_kerberos-ir_runs2sigs_empty>ir_runs2sigs_empty</a></li>
+<li><a href=#m1_kerberos-ir_commit_finite>ir_commit_finite</a></li>
+<li><a href=#m1_kerberos-ir_runs2sigs_upd_init_none>ir_runs2sigs_upd_init_none</a></li>
+<li><a href=#m1_kerberos-ir_runs2sigs_upd_resp_none>ir_runs2sigs_upd_resp_none</a></li>
+<li><a href=#m1_kerberos-ir_runs2sigs_upd_serv>ir_runs2sigs_upd_serv</a></li>
+<li><a href=#m1_kerberos-ir_runs2sigs_upd_init_some>ir_runs2sigs_upd_init_some</a></li>
+<li><a href=#m1_kerberos-ir_runs2sigs_upd_resp_some_raw>ir_runs2sigs_upd_resp_some_raw</a></li>
+<li><a href=#m1_kerberos-ir_runs2sigs_upd_resp_some>ir_runs2sigs_upd_resp_some</a></li>
+<li><a href=#m1_kerberos-ir_runs2sigs_upd_init_some2_raw>ir_runs2sigs_upd_init_some2_raw</a></li>
+<li><a href=#m1_kerberos-ir_runs2sigs_upd_init_some2>ir_runs2sigs_upd_init_some2</a></li>
+<li><a href=#m1_kerberos-PO_m1_step1_refines_ir_a0ii_skip>PO_m1_step1_refines_ir_a0ii_skip</a></li>
+<li><a href=#m1_kerberos-PO_m1_step2_refines_ir_a0ii_skip>PO_m1_step2_refines_ir_a0ii_skip</a></li>
+<li><a href=#m1_kerberos-PO_m1_step3_refines_ir_a0ii_skip>PO_m1_step3_refines_ir_a0ii_skip</a></li>
+<li><a href=#m1_kerberos-PO_m1_step4_refines_ir_a0ii_skip>PO_m1_step4_refines_ir_a0ii_skip</a></li>
+<li><a href=#m1_kerberos-PO_m1_step5_refines_ir_a0ii_running>PO_m1_step5_refines_ir_a0ii_running</a></li>
+<li><a href=#m1_kerberos-PO_m1_step6_refines_ir_a0ii_commit>PO_m1_step6_refines_ir_a0ii_commit</a></li>
+<li><a href=#m1_kerberos-PO_m1_leak_refines_ir_a0ii_skip>PO_m1_leak_refines_ir_a0ii_skip</a></li>
+<li><a href=#m1_kerberos-PO_m1_tick_refines_ir_a0ii_skip>PO_m1_tick_refines_ir_a0ii_skip</a></li>
+<li><a href=#m1_kerberos-PO_m1_purge_refines_ir_a0ii_skip>PO_m1_purge_refines_ir_a0ii_skip</a></li>
+<li><a href=#m1_kerberos-PO_m1_refines_init_ir_a0ii>PO_m1_refines_init_ir_a0ii</a></li>
+<li><a href=#m1_kerberos-PO_m1_refines_trans_ir_a0ii>PO_m1_refines_trans_ir_a0ii</a></li>
+<li><a href=#m1_kerberos-obs_consistent_med_a0iim1_ir>obs_consistent_med_a0iim1_ir</a></li>
+<li><a href=#m1_kerberos-PO_m1_refines_a0ii_ir>PO_m1_refines_a0ii_ir</a></li>
+<li><a href=#m1_kerberos-m1_implements_a0ii_ir>m1_implements_a0ii_ir</a></li>
+</ul>
+</li><li><a href=#m2_kerberos>m2_kerberos</a>
+<ul>
+<li><a href=#m2_kerberos-PO_m2_inv1_keys_init>PO_m2_inv1_keys_init</a></li>
+<li><a href=#m2_kerberos-PO_m2_inv1_keys_trans>PO_m2_inv1_keys_trans</a></li>
+<li><a href=#m2_kerberos-PO_m2_inv1_keys>PO_m2_inv1_keys</a></li>
+<li><a href=#m2_kerberos-PO_m2_inv2_keys_for_init>PO_m2_inv2_keys_for_init</a></li>
+<li><a href=#m2_kerberos-PO_m2_inv2_keys_for_trans>PO_m2_inv2_keys_for_trans</a></li>
+<li><a href=#m2_kerberos-PO_m2_inv2_keys_for>PO_m2_inv2_keys_for</a></li>
+<li><a href=#m2_kerberos-PO_m2_inv3a_sesK_compr_init>PO_m2_inv3a_sesK_compr_init</a></li>
+<li><a href=#m2_kerberos-PO_m2_inv3a_sesK_compr_trans>PO_m2_inv3a_sesK_compr_trans</a></li>
+<li><a href=#m2_kerberos-PO_m2_inv3a_sesK_compr>PO_m2_inv3a_sesK_compr</a></li>
+<li><a href=#m2_kerberos-PO_m2_inv3b_leak_init>PO_m2_inv3b_leak_init</a></li>
+<li><a href=#m2_kerberos-PO_m2_inv3b_leak_trans>PO_m2_inv3b_leak_trans</a></li>
+<li><a href=#m2_kerberos-PO_m2_inv3b_leak>PO_m2_inv3b_leak</a></li>
+<li><a href=#m2_kerberos-PO_m2_inv3_extrKey_init>PO_m2_inv3_extrKey_init</a></li>
+<li><a href=#m2_kerberos-PO_m2_inv3_extrKey_trans>PO_m2_inv3_extrKey_trans</a></li>
+<li><a href=#m2_kerberos-PO_m2_inv3_extrKey>PO_m2_inv3_extrKey</a></li>
+<li><a href=#m2_kerberos-PO_m2_inv4_M2a_init>PO_m2_inv4_M2a_init</a></li>
+<li><a href=#m2_kerberos-PO_m2_inv4_M2a_trans>PO_m2_inv4_M2a_trans</a></li>
+<li><a href=#m2_kerberos-PO_m2_inv4_M2a>PO_m2_inv4_M2a</a></li>
+<li><a href=#m2_kerberos-PO_m2_inv4_M2b_init>PO_m2_inv4_M2b_init</a></li>
+<li><a href=#m2_kerberos-PO_m2_inv4_M2b_trans>PO_m2_inv4_M2b_trans</a></li>
+<li><a href=#m2_kerberos-PO_m2_inv4_M2b>PO_m2_inv4_M2b</a></li>
+<li><a href=#m2_kerberos-m2_inv4_M2a_M2b_match>m2_inv4_M2a_M2b_match</a></li>
+<li><a href=#m2_kerberos-m2_inv34_M2a_authorized>m2_inv34_M2a_authorized</a></li>
+<li><a href=#m2_kerberos-m2_inv34_M2b_authorized>m2_inv34_M2b_authorized</a></li>
+<li><a href=#m2_kerberos-m2_inv5_ikk_sv_derived>m2_inv5_ikk_sv_derived</a></li>
+<li><a href=#m2_kerberos-PO_m2_inv5_ikk_sv>PO_m2_inv5_ikk_sv</a></li>
+<li><a href=#m2_kerberos-PO_m2_inv8_M4_init>PO_m2_inv8_M4_init</a></li>
+<li><a href=#m2_kerberos-PO_m2_inv8_M4_trans>PO_m2_inv8_M4_trans</a></li>
+<li><a href=#m2_kerberos-PO_m2_inv8_M4>PO_m2_inv8_M4</a></li>
+<li><a href=#m2_kerberos-PO_m2_inv9a_init_M2a_init>PO_m2_inv9a_init_M2a_init</a></li>
+<li><a href=#m2_kerberos-PO_m2_inv9a_init_M2a_trans>PO_m2_inv9a_init_M2a_trans</a></li>
+<li><a href=#m2_kerberos-PO_m2_inv9a_init_M2a>PO_m2_inv9a_init_M2a</a></li>
+<li><a href=#m2_kerberos-PO_m2_inv9_M3_init>PO_m2_inv9_M3_init</a></li>
+<li><a href=#m2_kerberos-PO_m2_inv9_M3_trans>PO_m2_inv9_M3_trans</a></li>
+<li><a href=#m2_kerberos-PO_m2_inv9_M3>PO_m2_inv9_M3</a></li>
+<li><a href=#m2_kerberos-PO_m2_step1_refines_m1_step1>PO_m2_step1_refines_m1_step1</a></li>
+<li><a href=#m2_kerberos-PO_m2_step2_refines_m1_step2>PO_m2_step2_refines_m1_step2</a></li>
+<li><a href=#m2_kerberos-PO_m2_step3_refines_m1_step3>PO_m2_step3_refines_m1_step3</a></li>
+<li><a href=#m2_kerberos-PO_m2_step4_refines_m1_step4>PO_m2_step4_refines_m1_step4</a></li>
+<li><a href=#m2_kerberos-PO_m2_step5_refines_m1_step5>PO_m2_step5_refines_m1_step5</a></li>
+<li><a href=#m2_kerberos-PO_m2_step6_refines_m1_step6>PO_m2_step6_refines_m1_step6</a></li>
+<li><a href=#m2_kerberos-PO_m2_tick_refines_m1_tick>PO_m2_tick_refines_m1_tick</a></li>
+<li><a href=#m2_kerberos-PO_m2_purge_refines_m1_purge>PO_m2_purge_refines_m1_purge</a></li>
+<li><a href=#m2_kerberos-PO_m2_leak_refines_leak>PO_m2_leak_refines_leak</a></li>
+<li><a href=#m2_kerberos-PO_m2_fake_refines_skip>PO_m2_fake_refines_skip</a></li>
+<li><a href=#m2_kerberos-PO_m2_refines_init_m1>PO_m2_refines_init_m1</a></li>
+<li><a href=#m2_kerberos-PO_m2_refines_trans_m1>PO_m2_refines_trans_m1</a></li>
+<li><a href=#m2_kerberos-PO_obs_consistent_R12>PO_obs_consistent_R12</a></li>
+<li><a href=#m2_kerberos-m2_refines_m1>m2_refines_m1</a></li>
+<li><a href=#m2_kerberos-m2_implements_m1>m2_implements_m1</a></li>
+<li><a href=#m2_kerberos-PO_m2_sat_m1_inv2i_serv>PO_m2_sat_m1_inv2i_serv</a></li>
+<li><a href=#m2_kerberos-PO_m2_sat_m1_inv2r_serv>PO_m2_sat_m1_inv2r_serv</a></li>
+<li><a href=#m2_kerberos-PO_m2_inv6_init_ikk>PO_m2_inv6_init_ikk</a></li>
+<li><a href=#m2_kerberos-PO_m2_inv6_resp_ikk>PO_m2_inv6_resp_ikk</a></li>
+</ul>
+</li><li><a href=#m3_kerberos_par>m3_kerberos_par</a>
+<ul>
+<li><a href=#m3_kerberos_par-corrKey_shrK_bad>corrKey_shrK_bad</a></li>
+<li><a href=#m3_kerberos_par-PO_m3_inv1_lkeysec_init>PO_m3_inv1_lkeysec_init</a></li>
+<li><a href=#m3_kerberos_par-PO_m3_inv1_lkeysec_trans>PO_m3_inv1_lkeysec_trans</a></li>
+<li><a href=#m3_kerberos_par-PO_m3_inv1_lkeysec>PO_m3_inv1_lkeysec</a></li>
+<li><a href=#m3_kerberos_par-m3_inv1_lkeysec_for_parts>m3_inv1_lkeysec_for_parts</a></li>
+<li><a href=#m3_kerberos_par-m3_inv1_lkeysec_for_analz>m3_inv1_lkeysec_for_analz</a></li>
+<li><a href=#m3_kerberos_par-abs_msg_empty>abs_msg_empty</a></li>
+<li><a href=#m3_kerberos_par-abs_msg_Un>abs_msg_Un</a></li>
+<li><a href=#m3_kerberos_par-abs_msg_mono>abs_msg_mono</a></li>
+<li><a href=#m3_kerberos_par-abs_msg_insert_mono>abs_msg_insert_mono</a></li>
+<li><a href=#m3_kerberos_par-abs_msg_DY_subset_fakeable>abs_msg_DY_subset_fakeable</a></li>
+<li><a href=#m3_kerberos_par-PO_m3_step1_refines_m2_step1>PO_m3_step1_refines_m2_step1</a></li>
+<li><a href=#m3_kerberos_par-PO_m3_step2_refines_m2_step2>PO_m3_step2_refines_m2_step2</a></li>
+<li><a href=#m3_kerberos_par-PO_m3_step3_refines_m2_step3>PO_m3_step3_refines_m2_step3</a></li>
+<li><a href=#m3_kerberos_par-PO_m3_step4_refines_m2_step4>PO_m3_step4_refines_m2_step4</a></li>
+<li><a href=#m3_kerberos_par-PO_m3_step5_refines_m2_step5>PO_m3_step5_refines_m2_step5</a></li>
+<li><a href=#m3_kerberos_par-PO_m3_step6_refines_m2_step6>PO_m3_step6_refines_m2_step6</a></li>
+<li><a href=#m3_kerberos_par-PO_m3_tick_refines_m2_tick>PO_m3_tick_refines_m2_tick</a></li>
+<li><a href=#m3_kerberos_par-PO_m3_purge_refines_m2_purge>PO_m3_purge_refines_m2_purge</a></li>
+<li><a href=#m3_kerberos_par-PO_m3_leak_refines_m2_leak>PO_m3_leak_refines_m2_leak</a></li>
+<li><a href=#m3_kerberos_par-PO_m3_DY_fake_refines_m2_fake>PO_m3_DY_fake_refines_m2_fake</a></li>
+<li><a href=#m3_kerberos_par-PO_m3_refines_init_m2>PO_m3_refines_init_m2</a></li>
+<li><a href=#m3_kerberos_par-PO_m3_refines_trans_m2>PO_m3_refines_trans_m2</a></li>
+<li><a href=#m3_kerberos_par-PO_m3_observation_consistent>PO_m3_observation_consistent</a></li>
+<li><a href=#m3_kerberos_par-m3_refines_m2>m3_refines_m2</a></li>
+<li><a href=#m3_kerberos_par-m3_implements_m2>m3_implements_m2</a></li>
+<li><a href=#m3_kerberos_par-PO_m3_inv3_ikk_init>PO_m3_inv3_ikk_init</a></li>
+<li><a href=#m3_kerberos_par-PO_m3_inv4_ikk_resp>PO_m3_inv4_ikk_resp</a></li>
+</ul>
+</li><li><a href=#m3_kerberos5>m3_kerberos5</a>
+<ul>
+<li><a href=#m3_kerberos5-corrKey_shrK_bad>corrKey_shrK_bad</a></li>
+<li><a href=#m3_kerberos5-PO_m3_inv1_lkeysec_init>PO_m3_inv1_lkeysec_init</a></li>
+<li><a href=#m3_kerberos5-PO_m3_inv1_lkeysec_trans>PO_m3_inv1_lkeysec_trans</a></li>
+<li><a href=#m3_kerberos5-PO_m3_inv1_lkeysec>PO_m3_inv1_lkeysec</a></li>
+<li><a href=#m3_kerberos5-m3_inv1_lkeysec_for_parts>m3_inv1_lkeysec_for_parts</a></li>
+<li><a href=#m3_kerberos5-m3_inv1_lkeysec_for_analz>m3_inv1_lkeysec_for_analz</a></li>
+<li><a href=#m3_kerberos5-abs_msg_empty>abs_msg_empty</a></li>
+<li><a href=#m3_kerberos5-abs_msg_Un>abs_msg_Un</a></li>
+<li><a href=#m3_kerberos5-abs_msg_mono>abs_msg_mono</a></li>
+<li><a href=#m3_kerberos5-abs_msg_insert_mono>abs_msg_insert_mono</a></li>
+<li><a href=#m3_kerberos5-abs_msg_DY_subset_fakeable>abs_msg_DY_subset_fakeable</a></li>
+<li><a href=#m3_kerberos5-PO_m3_step1_refines_m2_step1>PO_m3_step1_refines_m2_step1</a></li>
+<li><a href=#m3_kerberos5-PO_m3_step2_refines_m2_step2>PO_m3_step2_refines_m2_step2</a></li>
+<li><a href=#m3_kerberos5-PO_m3_step3_refines_m2_step3>PO_m3_step3_refines_m2_step3</a></li>
+<li><a href=#m3_kerberos5-PO_m3_step4_refines_m2_step4>PO_m3_step4_refines_m2_step4</a></li>
+<li><a href=#m3_kerberos5-PO_m3_step5_refines_m2_step5>PO_m3_step5_refines_m2_step5</a></li>
+<li><a href=#m3_kerberos5-PO_m3_step6_refines_m2_step6>PO_m3_step6_refines_m2_step6</a></li>
+<li><a href=#m3_kerberos5-PO_m3_tick_refines_m2_tick>PO_m3_tick_refines_m2_tick</a></li>
+<li><a href=#m3_kerberos5-PO_m3_purge_refines_m2_purge>PO_m3_purge_refines_m2_purge</a></li>
+<li><a href=#m3_kerberos5-PO_m3_leak_refines_m2_leak>PO_m3_leak_refines_m2_leak</a></li>
+<li><a href=#m3_kerberos5-PO_m3_DY_fake_refines_m2_fake>PO_m3_DY_fake_refines_m2_fake</a></li>
+<li><a href=#m3_kerberos5-PO_m3_refines_init_m2>PO_m3_refines_init_m2</a></li>
+<li><a href=#m3_kerberos5-PO_m3_refines_trans_m2>PO_m3_refines_trans_m2</a></li>
+<li><a href=#m3_kerberos5-PO_m3_observation_consistent>PO_m3_observation_consistent</a></li>
+<li><a href=#m3_kerberos5-m3_refines_m2>m3_refines_m2</a></li>
+<li><a href=#m3_kerberos5-m3_implements_m2>m3_implements_m2</a></li>
+<li><a href=#m3_kerberos5-PO_m3_inv3_ikk_init>PO_m3_inv3_ikk_init</a></li>
+<li><a href=#m3_kerberos5-PO_m3_inv4_ikk_resp>PO_m3_inv4_ikk_resp</a></li>
+</ul>
+</li><li><a href=#m3_kerberos4>m3_kerberos4</a>
+<ul>
+<li><a href=#m3_kerberos4-corrKey_shrK_bad>corrKey_shrK_bad</a></li>
+<li><a href=#m3_kerberos4-PO_m3_inv4_lkeysec_init>PO_m3_inv4_lkeysec_init</a></li>
+<li><a href=#m3_kerberos4-PO_m3_inv4_lkeysec_trans>PO_m3_inv4_lkeysec_trans</a></li>
+<li><a href=#m3_kerberos4-PO_m3_inv4_lkeysec>PO_m3_inv4_lkeysec</a></li>
+<li><a href=#m3_kerberos4-m3_inv4_lkeysec_for_parts>m3_inv4_lkeysec_for_parts</a></li>
+<li><a href=#m3_kerberos4-m3_inv4_lkeysec_for_analz>m3_inv4_lkeysec_for_analz</a></li>
+<li><a href=#m3_kerberos4-PO_m3_inv6_ticket_init>PO_m3_inv6_ticket_init</a></li>
+<li><a href=#m3_kerberos4-PO_m3_inv6_ticket_trans>PO_m3_inv6_ticket_trans</a></li>
+<li><a href=#m3_kerberos4-PO_m3_inv6_ticket>PO_m3_inv6_ticket</a></li>
+<li><a href=#m3_kerberos4-PO_m3_inv7a_sesK_compr_step4>PO_m3_inv7a_sesK_compr_step4</a></li>
+<li><a href=#m3_kerberos4-PO_m3_inv7a_sesK_compr_init>PO_m3_inv7a_sesK_compr_init</a></li>
+<li><a href=#m3_kerberos4-PO_m3_inv7a_sesK_compr_trans>PO_m3_inv7a_sesK_compr_trans</a></li>
+<li><a href=#m3_kerberos4-PO_m3_inv7a_sesK_compr>PO_m3_inv7a_sesK_compr</a></li>
+<li><a href=#m3_kerberos4-PO_m3_inv7b_sesK_compr_non_step3>PO_m3_inv7b_sesK_compr_non_step3</a></li>
+<li><a href=#m3_kerberos4-PO_m3_inv7b_sesK_compr_non_step4>PO_m3_inv7b_sesK_compr_non_step4</a></li>
+<li><a href=#m3_kerberos4-PO_m3_inv7b_sesK_compr_non_init>PO_m3_inv7b_sesK_compr_non_init</a></li>
+<li><a href=#m3_kerberos4-PO_m3_inv7b_sesK_compr_non_trans>PO_m3_inv7b_sesK_compr_non_trans</a></li>
+<li><a href=#m3_kerberos4-PO_m3_inv7b_sesK_compr_non>PO_m3_inv7b_sesK_compr_non</a></li>
+<li><a href=#m3_kerberos4-abs_msg_empty>abs_msg_empty</a></li>
+<li><a href=#m3_kerberos4-abs_msg_Un>abs_msg_Un</a></li>
+<li><a href=#m3_kerberos4-abs_msg_mono>abs_msg_mono</a></li>
+<li><a href=#m3_kerberos4-abs_msg_insert_mono>abs_msg_insert_mono</a></li>
+<li><a href=#m3_kerberos4-abs_msg_DY_subset_fakeable>abs_msg_DY_subset_fakeable</a></li>
+<li><a href=#m3_kerberos4-PO_m3_step1_refines_m2_step1>PO_m3_step1_refines_m2_step1</a></li>
+<li><a href=#m3_kerberos4-PO_m3_step2_refines_m2_step2>PO_m3_step2_refines_m2_step2</a></li>
+<li><a href=#m3_kerberos4-PO_m3_step3_refines_m2_step3>PO_m3_step3_refines_m2_step3</a></li>
+<li><a href=#m3_kerberos4-PO_m3_step4_refines_m2_step4>PO_m3_step4_refines_m2_step4</a></li>
+<li><a href=#m3_kerberos4-PO_m3_step5_refines_m2_step5>PO_m3_step5_refines_m2_step5</a></li>
+<li><a href=#m3_kerberos4-PO_m3_step6_refines_m2_step6>PO_m3_step6_refines_m2_step6</a></li>
+<li><a href=#m3_kerberos4-PO_m3_tick_refines_m2_tick>PO_m3_tick_refines_m2_tick</a></li>
+<li><a href=#m3_kerberos4-PO_m3_purge_refines_m2_purge>PO_m3_purge_refines_m2_purge</a></li>
+<li><a href=#m3_kerberos4-PO_m3_leak_refines_m2_leak>PO_m3_leak_refines_m2_leak</a></li>
+<li><a href=#m3_kerberos4-PO_m3_DY_fake_refines_m2_fake>PO_m3_DY_fake_refines_m2_fake</a></li>
+<li><a href=#m3_kerberos4-PO_m3_refines_init_m2>PO_m3_refines_init_m2</a></li>
+<li><a href=#m3_kerberos4-PO_m3_refines_trans_m2>PO_m3_refines_trans_m2</a></li>
+<li><a href=#m3_kerberos4-PO_m3_observation_consistent>PO_m3_observation_consistent</a></li>
+<li><a href=#m3_kerberos4-m3_refines_m2>m3_refines_m2</a></li>
+<li><a href=#m3_kerberos4-m3_implements_m2>m3_implements_m2</a></li>
+<li><a href=#m3_kerberos4-PO_m3_inv3_ikk_init>PO_m3_inv3_ikk_init</a></li>
+<li><a href=#m3_kerberos4-PO_m3_inv4_ikk_resp>PO_m3_inv4_ikk_resp</a></li>
+</ul>
+</li><li><a href=#m1_nssk>m1_nssk</a>
+<ul>
+<li><a href=#m1_nssk-m1_obs_id>m1_obs_id</a></li>
+<li><a href=#m1_nssk-PO_m1_inv0_fin_init>PO_m1_inv0_fin_init</a></li>
+<li><a href=#m1_nssk-PO_m1_inv0_fin_trans>PO_m1_inv0_fin_trans</a></li>
+<li><a href=#m1_nssk-PO_m1_inv0_fin>PO_m1_inv0_fin</a></li>
+<li><a href=#m1_nssk-knC_runs1a1>knC_runs1a1</a></li>
+<li><a href=#m1_nssk-PO_m1_step1_refines_m1a_step1>PO_m1_step1_refines_m1a_step1</a></li>
+<li><a href=#m1_nssk-PO_m1_step2_refines_m1a_step2>PO_m1_step2_refines_m1a_step2</a></li>
+<li><a href=#m1_nssk-PO_m1_step3_refines_m1a_step3>PO_m1_step3_refines_m1a_step3</a></li>
+<li><a href=#m1_nssk-PO_m1_step4_refines_m1a_step4>PO_m1_step4_refines_m1a_step4</a></li>
+<li><a href=#m1_nssk-PO_m1_step5_refines_m1a_step5>PO_m1_step5_refines_m1a_step5</a></li>
+<li><a href=#m1_nssk-PO_m1_step6_refines_m1a_skip>PO_m1_step6_refines_m1a_skip</a></li>
+<li><a href=#m1_nssk-PO_m1_step7_refines_m1a_skip>PO_m1_step7_refines_m1a_skip</a></li>
+<li><a href=#m1_nssk-PO_m1_leak_refines_m1a_leak>PO_m1_leak_refines_m1a_leak</a></li>
+<li><a href=#m1_nssk-PO_m1_refines_init_m1a>PO_m1_refines_init_m1a</a></li>
+<li><a href=#m1_nssk-PO_m1_refines_trans_m1a>PO_m1_refines_trans_m1a</a></li>
+<li><a href=#m1_nssk-obs_consistent_med1a1>obs_consistent_med1a1</a></li>
+<li><a href=#m1_nssk-PO_m1_refines_m1a>PO_m1_refines_m1a</a></li>
+<li><a href=#m1_nssk-m1_implements_m1a>m1_implements_m1a</a></li>
+<li><a href=#m1_nssk-PO_m1_obs_secrecy>PO_m1_obs_secrecy</a></li>
+<li><a href=#m1_nssk-PO_m1_secrecy>PO_m1_secrecy</a></li>
+<li><a href=#m1_nssk-PO_m1_inv2i_serv>PO_m1_inv2i_serv</a></li>
+<li><a href=#m1_nssk-PO_m1_inv2r_serv>PO_m1_inv2r_serv</a></li>
+<li><a href=#m1_nssk-PO_m1_inv3_ifresh>PO_m1_inv3_ifresh</a></li>
+<li><a href=#m1_nssk-ir_runs2sigs_empty>ir_runs2sigs_empty</a></li>
+<li><a href=#m1_nssk-finite_ir_commit>finite_ir_commit</a></li>
+<li><a href=#m1_nssk-ir_runs2sigs_upd_init_none>ir_runs2sigs_upd_init_none</a></li>
+<li><a href=#m1_nssk-ir_runs2sigs_upd_resp_none>ir_runs2sigs_upd_resp_none</a></li>
+<li><a href=#m1_nssk-ir_runs2sigs_upd_serv_none>ir_runs2sigs_upd_serv_none</a></li>
+<li><a href=#m1_nssk-ir_runs2sigs_upd_init_some>ir_runs2sigs_upd_init_some</a></li>
+<li><a href=#m1_nssk-ir_runs2sigs_upd_resp>ir_runs2sigs_upd_resp</a></li>
+<li><a href=#m1_nssk-ir_runs2sigs_upd_init>ir_runs2sigs_upd_init</a></li>
+<li><a href=#m1_nssk-ir_runs2sigs_upd_resp_some>ir_runs2sigs_upd_resp_some</a></li>
+<li><a href=#m1_nssk-m1_inv2i_serv_lemma>m1_inv2i_serv_lemma</a></li>
+<li><a href=#m1_nssk-PO_m1_step1_refines_ir_a0i_skip>PO_m1_step1_refines_ir_a0i_skip</a></li>
+<li><a href=#m1_nssk-PO_m1_step2_refines_ir_a0i_skip>PO_m1_step2_refines_ir_a0i_skip</a></li>
+<li><a href=#m1_nssk-PO_m1_step3_refines_ir_a0i_skip>PO_m1_step3_refines_ir_a0i_skip</a></li>
+<li><a href=#m1_nssk-PO_m1_step4_refines_ir_a0i_skip>PO_m1_step4_refines_ir_a0i_skip</a></li>
+<li><a href=#m1_nssk-PO_m1_step5_refines_ir_a0i_running>PO_m1_step5_refines_ir_a0i_running</a></li>
+<li><a href=#m1_nssk-PO_m1_step6_refines_ir_a0i_commit>PO_m1_step6_refines_ir_a0i_commit</a></li>
+<li><a href=#m1_nssk-PO_m1_step7_refines_ir_a0i_skip>PO_m1_step7_refines_ir_a0i_skip</a></li>
+<li><a href=#m1_nssk-PO_m1_leak_refines_ir_a0i_corrupt>PO_m1_leak_refines_ir_a0i_corrupt</a></li>
+<li><a href=#m1_nssk-PO_m1_refines_ir_init_a0i>PO_m1_refines_ir_init_a0i</a></li>
+<li><a href=#m1_nssk-PO_m1_refines_ir_trans_a0i>PO_m1_refines_ir_trans_a0i</a></li>
+<li><a href=#m1_nssk-obs_consistent_med_a0im1_ir>obs_consistent_med_a0im1_ir</a></li>
+<li><a href=#m1_nssk-PO_m1_refines_ir_a0i>PO_m1_refines_ir_a0i</a></li>
+<li><a href=#m1_nssk-m1_implements_ir_a0i>m1_implements_ir_a0i</a></li>
+<li><a href=#m1_nssk-ri_runs2sigs_empty>ri_runs2sigs_empty</a></li>
+<li><a href=#m1_nssk-finite_inv_ri_running>finite_inv_ri_running</a></li>
+<li><a href=#m1_nssk-ri_runs2sigs_upd_init_none>ri_runs2sigs_upd_init_none</a></li>
+<li><a href=#m1_nssk-ri_runs2sigs_upd_resp_none>ri_runs2sigs_upd_resp_none</a></li>
+<li><a href=#m1_nssk-ri_runs2sigs_upd_serv_none>ri_runs2sigs_upd_serv_none</a></li>
+<li><a href=#m1_nssk-ri_runs2sigs_upd_init>ri_runs2sigs_upd_init</a></li>
+<li><a href=#m1_nssk-ri_runs2sigs_upd_init_some>ri_runs2sigs_upd_init_some</a></li>
+<li><a href=#m1_nssk-ri_runs2sigs_upd_resp_some>ri_runs2sigs_upd_resp_some</a></li>
+<li><a href=#m1_nssk-ri_runs2sigs_upd_resp_some2>ri_runs2sigs_upd_resp_some2</a></li>
+<li><a href=#m1_nssk-PO_m1_step1_refines_ri_a0i_skip>PO_m1_step1_refines_ri_a0i_skip</a></li>
+<li><a href=#m1_nssk-PO_m1_step2_refines_ri_a0i_skip>PO_m1_step2_refines_ri_a0i_skip</a></li>
+<li><a href=#m1_nssk-PO_m1_step3_refines_ri_a0i_skip>PO_m1_step3_refines_ri_a0i_skip</a></li>
+<li><a href=#m1_nssk-PO_m1_step4_refines_ri_a0i_skip>PO_m1_step4_refines_ri_a0i_skip</a></li>
+<li><a href=#m1_nssk-PO_m1_step5_refines_ri_a0i_skip>PO_m1_step5_refines_ri_a0i_skip</a></li>
+<li><a href=#m1_nssk-PO_m1_step6_refines_ri_a0i_running>PO_m1_step6_refines_ri_a0i_running</a></li>
+<li><a href=#m1_nssk-PO_m1_step7_refines_ri_a0i_commit>PO_m1_step7_refines_ri_a0i_commit</a></li>
+<li><a href=#m1_nssk-PO_m1_leak_refines_ri_a0i_corrupt>PO_m1_leak_refines_ri_a0i_corrupt</a></li>
+<li><a href=#m1_nssk-PO_m1_refines_ri_init_a0i>PO_m1_refines_ri_init_a0i</a></li>
+<li><a href=#m1_nssk-PO_m1_refines_ri_trans_a0i>PO_m1_refines_ri_trans_a0i</a></li>
+<li><a href=#m1_nssk-obs_consistent_med_a0im1_ri>obs_consistent_med_a0im1_ri</a></li>
+<li><a href=#m1_nssk-PO_m1_refines_ri_a0i>PO_m1_refines_ri_a0i</a></li>
+<li><a href=#m1_nssk-m1_implements_ri_a0i>m1_implements_ri_a0i</a></li>
+<li><a href=#m1_nssk-PO_m1_inv3r_init>PO_m1_inv3r_init</a></li>
+<li><a href=#m1_nssk-PO_m1_inv4_rfresh_init>PO_m1_inv4_rfresh_init</a></li>
+<li><a href=#m1_nssk-PO_m1_inv4_rfresh_trans>PO_m1_inv4_rfresh_trans</a></li>
+<li><a href=#m1_nssk-PO_m1_inv4_rfresh>PO_m1_inv4_rfresh</a></li>
+<li><a href=#m1_nssk-PO_m1_obs_inv4_rfresh>PO_m1_obs_inv4_rfresh</a></li>
+</ul>
+</li><li><a href=#m2_nssk>m2_nssk</a>
+<ul>
+<li><a href=#m2_nssk-PO_m2_inv1_keys_init>PO_m2_inv1_keys_init</a></li>
+<li><a href=#m2_nssk-PO_m2_inv1_keys_trans>PO_m2_inv1_keys_trans</a></li>
+<li><a href=#m2_nssk-PO_m2_inv1_keys>PO_m2_inv1_keys</a></li>
+<li><a href=#m2_nssk-PO_m2_inv2_keys_for_init>PO_m2_inv2_keys_for_init</a></li>
+<li><a href=#m2_nssk-PO_m2_inv2_keys_for_trans>PO_m2_inv2_keys_for_trans</a></li>
+<li><a href=#m2_nssk-PO_m2_inv2_keys_for>PO_m2_inv2_keys_for</a></li>
+<li><a href=#m2_nssk-m2_inv2_keys_for__extr_insert_key>m2_inv2_keys_for__extr_insert_key</a></li>
+<li><a href=#m2_nssk-PO_m2_inv2b_corrKey_leaked_init>PO_m2_inv2b_corrKey_leaked_init</a></li>
+<li><a href=#m2_nssk-PO_m2_inv2b_corrKey_leaked_trans>PO_m2_inv2b_corrKey_leaked_trans</a></li>
+<li><a href=#m2_nssk-PO_m2_inv2b_corrKey_leaked>PO_m2_inv2b_corrKey_leaked</a></li>
+<li><a href=#m2_nssk-PO_m2_inv3a_sesK_compr_init>PO_m2_inv3a_sesK_compr_init</a></li>
+<li><a href=#m2_nssk-PO_m2_inv3a_sesK_compr_trans>PO_m2_inv3a_sesK_compr_trans</a></li>
+<li><a href=#m2_nssk-PO_m2_inv3a_sesK_compr>PO_m2_inv3a_sesK_compr</a></li>
+<li><a href=#m2_nssk-PO_m2_inv3b_sesK_compr_non_init>PO_m2_inv3b_sesK_compr_non_init</a></li>
+<li><a href=#m2_nssk-PO_m2_inv3b_sesK_compr_non_trans>PO_m2_inv3b_sesK_compr_non_trans</a></li>
+<li><a href=#m2_nssk-PO_m2_inv3b_sesK_compr_non>PO_m2_inv3b_sesK_compr_non</a></li>
+<li><a href=#m2_nssk-PO_m2_inv3_extrKey_init>PO_m2_inv3_extrKey_init</a></li>
+<li><a href=#m2_nssk-PO_m2_inv3_extrKey_trans>PO_m2_inv3_extrKey_trans</a></li>
+<li><a href=#m2_nssk-PO_m2_inv3_extrKey>PO_m2_inv3_extrKey</a></li>
+<li><a href=#m2_nssk-PO_m2_inv4_M2_init>PO_m2_inv4_M2_init</a></li>
+<li><a href=#m2_nssk-PO_m2_inv4_M2_trans>PO_m2_inv4_M2_trans</a></li>
+<li><a href=#m2_nssk-PO_m2_inv4_M2>PO_m2_inv4_M2</a></li>
+<li><a href=#m2_nssk-PO_m2_inv4_M3_init>PO_m2_inv4_M3_init</a></li>
+<li><a href=#m2_nssk-PO_m2_inv4_M3_trans>PO_m2_inv4_M3_trans</a></li>
+<li><a href=#m2_nssk-PO_m2_inv4_M3>PO_m2_inv4_M3</a></li>
+<li><a href=#m2_nssk-m2_inv4_M2_M3_unique_names>m2_inv4_M2_M3_unique_names</a></li>
+<li><a href=#m2_nssk-m2_inv34_M2_authorized>m2_inv34_M2_authorized</a></li>
+<li><a href=#m2_nssk-m2_inv34_M3_authorized>m2_inv34_M3_authorized</a></li>
+<li><a href=#m2_nssk-m2_inv5_ikk_sv_derived>m2_inv5_ikk_sv_derived</a></li>
+<li><a href=#m2_nssk-PO_m2_inv5_ikk_sv>PO_m2_inv5_ikk_sv</a></li>
+<li><a href=#m2_nssk-PO_m2_inv8_M4_step1>PO_m2_inv8_M4_step1</a></li>
+<li><a href=#m2_nssk-PO_m2_inv8_M4_step2>PO_m2_inv8_M4_step2</a></li>
+<li><a href=#m2_nssk-PO_m2_inv8_M4_step3>PO_m2_inv8_M4_step3</a></li>
+<li><a href=#m2_nssk-PO_m2_inv8_M4_step4>PO_m2_inv8_M4_step4</a></li>
+<li><a href=#m2_nssk-PO_m2_inv8_M4_step5>PO_m2_inv8_M4_step5</a></li>
+<li><a href=#m2_nssk-PO_m2_inv8_M4_step6>PO_m2_inv8_M4_step6</a></li>
+<li><a href=#m2_nssk-PO_m2_inv8_M4_step7>PO_m2_inv8_M4_step7</a></li>
+<li><a href=#m2_nssk-PO_m2_inv8_M4_leak>PO_m2_inv8_M4_leak</a></li>
+<li><a href=#m2_nssk-PO_m2_inv8_M4_fake>PO_m2_inv8_M4_fake</a></li>
+<li><a href=#m2_nssk-PO_m2_inv8_M4_init>PO_m2_inv8_M4_init</a></li>
+<li><a href=#m2_nssk-PO_m2_inv8_M4_trans>PO_m2_inv8_M4_trans</a></li>
+<li><a href=#m2_nssk-PO_m2_inv8_M4>PO_m2_inv8_M4</a></li>
+<li><a href=#m2_nssk-PO_m2_inv8a_init_M2_init>PO_m2_inv8a_init_M2_init</a></li>
+<li><a href=#m2_nssk-PO_m2_inv8a_init_M2_trans>PO_m2_inv8a_init_M2_trans</a></li>
+<li><a href=#m2_nssk-PO_m2_inv8a_init_M2>PO_m2_inv8a_init_M2</a></li>
+<li><a href=#m2_nssk-PO_m2_inv9a_resp_M3_init>PO_m2_inv9a_resp_M3_init</a></li>
+<li><a href=#m2_nssk-PO_m2_inv9a_resp_M3_trans>PO_m2_inv9a_resp_M3_trans</a></li>
+<li><a href=#m2_nssk-PO_m2_inv9a_resp_M3>PO_m2_inv9a_resp_M3</a></li>
+<li><a href=#m2_nssk-PO_m2_inv9_M5_step1>PO_m2_inv9_M5_step1</a></li>
+<li><a href=#m2_nssk-PO_m2_inv9_M5_step2>PO_m2_inv9_M5_step2</a></li>
+<li><a href=#m2_nssk-PO_m2_inv9_M5_step3>PO_m2_inv9_M5_step3</a></li>
+<li><a href=#m2_nssk-PO_m2_inv9_M5_step4>PO_m2_inv9_M5_step4</a></li>
+<li><a href=#m2_nssk-PO_m2_inv9_M5_step5>PO_m2_inv9_M5_step5</a></li>
+<li><a href=#m2_nssk-PO_m2_inv9_M5_step6>PO_m2_inv9_M5_step6</a></li>
+<li><a href=#m2_nssk-PO_m2_inv9_M5_step7>PO_m2_inv9_M5_step7</a></li>
+<li><a href=#m2_nssk-PO_m2_inv9_M5_leak>PO_m2_inv9_M5_leak</a></li>
+<li><a href=#m2_nssk-PO_m2_inv9_M5_fake>PO_m2_inv9_M5_fake</a></li>
+<li><a href=#m2_nssk-PO_m2_inv9_M5_init>PO_m2_inv9_M5_init</a></li>
+<li><a href=#m2_nssk-PO_m2_inv9_M5_trans>PO_m2_inv9_M5_trans</a></li>
+<li><a href=#m2_nssk-PO_m2_inv9_M5>PO_m2_inv9_M5</a></li>
+<li><a href=#m2_nssk-PO_m2_step1_refines_m1_step1>PO_m2_step1_refines_m1_step1</a></li>
+<li><a href=#m2_nssk-PO_m2_step2_refines_m1_step2>PO_m2_step2_refines_m1_step2</a></li>
+<li><a href=#m2_nssk-PO_m2_step3_refines_m1_step3>PO_m2_step3_refines_m1_step3</a></li>
+<li><a href=#m2_nssk-PO_m2_step4_refines_m1_step4>PO_m2_step4_refines_m1_step4</a></li>
+<li><a href=#m2_nssk-PO_m2_step5_refines_m1_step5>PO_m2_step5_refines_m1_step5</a></li>
+<li><a href=#m2_nssk-PO_m2_step6_refines_m1_step6>PO_m2_step6_refines_m1_step6</a></li>
+<li><a href=#m2_nssk-PO_m2_step7_refines_m1_step7>PO_m2_step7_refines_m1_step7</a></li>
+<li><a href=#m2_nssk-PO_m2_leak_refines_leak>PO_m2_leak_refines_leak</a></li>
+<li><a href=#m2_nssk-PO_m2_fake_refines_skip>PO_m2_fake_refines_skip</a></li>
+<li><a href=#m2_nssk-m2_inv6_ikk_init_derived>m2_inv6_ikk_init_derived</a></li>
+<li><a href=#m2_nssk-m2_inv7_ikk_resp_derived>m2_inv7_ikk_resp_derived</a></li>
+<li><a href=#m2_nssk-PO_m2_refines_init_m1>PO_m2_refines_init_m1</a></li>
+<li><a href=#m2_nssk-PO_m2_refines_trans_m1>PO_m2_refines_trans_m1</a></li>
+<li><a href=#m2_nssk-PO_obs_consistent_R12>PO_obs_consistent_R12</a></li>
+<li><a href=#m2_nssk-m2_refines_m1>m2_refines_m1</a></li>
+<li><a href=#m2_nssk-m2_implements_m1>m2_implements_m1</a></li>
+<li><a href=#m2_nssk-PO_m2_sat_m1_inv2i_serv>PO_m2_sat_m1_inv2i_serv</a></li>
+<li><a href=#m2_nssk-PO_m2_sat_m1_inv2r_serv>PO_m2_sat_m1_inv2r_serv</a></li>
+<li><a href=#m2_nssk-PO_m2_inv6_init_ikk>PO_m2_inv6_init_ikk</a></li>
+<li><a href=#m2_nssk-PO_m2_inv6_resp_ikk>PO_m2_inv6_resp_ikk</a></li>
+</ul>
+</li><li><a href=#m3_nssk_par>m3_nssk_par</a>
+<ul>
+<li><a href=#m3_nssk_par-corrKey_shrK_bad>corrKey_shrK_bad</a></li>
+<li><a href=#m3_nssk_par-PO_m3_inv1_lkeysec_init>PO_m3_inv1_lkeysec_init</a></li>
+<li><a href=#m3_nssk_par-PO_m3_inv1_lkeysec_trans>PO_m3_inv1_lkeysec_trans</a></li>
+<li><a href=#m3_nssk_par-PO_m3_inv1_lkeysec>PO_m3_inv1_lkeysec</a></li>
+<li><a href=#m3_nssk_par-m3_inv1_lkeysec_for_parts>m3_inv1_lkeysec_for_parts</a></li>
+<li><a href=#m3_nssk_par-m3_inv1_lkeysec_for_analz>m3_inv1_lkeysec_for_analz</a></li>
+<li><a href=#m3_nssk_par-abs_msg_empty>abs_msg_empty</a></li>
+<li><a href=#m3_nssk_par-abs_msg_Un>abs_msg_Un</a></li>
+<li><a href=#m3_nssk_par-abs_msg_mono>abs_msg_mono</a></li>
+<li><a href=#m3_nssk_par-abs_msg_insert_mono>abs_msg_insert_mono</a></li>
+<li><a href=#m3_nssk_par-abs_msg_DY_subset_fakeable>abs_msg_DY_subset_fakeable</a></li>
+<li><a href=#m3_nssk_par-PO_m3_step1_refines_m2_step1>PO_m3_step1_refines_m2_step1</a></li>
+<li><a href=#m3_nssk_par-PO_m3_step2_refines_m2_step2>PO_m3_step2_refines_m2_step2</a></li>
+<li><a href=#m3_nssk_par-PO_m3_step3_refines_m2_step3>PO_m3_step3_refines_m2_step3</a></li>
+<li><a href=#m3_nssk_par-PO_m3_step4_refines_m2_step4>PO_m3_step4_refines_m2_step4</a></li>
+<li><a href=#m3_nssk_par-PO_m3_step5_refines_m2_step5>PO_m3_step5_refines_m2_step5</a></li>
+<li><a href=#m3_nssk_par-PO_m3_step6_refines_m2_step6>PO_m3_step6_refines_m2_step6</a></li>
+<li><a href=#m3_nssk_par-PO_m3_step7_refines_m2_step7>PO_m3_step7_refines_m2_step7</a></li>
+<li><a href=#m3_nssk_par-PO_m3_leak_refines_m2_leak>PO_m3_leak_refines_m2_leak</a></li>
+<li><a href=#m3_nssk_par-PO_m3_DY_fake_refines_m2_fake>PO_m3_DY_fake_refines_m2_fake</a></li>
+<li><a href=#m3_nssk_par-PO_m3_refines_init_m2>PO_m3_refines_init_m2</a></li>
+<li><a href=#m3_nssk_par-PO_m3_refines_trans_m2>PO_m3_refines_trans_m2</a></li>
+<li><a href=#m3_nssk_par-PO_m3_observation_consistent>PO_m3_observation_consistent</a></li>
+<li><a href=#m3_nssk_par-m3_refines_m2>m3_refines_m2</a></li>
+<li><a href=#m3_nssk_par-m3_implements_m2>m3_implements_m2</a></li>
+<li><a href=#m3_nssk_par-PO_m3_inv4_ikk_init>PO_m3_inv4_ikk_init</a></li>
+<li><a href=#m3_nssk_par-PO_m3_inv4_ikk_resp>PO_m3_inv4_ikk_resp</a></li>
+</ul>
+</li><li><a href=#m3_nssk>m3_nssk</a>
+<ul>
+<li><a href=#m3_nssk-corrKey_shrK_bad>corrKey_shrK_bad</a></li>
+<li><a href=#m3_nssk-PO_m3_inv1_lkeysec_init>PO_m3_inv1_lkeysec_init</a></li>
+<li><a href=#m3_nssk-PO_m3_inv1_lkeysec_trans>PO_m3_inv1_lkeysec_trans</a></li>
+<li><a href=#m3_nssk-PO_m3_inv1_lkeysec>PO_m3_inv1_lkeysec</a></li>
+<li><a href=#m3_nssk-m3_inv1_lkeysec_for_parts>m3_inv1_lkeysec_for_parts</a></li>
+<li><a href=#m3_nssk-m3_inv1_lkeysec_for_analz>m3_inv1_lkeysec_for_analz</a></li>
+<li><a href=#m3_nssk-PO_m3_inv2_ticket_init>PO_m3_inv2_ticket_init</a></li>
+<li><a href=#m3_nssk-PO_m3_inv2_ticket_trans>PO_m3_inv2_ticket_trans</a></li>
+<li><a href=#m3_nssk-PO_m3_inv2_ticket>PO_m3_inv2_ticket</a></li>
+<li><a href=#m3_nssk-PO_m3_inv3_sesK_compr_step4>PO_m3_inv3_sesK_compr_step4</a></li>
+<li><a href=#m3_nssk-PO_m3_inv3_sesK_compr_init>PO_m3_inv3_sesK_compr_init</a></li>
+<li><a href=#m3_nssk-PO_m3_inv3_sesK_compr_trans>PO_m3_inv3_sesK_compr_trans</a></li>
+<li><a href=#m3_nssk-PO_m3_inv3_sesK_compr>PO_m3_inv3_sesK_compr</a></li>
+<li><a href=#m3_nssk-abs_msg_empty>abs_msg_empty</a></li>
+<li><a href=#m3_nssk-abs_msg_Un>abs_msg_Un</a></li>
+<li><a href=#m3_nssk-abs_msg_mono>abs_msg_mono</a></li>
+<li><a href=#m3_nssk-abs_msg_insert_mono>abs_msg_insert_mono</a></li>
+<li><a href=#m3_nssk-abs_msg_DY_subset_fakeable>abs_msg_DY_subset_fakeable</a></li>
+<li><a href=#m3_nssk-PO_m3_step1_refines_m2_step1>PO_m3_step1_refines_m2_step1</a></li>
+<li><a href=#m3_nssk-PO_m3_step2_refines_m2_step2>PO_m3_step2_refines_m2_step2</a></li>
+<li><a href=#m3_nssk-PO_m3_step3_refines_m2_step3>PO_m3_step3_refines_m2_step3</a></li>
+<li><a href=#m3_nssk-PO_m3_step4_refines_m2_step4>PO_m3_step4_refines_m2_step4</a></li>
+<li><a href=#m3_nssk-PO_m3_step5_refines_m2_step5>PO_m3_step5_refines_m2_step5</a></li>
+<li><a href=#m3_nssk-PO_m3_step6_refines_m2_step6>PO_m3_step6_refines_m2_step6</a></li>
+<li><a href=#m3_nssk-PO_m3_step7_refines_m2_step7>PO_m3_step7_refines_m2_step7</a></li>
+<li><a href=#m3_nssk-PO_m3_leak_refines_m2_leak>PO_m3_leak_refines_m2_leak</a></li>
+<li><a href=#m3_nssk-PO_m3_DY_fake_refines_m2_fake>PO_m3_DY_fake_refines_m2_fake</a></li>
+<li><a href=#m3_nssk-PO_m3_refines_init_m2>PO_m3_refines_init_m2</a></li>
+<li><a href=#m3_nssk-PO_m3_refines_trans_m2>PO_m3_refines_trans_m2</a></li>
+<li><a href=#m3_nssk-PO_m3_observation_consistent>PO_m3_observation_consistent</a></li>
+<li><a href=#m3_nssk-m3_refines_m2>m3_refines_m2</a></li>
+<li><a href=#m3_nssk-m3_implements_m2>m3_implements_m2</a></li>
+<li><a href=#m3_nssk-PO_m3_inv4_ikk_init>PO_m3_inv4_ikk_init</a></li>
+<li><a href=#m3_nssk-PO_m3_inv4_ikk_resp>PO_m3_inv4_ikk_resp</a></li>
+</ul>
+</li><li><a href=#m1_ds>m1_ds</a>
+<ul>
+<li><a href=#m1_ds-m1_obs_id>m1_obs_id</a></li>
+<li><a href=#m1_ds-PO_m1_inv0_fin_init>PO_m1_inv0_fin_init</a></li>
+<li><a href=#m1_ds-PO_m1_inv0_fin_trans>PO_m1_inv0_fin_trans</a></li>
+<li><a href=#m1_ds-PO_m1_inv0_fin>PO_m1_inv0_fin</a></li>
+<li><a href=#m1_ds-PO_m1_step1_refines_m1a_step1>PO_m1_step1_refines_m1a_step1</a></li>
+<li><a href=#m1_ds-PO_m1_step2_refines_m1a_step2>PO_m1_step2_refines_m1a_step2</a></li>
+<li><a href=#m1_ds-PO_m1_step3_refines_m1a_step3>PO_m1_step3_refines_m1a_step3</a></li>
+<li><a href=#m1_ds-PO_m1_step4_refines_m1a_step4>PO_m1_step4_refines_m1a_step4</a></li>
+<li><a href=#m1_ds-PO_m1_step5_refines_m1a_step5>PO_m1_step5_refines_m1a_step5</a></li>
+<li><a href=#m1_ds-PO_m1_leak_refines_m1a_leak>PO_m1_leak_refines_m1a_leak</a></li>
+<li><a href=#m1_ds-PO_m1_tick_refines_m1a_skip>PO_m1_tick_refines_m1a_skip</a></li>
+<li><a href=#m1_ds-PO_m1_refines_init_m1a>PO_m1_refines_init_m1a</a></li>
+<li><a href=#m1_ds-PO_m1_refines_trans_m1a>PO_m1_refines_trans_m1a</a></li>
+<li><a href=#m1_ds-obs_consistent_med1a1>obs_consistent_med1a1</a></li>
+<li><a href=#m1_ds-PO_m1_refines_m1a>PO_m1_refines_m1a</a></li>
+<li><a href=#m1_ds-m1_implements_m1>m1_implements_m1</a></li>
+</ul>
+</li><li><a href=#m2_ds>m2_ds</a>
+<ul>
+<li><a href=#m2_ds-PO_m2_inv3a_sesK_compr_init>PO_m2_inv3a_sesK_compr_init</a></li>
+<li><a href=#m2_ds-PO_m2_inv3a_sesK_compr_trans>PO_m2_inv3a_sesK_compr_trans</a></li>
+<li><a href=#m2_ds-PO_m2_inv3a_sesK_compr>PO_m2_inv3a_sesK_compr</a></li>
+<li><a href=#m2_ds-PO_m2_inv3_extrKey_init>PO_m2_inv3_extrKey_init</a></li>
+<li><a href=#m2_ds-PO_m2_inv3_extrKey_trans>PO_m2_inv3_extrKey_trans</a></li>
+<li><a href=#m2_ds-PO_m2_inv3_extrKey>PO_m2_inv3_extrKey</a></li>
+<li><a href=#m2_ds-PO_m2_inv4_M2a_init>PO_m2_inv4_M2a_init</a></li>
+<li><a href=#m2_ds-PO_m2_inv4_M2a_trans>PO_m2_inv4_M2a_trans</a></li>
+<li><a href=#m2_ds-PO_m2_inv4_M2a>PO_m2_inv4_M2a</a></li>
+<li><a href=#m2_ds-PO_m2_inv4_M2b_init>PO_m2_inv4_M2b_init</a></li>
+<li><a href=#m2_ds-PO_m2_inv4_M2b_trans>PO_m2_inv4_M2b_trans</a></li>
+<li><a href=#m2_ds-PO_m2_inv4_M2b>PO_m2_inv4_M2b</a></li>
+<li><a href=#m2_ds-m2_inv4_M2a_M2b_match>m2_inv4_M2a_M2b_match</a></li>
+<li><a href=#m2_ds-m2_inv34_M2a_authorized>m2_inv34_M2a_authorized</a></li>
+<li><a href=#m2_ds-m2_inv34_M2b_authorized>m2_inv34_M2b_authorized</a></li>
+<li><a href=#m2_ds-PO_m2_inv5_ikk_sv_init>PO_m2_inv5_ikk_sv_init</a></li>
+<li><a href=#m2_ds-PO_m2_inv5_ikk_sv_trans>PO_m2_inv5_ikk_sv_trans</a></li>
+<li><a href=#m2_ds-PO_m2_inv5_ikk_sv>PO_m2_inv5_ikk_sv</a></li>
+<li><a href=#m2_ds-PO_m2_step1_refines_m1_step1>PO_m2_step1_refines_m1_step1</a></li>
+<li><a href=#m2_ds-PO_m2_step2_refines_m1_step2>PO_m2_step2_refines_m1_step2</a></li>
+<li><a href=#m2_ds-PO_m2_step3_refines_m1_step3>PO_m2_step3_refines_m1_step3</a></li>
+<li><a href=#m2_ds-PO_m2_step4_refines_m1_step4>PO_m2_step4_refines_m1_step4</a></li>
+<li><a href=#m2_ds-PO_m2_step5_refines_m1_step5>PO_m2_step5_refines_m1_step5</a></li>
+<li><a href=#m2_ds-PO_m2_tick_refines_m1_tick>PO_m2_tick_refines_m1_tick</a></li>
+<li><a href=#m2_ds-PO_m2_leak_refines_m1_leak>PO_m2_leak_refines_m1_leak</a></li>
+<li><a href=#m2_ds-PO_m2_fake_refines_skip>PO_m2_fake_refines_skip</a></li>
+<li><a href=#m2_ds-PO_m2_refines_init_m1>PO_m2_refines_init_m1</a></li>
+<li><a href=#m2_ds-PO_m2_refines_trans_m1>PO_m2_refines_trans_m1</a></li>
+<li><a href=#m2_ds-PO_obs_consistent_R12>PO_obs_consistent_R12</a></li>
+<li><a href=#m2_ds-m2_refines_m1>m2_refines_m1</a></li>
+<li><a href=#m2_ds-m2_implements_m1>m2_implements_m1</a></li>
+</ul>
+</li><li><a href=#m3_ds_par>m3_ds_par</a>
+<ul>
+<li><a href=#m3_ds_par-corrKey_shrK_bad>corrKey_shrK_bad</a></li>
+<li><a href=#m3_ds_par-PO_m3_inv1_lkeysec_init>PO_m3_inv1_lkeysec_init</a></li>
+<li><a href=#m3_ds_par-PO_m3_inv1_lkeysec_trans>PO_m3_inv1_lkeysec_trans</a></li>
+<li><a href=#m3_ds_par-PO_m3_inv1_lkeysec>PO_m3_inv1_lkeysec</a></li>
+<li><a href=#m3_ds_par-m3_inv1_lkeysec_for_parts>m3_inv1_lkeysec_for_parts</a></li>
+<li><a href=#m3_ds_par-m3_inv1_lkeysec_for_analz>m3_inv1_lkeysec_for_analz</a></li>
+<li><a href=#m3_ds_par-abs_msg_empty>abs_msg_empty</a></li>
+<li><a href=#m3_ds_par-abs_msg_Un>abs_msg_Un</a></li>
+<li><a href=#m3_ds_par-abs_msg_mono>abs_msg_mono</a></li>
+<li><a href=#m3_ds_par-abs_msg_insert_mono>abs_msg_insert_mono</a></li>
+<li><a href=#m3_ds_par-abs_msg_DY_subset_fakeable>abs_msg_DY_subset_fakeable</a></li>
+<li><a href=#m3_ds_par-PO_m3_step1_refines_m2_step1>PO_m3_step1_refines_m2_step1</a></li>
+<li><a href=#m3_ds_par-PO_m3_step2_refines_m2_step2>PO_m3_step2_refines_m2_step2</a></li>
+<li><a href=#m3_ds_par-PO_m3_step3_refines_m2_step3>PO_m3_step3_refines_m2_step3</a></li>
+<li><a href=#m3_ds_par-PO_m3_step4_refines_m2_step4>PO_m3_step4_refines_m2_step4</a></li>
+<li><a href=#m3_ds_par-PO_m3_step5_refines_m2_step5>PO_m3_step5_refines_m2_step5</a></li>
+<li><a href=#m3_ds_par-PO_m3_tick_refines_m2_tick>PO_m3_tick_refines_m2_tick</a></li>
+<li><a href=#m3_ds_par-PO_m3_leak_refines_m2_leak>PO_m3_leak_refines_m2_leak</a></li>
+<li><a href=#m3_ds_par-PO_m3_DY_fake_refines_m2_fake>PO_m3_DY_fake_refines_m2_fake</a></li>
+<li><a href=#m3_ds_par-PO_m3_refines_init_m2>PO_m3_refines_init_m2</a></li>
+<li><a href=#m3_ds_par-PO_m3_refines_trans_m2>PO_m3_refines_trans_m2</a></li>
+<li><a href=#m3_ds_par-PO_m3_observation_consistent>PO_m3_observation_consistent</a></li>
+<li><a href=#m3_ds_par-m3_refines_m2>m3_refines_m2</a></li>
+<li><a href=#m3_ds_par-m3_implements_m2>m3_implements_m2</a></li>
+</ul>
+</li><li><a href=#m3_ds>m3_ds</a>
+<ul>
+<li><a href=#m3_ds-corrKey_shrK_bad>corrKey_shrK_bad</a></li>
+<li><a href=#m3_ds-PO_m3_inv1_lkeysec_init>PO_m3_inv1_lkeysec_init</a></li>
+<li><a href=#m3_ds-PO_m3_inv1_lkeysec_trans>PO_m3_inv1_lkeysec_trans</a></li>
+<li><a href=#m3_ds-PO_m3_inv1_lkeysec>PO_m3_inv1_lkeysec</a></li>
+<li><a href=#m3_ds-m3_inv1_lkeysec_for_parts>m3_inv1_lkeysec_for_parts</a></li>
+<li><a href=#m3_ds-m3_inv1_lkeysec_for_analz>m3_inv1_lkeysec_for_analz</a></li>
+<li><a href=#m3_ds-PO_m3_inv2_ticket_init>PO_m3_inv2_ticket_init</a></li>
+<li><a href=#m3_ds-PO_m3_inv2_ticket_trans>PO_m3_inv2_ticket_trans</a></li>
+<li><a href=#m3_ds-PO_m3_inv2_ticket>PO_m3_inv2_ticket</a></li>
+<li><a href=#m3_ds-PO_m3_inv3_sesK_compr_step4>PO_m3_inv3_sesK_compr_step4</a></li>
+<li><a href=#m3_ds-PO_m3_inv3_sesK_compr_init>PO_m3_inv3_sesK_compr_init</a></li>
+<li><a href=#m3_ds-PO_m3_inv3_sesK_compr_trans>PO_m3_inv3_sesK_compr_trans</a></li>
+<li><a href=#m3_ds-PO_m3_inv3_sesK_compr>PO_m3_inv3_sesK_compr</a></li>
+<li><a href=#m3_ds-abs_msg_empty>abs_msg_empty</a></li>
+<li><a href=#m3_ds-abs_msg_Un>abs_msg_Un</a></li>
+<li><a href=#m3_ds-abs_msg_mono>abs_msg_mono</a></li>
+<li><a href=#m3_ds-abs_msg_insert_mono>abs_msg_insert_mono</a></li>
+<li><a href=#m3_ds-abs_msg_DY_subset_fakeable>abs_msg_DY_subset_fakeable</a></li>
+<li><a href=#m3_ds-PO_m3_step1_refines_m2_step1>PO_m3_step1_refines_m2_step1</a></li>
+<li><a href=#m3_ds-PO_m3_step2_refines_m2_step2>PO_m3_step2_refines_m2_step2</a></li>
+<li><a href=#m3_ds-PO_m3_step3_refines_m2_step3>PO_m3_step3_refines_m2_step3</a></li>
+<li><a href=#m3_ds-PO_m3_step4_refines_m2_step4>PO_m3_step4_refines_m2_step4</a></li>
+<li><a href=#m3_ds-PO_m3_step5_refines_m2_step5>PO_m3_step5_refines_m2_step5</a></li>
+<li><a href=#m3_ds-PO_m3_tick_refines_m2_tick>PO_m3_tick_refines_m2_tick</a></li>
+<li><a href=#m3_ds-PO_m3_leak_refines_m2_leak>PO_m3_leak_refines_m2_leak</a></li>
+<li><a href=#m3_ds-PO_m3_DY_fake_refines_m2_fake>PO_m3_DY_fake_refines_m2_fake</a></li>
+<li><a href=#m3_ds-PO_m3_refines_init_m2>PO_m3_refines_init_m2</a></li>
+<li><a href=#m3_ds-PO_m3_refines_trans_m2>PO_m3_refines_trans_m2</a></li>
+<li><a href=#m3_ds-PO_m3_observation_consistent>PO_m3_observation_consistent</a></li>
+<li><a href=#m3_ds-m3_refines_m2>m3_refines_m2</a></li>
+<li><a href=#m3_ds-m3_implements_m2>m3_implements_m2</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<ul>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Security_Protocol_Refinement/outline.pdf>Proof
+outline</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Security_Protocol_Refinement/document.pdf>Proof
+document</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Security_Protocol_Refinement/session_graph.pdf>Theory dependencies</a></li>
+</ul>
+</div>
+</aside>
+<div class="content theories"><header>
+<form action=/%20search>
+<div class=form-container>
+<input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
+<datalist id=autocomplete>
+</datalist>
+</div>
+</form>
+<h1><span class=first>S</span>ession <span class=first>S</span>ecurity_<span class=first>P</span>rotocol_<span class=first>R</span>efinement</h1>
+<div>
+</div>
+</header><div id=banner data-id=0>
+<p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button>
+</div>
+<div><main>
+<div id=Infra>
+<div class=head>
+<h1>Theory Infra</h1>
+</div>
+<pre class=source><span class=comment1>(*******************************************************************************
 
   Project: Development of Security Protocols by Refinement
 
@@ -144,7 +1386,12 @@ doing this.›</span></span>
 
 
 
-</pre></div><div id=Refinement><div class=head><h1>Theory Refinement</h1></div><pre class=source><span class=comment1>(*******************************************************************************
+</pre>
+</div><div id=Refinement>
+<div class=head>
+<h1>Theory Refinement</h1>
+</div>
+<pre class=source><span class=comment1>(*******************************************************************************
 
   Project: Development of Security Protocols by Refinement
 
@@ -979,7 +2226,12 @@ to also refine the observables as we move down a refinement branch.
 
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Agents><div class=head><h1>Theory Agents</h1></div><pre class=source><span class=comment1>(*******************************************************************************
+</pre>
+</div><div id=Agents>
+<div class=head>
+<h1>Theory Agents</h1>
+</div>
+<pre class=source><span class=comment1>(*******************************************************************************
 
   Project: Development of Security Protocols by Refinement
 
@@ -1055,7 +2307,12 @@ For executability, we may need to assume that this type is infinite.›</span></
 
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Keys><div class=head><h1>Theory Keys</h1></div><pre class=source><span class=comment1>(*******************************************************************************  
+</pre>
+</div><div id=Keys>
+<div class=head>
+<h1>Theory Keys</h1>
+</div>
+<pre class=source><span class=comment1>(*******************************************************************************  
 
   Project: Development of Security Protocols by Refinement
 
@@ -1239,7 +2496,12 @@ keys are private!). A similar statement an axiom in Paulson's theory!›</span><
 <span class=keyword2><span class=keyword>end</span></span>
 
 
-</pre></div><div id=Atoms><div class=head><h1>Theory Atoms</h1></div><pre class=source><span class=comment1>(*******************************************************************************
+</pre>
+</div><div id=Atoms>
+<div class=head>
+<h1>Theory Atoms</h1>
+</div>
+<pre class=source><span class=comment1>(*******************************************************************************
 
   Project: Development of Security Protocols by Refinement
 
@@ -1309,7 +2571,12 @@ Level 3.›</span></span>
 
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Runs><div class=head><h1>Theory Runs</h1></div><pre class=source><span class=comment1>(*******************************************************************************
+</pre>
+</div><div id=Runs>
+<div class=head>
+<h1>Theory Runs</h1>
+</div>
+<pre class=source><span class=comment1>(*******************************************************************************
 
   Project: Development of Security Protocols by Refinement
 
@@ -1386,7 +2653,12 @@ to a function on runs.›</span></span>
 
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Channels><div class=head><h1>Theory Channels</h1></div><pre class=source><span class=comment1>(*******************************************************************************
+</pre>
+</div><div id=Channels>
+<div class=head>
+<h1>Theory Channels</h1>
+</div>
+<pre class=source><span class=comment1>(*******************************************************************************
 
   Project: Development of Security Protocols by Refinement
 
@@ -1791,7 +3063,12 @@ qed
 *)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Message><div class=head><h1>Theory Message</h1></div><pre class=source><span class=comment1>(*******************************************************************************
+</pre>
+</div><div id=Message>
+<div class=head>
+<h1>Theory Message</h1>
+</div>
+<pre class=source><span class=comment1>(*******************************************************************************
 
   Title:      HOL/Auth/Message
   Author:     Lawrence C Paulson, Cambridge University Computer Laboratory
@@ -2679,7 +3956,12 @@ rewritten, and others will not!›</span></span>
 
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=s0g_secrecy><div class=head><h1>Theory s0g_secrecy</h1></div><pre class=source><span class=comment1>(*******************************************************************************
+</pre>
+</div><div id=s0g_secrecy>
+<div class=head>
+<h1>Theory s0g_secrecy</h1>
+</div>
+<pre class=source><span class=comment1>(*******************************************************************************
 
   Project: Development of Security Protocols by Refinement
 
@@ -2908,7 +4190,12 @@ by someone.›</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
 
-</pre></div><div id=a0n_agree><div class=head><h1>Theory a0n_agree</h1></div><pre class=source><span class=comment1>(*******************************************************************************
+</pre>
+</div><div id=a0n_agree>
+<div class=head>
+<h1>Theory a0n_agree</h1>
+</div>
+<pre class=source><span class=comment1>(*******************************************************************************
 
   Project: Development of Security Protocols by Refinement
 
@@ -3107,7 +4394,12 @@ of the first with the second agent (by convention) in <span class=antiquoted><sp
 
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=a0i_agree><div class=head><h1>Theory a0i_agree</h1></div><pre class=source><span class=comment1>(*******************************************************************************
+</pre>
+</div><div id=a0i_agree>
+<div class=head>
+<h1>Theory a0i_agree</h1>
+</div>
+<pre class=source><span class=comment1>(*******************************************************************************
 
   Project: Development of Security Protocols by Refinement
 
@@ -3339,7 +4631,12 @@ of the first with the second agent (by convention) in <span class=antiquoted><sp
 
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=m1_auth><div class=head><h1>Theory m1_auth</h1></div><pre class=source><span class=comment1>(*******************************************************************************
+</pre>
+</div><div id=m1_auth>
+<div class=head>
+<h1>Theory m1_auth</h1>
+</div>
+<pre class=source><span class=comment1>(*******************************************************************************
 
   Project: Development of Security Protocols by Refinement
 
@@ -3591,7 +4888,12 @@ and responder runs to commit and running signals, respectively.›</span></span>
 
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=m2_auth_chan><div class=head><h1>Theory m2_auth_chan</h1></div><pre class=source><span class=comment1>(*******************************************************************************
+</pre>
+</div><div id=m2_auth_chan>
+<div class=head>
+<h1>Theory m2_auth_chan</h1>
+</div>
+<pre class=source><span class=comment1>(*******************************************************************************
 
   Project: Development of Security Protocols by Refinement
 
@@ -3865,7 +5167,12 @@ refinement.›</span></span>
 
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=m2_confid_chan><div class=head><h1>Theory m2_confid_chan</h1></div><pre class=source><span class=comment1>(*******************************************************************************
+</pre>
+</div><div id=m2_confid_chan>
+<div class=head>
+<h1>Theory m2_confid_chan</h1>
+</div>
+<pre class=source><span class=comment1>(*******************************************************************************
 
   Project: Development of Security Protocols by Refinement
 
@@ -4215,7 +5522,12 @@ for the case <span class=antiquoted><span class=antiquoted><span class=antiquote
 
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=m3_sig><div class=head><h1>Theory m3_sig</h1></div><pre class=source><span class=comment1>(*******************************************************************************
+</pre>
+</div><div id=m3_sig>
+<div class=head>
+<h1>Theory m3_sig</h1>
+</div>
+<pre class=source><span class=comment1>(*******************************************************************************
 
   Project: Development of Security Protocols by Refinement
 
@@ -4694,7 +6006,12 @@ messages. This is the key lemma for the refinement of the intruder.›</span></s
 <span class=keyword2><span class=keyword>end</span></span>
 
 
-</pre></div><div id=m3_enc><div class=head><h1>Theory m3_enc</h1></div><pre class=source><span class=comment1>(*******************************************************************************
+</pre>
+</div><div id=m3_enc>
+<div class=head>
+<h1>Theory m3_enc</h1>
+</div>
+<pre class=source><span class=comment1>(*******************************************************************************
 
   Project: Development of Security Protocols by Refinement
 
@@ -5099,7 +6416,12 @@ messages. This is the key lemma for the refinement of the intruder.›</span></s
 
 <span class=keyword2><span class=keyword>end</span></span>
 
-</pre></div><div id=m1_keydist><div class=head><h1>Theory m1_keydist</h1></div><pre class=source><span class=comment1>(*******************************************************************************
+</pre>
+</div><div id=m1_keydist>
+<div class=head>
+<h1>Theory m1_keydist</h1>
+</div>
+<pre class=source><span class=comment1>(*******************************************************************************
 
   Project: Development of Security Protocols by Refinement
 
@@ -5648,7 +6970,12 @@ in terms of the client and server run information.›</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
 
-</pre></div><div id=m1_keydist_iirn><div class=head><h1>Theory m1_keydist_iirn</h1></div><pre class=source><span class=comment1>(*******************************************************************************
+</pre>
+</div><div id=m1_keydist_iirn>
+<div class=head>
+<h1>Theory m1_keydist_iirn</h1>
+</div>
+<pre class=source><span class=comment1>(*******************************************************************************
 
   Project: Development of Security Protocols by Refinement
 
@@ -6527,7 +7854,12 @@ follows from the refinement and not needed here but later.›</span></span>
 
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=m1_keydist_inrn><div class=head><h1>Theory m1_keydist_inrn</h1></div><pre class=source><span class=comment1>(*******************************************************************************
+</pre>
+</div><div id=m1_keydist_inrn>
+<div class=head>
+<h1>Theory m1_keydist_inrn</h1>
+</div>
+<pre class=source><span class=comment1>(*******************************************************************************
 
   Project: Development of Security Protocols by Refinement
 
@@ -7223,7 +8555,12 @@ and responder runs to commit and running signals, respectively.›</span></span>
 
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=m1_kerberos><div class=head><h1>Theory m1_kerberos</h1></div><pre class=source><span class=comment1>(*******************************************************************************
+</pre>
+</div><div id=m1_kerberos>
+<div class=head>
+<h1>Theory m1_kerberos</h1>
+</div>
+<pre class=source><span class=comment1>(*******************************************************************************
 
   Project: Development of Security Protocols by Refinement
 
@@ -8452,7 +9789,12 @@ by (auto intro: finite_subset dest: dom_lemmas)
 
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=m2_kerberos><div class=head><h1>Theory m2_kerberos</h1></div><pre class=source><span class=comment1>(*******************************************************************************
+</pre>
+</div><div id=m2_kerberos>
+<div class=head>
+<h1>Theory m2_kerberos</h1>
+</div>
+<pre class=source><span class=comment1>(*******************************************************************************
 
   Project: Development of Security Protocols by Refinement
 
@@ -9517,7 +10859,12 @@ the responder on (A, B, Ta, Kab).›</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
 
-</pre></div><div id=m3_kerberos_par><div class=head><h1>Theory m3_kerberos_par</h1></div><pre class=source><span class=comment1>(*******************************************************************************
+</pre>
+</div><div id=m3_kerberos_par>
+<div class=head>
+<h1>Theory m3_kerberos_par</h1>
+</div>
+<pre class=source><span class=comment1>(*******************************************************************************
 
   Project: Development of Security Protocols by Refinement
 
@@ -10276,7 +11623,12 @@ apply (auto simp add: m2_inv3a_sesK_compr_simps m2_inv3b_sesK_compr_non_simps
 
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=m3_kerberos5><div class=head><h1>Theory m3_kerberos5</h1></div><pre class=source><span class=comment1>(*******************************************************************************
+</pre>
+</div><div id=m3_kerberos5>
+<div class=head>
+<h1>Theory m3_kerberos5</h1>
+</div>
+<pre class=source><span class=comment1>(*******************************************************************************
 
   Project: Development of Security Protocols by Refinement
 
@@ -11049,7 +12401,12 @@ agressive here.›</span></span>
 
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=m3_kerberos4><div class=head><h1>Theory m3_kerberos4</h1></div><pre class=source><span class=comment1>(*******************************************************************************
+</pre>
+</div><div id=m3_kerberos4>
+<div class=head>
+<h1>Theory m3_kerberos4</h1>
+</div>
+<pre class=source><span class=comment1>(*******************************************************************************
 
   Project: Development of Security Protocols by Refinement
 
@@ -12054,7 +13411,12 @@ agressive here.›</span></span>
 
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=m1_nssk><div class=head><h1>Theory m1_nssk</h1></div><pre class=source><span class=comment1>(*******************************************************************************
+</pre>
+</div><div id=m1_nssk>
+<div class=head>
+<h1>Theory m1_nssk</h1>
+</div>
+<pre class=source><span class=comment1>(*******************************************************************************
 
   Project: Development of Security Protocols by Refinement
 
@@ -13137,7 +14499,12 @@ follows from the refinement and is needed to prove inv4.›</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
 
-</pre></div><div id=m2_nssk><div class=head><h1>Theory m2_nssk</h1></div><pre class=source><span class=comment1>(*******************************************************************************
+</pre>
+</div><div id=m2_nssk>
+<div class=head>
+<h1>Theory m2_nssk</h1>
+</div>
+<pre class=source><span class=comment1>(*******************************************************************************
 
   Project: Development of Security Protocols by Refinement
 
@@ -14376,7 +15743,12 @@ the responder on (A, B, Nb, Kab).›</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
 
-</pre></div><div id=m3_nssk_par><div class=head><h1>Theory m3_nssk_par</h1></div><pre class=source><span class=comment1>(*******************************************************************************
+</pre>
+</div><div id=m3_nssk_par>
+<div class=head>
+<h1>Theory m3_nssk_par</h1>
+</div>
+<pre class=source><span class=comment1>(*******************************************************************************
 
   Project: Development of Security Protocols by Refinement
 
@@ -15130,7 +16502,12 @@ but not in concrete one, since here it is protected by A's encryption.
 
 <span class=keyword2><span class=keyword>end</span></span>
 
-</pre></div><div id=m3_nssk><div class=head><h1>Theory m3_nssk</h1></div><pre class=source><span class=comment1>(*******************************************************************************
+</pre>
+</div><div id=m3_nssk>
+<div class=head>
+<h1>Theory m3_nssk</h1>
+</div>
+<pre class=source><span class=comment1>(*******************************************************************************
 
   Project: Development of Security Protocols by Refinement
 
@@ -16055,7 +17432,12 @@ but not in concrete one, since here it is protected by A's encryption.
 
 <span class=keyword2><span class=keyword>end</span></span>
 
-</pre></div><div id=m1_ds><div class=head><h1>Theory m1_ds</h1></div><pre class=source><span class=comment1>(*******************************************************************************
+</pre>
+</div><div id=m1_ds>
+<div class=head>
+<h1>Theory m1_ds</h1>
+</div>
+<pre class=source><span class=comment1>(*******************************************************************************
 
   Project: Development of Security Protocols by Refinement
 
@@ -16372,7 +17754,12 @@ the responder/initiator agreement.›</span></span>
 
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=m2_ds><div class=head><h1>Theory m2_ds</h1></div><pre class=source><span class=comment1>(*******************************************************************************
+</pre>
+</div><div id=m2_ds>
+<div class=head>
+<h1>Theory m2_ds</h1>
+</div>
+<pre class=source><span class=comment1>(*******************************************************************************
 
   Project: Development of Security Protocols by Refinement
 
@@ -17156,7 +18543,12 @@ done
 
 <span class=keyword2><span class=keyword>end</span></span>
 
-</pre></div><div id=m3_ds_par><div class=head><h1>Theory m3_ds_par</h1></div><pre class=source><span class=comment1>(*******************************************************************************
+</pre>
+</div><div id=m3_ds_par>
+<div class=head>
+<h1>Theory m3_ds_par</h1>
+</div>
+<pre class=source><span class=comment1>(*******************************************************************************
 
   Project: Development of Security Protocols by Refinement
 
@@ -17761,7 +19153,12 @@ agressive here.›</span></span>
 
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=m3_ds><div class=head><h1>Theory m3_ds</h1></div><pre class=source><span class=comment1>(*******************************************************************************
+</pre>
+</div><div id=m3_ds>
+<div class=head>
+<h1>Theory m3_ds</h1>
+</div>
+<pre class=source><span class=comment1>(*******************************************************************************
 
   Project: Development of Security Protocols by Refinement
 
@@ -18517,4 +19914,10 @@ agressive here.›</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
 
-</pre></div></main></div></div></body></html>
+</pre>
+</div>
+</main>
+</div>
+</div>
+</body>
+</html>

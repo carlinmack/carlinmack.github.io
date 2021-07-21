@@ -1,7 +1,268 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Session Auto2_HOL - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session Auto2_HOL"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/auto2_hol/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Session Auto2_HOL"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css><link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script><script src=/js/banner.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><li><a href=/entries/auto2_hol>Return to entry</a></li></ul><hr><ul><li><a href=#HOL_Base>HOL_Base</a><ul><li><a href=#HOL_Base-atomize_conjL>atomize_conjL</a></li></ul></li><li><a href=#Auto2_HOL>Auto2_HOL</a></li><li><a href=#files%2fAFP%2fAuto2_HOL%2futil.ML>files/AFP/Auto2_HOL/util.ML</a></li><li><a href=#files%2fAFP%2fAuto2_HOL%2futil_base.ML>files/AFP/Auto2_HOL/util_base.ML</a></li><li><a href=#files%2fauto2_hol.ML>files/auto2_hol.ML</a></li><li><a href=#files%2fAFP%2fAuto2_HOL%2futil_logic.ML>files/AFP/Auto2_HOL/util_logic.ML</a></li><li><a href=#files%2fAFP%2fAuto2_HOL%2fbox_id.ML>files/AFP/Auto2_HOL/box_id.ML</a></li><li><a href=#files%2fAFP%2fAuto2_HOL%2fconsts.ML>files/AFP/Auto2_HOL/consts.ML</a></li><li><a href=#files%2fAFP%2fAuto2_HOL%2fproperty.ML>files/AFP/Auto2_HOL/property.ML</a></li><li><a href=#files%2fAFP%2fAuto2_HOL%2fwellform.ML>files/AFP/Auto2_HOL/wellform.ML</a></li><li><a href=#files%2fAFP%2fAuto2_HOL%2fwfterm.ML>files/AFP/Auto2_HOL/wfterm.ML</a></li><li><a href=#files%2fAFP%2fAuto2_HOL%2frewrite.ML>files/AFP/Auto2_HOL/rewrite.ML</a></li><li><a href=#files%2fAFP%2fAuto2_HOL%2fpropertydata.ML>files/AFP/Auto2_HOL/propertydata.ML</a></li><li><a href=#files%2fAFP%2fAuto2_HOL%2fmatcher.ML>files/AFP/Auto2_HOL/matcher.ML</a></li><li><a href=#files%2fAFP%2fAuto2_HOL%2fitems.ML>files/AFP/Auto2_HOL/items.ML</a></li><li><a href=#files%2fAFP%2fAuto2_HOL%2fwfdata.ML>files/AFP/Auto2_HOL/wfdata.ML</a></li><li><a href=#files%2fAFP%2fAuto2_HOL%2fauto2_data.ML>files/AFP/Auto2_HOL/auto2_data.ML</a></li><li><a href=#files%2fAFP%2fAuto2_HOL%2fstatus.ML>files/AFP/Auto2_HOL/status.ML</a></li><li><a href=#files%2fAFP%2fAuto2_HOL%2fnormalize.ML>files/AFP/Auto2_HOL/normalize.ML</a></li><li><a href=#files%2fAFP%2fAuto2_HOL%2fproofsteps.ML>files/AFP/Auto2_HOL/proofsteps.ML</a></li><li><a href=#files%2fAFP%2fAuto2_HOL%2fauto2_state.ML>files/AFP/Auto2_HOL/auto2_state.ML</a></li><li><a href=#files%2fAFP%2fAuto2_HOL%2flogic_steps.ML>files/AFP/Auto2_HOL/logic_steps.ML</a></li><li><a href=#files%2fAFP%2fAuto2_HOL%2fauto2.ML>files/AFP/Auto2_HOL/auto2.ML</a></li><li><a href=#files%2fAFP%2fAuto2_HOL%2fauto2_outer.ML>files/AFP/Auto2_HOL/auto2_outer.ML</a></li><li><a href=#files%2facdata.ML>files/acdata.ML</a></li><li><a href=#files%2fac_steps.ML>files/ac_steps.ML</a></li><li><a href=#files%2funfolding.ML>files/unfolding.ML</a></li><li><a href=#files%2finduct_outer.ML>files/induct_outer.ML</a></li><li><a href=#files%2fextra_hol.ML>files/extra_hol.ML</a></li><li><a href=#Logic_Thms>Logic_Thms</a><ul><li><a href=#Logic_Thms-exists_triv_eq>exists_triv_eq</a></li><li><a href=#Logic_Thms-if_eval%27>if_eval'</a></li><li><a href=#Logic_Thms-ifb_eval>ifb_eval</a></li><li><a href=#Logic_Thms-pair_inj>pair_inj</a></li></ul></li><li><a href=#Order_Thms>Order_Thms</a></li><li><a href=#files%2futil_arith.ML>files/util_arith.ML</a></li><li><a href=#Arith_Thms>Arith_Thms</a><ul><li><a href=#Arith_Thms-nat_sub_norm>nat_sub_norm</a></li><li><a href=#Arith_Thms-nat_sub1>nat_sub1</a></li><li><a href=#Arith_Thms-nat_sub2>nat_sub2</a></li><li><a href=#Arith_Thms-nat_sub3>nat_sub3</a></li><li><a href=#Arith_Thms-nat_sub_combine>nat_sub_combine</a></li><li><a href=#Arith_Thms-nat_sub_combine2>nat_sub_combine2</a></li><li><a href=#Arith_Thms-nat_sub_combine3>nat_sub_combine3</a></li><li><a href=#Arith_Thms-le_neq_implies_less%27>le_neq_implies_less'</a></li><li><a href=#Arith_Thms-le_zero_to_equal_zero>le_zero_to_equal_zero</a></li><li><a href=#Arith_Thms-less_one_to_equal_zero>less_one_to_equal_zero</a></li><li><a href=#Arith_Thms-not_minus_less>not_minus_less</a></li><li><a href=#Arith_Thms-nat_le_prod_with_same>nat_le_prod_with_same</a></li><li><a href=#Arith_Thms-nat_le_prod_with_le>nat_le_prod_with_le</a></li><li><a href=#Arith_Thms-nat_plus_le_to_less>nat_plus_le_to_less</a></li><li><a href=#Arith_Thms-nat_plus_le_to_less2>nat_plus_le_to_less2</a></li><li><a href=#Arith_Thms-nat_less_diff_conv>nat_less_diff_conv</a></li><li><a href=#Arith_Thms-Nat_le_diff_conv2_same>Nat_le_diff_conv2_same</a></li><li><a href=#Arith_Thms-nat_gt_zero>nat_gt_zero</a></li><li><a href=#Arith_Thms-n_minus_1_less_n>n_minus_1_less_n</a></li><li><a href=#Arith_Thms-add_mono_neutr>add_mono_neutr</a></li><li><a href=#Arith_Thms-add_mono_neutl>add_mono_neutl</a></li><li><a href=#Arith_Thms-sum_le_zero1>sum_le_zero1</a></li><li><a href=#Arith_Thms-less_sum1>less_sum1</a></li><li><a href=#Arith_Thms-nat_same_minus_ge>nat_same_minus_ge</a></li><li><a href=#Arith_Thms-diff_eq_zero>diff_eq_zero</a></li><li><a href=#Arith_Thms-diff_eq_zero%27>diff_eq_zero'</a></li><li><a href=#Arith_Thms-prod_ineqs1>prod_ineqs1</a></li><li><a href=#Arith_Thms-prod_ineqs2>prod_ineqs2</a></li><li><a href=#Arith_Thms-coprime_exp>coprime_exp</a></li><li><a href=#Arith_Thms-coprime_dvd_mult>coprime_dvd_mult</a></li><li><a href=#Arith_Thms-coprime_dvd_mult%27>coprime_dvd_mult'</a></li><li><a href=#Arith_Thms-one_is_power_of_any>one_is_power_of_any</a></li><li><a href=#Arith_Thms-nat_cases>nat_cases</a></li></ul></li><li><a href=#files%2farith.ML>files/arith.ML</a></li><li><a href=#files%2forder.ML>files/order.ML</a></li><li><a href=#files%2forder_test.ML>files/order_test.ML</a></li><li><a href=#files%2fnat_sub.ML>files/nat_sub.ML</a></li><li><a href=#files%2fnat_sub_test.ML>files/nat_sub_test.ML</a></li><li><a href=#Set_Thms>Set_Thms</a><ul><li><a href=#Set_Thms-ball_single>ball_single</a></li><li><a href=#Set_Thms-set_membership_distinct>set_membership_distinct</a></li><li><a href=#Set_Thms-non_empty_exist_elt>non_empty_exist_elt</a></li><li><a href=#Set_Thms-non_univ_exist_compl>non_univ_exist_compl</a></li><li><a href=#Set_Thms-set_ext>set_ext</a></li><li><a href=#Set_Thms-set_pair_ext>set_pair_ext</a></li><li><a href=#Set_Thms-UnD1>UnD1</a></li><li><a href=#Set_Thms-UnD2>UnD2</a></li><li><a href=#Set_Thms-UnD1_single>UnD1_single</a></li><li><a href=#Set_Thms-UnD2_single>UnD2_single</a></li><li><a href=#Set_Thms-UnI1_single>UnI1_single</a></li><li><a href=#Set_Thms-UnI2_single>UnI2_single</a></li><li><a href=#Set_Thms-union_single_eq>union_single_eq</a></li><li><a href=#Set_Thms-set_disjoint_mp>set_disjoint_mp</a></li><li><a href=#Set_Thms-set_disjoint_single>set_disjoint_single</a></li><li><a href=#Set_Thms-subset_single>subset_single</a></li><li><a href=#Set_Thms-union_is_subset>union_is_subset</a></li><li><a href=#Set_Thms-subset_union_same1>subset_union_same1</a></li><li><a href=#Set_Thms-subset_union_same2>subset_union_same2</a></li><li><a href=#Set_Thms-mem_diff>mem_diff</a></li><li><a href=#Set_Thms-set_union_minus_same1>set_union_minus_same1</a></li><li><a href=#Set_Thms-set_union_minus_same2>set_union_minus_same2</a></li><li><a href=#Set_Thms-set_union_minus_distinct>set_union_minus_distinct</a></li><li><a href=#Set_Thms-union_subtract_elt1>union_subtract_elt1</a></li><li><a href=#Set_Thms-union_subtract_elt2>union_subtract_elt2</a></li><li><a href=#Set_Thms-subset_sub1>subset_sub1</a></li><li><a href=#Set_Thms-member_notin>member_notin</a></li><li><a href=#Set_Thms-member_notin_contra>member_notin_contra</a></li><li><a href=#Set_Thms-set_finite_single>set_finite_single</a></li><li><a href=#Set_Thms-Max_ge%27>Max_ge'</a></li><li><a href=#Set_Thms-card_emptyD>card_emptyD</a></li><li><a href=#Set_Thms-card_minus1>card_minus1</a></li><li><a href=#Set_Thms-mset_member_empty>mset_member_empty</a></li><li><a href=#Set_Thms-mem_multiset_single>mem_multiset_single</a></li><li><a href=#Set_Thms-multi_contain_add_self1>multi_contain_add_self1</a></li><li><a href=#Set_Thms-multi_contain_add_self2>multi_contain_add_self2</a></li><li><a href=#Set_Thms-multi_member_this2>multi_member_this2</a></li><li><a href=#Set_Thms-multi_nonempty_split%27>multi_nonempty_split'</a></li><li><a href=#Set_Thms-multi_member_split%27>multi_member_split'</a></li></ul></li><li><a href=#Lists_Thms>Lists_Thms</a><ul><li><a href=#Lists_Thms-length_one>length_one</a></li><li><a href=#Lists_Thms-length_Cons>length_Cons</a></li><li><a href=#Lists_Thms-length_snoc>length_snoc</a></li><li><a href=#Lists_Thms-length_zero_is_nil>length_zero_is_nil</a></li><li><a href=#Lists_Thms-length_gt_zero>length_gt_zero</a></li><li><a href=#Lists_Thms-append_is_empty>append_is_empty</a></li><li><a href=#Lists_Thms-cons_to_append>cons_to_append</a></li><li><a href=#Lists_Thms-set_one>set_one</a></li><li><a href=#Lists_Thms-set_two>set_two</a></li><li><a href=#Lists_Thms-set_simps2>set_simps2</a></li><li><a href=#Lists_Thms-nth_tl%27>nth_tl'</a></li><li><a href=#Lists_Thms-set_tl_subset>set_tl_subset</a></li><li><a href=#Lists_Thms-sorted_Nil>sorted_Nil</a></li><li><a href=#Lists_Thms-sorted_single>sorted_single</a></li><li><a href=#Lists_Thms-sorted_ConsD1>sorted_ConsD1</a></li><li><a href=#Lists_Thms-sorted_ConsD2>sorted_ConsD2</a></li><li><a href=#Lists_Thms-sorted_appendI>sorted_appendI</a></li><li><a href=#Lists_Thms-sorted_appendE>sorted_appendE</a></li><li><a href=#Lists_Thms-sorted_appendE2>sorted_appendE2</a></li><li><a href=#Lists_Thms-sorted_nth_mono%27>sorted_nth_mono'</a></li><li><a href=#Lists_Thms-sorted_nth_mono_less>sorted_nth_mono_less</a></li><li><a href=#Lists_Thms-sort_Nil>sort_Nil</a></li><li><a href=#Lists_Thms-sort_singleton>sort_singleton</a></li><li><a href=#Lists_Thms-distinct_Nil>distinct_Nil</a></li><li><a href=#Lists_Thms-distinct_nthE>distinct_nthE</a></li><li><a href=#Lists_Thms-last_eval1>last_eval1</a></li><li><a href=#Lists_Thms-last_eval2>last_eval2</a></li><li><a href=#Lists_Thms-butlast_eval1>butlast_eval1</a></li><li><a href=#Lists_Thms-butlast_eval2>butlast_eval2</a></li><li><a href=#Lists_Thms-butlast_cons>butlast_cons</a></li><li><a href=#Lists_Thms-butlast_append%27>butlast_append'</a></li><li><a href=#Lists_Thms-set_butlast_is_subset>set_butlast_is_subset</a></li><li><a href=#Lists_Thms-length_take>length_take</a></li><li><a href=#Lists_Thms-nth_take>nth_take</a></li><li><a href=#Lists_Thms-take_length>take_length</a></li><li><a href=#Lists_Thms-take_Suc>take_Suc</a></li><li><a href=#Lists_Thms-nth_drop>nth_drop</a></li><li><a href=#Lists_Thms-mset_simps_2>mset_simps_2</a></li><li><a href=#Lists_Thms-in_mset_conv_nth>in_mset_conv_nth</a></li><li><a href=#Lists_Thms-hd_in_mset>hd_in_mset</a></li><li><a href=#Lists_Thms-last_in_mset>last_in_mset</a></li><li><a href=#Lists_Thms-mset_butlast>mset_butlast</a></li><li><a href=#Lists_Thms-insert_mset_to_set>insert_mset_to_set</a></li><li><a href=#Lists_Thms-delete_mset_to_set>delete_mset_to_set</a></li><li><a href=#Lists_Thms-update_mset_to_set>update_mset_to_set</a></li><li><a href=#Lists_Thms-mset_update%27>mset_update'</a></li><li><a href=#Lists_Thms-upt_zero_length>upt_zero_length</a></li><li><a href=#Lists_Thms-nth_upt_zero>nth_upt_zero</a></li><li><a href=#Lists_Thms-list_length>list_length</a></li><li><a href=#Lists_Thms-list_nth>list_nth</a></li></ul></li><li><a href=#files%2flist_ac.ML>files/list_ac.ML</a></li><li><a href=#files%2flist_ac_test.ML>files/list_ac_test.ML</a></li><li><a href=#Auto2_Main>Auto2_Main</a></li><li><a href=#Auto2_Test>Auto2_Test</a></li><li><a href=#files%2futil_test.ML>files/util_test.ML</a></li><li><a href=#files%2frewrite_test.ML>files/rewrite_test.ML</a></li><li><a href=#files%2fmatcher_test.ML>files/matcher_test.ML</a></li><li><a href=#files%2fnormalize_test.ML>files/normalize_test.ML</a></li><li><a href=#files%2flogic_steps_test.ML>files/logic_steps_test.ML</a></li><li><a href=#files%2facdata_test.ML>files/acdata_test.ML</a></li><li><a href=#Pelletier>Pelletier</a></li><li><a href=#Primes_Ex>Primes_Ex</a><ul><li><a href=#Primes_Ex-primeD1>primeD1</a></li><li><a href=#Primes_Ex-primeD2>primeD2</a></li><li><a href=#Primes_Ex-prime_odd_nat>prime_odd_nat</a></li><li><a href=#Primes_Ex-prime_imp_coprime_nat>prime_imp_coprime_nat</a></li><li><a href=#Primes_Ex-prime_dvd_mult_nat>prime_dvd_mult_nat</a></li><li><a href=#Primes_Ex-prime_dvd_mult_eq_nat>prime_dvd_mult_eq_nat</a></li><li><a href=#Primes_Ex-not_prime_eq_prod_nat>not_prime_eq_prod_nat</a></li><li><a href=#Primes_Ex-prime_dvd_power_nat>prime_dvd_power_nat</a></li><li><a href=#Primes_Ex-prime_dvd_power_nat_iff>prime_dvd_power_nat_iff</a></li><li><a href=#Primes_Ex-prime_nat_code>prime_nat_code</a></li><li><a href=#Primes_Ex-prime_factor_nat>prime_factor_nat</a></li><li><a href=#Primes_Ex-prime_divprod_pow_nat>prime_divprod_pow_nat</a></li><li><a href=#Primes_Ex-prime_product>prime_product</a></li><li><a href=#Primes_Ex-prime_exp>prime_exp</a></li><li><a href=#Primes_Ex-prime_power_mult>prime_power_mult</a></li></ul></li></ul></div><ul><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Auto2_HOL/outline.pdf>Proof
-outline</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Auto2_HOL/document.pdf>Proof
-document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Auto2_HOL/session_graph.pdf>Theory dependencies</a></li></ul></div></aside><div class="content theories"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
-<datalist id=autocomplete></datalist></div></form><h1><span class=first>S</span>ession <span class=first>A</span>uto2_<span class=first>H</span><span class=first>O</span><span class=first>L</span></h1><div></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><div id=HOL_Base><div class=head><h1>Theory HOL_Base</h1></div><pre class=source><span class=comment1>(*
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Session Auto2_HOL - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session Auto2_HOL">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="/entries/auto2_hol/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories">
+<meta property="og:site_name" content="Archive of Formal Proofs">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="/images/afp.png">
+<meta name=twitter:title content="Session Auto2_HOL">
+<meta name=twitter:description content>
+<link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css>
+<link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script>
+<script src=/js/banner.js></script><script src=/js/header-search.js></script></head>
+<body class=mathjax_ignore>
+<aside>
+<div>
+<div>
+<a href=/>
+<img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo>
+</a>
+<ul>
+<li><a href=/entries/auto2_hol>Return to entry</a></li>
+</ul>
+<hr>
+<ul><li><a href=#HOL_Base>HOL_Base</a>
+<ul>
+<li><a href=#HOL_Base-atomize_conjL>atomize_conjL</a></li>
+</ul>
+</li><li><a href=#Auto2_HOL>Auto2_HOL</a>
+</li><li><a href=#files%2fAFP%2fAuto2_HOL%2futil.ML>files/AFP/Auto2_HOL/util.ML</a>
+</li><li><a href=#files%2fAFP%2fAuto2_HOL%2futil_base.ML>files/AFP/Auto2_HOL/util_base.ML</a>
+</li><li><a href=#files%2fauto2_hol.ML>files/auto2_hol.ML</a>
+</li><li><a href=#files%2fAFP%2fAuto2_HOL%2futil_logic.ML>files/AFP/Auto2_HOL/util_logic.ML</a>
+</li><li><a href=#files%2fAFP%2fAuto2_HOL%2fbox_id.ML>files/AFP/Auto2_HOL/box_id.ML</a>
+</li><li><a href=#files%2fAFP%2fAuto2_HOL%2fconsts.ML>files/AFP/Auto2_HOL/consts.ML</a>
+</li><li><a href=#files%2fAFP%2fAuto2_HOL%2fproperty.ML>files/AFP/Auto2_HOL/property.ML</a>
+</li><li><a href=#files%2fAFP%2fAuto2_HOL%2fwellform.ML>files/AFP/Auto2_HOL/wellform.ML</a>
+</li><li><a href=#files%2fAFP%2fAuto2_HOL%2fwfterm.ML>files/AFP/Auto2_HOL/wfterm.ML</a>
+</li><li><a href=#files%2fAFP%2fAuto2_HOL%2frewrite.ML>files/AFP/Auto2_HOL/rewrite.ML</a>
+</li><li><a href=#files%2fAFP%2fAuto2_HOL%2fpropertydata.ML>files/AFP/Auto2_HOL/propertydata.ML</a>
+</li><li><a href=#files%2fAFP%2fAuto2_HOL%2fmatcher.ML>files/AFP/Auto2_HOL/matcher.ML</a>
+</li><li><a href=#files%2fAFP%2fAuto2_HOL%2fitems.ML>files/AFP/Auto2_HOL/items.ML</a>
+</li><li><a href=#files%2fAFP%2fAuto2_HOL%2fwfdata.ML>files/AFP/Auto2_HOL/wfdata.ML</a>
+</li><li><a href=#files%2fAFP%2fAuto2_HOL%2fauto2_data.ML>files/AFP/Auto2_HOL/auto2_data.ML</a>
+</li><li><a href=#files%2fAFP%2fAuto2_HOL%2fstatus.ML>files/AFP/Auto2_HOL/status.ML</a>
+</li><li><a href=#files%2fAFP%2fAuto2_HOL%2fnormalize.ML>files/AFP/Auto2_HOL/normalize.ML</a>
+</li><li><a href=#files%2fAFP%2fAuto2_HOL%2fproofsteps.ML>files/AFP/Auto2_HOL/proofsteps.ML</a>
+</li><li><a href=#files%2fAFP%2fAuto2_HOL%2fauto2_state.ML>files/AFP/Auto2_HOL/auto2_state.ML</a>
+</li><li><a href=#files%2fAFP%2fAuto2_HOL%2flogic_steps.ML>files/AFP/Auto2_HOL/logic_steps.ML</a>
+</li><li><a href=#files%2fAFP%2fAuto2_HOL%2fauto2.ML>files/AFP/Auto2_HOL/auto2.ML</a>
+</li><li><a href=#files%2fAFP%2fAuto2_HOL%2fauto2_outer.ML>files/AFP/Auto2_HOL/auto2_outer.ML</a>
+</li><li><a href=#files%2facdata.ML>files/acdata.ML</a>
+</li><li><a href=#files%2fac_steps.ML>files/ac_steps.ML</a>
+</li><li><a href=#files%2funfolding.ML>files/unfolding.ML</a>
+</li><li><a href=#files%2finduct_outer.ML>files/induct_outer.ML</a>
+</li><li><a href=#files%2fextra_hol.ML>files/extra_hol.ML</a>
+</li><li><a href=#Logic_Thms>Logic_Thms</a>
+<ul>
+<li><a href=#Logic_Thms-exists_triv_eq>exists_triv_eq</a></li>
+<li><a href=#Logic_Thms-if_eval%27>if_eval'</a></li>
+<li><a href=#Logic_Thms-ifb_eval>ifb_eval</a></li>
+<li><a href=#Logic_Thms-pair_inj>pair_inj</a></li>
+</ul>
+</li><li><a href=#Order_Thms>Order_Thms</a>
+</li><li><a href=#files%2futil_arith.ML>files/util_arith.ML</a>
+</li><li><a href=#Arith_Thms>Arith_Thms</a>
+<ul>
+<li><a href=#Arith_Thms-nat_sub_norm>nat_sub_norm</a></li>
+<li><a href=#Arith_Thms-nat_sub1>nat_sub1</a></li>
+<li><a href=#Arith_Thms-nat_sub2>nat_sub2</a></li>
+<li><a href=#Arith_Thms-nat_sub3>nat_sub3</a></li>
+<li><a href=#Arith_Thms-nat_sub_combine>nat_sub_combine</a></li>
+<li><a href=#Arith_Thms-nat_sub_combine2>nat_sub_combine2</a></li>
+<li><a href=#Arith_Thms-nat_sub_combine3>nat_sub_combine3</a></li>
+<li><a href=#Arith_Thms-le_neq_implies_less%27>le_neq_implies_less'</a></li>
+<li><a href=#Arith_Thms-le_zero_to_equal_zero>le_zero_to_equal_zero</a></li>
+<li><a href=#Arith_Thms-less_one_to_equal_zero>less_one_to_equal_zero</a></li>
+<li><a href=#Arith_Thms-not_minus_less>not_minus_less</a></li>
+<li><a href=#Arith_Thms-nat_le_prod_with_same>nat_le_prod_with_same</a></li>
+<li><a href=#Arith_Thms-nat_le_prod_with_le>nat_le_prod_with_le</a></li>
+<li><a href=#Arith_Thms-nat_plus_le_to_less>nat_plus_le_to_less</a></li>
+<li><a href=#Arith_Thms-nat_plus_le_to_less2>nat_plus_le_to_less2</a></li>
+<li><a href=#Arith_Thms-nat_less_diff_conv>nat_less_diff_conv</a></li>
+<li><a href=#Arith_Thms-Nat_le_diff_conv2_same>Nat_le_diff_conv2_same</a></li>
+<li><a href=#Arith_Thms-nat_gt_zero>nat_gt_zero</a></li>
+<li><a href=#Arith_Thms-n_minus_1_less_n>n_minus_1_less_n</a></li>
+<li><a href=#Arith_Thms-add_mono_neutr>add_mono_neutr</a></li>
+<li><a href=#Arith_Thms-add_mono_neutl>add_mono_neutl</a></li>
+<li><a href=#Arith_Thms-sum_le_zero1>sum_le_zero1</a></li>
+<li><a href=#Arith_Thms-less_sum1>less_sum1</a></li>
+<li><a href=#Arith_Thms-nat_same_minus_ge>nat_same_minus_ge</a></li>
+<li><a href=#Arith_Thms-diff_eq_zero>diff_eq_zero</a></li>
+<li><a href=#Arith_Thms-diff_eq_zero%27>diff_eq_zero'</a></li>
+<li><a href=#Arith_Thms-prod_ineqs1>prod_ineqs1</a></li>
+<li><a href=#Arith_Thms-prod_ineqs2>prod_ineqs2</a></li>
+<li><a href=#Arith_Thms-coprime_exp>coprime_exp</a></li>
+<li><a href=#Arith_Thms-coprime_dvd_mult>coprime_dvd_mult</a></li>
+<li><a href=#Arith_Thms-coprime_dvd_mult%27>coprime_dvd_mult'</a></li>
+<li><a href=#Arith_Thms-one_is_power_of_any>one_is_power_of_any</a></li>
+<li><a href=#Arith_Thms-nat_cases>nat_cases</a></li>
+</ul>
+</li><li><a href=#files%2farith.ML>files/arith.ML</a>
+</li><li><a href=#files%2forder.ML>files/order.ML</a>
+</li><li><a href=#files%2forder_test.ML>files/order_test.ML</a>
+</li><li><a href=#files%2fnat_sub.ML>files/nat_sub.ML</a>
+</li><li><a href=#files%2fnat_sub_test.ML>files/nat_sub_test.ML</a>
+</li><li><a href=#Set_Thms>Set_Thms</a>
+<ul>
+<li><a href=#Set_Thms-ball_single>ball_single</a></li>
+<li><a href=#Set_Thms-set_membership_distinct>set_membership_distinct</a></li>
+<li><a href=#Set_Thms-non_empty_exist_elt>non_empty_exist_elt</a></li>
+<li><a href=#Set_Thms-non_univ_exist_compl>non_univ_exist_compl</a></li>
+<li><a href=#Set_Thms-set_ext>set_ext</a></li>
+<li><a href=#Set_Thms-set_pair_ext>set_pair_ext</a></li>
+<li><a href=#Set_Thms-UnD1>UnD1</a></li>
+<li><a href=#Set_Thms-UnD2>UnD2</a></li>
+<li><a href=#Set_Thms-UnD1_single>UnD1_single</a></li>
+<li><a href=#Set_Thms-UnD2_single>UnD2_single</a></li>
+<li><a href=#Set_Thms-UnI1_single>UnI1_single</a></li>
+<li><a href=#Set_Thms-UnI2_single>UnI2_single</a></li>
+<li><a href=#Set_Thms-union_single_eq>union_single_eq</a></li>
+<li><a href=#Set_Thms-set_disjoint_mp>set_disjoint_mp</a></li>
+<li><a href=#Set_Thms-set_disjoint_single>set_disjoint_single</a></li>
+<li><a href=#Set_Thms-subset_single>subset_single</a></li>
+<li><a href=#Set_Thms-union_is_subset>union_is_subset</a></li>
+<li><a href=#Set_Thms-subset_union_same1>subset_union_same1</a></li>
+<li><a href=#Set_Thms-subset_union_same2>subset_union_same2</a></li>
+<li><a href=#Set_Thms-mem_diff>mem_diff</a></li>
+<li><a href=#Set_Thms-set_union_minus_same1>set_union_minus_same1</a></li>
+<li><a href=#Set_Thms-set_union_minus_same2>set_union_minus_same2</a></li>
+<li><a href=#Set_Thms-set_union_minus_distinct>set_union_minus_distinct</a></li>
+<li><a href=#Set_Thms-union_subtract_elt1>union_subtract_elt1</a></li>
+<li><a href=#Set_Thms-union_subtract_elt2>union_subtract_elt2</a></li>
+<li><a href=#Set_Thms-subset_sub1>subset_sub1</a></li>
+<li><a href=#Set_Thms-member_notin>member_notin</a></li>
+<li><a href=#Set_Thms-member_notin_contra>member_notin_contra</a></li>
+<li><a href=#Set_Thms-set_finite_single>set_finite_single</a></li>
+<li><a href=#Set_Thms-Max_ge%27>Max_ge'</a></li>
+<li><a href=#Set_Thms-card_emptyD>card_emptyD</a></li>
+<li><a href=#Set_Thms-card_minus1>card_minus1</a></li>
+<li><a href=#Set_Thms-mset_member_empty>mset_member_empty</a></li>
+<li><a href=#Set_Thms-mem_multiset_single>mem_multiset_single</a></li>
+<li><a href=#Set_Thms-multi_contain_add_self1>multi_contain_add_self1</a></li>
+<li><a href=#Set_Thms-multi_contain_add_self2>multi_contain_add_self2</a></li>
+<li><a href=#Set_Thms-multi_member_this2>multi_member_this2</a></li>
+<li><a href=#Set_Thms-multi_nonempty_split%27>multi_nonempty_split'</a></li>
+<li><a href=#Set_Thms-multi_member_split%27>multi_member_split'</a></li>
+</ul>
+</li><li><a href=#Lists_Thms>Lists_Thms</a>
+<ul>
+<li><a href=#Lists_Thms-length_one>length_one</a></li>
+<li><a href=#Lists_Thms-length_Cons>length_Cons</a></li>
+<li><a href=#Lists_Thms-length_snoc>length_snoc</a></li>
+<li><a href=#Lists_Thms-length_zero_is_nil>length_zero_is_nil</a></li>
+<li><a href=#Lists_Thms-length_gt_zero>length_gt_zero</a></li>
+<li><a href=#Lists_Thms-append_is_empty>append_is_empty</a></li>
+<li><a href=#Lists_Thms-cons_to_append>cons_to_append</a></li>
+<li><a href=#Lists_Thms-set_one>set_one</a></li>
+<li><a href=#Lists_Thms-set_two>set_two</a></li>
+<li><a href=#Lists_Thms-set_simps2>set_simps2</a></li>
+<li><a href=#Lists_Thms-nth_tl%27>nth_tl'</a></li>
+<li><a href=#Lists_Thms-set_tl_subset>set_tl_subset</a></li>
+<li><a href=#Lists_Thms-sorted_Nil>sorted_Nil</a></li>
+<li><a href=#Lists_Thms-sorted_single>sorted_single</a></li>
+<li><a href=#Lists_Thms-sorted_ConsD1>sorted_ConsD1</a></li>
+<li><a href=#Lists_Thms-sorted_ConsD2>sorted_ConsD2</a></li>
+<li><a href=#Lists_Thms-sorted_appendI>sorted_appendI</a></li>
+<li><a href=#Lists_Thms-sorted_appendE>sorted_appendE</a></li>
+<li><a href=#Lists_Thms-sorted_appendE2>sorted_appendE2</a></li>
+<li><a href=#Lists_Thms-sorted_nth_mono%27>sorted_nth_mono'</a></li>
+<li><a href=#Lists_Thms-sorted_nth_mono_less>sorted_nth_mono_less</a></li>
+<li><a href=#Lists_Thms-sort_Nil>sort_Nil</a></li>
+<li><a href=#Lists_Thms-sort_singleton>sort_singleton</a></li>
+<li><a href=#Lists_Thms-distinct_Nil>distinct_Nil</a></li>
+<li><a href=#Lists_Thms-distinct_nthE>distinct_nthE</a></li>
+<li><a href=#Lists_Thms-last_eval1>last_eval1</a></li>
+<li><a href=#Lists_Thms-last_eval2>last_eval2</a></li>
+<li><a href=#Lists_Thms-butlast_eval1>butlast_eval1</a></li>
+<li><a href=#Lists_Thms-butlast_eval2>butlast_eval2</a></li>
+<li><a href=#Lists_Thms-butlast_cons>butlast_cons</a></li>
+<li><a href=#Lists_Thms-butlast_append%27>butlast_append'</a></li>
+<li><a href=#Lists_Thms-set_butlast_is_subset>set_butlast_is_subset</a></li>
+<li><a href=#Lists_Thms-length_take>length_take</a></li>
+<li><a href=#Lists_Thms-nth_take>nth_take</a></li>
+<li><a href=#Lists_Thms-take_length>take_length</a></li>
+<li><a href=#Lists_Thms-take_Suc>take_Suc</a></li>
+<li><a href=#Lists_Thms-nth_drop>nth_drop</a></li>
+<li><a href=#Lists_Thms-mset_simps_2>mset_simps_2</a></li>
+<li><a href=#Lists_Thms-in_mset_conv_nth>in_mset_conv_nth</a></li>
+<li><a href=#Lists_Thms-hd_in_mset>hd_in_mset</a></li>
+<li><a href=#Lists_Thms-last_in_mset>last_in_mset</a></li>
+<li><a href=#Lists_Thms-mset_butlast>mset_butlast</a></li>
+<li><a href=#Lists_Thms-insert_mset_to_set>insert_mset_to_set</a></li>
+<li><a href=#Lists_Thms-delete_mset_to_set>delete_mset_to_set</a></li>
+<li><a href=#Lists_Thms-update_mset_to_set>update_mset_to_set</a></li>
+<li><a href=#Lists_Thms-mset_update%27>mset_update'</a></li>
+<li><a href=#Lists_Thms-upt_zero_length>upt_zero_length</a></li>
+<li><a href=#Lists_Thms-nth_upt_zero>nth_upt_zero</a></li>
+<li><a href=#Lists_Thms-list_length>list_length</a></li>
+<li><a href=#Lists_Thms-list_nth>list_nth</a></li>
+</ul>
+</li><li><a href=#files%2flist_ac.ML>files/list_ac.ML</a>
+</li><li><a href=#files%2flist_ac_test.ML>files/list_ac_test.ML</a>
+</li><li><a href=#Auto2_Main>Auto2_Main</a>
+</li><li><a href=#Auto2_Test>Auto2_Test</a>
+</li><li><a href=#files%2futil_test.ML>files/util_test.ML</a>
+</li><li><a href=#files%2frewrite_test.ML>files/rewrite_test.ML</a>
+</li><li><a href=#files%2fmatcher_test.ML>files/matcher_test.ML</a>
+</li><li><a href=#files%2fnormalize_test.ML>files/normalize_test.ML</a>
+</li><li><a href=#files%2flogic_steps_test.ML>files/logic_steps_test.ML</a>
+</li><li><a href=#files%2facdata_test.ML>files/acdata_test.ML</a>
+</li><li><a href=#Pelletier>Pelletier</a>
+</li><li><a href=#Primes_Ex>Primes_Ex</a>
+<ul>
+<li><a href=#Primes_Ex-primeD1>primeD1</a></li>
+<li><a href=#Primes_Ex-primeD2>primeD2</a></li>
+<li><a href=#Primes_Ex-prime_odd_nat>prime_odd_nat</a></li>
+<li><a href=#Primes_Ex-prime_imp_coprime_nat>prime_imp_coprime_nat</a></li>
+<li><a href=#Primes_Ex-prime_dvd_mult_nat>prime_dvd_mult_nat</a></li>
+<li><a href=#Primes_Ex-prime_dvd_mult_eq_nat>prime_dvd_mult_eq_nat</a></li>
+<li><a href=#Primes_Ex-not_prime_eq_prod_nat>not_prime_eq_prod_nat</a></li>
+<li><a href=#Primes_Ex-prime_dvd_power_nat>prime_dvd_power_nat</a></li>
+<li><a href=#Primes_Ex-prime_dvd_power_nat_iff>prime_dvd_power_nat_iff</a></li>
+<li><a href=#Primes_Ex-prime_nat_code>prime_nat_code</a></li>
+<li><a href=#Primes_Ex-prime_factor_nat>prime_factor_nat</a></li>
+<li><a href=#Primes_Ex-prime_divprod_pow_nat>prime_divprod_pow_nat</a></li>
+<li><a href=#Primes_Ex-prime_product>prime_product</a></li>
+<li><a href=#Primes_Ex-prime_exp>prime_exp</a></li>
+<li><a href=#Primes_Ex-prime_power_mult>prime_power_mult</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<ul>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Auto2_HOL/outline.pdf>Proof
+outline</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Auto2_HOL/document.pdf>Proof
+document</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Auto2_HOL/session_graph.pdf>Theory dependencies</a></li>
+</ul>
+</div>
+</aside>
+<div class="content theories"><header>
+<form action=/%20search>
+<div class=form-container>
+<input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
+<datalist id=autocomplete>
+</datalist>
+</div>
+</form>
+<h1><span class=first>S</span>ession <span class=first>A</span>uto2_<span class=first>H</span><span class=first>O</span><span class=first>L</span></h1>
+<div>
+</div>
+</header><div id=banner data-id=0>
+<p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button>
+</div>
+<div><main>
+<div id=HOL_Base>
+<div class=head>
+<h1>Theory HOL_Base</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: HOL_Base.thy
   Author: Bohua Zhan
 
@@ -45,7 +306,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Au
 <span class=keyword1 id=HOL_Base-atomize_conjL><span class=command>lemma</span></span> atomize_conjL<span class=main>:</span> <span class=quoted><span class=quoted>"<span class=main>(</span><span class=free>A</span> <span class=main>⟹</span> <span class=free>B</span> <span class=main>⟹</span> <span class=keyword1>PROP</span> <span class=free>C</span><span class=main>)</span> <span class=main>≡</span> <span class=main>(</span><span class=free>A</span> <span class=main>∧</span> <span class=free>B</span> <span class=main>⟹</span> <span class=keyword1>PROP</span> <span class=free>C</span><span class=main>)</span>"</span></span> <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>rule</span> equal_intr_rule<span class=main>)</span> <span class=operator>auto</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Auto2_HOL><div class=head><h1>Theory Auto2_HOL</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=Auto2_HOL>
+<div class=head>
+<h1>Theory Auto2_HOL</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: Auto2_HOL.thy
   Author: Bohua Zhan
 
@@ -108,7 +374,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Au
 <span class=keyword1><span class=command>attribute_setup</span></span> rewrite_arg <span class=main>=</span> <span class=quoted>‹<span class=entity>setup_attrib</span> <span class=entity>add_rewrite_arg_rule</span>›</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=files/AFP/Auto2_HOL/util.ML><div class=head><h1>File ‹$AFP/Auto2_HOL/util.ML›</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=files/AFP/Auto2_HOL/util.ML>
+<div class=head>
+<h1>File ‹$AFP/Auto2_HOL/util.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: util.ML
   Author: Bohua Zhan
 
@@ -1034,7 +1305,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Au
 <span class=keyword1><span class=keyword>val</span></span> <span class=main>_</span> <span class=main>=</span> Theory.setup <span class=main>(</span><span class=entity>Util.term_pat_setup</span><span class=main>)</span>
 <span class=keyword1><span class=keyword>val</span></span> <span class=main>_</span> <span class=main>=</span> Theory.setup <span class=main>(</span><span class=entity>Util.cterm_pat_setup</span><span class=main>)</span>
 <span class=keyword1><span class=keyword>val</span></span> <span class=main>_</span> <span class=main>=</span> Theory.setup <span class=main>(</span><span class=entity>Util.type_pat_setup</span><span class=main>)</span>
-</pre></div><div id=files/AFP/Auto2_HOL/util_base.ML><div class=head><h1>File ‹$AFP/Auto2_HOL/util_base.ML›</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=files/AFP/Auto2_HOL/util_base.ML>
+<div class=head>
+<h1>File ‹$AFP/Auto2_HOL/util_base.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: util_base.ML
   Author: Bohua Zhan
 
@@ -1143,7 +1419,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Au
   <span class=keyword1><span class=keyword>val</span></span> Bex_def_th<span class=main>:</span> thm
   <span class=keyword1><span class=keyword>val</span></span> Ball_def_th<span class=main>:</span> thm
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=files/auto2_hol.ML><div class=head><h1>File ‹auto2_hol.ML›</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=files/auto2_hol.ML>
+<div class=head>
+<h1>File ‹auto2_hol.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: auto2_hol.ML
   Author: Bohua Zhan
 
@@ -1275,7 +1556,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Au
 
 <span class=keyword1><span class=keyword>structure</span></span> <span class=entity>Basic_UtilBase</span><span class=main>:</span> <span class=entity>BASIC_UTIL_BASE</span> <span class=main>=</span> <span class=entity>UtilBase</span>
 <span class=keyword3><span class=keyword>open</span></span> <span class=entity>Basic_UtilBase</span>
-</pre></div><div id=files/AFP/Auto2_HOL/util_logic.ML><div class=head><h1>File ‹$AFP/Auto2_HOL/util_logic.ML›</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=files/AFP/Auto2_HOL/util_logic.ML>
+<div class=head>
+<h1>File ‹$AFP/Auto2_HOL/util_logic.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: util_logic.ML
   Author: Bohua Zhan
 
@@ -1905,7 +2191,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Au
 
 <span class=keyword1><span class=keyword>structure</span></span> <span class=entity>Basic_UtilLogic</span><span class=main>:</span> <span class=entity>BASIC_UTIL_LOGIC</span> <span class=main>=</span> <span class=entity>UtilLogic</span>
 <span class=keyword3><span class=keyword>open</span></span> <span class=entity>Basic_UtilLogic</span>
-</pre></div><div id=files/AFP/Auto2_HOL/box_id.ML><div class=head><h1>File ‹$AFP/Auto2_HOL/box_id.ML›</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=files/AFP/Auto2_HOL/box_id.ML>
+<div class=head>
+<h1>File ‹$AFP/Auto2_HOL/box_id.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: box_id.ML
   Author: Bohua Zhan
 
@@ -2139,7 +2430,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Au
 <span class=keyword1><span class=keyword>type</span></span> <span class=entity>id_inst_th</span> <span class=main>=</span> <span class=entity>id_inst</span> * thm
 <span class=keyword1><span class=keyword>type</span></span> <span class=entity>id_inst_ths</span> <span class=main>=</span> <span class=entity>id_inst</span> * thm list
 <span class=keyword1><span class=keyword>structure</span></span> <span class=entity>Boxidtab</span> <span class=main>=</span> Table <span class=main>(</span><span class=keyword1><span class=keyword>type</span></span> <span class=entity>key</span> <span class=main>=</span> <span class=entity>BoxID.box_id</span> <span class=keyword1><span class=keyword>val</span></span> <span class=entity>ord</span> <span class=main>=</span> list_ord int_ord<span class=main>)</span>
-</pre></div><div id=files/AFP/Auto2_HOL/consts.ML><div class=head><h1>File ‹$AFP/Auto2_HOL/consts.ML›</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=files/AFP/Auto2_HOL/consts.ML>
+<div class=head>
+<h1>File ‹$AFP/Auto2_HOL/consts.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: consts.ML
   Author: Bohua Zhan
 
@@ -2205,7 +2501,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Au
     <span class=entity>neq_const</span> <span class=main>(</span>Proof_Context.theory_of <span class=entity>ctxt</span><span class=main>)</span> <span class=main>(</span><span class=entity>t1</span><span class=main>,</span> <span class=entity>t2</span><span class=main>)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>  <span class=comment1>(* structure Consts. *)</span>
-</pre></div><div id=files/AFP/Auto2_HOL/property.ML><div class=head><h1>File ‹$AFP/Auto2_HOL/property.ML›</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=files/AFP/Auto2_HOL/property.ML>
+<div class=head>
+<h1>File ‹$AFP/Auto2_HOL/property.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: property.ML
   Author: Bohua Zhan
 
@@ -2463,7 +2764,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Au
 <span class=keyword2><span class=keyword>end</span></span>  <span class=comment1>(* structure Property. *)</span>
 
 <span class=keyword1><span class=keyword>val</span></span> <span class=entity>add_property_field_const</span> <span class=main>=</span> <span class=entity>Property.add_property_field_const</span>
-</pre></div><div id=files/AFP/Auto2_HOL/wellform.ML><div class=head><h1>File ‹$AFP/Auto2_HOL/wellform.ML›</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=files/AFP/Auto2_HOL/wellform.ML>
+<div class=head>
+<h1>File ‹$AFP/Auto2_HOL/wellform.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: wellform.ML
   Author: Bohua Zhan
 
@@ -2601,7 +2907,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Au
 <span class=keyword2><span class=keyword>end</span></span>  <span class=comment1>(* structure WellForm. *)</span>
 
 <span class=keyword1><span class=keyword>val</span></span> <span class=entity>register_wellform_data</span> <span class=main>=</span> <span class=entity>WellForm.register_wellform_data</span>
-</pre></div><div id=files/AFP/Auto2_HOL/wfterm.ML><div class=head><h1>File ‹$AFP/Auto2_HOL/wfterm.ML›</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=files/AFP/Auto2_HOL/wfterm.ML>
+<div class=head>
+<h1>File ‹$AFP/Auto2_HOL/wfterm.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: wfterm.ML
   Author: Bohua Zhan
 
@@ -2915,7 +3226,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Au
 
 <span class=keyword1><span class=keyword>fun</span></span> <span class=main>(</span><span class=entity>wfcv1</span> <span class=entity>then_wfconv</span> <span class=entity>wfcv2</span><span class=main>)</span> <span class=main>=</span> <span class=entity>WfTerm.then_wfconv</span> <span class=main>(</span><span class=entity>wfcv1</span><span class=main>,</span> <span class=entity>wfcv2</span><span class=main>)</span>
 <span class=keyword1><span class=keyword>fun</span></span> <span class=main>(</span><span class=entity>wfcv1</span> <span class=entity>else_wfconv</span> <span class=entity>wfcv2</span><span class=main>)</span> <span class=main>=</span> <span class=entity>WfTerm.else_wfconv</span> <span class=main>(</span><span class=entity>wfcv1</span><span class=main>,</span> <span class=entity>wfcv2</span><span class=main>)</span>
-</pre></div><div id=files/AFP/Auto2_HOL/rewrite.ML><div class=head><h1>File ‹$AFP/Auto2_HOL/rewrite.ML›</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=files/AFP/Auto2_HOL/rewrite.ML>
+<div class=head>
+<h1>File ‹$AFP/Auto2_HOL/rewrite.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: rewrite.ML
   Author: Bohua Zhan
 
@@ -3830,7 +4146,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Au
     <span class=keyword2><span class=keyword>end</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>  <span class=comment1>(* structure RewriteTable. *)</span>
-</pre></div><div id=files/AFP/Auto2_HOL/propertydata.ML><div class=head><h1>File ‹$AFP/Auto2_HOL/propertydata.ML›</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=files/AFP/Auto2_HOL/propertydata.ML>
+<div class=head>
+<h1>File ‹$AFP/Auto2_HOL/propertydata.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: propertydata.ML
   Author: Bohua Zhan
 
@@ -4108,7 +4429,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Au
         |&gt; filter <span class=main>(</span><span class=keyword1><span class=keyword>fn</span></span> <span class=main>(</span><span class=entity>id</span><span class=main>,</span> <span class=main>_</span><span class=main>)</span> <span class=main>=&gt;</span> <span class=entity>BoxID.has_incr_id</span> <span class=entity>id</span><span class=main>)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>  <span class=comment1>(* structure PropertyData *)</span>
-</pre></div><div id=files/AFP/Auto2_HOL/matcher.ML><div class=head><h1>File ‹$AFP/Auto2_HOL/matcher.ML›</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=files/AFP/Auto2_HOL/matcher.ML>
+<div class=head>
+<h1>File ‹$AFP/Auto2_HOL/matcher.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: matcher.ML
   Author: Bohua Zhan
 
@@ -4517,7 +4843,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Au
     <span class=keyword3><span class=keyword>handle</span></span> Type.TYPE_MATCH <span class=main>=&gt;</span> false
 
 <span class=keyword2><span class=keyword>end</span></span>  <span class=comment1>(* structure Matcher. *)</span>
-</pre></div><div id=files/AFP/Auto2_HOL/items.ML><div class=head><h1>File ‹$AFP/Auto2_HOL/items.ML›</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=files/AFP/Auto2_HOL/items.ML>
+<div class=head>
+<h1>File ‹$AFP/Auto2_HOL/items.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: items.ML
   Author: Bohua Zhan
 
@@ -5215,7 +5546,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Au
     <span class=main>]</span>
 
 <span class=keyword2><span class=keyword>end</span></span>  <span class=comment1>(* structure ItemIO. *)</span>
-</pre></div><div id=files/AFP/Auto2_HOL/wfdata.ML><div class=head><h1>File ‹$AFP/Auto2_HOL/wfdata.ML›</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=files/AFP/Auto2_HOL/wfdata.ML>
+<div class=head>
+<h1>File ‹$AFP/Auto2_HOL/wfdata.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: wfdata.ML
   Author: Bohua Zhan
 
@@ -5596,7 +5932,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Au
     <span class=keyword2><span class=keyword>end</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>  <span class=comment1>(* WellformData *)</span>
-</pre></div><div id=files/AFP/Auto2_HOL/auto2_data.ML><div class=head><h1>File ‹$AFP/Auto2_HOL/auto2_data.ML›</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=files/AFP/Auto2_HOL/auto2_data.ML>
+<div class=head>
+<h1>File ‹$AFP/Auto2_HOL/auto2_data.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: auto2_data.ML
   Author: Bohua Zhan
 
@@ -5684,7 +6025,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Au
          |&gt; <span class=entity>WellformData.clear_incr</span>
 
 <span class=keyword2><span class=keyword>end</span></span>  <span class=comment1>(* Auto2Data *)</span>
-</pre></div><div id=files/AFP/Auto2_HOL/status.ML><div class=head><h1>File ‹$AFP/Auto2_HOL/status.ML›</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=files/AFP/Auto2_HOL/status.ML>
+<div class=head>
+<h1>File ‹$AFP/Auto2_HOL/status.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: status.ML
   Author: Bohua Zhan
 
@@ -6086,7 +6432,12 @@ Heap <span class=main>(</span>
 <span class=keyword2><span class=keyword>end</span></span>  <span class=comment1>(* structure Status *)</span>
 
 <span class=keyword1><span class=keyword>val</span></span> <span class=main>_</span> <span class=main>=</span> Theory.setup <span class=main>(</span><span class=entity>ItemIO.add_basic_item_io</span><span class=main>)</span>
-</pre></div><div id=files/AFP/Auto2_HOL/normalize.ML><div class=head><h1>File ‹$AFP/Auto2_HOL/normalize.ML›</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=files/AFP/Auto2_HOL/normalize.ML>
+<div class=head>
+<h1>File ‹$AFP/Auto2_HOL/normalize.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: normalize.ML
   Author: Bohua Zhan
 
@@ -6377,7 +6728,12 @@ Heap <span class=main>(</span>
     fold <span class=main>(</span><span class=keyword1><span class=keyword>fn</span></span> <span class=entity>p</span> <span class=main>=&gt;</span> Term.subst_atomic <span class=main>[</span><span class=entity>p</span><span class=main>]</span><span class=main>)</span> <span class=entity>pairs</span> <span class=entity>t</span>
 
 <span class=keyword2><span class=keyword>end</span></span>  <span class=comment1>(* structure Normalizer. *)</span>
-</pre></div><div id=files/AFP/Auto2_HOL/proofsteps.ML><div class=head><h1>File ‹$AFP/Auto2_HOL/proofsteps.ML›</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=files/AFP/Auto2_HOL/proofsteps.ML>
+<div class=head>
+<h1>File ‹$AFP/Auto2_HOL/proofsteps.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: proofsteps.ML
   Author: Bohua Zhan
 
@@ -7346,7 +7702,12 @@ Heap <span class=main>(</span>
 <span class=keyword2><span class=keyword>end</span></span>  <span class=comment1>(* structure ProofStepData. *)</span>
 
 <span class=keyword3><span class=keyword>open</span></span> <span class=entity>ProofStepData</span>
-</pre></div><div id=files/AFP/Auto2_HOL/auto2_state.ML><div class=head><h1>File ‹$AFP/Auto2_HOL/auto2_state.ML›</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=files/AFP/Auto2_HOL/auto2_state.ML>
+<div class=head>
+<h1>File ‹$AFP/Auto2_HOL/auto2_state.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: auto2_state.ML
   Author: Bohua Zhan
 
@@ -7546,7 +7907,12 @@ Heap <span class=main>(</span>
     <span class=keyword3><span class=keyword>handle</span></span> List.Empty <span class=main>=&gt;</span> error <span class=inner_quoted>"get_subgoal: should have exactly one premise."</span>
 
 <span class=keyword2><span class=keyword>end</span></span>  <span class=comment1>(* structure Auto2_State *)</span>
-</pre></div><div id=files/AFP/Auto2_HOL/logic_steps.ML><div class=head><h1>File ‹$AFP/Auto2_HOL/logic_steps.ML›</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=files/AFP/Auto2_HOL/logic_steps.ML>
+<div class=head>
+<h1>File ‹$AFP/Auto2_HOL/logic_steps.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: logic_steps.ML
   Author: Bohua Zhan
 
@@ -8627,7 +8993,12 @@ Heap <span class=main>(</span>
 <span class=keyword1><span class=keyword>val</span></span> <span class=main>_</span> <span class=main>=</span> Theory.setup <span class=entity>Logic_ProofSteps.add_disj_proofsteps</span>
 <span class=keyword1><span class=keyword>val</span></span> <span class=main>_</span> <span class=main>=</span> Theory.setup <span class=entity>Logic_ProofSteps.add_disj_normalizers</span>
 <span class=keyword1><span class=keyword>val</span></span> <span class=entity>TY_DISJ</span> <span class=main>=</span> <span class=entity>Logic_ProofSteps.TY_DISJ</span>
-</pre></div><div id=files/AFP/Auto2_HOL/auto2.ML><div class=head><h1>File ‹$AFP/Auto2_HOL/auto2.ML›</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=files/AFP/Auto2_HOL/auto2.ML>
+<div class=head>
+<h1>File ‹$AFP/Auto2_HOL/auto2.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*
   Title: auto2.ML
   Author: Bohua Zhan
 
@@ -9234,7 +9605,12 @@ Heap <span class=main>(</span>
     <span class=keyword2><span class=keyword>end</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>  <span class=comment1>(* structure Auto2 *)</span>
-</pre></div><div id=files/AFP/Auto2_HOL/auto2_outer.ML><div class=head><h1>File ‹$AFP/Auto2_HOL/auto2_outer.ML›</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=files/AFP/Auto2_HOL/auto2_outer.ML>
+<div class=head>
+<h1>File ‹$AFP/Auto2_HOL/auto2_outer.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: auto2_outer.ML
   Author: Bohua Zhan
 
@@ -9901,7 +10277,12 @@ Heap <span class=main>(</span>
         <span class=main>(</span><span class=keyword1><span class=keyword>fn</span></span> <span class=entity>eqs</span> <span class=main>=&gt;</span> <span class=entity>Toplevel.proof</span> <span class=main>(</span><span class=keyword1><span class=keyword>fn</span></span> <span class=entity>state</span> <span class=main>=&gt;</span> <span class=entity>let_cmd</span> <span class=entity>eqs</span> <span class=entity>state</span><span class=main>)</span><span class=main>)</span><span class=main>)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>  <span class=comment1>(* structure Auto2_Outer *)</span>
-</pre></div><div id=files/acdata.ML><div class=head><h1>File ‹acdata.ML›</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=files/acdata.ML>
+<div class=head>
+<h1>File ‹acdata.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: acdata.ML
   Author: Bohua Zhan
 
@@ -10235,7 +10616,12 @@ Heap <span class=main>(</span>
     <span class=keyword2><span class=keyword>end</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>  <span class=comment1>(* structure ACUtil. *)</span>
-</pre></div><div id=files/ac_steps.ML><div class=head><h1>File ‹ac_steps.ML›</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=files/ac_steps.ML>
+<div class=head>
+<h1>File ‹ac_steps.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: ac_steps.ML
   Author: Bohua Zhan
 
@@ -10465,7 +10851,12 @@ Heap <span class=main>(</span>
 <span class=keyword2><span class=keyword>end</span></span>  <span class=comment1>(* structure AC_ProofSteps. *)</span>
 
 <span class=keyword1><span class=keyword>val</span></span> <span class=main>_</span> <span class=main>=</span> Theory.setup <span class=entity>AC_ProofSteps.add_ac_proofsteps</span>
-</pre></div><div id=files/unfolding.ML><div class=head><h1>File ‹unfolding.ML›</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=files/unfolding.ML>
+<div class=head>
+<h1>File ‹unfolding.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: unfolding.ML
   Author: Bohua Zhan
 
@@ -10532,7 +10923,12 @@ Heap <span class=main>(</span>
             <span class=entity>Toplevel.proof</span> <span class=main>(</span><span class=keyword1><span class=keyword>fn</span></span> <span class=entity>state</span> <span class=main>=&gt;</span> <span class=entity>unfold_cmd</span> <span class=entity>s</span> <span class=entity>state</span><span class=main>)</span><span class=main>)</span><span class=main>)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>  <span class=comment1>(* structure Unfolding *)</span>
-</pre></div><div id=files/induct_outer.ML><div class=head><h1>File ‹induct_outer.ML›</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=files/induct_outer.ML>
+<div class=head>
+<h1>File ‹induct_outer.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: induct_outer.ML
   Author: Bohua Zhan
 
@@ -11071,7 +11467,12 @@ Heap <span class=main>(</span>
 <span class=keyword1><span class=keyword>val</span></span> <span class=entity>add_var_induct_rule</span> <span class=main>=</span> <span class=entity>Induct_ProofSteps.add_var_induct_rule</span>
 <span class=keyword1><span class=keyword>val</span></span> <span class=entity>add_fun_induct_rule</span> <span class=main>=</span> <span class=entity>Induct_ProofSteps.add_fun_induct_rule</span>
 <span class=keyword1><span class=keyword>val</span></span> <span class=entity>add_cases_rule</span> <span class=main>=</span> <span class=entity>Induct_ProofSteps.add_cases_rule</span>
-</pre></div><div id=files/extra_hol.ML><div class=head><h1>File ‹extra_hol.ML›</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=files/extra_hol.ML>
+<div class=head>
+<h1>File ‹extra_hol.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: extra_hol.ML
   Author: Bohua Zhan
 
@@ -11162,7 +11563,12 @@ Heap <span class=main>(</span>
 <span class=keyword2><span class=keyword>end</span></span>  <span class=comment1>(* structure Extra_HOL *)</span>
 
 <span class=keyword3><span class=keyword>open</span></span> <span class=entity>Extra_HOL</span>
-</pre></div><div id=Logic_Thms><div class=head><h1>Theory Logic_Thms</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=Logic_Thms>
+<div class=head>
+<h1>Theory Logic_Thms</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: Logic_Thms.thy
   Author: Bohua Zhan
 
@@ -11274,7 +11680,12 @@ Heap <span class=main>(</span>
 <span class=keyword1><span class=command>setup</span></span> <span class=quoted>‹fold <span class=main>(</span><span class=keyword1><span class=keyword>fn</span></span> <span class=entity>th</span> <span class=main>=&gt;</span> <span class=entity>add_rewrite_rule_cond</span> <span class=entity>th</span> <span class=main>[</span><span class=entity>with_score</span> <span class=inner_numeral>1</span><span class=main>]</span><span class=main>)</span> <span class=antiquoted><span class=entity><span class=antiquote>@{</span><span class=operator>thms</span> Option.option.case<span class=antiquote>}</span></span></span>›</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Order_Thms><div class=head><h1>Theory Order_Thms</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=Order_Thms>
+<div class=head>
+<h1>Theory Order_Thms</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: Order_Thms.thy
   Author: Bohua Zhan
 
@@ -11346,7 +11757,12 @@ Heap <span class=main>(</span>
 <span class=keyword1><span class=command>setup</span></span> <span class=quoted>‹<span class=entity>add_backward_prfstep</span> <span class=antiquoted><span class=entity><span class=antiquote>@{</span><span class=operator>thm</span> dense<span class=antiquote>}</span></span></span>›</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=files/util_arith.ML><div class=head><h1>File ‹util_arith.ML›</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=files/util_arith.ML>
+<div class=head>
+<h1>File ‹util_arith.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: util_arith.ML
   Author: Bohua Zhan
 
@@ -11492,7 +11908,12 @@ Heap <span class=main>(</span>
 
 <span class=keyword1><span class=keyword>val</span></span> <span class=entity>natT</span> <span class=main>=</span> <span class=entity>UtilArith.natT</span>
 <span class=keyword1><span class=keyword>val</span></span> <span class=entity>intT</span> <span class=main>=</span> <span class=entity>UtilArith.intT</span>
-</pre></div><div id=Arith_Thms><div class=head><h1>Theory Arith_Thms</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=Arith_Thms>
+<div class=head>
+<h1>Theory Arith_Thms</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: Arith_Thms.thy
   Author: Bohua Zhan
 
@@ -11744,7 +12165,12 @@ Heap <span class=main>(</span>
 ›</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=files/arith.ML><div class=head><h1>File ‹arith.ML›</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=files/arith.ML>
+<div class=head>
+<h1>File ‹arith.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: arith.ML
   Author: Bohua Zhan
 
@@ -11913,7 +12339,12 @@ Heap <span class=main>(</span>
 <span class=keyword1><span class=keyword>val</span></span> <span class=entity>times_ac_on_typ</span> <span class=main>=</span> <span class=entity>Nat_Util.times_ac_on_typ</span>
 <span class=keyword1><span class=keyword>val</span></span> <span class=main>_</span> <span class=main>=</span> Theory.setup <span class=entity>Nat_Util.add_arith_ac_data</span>
 <span class=keyword1><span class=keyword>val</span></span> <span class=main>_</span> <span class=main>=</span> Theory.setup <span class=entity>Nat_Util.add_arith_proofsteps</span>
-</pre></div><div id=files/order.ML><div class=head><h1>File ‹order.ML›</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=files/order.ML>
+<div class=head>
+<h1>File ‹order.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: order.ML
   Author: Bohua Zhan
 
@@ -12889,7 +13320,12 @@ Heap <span class=main>(</span>
 <span class=keyword2><span class=keyword>end</span></span>
 
 <span class=keyword1><span class=keyword>val</span></span> <span class=main>_</span> <span class=main>=</span> Theory.setup <span class=main>(</span><span class=entity>Nat_Order.add_nat_order_proofsteps</span><span class=main>)</span>
-</pre></div><div id=files/order_test.ML><div class=head><h1>File ‹order_test.ML›</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=files/order_test.ML>
+<div class=head>
+<h1>File ‹order_test.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: order_test.ML
   Author: Bohua Zhan
 
@@ -13112,7 +13548,12 @@ Heap <span class=main>(</span>
     <span class=keyword2><span class=keyword>end</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=files/nat_sub.ML><div class=head><h1>File ‹nat_sub.ML›</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=files/nat_sub.ML>
+<div class=head>
+<h1>File ‹nat_sub.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: nat_sub.ML
   Author: Bohua Zhan
 
@@ -13773,7 +14214,12 @@ Heap <span class=main>(</span>
 <span class=keyword2><span class=keyword>end</span></span>  <span class=comment1>(* NatSub *)</span>
 
 <span class=keyword1><span class=keyword>val</span></span> <span class=main>_</span> <span class=main>=</span> Theory.setup <span class=entity>NatSub.add_nat_sub_proofsteps</span>
-</pre></div><div id=files/nat_sub_test.ML><div class=head><h1>File ‹nat_sub_test.ML›</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=files/nat_sub_test.ML>
+<div class=head>
+<h1>File ‹nat_sub_test.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: nat_sub_test.ML
   Author: Bohua Zhan
 
@@ -13876,7 +14322,12 @@ Heap <span class=main>(</span>
     <span class=keyword2><span class=keyword>end</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Set_Thms><div class=head><h1>Theory Set_Thms</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=Set_Thms>
+<div class=head>
+<h1>Theory Set_Thms</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: Set_Thms.thy
   Author: Bohua Zhan
 
@@ -14073,7 +14524,12 @@ Heap <span class=main>(</span>
 <span class=keyword1><span class=command>setup</span></span> <span class=quoted>‹<span class=entity>add_rewrite_rule</span> <span class=antiquoted><span class=entity><span class=antiquote>@{</span><span class=operator>thm</span> Set_Interval.ord_class.atLeastAtMost_iff<span class=antiquote>}</span></span></span>›</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Lists_Thms><div class=head><h1>Theory Lists_Thms</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=Lists_Thms>
+<div class=head>
+<h1>Theory Lists_Thms</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: Lists_Thms.thy
   Author: Bohua Zhan
 
@@ -14373,7 +14829,12 @@ Heap <span class=main>(</span>
 <span class=keyword1><span class=command>setup</span></span> <span class=quoted>‹<span class=entity>add_rewrite_rule</span> <span class=antiquoted><span class=entity><span class=antiquote>@{</span><span class=operator>thm</span> distinct_card<span class=antiquote>}</span></span></span>›</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=files/list_ac.ML><div class=head><h1>File ‹list_ac.ML›</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=files/list_ac.ML>
+<div class=head>
+<h1>File ‹list_ac.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: list_ac.ML
   Author: Bohua Zhan
 
@@ -14659,7 +15120,12 @@ Heap <span class=main>(</span>
 <span class=keyword2><span class=keyword>end</span></span>  <span class=comment1>(* structure List_AC. *)</span>
 
 <span class=keyword1><span class=keyword>val</span></span> <span class=main>_</span> <span class=main>=</span> Theory.setup <span class=entity>List_AC.add_list_proofsteps</span>
-</pre></div><div id=files/list_ac_test.ML><div class=head><h1>File ‹list_ac_test.ML›</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=files/list_ac_test.ML>
+<div class=head>
+<h1>File ‹list_ac_test.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: list_ac_test.ML
   Author: Bohua Zhan
 
@@ -14707,7 +15173,12 @@ Heap <span class=main>(</span>
     <span class=keyword2><span class=keyword>end</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Auto2_Main><div class=head><h1>Theory Auto2_Main</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=Auto2_Main>
+<div class=head>
+<h1>Theory Auto2_Main</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: Auto2_Main.thy
   Author: Bohua Zhan
 
@@ -14719,7 +15190,12 @@ Heap <span class=main>(</span>
 <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Auto2_Test><div class=head><h1>Theory Auto2_Test</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=Auto2_Test>
+<div class=head>
+<h1>Theory Auto2_Test</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: Auto2_Test.thy
   Author: Bohua Zhan
 
@@ -14739,7 +15215,12 @@ Heap <span class=main>(</span>
 <span class=keyword1><span class=command>ML_file</span></span> <span class=quoted>‹acdata_test.ML›</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=files/util_test.ML><div class=head><h1>File ‹util_test.ML›</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=files/util_test.ML>
+<div class=head>
+<h1>File ‹util_test.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: util_test.ML
   Author: Bohua Zhan
 
@@ -14800,7 +15281,12 @@ Heap <span class=main>(</span>
     <span class=keyword2><span class=keyword>end</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=files/rewrite_test.ML><div class=head><h1>File ‹rewrite_test.ML›</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=files/rewrite_test.ML>
+<div class=head>
+<h1>File ‹rewrite_test.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: rewrite_test.ML
   Author: Bohua Zhan
 
@@ -15206,7 +15692,12 @@ Heap <span class=main>(</span>
          |&gt; <span class=entity>done</span> <span class=inner_quoted>"test_simplify_nat"</span>
 
 <span class=keyword2><span class=keyword>end</span></span><span class=main>;</span>  <span class=comment1>(* local *)</span>
-</pre></div><div id=files/matcher_test.ML><div class=head><h1>File ‹matcher_test.ML›</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=files/matcher_test.ML>
+<div class=head>
+<h1>File ‹matcher_test.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: matcher_test.ML
   Author: Bohua Zhan
 
@@ -15475,7 +15966,12 @@ Heap <span class=main>(</span>
          |&gt; <span class=entity>done</span> <span class=inner_quoted>"test_pre_match_quant"</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=files/normalize_test.ML><div class=head><h1>File ‹normalize_test.ML›</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=files/normalize_test.ML>
+<div class=head>
+<h1>File ‹normalize_test.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: normalize_test.ML
   Author: Bohua Zhan
 
@@ -15565,7 +16061,12 @@ Heap <span class=main>(</span>
     <span class=keyword2><span class=keyword>end</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>  <span class=comment1>(* local *)</span>
-</pre></div><div id=files/logic_steps_test.ML><div class=head><h1>File ‹logic_steps_test.ML›</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=files/logic_steps_test.ML>
+<div class=head>
+<h1>File ‹logic_steps_test.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: logic_steps_test.ML
   Author: Bohua Zhan
 
@@ -15822,7 +16323,12 @@ Heap <span class=main>(</span>
     <span class=keyword2><span class=keyword>end</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=files/acdata_test.ML><div class=head><h1>File ‹acdata_test.ML›</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=files/acdata_test.ML>
+<div class=head>
+<h1>File ‹acdata_test.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: acdata_test.ML
   Author: Bohua Zhan
 
@@ -15904,7 +16410,12 @@ Heap <span class=main>(</span>
     <span class=keyword2><span class=keyword>end</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span><span class=main>;</span>  <span class=comment1>(* local *)</span>
-</pre></div><div id=Pelletier><div class=head><h1>Theory Pelletier</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=Pelletier>
+<div class=head>
+<h1>Theory Pelletier</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: Pelletier.thy
   Author: Bohua Zhan
 
@@ -16146,7 +16657,12 @@ Heap <span class=main>(</span>
   <span class=keyword1><span class=command>by</span></span> <span class=operator>auto2</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Primes_Ex><div class=head><h1>Theory Primes_Ex</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=Primes_Ex>
+<div class=head>
+<h1>Theory Primes_Ex</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File: Primes_Ex.thy
   Author: Bohua Zhan
 
@@ -16292,4 +16808,10 @@ Heap <span class=main>(</span>
 <span class=keyword1><span class=command>setup</span></span> <span class=quoted>‹<span class=entity>del_prfstep_thm</span> <span class=antiquoted><span class=entity><span class=antiquote>@{</span><span class=operator>thm</span> factorization_unique_aux<span class=antiquote>}</span></span></span>›</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div></main></div></div></body></html>
+</pre>
+</div>
+</main>
+</div>
+</div>
+</body>
+</html>

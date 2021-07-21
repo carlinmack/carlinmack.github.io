@@ -1,7 +1,93 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Session IMP_Compiler - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session IMP_Compiler"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/imp_compiler/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Session IMP_Compiler"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css><link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script><script src=/js/banner.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><li><a href=/entries/imp_compiler>Return to entry</a></li></ul><hr><ul><li><a href=#Compiler>Compiler</a><ul><li><a href=#Compiler-inth_append>inth_append</a></li><li><a href=#Compiler-impCE2>impCE2</a></li><li><a href=#Compiler-Suc_lessI2>Suc_lessI2</a></li></ul></li><li><a href=#Compiler2>Compiler2</a><ul><li><a href=#Compiler2-iexec_offset_aux>iexec_offset_aux</a></li><li><a href=#Compiler2-iexec_offset>iexec_offset</a></li><li><a href=#Compiler2-execl_next>execl_next</a></li><li><a href=#Compiler2-execl_last>execl_last</a></li><li><a href=#Compiler2-execl_drop>execl_drop</a></li><li><a href=#Compiler2-execl_all_N>execl_all_N</a></li><li><a href=#Compiler2-execl_all_V>execl_all_V</a></li><li><a href=#Compiler2-execl_all_Bc>execl_all_Bc</a></li><li><a href=#Compiler2-execl_all_SKIP>execl_all_SKIP</a></li><li><a href=#Compiler2-execl_sub_aux>execl_sub_aux</a></li><li><a href=#Compiler2-execl_sub>execl_sub</a></li><li><a href=#Compiler2-execl_all_sub>execl_all_sub</a></li><li><a href=#Compiler2-execl_all_sub2>execl_all_sub2</a></li><li><a href=#Compiler2-acomp_acomp>acomp_acomp</a></li><li><a href=#Compiler2-bcomp_bcomp>bcomp_bcomp</a></li><li><a href=#Compiler2-acomp_correct>acomp_correct</a></li><li><a href=#Compiler2-bcomp_correct>bcomp_correct</a></li><li><a href=#Compiler2-bcomp_ccomp>bcomp_ccomp</a></li><li><a href=#Compiler2-ccomp_ccomp>ccomp_ccomp</a></li><li><a href=#Compiler2-while_correct>while_correct</a></li><li><a href=#Compiler2-ccomp_correct>ccomp_correct</a></li><li><a href=#Compiler2-exec_execl>exec_execl</a></li></ul></li></ul></div><ul><li><a href=https://www.isa-afp.org/browser_info/current/AFP/IMP_Compiler/outline.pdf>Proof
-outline</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/IMP_Compiler/document.pdf>Proof
-document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/IMP_Compiler/session_graph.pdf>Theory dependencies</a></li></ul></div></aside><div class="content theories"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
-<datalist id=autocomplete></datalist></div></form><h1><span class=first>S</span>ession <span class=first>I</span><span class=first>M</span><span class=first>P</span>_<span class=first>C</span>ompiler</h1><div></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><div id=Compiler><div class=head><h1>Theory Compiler</h1></div><pre class=source><span class=comment1>(*  Title:       A Shorter Compiler Correctness Proof for Language IMP
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Session IMP_Compiler - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session IMP_Compiler">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="/entries/imp_compiler/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories">
+<meta property="og:site_name" content="Archive of Formal Proofs">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="/images/afp.png">
+<meta name=twitter:title content="Session IMP_Compiler">
+<meta name=twitter:description content>
+<link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css>
+<link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script>
+<script src=/js/banner.js></script><script src=/js/header-search.js></script></head>
+<body class=mathjax_ignore>
+<aside>
+<div>
+<div>
+<a href=/>
+<img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo>
+</a>
+<ul>
+<li><a href=/entries/imp_compiler>Return to entry</a></li>
+</ul>
+<hr>
+<ul><li><a href=#Compiler>Compiler</a>
+<ul>
+<li><a href=#Compiler-inth_append>inth_append</a></li>
+<li><a href=#Compiler-impCE2>impCE2</a></li>
+<li><a href=#Compiler-Suc_lessI2>Suc_lessI2</a></li>
+</ul>
+</li><li><a href=#Compiler2>Compiler2</a>
+<ul>
+<li><a href=#Compiler2-iexec_offset_aux>iexec_offset_aux</a></li>
+<li><a href=#Compiler2-iexec_offset>iexec_offset</a></li>
+<li><a href=#Compiler2-execl_next>execl_next</a></li>
+<li><a href=#Compiler2-execl_last>execl_last</a></li>
+<li><a href=#Compiler2-execl_drop>execl_drop</a></li>
+<li><a href=#Compiler2-execl_all_N>execl_all_N</a></li>
+<li><a href=#Compiler2-execl_all_V>execl_all_V</a></li>
+<li><a href=#Compiler2-execl_all_Bc>execl_all_Bc</a></li>
+<li><a href=#Compiler2-execl_all_SKIP>execl_all_SKIP</a></li>
+<li><a href=#Compiler2-execl_sub_aux>execl_sub_aux</a></li>
+<li><a href=#Compiler2-execl_sub>execl_sub</a></li>
+<li><a href=#Compiler2-execl_all_sub>execl_all_sub</a></li>
+<li><a href=#Compiler2-execl_all_sub2>execl_all_sub2</a></li>
+<li><a href=#Compiler2-acomp_acomp>acomp_acomp</a></li>
+<li><a href=#Compiler2-bcomp_bcomp>bcomp_bcomp</a></li>
+<li><a href=#Compiler2-acomp_correct>acomp_correct</a></li>
+<li><a href=#Compiler2-bcomp_correct>bcomp_correct</a></li>
+<li><a href=#Compiler2-bcomp_ccomp>bcomp_ccomp</a></li>
+<li><a href=#Compiler2-ccomp_ccomp>ccomp_ccomp</a></li>
+<li><a href=#Compiler2-while_correct>while_correct</a></li>
+<li><a href=#Compiler2-ccomp_correct>ccomp_correct</a></li>
+<li><a href=#Compiler2-exec_execl>exec_execl</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<ul>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/IMP_Compiler/outline.pdf>Proof
+outline</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/IMP_Compiler/document.pdf>Proof
+document</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/IMP_Compiler/session_graph.pdf>Theory dependencies</a></li>
+</ul>
+</div>
+</aside>
+<div class="content theories"><header>
+<form action=/%20search>
+<div class=form-container>
+<input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
+<datalist id=autocomplete>
+</datalist>
+</div>
+</form>
+<h1><span class=first>S</span>ession <span class=first>I</span><span class=first>M</span><span class=first>P</span>_<span class=first>C</span>ompiler</h1>
+<div>
+</div>
+</header><div id=banner data-id=0>
+<p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button>
+</div>
+<div><main>
+<div id=Compiler>
+<div class=head>
+<h1>Theory Compiler</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:       A Shorter Compiler Correctness Proof for Language IMP
     Author:      Pasquale Noce
                  Software Engineer at HID Global, Italy
                  pasquale dot noce dot lavoro at gmail dot com
@@ -228,7 +314,12 @@ arising from the compiler correctness proof developed in what follows.
 <span class=keyword1><span class=command>by</span></span> <span class=operator>simp</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Compiler2><div class=head><h1>Theory Compiler2</h1></div><pre class=source><span class=comment1>(*  Title:       A Shorter Compiler Correctness Proof for Language IMP
+</pre>
+</div><div id=Compiler2>
+<div class=head>
+<h1>Theory Compiler2</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:       A Shorter Compiler Correctness Proof for Language IMP
     Author:      Pasquale Noce
                  Software Engineer at HID Global, Italy
                  pasquale dot noce dot lavoro at gmail dot com
@@ -777,4 +868,10 @@ this lemma and of the previous lemma <span class=antiquoted><span class=antiquot
 <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>insert</span> ccomp_correct<span class=main><span class=keyword3>,</span></span> <span class=operator>force</span> <span class=quasi_keyword>simp</span><span class=main><span class=main>:</span></span> hd_conv_nth last_conv_nth execl_all_def cpred_def<span class=main>)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div></main></div></div></body></html>
+</pre>
+</div>
+</main>
+</div>
+</div>
+</body>
+</html>

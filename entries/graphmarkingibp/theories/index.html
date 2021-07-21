@@ -1,7 +1,98 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Session GraphMarkingIBP - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session GraphMarkingIBP"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/graphmarkingibp/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Session GraphMarkingIBP"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css><link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script><script src=/js/banner.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><li><a href=/entries/graphmarkingibp>Return to entry</a></li></ul><hr><ul><li><a href=#Graph>Graph</a></li><li><a href=#SetMark>SetMark</a><ul><li><a href=#SetMark-trascl_less>trascl_less</a></li><li><a href=#SetMark-union_term_eq>union_term_eq</a></li><li><a href=#SetMark-union_less_term_eq>union_less_term_eq</a></li><li><a href=#SetMark-union_term_w>union_term_w</a></li><li><a href=#SetMark-union_less_term_w>union_less_term_w</a></li><li><a href=#SetMark-sup_union>sup_union</a></li><li><a href=#SetMark-forall_simp>forall_simp</a></li><li><a href=#SetMark-forall_simp2>forall_simp2</a></li></ul></li><li><a href=#StackMark>StackMark</a><ul><li><a href=#StackMark-assert_comp_choice>assert_comp_choice</a></li></ul></li><li><a href=#LinkMark>LinkMark</a><ul><li><a href=#LinkMark-label_cong>label_cong</a></li><li><a href=#LinkMark-label_out_range0>label_out_range0</a></li><li><a href=#LinkMark-link_out_range0>link_out_range0</a></li><li><a href=#LinkMark-link_out_range>link_out_range</a></li><li><a href=#LinkMark-empty_stack>empty_stack</a></li><li><a href=#LinkMark-stack_out_link_range>stack_out_link_range</a></li><li><a href=#LinkMark-stack_out_label_range>stack_out_label_range</a></li><li><a href=#LinkMark-g_cong>g_cong</a></li><li><a href=#LinkMark-neqif>neqif</a></li><li><a href=#LinkMark-setsimp>setsimp</a></li><li><a href=#LinkMark-apply_fun_index>apply_fun_index</a></li></ul></li><li><a href=#DSWMark>DSWMark</a><ul><li><a href=#DSWMark-index_simp>index_simp</a></li><li><a href=#DSWMark-if_set_elim>if_set_elim</a></li><li><a href=#DSWMark-exists_or>exists_or</a></li></ul></li></ul></div><ul><li><a href=https://www.isa-afp.org/browser_info/current/AFP/GraphMarkingIBP/outline.pdf>Proof
-outline</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/GraphMarkingIBP/document.pdf>Proof
-document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/GraphMarkingIBP/session_graph.pdf>Theory dependencies</a></li></ul></div></aside><div class="content theories"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
-<datalist id=autocomplete></datalist></div></form><h1><span class=first>S</span>ession <span class=first>G</span>raph<span class=first>M</span>arking<span class=first>I</span><span class=first>B</span><span class=first>P</span></h1><div></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><div id=Graph><div class=head><h1>Theory Graph</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Address Graph›</span></span>
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Session GraphMarkingIBP - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session GraphMarkingIBP">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="/entries/graphmarkingibp/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories">
+<meta property="og:site_name" content="Archive of Formal Proofs">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="/images/afp.png">
+<meta name=twitter:title content="Session GraphMarkingIBP">
+<meta name=twitter:description content>
+<link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css>
+<link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script>
+<script src=/js/banner.js></script><script src=/js/header-search.js></script></head>
+<body class=mathjax_ignore>
+<aside>
+<div>
+<div>
+<a href=/>
+<img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo>
+</a>
+<ul>
+<li><a href=/entries/graphmarkingibp>Return to entry</a></li>
+</ul>
+<hr>
+<ul><li><a href=#Graph>Graph</a>
+</li><li><a href=#SetMark>SetMark</a>
+<ul>
+<li><a href=#SetMark-trascl_less>trascl_less</a></li>
+<li><a href=#SetMark-union_term_eq>union_term_eq</a></li>
+<li><a href=#SetMark-union_less_term_eq>union_less_term_eq</a></li>
+<li><a href=#SetMark-union_term_w>union_term_w</a></li>
+<li><a href=#SetMark-union_less_term_w>union_less_term_w</a></li>
+<li><a href=#SetMark-sup_union>sup_union</a></li>
+<li><a href=#SetMark-forall_simp>forall_simp</a></li>
+<li><a href=#SetMark-forall_simp2>forall_simp2</a></li>
+</ul>
+</li><li><a href=#StackMark>StackMark</a>
+<ul>
+<li><a href=#StackMark-assert_comp_choice>assert_comp_choice</a></li>
+</ul>
+</li><li><a href=#LinkMark>LinkMark</a>
+<ul>
+<li><a href=#LinkMark-label_cong>label_cong</a></li>
+<li><a href=#LinkMark-label_out_range0>label_out_range0</a></li>
+<li><a href=#LinkMark-link_out_range0>link_out_range0</a></li>
+<li><a href=#LinkMark-link_out_range>link_out_range</a></li>
+<li><a href=#LinkMark-empty_stack>empty_stack</a></li>
+<li><a href=#LinkMark-stack_out_link_range>stack_out_link_range</a></li>
+<li><a href=#LinkMark-stack_out_label_range>stack_out_label_range</a></li>
+<li><a href=#LinkMark-g_cong>g_cong</a></li>
+<li><a href=#LinkMark-neqif>neqif</a></li>
+<li><a href=#LinkMark-setsimp>setsimp</a></li>
+<li><a href=#LinkMark-apply_fun_index>apply_fun_index</a></li>
+</ul>
+</li><li><a href=#DSWMark>DSWMark</a>
+<ul>
+<li><a href=#DSWMark-index_simp>index_simp</a></li>
+<li><a href=#DSWMark-if_set_elim>if_set_elim</a></li>
+<li><a href=#DSWMark-exists_or>exists_or</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<ul>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/GraphMarkingIBP/outline.pdf>Proof
+outline</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/GraphMarkingIBP/document.pdf>Proof
+document</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/GraphMarkingIBP/session_graph.pdf>Theory dependencies</a></li>
+</ul>
+</div>
+</aside>
+<div class="content theories"><header>
+<form action=/%20search>
+<div class=form-container>
+<input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
+<datalist id=autocomplete>
+</datalist>
+</div>
+</form>
+<h1><span class=first>S</span>ession <span class=first>G</span>raph<span class=first>M</span>arking<span class=first>I</span><span class=first>B</span><span class=first>P</span></h1>
+<div>
+</div>
+</header><div id=banner data-id=0>
+<p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button>
+</div>
+<div><main>
+<div id=Graph>
+<div class=head>
+<h1>Theory Graph</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Address Graph›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Graph
 <span class=keyword2><span class=keyword>imports</span></span> <a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL/Main.html>Main</a>
@@ -76,7 +167,12 @@ it returns the empty list otherwise.
   <span class=keyword2><span class=keyword>end</span></span>
   
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=SetMark><div class=head><h1>Theory SetMark</h1></div><pre class=source>
+</pre>
+</div><div id=SetMark>
+<div class=head>
+<h1>Theory SetMark</h1>
+</div>
+<pre class=source>
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Marking Using a Set›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> SetMark
@@ -408,7 +504,12 @@ ordering on pairs $(i,\, n)$ where $i\in I$ and $n\in \mathit{nat}$.
   <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=StackMark><div class=head><h1>Theory StackMark</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Marking Using a Stack›</span></span>
+</pre>
+</div><div id=StackMark>
+<div class=head>
+<h1>Theory StackMark</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Marking Using a Stack›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> StackMark
 <span class=keyword2><span class=keyword>imports</span></span> <a href=#SetMark>SetMark</a> <a href=../../datarefinementibp/theories/#DataRefinement>DataRefinementIBP.DataRefinement</a>
@@ -564,7 +665,12 @@ has distinct elements and the elements of the list and the set are the same.
   <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>rule</span> SetMark_correct1<span class=main>)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=LinkMark><div class=head><h1>Theory LinkMark</h1></div><pre class=source>
+</pre>
+</div><div id=LinkMark>
+<div class=head>
+<h1>Theory LinkMark</h1>
+</div>
+<pre class=source>
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Generalization of Deutsch-Schorr-Waite Algorithm›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> LinkMark
@@ -890,7 +996,12 @@ modifying the variable $ \mathit{link}$ and $ \mathit{label}$.
 
 <span class=keyword2><span class=keyword>end</span></span>
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=DSWMark><div class=head><h1>Theory DSWMark</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Deutsch-Schorr-Waite Marking Algorithm›</span></span>
+</pre>
+</div><div id=DSWMark>
+<div class=head>
+<h1>Theory DSWMark</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Deutsch-Schorr-Waite Marking Algorithm›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> DSWMark
 <span class=keyword2><span class=keyword>imports</span></span> <a href=#LinkMark>LinkMark</a>
@@ -1269,4 +1380,10 @@ situation, then it will terminate in the final situation, and it will mark all r
 
 <span class=keyword2><span class=keyword>end</span></span>
 
-</pre></div></main></div></div></body></html>
+</pre>
+</div>
+</main>
+</div>
+</div>
+</body>
+</html>

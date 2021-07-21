@@ -1,17 +1,94 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Auto2 Prover - Archive of Formal Proofs</title><meta name=description content="
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Auto2 Prover - Archive of Formal Proofs</title><meta name=description content="
 Auto2 is a saturation-based heuristic prover for higher-order logic,
 implemented as a tactic in Isabelle.  This entry contains the
-instantiation of auto2..."><meta property="og:title" content="Auto2 Prover"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/auto2_hol/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="entries"><meta property="article:published_time" content="2018-11-20T00:00:00+00:00"><meta property="article:modified_time" content="2018-11-20T00:00:00+00:00"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Auto2 Prover"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=icon href=/images/favicon.ico type=image/icon><script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]},processEscapes:!0,svg:{fontCache:'global'}}</script><script id=MathJax-script async src=/js/mathjax/es5/tex-mml-chtml.js></script><script src=/js/entries.js></script><script src=/js/flexsearch.min.js></script><script src=/js/banner.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><li><a href=/>Home</a></li><li><a href=/topics/>Topics</a></li><li><a href=/download/>Download</a></li><li><a href=/help/>Help</a></li><li><a href=/statistics/>Statistics</a></li><li><a href=/about/>About</a></li></ul></div><ul><li><a href=/contribution/>Contribution</a></li></ul></div></aside><div class="content entries"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
-<datalist id=autocomplete></datalist></div></form><h1><span class=first>A</span>uto2 <span class=first>P</span>rover</h1><div><p><a href=/authors/bohua-zhan>Bohua Zhan</a></p><p class=date>20 November 2018</p></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><h3>Abstract</h3><div class="abstract mathjax_process">Auto2 is a saturation-based heuristic prover for higher-order logic,
+instantiation of auto2..."><meta property="og:title" content="Auto2 Prover">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="/entries/auto2_hol/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="entries">
+<meta property="article:published_time" content="2018-11-20T00:00:00+00:00">
+<meta property="article:modified_time" content="2018-11-20T00:00:00+00:00"><meta property="og:site_name" content="Archive of Formal Proofs">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="/images/afp.png">
+<meta name=twitter:title content="Auto2 Prover">
+<meta name=twitter:description content>
+<link rel=stylesheet type=text/css href=/css/front.min.css>
+<link rel=icon href=/images/favicon.ico type=image/icon>
+<script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]},processEscapes:!0,svg:{fontCache:'global'}}</script>
+<script id=MathJax-script async src=/js/mathjax/es5/tex-mml-chtml.js></script>
+<script src=/js/entries.js></script><script src=/js/flexsearch.min.js></script>
+<script src=/js/banner.js></script><script src=/js/header-search.js></script></head>
+<body class=mathjax_ignore>
+<aside>
+<div>
+<div>
+<a href=/>
+<img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo>
+</a>
+<ul>
+<li><a href=/>Home</a></li>
+<li><a href=/topics/>Topics</a></li>
+<li><a href=/download/>Download</a></li>
+<li><a href=/help/>Help</a></li>
+<li><a href=/statistics/>Statistics</a></li>
+<li><a href=/about/>About</a></li>
+</ul>
+</div>
+<ul>
+<li><a href=/contribution/>Contribution</a></li>
+</ul>
+</div>
+</aside>
+<div class="content entries"><header>
+<form action=/%20search>
+<div class=form-container>
+<input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
+<datalist id=autocomplete>
+</datalist>
+</div>
+</form>
+<h1><span class=first>A</span>uto2 <span class=first>P</span>rover</h1>
+<div>
+<p><a href=/authors/bohua-zhan>Bohua Zhan</a>
+</p>
+<p class=date>20 November 2018</p>
+</div>
+</header><div id=banner data-id=0>
+<p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button>
+</div>
+<div><main>
+<h3>Abstract</h3>
+<div class="abstract mathjax_process">Auto2 is a saturation-based heuristic prover for higher-order logic,
 implemented as a tactic in Isabelle. This entry contains the
 instantiation of auto2 for Isabelle/HOL, along with two basic
 examples: solutions to some of the Pelletier’s problems, and
-elementary number theory of primes.</div><a href=http://isa-afp.org/LICENSE>BSD License</a><h3>Used by</h3><ul><li><a href=/entries/auto2_imperative_hol/>Auto2_Imperative_HOL</a></li></ul><h3>Topics</h3><ul><li><a href=/topics/tools>Tools</a></li></ul><h3>Theories</h3><ul><li><a href=theories/#HOL_Base>HOL_Base</a></li><li><a href=theories/#Auto2_HOL>Auto2_HOL</a></li><li><a href=theories/#files/AFP/Auto2_HOL/util.ML>files/AFP/Auto2_HOL/util.ML</a></li><li><a href=theories/#files/AFP/Auto2_HOL/util_base.ML>files/AFP/Auto2_HOL/util_base.ML</a></li><li><a href=theories/#files/auto2_hol.ML>files/auto2_hol.ML</a></li><li><a href=theories/#files/AFP/Auto2_HOL/util_logic.ML>files/AFP/Auto2_HOL/util_logic.ML</a></li><li><a href=theories/#files/AFP/Auto2_HOL/box_id.ML>files/AFP/Auto2_HOL/box_id.ML</a></li><li><a href=theories/#files/AFP/Auto2_HOL/consts.ML>files/AFP/Auto2_HOL/consts.ML</a></li><li><a href=theories/#files/AFP/Auto2_HOL/property.ML>files/AFP/Auto2_HOL/property.ML</a></li><li><a href=theories/#files/AFP/Auto2_HOL/wellform.ML>files/AFP/Auto2_HOL/wellform.ML</a></li><li><a href=theories/#files/AFP/Auto2_HOL/wfterm.ML>files/AFP/Auto2_HOL/wfterm.ML</a></li><li><a href=theories/#files/AFP/Auto2_HOL/rewrite.ML>files/AFP/Auto2_HOL/rewrite.ML</a></li><li><a href=theories/#files/AFP/Auto2_HOL/propertydata.ML>files/AFP/Auto2_HOL/propertydata.ML</a></li><li><a href=theories/#files/AFP/Auto2_HOL/matcher.ML>files/AFP/Auto2_HOL/matcher.ML</a></li><li><a href=theories/#files/AFP/Auto2_HOL/items.ML>files/AFP/Auto2_HOL/items.ML</a></li><li><a href=theories/#files/AFP/Auto2_HOL/wfdata.ML>files/AFP/Auto2_HOL/wfdata.ML</a></li><li><a href=theories/#files/AFP/Auto2_HOL/auto2_data.ML>files/AFP/Auto2_HOL/auto2_data.ML</a></li><li><a href=theories/#files/AFP/Auto2_HOL/status.ML>files/AFP/Auto2_HOL/status.ML</a></li><li><a href=theories/#files/AFP/Auto2_HOL/normalize.ML>files/AFP/Auto2_HOL/normalize.ML</a></li><li><a href=theories/#files/AFP/Auto2_HOL/proofsteps.ML>files/AFP/Auto2_HOL/proofsteps.ML</a></li><li><a href=theories/#files/AFP/Auto2_HOL/auto2_state.ML>files/AFP/Auto2_HOL/auto2_state.ML</a></li><li><a href=theories/#files/AFP/Auto2_HOL/logic_steps.ML>files/AFP/Auto2_HOL/logic_steps.ML</a></li><li><a href=theories/#files/AFP/Auto2_HOL/auto2.ML>files/AFP/Auto2_HOL/auto2.ML</a></li><li><a href=theories/#files/AFP/Auto2_HOL/auto2_outer.ML>files/AFP/Auto2_HOL/auto2_outer.ML</a></li><li><a href=theories/#files/acdata.ML>files/acdata.ML</a></li><li><a href=theories/#files/ac_steps.ML>files/ac_steps.ML</a></li><li><a href=theories/#files/unfolding.ML>files/unfolding.ML</a></li><li><a href=theories/#files/induct_outer.ML>files/induct_outer.ML</a></li><li><a href=theories/#files/extra_hol.ML>files/extra_hol.ML</a></li><li><a href=theories/#Logic_Thms>Logic_Thms</a></li><li><a href=theories/#Order_Thms>Order_Thms</a></li><li><a href=theories/#files/util_arith.ML>files/util_arith.ML</a></li><li><a href=theories/#Arith_Thms>Arith_Thms</a></li><li><a href=theories/#files/arith.ML>files/arith.ML</a></li><li><a href=theories/#files/order.ML>files/order.ML</a></li><li><a href=theories/#files/order_test.ML>files/order_test.ML</a></li><li><a href=theories/#files/nat_sub.ML>files/nat_sub.ML</a></li><li><a href=theories/#files/nat_sub_test.ML>files/nat_sub_test.ML</a></li><li><a href=theories/#Set_Thms>Set_Thms</a></li><li><a href=theories/#Lists_Thms>Lists_Thms</a></li><li><a href=theories/#files/list_ac.ML>files/list_ac.ML</a></li><li><a href=theories/#files/list_ac_test.ML>files/list_ac_test.ML</a></li><li><a href=theories/#Auto2_Main>Auto2_Main</a></li><li><a href=theories/#Auto2_Test>Auto2_Test</a></li><li><a href=theories/#files/util_test.ML>files/util_test.ML</a></li><li><a href=theories/#files/rewrite_test.ML>files/rewrite_test.ML</a></li><li><a href=theories/#files/matcher_test.ML>files/matcher_test.ML</a></li><li><a href=theories/#files/normalize_test.ML>files/normalize_test.ML</a></li><li><a href=theories/#files/logic_steps_test.ML>files/logic_steps_test.ML</a></li><li><a href=theories/#files/acdata_test.ML>files/acdata_test.ML</a></li><li><a href=theories/#Pelletier>Pelletier</a></li><li><a href=theories/#Primes_Ex>Primes_Ex</a></li></ul></main><nav class=links><a class=popUpButton href=#citePopUp>Cite</a>
-<a class=popUpButton href=#downloadPopUp>Download</a><h4>PDFs</h4><a href=https://www.isa-afp.org/browser_info/current/AFP/Auto2_HOL/outline.pdf>Proof
+elementary number theory of primes.</div><a href=http://isa-afp.org/LICENSE>BSD License</a><h3>Used by</h3>
+<ul><li><a href=/entries/auto2_imperative_hol/>Auto2_Imperative_HOL</a></li></ul><h3>Topics</h3>
+<ul><li><a href=/topics/tools>Tools</a></li></ul><h3>Theories</h3>
+<ul>
+<li><a href=theories/#HOL_Base>HOL_Base</a></li><li><a href=theories/#Auto2_HOL>Auto2_HOL</a></li><li><a href=theories/#files/AFP/Auto2_HOL/util.ML>files/AFP/Auto2_HOL/util.ML</a></li><li><a href=theories/#files/AFP/Auto2_HOL/util_base.ML>files/AFP/Auto2_HOL/util_base.ML</a></li><li><a href=theories/#files/auto2_hol.ML>files/auto2_hol.ML</a></li><li><a href=theories/#files/AFP/Auto2_HOL/util_logic.ML>files/AFP/Auto2_HOL/util_logic.ML</a></li><li><a href=theories/#files/AFP/Auto2_HOL/box_id.ML>files/AFP/Auto2_HOL/box_id.ML</a></li><li><a href=theories/#files/AFP/Auto2_HOL/consts.ML>files/AFP/Auto2_HOL/consts.ML</a></li><li><a href=theories/#files/AFP/Auto2_HOL/property.ML>files/AFP/Auto2_HOL/property.ML</a></li><li><a href=theories/#files/AFP/Auto2_HOL/wellform.ML>files/AFP/Auto2_HOL/wellform.ML</a></li><li><a href=theories/#files/AFP/Auto2_HOL/wfterm.ML>files/AFP/Auto2_HOL/wfterm.ML</a></li><li><a href=theories/#files/AFP/Auto2_HOL/rewrite.ML>files/AFP/Auto2_HOL/rewrite.ML</a></li><li><a href=theories/#files/AFP/Auto2_HOL/propertydata.ML>files/AFP/Auto2_HOL/propertydata.ML</a></li><li><a href=theories/#files/AFP/Auto2_HOL/matcher.ML>files/AFP/Auto2_HOL/matcher.ML</a></li><li><a href=theories/#files/AFP/Auto2_HOL/items.ML>files/AFP/Auto2_HOL/items.ML</a></li><li><a href=theories/#files/AFP/Auto2_HOL/wfdata.ML>files/AFP/Auto2_HOL/wfdata.ML</a></li><li><a href=theories/#files/AFP/Auto2_HOL/auto2_data.ML>files/AFP/Auto2_HOL/auto2_data.ML</a></li><li><a href=theories/#files/AFP/Auto2_HOL/status.ML>files/AFP/Auto2_HOL/status.ML</a></li><li><a href=theories/#files/AFP/Auto2_HOL/normalize.ML>files/AFP/Auto2_HOL/normalize.ML</a></li><li><a href=theories/#files/AFP/Auto2_HOL/proofsteps.ML>files/AFP/Auto2_HOL/proofsteps.ML</a></li><li><a href=theories/#files/AFP/Auto2_HOL/auto2_state.ML>files/AFP/Auto2_HOL/auto2_state.ML</a></li><li><a href=theories/#files/AFP/Auto2_HOL/logic_steps.ML>files/AFP/Auto2_HOL/logic_steps.ML</a></li><li><a href=theories/#files/AFP/Auto2_HOL/auto2.ML>files/AFP/Auto2_HOL/auto2.ML</a></li><li><a href=theories/#files/AFP/Auto2_HOL/auto2_outer.ML>files/AFP/Auto2_HOL/auto2_outer.ML</a></li><li><a href=theories/#files/acdata.ML>files/acdata.ML</a></li><li><a href=theories/#files/ac_steps.ML>files/ac_steps.ML</a></li><li><a href=theories/#files/unfolding.ML>files/unfolding.ML</a></li><li><a href=theories/#files/induct_outer.ML>files/induct_outer.ML</a></li><li><a href=theories/#files/extra_hol.ML>files/extra_hol.ML</a></li><li><a href=theories/#Logic_Thms>Logic_Thms</a></li><li><a href=theories/#Order_Thms>Order_Thms</a></li><li><a href=theories/#files/util_arith.ML>files/util_arith.ML</a></li><li><a href=theories/#Arith_Thms>Arith_Thms</a></li><li><a href=theories/#files/arith.ML>files/arith.ML</a></li><li><a href=theories/#files/order.ML>files/order.ML</a></li><li><a href=theories/#files/order_test.ML>files/order_test.ML</a></li><li><a href=theories/#files/nat_sub.ML>files/nat_sub.ML</a></li><li><a href=theories/#files/nat_sub_test.ML>files/nat_sub_test.ML</a></li><li><a href=theories/#Set_Thms>Set_Thms</a></li><li><a href=theories/#Lists_Thms>Lists_Thms</a></li><li><a href=theories/#files/list_ac.ML>files/list_ac.ML</a></li><li><a href=theories/#files/list_ac_test.ML>files/list_ac_test.ML</a></li><li><a href=theories/#Auto2_Main>Auto2_Main</a></li><li><a href=theories/#Auto2_Test>Auto2_Test</a></li><li><a href=theories/#files/util_test.ML>files/util_test.ML</a></li><li><a href=theories/#files/rewrite_test.ML>files/rewrite_test.ML</a></li><li><a href=theories/#files/matcher_test.ML>files/matcher_test.ML</a></li><li><a href=theories/#files/normalize_test.ML>files/normalize_test.ML</a></li><li><a href=theories/#files/logic_steps_test.ML>files/logic_steps_test.ML</a></li><li><a href=theories/#files/acdata_test.ML>files/acdata_test.ML</a></li><li><a href=theories/#Pelletier>Pelletier</a></li><li><a href=theories/#Primes_Ex>Primes_Ex</a></li></ul>
+</main>
+<nav class=links>
+<a class=popUpButton href=#citePopUp>Cite</a>
+<a class=popUpButton href=#downloadPopUp>Download</a>
+<h4>PDFs</h4>
+<a href=https://www.isa-afp.org/browser_info/current/AFP/Auto2_HOL/outline.pdf>Proof
 outline</a>
 <a href=https://www.isa-afp.org/browser_info/current/AFP/Auto2_HOL/document.pdf>Proof
 document</a>
-<a href=https://www.isa-afp.org/browser_info/current/AFP/Auto2_HOL/session_graph.pdf>Dependencies</a></nav><div id=citePopUp class=overlay><a class=cancel href=#></a><div class=popup><h2>Cite</h2><a class=close href=#>&#215;</a><div><p style=display:none id=bibtexFileName>Auto2_HOL-AFP</p><pre id=copyText>@article{Auto2_HOL-AFP,
+<a href=https://www.isa-afp.org/browser_info/current/AFP/Auto2_HOL/session_graph.pdf>Dependencies</a>
+</nav>
+<div id=citePopUp class=overlay>
+<a class=cancel href=#></a>
+<div class=popup>
+<h2>Cite</h2>
+<a class=close href=#>&#215;</a>
+<div>
+<p style=display:none id=bibtexFileName>Auto2_HOL-AFP</p>
+<pre id=copyText>@article{Auto2_HOL-AFP,
   author  = {Bohua Zhan},
   title   = {Auto2 Prover},
   journal = {Archive of Formal Proofs},
@@ -20,7 +97,30 @@ document</a>
   note    = {\url{http://isa-afp.org/entries/Auto2_HOL.html},
             Formal proof development},
   ISSN    = {2150-914x},
-}</pre><button id=copyBibtex>Copy</button> <a id=downloadBibtex>Download</a></div></div></div><div id=downloadPopUp class=overlay><a class=cancel href=#></a><div class=popup><h2>Download</h2><a class=close href=#>&#215;</a>
-<a href=https://isa-afp.org/release/afp-Auto2_HOL-current.tar.gz download>Download latest</a><p>Older releases:</p><ul><li>Isabelle2019:
-<a href=https://isa-afp.org/release/afp-Auto2_HOL-2019-06-11.tar.gz>afp-Auto2_HOL-2019-06-11.tar.gz</a></li><li>Isabelle2018:
-<a href=https://isa-afp.org/release/afp-Auto2_HOL-2018-11-29.tar.gz>afp-Auto2_HOL-2018-11-29.tar.gz</a></li></ul></div></div></div></div></body></html>
+}</pre>
+<button id=copyBibtex>Copy</button> <a id=downloadBibtex>Download</a>
+</div>
+</div>
+</div>
+<div id=downloadPopUp class=overlay>
+<a class=cancel href=#></a>
+<div class=popup>
+<h2>Download</h2>
+<a class=close href=#>&#215;</a>
+<a href=https://isa-afp.org/release/afp-Auto2_HOL-current.tar.gz download>Download latest</a>
+<p>Older releases:</p>
+<ul><li>Isabelle2019:
+<a href=https://isa-afp.org/release/afp-Auto2_HOL-2019-06-11.tar.gz>
+afp-Auto2_HOL-2019-06-11.tar.gz
+</a>
+</li><li>Isabelle2018:
+<a href=https://isa-afp.org/release/afp-Auto2_HOL-2018-11-29.tar.gz>
+afp-Auto2_HOL-2018-11-29.tar.gz
+</a>
+</li></ul>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

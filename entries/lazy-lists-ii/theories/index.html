@@ -1,7 +1,216 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Session Lazy-Lists-II - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session Lazy-Lists-II"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/lazy-lists-ii/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Session Lazy-Lists-II"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css><link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script><script src=/js/banner.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><li><a href=/entries/lazy-lists-ii>Return to entry</a></li></ul><hr><ul><li><a href=#LList2>LList2</a><ul><li><a href=#LList2-alllsts_UNIV>alllsts_UNIV</a></li><li><a href=#LList2-alllsts_empty>alllsts_empty</a></li><li><a href=#LList2-alllsts_mono>alllsts_mono</a></li><li><a href=#LList2-LConsE>LConsE</a></li><li><a href=#LList2-poslsts_iff>poslsts_iff</a></li><li><a href=#LList2-poslsts_UNIV>poslsts_UNIV</a></li><li><a href=#LList2-poslsts_empty>poslsts_empty</a></li><li><a href=#LList2-poslsts_mono>poslsts_mono</a></li><li><a href=#LList2-finlsts_empty>finlsts_empty</a></li><li><a href=#LList2-finsubsetall>finsubsetall</a></li><li><a href=#LList2-finlsts_mono>finlsts_mono</a></li><li><a href=#LList2-finlsts_induct>finlsts_induct</a></li><li><a href=#LList2-finite_lemma>finite_lemma</a></li><li><a href=#LList2-fin_finite>fin_finite</a></li><li><a href=#LList2-finT_simp>finT_simp</a></li><li><a href=#LList2-finlsts_predI>finlsts_predI</a></li><li><a href=#LList2-wf_finlsts_pred>wf_finlsts_pred</a></li><li><a href=#LList2-finlsts_rec_LNil>finlsts_rec_LNil</a></li><li><a href=#LList2-finlsts_rec_LCons>finlsts_rec_LCons</a></li><li><a href=#LList2-finlsts_rec_LNil_def>finlsts_rec_LNil_def</a></li><li><a href=#LList2-finlsts_rec_LCons_def>finlsts_rec_LCons_def</a></li><li><a href=#LList2-fpslsts_iff>fpslsts_iff</a></li><li><a href=#LList2-fpslsts_empty>fpslsts_empty</a></li><li><a href=#LList2-fpslsts_mono>fpslsts_mono</a></li><li><a href=#LList2-fpslsts_cases>fpslsts_cases</a></li><li><a href=#LList2-inflstsI>inflstsI</a></li><li><a href=#LList2-inflstsE>inflstsE</a></li><li><a href=#LList2-inflsts_empty>inflsts_empty</a></li><li><a href=#LList2-infsubsetall>infsubsetall</a></li><li><a href=#LList2-inflsts_mono>inflsts_mono</a></li><li><a href=#LList2-inflsts_cases>inflsts_cases</a></li><li><a href=#LList2-inflstsI2>inflstsI2</a></li><li><a href=#LList2-infT_simp>infT_simp</a></li><li><a href=#LList2-alllstsE>alllstsE</a></li><li><a href=#LList2-fin_inf_cases>fin_inf_cases</a></li><li><a href=#LList2-fin_Int_inf>fin_Int_inf</a></li><li><a href=#LList2-notfin_inf>notfin_inf</a></li><li><a href=#LList2-notinf_fin>notinf_fin</a></li><li><a href=#LList2-lapp_inf>lapp_inf</a></li><li><a href=#LList2-LNil_is_lappend_conv>LNil_is_lappend_conv</a></li><li><a href=#LList2-lappend_is_LNil_conv>lappend_is_LNil_conv</a></li><li><a href=#LList2-same_lappend_eq>same_lappend_eq</a></li><li><a href=#LList2-lappT>lappT</a></li><li><a href=#LList2-lappfin_finT>lappfin_finT</a></li><li><a href=#LList2-lapp_fin_fin_lemma>lapp_fin_fin_lemma</a></li><li><a href=#LList2-lapp_fin_fin_iff>lapp_fin_fin_iff</a></li><li><a href=#LList2-lapp_all_invT>lapp_all_invT</a></li><li><a href=#LList2-lapp_fin_infT>lapp_fin_infT</a></li><li><a href=#LList2-app_invT>app_invT</a></li><li><a href=#LList2-lapp_inv2T>lapp_inv2T</a></li><li><a href=#LList2-lapp_infT>lapp_infT</a></li><li><a href=#LList2-lapp_allT_iff>lapp_allT_iff</a></li><li><a href=#LList2-lrevT>lrevT</a></li><li><a href=#LList2-lrev_lappend>lrev_lappend</a></li><li><a href=#LList2-lrev_lrev_ident>lrev_lrev_ident</a></li><li><a href=#LList2-lrev_is_LNil_conv>lrev_is_LNil_conv</a></li><li><a href=#LList2-LNil_is_lrev_conv>LNil_is_lrev_conv</a></li><li><a href=#LList2-lrev_is_lrev_conv>lrev_is_lrev_conv</a></li><li><a href=#LList2-lrev_induct>lrev_induct</a></li><li><a href=#LList2-finlsts_rev_cases>finlsts_rev_cases</a></li><li><a href=#LList2-ll2f_LNil>ll2f_LNil</a></li><li><a href=#LList2-None_lfinite>None_lfinite</a></li><li><a href=#LList2-infinite_Some>infinite_Some</a></li><li><a href=#LList2-Least_True>Least_True</a></li><li><a href=#LList2-ll2f_llength>ll2f_llength</a></li><li><a href=#LList2-llength_least_None>llength_least_None</a></li><li><a href=#LList2-ll2f_lem1>ll2f_lem1</a></li><li><a href=#LList2-ll2f_None_Suc>ll2f_None_Suc</a></li><li><a href=#LList2-ll2f_None_le>ll2f_None_le</a></li><li><a href=#LList2-ll2f_Some_le>ll2f_Some_le</a></li><li><a href=#LList2-ltake_LNil>ltake_LNil</a></li><li><a href=#LList2-ltake_LCons_Suc>ltake_LCons_Suc</a></li><li><a href=#LList2-take_fin>take_fin</a></li><li><a href=#LList2-ltake_fin>ltake_fin</a></li><li><a href=#LList2-llength_take>llength_take</a></li><li><a href=#LList2-ltake_ldrop_id>ltake_ldrop_id</a></li><li><a href=#LList2-ltake_ldrop>ltake_ldrop</a></li><li><a href=#LList2-ldrop_LNil>ldrop_LNil</a></li><li><a href=#LList2-ldrop_add>ldrop_add</a></li><li><a href=#LList2-ldrop_fun>ldrop_fun</a></li><li><a href=#LList2-ldropT>ldropT</a></li><li><a href=#LList2-ldrop_finT>ldrop_finT</a></li><li><a href=#LList2-ldrop_infT>ldrop_infT</a></li><li><a href=#LList2-lapp_suff_llength>lapp_suff_llength</a></li><li><a href=#LList2-ltake_lappend_llength>ltake_lappend_llength</a></li><li><a href=#LList2-ldrop_LNil_less>ldrop_LNil_less</a></li><li><a href=#LList2-ldrop_inf_iffT>ldrop_inf_iffT</a></li><li><a href=#LList2-ldrop_fin_iffT>ldrop_fin_iffT</a></li><li><a href=#LList2-drop_nonLNil>drop_nonLNil</a></li><li><a href=#LList2-llength_drop_take>llength_drop_take</a></li><li><a href=#LList2-fps_induct>fps_induct</a></li><li><a href=#LList2-lbutlast_lapp_llast>lbutlast_lapp_llast</a></li><li><a href=#LList2-llast_snoc>llast_snoc</a></li><li><a href=#LList2-lbutlast_snoc>lbutlast_snoc</a></li><li><a href=#LList2-llast_lappend>llast_lappend</a></li><li><a href=#LList2-llast_llength>llast_llength</a></li><li><a href=#LList2-lconst_unfold>lconst_unfold</a></li><li><a href=#LList2-lconst_LNil>lconst_LNil</a></li><li><a href=#LList2-lconstT>lconstT</a></li><li><a href=#LList2-not_LCons_le_LNil>not_LCons_le_LNil</a></li><li><a href=#LList2-LNil_le>LNil_le</a></li><li><a href=#LList2-le_LNil>le_LNil</a></li><li><a href=#LList2-llist_inf_le>llist_inf_le</a></li><li><a href=#LList2-le_LCons>le_LCons</a></li><li><a href=#LList2-llist_le_refl>llist_le_refl</a></li><li><a href=#LList2-llist_le_trans>llist_le_trans</a></li><li><a href=#LList2-llist_le_anti_sym>llist_le_anti_sym</a></li><li><a href=#LList2-llist_less_le_not_le>llist_less_le_not_le</a></li><li><a href=#LList2-llist_le_finT>llist_le_finT</a></li><li><a href=#LList2-llist_less_finT>llist_less_finT</a></li><li><a href=#LList2-LNil_less_LCons>LNil_less_LCons</a></li><li><a href=#LList2-not_less_LNil>not_less_LNil</a></li><li><a href=#LList2-less_LCons>less_LCons</a></li><li><a href=#LList2-llength_mono>llength_mono</a></li><li><a href=#LList2-le_lappend>le_lappend</a></li><li><a href=#LList2-take_inf_less>take_inf_less</a></li><li><a href=#LList2-lapp_take_less>lapp_take_less</a></li><li><a href=#LList2-finpref_LNil>finpref_LNil</a></li><li><a href=#LList2-finpref_fin>finpref_fin</a></li><li><a href=#LList2-finpref_mono2>finpref_mono2</a></li><li><a href=#LList2-suff_LNil>suff_LNil</a></li><li><a href=#LList2-suff_all>suff_all</a></li><li><a href=#LList2-suff_mono2>suff_mono2</a></li><li><a href=#LList2-suff_appE>suff_appE</a></li><li><a href=#LList2-LNil_suff>LNil_suff</a></li><li><a href=#LList2-finpref_suff>finpref_suff</a></li><li><a href=#LList2-suff_finpref>suff_finpref</a></li><li><a href=#LList2-suff_finpref_iff>suff_finpref_iff</a></li><li><a href=#LList2-infsuff_LNil>infsuff_LNil</a></li><li><a href=#LList2-infsuff_inf>infsuff_inf</a></li><li><a href=#LList2-infsuff_mono2>infsuff_mono2</a></li><li><a href=#LList2-infsuff_appE>infsuff_appE</a></li><li><a href=#LList2-finpref_infsuff>finpref_infsuff</a></li><li><a href=#LList2-infsuff_finpref>infsuff_finpref</a></li><li><a href=#LList2-infsuff_finpref_iff>infsuff_finpref_iff</a></li><li><a href=#LList2-prefix_lemma>prefix_lemma</a></li><li><a href=#LList2-inf_neqE>inf_neqE</a></li><li><a href=#LList2-pref_locally_linear>pref_locally_linear</a></li><li><a href=#LList2-pfinpref_iff>pfinpref_iff</a></li><li><a href=#LList2-safetyI>safetyI</a></li><li><a href=#LList2-safetyD>safetyD</a></li><li><a href=#LList2-safetyE>safetyE</a></li><li><a href=#LList2-safety_prefix_closed>safety_prefix_closed</a></li><li><a href=#LList2-livenessI>livenessI</a></li><li><a href=#LList2-livenessE>livenessE</a></li><li><a href=#LList2-possafetyI>possafetyI</a></li><li><a href=#LList2-possafetyD>possafetyD</a></li><li><a href=#LList2-possafetyE>possafetyE</a></li><li><a href=#LList2-possafety_pprefix_closed>possafety_pprefix_closed</a></li><li><a href=#LList2-poslivenessI>poslivenessI</a></li><li><a href=#LList2-poslivenessE>poslivenessE</a></li></ul></li></ul></div><ul><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Lazy-Lists-II/outline.pdf>Proof
-outline</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Lazy-Lists-II/document.pdf>Proof
-document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Lazy-Lists-II/session_graph.pdf>Theory dependencies</a></li></ul></div></aside><div class="content theories"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
-<datalist id=autocomplete></datalist></div></form><h1><span class=first>S</span>ession <span class=first>L</span>azy-<span class=first>L</span>ists-<span class=first>I</span><span class=first>I</span></h1><div></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><div id=LList2><div class=head><h1>Theory LList2</h1></div><pre class=source><span class=comment1>(*  Title:      LList2.thy
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Session Lazy-Lists-II - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session Lazy-Lists-II">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="/entries/lazy-lists-ii/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories">
+<meta property="og:site_name" content="Archive of Formal Proofs">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="/images/afp.png">
+<meta name=twitter:title content="Session Lazy-Lists-II">
+<meta name=twitter:description content>
+<link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css>
+<link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script>
+<script src=/js/banner.js></script><script src=/js/header-search.js></script></head>
+<body class=mathjax_ignore>
+<aside>
+<div>
+<div>
+<a href=/>
+<img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo>
+</a>
+<ul>
+<li><a href=/entries/lazy-lists-ii>Return to entry</a></li>
+</ul>
+<hr>
+<ul><li><a href=#LList2>LList2</a>
+<ul>
+<li><a href=#LList2-alllsts_UNIV>alllsts_UNIV</a></li>
+<li><a href=#LList2-alllsts_empty>alllsts_empty</a></li>
+<li><a href=#LList2-alllsts_mono>alllsts_mono</a></li>
+<li><a href=#LList2-LConsE>LConsE</a></li>
+<li><a href=#LList2-poslsts_iff>poslsts_iff</a></li>
+<li><a href=#LList2-poslsts_UNIV>poslsts_UNIV</a></li>
+<li><a href=#LList2-poslsts_empty>poslsts_empty</a></li>
+<li><a href=#LList2-poslsts_mono>poslsts_mono</a></li>
+<li><a href=#LList2-finlsts_empty>finlsts_empty</a></li>
+<li><a href=#LList2-finsubsetall>finsubsetall</a></li>
+<li><a href=#LList2-finlsts_mono>finlsts_mono</a></li>
+<li><a href=#LList2-finlsts_induct>finlsts_induct</a></li>
+<li><a href=#LList2-finite_lemma>finite_lemma</a></li>
+<li><a href=#LList2-fin_finite>fin_finite</a></li>
+<li><a href=#LList2-finT_simp>finT_simp</a></li>
+<li><a href=#LList2-finlsts_predI>finlsts_predI</a></li>
+<li><a href=#LList2-wf_finlsts_pred>wf_finlsts_pred</a></li>
+<li><a href=#LList2-finlsts_rec_LNil>finlsts_rec_LNil</a></li>
+<li><a href=#LList2-finlsts_rec_LCons>finlsts_rec_LCons</a></li>
+<li><a href=#LList2-finlsts_rec_LNil_def>finlsts_rec_LNil_def</a></li>
+<li><a href=#LList2-finlsts_rec_LCons_def>finlsts_rec_LCons_def</a></li>
+<li><a href=#LList2-fpslsts_iff>fpslsts_iff</a></li>
+<li><a href=#LList2-fpslsts_empty>fpslsts_empty</a></li>
+<li><a href=#LList2-fpslsts_mono>fpslsts_mono</a></li>
+<li><a href=#LList2-fpslsts_cases>fpslsts_cases</a></li>
+<li><a href=#LList2-inflstsI>inflstsI</a></li>
+<li><a href=#LList2-inflstsE>inflstsE</a></li>
+<li><a href=#LList2-inflsts_empty>inflsts_empty</a></li>
+<li><a href=#LList2-infsubsetall>infsubsetall</a></li>
+<li><a href=#LList2-inflsts_mono>inflsts_mono</a></li>
+<li><a href=#LList2-inflsts_cases>inflsts_cases</a></li>
+<li><a href=#LList2-inflstsI2>inflstsI2</a></li>
+<li><a href=#LList2-infT_simp>infT_simp</a></li>
+<li><a href=#LList2-alllstsE>alllstsE</a></li>
+<li><a href=#LList2-fin_inf_cases>fin_inf_cases</a></li>
+<li><a href=#LList2-fin_Int_inf>fin_Int_inf</a></li>
+<li><a href=#LList2-notfin_inf>notfin_inf</a></li>
+<li><a href=#LList2-notinf_fin>notinf_fin</a></li>
+<li><a href=#LList2-lapp_inf>lapp_inf</a></li>
+<li><a href=#LList2-LNil_is_lappend_conv>LNil_is_lappend_conv</a></li>
+<li><a href=#LList2-lappend_is_LNil_conv>lappend_is_LNil_conv</a></li>
+<li><a href=#LList2-same_lappend_eq>same_lappend_eq</a></li>
+<li><a href=#LList2-lappT>lappT</a></li>
+<li><a href=#LList2-lappfin_finT>lappfin_finT</a></li>
+<li><a href=#LList2-lapp_fin_fin_lemma>lapp_fin_fin_lemma</a></li>
+<li><a href=#LList2-lapp_fin_fin_iff>lapp_fin_fin_iff</a></li>
+<li><a href=#LList2-lapp_all_invT>lapp_all_invT</a></li>
+<li><a href=#LList2-lapp_fin_infT>lapp_fin_infT</a></li>
+<li><a href=#LList2-app_invT>app_invT</a></li>
+<li><a href=#LList2-lapp_inv2T>lapp_inv2T</a></li>
+<li><a href=#LList2-lapp_infT>lapp_infT</a></li>
+<li><a href=#LList2-lapp_allT_iff>lapp_allT_iff</a></li>
+<li><a href=#LList2-lrevT>lrevT</a></li>
+<li><a href=#LList2-lrev_lappend>lrev_lappend</a></li>
+<li><a href=#LList2-lrev_lrev_ident>lrev_lrev_ident</a></li>
+<li><a href=#LList2-lrev_is_LNil_conv>lrev_is_LNil_conv</a></li>
+<li><a href=#LList2-LNil_is_lrev_conv>LNil_is_lrev_conv</a></li>
+<li><a href=#LList2-lrev_is_lrev_conv>lrev_is_lrev_conv</a></li>
+<li><a href=#LList2-lrev_induct>lrev_induct</a></li>
+<li><a href=#LList2-finlsts_rev_cases>finlsts_rev_cases</a></li>
+<li><a href=#LList2-ll2f_LNil>ll2f_LNil</a></li>
+<li><a href=#LList2-None_lfinite>None_lfinite</a></li>
+<li><a href=#LList2-infinite_Some>infinite_Some</a></li>
+<li><a href=#LList2-Least_True>Least_True</a></li>
+<li><a href=#LList2-ll2f_llength>ll2f_llength</a></li>
+<li><a href=#LList2-llength_least_None>llength_least_None</a></li>
+<li><a href=#LList2-ll2f_lem1>ll2f_lem1</a></li>
+<li><a href=#LList2-ll2f_None_Suc>ll2f_None_Suc</a></li>
+<li><a href=#LList2-ll2f_None_le>ll2f_None_le</a></li>
+<li><a href=#LList2-ll2f_Some_le>ll2f_Some_le</a></li>
+<li><a href=#LList2-ltake_LNil>ltake_LNil</a></li>
+<li><a href=#LList2-ltake_LCons_Suc>ltake_LCons_Suc</a></li>
+<li><a href=#LList2-take_fin>take_fin</a></li>
+<li><a href=#LList2-ltake_fin>ltake_fin</a></li>
+<li><a href=#LList2-llength_take>llength_take</a></li>
+<li><a href=#LList2-ltake_ldrop_id>ltake_ldrop_id</a></li>
+<li><a href=#LList2-ltake_ldrop>ltake_ldrop</a></li>
+<li><a href=#LList2-ldrop_LNil>ldrop_LNil</a></li>
+<li><a href=#LList2-ldrop_add>ldrop_add</a></li>
+<li><a href=#LList2-ldrop_fun>ldrop_fun</a></li>
+<li><a href=#LList2-ldropT>ldropT</a></li>
+<li><a href=#LList2-ldrop_finT>ldrop_finT</a></li>
+<li><a href=#LList2-ldrop_infT>ldrop_infT</a></li>
+<li><a href=#LList2-lapp_suff_llength>lapp_suff_llength</a></li>
+<li><a href=#LList2-ltake_lappend_llength>ltake_lappend_llength</a></li>
+<li><a href=#LList2-ldrop_LNil_less>ldrop_LNil_less</a></li>
+<li><a href=#LList2-ldrop_inf_iffT>ldrop_inf_iffT</a></li>
+<li><a href=#LList2-ldrop_fin_iffT>ldrop_fin_iffT</a></li>
+<li><a href=#LList2-drop_nonLNil>drop_nonLNil</a></li>
+<li><a href=#LList2-llength_drop_take>llength_drop_take</a></li>
+<li><a href=#LList2-fps_induct>fps_induct</a></li>
+<li><a href=#LList2-lbutlast_lapp_llast>lbutlast_lapp_llast</a></li>
+<li><a href=#LList2-llast_snoc>llast_snoc</a></li>
+<li><a href=#LList2-lbutlast_snoc>lbutlast_snoc</a></li>
+<li><a href=#LList2-llast_lappend>llast_lappend</a></li>
+<li><a href=#LList2-llast_llength>llast_llength</a></li>
+<li><a href=#LList2-lconst_unfold>lconst_unfold</a></li>
+<li><a href=#LList2-lconst_LNil>lconst_LNil</a></li>
+<li><a href=#LList2-lconstT>lconstT</a></li>
+<li><a href=#LList2-not_LCons_le_LNil>not_LCons_le_LNil</a></li>
+<li><a href=#LList2-LNil_le>LNil_le</a></li>
+<li><a href=#LList2-le_LNil>le_LNil</a></li>
+<li><a href=#LList2-llist_inf_le>llist_inf_le</a></li>
+<li><a href=#LList2-le_LCons>le_LCons</a></li>
+<li><a href=#LList2-llist_le_refl>llist_le_refl</a></li>
+<li><a href=#LList2-llist_le_trans>llist_le_trans</a></li>
+<li><a href=#LList2-llist_le_anti_sym>llist_le_anti_sym</a></li>
+<li><a href=#LList2-llist_less_le_not_le>llist_less_le_not_le</a></li>
+<li><a href=#LList2-llist_le_finT>llist_le_finT</a></li>
+<li><a href=#LList2-llist_less_finT>llist_less_finT</a></li>
+<li><a href=#LList2-LNil_less_LCons>LNil_less_LCons</a></li>
+<li><a href=#LList2-not_less_LNil>not_less_LNil</a></li>
+<li><a href=#LList2-less_LCons>less_LCons</a></li>
+<li><a href=#LList2-llength_mono>llength_mono</a></li>
+<li><a href=#LList2-le_lappend>le_lappend</a></li>
+<li><a href=#LList2-take_inf_less>take_inf_less</a></li>
+<li><a href=#LList2-lapp_take_less>lapp_take_less</a></li>
+<li><a href=#LList2-finpref_LNil>finpref_LNil</a></li>
+<li><a href=#LList2-finpref_fin>finpref_fin</a></li>
+<li><a href=#LList2-finpref_mono2>finpref_mono2</a></li>
+<li><a href=#LList2-suff_LNil>suff_LNil</a></li>
+<li><a href=#LList2-suff_all>suff_all</a></li>
+<li><a href=#LList2-suff_mono2>suff_mono2</a></li>
+<li><a href=#LList2-suff_appE>suff_appE</a></li>
+<li><a href=#LList2-LNil_suff>LNil_suff</a></li>
+<li><a href=#LList2-finpref_suff>finpref_suff</a></li>
+<li><a href=#LList2-suff_finpref>suff_finpref</a></li>
+<li><a href=#LList2-suff_finpref_iff>suff_finpref_iff</a></li>
+<li><a href=#LList2-infsuff_LNil>infsuff_LNil</a></li>
+<li><a href=#LList2-infsuff_inf>infsuff_inf</a></li>
+<li><a href=#LList2-infsuff_mono2>infsuff_mono2</a></li>
+<li><a href=#LList2-infsuff_appE>infsuff_appE</a></li>
+<li><a href=#LList2-finpref_infsuff>finpref_infsuff</a></li>
+<li><a href=#LList2-infsuff_finpref>infsuff_finpref</a></li>
+<li><a href=#LList2-infsuff_finpref_iff>infsuff_finpref_iff</a></li>
+<li><a href=#LList2-prefix_lemma>prefix_lemma</a></li>
+<li><a href=#LList2-inf_neqE>inf_neqE</a></li>
+<li><a href=#LList2-pref_locally_linear>pref_locally_linear</a></li>
+<li><a href=#LList2-pfinpref_iff>pfinpref_iff</a></li>
+<li><a href=#LList2-safetyI>safetyI</a></li>
+<li><a href=#LList2-safetyD>safetyD</a></li>
+<li><a href=#LList2-safetyE>safetyE</a></li>
+<li><a href=#LList2-safety_prefix_closed>safety_prefix_closed</a></li>
+<li><a href=#LList2-livenessI>livenessI</a></li>
+<li><a href=#LList2-livenessE>livenessE</a></li>
+<li><a href=#LList2-possafetyI>possafetyI</a></li>
+<li><a href=#LList2-possafetyD>possafetyD</a></li>
+<li><a href=#LList2-possafetyE>possafetyE</a></li>
+<li><a href=#LList2-possafety_pprefix_closed>possafety_pprefix_closed</a></li>
+<li><a href=#LList2-poslivenessI>poslivenessI</a></li>
+<li><a href=#LList2-poslivenessE>poslivenessE</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<ul>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Lazy-Lists-II/outline.pdf>Proof
+outline</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Lazy-Lists-II/document.pdf>Proof
+document</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Lazy-Lists-II/session_graph.pdf>Theory dependencies</a></li>
+</ul>
+</div>
+</aside>
+<div class="content theories"><header>
+<form action=/%20search>
+<div class=form-container>
+<input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
+<datalist id=autocomplete>
+</datalist>
+</div>
+</form>
+<h1><span class=first>S</span>ession <span class=first>L</span>azy-<span class=first>L</span>ists-<span class=first>I</span><span class=first>I</span></h1>
+<div>
+</div>
+</header><div id=banner data-id=0>
+<p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button>
+</div>
+<div><main>
+<div id=LList2>
+<div class=head>
+<h1>Theory LList2</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      LList2.thy
     Author:     Stefan Friedrich
     Maintainer: Stefan Friedrich
     License:    LGPL
@@ -1291,4 +1500,10 @@ Safety and liveness.
   <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>auto</span> <span class=quasi_keyword>simp</span><span class=main><span class=main>:</span></span> posliveness_def<span class=main>)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div></main></div></div></body></html>
+</pre>
+</div>
+</main>
+</div>
+</div>
+</body>
+</html>

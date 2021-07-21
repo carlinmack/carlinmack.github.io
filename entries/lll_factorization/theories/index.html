@@ -1,7 +1,171 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Session LLL_Factorization - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session LLL_Factorization"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/lll_factorization/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Session LLL_Factorization"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css><link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script><script src=/js/banner.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><li><a href=/entries/lll_factorization>Return to entry</a></li></ul><hr><ul><li><a href=#Factor_Bound_2>Factor_Bound_2</a><ul><li><a href=#Factor_Bound_2-norm_1_bound_mignotte>norm_1_bound_mignotte</a></li><li><a href=#Factor_Bound_2-mahler_measure_l2norm>mahler_measure_l2norm</a></li><li><a href=#Factor_Bound_2-sq_norm_factor_bound>sq_norm_factor_bound</a></li></ul></li><li><a href=#Missing_Dvd_Int_Poly>Missing_Dvd_Int_Poly</a><ul><li><a href=#Missing_Dvd_Int_Poly-degree_div_mod_smult>degree_div_mod_smult</a></li><li><a href=#Missing_Dvd_Int_Poly-uniqueness_algorithm_division_poly>uniqueness_algorithm_division_poly</a></li><li><a href=#Missing_Dvd_Int_Poly-pdivmod_eq_pdivmod_monic>pdivmod_eq_pdivmod_monic</a></li><li><a href=#Missing_Dvd_Int_Poly-dvdm_iff_pdivmod0>dvdm_iff_pdivmod0</a></li><li><a href=#Missing_Dvd_Int_Poly-of_int_poly_Mp_0>of_int_poly_Mp_0</a></li><li><a href=#Missing_Dvd_Int_Poly-uniqueness_algorithm_division_of_int_poly>uniqueness_algorithm_division_of_int_poly</a></li><li><a href=#Missing_Dvd_Int_Poly-uniqueness_algorithm_division_Mp_Rel>uniqueness_algorithm_division_Mp_Rel</a></li><li><a href=#Missing_Dvd_Int_Poly-pdivmod2_rel>pdivmod2_rel</a></li><li><a href=#Missing_Dvd_Int_Poly-dvdm_iff_Mp_pdivmod2>dvdm_iff_Mp_pdivmod2</a></li></ul></li><li><a href=#LLL_Factorization_Impl>LLL_Factorization_Impl</a><ul><li><a href=#LLL_Factorization_Impl-factorization_lattice_code>factorization_lattice_code</a></li></ul></li><li><a href=#LLL_Factorization>LLL_Factorization</a><ul><li><a href=#LLL_Factorization-nth_factorization_lattice>nth_factorization_lattice</a></li><li><a href=#LLL_Factorization-length_factorization_lattice>length_factorization_lattice</a></li><li><a href=#LLL_Factorization-dim_factorization_lattice>dim_factorization_lattice</a></li><li><a href=#LLL_Factorization-dim_factorization_lattice_element>dim_factorization_lattice_element</a></li><li><a href=#LLL_Factorization-set_factorization_lattice_in_carrier>set_factorization_lattice_in_carrier</a></li><li><a href=#LLL_Factorization-choose_u_Cons>choose_u_Cons</a></li><li><a href=#LLL_Factorization-choose_u_member>choose_u_member</a></li><li><a href=#LLL_Factorization-sq_norm_row_sylvester_mat1>sq_norm_row_sylvester_mat1</a></li><li><a href=#LLL_Factorization-sq_norm_row_sylvester_mat2>sq_norm_row_sylvester_mat2</a></li><li><a href=#LLL_Factorization-Hadamard%27s_inequality_int>Hadamard's_inequality_int</a></li><li><a href=#LLL_Factorization-resultant_le_prod_sq_norm>resultant_le_prod_sq_norm</a></li><li><a href=#LLL_Factorization-common_factor_via_short>common_factor_via_short</a></li><li><a href=#LLL_Factorization-factorization_lattice_as_sylvester>factorization_lattice_as_sylvester</a></li><li><a href=#LLL_Factorization-map_poly_hom_mult_monom>map_poly_hom_mult_monom</a></li><li><a href=#LLL_Factorization-hom_vec_of_poly_n>hom_vec_of_poly_n</a></li><li><a href=#LLL_Factorization-hom_factorization_lattice>hom_factorization_lattice</a></li><li><a href=#LLL_Factorization-upper_triangular_factorization_lattice>upper_triangular_factorization_lattice</a></li><li><a href=#LLL_Factorization-factorization_lattice_diag_nonzero>factorization_lattice_diag_nonzero</a></li><li><a href=#LLL_Factorization-lin_indpt_list_factorization_lattice>lin_indpt_list_factorization_lattice</a></li><li><a href=#LLL_Factorization-lincomb_to_dvd_modulo>lincomb_to_dvd_modulo</a></li><li><a href=#LLL_Factorization-dvd_modulo_to_lincomb>dvd_modulo_to_lincomb</a></li><li><a href=#LLL_Factorization-factorization_lattice>factorization_lattice</a></li><li><a href=#LLL_Factorization-LLL_short_polynomial>LLL_short_polynomial</a></li><li><a href=#LLL_Factorization-LLL_reconstruction>LLL_reconstruction</a></li><li><a href=#LLL_Factorization-LLL_many_reconstruction>LLL_many_reconstruction</a></li><li><a href=#LLL_Factorization-LLL_factorization>LLL_factorization</a></li><li><a href=#LLL_Factorization-LLL_many_factorization>LLL_many_factorization</a></li><li><a href=#LLL_Factorization-LLL_factorization_primitive>LLL_factorization_primitive</a></li></ul></li><li><a href=#Sub_Sums>Sub_Sums</a><ul><li><a href=#Sub_Sums-subset_add_mset>subset_add_mset</a></li><li><a href=#Sub_Sums-sub_mset_sums>sub_mset_sums</a></li></ul></li><li><a href=#Factorization_Algorithm_16_22>Factorization_Algorithm_16_22</a><ul><li><a href=#Factorization_Algorithm_16_22-irreducible_m_dvdm_prod_list_connect>irreducible_m_dvdm_prod_list_connect</a></li><li><a href=#Factorization_Algorithm_16_22-content_le_lead_coeff>content_le_lead_coeff</a></li><li><a href=#Factorization_Algorithm_16_22-poly_mod_dvd_drop_smult>poly_mod_dvd_drop_smult</a></li><li><a href=#Factorization_Algorithm_16_22-F0>F0</a></li><li><a href=#Factorization_Algorithm_16_22-p1>p1</a></li><li><a href=#Factorization_Algorithm_16_22-B2_2>B2_2</a></li><li><a href=#Factorization_Algorithm_16_22-l_gt_0>l_gt_0</a></li><li><a href=#Factorization_Algorithm_16_22-l0>l0</a></li><li><a href=#Factorization_Algorithm_16_22-pl_not0>pl_not0</a></li><li><a href=#Factorization_Algorithm_16_22-p_Mp_pl_Mp>p_Mp_pl_Mp</a></li><li><a href=#Factorization_Algorithm_16_22-f0>f0</a></li><li><a href=#Factorization_Algorithm_16_22-Mpf0>Mpf0</a></li><li><a href=#Factorization_Algorithm_16_22-pMpf0>pMpf0</a></li><li><a href=#Factorization_Algorithm_16_22-dn>dn</a></li><li><a href=#Factorization_Algorithm_16_22-n0>n0</a></li><li><a href=#Factorization_Algorithm_16_22-B2_0>B2_0</a></li><li><a href=#Factorization_Algorithm_16_22-deg_u>deg_u</a></li><li><a href=#Factorization_Algorithm_16_22-n_le_N>n_le_N</a></li><li><a href=#Factorization_Algorithm_16_22-dvdm_power>dvdm_power</a></li><li><a href=#Factorization_Algorithm_16_22-uf>uf</a></li><li><a href=#Factorization_Algorithm_16_22-exists_reconstruction>exists_reconstruction</a></li><li><a href=#Factorization_Algorithm_16_22-factor_dvd_f_0>factor_dvd_f_0</a></li><li><a href=#Factorization_Algorithm_16_22-degree_factor_ge_degree_u>degree_factor_ge_degree_u</a></li><li><a href=#Factorization_Algorithm_16_22-jn>jn</a></li><li><a href=#Factorization_Algorithm_16_22-factor_irreducible>factor_irreducible</a></li><li><a href=#Factorization_Algorithm_16_22-ll>ll</a></li><li><a href=#Factorization_Algorithm_16_22-ll0>ll0</a></li><li><a href=#Factorization_Algorithm_16_22-pll1>pll1</a></li><li><a href=#Factorization_Algorithm_16_22-pll0>pll0</a></li><li><a href=#Factorization_Algorithm_16_22-dvdm_l_ll>dvdm_l_ll</a></li><li><a href=#Factorization_Algorithm_16_22-deg_g_j>deg_g_j</a></li><li><a href=#Factorization_Algorithm_16_22-LLL_reconstruction_inner_simps>LLL_reconstruction_inner_simps</a></li><li><a href=#Factorization_Algorithm_16_22-LLL_reconstruction_inner_complete>LLL_reconstruction_inner_complete</a></li><li><a href=#Factorization_Algorithm_16_22-LLL_reconstruction_inner_sound>LLL_reconstruction_inner_sound</a></li><li><a href=#Factorization_Algorithm_16_22-LLL_reconstruction_inner_None_upt_j%27>LLL_reconstruction_inner_None_upt_j'</a></li><li><a href=#Factorization_Algorithm_16_22-LLL_reconstruction_inner_all_None_imp_irreducible>LLL_reconstruction_inner_all_None_imp_irreducible</a></li><li><a href=#Factorization_Algorithm_16_22-irreducible_imp_LLL_reconstruction_inner_all_None>irreducible_imp_LLL_reconstruction_inner_all_None</a></li><li><a href=#Factorization_Algorithm_16_22-LLL_reconstruction_inner_all_None>LLL_reconstruction_inner_all_None</a></li><li><a href=#Factorization_Algorithm_16_22-exists_index_LLL_reconstruction_inner_Some>exists_index_LLL_reconstruction_inner_Some</a></li><li><a href=#Factorization_Algorithm_16_22-unique_factorization_m_1>unique_factorization_m_1</a></li><li><a href=#Factorization_Algorithm_16_22-LLL_reconstruction_inner_loop_j_le_n>LLL_reconstruction_inner_loop_j_le_n</a></li><li><a href=#Factorization_Algorithm_16_22-LLL_reconstruction_inner_loop_j_ge_n>LLL_reconstruction_inner_loop_j_ge_n</a></li><li><a href=#Factorization_Algorithm_16_22-LLL_reconstruction_inner_loop>LLL_reconstruction_inner_loop</a></li><li><a href=#Factorization_Algorithm_16_22-LLL_reconstruction%27%27>LLL_reconstruction''</a></li><li><a href=#Factorization_Algorithm_16_22-gs_not_empty>gs_not_empty</a></li><li><a href=#Factorization_Algorithm_16_22-reconstruction_of_algorithm_16_22>reconstruction_of_algorithm_16_22</a></li><li><a href=#Factorization_Algorithm_16_22-factorization_algorithm_16_22>factorization_algorithm_16_22</a></li></ul></li><li><a href=#Modern_Computer_Algebra_Problem>Modern_Computer_Algebra_Problem</a></li></ul></div><ul><li><a href=https://www.isa-afp.org/browser_info/current/AFP/LLL_Factorization/outline.pdf>Proof
-outline</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/LLL_Factorization/document.pdf>Proof
-document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/LLL_Factorization/session_graph.pdf>Theory dependencies</a></li></ul></div></aside><div class="content theories"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
-<datalist id=autocomplete></datalist></div></form><h1><span class=first>S</span>ession <span class=first>L</span><span class=first>L</span><span class=first>L</span>_<span class=first>F</span>actorization</h1><div></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><div id=Factor_Bound_2><div class=head><h1>Theory Factor_Bound_2</h1></div><pre class=source><span class=comment1>(*
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Session LLL_Factorization - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session LLL_Factorization">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="/entries/lll_factorization/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories">
+<meta property="og:site_name" content="Archive of Formal Proofs">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="/images/afp.png">
+<meta name=twitter:title content="Session LLL_Factorization">
+<meta name=twitter:description content>
+<link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css>
+<link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script>
+<script src=/js/banner.js></script><script src=/js/header-search.js></script></head>
+<body class=mathjax_ignore>
+<aside>
+<div>
+<div>
+<a href=/>
+<img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo>
+</a>
+<ul>
+<li><a href=/entries/lll_factorization>Return to entry</a></li>
+</ul>
+<hr>
+<ul><li><a href=#Factor_Bound_2>Factor_Bound_2</a>
+<ul>
+<li><a href=#Factor_Bound_2-norm_1_bound_mignotte>norm_1_bound_mignotte</a></li>
+<li><a href=#Factor_Bound_2-mahler_measure_l2norm>mahler_measure_l2norm</a></li>
+<li><a href=#Factor_Bound_2-sq_norm_factor_bound>sq_norm_factor_bound</a></li>
+</ul>
+</li><li><a href=#Missing_Dvd_Int_Poly>Missing_Dvd_Int_Poly</a>
+<ul>
+<li><a href=#Missing_Dvd_Int_Poly-degree_div_mod_smult>degree_div_mod_smult</a></li>
+<li><a href=#Missing_Dvd_Int_Poly-uniqueness_algorithm_division_poly>uniqueness_algorithm_division_poly</a></li>
+<li><a href=#Missing_Dvd_Int_Poly-pdivmod_eq_pdivmod_monic>pdivmod_eq_pdivmod_monic</a></li>
+<li><a href=#Missing_Dvd_Int_Poly-dvdm_iff_pdivmod0>dvdm_iff_pdivmod0</a></li>
+<li><a href=#Missing_Dvd_Int_Poly-of_int_poly_Mp_0>of_int_poly_Mp_0</a></li>
+<li><a href=#Missing_Dvd_Int_Poly-uniqueness_algorithm_division_of_int_poly>uniqueness_algorithm_division_of_int_poly</a></li>
+<li><a href=#Missing_Dvd_Int_Poly-uniqueness_algorithm_division_Mp_Rel>uniqueness_algorithm_division_Mp_Rel</a></li>
+<li><a href=#Missing_Dvd_Int_Poly-pdivmod2_rel>pdivmod2_rel</a></li>
+<li><a href=#Missing_Dvd_Int_Poly-dvdm_iff_Mp_pdivmod2>dvdm_iff_Mp_pdivmod2</a></li>
+</ul>
+</li><li><a href=#LLL_Factorization_Impl>LLL_Factorization_Impl</a>
+<ul>
+<li><a href=#LLL_Factorization_Impl-factorization_lattice_code>factorization_lattice_code</a></li>
+</ul>
+</li><li><a href=#LLL_Factorization>LLL_Factorization</a>
+<ul>
+<li><a href=#LLL_Factorization-nth_factorization_lattice>nth_factorization_lattice</a></li>
+<li><a href=#LLL_Factorization-length_factorization_lattice>length_factorization_lattice</a></li>
+<li><a href=#LLL_Factorization-dim_factorization_lattice>dim_factorization_lattice</a></li>
+<li><a href=#LLL_Factorization-dim_factorization_lattice_element>dim_factorization_lattice_element</a></li>
+<li><a href=#LLL_Factorization-set_factorization_lattice_in_carrier>set_factorization_lattice_in_carrier</a></li>
+<li><a href=#LLL_Factorization-choose_u_Cons>choose_u_Cons</a></li>
+<li><a href=#LLL_Factorization-choose_u_member>choose_u_member</a></li>
+<li><a href=#LLL_Factorization-sq_norm_row_sylvester_mat1>sq_norm_row_sylvester_mat1</a></li>
+<li><a href=#LLL_Factorization-sq_norm_row_sylvester_mat2>sq_norm_row_sylvester_mat2</a></li>
+<li><a href=#LLL_Factorization-Hadamard%27s_inequality_int>Hadamard's_inequality_int</a></li>
+<li><a href=#LLL_Factorization-resultant_le_prod_sq_norm>resultant_le_prod_sq_norm</a></li>
+<li><a href=#LLL_Factorization-common_factor_via_short>common_factor_via_short</a></li>
+<li><a href=#LLL_Factorization-factorization_lattice_as_sylvester>factorization_lattice_as_sylvester</a></li>
+<li><a href=#LLL_Factorization-map_poly_hom_mult_monom>map_poly_hom_mult_monom</a></li>
+<li><a href=#LLL_Factorization-hom_vec_of_poly_n>hom_vec_of_poly_n</a></li>
+<li><a href=#LLL_Factorization-hom_factorization_lattice>hom_factorization_lattice</a></li>
+<li><a href=#LLL_Factorization-upper_triangular_factorization_lattice>upper_triangular_factorization_lattice</a></li>
+<li><a href=#LLL_Factorization-factorization_lattice_diag_nonzero>factorization_lattice_diag_nonzero</a></li>
+<li><a href=#LLL_Factorization-lin_indpt_list_factorization_lattice>lin_indpt_list_factorization_lattice</a></li>
+<li><a href=#LLL_Factorization-lincomb_to_dvd_modulo>lincomb_to_dvd_modulo</a></li>
+<li><a href=#LLL_Factorization-dvd_modulo_to_lincomb>dvd_modulo_to_lincomb</a></li>
+<li><a href=#LLL_Factorization-factorization_lattice>factorization_lattice</a></li>
+<li><a href=#LLL_Factorization-LLL_short_polynomial>LLL_short_polynomial</a></li>
+<li><a href=#LLL_Factorization-LLL_reconstruction>LLL_reconstruction</a></li>
+<li><a href=#LLL_Factorization-LLL_many_reconstruction>LLL_many_reconstruction</a></li>
+<li><a href=#LLL_Factorization-LLL_factorization>LLL_factorization</a></li>
+<li><a href=#LLL_Factorization-LLL_many_factorization>LLL_many_factorization</a></li>
+<li><a href=#LLL_Factorization-LLL_factorization_primitive>LLL_factorization_primitive</a></li>
+</ul>
+</li><li><a href=#Sub_Sums>Sub_Sums</a>
+<ul>
+<li><a href=#Sub_Sums-subset_add_mset>subset_add_mset</a></li>
+<li><a href=#Sub_Sums-sub_mset_sums>sub_mset_sums</a></li>
+</ul>
+</li><li><a href=#Factorization_Algorithm_16_22>Factorization_Algorithm_16_22</a>
+<ul>
+<li><a href=#Factorization_Algorithm_16_22-irreducible_m_dvdm_prod_list_connect>irreducible_m_dvdm_prod_list_connect</a></li>
+<li><a href=#Factorization_Algorithm_16_22-content_le_lead_coeff>content_le_lead_coeff</a></li>
+<li><a href=#Factorization_Algorithm_16_22-poly_mod_dvd_drop_smult>poly_mod_dvd_drop_smult</a></li>
+<li><a href=#Factorization_Algorithm_16_22-F0>F0</a></li>
+<li><a href=#Factorization_Algorithm_16_22-p1>p1</a></li>
+<li><a href=#Factorization_Algorithm_16_22-B2_2>B2_2</a></li>
+<li><a href=#Factorization_Algorithm_16_22-l_gt_0>l_gt_0</a></li>
+<li><a href=#Factorization_Algorithm_16_22-l0>l0</a></li>
+<li><a href=#Factorization_Algorithm_16_22-pl_not0>pl_not0</a></li>
+<li><a href=#Factorization_Algorithm_16_22-p_Mp_pl_Mp>p_Mp_pl_Mp</a></li>
+<li><a href=#Factorization_Algorithm_16_22-f0>f0</a></li>
+<li><a href=#Factorization_Algorithm_16_22-Mpf0>Mpf0</a></li>
+<li><a href=#Factorization_Algorithm_16_22-pMpf0>pMpf0</a></li>
+<li><a href=#Factorization_Algorithm_16_22-dn>dn</a></li>
+<li><a href=#Factorization_Algorithm_16_22-n0>n0</a></li>
+<li><a href=#Factorization_Algorithm_16_22-B2_0>B2_0</a></li>
+<li><a href=#Factorization_Algorithm_16_22-deg_u>deg_u</a></li>
+<li><a href=#Factorization_Algorithm_16_22-n_le_N>n_le_N</a></li>
+<li><a href=#Factorization_Algorithm_16_22-dvdm_power>dvdm_power</a></li>
+<li><a href=#Factorization_Algorithm_16_22-uf>uf</a></li>
+<li><a href=#Factorization_Algorithm_16_22-exists_reconstruction>exists_reconstruction</a></li>
+<li><a href=#Factorization_Algorithm_16_22-factor_dvd_f_0>factor_dvd_f_0</a></li>
+<li><a href=#Factorization_Algorithm_16_22-degree_factor_ge_degree_u>degree_factor_ge_degree_u</a></li>
+<li><a href=#Factorization_Algorithm_16_22-jn>jn</a></li>
+<li><a href=#Factorization_Algorithm_16_22-factor_irreducible>factor_irreducible</a></li>
+<li><a href=#Factorization_Algorithm_16_22-ll>ll</a></li>
+<li><a href=#Factorization_Algorithm_16_22-ll0>ll0</a></li>
+<li><a href=#Factorization_Algorithm_16_22-pll1>pll1</a></li>
+<li><a href=#Factorization_Algorithm_16_22-pll0>pll0</a></li>
+<li><a href=#Factorization_Algorithm_16_22-dvdm_l_ll>dvdm_l_ll</a></li>
+<li><a href=#Factorization_Algorithm_16_22-deg_g_j>deg_g_j</a></li>
+<li><a href=#Factorization_Algorithm_16_22-LLL_reconstruction_inner_simps>LLL_reconstruction_inner_simps</a></li>
+<li><a href=#Factorization_Algorithm_16_22-LLL_reconstruction_inner_complete>LLL_reconstruction_inner_complete</a></li>
+<li><a href=#Factorization_Algorithm_16_22-LLL_reconstruction_inner_sound>LLL_reconstruction_inner_sound</a></li>
+<li><a href=#Factorization_Algorithm_16_22-LLL_reconstruction_inner_None_upt_j%27>LLL_reconstruction_inner_None_upt_j'</a></li>
+<li><a href=#Factorization_Algorithm_16_22-LLL_reconstruction_inner_all_None_imp_irreducible>LLL_reconstruction_inner_all_None_imp_irreducible</a></li>
+<li><a href=#Factorization_Algorithm_16_22-irreducible_imp_LLL_reconstruction_inner_all_None>irreducible_imp_LLL_reconstruction_inner_all_None</a></li>
+<li><a href=#Factorization_Algorithm_16_22-LLL_reconstruction_inner_all_None>LLL_reconstruction_inner_all_None</a></li>
+<li><a href=#Factorization_Algorithm_16_22-exists_index_LLL_reconstruction_inner_Some>exists_index_LLL_reconstruction_inner_Some</a></li>
+<li><a href=#Factorization_Algorithm_16_22-unique_factorization_m_1>unique_factorization_m_1</a></li>
+<li><a href=#Factorization_Algorithm_16_22-LLL_reconstruction_inner_loop_j_le_n>LLL_reconstruction_inner_loop_j_le_n</a></li>
+<li><a href=#Factorization_Algorithm_16_22-LLL_reconstruction_inner_loop_j_ge_n>LLL_reconstruction_inner_loop_j_ge_n</a></li>
+<li><a href=#Factorization_Algorithm_16_22-LLL_reconstruction_inner_loop>LLL_reconstruction_inner_loop</a></li>
+<li><a href=#Factorization_Algorithm_16_22-LLL_reconstruction%27%27>LLL_reconstruction''</a></li>
+<li><a href=#Factorization_Algorithm_16_22-gs_not_empty>gs_not_empty</a></li>
+<li><a href=#Factorization_Algorithm_16_22-reconstruction_of_algorithm_16_22>reconstruction_of_algorithm_16_22</a></li>
+<li><a href=#Factorization_Algorithm_16_22-factorization_algorithm_16_22>factorization_algorithm_16_22</a></li>
+</ul>
+</li><li><a href=#Modern_Computer_Algebra_Problem>Modern_Computer_Algebra_Problem</a>
+</li>
+</ul>
+</div>
+<ul>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/LLL_Factorization/outline.pdf>Proof
+outline</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/LLL_Factorization/document.pdf>Proof
+document</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/LLL_Factorization/session_graph.pdf>Theory dependencies</a></li>
+</ul>
+</div>
+</aside>
+<div class="content theories"><header>
+<form action=/%20search>
+<div class=form-container>
+<input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
+<datalist id=autocomplete>
+</datalist>
+</div>
+</form>
+<h1><span class=first>S</span>ession <span class=first>L</span><span class=first>L</span><span class=first>L</span>_<span class=first>F</span>actorization</h1>
+<div>
+</div>
+</header><div id=banner data-id=0>
+<p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button>
+</div>
+<div><main>
+<div id=Factor_Bound_2>
+<div class=head>
+<h1>Theory Factor_Bound_2</h1>
+</div>
+<pre class=source><span class=comment1>(*
     Authors:    Jose Divasón
                 Sebastiaan Joosten
                 René Thiemann
@@ -70,7 +234,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/LL
 <span class=keyword1><span class=command>qed</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Missing_Dvd_Int_Poly><div class=head><h1>Theory Missing_Dvd_Int_Poly</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=Missing_Dvd_Int_Poly>
+<div class=head>
+<h1>Theory Missing_Dvd_Int_Poly</h1>
+</div>
+<pre class=source><span class=comment1>(*
     Authors:    Jose Divasón
                 Sebastiaan Joosten
                 René Thiemann
@@ -415,7 +584,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/LL
 <span class=keyword1><span class=command>declare</span></span> poly_mod.dvdm_code<span class=main>[</span><span class=operator>code</span><span class=main>]</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=LLL_Factorization_Impl><div class=head><h1>Theory LLL_Factorization_Impl</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=LLL_Factorization_Impl>
+<div class=head>
+<h1>Theory LLL_Factorization_Impl</h1>
+</div>
+<pre class=source><span class=comment1>(*
     Authors:    Jose Divasón
                 Sebastiaan Joosten
                 René Thiemann
@@ -572,7 +746,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/LL
    <span class=keyword1>in</span> LLL_implementation.LLL_many_reconstruction <span class=bound>p</span> <span class=bound>pl</span> <span class=free><span class=bound><span class=entity>f</span></span></span> <span class=bound>us</span><span class=main>)</span>"</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=LLL_Factorization><div class=head><h1>Theory LLL_Factorization</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=LLL_Factorization>
+<div class=head>
+<h1>Theory LLL_Factorization</h1>
+</div>
+<pre class=source><span class=comment1>(*
     Authors:    Jose Divasón
                 Sebastiaan Joosten
                 René Thiemann
@@ -1900,7 +2079,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/LL
 <span class=keyword1><span class=command>thm</span></span> factorize_int_poly<span class=main>[</span><span class=operator>of</span> <span class=quoted><span class=quoted><span class=quoted>one_lattice_LLL_factorization</span></span></span><span class=main>]</span>
 <span class=keyword1><span class=command>thm</span></span> factorize_int_poly<span class=main>[</span><span class=operator>of</span> <span class=quoted><span class=quoted><span class=quoted>many_lattice_LLL_factorization</span></span></span><span class=main>]</span>
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Sub_Sums><div class=head><h1>Theory Sub_Sums</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=Sub_Sums>
+<div class=head>
+<h1>Theory Sub_Sums</h1>
+</div>
+<pre class=source><span class=comment1>(*
     Author:     René Thiemann
     License:    BSD
 *)</span>
@@ -1947,7 +2131,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/LL
     <span class=keyword1><span class=command>by</span></span> <span class=operator>force</span>
 <span class=keyword1><span class=command>qed</span></span> <span class=operator>auto</span>
 
-<span class=keyword2><span class=keyword>end</span></span></pre></div><div id=Factorization_Algorithm_16_22><div class=head><h1>Theory Factorization_Algorithm_16_22</h1></div><pre class=source><span class=comment1>(*
+<span class=keyword2><span class=keyword>end</span></span></pre>
+</div><div id=Factorization_Algorithm_16_22>
+<div class=head>
+<h1>Theory Factorization_Algorithm_16_22</h1>
+</div>
+<pre class=source><span class=comment1>(*
     Authors:    Jose Divasón
                 Sebastiaan Joosten
                 René Thiemann
@@ -3381,7 +3570,12 @@ later in this theory.›</span></span>
 <span class=keyword1><span class=command>thm</span></span> factorize_int_poly<span class=main>[</span><span class=operator>of</span> <span class=quoted><span class=quoted><span class=quoted>increasing_lattices_LLL_factorization</span></span></span><span class=main>]</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Modern_Computer_Algebra_Problem><div class=head><h1>Theory Modern_Computer_Algebra_Problem</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=Modern_Computer_Algebra_Problem>
+<div class=head>
+<h1>Theory Modern_Computer_Algebra_Problem</h1>
+</div>
+<pre class=source><span class=comment1>(*
     Authors:    Jose Divasón
                 Sebastiaan Joosten
                 René Thiemann
@@ -3497,4 +3691,10 @@ later in this theory.›</span></span>
   <span class=keyword1>in</span> <span class=main>¬</span> poly_mod.eq_m <span class=main>(</span><span class=numeral>5</span><span class=main>^</span><span class=numeral>6</span><span class=main>)</span> <span class=main>(</span>smult <span class=numeral>6</span> <span class=main>(</span><span class=bound>g2</span><span class=main>*</span><span class=bound>g3</span><span class=main>*</span><span class=bound>g4</span><span class=main>)</span><span class=main>)</span> <span class=main>(</span><span class=bound>rhs</span><span class=main>)</span>"</span></span> <span class=keyword1><span class=command>by</span></span> <span class=operator>eval</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div></main></div></div></body></html>
+</pre>
+</div>
+</main>
+</div>
+</div>
+</body>
+</html>

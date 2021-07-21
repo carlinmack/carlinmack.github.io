@@ -1,7 +1,73 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Session Paraconsistency - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session Paraconsistency"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/paraconsistency/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Session Paraconsistency"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css><link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script><script src=/js/banner.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><li><a href=/entries/paraconsistency>Return to entry</a></li></ul><hr><ul><li><a href=#Paraconsistency>Paraconsistency</a><ul><li><a href=#Paraconsistency-eval_equality_simplify>eval_equality_simplify</a></li><li><a href=#Paraconsistency-double_negation>double_negation</a></li><li><a href=#Paraconsistency-explosion_counterexample>explosion_counterexample</a></li><li><a href=#Paraconsistency-contraposition_counterexample>contraposition_counterexample</a></li><li><a href=#Paraconsistency-ranges>ranges</a></li><li><a href=#Paraconsistency-relevant_props>relevant_props</a></li><li><a href=#Paraconsistency-change_tv_injection>change_tv_injection</a></li><li><a href=#Paraconsistency-eval_change>eval_change</a></li></ul></li></ul></div><ul><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Paraconsistency/outline.pdf>Proof
-outline</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Paraconsistency/document.pdf>Proof
-document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Paraconsistency/session_graph.pdf>Theory dependencies</a></li></ul></div></aside><div class="content theories"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
-<datalist id=autocomplete></datalist></div></form><h1><span class=first>S</span>ession <span class=first>P</span>araconsistency</h1><div></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><div id=Paraconsistency><div class=head><h1>Theory Paraconsistency</h1></div><pre class=source><span class=comment1>(* Anders Schlichtkrull &amp; Jørgen Villadsen, DTU Compute, Denmark *)</span>
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Session Paraconsistency - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session Paraconsistency">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="/entries/paraconsistency/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories">
+<meta property="og:site_name" content="Archive of Formal Proofs">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="/images/afp.png">
+<meta name=twitter:title content="Session Paraconsistency">
+<meta name=twitter:description content>
+<link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css>
+<link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script>
+<script src=/js/banner.js></script><script src=/js/header-search.js></script></head>
+<body class=mathjax_ignore>
+<aside>
+<div>
+<div>
+<a href=/>
+<img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo>
+</a>
+<ul>
+<li><a href=/entries/paraconsistency>Return to entry</a></li>
+</ul>
+<hr>
+<ul><li><a href=#Paraconsistency>Paraconsistency</a>
+<ul>
+<li><a href=#Paraconsistency-eval_equality_simplify>eval_equality_simplify</a></li>
+<li><a href=#Paraconsistency-double_negation>double_negation</a></li>
+<li><a href=#Paraconsistency-explosion_counterexample>explosion_counterexample</a></li>
+<li><a href=#Paraconsistency-contraposition_counterexample>contraposition_counterexample</a></li>
+<li><a href=#Paraconsistency-ranges>ranges</a></li>
+<li><a href=#Paraconsistency-relevant_props>relevant_props</a></li>
+<li><a href=#Paraconsistency-change_tv_injection>change_tv_injection</a></li>
+<li><a href=#Paraconsistency-eval_change>eval_change</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<ul>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Paraconsistency/outline.pdf>Proof
+outline</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Paraconsistency/document.pdf>Proof
+document</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Paraconsistency/session_graph.pdf>Theory dependencies</a></li>
+</ul>
+</div>
+</aside>
+<div class="content theories"><header>
+<form action=/%20search>
+<div class=form-container>
+<input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
+<datalist id=autocomplete>
+</datalist>
+</div>
+</form>
+<h1><span class=first>S</span>ession <span class=first>P</span>araconsistency</h1>
+<div>
+</div>
+</header><div id=banner data-id=0>
+<p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button>
+</div>
+<div><main>
+<div id=Paraconsistency>
+<div class=head>
+<h1>Theory Paraconsistency</h1>
+</div>
+<pre class=source><span class=comment1>(* Anders Schlichtkrull &amp; Jørgen Villadsen, DTU Compute, Denmark *)</span>
 
 <span class=keyword1><span class=command>chapter</span></span> <span class=quoted><span class=plain_text>‹On Paraconsistency›</span></span>
 
@@ -1534,4 +1600,10 @@ Thanks to the Isabelle developers for making a superb system and for always bein
 ›</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span> <span class=comment1>― ‹Paraconsistency file›</span>
-</pre></div></main></div></div></body></html>
+</pre>
+</div>
+</main>
+</div>
+</div>
+</body>
+</html>

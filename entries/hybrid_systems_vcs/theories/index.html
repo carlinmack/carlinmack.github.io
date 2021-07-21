@@ -1,7 +1,717 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Session Hybrid_Systems_VCs - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session Hybrid_Systems_VCs"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/hybrid_systems_vcs/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Session Hybrid_Systems_VCs"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css><link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script><script src=/js/banner.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><li><a href=/entries/hybrid_systems_vcs>Return to entry</a></li></ul><hr><ul><li><a href=#HS_Preliminaries>HS_Preliminaries</a><ul><li><a href=#HS_Preliminaries-abs_le_eq>abs_le_eq</a></li><li><a href=#HS_Preliminaries-real_ivl_eqs>real_ivl_eqs</a></li><li><a href=#HS_Preliminaries-is_interval_real_nonneg>is_interval_real_nonneg</a></li><li><a href=#HS_Preliminaries-norm_rotate_eq>norm_rotate_eq</a></li><li><a href=#HS_Preliminaries-vderiv_on_composeI>vderiv_on_composeI</a></li><li><a href=#HS_Preliminaries-vderiv_uminusI>vderiv_uminusI</a></li><li><a href=#HS_Preliminaries-vderiv_npowI>vderiv_npowI</a></li><li><a href=#HS_Preliminaries-vderiv_divI>vderiv_divI</a></li><li><a href=#HS_Preliminaries-vderiv_cosI>vderiv_cosI</a></li><li><a href=#HS_Preliminaries-vderiv_sinI>vderiv_sinI</a></li><li><a href=#HS_Preliminaries-vderiv_expI>vderiv_expI</a></li><li><a href=#HS_Preliminaries-IVT_two_functions>IVT_two_functions</a></li><li><a href=#HS_Preliminaries-IVT_two_functions_real_ivl>IVT_two_functions_real_ivl</a></li><li><a href=#HS_Preliminaries-eventually_at_within_mono>eventually_at_within_mono</a></li><li><a href=#HS_Preliminaries-netlimit_at_within_mono>netlimit_at_within_mono</a></li><li><a href=#HS_Preliminaries-has_derivative_at_within_mono>has_derivative_at_within_mono</a></li><li><a href=#HS_Preliminaries-eventually_all_finite2>eventually_all_finite2</a></li><li><a href=#HS_Preliminaries-eventually_all_finite_mono>eventually_all_finite_mono</a></li><li><a href=#HS_Preliminaries-vec_upd_eq>vec_upd_eq</a></li><li><a href=#HS_Preliminaries-frechet_vec_lambda>frechet_vec_lambda</a></li><li><a href=#HS_Preliminaries-tendsto_norm_bound>tendsto_norm_bound</a></li><li><a href=#HS_Preliminaries-tendsto_zero_norm_bound>tendsto_zero_norm_bound</a></li><li><a href=#HS_Preliminaries-frechet_vec_nth>frechet_vec_nth</a></li><li><a href=#HS_Preliminaries-has_derivative_vec_lambda>has_derivative_vec_lambda</a></li><li><a href=#HS_Preliminaries-has_derivative_vec_nth>has_derivative_vec_nth</a></li><li><a href=#HS_Preliminaries-has_vderiv_on_vec_eq>has_vderiv_on_vec_eq</a></li></ul></li><li><a href=#HS_ODEs>HS_ODEs</a><ul><li><a href=#HS_ODEs-image_le_pred>image_le_pred</a></li><li><a href=#HS_ODEs-ivp_solsI>ivp_solsI</a></li><li><a href=#HS_ODEs-ivp_solsD>ivp_solsD</a></li><li><a href=#HS_ODEs-in_ivp_sols_subset>in_ivp_sols_subset</a></li><li><a href=#HS_ODEs-g_orbit_eq>g_orbit_eq</a></li><li><a href=#HS_ODEs-g_orbital_eq>g_orbital_eq</a></li><li><a href=#HS_ODEs-g_orbitalI>g_orbitalI</a></li><li><a href=#HS_ODEs-g_orbitalD>g_orbitalD</a></li><li><a href=#HS_ODEs-diff_invariant_eq>diff_invariant_eq</a></li><li><a href=#HS_ODEs-diff_inv_eq_inv_set>diff_inv_eq_inv_set</a></li><li><a href=#HS_ODEs-diff_invariant_eq_rule>diff_invariant_eq_rule</a></li><li><a href=#HS_ODEs-diff_invariant_leq_rule>diff_invariant_leq_rule</a></li><li><a href=#HS_ODEs-diff_invariant_less_rule>diff_invariant_less_rule</a></li><li><a href=#HS_ODEs-diff_invariant_nleq_rule>diff_invariant_nleq_rule</a></li><li><a href=#HS_ODEs-diff_invariant_neq_rule>diff_invariant_neq_rule</a></li><li><a href=#HS_ODEs-diff_invariant_neq_rule_converse>diff_invariant_neq_rule_converse</a></li><li><a href=#HS_ODEs-diff_invariant_conj_rule>diff_invariant_conj_rule</a></li><li><a href=#HS_ODEs-diff_invariant_disj_rule>diff_invariant_disj_rule</a></li><li><a href=#HS_ODEs-ll_on_open>ll_on_open</a></li><li><a href=#HS_ODEs-flow_has_vderiv_on_ex_ivl>flow_has_vderiv_on_ex_ivl</a></li><li><a href=#HS_ODEs-flow_funcset_ex_ivl>flow_funcset_ex_ivl</a></li><li><a href=#HS_ODEs-flow_in_ivp_sols_ex_ivl>flow_in_ivp_sols_ex_ivl</a></li><li><a href=#HS_ODEs-csols_eq>csols_eq</a></li><li><a href=#HS_ODEs-subset_ex_ivlI>subset_ex_ivlI</a></li><li><a href=#HS_ODEs-unique_solution>unique_solution</a></li><li><a href=#HS_ODEs-unique_solution_closed_ivl>unique_solution_closed_ivl</a></li><li><a href=#HS_ODEs-solution_eq_flow>solution_eq_flow</a></li><li><a href=#HS_ODEs-ivp_unique_solution>ivp_unique_solution</a></li><li><a href=#HS_ODEs-g_orbital_orbit>g_orbital_orbit</a></li><li><a href=#HS_ODEs-local_lipschitz_add>local_lipschitz_add</a></li><li><a href=#HS_ODEs-picard_lindeloef_add>picard_lindeloef_add</a></li><li><a href=#HS_ODEs-picard_lindeloef_constant>picard_lindeloef_constant</a></li><li><a href=#HS_ODEs-in_ivp_sols_ivl>in_ivp_sols_ivl</a></li><li><a href=#HS_ODEs-eq_solution_ivl>eq_solution_ivl</a></li><li><a href=#HS_ODEs-ex_ivl_eq>ex_ivl_eq</a></li><li><a href=#HS_ODEs-has_derivative_on_open1>has_derivative_on_open1</a></li><li><a href=#HS_ODEs-has_derivative_on_open2>has_derivative_on_open2</a></li><li><a href=#HS_ODEs-has_derivative_on_open3>has_derivative_on_open3</a></li><li><a href=#HS_ODEs-has_derivative_on_open>has_derivative_on_open</a></li><li><a href=#HS_ODEs-in_domain>in_domain</a></li><li><a href=#HS_ODEs-has_vderiv_on_domain>has_vderiv_on_domain</a></li><li><a href=#HS_ODEs-in_ivp_sols>in_ivp_sols</a></li><li><a href=#HS_ODEs-eq_solution>eq_solution</a></li><li><a href=#HS_ODEs-ivp_sols_collapse>ivp_sols_collapse</a></li><li><a href=#HS_ODEs-additive_in_ivp_sols>additive_in_ivp_sols</a></li><li><a href=#HS_ODEs-is_monoid_action>is_monoid_action</a></li><li><a href=#HS_ODEs-g_orbital_collapses>g_orbital_collapses</a></li><li><a href=#HS_ODEs-orbit_eq>orbit_eq</a></li><li><a href=#HS_ODEs-true_g_orbit_eq>true_g_orbit_eq</a></li><li><a href=#HS_ODEs-line_is_local_flow>line_is_local_flow</a></li></ul></li><li><a href=#HS_VC_Spartan>HS_VC_Spartan</a><ul><li><a href=#HS_VC_Spartan-fbox_iso>fbox_iso</a></li><li><a href=#HS_VC_Spartan-fbox_anti>fbox_anti</a></li><li><a href=#HS_VC_Spartan-fbox_invariants>fbox_invariants</a></li><li><a href=#HS_VC_Spartan-fbox_eta>fbox_eta</a></li><li><a href=#HS_VC_Spartan-fbox_test>fbox_test</a></li><li><a href=#HS_VC_Spartan-vec_upd_eq>vec_upd_eq</a></li><li><a href=#HS_VC_Spartan-fbox_assign>fbox_assign</a></li><li><a href=#HS_VC_Spartan-fbox_nondet_assign>fbox_nondet_assign</a></li><li><a href=#HS_VC_Spartan-fbox_choice>fbox_choice</a></li><li><a href=#HS_VC_Spartan-le_fbox_choice_iff>le_fbox_choice_iff</a></li><li><a href=#HS_VC_Spartan-kcomp_eq>kcomp_eq</a></li><li><a href=#HS_VC_Spartan-fbox_kcomp>fbox_kcomp</a></li><li><a href=#HS_VC_Spartan-hoare_kcomp>hoare_kcomp</a></li><li><a href=#HS_VC_Spartan-fbox_if_then_else>fbox_if_then_else</a></li><li><a href=#HS_VC_Spartan-hoare_if_then_else>hoare_if_then_else</a></li><li><a href=#HS_VC_Spartan-kpower_base>kpower_base</a></li><li><a href=#HS_VC_Spartan-kpower_simp>kpower_simp</a></li><li><a href=#HS_VC_Spartan-kpower_inv>kpower_inv</a></li><li><a href=#HS_VC_Spartan-kstar_inv>kstar_inv</a></li><li><a href=#HS_VC_Spartan-fbox_kstarI>fbox_kstarI</a></li><li><a href=#HS_VC_Spartan-change_loopI>change_loopI</a></li><li><a href=#HS_VC_Spartan-fbox_loopI>fbox_loopI</a></li><li><a href=#HS_VC_Spartan-wp_loopI_break>wp_loopI_break</a></li><li><a href=#HS_VC_Spartan-fbox_g_evol>fbox_g_evol</a></li><li><a href=#HS_VC_Spartan-fbox_g_orbital>fbox_g_orbital</a></li><li><a href=#HS_VC_Spartan-fbox_g_ode_subset>fbox_g_ode_subset</a></li><li><a href=#HS_VC_Spartan-fbox_g_ode>fbox_g_ode</a></li><li><a href=#HS_VC_Spartan-fbox_g_ode_ivl>fbox_g_ode_ivl</a></li><li><a href=#HS_VC_Spartan-fbox_orbit>fbox_orbit</a></li><li><a href=#HS_VC_Spartan-fbox_g_orbital_guard>fbox_g_orbital_guard</a></li><li><a href=#HS_VC_Spartan-fbox_g_orbital_inv>fbox_g_orbital_inv</a></li><li><a href=#HS_VC_Spartan-fbox_diff_inv>fbox_diff_inv</a></li><li><a href=#HS_VC_Spartan-diff_inv_guard_ignore>diff_inv_guard_ignore</a></li><li><a href=#HS_VC_Spartan-fbox_diff_inv_eq>fbox_diff_inv_eq</a></li><li><a href=#HS_VC_Spartan-diff_inv_eq_inv_set>diff_inv_eq_inv_set</a></li><li><a href=#HS_VC_Spartan-fbox_g_odei>fbox_g_odei</a></li><li><a href=#HS_VC_Spartan-diff_solve_axiom1>diff_solve_axiom1</a></li><li><a href=#HS_VC_Spartan-diff_solve_axiom2>diff_solve_axiom2</a></li><li><a href=#HS_VC_Spartan-diff_solve_rule>diff_solve_rule</a></li><li><a href=#HS_VC_Spartan-diff_weak_axiom1>diff_weak_axiom1</a></li><li><a href=#HS_VC_Spartan-diff_weak_axiom2>diff_weak_axiom2</a></li><li><a href=#HS_VC_Spartan-diff_weak_rule>diff_weak_rule</a></li><li><a href=#HS_VC_Spartan-fbox_g_orbital_eq_univD>fbox_g_orbital_eq_univD</a></li><li><a href=#HS_VC_Spartan-diff_cut_axiom>diff_cut_axiom</a></li><li><a href=#HS_VC_Spartan-diff_cut_rule>diff_cut_rule</a></li><li><a href=#HS_VC_Spartan-diff_inv_axiom1>diff_inv_axiom1</a></li><li><a href=#HS_VC_Spartan-diff_inv_axiom2>diff_inv_axiom2</a></li><li><a href=#HS_VC_Spartan-diff_inv_rule>diff_inv_rule</a></li></ul></li><li><a href=#HS_VC_Examples>HS_VC_Examples</a><ul><li><a href=#HS_VC_Examples-pendulum_dyn>pendulum_dyn</a></li><li><a href=#HS_VC_Examples-pendulum_inv>pendulum_inv</a></li><li><a href=#HS_VC_Examples-local_flow_pend>local_flow_pend</a></li><li><a href=#HS_VC_Examples-pendulum_flow>pendulum_flow</a></li><li><a href=#HS_VC_Examples-inv_imp_pos_le>inv_imp_pos_le</a></li><li><a href=#HS_VC_Examples-bouncing_ball_inv>bouncing_ball_inv</a></li><li><a href=#HS_VC_Examples-inv_conserv_at_ground>inv_conserv_at_ground</a></li><li><a href=#HS_VC_Examples-inv_conserv_at_air>inv_conserv_at_air</a></li><li><a href=#HS_VC_Examples-bouncing_ball_dyn>bouncing_ball_dyn</a></li><li><a href=#HS_VC_Examples-local_flow_ball>local_flow_ball</a></li><li><a href=#HS_VC_Examples-bouncing_ball_flow>bouncing_ball_flow</a></li><li><a href=#HS_VC_Examples-norm_diff_temp_dyn>norm_diff_temp_dyn</a></li><li><a href=#HS_VC_Examples-local_lipschitz_temp_dyn>local_lipschitz_temp_dyn</a></li><li><a href=#HS_VC_Examples-local_flow_temp>local_flow_temp</a></li><li><a href=#HS_VC_Examples-temp_dyn_down_real_arith>temp_dyn_down_real_arith</a></li><li><a href=#HS_VC_Examples-temp_dyn_up_real_arith>temp_dyn_up_real_arith</a></li><li><a href=#HS_VC_Examples-thermostat>thermostat</a></li><li><a href=#HS_VC_Examples-local_flow_tank>local_flow_tank</a></li><li><a href=#HS_VC_Examples-tank_arith>tank_arith</a></li><li><a href=#HS_VC_Examples-tank_flow>tank_flow</a></li></ul></li><li><a href=#HS_VC_PT>HS_VC_PT</a><ul><li><a href=#HS_VC_PT-ffb_eq>ffb_eq</a></li><li><a href=#HS_VC_PT-ffb_iso>ffb_iso</a></li><li><a href=#HS_VC_PT-ffb_invariants>ffb_invariants</a></li><li><a href=#HS_VC_PT-ffb_skip>ffb_skip</a></li><li><a href=#HS_VC_PT-ffb_test>ffb_test</a></li><li><a href=#HS_VC_PT-ffb_assign>ffb_assign</a></li><li><a href=#HS_VC_PT-fbox_nondet_assign>fbox_nondet_assign</a></li><li><a href=#HS_VC_PT-ffb_choice>ffb_choice</a></li><li><a href=#HS_VC_PT-le_ffb_choice_iff>le_ffb_choice_iff</a></li><li><a href=#HS_VC_PT-ffb_kcomp>ffb_kcomp</a></li><li><a href=#HS_VC_PT-hoare_kcomp>hoare_kcomp</a></li><li><a href=#HS_VC_PT-ffb_if_then_else>ffb_if_then_else</a></li><li><a href=#HS_VC_PT-hoare_if_then_else>hoare_if_then_else</a></li><li><a href=#HS_VC_PT-kpower_inv>kpower_inv</a></li><li><a href=#HS_VC_PT-kstar_inv>kstar_inv</a></li><li><a href=#HS_VC_PT-ffb_kstarI>ffb_kstarI</a></li><li><a href=#HS_VC_PT-change_loopI>change_loopI</a></li><li><a href=#HS_VC_PT-ffb_loopI>ffb_loopI</a></li><li><a href=#HS_VC_PT-ffb_loopI_break>ffb_loopI_break</a></li><li><a href=#HS_VC_PT-fbox_g_evol>fbox_g_evol</a></li><li><a href=#HS_VC_PT-ffb_g_orbital>ffb_g_orbital</a></li><li><a href=#HS_VC_PT-ffb_g_ode_subset>ffb_g_ode_subset</a></li><li><a href=#HS_VC_PT-ffb_g_ode>ffb_g_ode</a></li><li><a href=#HS_VC_PT-ffb_g_ode_ivl>ffb_g_ode_ivl</a></li><li><a href=#HS_VC_PT-ffb_orbit>ffb_orbit</a></li><li><a href=#HS_VC_PT-ffb_g_orbital_guard>ffb_g_orbital_guard</a></li><li><a href=#HS_VC_PT-ffb_g_orbital_inv>ffb_g_orbital_inv</a></li><li><a href=#HS_VC_PT-ffb_diff_inv>ffb_diff_inv</a></li><li><a href=#HS_VC_PT-bdf_diff_inv>bdf_diff_inv</a></li><li><a href=#HS_VC_PT-diff_inv_guard_ignore>diff_inv_guard_ignore</a></li><li><a href=#HS_VC_PT-ffb_diff_inv_eq>ffb_diff_inv_eq</a></li><li><a href=#HS_VC_PT-diff_inv_eq_inv_set>diff_inv_eq_inv_set</a></li><li><a href=#HS_VC_PT-ffb_g_odei>ffb_g_odei</a></li><li><a href=#HS_VC_PT-diff_solve_axiom1>diff_solve_axiom1</a></li><li><a href=#HS_VC_PT-diff_solve_axiom2>diff_solve_axiom2</a></li><li><a href=#HS_VC_PT-diff_solve_rule>diff_solve_rule</a></li><li><a href=#HS_VC_PT-diff_weak_axiom1>diff_weak_axiom1</a></li><li><a href=#HS_VC_PT-diff_weak_axiom2>diff_weak_axiom2</a></li><li><a href=#HS_VC_PT-diff_weak_rule>diff_weak_rule</a></li><li><a href=#HS_VC_PT-ffb_g_orbital_eq_univD>ffb_g_orbital_eq_univD</a></li><li><a href=#HS_VC_PT-diff_cut_axiom>diff_cut_axiom</a></li><li><a href=#HS_VC_PT-diff_cut_rule>diff_cut_rule</a></li><li><a href=#HS_VC_PT-diff_inv_axiom1>diff_inv_axiom1</a></li><li><a href=#HS_VC_PT-diff_inv_axiom2>diff_inv_axiom2</a></li><li><a href=#HS_VC_PT-diff_inv_rule>diff_inv_rule</a></li></ul></li><li><a href=#HS_VC_PT_Examples>HS_VC_PT_Examples</a><ul><li><a href=#HS_VC_PT_Examples-pendulum_dyn>pendulum_dyn</a></li><li><a href=#HS_VC_PT_Examples-pendulum_inv>pendulum_inv</a></li><li><a href=#HS_VC_PT_Examples-local_flow_pend>local_flow_pend</a></li><li><a href=#HS_VC_PT_Examples-pendulum_flow>pendulum_flow</a></li><li><a href=#HS_VC_PT_Examples-inv_imp_pos_le>inv_imp_pos_le</a></li><li><a href=#HS_VC_PT_Examples-bouncing_ball_inv>bouncing_ball_inv</a></li><li><a href=#HS_VC_PT_Examples-inv_conserv_at_ground>inv_conserv_at_ground</a></li><li><a href=#HS_VC_PT_Examples-inv_conserv_at_air>inv_conserv_at_air</a></li><li><a href=#HS_VC_PT_Examples-bouncing_ball_dyn>bouncing_ball_dyn</a></li><li><a href=#HS_VC_PT_Examples-local_flow_ball>local_flow_ball</a></li><li><a href=#HS_VC_PT_Examples-bouncing_ball_flow>bouncing_ball_flow</a></li><li><a href=#HS_VC_PT_Examples-norm_diff_temp_dyn>norm_diff_temp_dyn</a></li><li><a href=#HS_VC_PT_Examples-local_lipschitz_temp_dyn>local_lipschitz_temp_dyn</a></li><li><a href=#HS_VC_PT_Examples-local_flow_temp>local_flow_temp</a></li><li><a href=#HS_VC_PT_Examples-temp_dyn_down_real_arith>temp_dyn_down_real_arith</a></li><li><a href=#HS_VC_PT_Examples-temp_dyn_up_real_arith>temp_dyn_up_real_arith</a></li><li><a href=#HS_VC_PT_Examples-thermostat>thermostat</a></li><li><a href=#HS_VC_PT_Examples-local_flow_tank>local_flow_tank</a></li><li><a href=#HS_VC_PT_Examples-tank_arith>tank_arith</a></li><li><a href=#HS_VC_PT_Examples-tank_flow>tank_flow</a></li></ul></li><li><a href=#HS_VC_MKA>HS_VC_MKA</a><ul><li><a href=#HS_VC_MKA-le_fbox_choice_iff>le_fbox_choice_iff</a></li><li><a href=#HS_VC_MKA-fbox_export1>fbox_export1</a></li><li><a href=#HS_VC_MKA-fbox_cond>fbox_cond</a></li><li><a href=#HS_VC_MKA-fbox_cond2>fbox_cond2</a></li><li><a href=#HS_VC_MKA-fbox_frame>fbox_frame</a></li><li><a href=#HS_VC_MKA-fbox_shunt>fbox_shunt</a></li><li><a href=#HS_VC_MKA-fbox_export2>fbox_export2</a></li><li><a href=#HS_VC_MKA-fbox_while>fbox_while</a></li><li><a href=#HS_VC_MKA-fbox_whilei>fbox_whilei</a></li><li><a href=#HS_VC_MKA-fbox_seq_var>fbox_seq_var</a></li><li><a href=#HS_VC_MKA-fbox_whilei_break>fbox_whilei_break</a></li><li><a href=#HS_VC_MKA-fbox_loopi>fbox_loopi</a></li><li><a href=#HS_VC_MKA-fbox_loopi_break>fbox_loopi_break</a></li><li><a href=#HS_VC_MKA-plus_inv>plus_inv</a></li><li><a href=#HS_VC_MKA-mult_inv>mult_inv</a></li></ul></li><li><a href=#HS_VC_KA_rel>HS_VC_KA_rel</a><ul><li><a href=#HS_VC_KA_rel-power_inductl>power_inductl</a></li><li><a href=#HS_VC_KA_rel-power_inductr>power_inductr</a></li><li><a href=#HS_VC_KA_rel-power_is_relpow>power_is_relpow</a></li><li><a href=#HS_VC_KA_rel-rel_star_def>rel_star_def</a></li><li><a href=#HS_VC_KA_rel-rel_star_contl>rel_star_contl</a></li><li><a href=#HS_VC_KA_rel-rel_star_contr>rel_star_contr</a></li></ul></li><li><a href=#HS_VC_MKA_rel>HS_VC_MKA_rel</a><ul><li><a href=#HS_VC_MKA_rel-p2r_simps>p2r_simps</a></li><li><a href=#HS_VC_MKA_rel-in_p2r>in_p2r</a></li><li><a href=#HS_VC_MKA_rel-wp_rel>wp_rel</a></li><li><a href=#HS_VC_MKA_rel-wp_test>wp_test</a></li><li><a href=#HS_VC_MKA_rel-wp_assign>wp_assign</a></li><li><a href=#HS_VC_MKA_rel-wp_nondet_assign>wp_nondet_assign</a></li><li><a href=#HS_VC_MKA_rel-le_wp_choice_iff>le_wp_choice_iff</a></li><li><a href=#HS_VC_MKA_rel-change_loopI>change_loopI</a></li><li><a href=#HS_VC_MKA_rel-wp_loopI>wp_loopI</a></li><li><a href=#HS_VC_MKA_rel-wp_loopI_break>wp_loopI_break</a></li><li><a href=#HS_VC_MKA_rel-wp_g_dyn>wp_g_dyn</a></li><li><a href=#HS_VC_MKA_rel-wp_g_orbital>wp_g_orbital</a></li><li><a href=#HS_VC_MKA_rel-wp_g_ode_subset>wp_g_ode_subset</a></li><li><a href=#HS_VC_MKA_rel-wp_g_ode>wp_g_ode</a></li><li><a href=#HS_VC_MKA_rel-wp_g_ode_ivl>wp_g_ode_ivl</a></li><li><a href=#HS_VC_MKA_rel-wp_orbit>wp_orbit</a></li><li><a href=#HS_VC_MKA_rel-wp_g_orbital_guard>wp_g_orbital_guard</a></li><li><a href=#HS_VC_MKA_rel-wp_g_orbital_inv>wp_g_orbital_inv</a></li><li><a href=#HS_VC_MKA_rel-wp_diff_inv>wp_diff_inv</a></li><li><a href=#HS_VC_MKA_rel-diff_inv_guard_ignore>diff_inv_guard_ignore</a></li><li><a href=#HS_VC_MKA_rel-wp_diff_inv_eq>wp_diff_inv_eq</a></li><li><a href=#HS_VC_MKA_rel-diff_inv_eq_inv_set>diff_inv_eq_inv_set</a></li><li><a href=#HS_VC_MKA_rel-wp_g_odei>wp_g_odei</a></li><li><a href=#HS_VC_MKA_rel-diff_solve_axiom1>diff_solve_axiom1</a></li><li><a href=#HS_VC_MKA_rel-diff_solve_axiom2>diff_solve_axiom2</a></li><li><a href=#HS_VC_MKA_rel-diff_solve_rule>diff_solve_rule</a></li><li><a href=#HS_VC_MKA_rel-diff_weak_axiom1>diff_weak_axiom1</a></li><li><a href=#HS_VC_MKA_rel-diff_weak_axiom2>diff_weak_axiom2</a></li><li><a href=#HS_VC_MKA_rel-diff_weak_rule>diff_weak_rule</a></li><li><a href=#HS_VC_MKA_rel-wp_g_evol_IdD>wp_g_evol_IdD</a></li><li><a href=#HS_VC_MKA_rel-diff_cut_axiom>diff_cut_axiom</a></li><li><a href=#HS_VC_MKA_rel-diff_cut_rule>diff_cut_rule</a></li><li><a href=#HS_VC_MKA_rel-diff_inv_axiom1>diff_inv_axiom1</a></li><li><a href=#HS_VC_MKA_rel-diff_inv_axiom2>diff_inv_axiom2</a></li><li><a href=#HS_VC_MKA_rel-diff_inv_rule>diff_inv_rule</a></li></ul></li><li><a href=#HS_VC_MKA_Examples_rel>HS_VC_MKA_Examples_rel</a><ul><li><a href=#HS_VC_MKA_Examples_rel-pendulum_dyn>pendulum_dyn</a></li><li><a href=#HS_VC_MKA_Examples_rel-pendulum_inv>pendulum_inv</a></li><li><a href=#HS_VC_MKA_Examples_rel-local_flow_pend>local_flow_pend</a></li><li><a href=#HS_VC_MKA_Examples_rel-pendulum_flow>pendulum_flow</a></li><li><a href=#HS_VC_MKA_Examples_rel-inv_imp_pos_le>inv_imp_pos_le</a></li><li><a href=#HS_VC_MKA_Examples_rel-bouncing_ball_inv>bouncing_ball_inv</a></li><li><a href=#HS_VC_MKA_Examples_rel-inv_conserv_at_ground>inv_conserv_at_ground</a></li><li><a href=#HS_VC_MKA_Examples_rel-inv_conserv_at_air>inv_conserv_at_air</a></li><li><a href=#HS_VC_MKA_Examples_rel-bouncing_ball_dyn>bouncing_ball_dyn</a></li><li><a href=#HS_VC_MKA_Examples_rel-local_flow_ball>local_flow_ball</a></li><li><a href=#HS_VC_MKA_Examples_rel-bouncing_ball_flow>bouncing_ball_flow</a></li><li><a href=#HS_VC_MKA_Examples_rel-norm_diff_temp_dyn>norm_diff_temp_dyn</a></li><li><a href=#HS_VC_MKA_Examples_rel-local_lipschitz_temp_dyn>local_lipschitz_temp_dyn</a></li><li><a href=#HS_VC_MKA_Examples_rel-local_flow_temp>local_flow_temp</a></li><li><a href=#HS_VC_MKA_Examples_rel-temp_dyn_down_real_arith>temp_dyn_down_real_arith</a></li><li><a href=#HS_VC_MKA_Examples_rel-temp_dyn_up_real_arith>temp_dyn_up_real_arith</a></li><li><a href=#HS_VC_MKA_Examples_rel-thermostat>thermostat</a></li><li><a href=#HS_VC_MKA_Examples_rel-local_flow_tank>local_flow_tank</a></li><li><a href=#HS_VC_MKA_Examples_rel-tank_arith>tank_arith</a></li><li><a href=#HS_VC_MKA_Examples_rel-tank_flow>tank_flow</a></li></ul></li><li><a href=#HS_VC_KA_ndfun>HS_VC_KA_ndfun</a><ul><li><a href=#HS_VC_KA_ndfun-nd_fun_ext>nd_fun_ext</a></li><li><a href=#HS_VC_KA_ndfun-nd_fun_eq_iff>nd_fun_eq_iff</a></li><li><a href=#HS_VC_KA_ndfun-nd_fun_plus_assoc>nd_fun_plus_assoc</a></li><li><a href=#HS_VC_KA_ndfun-nd_fun_distr>nd_fun_distr</a></li><li><a href=#HS_VC_KA_ndfun-nd_fun_plus_zerol>nd_fun_plus_zerol</a></li><li><a href=#HS_VC_KA_ndfun-nd_fun_leq>nd_fun_leq</a></li><li><a href=#HS_VC_KA_ndfun-nd_star_one>nd_star_one</a></li></ul></li><li><a href=#HS_VC_MKA_ndfun>HS_VC_MKA_ndfun</a><ul><li><a href=#HS_VC_MKA_ndfun-nd_fun_ad_zero>nd_fun_ad_zero</a></li><li><a href=#HS_VC_MKA_ndfun-p2ndf_simps>p2ndf_simps</a></li><li><a href=#HS_VC_MKA_ndfun-wp_nd_fun>wp_nd_fun</a></li><li><a href=#HS_VC_MKA_ndfun-wp_test>wp_test</a></li><li><a href=#HS_VC_MKA_ndfun-wp_assign>wp_assign</a></li><li><a href=#HS_VC_MKA_ndfun-wp_nondet_assign>wp_nondet_assign</a></li><li><a href=#HS_VC_MKA_ndfun-le_wp_choice_iff>le_wp_choice_iff</a></li><li><a href=#HS_VC_MKA_ndfun-change_loopI>change_loopI</a></li><li><a href=#HS_VC_MKA_ndfun-wp_loopI>wp_loopI</a></li><li><a href=#HS_VC_MKA_ndfun-wp_loopI_break>wp_loopI_break</a></li><li><a href=#HS_VC_MKA_ndfun-wp_g_dyn>wp_g_dyn</a></li><li><a href=#HS_VC_MKA_ndfun-wp_g_orbital>wp_g_orbital</a></li><li><a href=#HS_VC_MKA_ndfun-wp_g_ode_subset>wp_g_ode_subset</a></li><li><a href=#HS_VC_MKA_ndfun-wp_g_ode>wp_g_ode</a></li><li><a href=#HS_VC_MKA_ndfun-wp_g_ode_ivl>wp_g_ode_ivl</a></li><li><a href=#HS_VC_MKA_ndfun-wp_orbit>wp_orbit</a></li><li><a href=#HS_VC_MKA_ndfun-wp_g_orbital_guard>wp_g_orbital_guard</a></li><li><a href=#HS_VC_MKA_ndfun-wp_g_orbital_inv>wp_g_orbital_inv</a></li><li><a href=#HS_VC_MKA_ndfun-wp_diff_inv>wp_diff_inv</a></li><li><a href=#HS_VC_MKA_ndfun-diff_inv_guard_ignore>diff_inv_guard_ignore</a></li><li><a href=#HS_VC_MKA_ndfun-wp_diff_inv_eq>wp_diff_inv_eq</a></li><li><a href=#HS_VC_MKA_ndfun-diff_inv_eq_inv_set>diff_inv_eq_inv_set</a></li><li><a href=#HS_VC_MKA_ndfun-wp_g_odei>wp_g_odei</a></li><li><a href=#HS_VC_MKA_ndfun-diff_solve_axiom1>diff_solve_axiom1</a></li><li><a href=#HS_VC_MKA_ndfun-diff_solve_axiom2>diff_solve_axiom2</a></li><li><a href=#HS_VC_MKA_ndfun-diff_solve_rule>diff_solve_rule</a></li><li><a href=#HS_VC_MKA_ndfun-diff_weak_axiom1>diff_weak_axiom1</a></li><li><a href=#HS_VC_MKA_ndfun-diff_weak_axiom2>diff_weak_axiom2</a></li><li><a href=#HS_VC_MKA_ndfun-diff_weak_rule>diff_weak_rule</a></li><li><a href=#HS_VC_MKA_ndfun-wp_g_orbit_IdD>wp_g_orbit_IdD</a></li><li><a href=#HS_VC_MKA_ndfun-diff_cut_axiom>diff_cut_axiom</a></li><li><a href=#HS_VC_MKA_ndfun-diff_cut_rule>diff_cut_rule</a></li><li><a href=#HS_VC_MKA_ndfun-diff_inv_axiom1>diff_inv_axiom1</a></li><li><a href=#HS_VC_MKA_ndfun-diff_inv_axiom2>diff_inv_axiom2</a></li><li><a href=#HS_VC_MKA_ndfun-diff_inv_rule>diff_inv_rule</a></li></ul></li><li><a href=#HS_VC_MKA_Examples_ndfun>HS_VC_MKA_Examples_ndfun</a><ul><li><a href=#HS_VC_MKA_Examples_ndfun-pendulum_dyn>pendulum_dyn</a></li><li><a href=#HS_VC_MKA_Examples_ndfun-pendulum_inv>pendulum_inv</a></li><li><a href=#HS_VC_MKA_Examples_ndfun-local_flow_pend>local_flow_pend</a></li><li><a href=#HS_VC_MKA_Examples_ndfun-pendulum_flow>pendulum_flow</a></li><li><a href=#HS_VC_MKA_Examples_ndfun-inv_imp_pos_le>inv_imp_pos_le</a></li><li><a href=#HS_VC_MKA_Examples_ndfun-bouncing_ball_inv>bouncing_ball_inv</a></li><li><a href=#HS_VC_MKA_Examples_ndfun-inv_conserv_at_ground>inv_conserv_at_ground</a></li><li><a href=#HS_VC_MKA_Examples_ndfun-inv_conserv_at_air>inv_conserv_at_air</a></li><li><a href=#HS_VC_MKA_Examples_ndfun-bouncing_ball_dyn>bouncing_ball_dyn</a></li><li><a href=#HS_VC_MKA_Examples_ndfun-local_flow_ball>local_flow_ball</a></li><li><a href=#HS_VC_MKA_Examples_ndfun-bouncing_ball_flow>bouncing_ball_flow</a></li><li><a href=#HS_VC_MKA_Examples_ndfun-norm_diff_temp_dyn>norm_diff_temp_dyn</a></li><li><a href=#HS_VC_MKA_Examples_ndfun-local_lipschitz_temp_dyn>local_lipschitz_temp_dyn</a></li><li><a href=#HS_VC_MKA_Examples_ndfun-local_flow_temp>local_flow_temp</a></li><li><a href=#HS_VC_MKA_Examples_ndfun-temp_dyn_down_real_arith>temp_dyn_down_real_arith</a></li><li><a href=#HS_VC_MKA_Examples_ndfun-temp_dyn_up_real_arith>temp_dyn_up_real_arith</a></li><li><a href=#HS_VC_MKA_Examples_ndfun-thermostat>thermostat</a></li><li><a href=#HS_VC_MKA_Examples_ndfun-local_flow_tank>local_flow_tank</a></li><li><a href=#HS_VC_MKA_Examples_ndfun-tank_arith>tank_arith</a></li><li><a href=#HS_VC_MKA_Examples_ndfun-tank_flow>tank_flow</a></li></ul></li><li><a href=#HS_VC_KAT>HS_VC_KAT</a><ul><li><a href=#HS_VC_KAT-H_consl>H_consl</a></li><li><a href=#HS_VC_KAT-H_consr>H_consr</a></li><li><a href=#HS_VC_KAT-H_cons>H_cons</a></li><li><a href=#HS_VC_KAT-H_skip>H_skip</a></li><li><a href=#HS_VC_KAT-H_abort>H_abort</a></li><li><a href=#HS_VC_KAT-H_seq>H_seq</a></li><li><a href=#HS_VC_KAT-H_choice>H_choice</a></li><li><a href=#HS_VC_KAT-H_var>H_var</a></li><li><a href=#HS_VC_KAT-H_cond_iff>H_cond_iff</a></li><li><a href=#HS_VC_KAT-H_cond>H_cond</a></li><li><a href=#HS_VC_KAT-H_exp1>H_exp1</a></li><li><a href=#HS_VC_KAT-H_while>H_while</a></li><li><a href=#HS_VC_KAT-H_while_inv>H_while_inv</a></li><li><a href=#HS_VC_KAT-H_star>H_star</a></li><li><a href=#HS_VC_KAT-H_star_inv>H_star_inv</a></li><li><a href=#HS_VC_KAT-H_loop>H_loop</a></li><li><a href=#HS_VC_KAT-H_loop_inv>H_loop_inv</a></li><li><a href=#HS_VC_KAT-H_inv>H_inv</a></li><li><a href=#HS_VC_KAT-H_inv_plus>H_inv_plus</a></li><li><a href=#HS_VC_KAT-H_inv_mult>H_inv_mult</a></li><li><a href=#HS_VC_KAT-R1>R1</a></li><li><a href=#HS_VC_KAT-R2>R2</a></li><li><a href=#HS_VC_KAT-R_cons>R_cons</a></li><li><a href=#HS_VC_KAT-R_skip>R_skip</a></li><li><a href=#HS_VC_KAT-R_zero_one>R_zero_one</a></li><li><a href=#HS_VC_KAT-R_one_zero>R_one_zero</a></li><li><a href=#HS_VC_KAT-R_abort>R_abort</a></li><li><a href=#HS_VC_KAT-R_seq>R_seq</a></li><li><a href=#HS_VC_KAT-R_choice>R_choice</a></li><li><a href=#HS_VC_KAT-R_cond>R_cond</a></li><li><a href=#HS_VC_KAT-R_while>R_while</a></li><li><a href=#HS_VC_KAT-R_star>R_star</a></li><li><a href=#HS_VC_KAT-R_loop>R_loop</a></li><li><a href=#HS_VC_KAT-R_inv>R_inv</a></li></ul></li><li><a href=#HS_VC_KAT_rel>HS_VC_KAT_rel</a><ul><li><a href=#HS_VC_KAT_rel-p2r_simps>p2r_simps</a></li><li><a href=#HS_VC_KAT_rel-RdL_is_rRKAT>RdL_is_rRKAT</a></li><li><a href=#HS_VC_KAT_rel-rel_kat_H>rel_kat_H</a></li><li><a href=#HS_VC_KAT_rel-sH_skip>sH_skip</a></li><li><a href=#HS_VC_KAT_rel-H_skip>H_skip</a></li><li><a href=#HS_VC_KAT_rel-sH_test>sH_test</a></li><li><a href=#HS_VC_KAT_rel-sH_abort>sH_abort</a></li><li><a href=#HS_VC_KAT_rel-H_abort>H_abort</a></li><li><a href=#HS_VC_KAT_rel-sH_assign>sH_assign</a></li><li><a href=#HS_VC_KAT_rel-H_assign>H_assign</a></li><li><a href=#HS_VC_KAT_rel-sH_nondet_assign>sH_nondet_assign</a></li><li><a href=#HS_VC_KAT_rel-H_nondet_assign>H_nondet_assign</a></li><li><a href=#HS_VC_KAT_rel-H_seq>H_seq</a></li><li><a href=#HS_VC_KAT_rel-sH_seq>sH_seq</a></li><li><a href=#HS_VC_KAT_rel-H_assignl>H_assignl</a></li><li><a href=#HS_VC_KAT_rel-sH_choice>sH_choice</a></li><li><a href=#HS_VC_KAT_rel-H_choice>H_choice</a></li><li><a href=#HS_VC_KAT_rel-sH_cond>sH_cond</a></li><li><a href=#HS_VC_KAT_rel-H_cond>H_cond</a></li><li><a href=#HS_VC_KAT_rel-sH_whileI>sH_whileI</a></li><li><a href=#HS_VC_KAT_rel-H_loop>H_loop</a></li><li><a href=#HS_VC_KAT_rel-H_loopI>H_loopI</a></li><li><a href=#HS_VC_KAT_rel-sH_g_evol>sH_g_evol</a></li><li><a href=#HS_VC_KAT_rel-H_g_evol>H_g_evol</a></li><li><a href=#HS_VC_KAT_rel-H_g_orbital>H_g_orbital</a></li><li><a href=#HS_VC_KAT_rel-sH_g_orbital>sH_g_orbital</a></li><li><a href=#HS_VC_KAT_rel-sH_g_ode_subset>sH_g_ode_subset</a></li><li><a href=#HS_VC_KAT_rel-H_g_ode_subset>H_g_ode_subset</a></li><li><a href=#HS_VC_KAT_rel-sH_g_ode>sH_g_ode</a></li><li><a href=#HS_VC_KAT_rel-sH_g_ode_ivl>sH_g_ode_ivl</a></li><li><a href=#HS_VC_KAT_rel-sH_orbit>sH_orbit</a></li><li><a href=#HS_VC_KAT_rel-sH_g_orbital_guard>sH_g_orbital_guard</a></li><li><a href=#HS_VC_KAT_rel-sH_g_orbital_inv>sH_g_orbital_inv</a></li><li><a href=#HS_VC_KAT_rel-sH_diff_inv>sH_diff_inv</a></li><li><a href=#HS_VC_KAT_rel-H_g_ode_inv>H_g_ode_inv</a></li><li><a href=#HS_VC_KAT_rel-R_skip>R_skip</a></li><li><a href=#HS_VC_KAT_rel-R_abort>R_abort</a></li><li><a href=#HS_VC_KAT_rel-R_seq>R_seq</a></li><li><a href=#HS_VC_KAT_rel-R_seq_law>R_seq_law</a></li><li><a href=#HS_VC_KAT_rel-R_choice>R_choice</a></li><li><a href=#HS_VC_KAT_rel-R_choice_law>R_choice_law</a></li><li><a href=#HS_VC_KAT_rel-R_choice_mono>R_choice_mono</a></li><li><a href=#HS_VC_KAT_rel-R_assign>R_assign</a></li><li><a href=#HS_VC_KAT_rel-R_assign_law>R_assign_law</a></li><li><a href=#HS_VC_KAT_rel-R_assignl>R_assignl</a></li><li><a href=#HS_VC_KAT_rel-R_assignr>R_assignr</a></li><li><a href=#HS_VC_KAT_rel-R_nondet_assign>R_nondet_assign</a></li><li><a href=#HS_VC_KAT_rel-R_nondet_assign_law>R_nondet_assign_law</a></li><li><a href=#HS_VC_KAT_rel-R_cond>R_cond</a></li><li><a href=#HS_VC_KAT_rel-R_cond_mono>R_cond_mono</a></li><li><a href=#HS_VC_KAT_rel-R_cond_law>R_cond_law</a></li><li><a href=#HS_VC_KAT_rel-R_while>R_while</a></li><li><a href=#HS_VC_KAT_rel-R_whileI>R_whileI</a></li><li><a href=#HS_VC_KAT_rel-R_while_mono>R_while_mono</a></li><li><a href=#HS_VC_KAT_rel-R_while_law>R_while_law</a></li><li><a href=#HS_VC_KAT_rel-R_loop>R_loop</a></li><li><a href=#HS_VC_KAT_rel-R_loopI>R_loopI</a></li><li><a href=#HS_VC_KAT_rel-R_loop_mono>R_loop_mono</a></li><li><a href=#HS_VC_KAT_rel-R_g_evol>R_g_evol</a></li><li><a href=#HS_VC_KAT_rel-R_g_evol_law>R_g_evol_law</a></li><li><a href=#HS_VC_KAT_rel-R_g_evoll>R_g_evoll</a></li><li><a href=#HS_VC_KAT_rel-R_g_evolr>R_g_evolr</a></li><li><a href=#HS_VC_KAT_rel-R_g_ode_subset>R_g_ode_subset</a></li><li><a href=#HS_VC_KAT_rel-R_g_ode_rule_subset>R_g_ode_rule_subset</a></li><li><a href=#HS_VC_KAT_rel-R_g_odel_subset>R_g_odel_subset</a></li><li><a href=#HS_VC_KAT_rel-R_g_oder_subset>R_g_oder_subset</a></li><li><a href=#HS_VC_KAT_rel-R_g_ode>R_g_ode</a></li><li><a href=#HS_VC_KAT_rel-R_g_ode_law>R_g_ode_law</a></li><li><a href=#HS_VC_KAT_rel-R_g_odel>R_g_odel</a></li><li><a href=#HS_VC_KAT_rel-R_g_oder>R_g_oder</a></li><li><a href=#HS_VC_KAT_rel-R_g_ode_ivl>R_g_ode_ivl</a></li><li><a href=#HS_VC_KAT_rel-R_g_ode_inv>R_g_ode_inv</a></li><li><a href=#HS_VC_KAT_rel-diff_solve_rule1>diff_solve_rule1</a></li><li><a href=#HS_VC_KAT_rel-diff_solve_rule2>diff_solve_rule2</a></li><li><a href=#HS_VC_KAT_rel-diff_weak_rule>diff_weak_rule</a></li><li><a href=#HS_VC_KAT_rel-diff_cut_rule>diff_cut_rule</a></li><li><a href=#HS_VC_KAT_rel-diff_inv_rule>diff_inv_rule</a></li></ul></li><li><a href=#HS_VC_KAT_Examples_rel>HS_VC_KAT_Examples_rel</a><ul><li><a href=#HS_VC_KAT_Examples_rel-pendulum_dyn>pendulum_dyn</a></li><li><a href=#HS_VC_KAT_Examples_rel-pendulum_inv>pendulum_inv</a></li><li><a href=#HS_VC_KAT_Examples_rel-local_flow_pend>local_flow_pend</a></li><li><a href=#HS_VC_KAT_Examples_rel-pendulum_flow>pendulum_flow</a></li><li><a href=#HS_VC_KAT_Examples_rel-fball_invariant>fball_invariant</a></li><li><a href=#HS_VC_KAT_Examples_rel-bouncing_ball_inv>bouncing_ball_inv</a></li><li><a href=#HS_VC_KAT_Examples_rel-bouncing_ball_dyn>bouncing_ball_dyn</a></li><li><a href=#HS_VC_KAT_Examples_rel-local_flow_ball>local_flow_ball</a></li><li><a href=#HS_VC_KAT_Examples_rel-bouncing_ball_flow>bouncing_ball_flow</a></li><li><a href=#HS_VC_KAT_Examples_rel-R_bb_assign>R_bb_assign</a></li><li><a href=#HS_VC_KAT_Examples_rel-R_bouncing_ball_dyn>R_bouncing_ball_dyn</a></li><li><a href=#HS_VC_KAT_Examples_rel-norm_diff_therm_dyn>norm_diff_therm_dyn</a></li><li><a href=#HS_VC_KAT_Examples_rel-local_lipschitz_therm_dyn>local_lipschitz_therm_dyn</a></li><li><a href=#HS_VC_KAT_Examples_rel-local_flow_therm>local_flow_therm</a></li><li><a href=#HS_VC_KAT_Examples_rel-therm_dyn_down_real_arith>therm_dyn_down_real_arith</a></li><li><a href=#HS_VC_KAT_Examples_rel-therm_dyn_up_real_arith>therm_dyn_up_real_arith</a></li><li><a href=#HS_VC_KAT_Examples_rel-thermostat_flow>thermostat_flow</a></li><li><a href=#HS_VC_KAT_Examples_rel-R_therm_dyn_down>R_therm_dyn_down</a></li><li><a href=#HS_VC_KAT_Examples_rel-R_therm_dyn_up>R_therm_dyn_up</a></li><li><a href=#HS_VC_KAT_Examples_rel-R_therm_dyn>R_therm_dyn</a></li><li><a href=#HS_VC_KAT_Examples_rel-R_therm_assign1>R_therm_assign1</a></li><li><a href=#HS_VC_KAT_Examples_rel-R_therm_assign2>R_therm_assign2</a></li><li><a href=#HS_VC_KAT_Examples_rel-R_therm_ctrl>R_therm_ctrl</a></li><li><a href=#HS_VC_KAT_Examples_rel-R_therm_loop>R_therm_loop</a></li><li><a href=#HS_VC_KAT_Examples_rel-R_thermostat_flow>R_thermostat_flow</a></li><li><a href=#HS_VC_KAT_Examples_rel-local_flow_tank>local_flow_tank</a></li><li><a href=#HS_VC_KAT_Examples_rel-tank_arith>tank_arith</a></li><li><a href=#HS_VC_KAT_Examples_rel-tank_flow>tank_flow</a></li><li><a href=#HS_VC_KAT_Examples_rel-tank_diff_inv>tank_diff_inv</a></li><li><a href=#HS_VC_KAT_Examples_rel-tank_inv_arith1>tank_inv_arith1</a></li><li><a href=#HS_VC_KAT_Examples_rel-tank_inv_arith2>tank_inv_arith2</a></li><li><a href=#HS_VC_KAT_Examples_rel-tank_inv>tank_inv</a></li><li><a href=#HS_VC_KAT_Examples_rel-R_tank_inv>R_tank_inv</a></li></ul></li><li><a href=#HS_VC_KAT_ndfun>HS_VC_KAT_ndfun</a><ul><li><a href=#HS_VC_KAT_ndfun-nd_fun_n_op_one>nd_fun_n_op_one</a></li><li><a href=#HS_VC_KAT_ndfun-p2ndf_simps>p2ndf_simps</a></li><li><a href=#HS_VC_KAT_ndfun-ndfun_kat_H>ndfun_kat_H</a></li><li><a href=#HS_VC_KAT_ndfun-sH_skip>sH_skip</a></li><li><a href=#HS_VC_KAT_ndfun-H_skip>H_skip</a></li><li><a href=#HS_VC_KAT_ndfun-sH_test>sH_test</a></li><li><a href=#HS_VC_KAT_ndfun-sH_abort>sH_abort</a></li><li><a href=#HS_VC_KAT_ndfun-H_abort>H_abort</a></li><li><a href=#HS_VC_KAT_ndfun-sH_assign>sH_assign</a></li><li><a href=#HS_VC_KAT_ndfun-H_assign>H_assign</a></li><li><a href=#HS_VC_KAT_ndfun-sH_nondet_assign>sH_nondet_assign</a></li><li><a href=#HS_VC_KAT_ndfun-H_nondet_assign>H_nondet_assign</a></li><li><a href=#HS_VC_KAT_ndfun-H_seq>H_seq</a></li><li><a href=#HS_VC_KAT_ndfun-sH_seq>sH_seq</a></li><li><a href=#HS_VC_KAT_ndfun-H_assignl>H_assignl</a></li><li><a href=#HS_VC_KAT_ndfun-sH_choice>sH_choice</a></li><li><a href=#HS_VC_KAT_ndfun-H_choice>H_choice</a></li><li><a href=#HS_VC_KAT_ndfun-sH_cond>sH_cond</a></li><li><a href=#HS_VC_KAT_ndfun-H_cond>H_cond</a></li><li><a href=#HS_VC_KAT_ndfun-sH_whileI>sH_whileI</a></li><li><a href=#HS_VC_KAT_ndfun-H_loop>H_loop</a></li><li><a href=#HS_VC_KAT_ndfun-H_loopI>H_loopI</a></li><li><a href=#HS_VC_KAT_ndfun-sH_g_evol>sH_g_evol</a></li><li><a href=#HS_VC_KAT_ndfun-H_g_evol>H_g_evol</a></li><li><a href=#HS_VC_KAT_ndfun-H_g_orbital>H_g_orbital</a></li><li><a href=#HS_VC_KAT_ndfun-sH_g_orbital>sH_g_orbital</a></li><li><a href=#HS_VC_KAT_ndfun-sH_g_ode_subset>sH_g_ode_subset</a></li><li><a href=#HS_VC_KAT_ndfun-H_g_ode_subset>H_g_ode_subset</a></li><li><a href=#HS_VC_KAT_ndfun-sH_g_ode>sH_g_ode</a></li><li><a href=#HS_VC_KAT_ndfun-sH_g_ode_ivl>sH_g_ode_ivl</a></li><li><a href=#HS_VC_KAT_ndfun-sH_orbit>sH_orbit</a></li><li><a href=#HS_VC_KAT_ndfun-sH_g_orbital_guard>sH_g_orbital_guard</a></li><li><a href=#HS_VC_KAT_ndfun-sH_g_orbital_inv>sH_g_orbital_inv</a></li><li><a href=#HS_VC_KAT_ndfun-sH_diff_inv>sH_diff_inv</a></li><li><a href=#HS_VC_KAT_ndfun-H_g_ode_inv>H_g_ode_inv</a></li><li><a href=#HS_VC_KAT_ndfun-R_skip>R_skip</a></li><li><a href=#HS_VC_KAT_ndfun-R_abort>R_abort</a></li><li><a href=#HS_VC_KAT_ndfun-R_seq>R_seq</a></li><li><a href=#HS_VC_KAT_ndfun-R_seq_law>R_seq_law</a></li><li><a href=#HS_VC_KAT_ndfun-R_choice>R_choice</a></li><li><a href=#HS_VC_KAT_ndfun-R_choice_law>R_choice_law</a></li><li><a href=#HS_VC_KAT_ndfun-R_choice_mono>R_choice_mono</a></li><li><a href=#HS_VC_KAT_ndfun-R_assign>R_assign</a></li><li><a href=#HS_VC_KAT_ndfun-R_assign_law>R_assign_law</a></li><li><a href=#HS_VC_KAT_ndfun-R_assignl>R_assignl</a></li><li><a href=#HS_VC_KAT_ndfun-R_assignr>R_assignr</a></li><li><a href=#HS_VC_KAT_ndfun-R_nondet_assign>R_nondet_assign</a></li><li><a href=#HS_VC_KAT_ndfun-R_nondet_assign_law>R_nondet_assign_law</a></li><li><a href=#HS_VC_KAT_ndfun-R_cond>R_cond</a></li><li><a href=#HS_VC_KAT_ndfun-R_cond_mono>R_cond_mono</a></li><li><a href=#HS_VC_KAT_ndfun-R_cond_law>R_cond_law</a></li><li><a href=#HS_VC_KAT_ndfun-R_while>R_while</a></li><li><a href=#HS_VC_KAT_ndfun-R_whileI>R_whileI</a></li><li><a href=#HS_VC_KAT_ndfun-R_while_mono>R_while_mono</a></li><li><a href=#HS_VC_KAT_ndfun-R_while_law>R_while_law</a></li><li><a href=#HS_VC_KAT_ndfun-R_loop>R_loop</a></li><li><a href=#HS_VC_KAT_ndfun-R_loopI>R_loopI</a></li><li><a href=#HS_VC_KAT_ndfun-R_loop_mono>R_loop_mono</a></li><li><a href=#HS_VC_KAT_ndfun-R_g_evol>R_g_evol</a></li><li><a href=#HS_VC_KAT_ndfun-R_g_evol_law>R_g_evol_law</a></li><li><a href=#HS_VC_KAT_ndfun-R_g_evoll>R_g_evoll</a></li><li><a href=#HS_VC_KAT_ndfun-R_g_evolr>R_g_evolr</a></li><li><a href=#HS_VC_KAT_ndfun-R_g_ode_subset>R_g_ode_subset</a></li><li><a href=#HS_VC_KAT_ndfun-R_g_ode_rule_subset>R_g_ode_rule_subset</a></li><li><a href=#HS_VC_KAT_ndfun-R_g_odel_subset>R_g_odel_subset</a></li><li><a href=#HS_VC_KAT_ndfun-R_g_oder_subset>R_g_oder_subset</a></li><li><a href=#HS_VC_KAT_ndfun-R_g_ode>R_g_ode</a></li><li><a href=#HS_VC_KAT_ndfun-R_g_ode_law>R_g_ode_law</a></li><li><a href=#HS_VC_KAT_ndfun-R_g_odel>R_g_odel</a></li><li><a href=#HS_VC_KAT_ndfun-R_g_oder>R_g_oder</a></li><li><a href=#HS_VC_KAT_ndfun-R_g_ode_ivl>R_g_ode_ivl</a></li><li><a href=#HS_VC_KAT_ndfun-R_g_ode_inv>R_g_ode_inv</a></li><li><a href=#HS_VC_KAT_ndfun-diff_solve_rule1>diff_solve_rule1</a></li><li><a href=#HS_VC_KAT_ndfun-diff_solve_rule2>diff_solve_rule2</a></li><li><a href=#HS_VC_KAT_ndfun-diff_weak_rule>diff_weak_rule</a></li><li><a href=#HS_VC_KAT_ndfun-diff_cut_rule>diff_cut_rule</a></li><li><a href=#HS_VC_KAT_ndfun-diff_inv_rule>diff_inv_rule</a></li></ul></li><li><a href=#HS_VC_KAT_Examples_ndfun>HS_VC_KAT_Examples_ndfun</a><ul><li><a href=#HS_VC_KAT_Examples_ndfun-pendulum_dyn>pendulum_dyn</a></li><li><a href=#HS_VC_KAT_Examples_ndfun-pendulum_inv>pendulum_inv</a></li><li><a href=#HS_VC_KAT_Examples_ndfun-local_flow_pend>local_flow_pend</a></li><li><a href=#HS_VC_KAT_Examples_ndfun-pendulum_flow>pendulum_flow</a></li><li><a href=#HS_VC_KAT_Examples_ndfun-fball_invariant>fball_invariant</a></li><li><a href=#HS_VC_KAT_Examples_ndfun-bouncing_ball_inv>bouncing_ball_inv</a></li><li><a href=#HS_VC_KAT_Examples_ndfun-bouncing_ball_dyn>bouncing_ball_dyn</a></li><li><a href=#HS_VC_KAT_Examples_ndfun-local_flow_ball>local_flow_ball</a></li><li><a href=#HS_VC_KAT_Examples_ndfun-bouncing_ball_flow>bouncing_ball_flow</a></li><li><a href=#HS_VC_KAT_Examples_ndfun-R_bb_assign>R_bb_assign</a></li><li><a href=#HS_VC_KAT_Examples_ndfun-R_bouncing_ball_dyn>R_bouncing_ball_dyn</a></li><li><a href=#HS_VC_KAT_Examples_ndfun-norm_diff_therm_dyn>norm_diff_therm_dyn</a></li><li><a href=#HS_VC_KAT_Examples_ndfun-local_lipschitz_therm_dyn>local_lipschitz_therm_dyn</a></li><li><a href=#HS_VC_KAT_Examples_ndfun-local_flow_therm>local_flow_therm</a></li><li><a href=#HS_VC_KAT_Examples_ndfun-therm_dyn_down_real_arith>therm_dyn_down_real_arith</a></li><li><a href=#HS_VC_KAT_Examples_ndfun-therm_dyn_up_real_arith>therm_dyn_up_real_arith</a></li><li><a href=#HS_VC_KAT_Examples_ndfun-thermostat_flow>thermostat_flow</a></li><li><a href=#HS_VC_KAT_Examples_ndfun-R_therm_dyn_down>R_therm_dyn_down</a></li><li><a href=#HS_VC_KAT_Examples_ndfun-R_therm_dyn_up>R_therm_dyn_up</a></li><li><a href=#HS_VC_KAT_Examples_ndfun-R_therm_dyn>R_therm_dyn</a></li><li><a href=#HS_VC_KAT_Examples_ndfun-R_therm_assign1>R_therm_assign1</a></li><li><a href=#HS_VC_KAT_Examples_ndfun-R_therm_assign2>R_therm_assign2</a></li><li><a href=#HS_VC_KAT_Examples_ndfun-R_therm_ctrl>R_therm_ctrl</a></li><li><a href=#HS_VC_KAT_Examples_ndfun-R_therm_loop>R_therm_loop</a></li><li><a href=#HS_VC_KAT_Examples_ndfun-R_thermostat_flow>R_thermostat_flow</a></li><li><a href=#HS_VC_KAT_Examples_ndfun-local_flow_tank>local_flow_tank</a></li><li><a href=#HS_VC_KAT_Examples_ndfun-tank_arith>tank_arith</a></li><li><a href=#HS_VC_KAT_Examples_ndfun-tank_flow>tank_flow</a></li><li><a href=#HS_VC_KAT_Examples_ndfun-tank_diff_inv>tank_diff_inv</a></li><li><a href=#HS_VC_KAT_Examples_ndfun-tank_inv_arith1>tank_inv_arith1</a></li><li><a href=#HS_VC_KAT_Examples_ndfun-tank_inv_arith2>tank_inv_arith2</a></li><li><a href=#HS_VC_KAT_Examples_ndfun-tank_inv>tank_inv</a></li><li><a href=#HS_VC_KAT_Examples_ndfun-R_tank_inv>R_tank_inv</a></li></ul></li></ul></div><ul><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Hybrid_Systems_VCs/outline.pdf>Proof
-outline</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Hybrid_Systems_VCs/document.pdf>Proof
-document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Hybrid_Systems_VCs/session_graph.pdf>Theory dependencies</a></li></ul></div></aside><div class="content theories"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
-<datalist id=autocomplete></datalist></div></form><h1><span class=first>S</span>ession <span class=first>H</span>ybrid_<span class=first>S</span>ystems_<span class=first>V</span><span class=first>C</span>s</h1><div></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><div id=HS_Preliminaries><div class=head><h1>Theory HS_Preliminaries</h1></div><pre class=source><span class=comment1>(*  Title:       Preliminaries for hybrid systems verification
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Session Hybrid_Systems_VCs - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session Hybrid_Systems_VCs">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="/entries/hybrid_systems_vcs/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories">
+<meta property="og:site_name" content="Archive of Formal Proofs">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="/images/afp.png">
+<meta name=twitter:title content="Session Hybrid_Systems_VCs">
+<meta name=twitter:description content>
+<link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css>
+<link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script>
+<script src=/js/banner.js></script><script src=/js/header-search.js></script></head>
+<body class=mathjax_ignore>
+<aside>
+<div>
+<div>
+<a href=/>
+<img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo>
+</a>
+<ul>
+<li><a href=/entries/hybrid_systems_vcs>Return to entry</a></li>
+</ul>
+<hr>
+<ul><li><a href=#HS_Preliminaries>HS_Preliminaries</a>
+<ul>
+<li><a href=#HS_Preliminaries-abs_le_eq>abs_le_eq</a></li>
+<li><a href=#HS_Preliminaries-real_ivl_eqs>real_ivl_eqs</a></li>
+<li><a href=#HS_Preliminaries-is_interval_real_nonneg>is_interval_real_nonneg</a></li>
+<li><a href=#HS_Preliminaries-norm_rotate_eq>norm_rotate_eq</a></li>
+<li><a href=#HS_Preliminaries-vderiv_on_composeI>vderiv_on_composeI</a></li>
+<li><a href=#HS_Preliminaries-vderiv_uminusI>vderiv_uminusI</a></li>
+<li><a href=#HS_Preliminaries-vderiv_npowI>vderiv_npowI</a></li>
+<li><a href=#HS_Preliminaries-vderiv_divI>vderiv_divI</a></li>
+<li><a href=#HS_Preliminaries-vderiv_cosI>vderiv_cosI</a></li>
+<li><a href=#HS_Preliminaries-vderiv_sinI>vderiv_sinI</a></li>
+<li><a href=#HS_Preliminaries-vderiv_expI>vderiv_expI</a></li>
+<li><a href=#HS_Preliminaries-IVT_two_functions>IVT_two_functions</a></li>
+<li><a href=#HS_Preliminaries-IVT_two_functions_real_ivl>IVT_two_functions_real_ivl</a></li>
+<li><a href=#HS_Preliminaries-eventually_at_within_mono>eventually_at_within_mono</a></li>
+<li><a href=#HS_Preliminaries-netlimit_at_within_mono>netlimit_at_within_mono</a></li>
+<li><a href=#HS_Preliminaries-has_derivative_at_within_mono>has_derivative_at_within_mono</a></li>
+<li><a href=#HS_Preliminaries-eventually_all_finite2>eventually_all_finite2</a></li>
+<li><a href=#HS_Preliminaries-eventually_all_finite_mono>eventually_all_finite_mono</a></li>
+<li><a href=#HS_Preliminaries-vec_upd_eq>vec_upd_eq</a></li>
+<li><a href=#HS_Preliminaries-frechet_vec_lambda>frechet_vec_lambda</a></li>
+<li><a href=#HS_Preliminaries-tendsto_norm_bound>tendsto_norm_bound</a></li>
+<li><a href=#HS_Preliminaries-tendsto_zero_norm_bound>tendsto_zero_norm_bound</a></li>
+<li><a href=#HS_Preliminaries-frechet_vec_nth>frechet_vec_nth</a></li>
+<li><a href=#HS_Preliminaries-has_derivative_vec_lambda>has_derivative_vec_lambda</a></li>
+<li><a href=#HS_Preliminaries-has_derivative_vec_nth>has_derivative_vec_nth</a></li>
+<li><a href=#HS_Preliminaries-has_vderiv_on_vec_eq>has_vderiv_on_vec_eq</a></li>
+</ul>
+</li><li><a href=#HS_ODEs>HS_ODEs</a>
+<ul>
+<li><a href=#HS_ODEs-image_le_pred>image_le_pred</a></li>
+<li><a href=#HS_ODEs-ivp_solsI>ivp_solsI</a></li>
+<li><a href=#HS_ODEs-ivp_solsD>ivp_solsD</a></li>
+<li><a href=#HS_ODEs-in_ivp_sols_subset>in_ivp_sols_subset</a></li>
+<li><a href=#HS_ODEs-g_orbit_eq>g_orbit_eq</a></li>
+<li><a href=#HS_ODEs-g_orbital_eq>g_orbital_eq</a></li>
+<li><a href=#HS_ODEs-g_orbitalI>g_orbitalI</a></li>
+<li><a href=#HS_ODEs-g_orbitalD>g_orbitalD</a></li>
+<li><a href=#HS_ODEs-diff_invariant_eq>diff_invariant_eq</a></li>
+<li><a href=#HS_ODEs-diff_inv_eq_inv_set>diff_inv_eq_inv_set</a></li>
+<li><a href=#HS_ODEs-diff_invariant_eq_rule>diff_invariant_eq_rule</a></li>
+<li><a href=#HS_ODEs-diff_invariant_leq_rule>diff_invariant_leq_rule</a></li>
+<li><a href=#HS_ODEs-diff_invariant_less_rule>diff_invariant_less_rule</a></li>
+<li><a href=#HS_ODEs-diff_invariant_nleq_rule>diff_invariant_nleq_rule</a></li>
+<li><a href=#HS_ODEs-diff_invariant_neq_rule>diff_invariant_neq_rule</a></li>
+<li><a href=#HS_ODEs-diff_invariant_neq_rule_converse>diff_invariant_neq_rule_converse</a></li>
+<li><a href=#HS_ODEs-diff_invariant_conj_rule>diff_invariant_conj_rule</a></li>
+<li><a href=#HS_ODEs-diff_invariant_disj_rule>diff_invariant_disj_rule</a></li>
+<li><a href=#HS_ODEs-ll_on_open>ll_on_open</a></li>
+<li><a href=#HS_ODEs-flow_has_vderiv_on_ex_ivl>flow_has_vderiv_on_ex_ivl</a></li>
+<li><a href=#HS_ODEs-flow_funcset_ex_ivl>flow_funcset_ex_ivl</a></li>
+<li><a href=#HS_ODEs-flow_in_ivp_sols_ex_ivl>flow_in_ivp_sols_ex_ivl</a></li>
+<li><a href=#HS_ODEs-csols_eq>csols_eq</a></li>
+<li><a href=#HS_ODEs-subset_ex_ivlI>subset_ex_ivlI</a></li>
+<li><a href=#HS_ODEs-unique_solution>unique_solution</a></li>
+<li><a href=#HS_ODEs-unique_solution_closed_ivl>unique_solution_closed_ivl</a></li>
+<li><a href=#HS_ODEs-solution_eq_flow>solution_eq_flow</a></li>
+<li><a href=#HS_ODEs-ivp_unique_solution>ivp_unique_solution</a></li>
+<li><a href=#HS_ODEs-g_orbital_orbit>g_orbital_orbit</a></li>
+<li><a href=#HS_ODEs-local_lipschitz_add>local_lipschitz_add</a></li>
+<li><a href=#HS_ODEs-picard_lindeloef_add>picard_lindeloef_add</a></li>
+<li><a href=#HS_ODEs-picard_lindeloef_constant>picard_lindeloef_constant</a></li>
+<li><a href=#HS_ODEs-in_ivp_sols_ivl>in_ivp_sols_ivl</a></li>
+<li><a href=#HS_ODEs-eq_solution_ivl>eq_solution_ivl</a></li>
+<li><a href=#HS_ODEs-ex_ivl_eq>ex_ivl_eq</a></li>
+<li><a href=#HS_ODEs-has_derivative_on_open1>has_derivative_on_open1</a></li>
+<li><a href=#HS_ODEs-has_derivative_on_open2>has_derivative_on_open2</a></li>
+<li><a href=#HS_ODEs-has_derivative_on_open3>has_derivative_on_open3</a></li>
+<li><a href=#HS_ODEs-has_derivative_on_open>has_derivative_on_open</a></li>
+<li><a href=#HS_ODEs-in_domain>in_domain</a></li>
+<li><a href=#HS_ODEs-has_vderiv_on_domain>has_vderiv_on_domain</a></li>
+<li><a href=#HS_ODEs-in_ivp_sols>in_ivp_sols</a></li>
+<li><a href=#HS_ODEs-eq_solution>eq_solution</a></li>
+<li><a href=#HS_ODEs-ivp_sols_collapse>ivp_sols_collapse</a></li>
+<li><a href=#HS_ODEs-additive_in_ivp_sols>additive_in_ivp_sols</a></li>
+<li><a href=#HS_ODEs-is_monoid_action>is_monoid_action</a></li>
+<li><a href=#HS_ODEs-g_orbital_collapses>g_orbital_collapses</a></li>
+<li><a href=#HS_ODEs-orbit_eq>orbit_eq</a></li>
+<li><a href=#HS_ODEs-true_g_orbit_eq>true_g_orbit_eq</a></li>
+<li><a href=#HS_ODEs-line_is_local_flow>line_is_local_flow</a></li>
+</ul>
+</li><li><a href=#HS_VC_Spartan>HS_VC_Spartan</a>
+<ul>
+<li><a href=#HS_VC_Spartan-fbox_iso>fbox_iso</a></li>
+<li><a href=#HS_VC_Spartan-fbox_anti>fbox_anti</a></li>
+<li><a href=#HS_VC_Spartan-fbox_invariants>fbox_invariants</a></li>
+<li><a href=#HS_VC_Spartan-fbox_eta>fbox_eta</a></li>
+<li><a href=#HS_VC_Spartan-fbox_test>fbox_test</a></li>
+<li><a href=#HS_VC_Spartan-vec_upd_eq>vec_upd_eq</a></li>
+<li><a href=#HS_VC_Spartan-fbox_assign>fbox_assign</a></li>
+<li><a href=#HS_VC_Spartan-fbox_nondet_assign>fbox_nondet_assign</a></li>
+<li><a href=#HS_VC_Spartan-fbox_choice>fbox_choice</a></li>
+<li><a href=#HS_VC_Spartan-le_fbox_choice_iff>le_fbox_choice_iff</a></li>
+<li><a href=#HS_VC_Spartan-kcomp_eq>kcomp_eq</a></li>
+<li><a href=#HS_VC_Spartan-fbox_kcomp>fbox_kcomp</a></li>
+<li><a href=#HS_VC_Spartan-hoare_kcomp>hoare_kcomp</a></li>
+<li><a href=#HS_VC_Spartan-fbox_if_then_else>fbox_if_then_else</a></li>
+<li><a href=#HS_VC_Spartan-hoare_if_then_else>hoare_if_then_else</a></li>
+<li><a href=#HS_VC_Spartan-kpower_base>kpower_base</a></li>
+<li><a href=#HS_VC_Spartan-kpower_simp>kpower_simp</a></li>
+<li><a href=#HS_VC_Spartan-kpower_inv>kpower_inv</a></li>
+<li><a href=#HS_VC_Spartan-kstar_inv>kstar_inv</a></li>
+<li><a href=#HS_VC_Spartan-fbox_kstarI>fbox_kstarI</a></li>
+<li><a href=#HS_VC_Spartan-change_loopI>change_loopI</a></li>
+<li><a href=#HS_VC_Spartan-fbox_loopI>fbox_loopI</a></li>
+<li><a href=#HS_VC_Spartan-wp_loopI_break>wp_loopI_break</a></li>
+<li><a href=#HS_VC_Spartan-fbox_g_evol>fbox_g_evol</a></li>
+<li><a href=#HS_VC_Spartan-fbox_g_orbital>fbox_g_orbital</a></li>
+<li><a href=#HS_VC_Spartan-fbox_g_ode_subset>fbox_g_ode_subset</a></li>
+<li><a href=#HS_VC_Spartan-fbox_g_ode>fbox_g_ode</a></li>
+<li><a href=#HS_VC_Spartan-fbox_g_ode_ivl>fbox_g_ode_ivl</a></li>
+<li><a href=#HS_VC_Spartan-fbox_orbit>fbox_orbit</a></li>
+<li><a href=#HS_VC_Spartan-fbox_g_orbital_guard>fbox_g_orbital_guard</a></li>
+<li><a href=#HS_VC_Spartan-fbox_g_orbital_inv>fbox_g_orbital_inv</a></li>
+<li><a href=#HS_VC_Spartan-fbox_diff_inv>fbox_diff_inv</a></li>
+<li><a href=#HS_VC_Spartan-diff_inv_guard_ignore>diff_inv_guard_ignore</a></li>
+<li><a href=#HS_VC_Spartan-fbox_diff_inv_eq>fbox_diff_inv_eq</a></li>
+<li><a href=#HS_VC_Spartan-diff_inv_eq_inv_set>diff_inv_eq_inv_set</a></li>
+<li><a href=#HS_VC_Spartan-fbox_g_odei>fbox_g_odei</a></li>
+<li><a href=#HS_VC_Spartan-diff_solve_axiom1>diff_solve_axiom1</a></li>
+<li><a href=#HS_VC_Spartan-diff_solve_axiom2>diff_solve_axiom2</a></li>
+<li><a href=#HS_VC_Spartan-diff_solve_rule>diff_solve_rule</a></li>
+<li><a href=#HS_VC_Spartan-diff_weak_axiom1>diff_weak_axiom1</a></li>
+<li><a href=#HS_VC_Spartan-diff_weak_axiom2>diff_weak_axiom2</a></li>
+<li><a href=#HS_VC_Spartan-diff_weak_rule>diff_weak_rule</a></li>
+<li><a href=#HS_VC_Spartan-fbox_g_orbital_eq_univD>fbox_g_orbital_eq_univD</a></li>
+<li><a href=#HS_VC_Spartan-diff_cut_axiom>diff_cut_axiom</a></li>
+<li><a href=#HS_VC_Spartan-diff_cut_rule>diff_cut_rule</a></li>
+<li><a href=#HS_VC_Spartan-diff_inv_axiom1>diff_inv_axiom1</a></li>
+<li><a href=#HS_VC_Spartan-diff_inv_axiom2>diff_inv_axiom2</a></li>
+<li><a href=#HS_VC_Spartan-diff_inv_rule>diff_inv_rule</a></li>
+</ul>
+</li><li><a href=#HS_VC_Examples>HS_VC_Examples</a>
+<ul>
+<li><a href=#HS_VC_Examples-pendulum_dyn>pendulum_dyn</a></li>
+<li><a href=#HS_VC_Examples-pendulum_inv>pendulum_inv</a></li>
+<li><a href=#HS_VC_Examples-local_flow_pend>local_flow_pend</a></li>
+<li><a href=#HS_VC_Examples-pendulum_flow>pendulum_flow</a></li>
+<li><a href=#HS_VC_Examples-inv_imp_pos_le>inv_imp_pos_le</a></li>
+<li><a href=#HS_VC_Examples-bouncing_ball_inv>bouncing_ball_inv</a></li>
+<li><a href=#HS_VC_Examples-inv_conserv_at_ground>inv_conserv_at_ground</a></li>
+<li><a href=#HS_VC_Examples-inv_conserv_at_air>inv_conserv_at_air</a></li>
+<li><a href=#HS_VC_Examples-bouncing_ball_dyn>bouncing_ball_dyn</a></li>
+<li><a href=#HS_VC_Examples-local_flow_ball>local_flow_ball</a></li>
+<li><a href=#HS_VC_Examples-bouncing_ball_flow>bouncing_ball_flow</a></li>
+<li><a href=#HS_VC_Examples-norm_diff_temp_dyn>norm_diff_temp_dyn</a></li>
+<li><a href=#HS_VC_Examples-local_lipschitz_temp_dyn>local_lipschitz_temp_dyn</a></li>
+<li><a href=#HS_VC_Examples-local_flow_temp>local_flow_temp</a></li>
+<li><a href=#HS_VC_Examples-temp_dyn_down_real_arith>temp_dyn_down_real_arith</a></li>
+<li><a href=#HS_VC_Examples-temp_dyn_up_real_arith>temp_dyn_up_real_arith</a></li>
+<li><a href=#HS_VC_Examples-thermostat>thermostat</a></li>
+<li><a href=#HS_VC_Examples-local_flow_tank>local_flow_tank</a></li>
+<li><a href=#HS_VC_Examples-tank_arith>tank_arith</a></li>
+<li><a href=#HS_VC_Examples-tank_flow>tank_flow</a></li>
+</ul>
+</li><li><a href=#HS_VC_PT>HS_VC_PT</a>
+<ul>
+<li><a href=#HS_VC_PT-ffb_eq>ffb_eq</a></li>
+<li><a href=#HS_VC_PT-ffb_iso>ffb_iso</a></li>
+<li><a href=#HS_VC_PT-ffb_invariants>ffb_invariants</a></li>
+<li><a href=#HS_VC_PT-ffb_skip>ffb_skip</a></li>
+<li><a href=#HS_VC_PT-ffb_test>ffb_test</a></li>
+<li><a href=#HS_VC_PT-ffb_assign>ffb_assign</a></li>
+<li><a href=#HS_VC_PT-fbox_nondet_assign>fbox_nondet_assign</a></li>
+<li><a href=#HS_VC_PT-ffb_choice>ffb_choice</a></li>
+<li><a href=#HS_VC_PT-le_ffb_choice_iff>le_ffb_choice_iff</a></li>
+<li><a href=#HS_VC_PT-ffb_kcomp>ffb_kcomp</a></li>
+<li><a href=#HS_VC_PT-hoare_kcomp>hoare_kcomp</a></li>
+<li><a href=#HS_VC_PT-ffb_if_then_else>ffb_if_then_else</a></li>
+<li><a href=#HS_VC_PT-hoare_if_then_else>hoare_if_then_else</a></li>
+<li><a href=#HS_VC_PT-kpower_inv>kpower_inv</a></li>
+<li><a href=#HS_VC_PT-kstar_inv>kstar_inv</a></li>
+<li><a href=#HS_VC_PT-ffb_kstarI>ffb_kstarI</a></li>
+<li><a href=#HS_VC_PT-change_loopI>change_loopI</a></li>
+<li><a href=#HS_VC_PT-ffb_loopI>ffb_loopI</a></li>
+<li><a href=#HS_VC_PT-ffb_loopI_break>ffb_loopI_break</a></li>
+<li><a href=#HS_VC_PT-fbox_g_evol>fbox_g_evol</a></li>
+<li><a href=#HS_VC_PT-ffb_g_orbital>ffb_g_orbital</a></li>
+<li><a href=#HS_VC_PT-ffb_g_ode_subset>ffb_g_ode_subset</a></li>
+<li><a href=#HS_VC_PT-ffb_g_ode>ffb_g_ode</a></li>
+<li><a href=#HS_VC_PT-ffb_g_ode_ivl>ffb_g_ode_ivl</a></li>
+<li><a href=#HS_VC_PT-ffb_orbit>ffb_orbit</a></li>
+<li><a href=#HS_VC_PT-ffb_g_orbital_guard>ffb_g_orbital_guard</a></li>
+<li><a href=#HS_VC_PT-ffb_g_orbital_inv>ffb_g_orbital_inv</a></li>
+<li><a href=#HS_VC_PT-ffb_diff_inv>ffb_diff_inv</a></li>
+<li><a href=#HS_VC_PT-bdf_diff_inv>bdf_diff_inv</a></li>
+<li><a href=#HS_VC_PT-diff_inv_guard_ignore>diff_inv_guard_ignore</a></li>
+<li><a href=#HS_VC_PT-ffb_diff_inv_eq>ffb_diff_inv_eq</a></li>
+<li><a href=#HS_VC_PT-diff_inv_eq_inv_set>diff_inv_eq_inv_set</a></li>
+<li><a href=#HS_VC_PT-ffb_g_odei>ffb_g_odei</a></li>
+<li><a href=#HS_VC_PT-diff_solve_axiom1>diff_solve_axiom1</a></li>
+<li><a href=#HS_VC_PT-diff_solve_axiom2>diff_solve_axiom2</a></li>
+<li><a href=#HS_VC_PT-diff_solve_rule>diff_solve_rule</a></li>
+<li><a href=#HS_VC_PT-diff_weak_axiom1>diff_weak_axiom1</a></li>
+<li><a href=#HS_VC_PT-diff_weak_axiom2>diff_weak_axiom2</a></li>
+<li><a href=#HS_VC_PT-diff_weak_rule>diff_weak_rule</a></li>
+<li><a href=#HS_VC_PT-ffb_g_orbital_eq_univD>ffb_g_orbital_eq_univD</a></li>
+<li><a href=#HS_VC_PT-diff_cut_axiom>diff_cut_axiom</a></li>
+<li><a href=#HS_VC_PT-diff_cut_rule>diff_cut_rule</a></li>
+<li><a href=#HS_VC_PT-diff_inv_axiom1>diff_inv_axiom1</a></li>
+<li><a href=#HS_VC_PT-diff_inv_axiom2>diff_inv_axiom2</a></li>
+<li><a href=#HS_VC_PT-diff_inv_rule>diff_inv_rule</a></li>
+</ul>
+</li><li><a href=#HS_VC_PT_Examples>HS_VC_PT_Examples</a>
+<ul>
+<li><a href=#HS_VC_PT_Examples-pendulum_dyn>pendulum_dyn</a></li>
+<li><a href=#HS_VC_PT_Examples-pendulum_inv>pendulum_inv</a></li>
+<li><a href=#HS_VC_PT_Examples-local_flow_pend>local_flow_pend</a></li>
+<li><a href=#HS_VC_PT_Examples-pendulum_flow>pendulum_flow</a></li>
+<li><a href=#HS_VC_PT_Examples-inv_imp_pos_le>inv_imp_pos_le</a></li>
+<li><a href=#HS_VC_PT_Examples-bouncing_ball_inv>bouncing_ball_inv</a></li>
+<li><a href=#HS_VC_PT_Examples-inv_conserv_at_ground>inv_conserv_at_ground</a></li>
+<li><a href=#HS_VC_PT_Examples-inv_conserv_at_air>inv_conserv_at_air</a></li>
+<li><a href=#HS_VC_PT_Examples-bouncing_ball_dyn>bouncing_ball_dyn</a></li>
+<li><a href=#HS_VC_PT_Examples-local_flow_ball>local_flow_ball</a></li>
+<li><a href=#HS_VC_PT_Examples-bouncing_ball_flow>bouncing_ball_flow</a></li>
+<li><a href=#HS_VC_PT_Examples-norm_diff_temp_dyn>norm_diff_temp_dyn</a></li>
+<li><a href=#HS_VC_PT_Examples-local_lipschitz_temp_dyn>local_lipschitz_temp_dyn</a></li>
+<li><a href=#HS_VC_PT_Examples-local_flow_temp>local_flow_temp</a></li>
+<li><a href=#HS_VC_PT_Examples-temp_dyn_down_real_arith>temp_dyn_down_real_arith</a></li>
+<li><a href=#HS_VC_PT_Examples-temp_dyn_up_real_arith>temp_dyn_up_real_arith</a></li>
+<li><a href=#HS_VC_PT_Examples-thermostat>thermostat</a></li>
+<li><a href=#HS_VC_PT_Examples-local_flow_tank>local_flow_tank</a></li>
+<li><a href=#HS_VC_PT_Examples-tank_arith>tank_arith</a></li>
+<li><a href=#HS_VC_PT_Examples-tank_flow>tank_flow</a></li>
+</ul>
+</li><li><a href=#HS_VC_MKA>HS_VC_MKA</a>
+<ul>
+<li><a href=#HS_VC_MKA-le_fbox_choice_iff>le_fbox_choice_iff</a></li>
+<li><a href=#HS_VC_MKA-fbox_export1>fbox_export1</a></li>
+<li><a href=#HS_VC_MKA-fbox_cond>fbox_cond</a></li>
+<li><a href=#HS_VC_MKA-fbox_cond2>fbox_cond2</a></li>
+<li><a href=#HS_VC_MKA-fbox_frame>fbox_frame</a></li>
+<li><a href=#HS_VC_MKA-fbox_shunt>fbox_shunt</a></li>
+<li><a href=#HS_VC_MKA-fbox_export2>fbox_export2</a></li>
+<li><a href=#HS_VC_MKA-fbox_while>fbox_while</a></li>
+<li><a href=#HS_VC_MKA-fbox_whilei>fbox_whilei</a></li>
+<li><a href=#HS_VC_MKA-fbox_seq_var>fbox_seq_var</a></li>
+<li><a href=#HS_VC_MKA-fbox_whilei_break>fbox_whilei_break</a></li>
+<li><a href=#HS_VC_MKA-fbox_loopi>fbox_loopi</a></li>
+<li><a href=#HS_VC_MKA-fbox_loopi_break>fbox_loopi_break</a></li>
+<li><a href=#HS_VC_MKA-plus_inv>plus_inv</a></li>
+<li><a href=#HS_VC_MKA-mult_inv>mult_inv</a></li>
+</ul>
+</li><li><a href=#HS_VC_KA_rel>HS_VC_KA_rel</a>
+<ul>
+<li><a href=#HS_VC_KA_rel-power_inductl>power_inductl</a></li>
+<li><a href=#HS_VC_KA_rel-power_inductr>power_inductr</a></li>
+<li><a href=#HS_VC_KA_rel-power_is_relpow>power_is_relpow</a></li>
+<li><a href=#HS_VC_KA_rel-rel_star_def>rel_star_def</a></li>
+<li><a href=#HS_VC_KA_rel-rel_star_contl>rel_star_contl</a></li>
+<li><a href=#HS_VC_KA_rel-rel_star_contr>rel_star_contr</a></li>
+</ul>
+</li><li><a href=#HS_VC_MKA_rel>HS_VC_MKA_rel</a>
+<ul>
+<li><a href=#HS_VC_MKA_rel-p2r_simps>p2r_simps</a></li>
+<li><a href=#HS_VC_MKA_rel-in_p2r>in_p2r</a></li>
+<li><a href=#HS_VC_MKA_rel-wp_rel>wp_rel</a></li>
+<li><a href=#HS_VC_MKA_rel-wp_test>wp_test</a></li>
+<li><a href=#HS_VC_MKA_rel-wp_assign>wp_assign</a></li>
+<li><a href=#HS_VC_MKA_rel-wp_nondet_assign>wp_nondet_assign</a></li>
+<li><a href=#HS_VC_MKA_rel-le_wp_choice_iff>le_wp_choice_iff</a></li>
+<li><a href=#HS_VC_MKA_rel-change_loopI>change_loopI</a></li>
+<li><a href=#HS_VC_MKA_rel-wp_loopI>wp_loopI</a></li>
+<li><a href=#HS_VC_MKA_rel-wp_loopI_break>wp_loopI_break</a></li>
+<li><a href=#HS_VC_MKA_rel-wp_g_dyn>wp_g_dyn</a></li>
+<li><a href=#HS_VC_MKA_rel-wp_g_orbital>wp_g_orbital</a></li>
+<li><a href=#HS_VC_MKA_rel-wp_g_ode_subset>wp_g_ode_subset</a></li>
+<li><a href=#HS_VC_MKA_rel-wp_g_ode>wp_g_ode</a></li>
+<li><a href=#HS_VC_MKA_rel-wp_g_ode_ivl>wp_g_ode_ivl</a></li>
+<li><a href=#HS_VC_MKA_rel-wp_orbit>wp_orbit</a></li>
+<li><a href=#HS_VC_MKA_rel-wp_g_orbital_guard>wp_g_orbital_guard</a></li>
+<li><a href=#HS_VC_MKA_rel-wp_g_orbital_inv>wp_g_orbital_inv</a></li>
+<li><a href=#HS_VC_MKA_rel-wp_diff_inv>wp_diff_inv</a></li>
+<li><a href=#HS_VC_MKA_rel-diff_inv_guard_ignore>diff_inv_guard_ignore</a></li>
+<li><a href=#HS_VC_MKA_rel-wp_diff_inv_eq>wp_diff_inv_eq</a></li>
+<li><a href=#HS_VC_MKA_rel-diff_inv_eq_inv_set>diff_inv_eq_inv_set</a></li>
+<li><a href=#HS_VC_MKA_rel-wp_g_odei>wp_g_odei</a></li>
+<li><a href=#HS_VC_MKA_rel-diff_solve_axiom1>diff_solve_axiom1</a></li>
+<li><a href=#HS_VC_MKA_rel-diff_solve_axiom2>diff_solve_axiom2</a></li>
+<li><a href=#HS_VC_MKA_rel-diff_solve_rule>diff_solve_rule</a></li>
+<li><a href=#HS_VC_MKA_rel-diff_weak_axiom1>diff_weak_axiom1</a></li>
+<li><a href=#HS_VC_MKA_rel-diff_weak_axiom2>diff_weak_axiom2</a></li>
+<li><a href=#HS_VC_MKA_rel-diff_weak_rule>diff_weak_rule</a></li>
+<li><a href=#HS_VC_MKA_rel-wp_g_evol_IdD>wp_g_evol_IdD</a></li>
+<li><a href=#HS_VC_MKA_rel-diff_cut_axiom>diff_cut_axiom</a></li>
+<li><a href=#HS_VC_MKA_rel-diff_cut_rule>diff_cut_rule</a></li>
+<li><a href=#HS_VC_MKA_rel-diff_inv_axiom1>diff_inv_axiom1</a></li>
+<li><a href=#HS_VC_MKA_rel-diff_inv_axiom2>diff_inv_axiom2</a></li>
+<li><a href=#HS_VC_MKA_rel-diff_inv_rule>diff_inv_rule</a></li>
+</ul>
+</li><li><a href=#HS_VC_MKA_Examples_rel>HS_VC_MKA_Examples_rel</a>
+<ul>
+<li><a href=#HS_VC_MKA_Examples_rel-pendulum_dyn>pendulum_dyn</a></li>
+<li><a href=#HS_VC_MKA_Examples_rel-pendulum_inv>pendulum_inv</a></li>
+<li><a href=#HS_VC_MKA_Examples_rel-local_flow_pend>local_flow_pend</a></li>
+<li><a href=#HS_VC_MKA_Examples_rel-pendulum_flow>pendulum_flow</a></li>
+<li><a href=#HS_VC_MKA_Examples_rel-inv_imp_pos_le>inv_imp_pos_le</a></li>
+<li><a href=#HS_VC_MKA_Examples_rel-bouncing_ball_inv>bouncing_ball_inv</a></li>
+<li><a href=#HS_VC_MKA_Examples_rel-inv_conserv_at_ground>inv_conserv_at_ground</a></li>
+<li><a href=#HS_VC_MKA_Examples_rel-inv_conserv_at_air>inv_conserv_at_air</a></li>
+<li><a href=#HS_VC_MKA_Examples_rel-bouncing_ball_dyn>bouncing_ball_dyn</a></li>
+<li><a href=#HS_VC_MKA_Examples_rel-local_flow_ball>local_flow_ball</a></li>
+<li><a href=#HS_VC_MKA_Examples_rel-bouncing_ball_flow>bouncing_ball_flow</a></li>
+<li><a href=#HS_VC_MKA_Examples_rel-norm_diff_temp_dyn>norm_diff_temp_dyn</a></li>
+<li><a href=#HS_VC_MKA_Examples_rel-local_lipschitz_temp_dyn>local_lipschitz_temp_dyn</a></li>
+<li><a href=#HS_VC_MKA_Examples_rel-local_flow_temp>local_flow_temp</a></li>
+<li><a href=#HS_VC_MKA_Examples_rel-temp_dyn_down_real_arith>temp_dyn_down_real_arith</a></li>
+<li><a href=#HS_VC_MKA_Examples_rel-temp_dyn_up_real_arith>temp_dyn_up_real_arith</a></li>
+<li><a href=#HS_VC_MKA_Examples_rel-thermostat>thermostat</a></li>
+<li><a href=#HS_VC_MKA_Examples_rel-local_flow_tank>local_flow_tank</a></li>
+<li><a href=#HS_VC_MKA_Examples_rel-tank_arith>tank_arith</a></li>
+<li><a href=#HS_VC_MKA_Examples_rel-tank_flow>tank_flow</a></li>
+</ul>
+</li><li><a href=#HS_VC_KA_ndfun>HS_VC_KA_ndfun</a>
+<ul>
+<li><a href=#HS_VC_KA_ndfun-nd_fun_ext>nd_fun_ext</a></li>
+<li><a href=#HS_VC_KA_ndfun-nd_fun_eq_iff>nd_fun_eq_iff</a></li>
+<li><a href=#HS_VC_KA_ndfun-nd_fun_plus_assoc>nd_fun_plus_assoc</a></li>
+<li><a href=#HS_VC_KA_ndfun-nd_fun_distr>nd_fun_distr</a></li>
+<li><a href=#HS_VC_KA_ndfun-nd_fun_plus_zerol>nd_fun_plus_zerol</a></li>
+<li><a href=#HS_VC_KA_ndfun-nd_fun_leq>nd_fun_leq</a></li>
+<li><a href=#HS_VC_KA_ndfun-nd_star_one>nd_star_one</a></li>
+</ul>
+</li><li><a href=#HS_VC_MKA_ndfun>HS_VC_MKA_ndfun</a>
+<ul>
+<li><a href=#HS_VC_MKA_ndfun-nd_fun_ad_zero>nd_fun_ad_zero</a></li>
+<li><a href=#HS_VC_MKA_ndfun-p2ndf_simps>p2ndf_simps</a></li>
+<li><a href=#HS_VC_MKA_ndfun-wp_nd_fun>wp_nd_fun</a></li>
+<li><a href=#HS_VC_MKA_ndfun-wp_test>wp_test</a></li>
+<li><a href=#HS_VC_MKA_ndfun-wp_assign>wp_assign</a></li>
+<li><a href=#HS_VC_MKA_ndfun-wp_nondet_assign>wp_nondet_assign</a></li>
+<li><a href=#HS_VC_MKA_ndfun-le_wp_choice_iff>le_wp_choice_iff</a></li>
+<li><a href=#HS_VC_MKA_ndfun-change_loopI>change_loopI</a></li>
+<li><a href=#HS_VC_MKA_ndfun-wp_loopI>wp_loopI</a></li>
+<li><a href=#HS_VC_MKA_ndfun-wp_loopI_break>wp_loopI_break</a></li>
+<li><a href=#HS_VC_MKA_ndfun-wp_g_dyn>wp_g_dyn</a></li>
+<li><a href=#HS_VC_MKA_ndfun-wp_g_orbital>wp_g_orbital</a></li>
+<li><a href=#HS_VC_MKA_ndfun-wp_g_ode_subset>wp_g_ode_subset</a></li>
+<li><a href=#HS_VC_MKA_ndfun-wp_g_ode>wp_g_ode</a></li>
+<li><a href=#HS_VC_MKA_ndfun-wp_g_ode_ivl>wp_g_ode_ivl</a></li>
+<li><a href=#HS_VC_MKA_ndfun-wp_orbit>wp_orbit</a></li>
+<li><a href=#HS_VC_MKA_ndfun-wp_g_orbital_guard>wp_g_orbital_guard</a></li>
+<li><a href=#HS_VC_MKA_ndfun-wp_g_orbital_inv>wp_g_orbital_inv</a></li>
+<li><a href=#HS_VC_MKA_ndfun-wp_diff_inv>wp_diff_inv</a></li>
+<li><a href=#HS_VC_MKA_ndfun-diff_inv_guard_ignore>diff_inv_guard_ignore</a></li>
+<li><a href=#HS_VC_MKA_ndfun-wp_diff_inv_eq>wp_diff_inv_eq</a></li>
+<li><a href=#HS_VC_MKA_ndfun-diff_inv_eq_inv_set>diff_inv_eq_inv_set</a></li>
+<li><a href=#HS_VC_MKA_ndfun-wp_g_odei>wp_g_odei</a></li>
+<li><a href=#HS_VC_MKA_ndfun-diff_solve_axiom1>diff_solve_axiom1</a></li>
+<li><a href=#HS_VC_MKA_ndfun-diff_solve_axiom2>diff_solve_axiom2</a></li>
+<li><a href=#HS_VC_MKA_ndfun-diff_solve_rule>diff_solve_rule</a></li>
+<li><a href=#HS_VC_MKA_ndfun-diff_weak_axiom1>diff_weak_axiom1</a></li>
+<li><a href=#HS_VC_MKA_ndfun-diff_weak_axiom2>diff_weak_axiom2</a></li>
+<li><a href=#HS_VC_MKA_ndfun-diff_weak_rule>diff_weak_rule</a></li>
+<li><a href=#HS_VC_MKA_ndfun-wp_g_orbit_IdD>wp_g_orbit_IdD</a></li>
+<li><a href=#HS_VC_MKA_ndfun-diff_cut_axiom>diff_cut_axiom</a></li>
+<li><a href=#HS_VC_MKA_ndfun-diff_cut_rule>diff_cut_rule</a></li>
+<li><a href=#HS_VC_MKA_ndfun-diff_inv_axiom1>diff_inv_axiom1</a></li>
+<li><a href=#HS_VC_MKA_ndfun-diff_inv_axiom2>diff_inv_axiom2</a></li>
+<li><a href=#HS_VC_MKA_ndfun-diff_inv_rule>diff_inv_rule</a></li>
+</ul>
+</li><li><a href=#HS_VC_MKA_Examples_ndfun>HS_VC_MKA_Examples_ndfun</a>
+<ul>
+<li><a href=#HS_VC_MKA_Examples_ndfun-pendulum_dyn>pendulum_dyn</a></li>
+<li><a href=#HS_VC_MKA_Examples_ndfun-pendulum_inv>pendulum_inv</a></li>
+<li><a href=#HS_VC_MKA_Examples_ndfun-local_flow_pend>local_flow_pend</a></li>
+<li><a href=#HS_VC_MKA_Examples_ndfun-pendulum_flow>pendulum_flow</a></li>
+<li><a href=#HS_VC_MKA_Examples_ndfun-inv_imp_pos_le>inv_imp_pos_le</a></li>
+<li><a href=#HS_VC_MKA_Examples_ndfun-bouncing_ball_inv>bouncing_ball_inv</a></li>
+<li><a href=#HS_VC_MKA_Examples_ndfun-inv_conserv_at_ground>inv_conserv_at_ground</a></li>
+<li><a href=#HS_VC_MKA_Examples_ndfun-inv_conserv_at_air>inv_conserv_at_air</a></li>
+<li><a href=#HS_VC_MKA_Examples_ndfun-bouncing_ball_dyn>bouncing_ball_dyn</a></li>
+<li><a href=#HS_VC_MKA_Examples_ndfun-local_flow_ball>local_flow_ball</a></li>
+<li><a href=#HS_VC_MKA_Examples_ndfun-bouncing_ball_flow>bouncing_ball_flow</a></li>
+<li><a href=#HS_VC_MKA_Examples_ndfun-norm_diff_temp_dyn>norm_diff_temp_dyn</a></li>
+<li><a href=#HS_VC_MKA_Examples_ndfun-local_lipschitz_temp_dyn>local_lipschitz_temp_dyn</a></li>
+<li><a href=#HS_VC_MKA_Examples_ndfun-local_flow_temp>local_flow_temp</a></li>
+<li><a href=#HS_VC_MKA_Examples_ndfun-temp_dyn_down_real_arith>temp_dyn_down_real_arith</a></li>
+<li><a href=#HS_VC_MKA_Examples_ndfun-temp_dyn_up_real_arith>temp_dyn_up_real_arith</a></li>
+<li><a href=#HS_VC_MKA_Examples_ndfun-thermostat>thermostat</a></li>
+<li><a href=#HS_VC_MKA_Examples_ndfun-local_flow_tank>local_flow_tank</a></li>
+<li><a href=#HS_VC_MKA_Examples_ndfun-tank_arith>tank_arith</a></li>
+<li><a href=#HS_VC_MKA_Examples_ndfun-tank_flow>tank_flow</a></li>
+</ul>
+</li><li><a href=#HS_VC_KAT>HS_VC_KAT</a>
+<ul>
+<li><a href=#HS_VC_KAT-H_consl>H_consl</a></li>
+<li><a href=#HS_VC_KAT-H_consr>H_consr</a></li>
+<li><a href=#HS_VC_KAT-H_cons>H_cons</a></li>
+<li><a href=#HS_VC_KAT-H_skip>H_skip</a></li>
+<li><a href=#HS_VC_KAT-H_abort>H_abort</a></li>
+<li><a href=#HS_VC_KAT-H_seq>H_seq</a></li>
+<li><a href=#HS_VC_KAT-H_choice>H_choice</a></li>
+<li><a href=#HS_VC_KAT-H_var>H_var</a></li>
+<li><a href=#HS_VC_KAT-H_cond_iff>H_cond_iff</a></li>
+<li><a href=#HS_VC_KAT-H_cond>H_cond</a></li>
+<li><a href=#HS_VC_KAT-H_exp1>H_exp1</a></li>
+<li><a href=#HS_VC_KAT-H_while>H_while</a></li>
+<li><a href=#HS_VC_KAT-H_while_inv>H_while_inv</a></li>
+<li><a href=#HS_VC_KAT-H_star>H_star</a></li>
+<li><a href=#HS_VC_KAT-H_star_inv>H_star_inv</a></li>
+<li><a href=#HS_VC_KAT-H_loop>H_loop</a></li>
+<li><a href=#HS_VC_KAT-H_loop_inv>H_loop_inv</a></li>
+<li><a href=#HS_VC_KAT-H_inv>H_inv</a></li>
+<li><a href=#HS_VC_KAT-H_inv_plus>H_inv_plus</a></li>
+<li><a href=#HS_VC_KAT-H_inv_mult>H_inv_mult</a></li>
+<li><a href=#HS_VC_KAT-R1>R1</a></li>
+<li><a href=#HS_VC_KAT-R2>R2</a></li>
+<li><a href=#HS_VC_KAT-R_cons>R_cons</a></li>
+<li><a href=#HS_VC_KAT-R_skip>R_skip</a></li>
+<li><a href=#HS_VC_KAT-R_zero_one>R_zero_one</a></li>
+<li><a href=#HS_VC_KAT-R_one_zero>R_one_zero</a></li>
+<li><a href=#HS_VC_KAT-R_abort>R_abort</a></li>
+<li><a href=#HS_VC_KAT-R_seq>R_seq</a></li>
+<li><a href=#HS_VC_KAT-R_choice>R_choice</a></li>
+<li><a href=#HS_VC_KAT-R_cond>R_cond</a></li>
+<li><a href=#HS_VC_KAT-R_while>R_while</a></li>
+<li><a href=#HS_VC_KAT-R_star>R_star</a></li>
+<li><a href=#HS_VC_KAT-R_loop>R_loop</a></li>
+<li><a href=#HS_VC_KAT-R_inv>R_inv</a></li>
+</ul>
+</li><li><a href=#HS_VC_KAT_rel>HS_VC_KAT_rel</a>
+<ul>
+<li><a href=#HS_VC_KAT_rel-p2r_simps>p2r_simps</a></li>
+<li><a href=#HS_VC_KAT_rel-RdL_is_rRKAT>RdL_is_rRKAT</a></li>
+<li><a href=#HS_VC_KAT_rel-rel_kat_H>rel_kat_H</a></li>
+<li><a href=#HS_VC_KAT_rel-sH_skip>sH_skip</a></li>
+<li><a href=#HS_VC_KAT_rel-H_skip>H_skip</a></li>
+<li><a href=#HS_VC_KAT_rel-sH_test>sH_test</a></li>
+<li><a href=#HS_VC_KAT_rel-sH_abort>sH_abort</a></li>
+<li><a href=#HS_VC_KAT_rel-H_abort>H_abort</a></li>
+<li><a href=#HS_VC_KAT_rel-sH_assign>sH_assign</a></li>
+<li><a href=#HS_VC_KAT_rel-H_assign>H_assign</a></li>
+<li><a href=#HS_VC_KAT_rel-sH_nondet_assign>sH_nondet_assign</a></li>
+<li><a href=#HS_VC_KAT_rel-H_nondet_assign>H_nondet_assign</a></li>
+<li><a href=#HS_VC_KAT_rel-H_seq>H_seq</a></li>
+<li><a href=#HS_VC_KAT_rel-sH_seq>sH_seq</a></li>
+<li><a href=#HS_VC_KAT_rel-H_assignl>H_assignl</a></li>
+<li><a href=#HS_VC_KAT_rel-sH_choice>sH_choice</a></li>
+<li><a href=#HS_VC_KAT_rel-H_choice>H_choice</a></li>
+<li><a href=#HS_VC_KAT_rel-sH_cond>sH_cond</a></li>
+<li><a href=#HS_VC_KAT_rel-H_cond>H_cond</a></li>
+<li><a href=#HS_VC_KAT_rel-sH_whileI>sH_whileI</a></li>
+<li><a href=#HS_VC_KAT_rel-H_loop>H_loop</a></li>
+<li><a href=#HS_VC_KAT_rel-H_loopI>H_loopI</a></li>
+<li><a href=#HS_VC_KAT_rel-sH_g_evol>sH_g_evol</a></li>
+<li><a href=#HS_VC_KAT_rel-H_g_evol>H_g_evol</a></li>
+<li><a href=#HS_VC_KAT_rel-H_g_orbital>H_g_orbital</a></li>
+<li><a href=#HS_VC_KAT_rel-sH_g_orbital>sH_g_orbital</a></li>
+<li><a href=#HS_VC_KAT_rel-sH_g_ode_subset>sH_g_ode_subset</a></li>
+<li><a href=#HS_VC_KAT_rel-H_g_ode_subset>H_g_ode_subset</a></li>
+<li><a href=#HS_VC_KAT_rel-sH_g_ode>sH_g_ode</a></li>
+<li><a href=#HS_VC_KAT_rel-sH_g_ode_ivl>sH_g_ode_ivl</a></li>
+<li><a href=#HS_VC_KAT_rel-sH_orbit>sH_orbit</a></li>
+<li><a href=#HS_VC_KAT_rel-sH_g_orbital_guard>sH_g_orbital_guard</a></li>
+<li><a href=#HS_VC_KAT_rel-sH_g_orbital_inv>sH_g_orbital_inv</a></li>
+<li><a href=#HS_VC_KAT_rel-sH_diff_inv>sH_diff_inv</a></li>
+<li><a href=#HS_VC_KAT_rel-H_g_ode_inv>H_g_ode_inv</a></li>
+<li><a href=#HS_VC_KAT_rel-R_skip>R_skip</a></li>
+<li><a href=#HS_VC_KAT_rel-R_abort>R_abort</a></li>
+<li><a href=#HS_VC_KAT_rel-R_seq>R_seq</a></li>
+<li><a href=#HS_VC_KAT_rel-R_seq_law>R_seq_law</a></li>
+<li><a href=#HS_VC_KAT_rel-R_choice>R_choice</a></li>
+<li><a href=#HS_VC_KAT_rel-R_choice_law>R_choice_law</a></li>
+<li><a href=#HS_VC_KAT_rel-R_choice_mono>R_choice_mono</a></li>
+<li><a href=#HS_VC_KAT_rel-R_assign>R_assign</a></li>
+<li><a href=#HS_VC_KAT_rel-R_assign_law>R_assign_law</a></li>
+<li><a href=#HS_VC_KAT_rel-R_assignl>R_assignl</a></li>
+<li><a href=#HS_VC_KAT_rel-R_assignr>R_assignr</a></li>
+<li><a href=#HS_VC_KAT_rel-R_nondet_assign>R_nondet_assign</a></li>
+<li><a href=#HS_VC_KAT_rel-R_nondet_assign_law>R_nondet_assign_law</a></li>
+<li><a href=#HS_VC_KAT_rel-R_cond>R_cond</a></li>
+<li><a href=#HS_VC_KAT_rel-R_cond_mono>R_cond_mono</a></li>
+<li><a href=#HS_VC_KAT_rel-R_cond_law>R_cond_law</a></li>
+<li><a href=#HS_VC_KAT_rel-R_while>R_while</a></li>
+<li><a href=#HS_VC_KAT_rel-R_whileI>R_whileI</a></li>
+<li><a href=#HS_VC_KAT_rel-R_while_mono>R_while_mono</a></li>
+<li><a href=#HS_VC_KAT_rel-R_while_law>R_while_law</a></li>
+<li><a href=#HS_VC_KAT_rel-R_loop>R_loop</a></li>
+<li><a href=#HS_VC_KAT_rel-R_loopI>R_loopI</a></li>
+<li><a href=#HS_VC_KAT_rel-R_loop_mono>R_loop_mono</a></li>
+<li><a href=#HS_VC_KAT_rel-R_g_evol>R_g_evol</a></li>
+<li><a href=#HS_VC_KAT_rel-R_g_evol_law>R_g_evol_law</a></li>
+<li><a href=#HS_VC_KAT_rel-R_g_evoll>R_g_evoll</a></li>
+<li><a href=#HS_VC_KAT_rel-R_g_evolr>R_g_evolr</a></li>
+<li><a href=#HS_VC_KAT_rel-R_g_ode_subset>R_g_ode_subset</a></li>
+<li><a href=#HS_VC_KAT_rel-R_g_ode_rule_subset>R_g_ode_rule_subset</a></li>
+<li><a href=#HS_VC_KAT_rel-R_g_odel_subset>R_g_odel_subset</a></li>
+<li><a href=#HS_VC_KAT_rel-R_g_oder_subset>R_g_oder_subset</a></li>
+<li><a href=#HS_VC_KAT_rel-R_g_ode>R_g_ode</a></li>
+<li><a href=#HS_VC_KAT_rel-R_g_ode_law>R_g_ode_law</a></li>
+<li><a href=#HS_VC_KAT_rel-R_g_odel>R_g_odel</a></li>
+<li><a href=#HS_VC_KAT_rel-R_g_oder>R_g_oder</a></li>
+<li><a href=#HS_VC_KAT_rel-R_g_ode_ivl>R_g_ode_ivl</a></li>
+<li><a href=#HS_VC_KAT_rel-R_g_ode_inv>R_g_ode_inv</a></li>
+<li><a href=#HS_VC_KAT_rel-diff_solve_rule1>diff_solve_rule1</a></li>
+<li><a href=#HS_VC_KAT_rel-diff_solve_rule2>diff_solve_rule2</a></li>
+<li><a href=#HS_VC_KAT_rel-diff_weak_rule>diff_weak_rule</a></li>
+<li><a href=#HS_VC_KAT_rel-diff_cut_rule>diff_cut_rule</a></li>
+<li><a href=#HS_VC_KAT_rel-diff_inv_rule>diff_inv_rule</a></li>
+</ul>
+</li><li><a href=#HS_VC_KAT_Examples_rel>HS_VC_KAT_Examples_rel</a>
+<ul>
+<li><a href=#HS_VC_KAT_Examples_rel-pendulum_dyn>pendulum_dyn</a></li>
+<li><a href=#HS_VC_KAT_Examples_rel-pendulum_inv>pendulum_inv</a></li>
+<li><a href=#HS_VC_KAT_Examples_rel-local_flow_pend>local_flow_pend</a></li>
+<li><a href=#HS_VC_KAT_Examples_rel-pendulum_flow>pendulum_flow</a></li>
+<li><a href=#HS_VC_KAT_Examples_rel-fball_invariant>fball_invariant</a></li>
+<li><a href=#HS_VC_KAT_Examples_rel-bouncing_ball_inv>bouncing_ball_inv</a></li>
+<li><a href=#HS_VC_KAT_Examples_rel-bouncing_ball_dyn>bouncing_ball_dyn</a></li>
+<li><a href=#HS_VC_KAT_Examples_rel-local_flow_ball>local_flow_ball</a></li>
+<li><a href=#HS_VC_KAT_Examples_rel-bouncing_ball_flow>bouncing_ball_flow</a></li>
+<li><a href=#HS_VC_KAT_Examples_rel-R_bb_assign>R_bb_assign</a></li>
+<li><a href=#HS_VC_KAT_Examples_rel-R_bouncing_ball_dyn>R_bouncing_ball_dyn</a></li>
+<li><a href=#HS_VC_KAT_Examples_rel-norm_diff_therm_dyn>norm_diff_therm_dyn</a></li>
+<li><a href=#HS_VC_KAT_Examples_rel-local_lipschitz_therm_dyn>local_lipschitz_therm_dyn</a></li>
+<li><a href=#HS_VC_KAT_Examples_rel-local_flow_therm>local_flow_therm</a></li>
+<li><a href=#HS_VC_KAT_Examples_rel-therm_dyn_down_real_arith>therm_dyn_down_real_arith</a></li>
+<li><a href=#HS_VC_KAT_Examples_rel-therm_dyn_up_real_arith>therm_dyn_up_real_arith</a></li>
+<li><a href=#HS_VC_KAT_Examples_rel-thermostat_flow>thermostat_flow</a></li>
+<li><a href=#HS_VC_KAT_Examples_rel-R_therm_dyn_down>R_therm_dyn_down</a></li>
+<li><a href=#HS_VC_KAT_Examples_rel-R_therm_dyn_up>R_therm_dyn_up</a></li>
+<li><a href=#HS_VC_KAT_Examples_rel-R_therm_dyn>R_therm_dyn</a></li>
+<li><a href=#HS_VC_KAT_Examples_rel-R_therm_assign1>R_therm_assign1</a></li>
+<li><a href=#HS_VC_KAT_Examples_rel-R_therm_assign2>R_therm_assign2</a></li>
+<li><a href=#HS_VC_KAT_Examples_rel-R_therm_ctrl>R_therm_ctrl</a></li>
+<li><a href=#HS_VC_KAT_Examples_rel-R_therm_loop>R_therm_loop</a></li>
+<li><a href=#HS_VC_KAT_Examples_rel-R_thermostat_flow>R_thermostat_flow</a></li>
+<li><a href=#HS_VC_KAT_Examples_rel-local_flow_tank>local_flow_tank</a></li>
+<li><a href=#HS_VC_KAT_Examples_rel-tank_arith>tank_arith</a></li>
+<li><a href=#HS_VC_KAT_Examples_rel-tank_flow>tank_flow</a></li>
+<li><a href=#HS_VC_KAT_Examples_rel-tank_diff_inv>tank_diff_inv</a></li>
+<li><a href=#HS_VC_KAT_Examples_rel-tank_inv_arith1>tank_inv_arith1</a></li>
+<li><a href=#HS_VC_KAT_Examples_rel-tank_inv_arith2>tank_inv_arith2</a></li>
+<li><a href=#HS_VC_KAT_Examples_rel-tank_inv>tank_inv</a></li>
+<li><a href=#HS_VC_KAT_Examples_rel-R_tank_inv>R_tank_inv</a></li>
+</ul>
+</li><li><a href=#HS_VC_KAT_ndfun>HS_VC_KAT_ndfun</a>
+<ul>
+<li><a href=#HS_VC_KAT_ndfun-nd_fun_n_op_one>nd_fun_n_op_one</a></li>
+<li><a href=#HS_VC_KAT_ndfun-p2ndf_simps>p2ndf_simps</a></li>
+<li><a href=#HS_VC_KAT_ndfun-ndfun_kat_H>ndfun_kat_H</a></li>
+<li><a href=#HS_VC_KAT_ndfun-sH_skip>sH_skip</a></li>
+<li><a href=#HS_VC_KAT_ndfun-H_skip>H_skip</a></li>
+<li><a href=#HS_VC_KAT_ndfun-sH_test>sH_test</a></li>
+<li><a href=#HS_VC_KAT_ndfun-sH_abort>sH_abort</a></li>
+<li><a href=#HS_VC_KAT_ndfun-H_abort>H_abort</a></li>
+<li><a href=#HS_VC_KAT_ndfun-sH_assign>sH_assign</a></li>
+<li><a href=#HS_VC_KAT_ndfun-H_assign>H_assign</a></li>
+<li><a href=#HS_VC_KAT_ndfun-sH_nondet_assign>sH_nondet_assign</a></li>
+<li><a href=#HS_VC_KAT_ndfun-H_nondet_assign>H_nondet_assign</a></li>
+<li><a href=#HS_VC_KAT_ndfun-H_seq>H_seq</a></li>
+<li><a href=#HS_VC_KAT_ndfun-sH_seq>sH_seq</a></li>
+<li><a href=#HS_VC_KAT_ndfun-H_assignl>H_assignl</a></li>
+<li><a href=#HS_VC_KAT_ndfun-sH_choice>sH_choice</a></li>
+<li><a href=#HS_VC_KAT_ndfun-H_choice>H_choice</a></li>
+<li><a href=#HS_VC_KAT_ndfun-sH_cond>sH_cond</a></li>
+<li><a href=#HS_VC_KAT_ndfun-H_cond>H_cond</a></li>
+<li><a href=#HS_VC_KAT_ndfun-sH_whileI>sH_whileI</a></li>
+<li><a href=#HS_VC_KAT_ndfun-H_loop>H_loop</a></li>
+<li><a href=#HS_VC_KAT_ndfun-H_loopI>H_loopI</a></li>
+<li><a href=#HS_VC_KAT_ndfun-sH_g_evol>sH_g_evol</a></li>
+<li><a href=#HS_VC_KAT_ndfun-H_g_evol>H_g_evol</a></li>
+<li><a href=#HS_VC_KAT_ndfun-H_g_orbital>H_g_orbital</a></li>
+<li><a href=#HS_VC_KAT_ndfun-sH_g_orbital>sH_g_orbital</a></li>
+<li><a href=#HS_VC_KAT_ndfun-sH_g_ode_subset>sH_g_ode_subset</a></li>
+<li><a href=#HS_VC_KAT_ndfun-H_g_ode_subset>H_g_ode_subset</a></li>
+<li><a href=#HS_VC_KAT_ndfun-sH_g_ode>sH_g_ode</a></li>
+<li><a href=#HS_VC_KAT_ndfun-sH_g_ode_ivl>sH_g_ode_ivl</a></li>
+<li><a href=#HS_VC_KAT_ndfun-sH_orbit>sH_orbit</a></li>
+<li><a href=#HS_VC_KAT_ndfun-sH_g_orbital_guard>sH_g_orbital_guard</a></li>
+<li><a href=#HS_VC_KAT_ndfun-sH_g_orbital_inv>sH_g_orbital_inv</a></li>
+<li><a href=#HS_VC_KAT_ndfun-sH_diff_inv>sH_diff_inv</a></li>
+<li><a href=#HS_VC_KAT_ndfun-H_g_ode_inv>H_g_ode_inv</a></li>
+<li><a href=#HS_VC_KAT_ndfun-R_skip>R_skip</a></li>
+<li><a href=#HS_VC_KAT_ndfun-R_abort>R_abort</a></li>
+<li><a href=#HS_VC_KAT_ndfun-R_seq>R_seq</a></li>
+<li><a href=#HS_VC_KAT_ndfun-R_seq_law>R_seq_law</a></li>
+<li><a href=#HS_VC_KAT_ndfun-R_choice>R_choice</a></li>
+<li><a href=#HS_VC_KAT_ndfun-R_choice_law>R_choice_law</a></li>
+<li><a href=#HS_VC_KAT_ndfun-R_choice_mono>R_choice_mono</a></li>
+<li><a href=#HS_VC_KAT_ndfun-R_assign>R_assign</a></li>
+<li><a href=#HS_VC_KAT_ndfun-R_assign_law>R_assign_law</a></li>
+<li><a href=#HS_VC_KAT_ndfun-R_assignl>R_assignl</a></li>
+<li><a href=#HS_VC_KAT_ndfun-R_assignr>R_assignr</a></li>
+<li><a href=#HS_VC_KAT_ndfun-R_nondet_assign>R_nondet_assign</a></li>
+<li><a href=#HS_VC_KAT_ndfun-R_nondet_assign_law>R_nondet_assign_law</a></li>
+<li><a href=#HS_VC_KAT_ndfun-R_cond>R_cond</a></li>
+<li><a href=#HS_VC_KAT_ndfun-R_cond_mono>R_cond_mono</a></li>
+<li><a href=#HS_VC_KAT_ndfun-R_cond_law>R_cond_law</a></li>
+<li><a href=#HS_VC_KAT_ndfun-R_while>R_while</a></li>
+<li><a href=#HS_VC_KAT_ndfun-R_whileI>R_whileI</a></li>
+<li><a href=#HS_VC_KAT_ndfun-R_while_mono>R_while_mono</a></li>
+<li><a href=#HS_VC_KAT_ndfun-R_while_law>R_while_law</a></li>
+<li><a href=#HS_VC_KAT_ndfun-R_loop>R_loop</a></li>
+<li><a href=#HS_VC_KAT_ndfun-R_loopI>R_loopI</a></li>
+<li><a href=#HS_VC_KAT_ndfun-R_loop_mono>R_loop_mono</a></li>
+<li><a href=#HS_VC_KAT_ndfun-R_g_evol>R_g_evol</a></li>
+<li><a href=#HS_VC_KAT_ndfun-R_g_evol_law>R_g_evol_law</a></li>
+<li><a href=#HS_VC_KAT_ndfun-R_g_evoll>R_g_evoll</a></li>
+<li><a href=#HS_VC_KAT_ndfun-R_g_evolr>R_g_evolr</a></li>
+<li><a href=#HS_VC_KAT_ndfun-R_g_ode_subset>R_g_ode_subset</a></li>
+<li><a href=#HS_VC_KAT_ndfun-R_g_ode_rule_subset>R_g_ode_rule_subset</a></li>
+<li><a href=#HS_VC_KAT_ndfun-R_g_odel_subset>R_g_odel_subset</a></li>
+<li><a href=#HS_VC_KAT_ndfun-R_g_oder_subset>R_g_oder_subset</a></li>
+<li><a href=#HS_VC_KAT_ndfun-R_g_ode>R_g_ode</a></li>
+<li><a href=#HS_VC_KAT_ndfun-R_g_ode_law>R_g_ode_law</a></li>
+<li><a href=#HS_VC_KAT_ndfun-R_g_odel>R_g_odel</a></li>
+<li><a href=#HS_VC_KAT_ndfun-R_g_oder>R_g_oder</a></li>
+<li><a href=#HS_VC_KAT_ndfun-R_g_ode_ivl>R_g_ode_ivl</a></li>
+<li><a href=#HS_VC_KAT_ndfun-R_g_ode_inv>R_g_ode_inv</a></li>
+<li><a href=#HS_VC_KAT_ndfun-diff_solve_rule1>diff_solve_rule1</a></li>
+<li><a href=#HS_VC_KAT_ndfun-diff_solve_rule2>diff_solve_rule2</a></li>
+<li><a href=#HS_VC_KAT_ndfun-diff_weak_rule>diff_weak_rule</a></li>
+<li><a href=#HS_VC_KAT_ndfun-diff_cut_rule>diff_cut_rule</a></li>
+<li><a href=#HS_VC_KAT_ndfun-diff_inv_rule>diff_inv_rule</a></li>
+</ul>
+</li><li><a href=#HS_VC_KAT_Examples_ndfun>HS_VC_KAT_Examples_ndfun</a>
+<ul>
+<li><a href=#HS_VC_KAT_Examples_ndfun-pendulum_dyn>pendulum_dyn</a></li>
+<li><a href=#HS_VC_KAT_Examples_ndfun-pendulum_inv>pendulum_inv</a></li>
+<li><a href=#HS_VC_KAT_Examples_ndfun-local_flow_pend>local_flow_pend</a></li>
+<li><a href=#HS_VC_KAT_Examples_ndfun-pendulum_flow>pendulum_flow</a></li>
+<li><a href=#HS_VC_KAT_Examples_ndfun-fball_invariant>fball_invariant</a></li>
+<li><a href=#HS_VC_KAT_Examples_ndfun-bouncing_ball_inv>bouncing_ball_inv</a></li>
+<li><a href=#HS_VC_KAT_Examples_ndfun-bouncing_ball_dyn>bouncing_ball_dyn</a></li>
+<li><a href=#HS_VC_KAT_Examples_ndfun-local_flow_ball>local_flow_ball</a></li>
+<li><a href=#HS_VC_KAT_Examples_ndfun-bouncing_ball_flow>bouncing_ball_flow</a></li>
+<li><a href=#HS_VC_KAT_Examples_ndfun-R_bb_assign>R_bb_assign</a></li>
+<li><a href=#HS_VC_KAT_Examples_ndfun-R_bouncing_ball_dyn>R_bouncing_ball_dyn</a></li>
+<li><a href=#HS_VC_KAT_Examples_ndfun-norm_diff_therm_dyn>norm_diff_therm_dyn</a></li>
+<li><a href=#HS_VC_KAT_Examples_ndfun-local_lipschitz_therm_dyn>local_lipschitz_therm_dyn</a></li>
+<li><a href=#HS_VC_KAT_Examples_ndfun-local_flow_therm>local_flow_therm</a></li>
+<li><a href=#HS_VC_KAT_Examples_ndfun-therm_dyn_down_real_arith>therm_dyn_down_real_arith</a></li>
+<li><a href=#HS_VC_KAT_Examples_ndfun-therm_dyn_up_real_arith>therm_dyn_up_real_arith</a></li>
+<li><a href=#HS_VC_KAT_Examples_ndfun-thermostat_flow>thermostat_flow</a></li>
+<li><a href=#HS_VC_KAT_Examples_ndfun-R_therm_dyn_down>R_therm_dyn_down</a></li>
+<li><a href=#HS_VC_KAT_Examples_ndfun-R_therm_dyn_up>R_therm_dyn_up</a></li>
+<li><a href=#HS_VC_KAT_Examples_ndfun-R_therm_dyn>R_therm_dyn</a></li>
+<li><a href=#HS_VC_KAT_Examples_ndfun-R_therm_assign1>R_therm_assign1</a></li>
+<li><a href=#HS_VC_KAT_Examples_ndfun-R_therm_assign2>R_therm_assign2</a></li>
+<li><a href=#HS_VC_KAT_Examples_ndfun-R_therm_ctrl>R_therm_ctrl</a></li>
+<li><a href=#HS_VC_KAT_Examples_ndfun-R_therm_loop>R_therm_loop</a></li>
+<li><a href=#HS_VC_KAT_Examples_ndfun-R_thermostat_flow>R_thermostat_flow</a></li>
+<li><a href=#HS_VC_KAT_Examples_ndfun-local_flow_tank>local_flow_tank</a></li>
+<li><a href=#HS_VC_KAT_Examples_ndfun-tank_arith>tank_arith</a></li>
+<li><a href=#HS_VC_KAT_Examples_ndfun-tank_flow>tank_flow</a></li>
+<li><a href=#HS_VC_KAT_Examples_ndfun-tank_diff_inv>tank_diff_inv</a></li>
+<li><a href=#HS_VC_KAT_Examples_ndfun-tank_inv_arith1>tank_inv_arith1</a></li>
+<li><a href=#HS_VC_KAT_Examples_ndfun-tank_inv_arith2>tank_inv_arith2</a></li>
+<li><a href=#HS_VC_KAT_Examples_ndfun-tank_inv>tank_inv</a></li>
+<li><a href=#HS_VC_KAT_Examples_ndfun-R_tank_inv>R_tank_inv</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<ul>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Hybrid_Systems_VCs/outline.pdf>Proof
+outline</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Hybrid_Systems_VCs/document.pdf>Proof
+document</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Hybrid_Systems_VCs/session_graph.pdf>Theory dependencies</a></li>
+</ul>
+</div>
+</aside>
+<div class="content theories"><header>
+<form action=/%20search>
+<div class=form-container>
+<input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
+<datalist id=autocomplete>
+</datalist>
+</div>
+</form>
+<h1><span class=first>S</span>ession <span class=first>H</span>ybrid_<span class=first>S</span>ystems_<span class=first>V</span><span class=first>C</span>s</h1>
+<div>
+</div>
+</header><div id=banner data-id=0>
+<p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button>
+</div>
+<div><main>
+<div id=HS_Preliminaries>
+<div class=head>
+<h1>Theory HS_Preliminaries</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:       Preliminaries for hybrid systems verification
     Author:      Jonathan Julián Huerta y Munive, 2020
     Maintainer:  Jonathan Julián Huerta y Munive &lt;jonjulian23@gmail.com&gt;
 *)</span>
@@ -350,7 +1060,12 @@ auxiliary lemmas for verification of hybrid systems.›</span></span>
   <span class=keyword1><span class=command>unfolding</span></span> has_vderiv_on_def has_vector_derivative_def <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span> <span class=operator>safe</span>
   <span class=keyword1><span class=command>using</span></span> has_derivative_vec_nth has_derivative_vec_lambda <span class=keyword1><span class=command>by</span></span> <span class=operator>blast</span><span class=main><span class=keyword3>+</span></span>
 
-<span class=keyword2><span class=keyword>end</span></span></pre></div><div id=HS_ODEs><div class=head><h1>Theory HS_ODEs</h1></div><pre class=source><span class=comment1>(*  Title:       ODEs and Dynamical Systems for HS verification
+<span class=keyword2><span class=keyword>end</span></span></pre>
+</div><div id=HS_ODEs>
+<div class=head>
+<h1>Theory HS_ODEs</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:       ODEs and Dynamical Systems for HS verification
     Author:      Jonathan Julián Huerta y Munive, 2020
     Maintainer:  Jonathan Julián Huerta y Munive &lt;jonjulian23@gmail.com&gt;
 *)</span>
@@ -1062,7 +1777,12 @@ of existence and the defining flow equation via the variables <span class=antiqu
     <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span><span class=main>(</span><span class=operator>rule</span> <span class=dynamic><span class=dynamic>derivative_intros</span></span><span class=main><span class=keyword3>,</span></span> <span class=operator>simp</span><span class=main>)</span><span class=main><span class=keyword3>+</span></span>
   <span class=keyword1><span class=command>by</span></span> <span class=operator>simp_all</span>
 
-<span class=keyword2><span class=keyword>end</span></span></pre></div><div id=HS_VC_Spartan><div class=head><h1>Theory HS_VC_Spartan</h1></div><pre class=source><span class=comment1>(*  Title:       Verification components for hybrid systems 
+<span class=keyword2><span class=keyword>end</span></span></pre>
+</div><div id=HS_VC_Spartan>
+<div class=head>
+<h1>Theory HS_VC_Spartan</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:       Verification components for hybrid systems 
     Author:      Jonathan Julián Huerta y Munive, 2020
     Maintainer:  Jonathan Julián Huerta y Munive &lt;jonjulian23@gmail.com&gt;
 *)</span>
@@ -1494,7 +2214,12 @@ in the style of that logic. ›</span></span>
   <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span><span class=main>(</span><span class=operator>rule</span> fbox_g_orbital_inv<span class=main><span class=main>[</span></span><span class=operator>OF</span> assms<span class=main><span class=main>(</span></span>1<span class=main><span class=main>)</span></span> _ assms<span class=main><span class=main>(</span></span>3<span class=main><span class=main>)</span></span><span class=main><span class=main>]</span></span><span class=main>)</span>
   <span class=keyword1><span class=command>unfolding</span></span> fbox_diff_inv <span class=keyword1><span class=command>using</span></span> assms<span class=main>(</span>2<span class=main>)</span> <span class=keyword1><span class=command>.</span></span>
 
-<span class=keyword2><span class=keyword>end</span></span></pre></div><div id=HS_VC_Examples><div class=head><h1>Theory HS_VC_Examples</h1></div><pre class=source><span class=comment1>(*  Title:       Examples of hybrid systems verifications
+<span class=keyword2><span class=keyword>end</span></span></pre>
+</div><div id=HS_VC_Examples>
+<div class=head>
+<h1>Theory HS_VC_Examples</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:       Examples of hybrid systems verifications
     Author:      Jonathan Julián Huerta y Munive, 2020
     Maintainer:  Jonathan Julián Huerta y Munive &lt;jonjulian23@gmail.com&gt;
 *)</span>
@@ -1850,7 +2575,12 @@ water between <span class=antiquoted><span class=antiquoted><span class=antiquot
         <span class=keyword2><span class=keyword>and</span></span> tank_diff_inv <span class=main>(</span><span class=quoted>"<span class=keyword1>dI</span>"</span><span class=main>)</span>
         <span class=keyword2><span class=keyword>and</span></span> tank_guard <span class=main>(</span><span class=quoted>"<span class=keyword1>G</span>"</span><span class=main>)</span>
 
-<span class=keyword2><span class=keyword>end</span></span></pre></div><div id=HS_VC_PT><div class=head><h1>Theory HS_VC_PT</h1></div><pre class=source><span class=comment1>(*  Title:       Verification components with predicate transformers
+<span class=keyword2><span class=keyword>end</span></span></pre>
+</div><div id=HS_VC_PT>
+<div class=head>
+<h1>Theory HS_VC_PT</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:       Verification components with predicate transformers
     Author:      Jonathan Julián Huerta y Munive, 2020
     Maintainer:  Jonathan Julián Huerta y Munive &lt;jonjulian23@gmail.com&gt;
 *)</span>
@@ -2260,7 +2990,12 @@ generalised version, then we show the rules as instances of the general ones.›
   <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span><span class=main>(</span><span class=operator>rule</span> ffb_g_orbital_inv<span class=main><span class=main>[</span></span><span class=operator>OF</span> assms<span class=main><span class=main>(</span></span>1<span class=main><span class=main>)</span></span> _ assms<span class=main><span class=main>(</span></span>3<span class=main><span class=main>)</span></span><span class=main><span class=main>]</span></span><span class=main>)</span>
   <span class=keyword1><span class=command>unfolding</span></span> ffb_diff_inv <span class=keyword1><span class=command>using</span></span> assms<span class=main>(</span>2<span class=main>)</span> <span class=keyword1><span class=command>.</span></span>
 
-<span class=keyword2><span class=keyword>end</span></span></pre></div><div id=HS_VC_PT_Examples><div class=head><h1>Theory HS_VC_PT_Examples</h1></div><pre class=source><span class=comment1>(*  Title:       Examples of hybrid systems verifications
+<span class=keyword2><span class=keyword>end</span></span></pre>
+</div><div id=HS_VC_PT_Examples>
+<div class=head>
+<h1>Theory HS_VC_PT_Examples</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:       Examples of hybrid systems verifications
     Author:      Jonathan Julián Huerta y Munive, 2020
     Maintainer:  Jonathan Julián Huerta y Munive &lt;jonjulian23@gmail.com&gt;
 *)</span>
@@ -2614,7 +3349,12 @@ water between <span class=antiquoted><span class=antiquoted><span class=antiquot
         <span class=keyword2><span class=keyword>and</span></span> tank_diff_inv <span class=main>(</span><span class=quoted>"<span class=keyword1>dI</span>"</span><span class=main>)</span>
         <span class=keyword2><span class=keyword>and</span></span> tank_guard <span class=main>(</span><span class=quoted>"<span class=keyword1>G</span>"</span><span class=main>)</span>
 
-<span class=keyword2><span class=keyword>end</span></span></pre></div><div id=HS_VC_MKA><div class=head><h1>Theory HS_VC_MKA</h1></div><pre class=source><span class=comment1>(*  Title:       Verification components with MKAs
+<span class=keyword2><span class=keyword>end</span></span></pre>
+</div><div id=HS_VC_MKA>
+<div class=head>
+<h1>Theory HS_VC_MKA</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:       Verification components with MKAs
     Author:      Jonathan Julián Huerta y Munive, 2020
     Maintainer:  Jonathan Julián Huerta y Munive &lt;jonjulian23@gmail.com&gt;
 *)</span>
@@ -2797,7 +3537,12 @@ antidomain Kleene algebra ›</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
 
-<span class=keyword2><span class=keyword>end</span></span></pre></div><div id=HS_VC_KA_rel><div class=head><h1>Theory HS_VC_KA_rel</h1></div><pre class=source><span class=comment1>(*  Title:       Verification components with relational MKA 
+<span class=keyword2><span class=keyword>end</span></span></pre>
+</div><div id=HS_VC_KA_rel>
+<div class=head>
+<h1>Theory HS_VC_KA_rel</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:       Verification components with relational MKA 
     Author:      Jonathan Julián Huerta y Munive, 2020
     Maintainer:  Jonathan Julián Huerta y Munive &lt;jonjulian23@gmail.com&gt;
 *)</span>
@@ -2880,7 +3625,12 @@ form Kleene algebras.  ›</span></span>
     <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>only</span><span class=main><span class=main>:</span></span> rel_star_contl<span class=main><span class=keyword3>,</span></span> <span class=operator>metis</span> <span class=main><span class=main>(</span></span>lifting<span class=main><span class=main>)</span></span> SUP_le_iff rel_dioid.power_inductr<span class=main>)</span>
 <span class=keyword1><span class=command>qed</span></span>
 
-<span class=keyword2><span class=keyword>end</span></span></pre></div><div id=HS_VC_MKA_rel><div class=head><h1>Theory HS_VC_MKA_rel</h1></div><pre class=source><span class=comment1>(*  Title:       Verification components with relational MKA 
+<span class=keyword2><span class=keyword>end</span></span></pre>
+</div><div id=HS_VC_MKA_rel>
+<div class=head>
+<h1>Theory HS_VC_MKA_rel</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:       Verification components with relational MKA 
     Author:      Jonathan Julián Huerta y Munive, 2020
     Maintainer:  Jonathan Julián Huerta y Munive &lt;jonjulian23@gmail.com&gt;
 *)</span>
@@ -3244,7 +3994,12 @@ in the style of that logic. ›</span></span>
   <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span><span class=main>(</span><span class=operator>rule</span> wp_g_orbital_inv<span class=main><span class=main>[</span></span><span class=operator>OF</span> assms<span class=main><span class=main>(</span></span>1<span class=main><span class=main>)</span></span> _ assms<span class=main><span class=main>(</span></span>3<span class=main><span class=main>)</span></span><span class=main><span class=main>]</span></span><span class=main>)</span>
   <span class=keyword1><span class=command>unfolding</span></span> wp_diff_inv <span class=keyword1><span class=command>using</span></span> assms<span class=main>(</span>2<span class=main>)</span> <span class=keyword1><span class=command>.</span></span>
 
-<span class=keyword2><span class=keyword>end</span></span></pre></div><div id=HS_VC_MKA_Examples_rel><div class=head><h1>Theory HS_VC_MKA_Examples_rel</h1></div><pre class=source><span class=comment1>(*  Title:       Examples of hybrid systems verifications
+<span class=keyword2><span class=keyword>end</span></span></pre>
+</div><div id=HS_VC_MKA_Examples_rel>
+<div class=head>
+<h1>Theory HS_VC_MKA_Examples_rel</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:       Examples of hybrid systems verifications
     Author:      Jonathan Julián Huerta y Munive, 2020
     Maintainer:  Jonathan Julián Huerta y Munive &lt;jonjulian23@gmail.com&gt;
 *)</span>
@@ -3608,7 +4363,12 @@ water between <span class=antiquoted><span class=antiquoted><span class=antiquot
         <span class=keyword2><span class=keyword>and</span></span> tank_diff_inv <span class=main>(</span><span class=quoted>"<span class=keyword1>dI</span>"</span><span class=main>)</span>
         <span class=keyword2><span class=keyword>and</span></span> tank_guard <span class=main>(</span><span class=quoted>"<span class=keyword1>G</span>"</span><span class=main>)</span>
 
-<span class=keyword2><span class=keyword>end</span></span></pre></div><div id=HS_VC_KA_ndfun><div class=head><h1>Theory HS_VC_KA_ndfun</h1></div><pre class=source><span class=comment1>(*  Title:       Verification components with relational MKA 
+<span class=keyword2><span class=keyword>end</span></span></pre>
+</div><div id=HS_VC_KA_ndfun>
+<div class=head>
+<h1>Theory HS_VC_KA_ndfun</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:       Verification components with relational MKA 
     Author:      Jonathan Julián Huerta y Munive, 2020
     Maintainer:  Jonathan Julián Huerta y Munive &lt;jonjulian23@gmail.com&gt;
 *)</span>
@@ -3686,7 +4446,12 @@ prove some auxiliary lemmas for them and show this instantiation. ›</span></sp
 
 <span class=keyword2><span class=keyword>end</span></span>
 
-<span class=keyword2><span class=keyword>end</span></span></pre></div><div id=HS_VC_MKA_ndfun><div class=head><h1>Theory HS_VC_MKA_ndfun</h1></div><pre class=source><span class=comment1>(*  Title:       Verification components with MKA and non-deterministic functions
+<span class=keyword2><span class=keyword>end</span></span></pre>
+</div><div id=HS_VC_MKA_ndfun>
+<div class=head>
+<h1>Theory HS_VC_MKA_ndfun</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:       Verification components with MKA and non-deterministic functions
     Author:      Jonathan Julián Huerta y Munive, 2020
     Maintainer:  Jonathan Julián Huerta y Munive &lt;jonjulian23@gmail.com&gt;
 *)</span>
@@ -4072,7 +4837,12 @@ in the style of that logic. ›</span></span>
   <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span><span class=main>(</span><span class=operator>rule</span> wp_g_orbital_inv<span class=main><span class=main>[</span></span><span class=operator>OF</span> assms<span class=main><span class=main>(</span></span>1<span class=main><span class=main>)</span></span> _ assms<span class=main><span class=main>(</span></span>3<span class=main><span class=main>)</span></span><span class=main><span class=main>]</span></span><span class=main>)</span>
   <span class=keyword1><span class=command>unfolding</span></span> wp_diff_inv <span class=keyword1><span class=command>using</span></span> assms<span class=main>(</span>2<span class=main>)</span> <span class=keyword1><span class=command>.</span></span>
 
-<span class=keyword2><span class=keyword>end</span></span></pre></div><div id=HS_VC_MKA_Examples_ndfun><div class=head><h1>Theory HS_VC_MKA_Examples_ndfun</h1></div><pre class=source><span class=comment1>(*  Title:       Examples of hybrid systems verifications
+<span class=keyword2><span class=keyword>end</span></span></pre>
+</div><div id=HS_VC_MKA_Examples_ndfun>
+<div class=head>
+<h1>Theory HS_VC_MKA_Examples_ndfun</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:       Examples of hybrid systems verifications
     Author:      Jonathan Julián Huerta y Munive, 2020
     Maintainer:  Jonathan Julián Huerta y Munive &lt;jonjulian23@gmail.com&gt;
 *)</span>
@@ -4438,7 +5208,12 @@ water between <span class=antiquoted><span class=antiquoted><span class=antiquot
         <span class=keyword2><span class=keyword>and</span></span> tank_diff_inv <span class=main>(</span><span class=quoted>"<span class=keyword1>dI</span>"</span><span class=main>)</span>
         <span class=keyword2><span class=keyword>and</span></span> tank_guard <span class=main>(</span><span class=quoted>"<span class=keyword1>G</span>"</span><span class=main>)</span>
 
-<span class=keyword2><span class=keyword>end</span></span></pre></div><div id=HS_VC_KAT><div class=head><h1>Theory HS_VC_KAT</h1></div><pre class=source><span class=comment1>(*  Title:       Verification components with Kleene Algebras
+<span class=keyword2><span class=keyword>end</span></span></pre>
+</div><div id=HS_VC_KAT>
+<div class=head>
+<h1>Theory HS_VC_KAT</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:       Verification components with Kleene Algebras
     Author:      Jonathan Julián Huerta y Munive, 2020
     Maintainer:  Jonathan Julián Huerta y Munive &lt;jonjulian23@gmail.com&gt;
 *)</span>
@@ -4712,7 +5487,12 @@ refinement laws. ›</span></span>
 <span class=keyword2><span class=keyword>end</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=HS_VC_KAT_rel><div class=head><h1>Theory HS_VC_KAT_rel</h1></div><pre class=source><span class=comment1>(*  Title:       Verification and refinement of hybrid systems in the relational KAT
+</pre>
+</div><div id=HS_VC_KAT_rel>
+<div class=head>
+<h1>Theory HS_VC_KAT_rel</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:       Verification and refinement of hybrid systems in the relational KAT
     Author:      Jonathan Julián Huerta y Munive, 2020
     Maintainer:  Jonathan Julián Huerta y Munive &lt;jonjulian23@gmail.com&gt;
 *)</span>
@@ -5263,7 +6043,12 @@ in the style of that logic. ›</span></span>
   <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span><span class=main>(</span><span class=operator>subst</span> g_ode_inv_def<span class=main><span class=main>[</span></span><span class=operator>symmetric</span><span class=main><span class=main>,</span></span> <span class=keyword2><span class=keyword><span class=operator>where</span></span></span> I<span class=main><span class=main><span class=main>=</span></span></span><span class=quoted><span class=free><span class=quoted><span class=free>I</span></span></span></span><span class=main><span class=main>]</span></span><span class=main><span class=keyword3>,</span></span> <span class=operator>rule</span> H_g_ode_inv<span class=main>)</span>
   <span class=keyword1><span class=command>unfolding</span></span> sH_diff_inv <span class=keyword1><span class=command>using</span></span> assms <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
 
-<span class=keyword2><span class=keyword>end</span></span></pre></div><div id=HS_VC_KAT_Examples_rel><div class=head><h1>Theory HS_VC_KAT_Examples_rel</h1></div><pre class=source><span class=comment1>(*  Title:       Examples of hybrid systems verifications
+<span class=keyword2><span class=keyword>end</span></span></pre>
+</div><div id=HS_VC_KAT_Examples_rel>
+<div class=head>
+<h1>Theory HS_VC_KAT_Examples_rel</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:       Examples of hybrid systems verifications
     Author:      Jonathan Julián Huerta y Munive, 2020
     Maintainer:  Jonathan Julián Huerta y Munive &lt;jonjulian23@gmail.com&gt;
 *)</span>
@@ -5905,7 +6690,12 @@ water between <span class=antiquoted><span class=antiquoted><span class=antiquot
         <span class=keyword2><span class=keyword>and</span></span> tank_loop_inv <span class=main>(</span><span class=quoted>"<span class=keyword1>I</span>"</span><span class=main>)</span>
         <span class=keyword2><span class=keyword>and</span></span> tank_diff_inv <span class=main>(</span><span class=quoted>"<span class=keyword1>dI</span>"</span><span class=main>)</span>
 
-<span class=keyword2><span class=keyword>end</span></span></pre></div><div id=HS_VC_KAT_ndfun><div class=head><h1>Theory HS_VC_KAT_ndfun</h1></div><pre class=source><span class=comment1>(*  Title:       Verification and refinement of hybrid systems in the relational KAT
+<span class=keyword2><span class=keyword>end</span></span></pre>
+</div><div id=HS_VC_KAT_ndfun>
+<div class=head>
+<h1>Theory HS_VC_KAT_ndfun</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:       Verification and refinement of hybrid systems in the relational KAT
     Author:      Jonathan Julián Huerta y Munive, 2020
     Maintainer:  Jonathan Julián Huerta y Munive &lt;jonjulian23@gmail.com&gt;
 *)</span>
@@ -6474,7 +7264,12 @@ in the style of that logic. ›</span></span>
   <span class=keyword1><span class=command><span class=improper><span class=command>apply</span></span></span></span><span class=main>(</span><span class=operator>subst</span> g_ode_inv_def<span class=main><span class=main>[</span></span><span class=operator>symmetric</span><span class=main><span class=main>,</span></span> <span class=keyword2><span class=keyword><span class=operator>where</span></span></span> I<span class=main><span class=main><span class=main>=</span></span></span><span class=quoted><span class=free><span class=quoted><span class=free>I</span></span></span></span><span class=main><span class=main>]</span></span><span class=main><span class=keyword3>,</span></span> <span class=operator>rule</span> H_g_ode_inv<span class=main>)</span>
   <span class=keyword1><span class=command>unfolding</span></span> sH_diff_inv <span class=keyword1><span class=command>using</span></span> assms <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
 
-<span class=keyword2><span class=keyword>end</span></span></pre></div><div id=HS_VC_KAT_Examples_ndfun><div class=head><h1>Theory HS_VC_KAT_Examples_ndfun</h1></div><pre class=source><span class=comment1>(*  Title:       Examples of hybrid systems verifications
+<span class=keyword2><span class=keyword>end</span></span></pre>
+</div><div id=HS_VC_KAT_Examples_ndfun>
+<div class=head>
+<h1>Theory HS_VC_KAT_Examples_ndfun</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:       Examples of hybrid systems verifications
     Author:      Jonathan Julián Huerta y Munive, 2020
     Maintainer:  Jonathan Julián Huerta y Munive &lt;jonjulian23@gmail.com&gt;
 *)</span>
@@ -7112,4 +7907,10 @@ water between <span class=antiquoted><span class=antiquoted><span class=antiquot
         <span class=keyword2><span class=keyword>and</span></span> tank_loop_inv <span class=main>(</span><span class=quoted>"<span class=keyword1>I</span>"</span><span class=main>)</span>
         <span class=keyword2><span class=keyword>and</span></span> tank_diff_inv <span class=main>(</span><span class=quoted>"<span class=keyword1>dI</span>"</span><span class=main>)</span>
 
-<span class=keyword2><span class=keyword>end</span></span></pre></div></main></div></div></body></html>
+<span class=keyword2><span class=keyword>end</span></span></pre>
+</div>
+</main>
+</div>
+</div>
+</body>
+</html>

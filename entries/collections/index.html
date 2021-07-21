@@ -1,20 +1,105 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Collections Framework - Archive of Formal Proofs</title><meta name=description content="This development provides an efficient, extensible, machine checked collections framework. The library adopts the concepts of interface, implementation and..."><meta property="og:title" content="Collections Framework"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/collections/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="entries"><meta property="article:published_time" content="2009-11-25T00:00:00+00:00"><meta property="article:modified_time" content="2009-11-25T00:00:00+00:00"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Collections Framework"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=icon href=/images/favicon.ico type=image/icon><script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]},processEscapes:!0,svg:{fontCache:'global'}}</script><script id=MathJax-script async src=/js/mathjax/es5/tex-mml-chtml.js></script><script src=/js/entries.js></script><script src=/js/flexsearch.min.js></script><script src=/js/banner.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><li><a href=/>Home</a></li><li><a href=/topics/>Topics</a></li><li><a href=/download/>Download</a></li><li><a href=/help/>Help</a></li><li><a href=/statistics/>Statistics</a></li><li><a href=/about/>About</a></li></ul></div><ul><li><a href=/contribution/>Contribution</a></li></ul></div></aside><div class="content entries"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
-<datalist id=autocomplete></datalist></div></form><h1><span class=first>C</span>ollections <span class=first>F</span>ramework</h1><div><p><a href=/authors/peter-lammich>Peter Lammich</a>
-with contributions from <a href=/authors/andreas-lochbihler>Andreas Lochbihler</a> and <a href=/authors/thomas-tuerk>Thomas Tuerk</a></p><p class=date>25 November 2009</p></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><h3>Abstract</h3><div class="abstract mathjax_process">This development provides an efficient, extensible, machine checked collections framework. The library adopts the concepts of interface, implementation and generic algorithm from object-oriented programming and implements them in Isabelle/HOL. The framework features the use of data refinement techniques to refine an abstract specification (using high-level concepts like sets) to a more concrete implementation (using collection datastructures, like red-black-trees). The code-generator of Isabelle/HOL can be used to generate efficient code.</div><a href=http://isa-afp.org/LICENSE>BSD License</a><h3>Change history</h3><p>[2010-10-08] New Interfaces OrderedSet, OrderedMap, List.
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Collections Framework - Archive of Formal Proofs</title><meta name=description content="This development provides an efficient, extensible, machine checked collections framework. The library adopts the concepts of interface, implementation and..."><meta property="og:title" content="Collections Framework">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="/entries/collections/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="entries">
+<meta property="article:published_time" content="2009-11-25T00:00:00+00:00">
+<meta property="article:modified_time" content="2009-11-25T00:00:00+00:00"><meta property="og:site_name" content="Archive of Formal Proofs">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="/images/afp.png">
+<meta name=twitter:title content="Collections Framework">
+<meta name=twitter:description content>
+<link rel=stylesheet type=text/css href=/css/front.min.css>
+<link rel=icon href=/images/favicon.ico type=image/icon>
+<script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]},processEscapes:!0,svg:{fontCache:'global'}}</script>
+<script id=MathJax-script async src=/js/mathjax/es5/tex-mml-chtml.js></script>
+<script src=/js/entries.js></script><script src=/js/flexsearch.min.js></script>
+<script src=/js/banner.js></script><script src=/js/header-search.js></script></head>
+<body class=mathjax_ignore>
+<aside>
+<div>
+<div>
+<a href=/>
+<img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo>
+</a>
+<ul>
+<li><a href=/>Home</a></li>
+<li><a href=/topics/>Topics</a></li>
+<li><a href=/download/>Download</a></li>
+<li><a href=/help/>Help</a></li>
+<li><a href=/statistics/>Statistics</a></li>
+<li><a href=/about/>About</a></li>
+</ul>
+</div>
+<ul>
+<li><a href=/contribution/>Contribution</a></li>
+</ul>
+</div>
+</aside>
+<div class="content entries"><header>
+<form action=/%20search>
+<div class=form-container>
+<input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
+<datalist id=autocomplete>
+</datalist>
+</div>
+</form>
+<h1><span class=first>C</span>ollections <span class=first>F</span>ramework</h1>
+<div>
+<p><a href=/authors/peter-lammich>Peter Lammich</a>
+with contributions from <a href=/authors/andreas-lochbihler>Andreas Lochbihler</a> and <a href=/authors/thomas-tuerk>Thomas Tuerk</a>
+</p>
+<p class=date>25 November 2009</p>
+</div>
+</header><div id=banner data-id=0>
+<p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button>
+</div>
+<div><main>
+<h3>Abstract</h3>
+<div class="abstract mathjax_process">This development provides an efficient, extensible, machine checked collections framework. The library adopts the concepts of interface, implementation and generic algorithm from object-oriented programming and implements them in Isabelle/HOL. The framework features the use of data refinement techniques to refine an abstract specification (using high-level concepts like sets) to a more concrete implementation (using collection datastructures, like red-black-trees). The code-generator of Isabelle/HOL can be used to generate efficient code.</div><a href=http://isa-afp.org/LICENSE>BSD License</a><h3>Change history</h3>
+<p>[2010-10-08] New Interfaces OrderedSet, OrderedMap, List.
 Fifo now implements list-interface Function names changed put/get --> enqueue/dequeue.
 New Implementations ArrayList, ArrayHashMap, ArrayHashSet, TrieMap, TrieSet.
 Invariant-free datastructures Invariant implicitely hidden in typedef.
 Record-interfaces All operations of an interface encapsulated as record.
-Examples moved to examples subdirectory.<br>[2010-12-01] New Interfaces Priority Queues, Annotated Lists. Implemented by finger trees, (skew) binomial queues.<br>[2011-10-10] SetSpec Added operations sng, isSng, bexists, size_abort, diff, filter, iterate_rule_insertP
+Examples moved to examples subdirectory.<br>
+[2010-12-01] New Interfaces Priority Queues, Annotated Lists. Implemented by finger trees, (skew) binomial queues.<br>
+[2011-10-10] SetSpec Added operations sng, isSng, bexists, size_abort, diff, filter, iterate_rule_insertP
 MapSpec Added operations sng, isSng, iterate_rule_insertP, bexists, size, size_abort, restrict,
 map_image_filter, map_value_image_filter
-Some maintenance changes<br>[2012-04-25] New iterator foundation by Tuerk. Various maintenance changes.<br>[2012-08] Collections V2. New features Polymorphic iterators. Generic algorithm instantiation where required. Naming scheme changed from xx_opname to xx.opname.
-A compatibility file CollectionsV1 tries to simplify porting of existing theories, by providing old naming scheme and the old monomorphic iterator locales.<br>[2013-09] Added Generic Collection Framework based on Autoref. The GenCF provides Arbitrary nesting, full integration with Autoref.<br>[2014-06] Maintenace changes to GenCF Optimized inj_image on list_set. op_set_cart (Cartesian product). big-Union operation. atLeastLessThan - operation ({a..&lt;b})<br></p><h3>Depends On</h3><ul><li><a href=/entries/refine_monadic>Refine_Monadic</a></li><li><a href=/entries/binomial-heaps>Binomial-Heaps</a></li><li><a href=/entries/finger-trees>Finger-Trees</a></li><li><a href=/entries/native_word>Native_Word</a></li><li><a href=/entries/trie>Trie</a></li></ul><h3>Used by</h3><ul><li><a href=/entries/kruskal/>Kruskal</a></li><li><a href=/entries/transition_systems_and_automata/>Transition_Systems_and_Automata</a></li><li><a href=/entries/robdd/>ROBDD</a></li><li><a href=/entries/formal_ssa/>Formal_SSA</a></li><li><a href=/entries/deriving/>Deriving</a></li><li><a href=/entries/abstract_completeness/>Abstract_Completeness</a></li><li><a href=/entries/containers/>Containers</a></li><li><a href=/entries/separation_logic_imperative_hol/>Separation_Logic_Imperative_HOL</a></li><li><a href=/entries/dijkstra_shortest_path/>Dijkstra_Shortest_Path</a></li><li><a href=/entries/transitive-closure/>Transitive-Closure</a></li><li><a href=/entries/tree-automata/>Tree-Automata</a></li><li><a href=/entries/jinjathreads/>JinjaThreads</a></li></ul><h3>Topics</h3><ul><li><a href=/topics/computer-science/data-structures>Computer science/Data structures</a></li></ul><h3>Related Entries</h3><ul><li><a href=/entries/jinjathreads>JinjaThreads</a></li><li><a href=/entries/containers>Containers</a></li></ul><h3>Theories</h3><ul><li><a href=theories/#Sorted_List_Operations>Sorted_List_Operations</a></li><li><a href=theories/#HashCode>HashCode</a></li><li><a href=theories/#Code_Target_ICF>Code_Target_ICF</a></li><li><a href=theories/#SetIterator>SetIterator</a></li><li><a href=theories/#SetIteratorOperations>SetIteratorOperations</a></li><li><a href=theories/#Proper_Iterator>Proper_Iterator</a></li><li><a href=theories/#It_to_It>It_to_It</a></li><li><a href=theories/#SetIteratorGA>SetIteratorGA</a></li><li><a href=theories/#Gen_Iterator>Gen_Iterator</a></li><li><a href=theories/#Idx_Iterator>Idx_Iterator</a></li><li><a href=theories/#Iterator>Iterator</a></li><li><a href=theories/#RBT_add>RBT_add</a></li><li><a href=theories/#Dlist_add>Dlist_add</a></li><li><a href=theories/#Assoc_List>Assoc_List</a></li><li><a href=theories/#Diff_Array>Diff_Array</a></li><li><a href=theories/#Partial_Equivalence_Relation>Partial_Equivalence_Relation</a></li><li><a href=theories/#ICF_Tools>ICF_Tools</a></li><li><a href=theories/#Ord_Code_Preproc>Ord_Code_Preproc</a></li><li><a href=theories/#Record_Intf>Record_Intf</a></li><li><a href=theories/#Locale_Code>Locale_Code</a></li><li><a href=theories/#ICF_Spec_Base>ICF_Spec_Base</a></li><li><a href=theories/#MapSpec>MapSpec</a></li><li><a href=theories/#Robdd>Robdd</a></li><li><a href=theories/#Locale_Code_Ex>Locale_Code_Ex</a></li><li><a href=theories/#DatRef>DatRef</a></li><li><a href=theories/#SetAbstractionIterator>SetAbstractionIterator</a></li><li><a href=theories/#GenCF_Chapter>GenCF_Chapter</a></li><li><a href=theories/#GenCF_Intf_Chapter>GenCF_Intf_Chapter</a></li><li><a href=theories/#Intf_Map>Intf_Map</a></li><li><a href=theories/#Intf_Set>Intf_Set</a></li><li><a href=theories/#Intf_Hash>Intf_Hash</a></li><li><a href=theories/#Intf_Comp>Intf_Comp</a></li><li><a href=theories/#GenCF_Gen_Chapter>GenCF_Gen_Chapter</a></li><li><a href=theories/#Gen_Set>Gen_Set</a></li><li><a href=theories/#Gen_Map>Gen_Map</a></li><li><a href=theories/#Gen_Map2Set>Gen_Map2Set</a></li><li><a href=theories/#Gen_Comp>Gen_Comp</a></li><li><a href=theories/#GenCF_Impl_Chapter>GenCF_Impl_Chapter</a></li><li><a href=theories/#Impl_Array_Stack>Impl_Array_Stack</a></li><li><a href=theories/#Impl_List_Set>Impl_List_Set</a></li><li><a href=theories/#Array_Iterator>Array_Iterator</a></li><li><a href=theories/#Impl_List_Map>Impl_List_Map</a></li><li><a href=theories/#Impl_Array_Hash_Map>Impl_Array_Hash_Map</a></li><li><a href=theories/#Impl_RBT_Map>Impl_RBT_Map</a></li><li><a href=theories/#Impl_Cfun_Set>Impl_Cfun_Set</a></li><li><a href=theories/#Impl_Array_Map>Impl_Array_Map</a></li><li><a href=theories/#Impl_Bit_Set>Impl_Bit_Set</a></li><li><a href=theories/#Impl_Uv_Set>Impl_Uv_Set</a></li><li><a href=theories/#Gen_Hash>Gen_Hash</a></li><li><a href=theories/#GenCF>GenCF</a></li><li><a href=theories/#ICF_Chapter>ICF_Chapter</a></li><li><a href=theories/#ICF_Spec_Chapter>ICF_Spec_Chapter</a></li><li><a href=theories/#SetSpec>SetSpec</a></li><li><a href=theories/#ListSpec>ListSpec</a></li><li><a href=theories/#AnnotatedListSpec>AnnotatedListSpec</a></li><li><a href=theories/#PrioSpec>PrioSpec</a></li><li><a href=theories/#PrioUniqueSpec>PrioUniqueSpec</a></li><li><a href=theories/#ICF_Gen_Algo_Chapter>ICF_Gen_Algo_Chapter</a></li><li><a href=theories/#SetIteratorCollectionsGA>SetIteratorCollectionsGA</a></li><li><a href=theories/#MapGA>MapGA</a></li><li><a href=theories/#SetGA>SetGA</a></li><li><a href=theories/#SetByMap>SetByMap</a></li><li><a href=theories/#ListGA>ListGA</a></li><li><a href=theories/#SetIndex>SetIndex</a></li><li><a href=theories/#Algos>Algos</a></li><li><a href=theories/#PrioByAnnotatedList>PrioByAnnotatedList</a></li><li><a href=theories/#PrioUniqueByAnnotatedList>PrioUniqueByAnnotatedList</a></li><li><a href=theories/#ICF_Impl_Chapter>ICF_Impl_Chapter</a></li><li><a href=theories/#ListMapImpl>ListMapImpl</a></li><li><a href=theories/#ListMapImpl_Invar>ListMapImpl_Invar</a></li><li><a href=theories/#RBTMapImpl>RBTMapImpl</a></li><li><a href=theories/#HashMap_Impl>HashMap_Impl</a></li><li><a href=theories/#HashMap>HashMap</a></li><li><a href=theories/#Trie_Impl>Trie_Impl</a></li><li><a href=theories/#Trie2>Trie2</a></li><li><a href=theories/#TrieMapImpl>TrieMapImpl</a></li><li><a href=theories/#ArrayHashMap_Impl>ArrayHashMap_Impl</a></li><li><a href=theories/#ArrayHashMap>ArrayHashMap</a></li><li><a href=theories/#ArrayMapImpl>ArrayMapImpl</a></li><li><a href=theories/#MapStdImpl>MapStdImpl</a></li><li><a href=theories/#ListSetImpl>ListSetImpl</a></li><li><a href=theories/#ListSetImpl_Invar>ListSetImpl_Invar</a></li><li><a href=theories/#ListSetImpl_NotDist>ListSetImpl_NotDist</a></li><li><a href=theories/#ListSetImpl_Sorted>ListSetImpl_Sorted</a></li><li><a href=theories/#RBTSetImpl>RBTSetImpl</a></li><li><a href=theories/#HashSet>HashSet</a></li><li><a href=theories/#TrieSetImpl>TrieSetImpl</a></li><li><a href=theories/#ArrayHashSet>ArrayHashSet</a></li><li><a href=theories/#ArraySetImpl>ArraySetImpl</a></li><li><a href=theories/#SetStdImpl>SetStdImpl</a></li><li><a href=theories/#Fifo>Fifo</a></li><li><a href=theories/#BinoPrioImpl>BinoPrioImpl</a></li><li><a href=theories/#SkewPrioImpl>SkewPrioImpl</a></li><li><a href=theories/#FTAnnotatedListImpl>FTAnnotatedListImpl</a></li><li><a href=theories/#FTPrioImpl>FTPrioImpl</a></li><li><a href=theories/#FTPrioUniqueImpl>FTPrioUniqueImpl</a></li><li><a href=theories/#ICF_Impl>ICF_Impl</a></li><li><a href=theories/#ICF_Refine_Monadic>ICF_Refine_Monadic</a></li><li><a href=theories/#ICF_Autoref>ICF_Autoref</a></li><li><a href=theories/#ICF_Entrypoints_Chapter>ICF_Entrypoints_Chapter</a></li><li><a href=theories/#Collections>Collections</a></li><li><a href=theories/#CollectionsV1>CollectionsV1</a></li><li><a href=theories/#Collections_Entrypoints_Chapter>Collections_Entrypoints_Chapter</a></li><li><a href=theories/#Refine_Dflt>Refine_Dflt</a></li><li><a href=theories/#Refine_Dflt_ICF>Refine_Dflt_ICF</a></li><li><a href=theories/#Refine_Dflt_Only_ICF>Refine_Dflt_Only_ICF</a></li><li><a href=theories/#Userguides_Chapter>Userguides_Chapter</a></li><li><a href=theories/#Refine_Monadic_Userguide>Refine_Monadic_Userguide</a></li><li><a href=theories/#ICF_Userguide>ICF_Userguide</a></li></ul></main><nav class=links><a class=popUpButton href=#citePopUp>Cite</a>
-<a class=popUpButton href=#downloadPopUp>Download</a><h4>PDFs</h4><a href=https://www.isa-afp.org/browser_info/current/AFP/Collections/outline.pdf>Proof
+Some maintenance changes<br>
+[2012-04-25] New iterator foundation by Tuerk. Various maintenance changes.<br>
+[2012-08] Collections V2. New features Polymorphic iterators. Generic algorithm instantiation where required. Naming scheme changed from xx_opname to xx.opname.
+A compatibility file CollectionsV1 tries to simplify porting of existing theories, by providing old naming scheme and the old monomorphic iterator locales.<br>
+[2013-09] Added Generic Collection Framework based on Autoref. The GenCF provides Arbitrary nesting, full integration with Autoref.<br>
+[2014-06] Maintenace changes to GenCF Optimized inj_image on list_set. op_set_cart (Cartesian product). big-Union operation. atLeastLessThan - operation ({a..&lt;b})<br></p><h3>Depends On</h3><ul><li><a href=/entries/refine_monadic>Refine_Monadic</a></li><li><a href=/entries/binomial-heaps>Binomial-Heaps</a></li><li><a href=/entries/finger-trees>Finger-Trees</a></li><li><a href=/entries/native_word>Native_Word</a></li><li><a href=/entries/trie>Trie</a></li></ul><h3>Used by</h3>
+<ul><li><a href=/entries/kruskal/>Kruskal</a></li><li><a href=/entries/transition_systems_and_automata/>Transition_Systems_and_Automata</a></li><li><a href=/entries/robdd/>ROBDD</a></li><li><a href=/entries/formal_ssa/>Formal_SSA</a></li><li><a href=/entries/deriving/>Deriving</a></li><li><a href=/entries/abstract_completeness/>Abstract_Completeness</a></li><li><a href=/entries/containers/>Containers</a></li><li><a href=/entries/separation_logic_imperative_hol/>Separation_Logic_Imperative_HOL</a></li><li><a href=/entries/dijkstra_shortest_path/>Dijkstra_Shortest_Path</a></li><li><a href=/entries/transitive-closure/>Transitive-Closure</a></li><li><a href=/entries/tree-automata/>Tree-Automata</a></li><li><a href=/entries/jinjathreads/>JinjaThreads</a></li></ul><h3>Topics</h3>
+<ul><li><a href=/topics/computer-science/data-structures>Computer science/Data structures</a></li></ul><h3>Related Entries</h3>
+<ul><li><a href=/entries/jinjathreads>JinjaThreads</a></li><li><a href=/entries/containers>Containers</a></li></ul><h3>Theories</h3>
+<ul>
+<li><a href=theories/#Sorted_List_Operations>Sorted_List_Operations</a></li><li><a href=theories/#HashCode>HashCode</a></li><li><a href=theories/#Code_Target_ICF>Code_Target_ICF</a></li><li><a href=theories/#SetIterator>SetIterator</a></li><li><a href=theories/#SetIteratorOperations>SetIteratorOperations</a></li><li><a href=theories/#Proper_Iterator>Proper_Iterator</a></li><li><a href=theories/#It_to_It>It_to_It</a></li><li><a href=theories/#SetIteratorGA>SetIteratorGA</a></li><li><a href=theories/#Gen_Iterator>Gen_Iterator</a></li><li><a href=theories/#Idx_Iterator>Idx_Iterator</a></li><li><a href=theories/#Iterator>Iterator</a></li><li><a href=theories/#RBT_add>RBT_add</a></li><li><a href=theories/#Dlist_add>Dlist_add</a></li><li><a href=theories/#Assoc_List>Assoc_List</a></li><li><a href=theories/#Diff_Array>Diff_Array</a></li><li><a href=theories/#Partial_Equivalence_Relation>Partial_Equivalence_Relation</a></li><li><a href=theories/#ICF_Tools>ICF_Tools</a></li><li><a href=theories/#Ord_Code_Preproc>Ord_Code_Preproc</a></li><li><a href=theories/#Record_Intf>Record_Intf</a></li><li><a href=theories/#Locale_Code>Locale_Code</a></li><li><a href=theories/#ICF_Spec_Base>ICF_Spec_Base</a></li><li><a href=theories/#MapSpec>MapSpec</a></li><li><a href=theories/#Robdd>Robdd</a></li><li><a href=theories/#Locale_Code_Ex>Locale_Code_Ex</a></li><li><a href=theories/#DatRef>DatRef</a></li><li><a href=theories/#SetAbstractionIterator>SetAbstractionIterator</a></li><li><a href=theories/#GenCF_Chapter>GenCF_Chapter</a></li><li><a href=theories/#GenCF_Intf_Chapter>GenCF_Intf_Chapter</a></li><li><a href=theories/#Intf_Map>Intf_Map</a></li><li><a href=theories/#Intf_Set>Intf_Set</a></li><li><a href=theories/#Intf_Hash>Intf_Hash</a></li><li><a href=theories/#Intf_Comp>Intf_Comp</a></li><li><a href=theories/#GenCF_Gen_Chapter>GenCF_Gen_Chapter</a></li><li><a href=theories/#Gen_Set>Gen_Set</a></li><li><a href=theories/#Gen_Map>Gen_Map</a></li><li><a href=theories/#Gen_Map2Set>Gen_Map2Set</a></li><li><a href=theories/#Gen_Comp>Gen_Comp</a></li><li><a href=theories/#GenCF_Impl_Chapter>GenCF_Impl_Chapter</a></li><li><a href=theories/#Impl_Array_Stack>Impl_Array_Stack</a></li><li><a href=theories/#Impl_List_Set>Impl_List_Set</a></li><li><a href=theories/#Array_Iterator>Array_Iterator</a></li><li><a href=theories/#Impl_List_Map>Impl_List_Map</a></li><li><a href=theories/#Impl_Array_Hash_Map>Impl_Array_Hash_Map</a></li><li><a href=theories/#Impl_RBT_Map>Impl_RBT_Map</a></li><li><a href=theories/#Impl_Cfun_Set>Impl_Cfun_Set</a></li><li><a href=theories/#Impl_Array_Map>Impl_Array_Map</a></li><li><a href=theories/#Impl_Bit_Set>Impl_Bit_Set</a></li><li><a href=theories/#Impl_Uv_Set>Impl_Uv_Set</a></li><li><a href=theories/#Gen_Hash>Gen_Hash</a></li><li><a href=theories/#GenCF>GenCF</a></li><li><a href=theories/#ICF_Chapter>ICF_Chapter</a></li><li><a href=theories/#ICF_Spec_Chapter>ICF_Spec_Chapter</a></li><li><a href=theories/#SetSpec>SetSpec</a></li><li><a href=theories/#ListSpec>ListSpec</a></li><li><a href=theories/#AnnotatedListSpec>AnnotatedListSpec</a></li><li><a href=theories/#PrioSpec>PrioSpec</a></li><li><a href=theories/#PrioUniqueSpec>PrioUniqueSpec</a></li><li><a href=theories/#ICF_Gen_Algo_Chapter>ICF_Gen_Algo_Chapter</a></li><li><a href=theories/#SetIteratorCollectionsGA>SetIteratorCollectionsGA</a></li><li><a href=theories/#MapGA>MapGA</a></li><li><a href=theories/#SetGA>SetGA</a></li><li><a href=theories/#SetByMap>SetByMap</a></li><li><a href=theories/#ListGA>ListGA</a></li><li><a href=theories/#SetIndex>SetIndex</a></li><li><a href=theories/#Algos>Algos</a></li><li><a href=theories/#PrioByAnnotatedList>PrioByAnnotatedList</a></li><li><a href=theories/#PrioUniqueByAnnotatedList>PrioUniqueByAnnotatedList</a></li><li><a href=theories/#ICF_Impl_Chapter>ICF_Impl_Chapter</a></li><li><a href=theories/#ListMapImpl>ListMapImpl</a></li><li><a href=theories/#ListMapImpl_Invar>ListMapImpl_Invar</a></li><li><a href=theories/#RBTMapImpl>RBTMapImpl</a></li><li><a href=theories/#HashMap_Impl>HashMap_Impl</a></li><li><a href=theories/#HashMap>HashMap</a></li><li><a href=theories/#Trie_Impl>Trie_Impl</a></li><li><a href=theories/#Trie2>Trie2</a></li><li><a href=theories/#TrieMapImpl>TrieMapImpl</a></li><li><a href=theories/#ArrayHashMap_Impl>ArrayHashMap_Impl</a></li><li><a href=theories/#ArrayHashMap>ArrayHashMap</a></li><li><a href=theories/#ArrayMapImpl>ArrayMapImpl</a></li><li><a href=theories/#MapStdImpl>MapStdImpl</a></li><li><a href=theories/#ListSetImpl>ListSetImpl</a></li><li><a href=theories/#ListSetImpl_Invar>ListSetImpl_Invar</a></li><li><a href=theories/#ListSetImpl_NotDist>ListSetImpl_NotDist</a></li><li><a href=theories/#ListSetImpl_Sorted>ListSetImpl_Sorted</a></li><li><a href=theories/#RBTSetImpl>RBTSetImpl</a></li><li><a href=theories/#HashSet>HashSet</a></li><li><a href=theories/#TrieSetImpl>TrieSetImpl</a></li><li><a href=theories/#ArrayHashSet>ArrayHashSet</a></li><li><a href=theories/#ArraySetImpl>ArraySetImpl</a></li><li><a href=theories/#SetStdImpl>SetStdImpl</a></li><li><a href=theories/#Fifo>Fifo</a></li><li><a href=theories/#BinoPrioImpl>BinoPrioImpl</a></li><li><a href=theories/#SkewPrioImpl>SkewPrioImpl</a></li><li><a href=theories/#FTAnnotatedListImpl>FTAnnotatedListImpl</a></li><li><a href=theories/#FTPrioImpl>FTPrioImpl</a></li><li><a href=theories/#FTPrioUniqueImpl>FTPrioUniqueImpl</a></li><li><a href=theories/#ICF_Impl>ICF_Impl</a></li><li><a href=theories/#ICF_Refine_Monadic>ICF_Refine_Monadic</a></li><li><a href=theories/#ICF_Autoref>ICF_Autoref</a></li><li><a href=theories/#ICF_Entrypoints_Chapter>ICF_Entrypoints_Chapter</a></li><li><a href=theories/#Collections>Collections</a></li><li><a href=theories/#CollectionsV1>CollectionsV1</a></li><li><a href=theories/#Collections_Entrypoints_Chapter>Collections_Entrypoints_Chapter</a></li><li><a href=theories/#Refine_Dflt>Refine_Dflt</a></li><li><a href=theories/#Refine_Dflt_ICF>Refine_Dflt_ICF</a></li><li><a href=theories/#Refine_Dflt_Only_ICF>Refine_Dflt_Only_ICF</a></li><li><a href=theories/#Userguides_Chapter>Userguides_Chapter</a></li><li><a href=theories/#Refine_Monadic_Userguide>Refine_Monadic_Userguide</a></li><li><a href=theories/#ICF_Userguide>ICF_Userguide</a></li></ul>
+</main>
+<nav class=links>
+<a class=popUpButton href=#citePopUp>Cite</a>
+<a class=popUpButton href=#downloadPopUp>Download</a>
+<h4>PDFs</h4>
+<a href=https://www.isa-afp.org/browser_info/current/AFP/Collections/outline.pdf>Proof
 outline</a>
 <a href=https://www.isa-afp.org/browser_info/current/AFP/Collections/document.pdf>Proof
 document</a>
-<a href=https://www.isa-afp.org/browser_info/current/AFP/Collections/session_graph.pdf>Dependencies</a></nav><div id=citePopUp class=overlay><a class=cancel href=#></a><div class=popup><h2>Cite</h2><a class=close href=#>&#215;</a><div><p style=display:none id=bibtexFileName>Collections-AFP</p><pre id=copyText>@article{Collections-AFP,
+<a href=https://www.isa-afp.org/browser_info/current/AFP/Collections/session_graph.pdf>Dependencies</a>
+</nav>
+<div id=citePopUp class=overlay>
+<a class=cancel href=#></a>
+<div class=popup>
+<h2>Cite</h2>
+<a class=close href=#>&#215;</a>
+<div>
+<p style=display:none id=bibtexFileName>Collections-AFP</p>
+<pre id=copyText>@article{Collections-AFP,
   author  = {Peter Lammich},
   title   = {Collections Framework},
   journal = {Archive of Formal Proofs},
@@ -23,24 +108,98 @@ document</a>
   note    = {\url{http://isa-afp.org/entries/Collections.html},
             Formal proof development},
   ISSN    = {2150-914x},
-}</pre><button id=copyBibtex>Copy</button> <a id=downloadBibtex>Download</a></div></div></div><div id=downloadPopUp class=overlay><a class=cancel href=#></a><div class=popup><h2>Download</h2><a class=close href=#>&#215;</a>
-<a href=https://isa-afp.org/release/afp-Collections-current.tar.gz download>Download latest</a><p>Older releases:</p><ul><li>Isabelle2019:
-<a href=https://isa-afp.org/release/afp-Collections-2019-06-11.tar.gz>afp-Collections-2019-06-11.tar.gz</a></li><li>Isabelle2018:
-<a href=https://isa-afp.org/release/afp-Collections-2018-08-16.tar.gz>afp-Collections-2018-08-16.tar.gz</a></li><li>Isabelle2017:
-<a href=https://isa-afp.org/release/afp-Collections-2017-10-10.tar.gz>afp-Collections-2017-10-10.tar.gz</a></li><li>Isabelle2016-1:
-<a href=https://isa-afp.org/release/afp-Collections-2016-12-17.tar.gz>afp-Collections-2016-12-17.tar.gz</a></li><li>Isabelle2016:
-<a href=https://isa-afp.org/release/afp-Collections-2016-02-22.tar.gz>afp-Collections-2016-02-22.tar.gz</a></li><li>Isabelle2015:
-<a href=https://isa-afp.org/release/afp-Collections-2015-05-27.tar.gz>afp-Collections-2015-05-27.tar.gz</a></li><li>Isabelle2014:
-<a href=https://isa-afp.org/release/afp-Collections-2014-08-28.tar.gz>afp-Collections-2014-08-28.tar.gz</a></li><li>Isabelle2013-2:
-<a href=https://isa-afp.org/release/afp-Collections-2013-12-11.tar.gz>afp-Collections-2013-12-11.tar.gz</a></li><li>Isabelle2013-1:
-<a href=https://isa-afp.org/release/afp-Collections-2013-11-17.tar.gz>afp-Collections-2013-11-17.tar.gz</a></li><li>Isabelle2013:
-<a href=https://isa-afp.org/release/afp-Collections-2013-03-02.tar.gz>afp-Collections-2013-03-02.tar.gz</a></li><li>Isabelle2013:
-<a href=https://isa-afp.org/release/afp-Collections-2013-02-16.tar.gz>afp-Collections-2013-02-16.tar.gz</a></li><li>Isabelle2012:
-<a href=https://isa-afp.org/release/afp-Collections-2012-05-24.tar.gz>afp-Collections-2012-05-24.tar.gz</a></li><li>Isabelle2011-1:
-<a href=https://isa-afp.org/release/afp-Collections-2011-10-12.tar.gz>afp-Collections-2011-10-12.tar.gz</a></li><li>Isabelle2011-1:
-<a href=https://isa-afp.org/release/afp-Collections-2011-10-11.tar.gz>afp-Collections-2011-10-11.tar.gz</a></li><li>Isabelle2011:
-<a href=https://isa-afp.org/release/afp-Collections-2011-02-11.tar.gz>afp-Collections-2011-02-11.tar.gz</a></li><li>Isabelle2009-2:
-<a href=https://isa-afp.org/release/afp-Collections-2010-06-30.tar.gz>afp-Collections-2010-06-30.tar.gz</a></li><li>Isabelle2009-1:
-<a href=https://isa-afp.org/release/afp-Collections-2009-12-13.tar.gz>afp-Collections-2009-12-13.tar.gz</a></li><li>Isabelle2009-1:
-<a href=https://isa-afp.org/release/afp-Collections-2009-12-12.tar.gz>afp-Collections-2009-12-12.tar.gz</a></li><li>Isabelle2009:
-<a href=https://isa-afp.org/release/afp-Collections-2009-11-29.tar.gz>afp-Collections-2009-11-29.tar.gz</a></li></ul></div></div></div></div></body></html>
+}</pre>
+<button id=copyBibtex>Copy</button> <a id=downloadBibtex>Download</a>
+</div>
+</div>
+</div>
+<div id=downloadPopUp class=overlay>
+<a class=cancel href=#></a>
+<div class=popup>
+<h2>Download</h2>
+<a class=close href=#>&#215;</a>
+<a href=https://isa-afp.org/release/afp-Collections-current.tar.gz download>Download latest</a>
+<p>Older releases:</p>
+<ul><li>Isabelle2019:
+<a href=https://isa-afp.org/release/afp-Collections-2019-06-11.tar.gz>
+afp-Collections-2019-06-11.tar.gz
+</a>
+</li><li>Isabelle2018:
+<a href=https://isa-afp.org/release/afp-Collections-2018-08-16.tar.gz>
+afp-Collections-2018-08-16.tar.gz
+</a>
+</li><li>Isabelle2017:
+<a href=https://isa-afp.org/release/afp-Collections-2017-10-10.tar.gz>
+afp-Collections-2017-10-10.tar.gz
+</a>
+</li><li>Isabelle2016-1:
+<a href=https://isa-afp.org/release/afp-Collections-2016-12-17.tar.gz>
+afp-Collections-2016-12-17.tar.gz
+</a>
+</li><li>Isabelle2016:
+<a href=https://isa-afp.org/release/afp-Collections-2016-02-22.tar.gz>
+afp-Collections-2016-02-22.tar.gz
+</a>
+</li><li>Isabelle2015:
+<a href=https://isa-afp.org/release/afp-Collections-2015-05-27.tar.gz>
+afp-Collections-2015-05-27.tar.gz
+</a>
+</li><li>Isabelle2014:
+<a href=https://isa-afp.org/release/afp-Collections-2014-08-28.tar.gz>
+afp-Collections-2014-08-28.tar.gz
+</a>
+</li><li>Isabelle2013-2:
+<a href=https://isa-afp.org/release/afp-Collections-2013-12-11.tar.gz>
+afp-Collections-2013-12-11.tar.gz
+</a>
+</li><li>Isabelle2013-1:
+<a href=https://isa-afp.org/release/afp-Collections-2013-11-17.tar.gz>
+afp-Collections-2013-11-17.tar.gz
+</a>
+</li><li>Isabelle2013:
+<a href=https://isa-afp.org/release/afp-Collections-2013-03-02.tar.gz>
+afp-Collections-2013-03-02.tar.gz
+</a>
+</li><li>Isabelle2013:
+<a href=https://isa-afp.org/release/afp-Collections-2013-02-16.tar.gz>
+afp-Collections-2013-02-16.tar.gz
+</a>
+</li><li>Isabelle2012:
+<a href=https://isa-afp.org/release/afp-Collections-2012-05-24.tar.gz>
+afp-Collections-2012-05-24.tar.gz
+</a>
+</li><li>Isabelle2011-1:
+<a href=https://isa-afp.org/release/afp-Collections-2011-10-12.tar.gz>
+afp-Collections-2011-10-12.tar.gz
+</a>
+</li><li>Isabelle2011-1:
+<a href=https://isa-afp.org/release/afp-Collections-2011-10-11.tar.gz>
+afp-Collections-2011-10-11.tar.gz
+</a>
+</li><li>Isabelle2011:
+<a href=https://isa-afp.org/release/afp-Collections-2011-02-11.tar.gz>
+afp-Collections-2011-02-11.tar.gz
+</a>
+</li><li>Isabelle2009-2:
+<a href=https://isa-afp.org/release/afp-Collections-2010-06-30.tar.gz>
+afp-Collections-2010-06-30.tar.gz
+</a>
+</li><li>Isabelle2009-1:
+<a href=https://isa-afp.org/release/afp-Collections-2009-12-13.tar.gz>
+afp-Collections-2009-12-13.tar.gz
+</a>
+</li><li>Isabelle2009-1:
+<a href=https://isa-afp.org/release/afp-Collections-2009-12-12.tar.gz>
+afp-Collections-2009-12-12.tar.gz
+</a>
+</li><li>Isabelle2009:
+<a href=https://isa-afp.org/release/afp-Collections-2009-11-29.tar.gz>
+afp-Collections-2009-11-29.tar.gz
+</a>
+</li></ul>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

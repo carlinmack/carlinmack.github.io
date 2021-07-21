@@ -1,7 +1,81 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Session Hood_Melville_Queue - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session Hood_Melville_Queue"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/hood_melville_queue/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Session Hood_Melville_Queue"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css><link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script><script src=/js/banner.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><li><a href=/entries/hood_melville_queue>Return to entry</a></li></ul><hr><ul><li><a href=#Hood_Melville_Queue>Hood_Melville_Queue</a><ul><li><a href=#Hood_Melville_Queue-rev_steps_app>rev_steps_app</a></li><li><a href=#Hood_Melville_Queue-inv_st_steps>inv_st_steps</a></li><li><a href=#Hood_Melville_Queue-inv_st_exec>inv_st_exec</a></li><li><a href=#Hood_Melville_Queue-inv_st_exec2>inv_st_exec2</a></li><li><a href=#Hood_Melville_Queue-inv_st_invalidate>inv_st_invalidate</a></li><li><a href=#Hood_Melville_Queue-invar_empty>invar_empty</a></li><li><a href=#Hood_Melville_Queue-tl_rev_take>tl_rev_take</a></li><li><a href=#Hood_Melville_Queue-tl_rev_take_Suc>tl_rev_take_Suc</a></li><li><a href=#Hood_Melville_Queue-invar_deq>invar_deq</a></li><li><a href=#Hood_Melville_Queue-invar_enq>invar_enq</a></li><li><a href=#Hood_Melville_Queue-queue_correct_deq>queue_correct_deq</a></li><li><a href=#Hood_Melville_Queue-queue_correct_enq>queue_correct_enq</a></li><li><a href=#Hood_Melville_Queue-invar_qfa>invar_qfa</a></li><li><a href=#Hood_Melville_Queue-qfa_deq_correct>qfa_deq_correct</a></li><li><a href=#Hood_Melville_Queue-qfa_enq_correct>qfa_enq_correct</a></li><li><a href=#Hood_Melville_Queue-first_correct>first_correct</a></li></ul></li></ul></div><ul><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Hood_Melville_Queue/outline.pdf>Proof
-outline</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Hood_Melville_Queue/document.pdf>Proof
-document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Hood_Melville_Queue/session_graph.pdf>Theory dependencies</a></li></ul></div></aside><div class="content theories"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
-<datalist id=autocomplete></datalist></div></form><h1><span class=first>S</span>ession <span class=first>H</span>ood_<span class=first>M</span>elville_<span class=first>Q</span>ueue</h1><div></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><div id=Hood_Melville_Queue><div class=head><h1>Theory Hood_Melville_Queue</h1></div><pre class=source><span class=keyword1><span class=command>theory</span></span> Hood_Melville_Queue
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Session Hood_Melville_Queue - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session Hood_Melville_Queue">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="/entries/hood_melville_queue/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories">
+<meta property="og:site_name" content="Archive of Formal Proofs">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="/images/afp.png">
+<meta name=twitter:title content="Session Hood_Melville_Queue">
+<meta name=twitter:description content>
+<link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css>
+<link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script>
+<script src=/js/banner.js></script><script src=/js/header-search.js></script></head>
+<body class=mathjax_ignore>
+<aside>
+<div>
+<div>
+<a href=/>
+<img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo>
+</a>
+<ul>
+<li><a href=/entries/hood_melville_queue>Return to entry</a></li>
+</ul>
+<hr>
+<ul><li><a href=#Hood_Melville_Queue>Hood_Melville_Queue</a>
+<ul>
+<li><a href=#Hood_Melville_Queue-rev_steps_app>rev_steps_app</a></li>
+<li><a href=#Hood_Melville_Queue-inv_st_steps>inv_st_steps</a></li>
+<li><a href=#Hood_Melville_Queue-inv_st_exec>inv_st_exec</a></li>
+<li><a href=#Hood_Melville_Queue-inv_st_exec2>inv_st_exec2</a></li>
+<li><a href=#Hood_Melville_Queue-inv_st_invalidate>inv_st_invalidate</a></li>
+<li><a href=#Hood_Melville_Queue-invar_empty>invar_empty</a></li>
+<li><a href=#Hood_Melville_Queue-tl_rev_take>tl_rev_take</a></li>
+<li><a href=#Hood_Melville_Queue-tl_rev_take_Suc>tl_rev_take_Suc</a></li>
+<li><a href=#Hood_Melville_Queue-invar_deq>invar_deq</a></li>
+<li><a href=#Hood_Melville_Queue-invar_enq>invar_enq</a></li>
+<li><a href=#Hood_Melville_Queue-queue_correct_deq>queue_correct_deq</a></li>
+<li><a href=#Hood_Melville_Queue-queue_correct_enq>queue_correct_enq</a></li>
+<li><a href=#Hood_Melville_Queue-invar_qfa>invar_qfa</a></li>
+<li><a href=#Hood_Melville_Queue-qfa_deq_correct>qfa_deq_correct</a></li>
+<li><a href=#Hood_Melville_Queue-qfa_enq_correct>qfa_enq_correct</a></li>
+<li><a href=#Hood_Melville_Queue-first_correct>first_correct</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<ul>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Hood_Melville_Queue/outline.pdf>Proof
+outline</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Hood_Melville_Queue/document.pdf>Proof
+document</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Hood_Melville_Queue/session_graph.pdf>Theory dependencies</a></li>
+</ul>
+</div>
+</aside>
+<div class="content theories"><header>
+<form action=/%20search>
+<div class=form-container>
+<input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
+<datalist id=autocomplete>
+</datalist>
+</div>
+</form>
+<h1><span class=first>S</span>ession <span class=first>H</span>ood_<span class=first>M</span>elville_<span class=first>Q</span>ueue</h1>
+<div>
+</div>
+</header><div id=banner data-id=0>
+<p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button>
+</div>
+<div><main>
+<div id=Hood_Melville_Queue>
+<div class=head>
+<h1>Theory Hood_Melville_Queue</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>theory</span></span> Hood_Melville_Queue
 <span class=keyword2><span class=keyword>imports</span></span>
   <span class=quoted>"<a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL-Data_Structures/Queue_Spec.html>HOL-Data_Structures.Queue_Spec</a>"</span>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -786,4 +860,10 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Ho
   <span class=keyword3><span class=command>case</span></span> 8 <span class=keyword3><span class=command>thus</span></span> <span class=var><span class=quoted><span class=var>?case</span></span></span> <span class=keyword1><span class=command>using</span></span> invar_deq <span class=keyword1><span class=command>by</span></span> <span class=operator>simp</span>
 <span class=keyword1><span class=command>qed</span></span>
 
-<span class=keyword2><span class=keyword>end</span></span></pre></div></main></div></div></body></html>
+<span class=keyword2><span class=keyword>end</span></span></pre>
+</div>
+</main>
+</div>
+</div>
+</body>
+</html>

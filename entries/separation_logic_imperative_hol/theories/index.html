@@ -1,7 +1,626 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Session Separation_Logic_Imperative_HOL - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session Separation_Logic_Imperative_HOL"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/separation_logic_imperative_hol/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Session Separation_Logic_Imperative_HOL"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css><link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script><script src=/js/banner.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><li><a href=/entries/separation_logic_imperative_hol>Return to entry</a></li></ul><hr><ul><li><a href=#Imperative_HOL_Add>Imperative_HOL_Add</a><ul><li><a href=#Imperative_HOL_Add-effect_ref>effect_ref</a></li><li><a href=#Imperative_HOL_Add-lim_Ref_alloc>lim_Ref_alloc</a></li><li><a href=#Imperative_HOL_Add-lim_Array_alloc>lim_Array_alloc</a></li><li><a href=#Imperative_HOL_Add-lim_Array_set>lim_Array_set</a></li><li><a href=#Imperative_HOL_Add-lim_Array_update>lim_Array_update</a></li><li><a href=#Imperative_HOL_Add-addr_of_ref_alloc>addr_of_ref_alloc</a></li><li><a href=#Imperative_HOL_Add-addr_of_array_alloc>addr_of_array_alloc</a></li></ul></li><li><a href=#Syntax_Match>Syntax_Match</a><ul><li><a href=#Syntax_Match-left_commute>left_commute</a></li><li><a href=#Syntax_Match-right_commute>right_commute</a></li><li><a href=#Syntax_Match-safe_commute>safe_commute</a></li></ul></li><li><a href=#Run>Run</a><ul><li><a href=#Run-run_effectE>run_effectE</a></li><li><a href=#Run-run_effectI>run_effectI</a></li><li><a href=#Run-effect_run>effect_run</a></li><li><a href=#Run-success_run>success_run</a></li><li><a href=#Run-run_complete>run_complete</a></li><li><a href=#Run-run_detE>run_detE</a></li><li><a href=#Run-run_detI>run_detI</a></li><li><a href=#Run-run_exn>run_exn</a></li><li><a href=#Run-runE>runE</a></li><li><a href=#Run-runE%27>runE'</a></li><li><a href=#Run-run_return>run_return</a></li><li><a href=#Run-run_raise_iff>run_raise_iff</a></li><li><a href=#Run-run_raise>run_raise</a></li><li><a href=#Run-run_raiseI>run_raiseI</a></li><li><a href=#Run-run_if>run_if</a></li><li><a href=#Run-run_case_option>run_case_option</a></li><li><a href=#Run-run_heap>run_heap</a></li><li><a href=#Run-run_length>run_length</a></li><li><a href=#Run-run_new_array>run_new_array</a></li><li><a href=#Run-run_make>run_make</a></li><li><a href=#Run-run_upd>run_upd</a></li><li><a href=#Run-run_nth>run_nth</a></li><li><a href=#Run-run_of_list>run_of_list</a></li><li><a href=#Run-run_freeze>run_freeze</a></li><li><a href=#Run-run_new_ref>run_new_ref</a></li><li><a href=#Run-run_update>run_update</a></li><li><a href=#Run-run_lookup>run_lookup</a></li></ul></li><li><a href=#Assertions>Assertions</a><ul><li><a href=#Assertions-in_range_empty>in_range_empty</a></li><li><a href=#Assertions-in_range_dist_union>in_range_dist_union</a></li><li><a href=#Assertions-in_range_subset>in_range_subset</a></li><li><a href=#Assertions-relH_in_rangeI>relH_in_rangeI</a></li><li><a href=#Assertions-relH_refl>relH_refl</a></li><li><a href=#Assertions-relH_sym>relH_sym</a></li><li><a href=#Assertions-relH_trans>relH_trans</a></li><li><a href=#Assertions-relH_dist_union>relH_dist_union</a></li><li><a href=#Assertions-relH_subset>relH_subset</a></li><li><a href=#Assertions-relH_ref>relH_ref</a></li><li><a href=#Assertions-relH_array>relH_array</a></li><li><a href=#Assertions-relH_set_ref>relH_set_ref</a></li><li><a href=#Assertions-relH_set_array>relH_set_array</a></li><li><a href=#Assertions-properI>properI</a></li><li><a href=#Assertions-properD1>properD1</a></li><li><a href=#Assertions-properD2>properD2</a></li><li><a href=#Assertions-proper_iff>proper_iff</a></li><li><a href=#Assertions-Abs_assn_eqI>Abs_assn_eqI</a></li><li><a href=#Assertions-models_in_range>models_in_range</a></li><li><a href=#Assertions-mod_h_bot_indep>mod_h_bot_indep</a></li><li><a href=#Assertions-mod_h_bot_normalize>mod_h_bot_normalize</a></li><li><a href=#Assertions-mod_relH>mod_relH</a></li><li><a href=#Assertions-one_assn_proper>one_assn_proper</a></li><li><a href=#Assertions-times_assn_proper>times_assn_proper</a></li><li><a href=#Assertions-mod_star_conv>mod_star_conv</a></li><li><a href=#Assertions-mod_starD>mod_starD</a></li><li><a href=#Assertions-star_assnI>star_assnI</a></li><li><a href=#Assertions-assn_one_left>assn_one_left</a></li><li><a href=#Assertions-assn_times_comm>assn_times_comm</a></li><li><a href=#Assertions-assn_times_assoc>assn_times_assoc</a></li><li><a href=#Assertions-wand_proper>wand_proper</a></li><li><a href=#Assertions-wand_assnI>wand_assnI</a></li><li><a href=#Assertions-bool_assn_proper>bool_assn_proper</a></li><li><a href=#Assertions-star_false_left>star_false_left</a></li><li><a href=#Assertions-star_false_right>star_false_right</a></li><li><a href=#Assertions-assn_basic_inequalities>assn_basic_inequalities</a></li><li><a href=#Assertions-ex_assn_proper>ex_assn_proper</a></li><li><a href=#Assertions-ex_assn_const>ex_assn_const</a></li><li><a href=#Assertions-ex_one_point_gen>ex_one_point_gen</a></li><li><a href=#Assertions-ex_distrib_star>ex_distrib_star</a></li><li><a href=#Assertions-ex_distrib_and>ex_distrib_and</a></li><li><a href=#Assertions-ex_distrib_or>ex_distrib_or</a></li><li><a href=#Assertions-ex_join_or>ex_join_or</a></li><li><a href=#Assertions-pure_assn_proper>pure_assn_proper</a></li><li><a href=#Assertions-pure_true>pure_true</a></li><li><a href=#Assertions-pure_false>pure_false</a></li><li><a href=#Assertions-pure_assn_eq_false_iff>pure_assn_eq_false_iff</a></li><li><a href=#Assertions-pure_assn_eq_emp_iff>pure_assn_eq_emp_iff</a></li><li><a href=#Assertions-merge_pure_star>merge_pure_star</a></li><li><a href=#Assertions-merge_true_star>merge_true_star</a></li><li><a href=#Assertions-merge_pure_and>merge_pure_and</a></li><li><a href=#Assertions-merge_pure_or>merge_pure_or</a></li><li><a href=#Assertions-pure_assn_eq_conv>pure_assn_eq_conv</a></li><li><a href=#Assertions-is_pure_assnE>is_pure_assnE</a></li><li><a href=#Assertions-is_pure_assn_pure>is_pure_assn_pure</a></li><li><a href=#Assertions-is_pure_assn_basic_simps>is_pure_assn_basic_simps</a></li><li><a href=#Assertions-is_pure_assn_starI>is_pure_assn_starI</a></li><li><a href=#Assertions-sngr_assn_proper>sngr_assn_proper</a></li><li><a href=#Assertions-snga_assn_proper>snga_assn_proper</a></li><li><a href=#Assertions-sngr_same_false>sngr_same_false</a></li><li><a href=#Assertions-snga_same_false>snga_same_false</a></li><li><a href=#Assertions-mod_true>mod_true</a></li><li><a href=#Assertions-mod_false>mod_false</a></li><li><a href=#Assertions-mod_emp>mod_emp</a></li><li><a href=#Assertions-mod_emp_simp>mod_emp_simp</a></li><li><a href=#Assertions-mod_pure>mod_pure</a></li><li><a href=#Assertions-mod_ex_dist>mod_ex_dist</a></li><li><a href=#Assertions-mod_exI>mod_exI</a></li><li><a href=#Assertions-mod_exE>mod_exE</a></li><li><a href=#Assertions-mod_and_dist>mod_and_dist</a></li><li><a href=#Assertions-mod_or_dist>mod_or_dist</a></li><li><a href=#Assertions-mod_not_dist>mod_not_dist</a></li><li><a href=#Assertions-mod_pure_star_dist>mod_pure_star_dist</a></li><li><a href=#Assertions-mod_star_trueI>mod_star_trueI</a></li><li><a href=#Assertions-mod_star_trueE%27>mod_star_trueE'</a></li><li><a href=#Assertions-mod_star_trueE>mod_star_trueE</a></li><li><a href=#Assertions-mod_h_bot_iff>mod_h_bot_iff</a></li><li><a href=#Assertions-entailsI>entailsI</a></li><li><a href=#Assertions-entailsD>entailsD</a></li><li><a href=#Assertions-ent_fwd>ent_fwd</a></li><li><a href=#Assertions-ent_refl>ent_refl</a></li><li><a href=#Assertions-ent_trans>ent_trans</a></li><li><a href=#Assertions-ent_iffI>ent_iffI</a></li><li><a href=#Assertions-ent_false>ent_false</a></li><li><a href=#Assertions-ent_true>ent_true</a></li><li><a href=#Assertions-ent_false_iff>ent_false_iff</a></li><li><a href=#Assertions-ent_pure_pre_iff>ent_pure_pre_iff</a></li><li><a href=#Assertions-ent_pure_pre_iff_sng>ent_pure_pre_iff_sng</a></li><li><a href=#Assertions-ent_pure_post_iff>ent_pure_post_iff</a></li><li><a href=#Assertions-ent_pure_post_iff_sng>ent_pure_post_iff_sng</a></li><li><a href=#Assertions-ent_ex_preI>ent_ex_preI</a></li><li><a href=#Assertions-ent_ex_postI>ent_ex_postI</a></li><li><a href=#Assertions-ent_mp>ent_mp</a></li><li><a href=#Assertions-ent_star_mono>ent_star_mono</a></li><li><a href=#Assertions-ent_wandI>ent_wandI</a></li><li><a href=#Assertions-ent_disjI1>ent_disjI1</a></li><li><a href=#Assertions-ent_disjI2>ent_disjI2</a></li><li><a href=#Assertions-ent_disjI1_direct>ent_disjI1_direct</a></li><li><a href=#Assertions-ent_disjI2_direct>ent_disjI2_direct</a></li><li><a href=#Assertions-ent_disjE>ent_disjE</a></li><li><a href=#Assertions-ent_conjI>ent_conjI</a></li><li><a href=#Assertions-ent_conjE1>ent_conjE1</a></li><li><a href=#Assertions-ent_conjE2>ent_conjE2</a></li><li><a href=#Assertions-star_or_dist1>star_or_dist1</a></li><li><a href=#Assertions-star_or_dist2>star_or_dist2</a></li><li><a href=#Assertions-ent_disjI1%27>ent_disjI1'</a></li><li><a href=#Assertions-ent_disjI2%27>ent_disjI2'</a></li><li><a href=#Assertions-triv_exI>triv_exI</a></li><li><a href=#Assertions-enttI>enttI</a></li><li><a href=#Assertions-enttD>enttD</a></li><li><a href=#Assertions-entt_trans>entt_trans</a></li><li><a href=#Assertions-entt_refl>entt_refl</a></li><li><a href=#Assertions-entt_true>entt_true</a></li><li><a href=#Assertions-entt_emp>entt_emp</a></li><li><a href=#Assertions-entt_star_true_simp>entt_star_true_simp</a></li><li><a href=#Assertions-entt_star_mono>entt_star_mono</a></li><li><a href=#Assertions-entt_frame_fwd>entt_frame_fwd</a></li><li><a href=#Assertions-enttI_true>enttI_true</a></li><li><a href=#Assertions-entt_def_true>entt_def_true</a></li><li><a href=#Assertions-ent_imp_entt>ent_imp_entt</a></li><li><a href=#Assertions-entt_disjI1_direct>entt_disjI1_direct</a></li><li><a href=#Assertions-entt_disjI2_direct>entt_disjI2_direct</a></li><li><a href=#Assertions-entt_disjI1%27>entt_disjI1'</a></li><li><a href=#Assertions-entt_disjI2%27>entt_disjI2'</a></li><li><a href=#Assertions-entt_disjE>entt_disjE</a></li><li><a href=#Assertions-entt_disjD1>entt_disjD1</a></li><li><a href=#Assertions-entt_disjD2>entt_disjD2</a></li><li><a href=#Assertions-preciseI>preciseI</a></li><li><a href=#Assertions-preciseD>preciseD</a></li><li><a href=#Assertions-preciseD%27>preciseD'</a></li><li><a href=#Assertions-precise_extr_pure>precise_extr_pure</a></li><li><a href=#Assertions-sngr_prec>sngr_prec</a></li><li><a href=#Assertions-snga_prec>snga_prec</a></li></ul></li><li><a href=#Hoare_Triple>Hoare_Triple</a><ul><li><a href=#Hoare_Triple-new_addr_refl>new_addr_refl</a></li><li><a href=#Hoare_Triple-hoare_tripleD>hoare_tripleD</a></li><li><a href=#Hoare_Triple-hoare_triple_preI>hoare_triple_preI</a></li><li><a href=#Hoare_Triple-frame_rule>frame_rule</a></li><li><a href=#Hoare_Triple-false_rule>false_rule</a></li><li><a href=#Hoare_Triple-cons_rule>cons_rule</a></li><li><a href=#Hoare_Triple-cons_rulet>cons_rulet</a></li><li><a href=#Hoare_Triple-norm_pre_ex_rule>norm_pre_ex_rule</a></li><li><a href=#Hoare_Triple-norm_pre_pure_iff>norm_pre_pure_iff</a></li><li><a href=#Hoare_Triple-norm_pre_pure_iff_sng>norm_pre_pure_iff_sng</a></li><li><a href=#Hoare_Triple-norm_pre_pure_rule1>norm_pre_pure_rule1</a></li><li><a href=#Hoare_Triple-norm_pre_pure_rule2>norm_pre_pure_rule2</a></li><li><a href=#Hoare_Triple-post_exI_rule>post_exI_rule</a></li><li><a href=#Hoare_Triple-ref_rule>ref_rule</a></li><li><a href=#Hoare_Triple-lookup_rule>lookup_rule</a></li><li><a href=#Hoare_Triple-update_rule>update_rule</a></li><li><a href=#Hoare_Triple-update_wp_rule>update_wp_rule</a></li><li><a href=#Hoare_Triple-new_rule>new_rule</a></li><li><a href=#Hoare_Triple-make_rule>make_rule</a></li><li><a href=#Hoare_Triple-of_list_rule>of_list_rule</a></li><li><a href=#Hoare_Triple-length_rule>length_rule</a></li><li><a href=#Hoare_Triple-nth_rule>nth_rule</a></li><li><a href=#Hoare_Triple-upd_rule>upd_rule</a></li><li><a href=#Hoare_Triple-freeze_rule>freeze_rule</a></li><li><a href=#Hoare_Triple-return_wp_rule>return_wp_rule</a></li><li><a href=#Hoare_Triple-return_sp_rule>return_sp_rule</a></li><li><a href=#Hoare_Triple-raise_iff>raise_iff</a></li><li><a href=#Hoare_Triple-raise_rule>raise_rule</a></li><li><a href=#Hoare_Triple-bind_rule>bind_rule</a></li><li><a href=#Hoare_Triple-if_rule>if_rule</a></li><li><a href=#Hoare_Triple-if_rule_split>if_rule_split</a></li><li><a href=#Hoare_Triple-split_rule>split_rule</a></li><li><a href=#Hoare_Triple-case_prod_rule>case_prod_rule</a></li><li><a href=#Hoare_Triple-case_list_rule>case_list_rule</a></li><li><a href=#Hoare_Triple-case_option_rule>case_option_rule</a></li><li><a href=#Hoare_Triple-case_sum_rule>case_sum_rule</a></li><li><a href=#Hoare_Triple-let_rule>let_rule</a></li></ul></li><li><a href=#Automation>Automation</a><ul><li><a href=#Automation-merge_true_star_ctx>merge_true_star_ctx</a></li><li><a href=#Automation-ex_assn_move_out>ex_assn_move_out</a></li><li><a href=#Automation-and_extract_pure_left_iff>and_extract_pure_left_iff</a></li><li><a href=#Automation-and_extract_pure_left_ctx_iff>and_extract_pure_left_ctx_iff</a></li><li><a href=#Automation-and_extract_pure_right_iff>and_extract_pure_right_iff</a></li><li><a href=#Automation-and_extract_pure_right_ctx_iff>and_extract_pure_right_ctx_iff</a></li><li><a href=#Automation-not_same_noteqr>not_same_noteqr</a></li><li><a href=#Automation-not_same_noteqa>not_same_noteqa</a></li><li><a href=#Automation-enorm_exI%27>enorm_exI'</a></li><li><a href=#Automation-is_hoare_triple>is_hoare_triple</a></li><li><a href=#Automation-is_entails>is_entails</a></li><li><a href=#Automation-SLN_left>SLN_left</a></li><li><a href=#Automation-SLN_right>SLN_right</a></li><li><a href=#Automation-FI_init>FI_init</a></li><li><a href=#Automation-FI_finalize>FI_finalize</a></li><li><a href=#Automation-fi_match_entails>fi_match_entails</a></li><li><a href=#Automation-FI_match>FI_match</a></li><li><a href=#Automation-FI_p_nomatch>FI_p_nomatch</a></li><li><a href=#Automation-FI_q_nomatch>FI_q_nomatch</a></li><li><a href=#Automation-frame_inference_init>frame_inference_init</a></li><li><a href=#Automation-frame_inference_finalize>frame_inference_finalize</a></li><li><a href=#Automation-entails_solve_init>entails_solve_init</a></li><li><a href=#Automation-entails_solve_finalize>entails_solve_finalize</a></li><li><a href=#Automation-frame_rule_left>frame_rule_left</a></li><li><a href=#Automation-fi_rule>fi_rule</a></li><li><a href=#Automation-ent_frame_fwd>ent_frame_fwd</a></li><li><a href=#Automation-mod_frame_fwd>mod_frame_fwd</a></li><li><a href=#Automation-prec_frame>prec_frame</a></li><li><a href=#Automation-prec_frame_expl>prec_frame_expl</a></li><li><a href=#Automation-prec_frame%27>prec_frame'</a></li><li><a href=#Automation-ent_wand_frameI>ent_wand_frameI</a></li><li><a href=#Automation-ent_true_drop>ent_true_drop</a></li><li><a href=#Automation-fr_refl>fr_refl</a></li><li><a href=#Automation-fr_rot>fr_rot</a></li><li><a href=#Automation-fr_rot_rhs>fr_rot_rhs</a></li><li><a href=#Automation-ent_star_mono_true>ent_star_mono_true</a></li><li><a href=#Automation-ent_refl_true>ent_refl_true</a></li><li><a href=#Automation-entt_fr_refl>entt_fr_refl</a></li><li><a href=#Automation-entt_fr_drop>entt_fr_drop</a></li></ul></li><li><a href=#Sep_Main>Sep_Main</a></li><li><a href=#Imp_List_Spec>Imp_List_Spec</a></li><li><a href=#List_Seg>List_Seg</a><ul><li><a href=#List_Seg-lseg_if_splitf1>lseg_if_splitf1</a></li><li><a href=#List_Seg-lseg_if_splitf2>lseg_if_splitf2</a></li><li><a href=#List_Seg-lseg_prepend>lseg_prepend</a></li><li><a href=#List_Seg-lseg_append>lseg_append</a></li><li><a href=#List_Seg-lseg_conc>lseg_conc</a></li><li><a href=#List_Seg-lseg_split>lseg_split</a></li><li><a href=#List_Seg-lseg_prec1>lseg_prec1</a></li><li><a href=#List_Seg-lseg_prec2>lseg_prec2</a></li><li><a href=#List_Seg-lseg_prec3>lseg_prec3</a></li></ul></li><li><a href=#Open_List>Open_List</a><ul><li><a href=#Open_List-os_prec>os_prec</a></li><li><a href=#Open_List-os_imp_list_impl>os_imp_list_impl</a></li><li><a href=#Open_List-os_empty_rule>os_empty_rule</a></li><li><a href=#Open_List-os_empty_impl>os_empty_impl</a></li><li><a href=#Open_List-os_is_empty_rule>os_is_empty_rule</a></li><li><a href=#Open_List-os_is_empty_impl>os_is_empty_impl</a></li><li><a href=#Open_List-os_prepend_rule>os_prepend_rule</a></li><li><a href=#Open_List-os_prepend_impl>os_prepend_impl</a></li><li><a href=#Open_List-os_pop_rule>os_pop_rule</a></li><li><a href=#Open_List-os_pop_impl>os_pop_impl</a></li><li><a href=#Open_List-os_reverse_aux_rule>os_reverse_aux_rule</a></li><li><a href=#Open_List-os_reverse_rule>os_reverse_rule</a></li><li><a href=#Open_List-os_reverse_impl>os_reverse_impl</a></li><li><a href=#Open_List-os_rem_rule>os_rem_rule</a></li><li><a href=#Open_List-os_rem_rule_alt_proof>os_rem_rule_alt_proof</a></li><li><a href=#Open_List-os_iterate_impl>os_iterate_impl</a></li><li><a href=#Open_List-os_sum%27_rule>os_sum'_rule</a></li><li><a href=#Open_List-os_sum_rule>os_sum_rule</a></li></ul></li><li><a href=#Circ_List>Circ_List</a><ul><li><a href=#Circ_List-cs_prec>cs_prec</a></li><li><a href=#Circ_List-cs_imp_list_impl>cs_imp_list_impl</a></li><li><a href=#Circ_List-cs_empty_rule>cs_empty_rule</a></li><li><a href=#Circ_List-cs_empty_impl>cs_empty_impl</a></li><li><a href=#Circ_List-cs_prepend_rule>cs_prepend_rule</a></li><li><a href=#Circ_List-cs_prepend_impl>cs_prepend_impl</a></li><li><a href=#Circ_List-cs_append_rule>cs_append_rule</a></li><li><a href=#Circ_List-cs_append_impl>cs_append_impl</a></li><li><a href=#Circ_List-cs_pop_rule>cs_pop_rule</a></li><li><a href=#Circ_List-cs_pop_impl>cs_pop_impl</a></li><li><a href=#Circ_List-cs_rotate_rule>cs_rotate_rule</a></li><li><a href=#Circ_List-cs_rotate_impl>cs_rotate_impl</a></li></ul></li><li><a href=#Imp_Map_Spec>Imp_Map_Spec</a></li><li><a href=#Hash_Table>Hash_Table</a><ul><li><a href=#Hash_Table-is_hashtable_prec>is_hashtable_prec</a></li><li><a href=#Hash_Table-ht_array_nth_rule>ht_array_nth_rule</a></li><li><a href=#Hash_Table-ht_array_length_rule>ht_array_length_rule</a></li><li><a href=#Hash_Table-ht_hash_replicate>ht_hash_replicate</a></li><li><a href=#Hash_Table-ht_distinct_replicate>ht_distinct_replicate</a></li><li><a href=#Hash_Table-ht_size_replicate>ht_size_replicate</a></li><li><a href=#Hash_Table-complete_ht_new_sz>complete_ht_new_sz</a></li><li><a href=#Hash_Table-complete_ht_new>complete_ht_new</a></li><li><a href=#Hash_Table-complete_ht_lookup>complete_ht_lookup</a></li><li><a href=#Hash_Table-complete_ht_lookup_alt_proof>complete_ht_lookup_alt_proof</a></li><li><a href=#Hash_Table-ls_update_snd_set>ls_update_snd_set</a></li><li><a href=#Hash_Table-ls_update_fst_set>ls_update_fst_set</a></li><li><a href=#Hash_Table-ls_update_fst_map_set>ls_update_fst_map_set</a></li><li><a href=#Hash_Table-ls_update_distinct>ls_update_distinct</a></li><li><a href=#Hash_Table-ls_update_length>ls_update_length</a></li><li><a href=#Hash_Table-ls_update_length_snd_True>ls_update_length_snd_True</a></li><li><a href=#Hash_Table-ls_update_length_snd_False>ls_update_length_snd_False</a></li><li><a href=#Hash_Table-ht_hash_update>ht_hash_update</a></li><li><a href=#Hash_Table-ht_distinct_update>ht_distinct_update</a></li><li><a href=#Hash_Table-length_update>length_update</a></li><li><a href=#Hash_Table-ht_size_update1>ht_size_update1</a></li><li><a href=#Hash_Table-ht_size_update2>ht_size_update2</a></li><li><a href=#Hash_Table-complete_ht_upd>complete_ht_upd</a></li><li><a href=#Hash_Table-complete_ht_upd_alt_proof>complete_ht_upd_alt_proof</a></li><li><a href=#Hash_Table-ls_delete_snd_set>ls_delete_snd_set</a></li><li><a href=#Hash_Table-ls_delete_fst_set>ls_delete_fst_set</a></li><li><a href=#Hash_Table-ls_delete_fst_map_set>ls_delete_fst_map_set</a></li><li><a href=#Hash_Table-ls_delete_distinct>ls_delete_distinct</a></li><li><a href=#Hash_Table-ls_delete_length>ls_delete_length</a></li><li><a href=#Hash_Table-ls_delete_length_snd_True>ls_delete_length_snd_True</a></li><li><a href=#Hash_Table-ls_delete_length_snd_False>ls_delete_length_snd_False</a></li><li><a href=#Hash_Table-ht_hash_delete>ht_hash_delete</a></li><li><a href=#Hash_Table-ht_distinct_delete>ht_distinct_delete</a></li><li><a href=#Hash_Table-ht_size_delete1>ht_size_delete1</a></li><li><a href=#Hash_Table-ht_size_delete2>ht_size_delete2</a></li><li><a href=#Hash_Table-complete_ht_delete>complete_ht_delete</a></li><li><a href=#Hash_Table-ht_hash_ls_insls>ht_hash_ls_insls</a></li><li><a href=#Hash_Table-ht_distinct_ls_insls>ht_distinct_ls_insls</a></li><li><a href=#Hash_Table-length_ls_insls>length_ls_insls</a></li><li><a href=#Hash_Table-complete_ht_insls>complete_ht_insls</a></li><li><a href=#Hash_Table-ht_hash_ls_copy>ht_hash_ls_copy</a></li><li><a href=#Hash_Table-ht_distinct_ls_copy>ht_distinct_ls_copy</a></li><li><a href=#Hash_Table-length_ls_copy>length_ls_copy</a></li><li><a href=#Hash_Table-complete_ht_copy>complete_ht_copy</a></li><li><a href=#Hash_Table-complete_ht_copy_alt_proof>complete_ht_copy_alt_proof</a></li><li><a href=#Hash_Table-ht_hash_ls_rehash>ht_hash_ls_rehash</a></li><li><a href=#Hash_Table-ht_distinct_ls_rehash>ht_distinct_ls_rehash</a></li><li><a href=#Hash_Table-length_ls_rehash>length_ls_rehash</a></li><li><a href=#Hash_Table-ht_imp_len>ht_imp_len</a></li><li><a href=#Hash_Table-complete_ht_rehash>complete_ht_rehash</a></li><li><a href=#Hash_Table-complete_ht_update_normal>complete_ht_update_normal</a></li><li><a href=#Hash_Table-complete_ht_update_rehash>complete_ht_update_rehash</a></li><li><a href=#Hash_Table-complete_ht_to_list>complete_ht_to_list</a></li></ul></li><li><a href=#Hash_Map>Hash_Map</a><ul><li><a href=#Hash_Map-map_of_ls_update>map_of_ls_update</a></li><li><a href=#Hash_Map-map_of_concat>map_of_concat</a></li><li><a href=#Hash_Map-map_of_concat%27>map_of_concat'</a></li><li><a href=#Hash_Map-map_of_concat%27%27%27>map_of_concat'''</a></li><li><a href=#Hash_Map-map_of_concat%27%27>map_of_concat''</a></li><li><a href=#Hash_Map-abs_update_length>abs_update_length</a></li><li><a href=#Hash_Map-ls_update_map_of_eq>ls_update_map_of_eq</a></li><li><a href=#Hash_Map-ls_update_map_of_neq>ls_update_map_of_neq</a></li><li><a href=#Hash_Map-is_hashmap%27_prec>is_hashmap'_prec</a></li><li><a href=#Hash_Map-is_hashmap_prec>is_hashmap_prec</a></li><li><a href=#Hash_Map-hm_new_rule%27>hm_new_rule'</a></li><li><a href=#Hash_Map-hm_new_rule>hm_new_rule</a></li><li><a href=#Hash_Map-ht_hash_distinct>ht_hash_distinct</a></li><li><a href=#Hash_Map-ht_hash_in_dom_in_dom_bounded_hashcode_nat>ht_hash_in_dom_in_dom_bounded_hashcode_nat</a></li><li><a href=#Hash_Map-ht_hash_in_dom_bounded_hashcode_nat_in_dom>ht_hash_in_dom_bounded_hashcode_nat_in_dom</a></li><li><a href=#Hash_Map-ht_hash_in_dom_in_dom_bounded_hashcode_nat_eq>ht_hash_in_dom_in_dom_bounded_hashcode_nat_eq</a></li><li><a href=#Hash_Map-ht_hash_in_dom_i_bounded_hashcode_nat_i>ht_hash_in_dom_i_bounded_hashcode_nat_i</a></li><li><a href=#Hash_Map-ht_hash_in_bounded_hashcode_nat_not_i_not_in_dom_i>ht_hash_in_bounded_hashcode_nat_not_i_not_in_dom_i</a></li><li><a href=#Hash_Map-ht_hash_ht_distinct_in_dom_unique_value>ht_hash_ht_distinct_in_dom_unique_value</a></li><li><a href=#Hash_Map-ht_hash_ht_distinct_map_of>ht_hash_ht_distinct_map_of</a></li><li><a href=#Hash_Map-ls_lookup_map_of_pre>ls_lookup_map_of_pre</a></li><li><a href=#Hash_Map-ls_lookup_map_of>ls_lookup_map_of</a></li><li><a href=#Hash_Map-hm_lookup_rule%27>hm_lookup_rule'</a></li><li><a href=#Hash_Map-hm_lookup_rule>hm_lookup_rule</a></li><li><a href=#Hash_Map-abs_update_map_of%27%27>abs_update_map_of''</a></li><li><a href=#Hash_Map-abs_update_map_of_hceq>abs_update_map_of_hceq</a></li><li><a href=#Hash_Map-abs_update_map_of_hcneq>abs_update_map_of_hcneq</a></li><li><a href=#Hash_Map-abs_update_map_of%27%27%27>abs_update_map_of'''</a></li><li><a href=#Hash_Map-abs_update_map_of%27>abs_update_map_of'</a></li><li><a href=#Hash_Map-abs_update_map_of>abs_update_map_of</a></li><li><a href=#Hash_Map-ls_insls_map_of>ls_insls_map_of</a></li><li><a href=#Hash_Map-ls_insls_map_of%27>ls_insls_map_of'</a></li><li><a href=#Hash_Map-ls_copy_map_of>ls_copy_map_of</a></li><li><a href=#Hash_Map-ls_rehash_map_of>ls_rehash_map_of</a></li><li><a href=#Hash_Map-abs_update_rehash_map_of>abs_update_rehash_map_of</a></li><li><a href=#Hash_Map-hm_update_rule%27>hm_update_rule'</a></li><li><a href=#Hash_Map-hm_update_rule>hm_update_rule</a></li><li><a href=#Hash_Map-ls_delete_map_of>ls_delete_map_of</a></li><li><a href=#Hash_Map-update_ls_delete_map_of>update_ls_delete_map_of</a></li><li><a href=#Hash_Map-hm_delete_rule%27>hm_delete_rule'</a></li><li><a href=#Hash_Map-hm_delete_rule>hm_delete_rule</a></li><li><a href=#Hash_Map-hm_isEmpty_rule%27>hm_isEmpty_rule'</a></li><li><a href=#Hash_Map-hm_isEmpty_rule>hm_isEmpty_rule</a></li><li><a href=#Hash_Map-length_card_dom_map_of>length_card_dom_map_of</a></li><li><a href=#Hash_Map-ht_hash_dom_map_of_disj>ht_hash_dom_map_of_disj</a></li><li><a href=#Hash_Map-ht_hash_dom_map_of_disj_drop>ht_hash_dom_map_of_disj_drop</a></li><li><a href=#Hash_Map-sum_list_length_card_dom_map_of_concat>sum_list_length_card_dom_map_of_concat</a></li><li><a href=#Hash_Map-hm_size_rule%27>hm_size_rule'</a></li><li><a href=#Hash_Map-hm_size_rule>hm_size_rule</a></li><li><a href=#Hash_Map-concat_take_Suc_empty>concat_take_Suc_empty</a></li><li><a href=#Hash_Map-nth_concat_splitE>nth_concat_splitE</a></li><li><a href=#Hash_Map-is_hashmap%27_distinct>is_hashmap'_distinct</a></li><li><a href=#Hash_Map-take_set>take_set</a></li><li><a href=#Hash_Map-skip_empty_aux>skip_empty_aux</a></li><li><a href=#Hash_Map-take_Suc0>take_Suc0</a></li><li><a href=#Hash_Map-concat_take_Suc_app_nth>concat_take_Suc_app_nth</a></li><li><a href=#Hash_Map-hm_hashcode_eq>hm_hashcode_eq</a></li><li><a href=#Hash_Map-distinct_imp_distinct_take>distinct_imp_distinct_take</a></li><li><a href=#Hash_Map-hm_it_adjust_rule>hm_it_adjust_rule</a></li><li><a href=#Hash_Map-hm_it_next_rule%27>hm_it_next_rule'</a></li><li><a href=#Hash_Map-hm_it_next_rule>hm_it_next_rule</a></li><li><a href=#Hash_Map-hm_it_init_rule>hm_it_init_rule</a></li><li><a href=#Hash_Map-hm_it_has_next_rule>hm_it_has_next_rule</a></li><li><a href=#Hash_Map-hm_it_finish>hm_it_finish</a></li></ul></li><li><a href=#Hash_Map_Impl>Hash_Map_Impl</a><ul><li><a href=#Hash_Map_Impl-hm_map_impl>hm_map_impl</a></li><li><a href=#Hash_Map_Impl-hm_empty_impl>hm_empty_impl</a></li><li><a href=#Hash_Map_Impl-hm_lookup_impl>hm_lookup_impl</a></li><li><a href=#Hash_Map_Impl-hm_update_impl>hm_update_impl</a></li><li><a href=#Hash_Map_Impl-hm_delete_impl>hm_delete_impl</a></li><li><a href=#Hash_Map_Impl-hm_is_empty_impl>hm_is_empty_impl</a></li><li><a href=#Hash_Map_Impl-hm_size_impl>hm_size_impl</a></li><li><a href=#Hash_Map_Impl-hm_iterate_impl>hm_iterate_impl</a></li></ul></li><li><a href=#Imp_Set_Spec>Imp_Set_Spec</a></li><li><a href=#Hash_Set_Impl>Hash_Set_Impl</a><ul><li><a href=#Hash_Set_Impl-ne_some_unit_eq>ne_some_unit_eq</a></li><li><a href=#Hash_Set_Impl-map_of_set_simps>map_of_set_simps</a></li><li><a href=#Hash_Set_Impl-map_of_set_eq%27>map_of_set_eq'</a></li><li><a href=#Hash_Set_Impl-map_of_set_eq>map_of_set_eq</a></li><li><a href=#Hash_Set_Impl-hs_set_impl>hs_set_impl</a></li><li><a href=#Hash_Set_Impl-hs_new_impl>hs_new_impl</a></li><li><a href=#Hash_Set_Impl-hs_memb_impl>hs_memb_impl</a></li><li><a href=#Hash_Set_Impl-hs_ins_impl>hs_ins_impl</a></li><li><a href=#Hash_Set_Impl-hs_delete_impl>hs_delete_impl</a></li><li><a href=#Hash_Set_Impl-hs_is_empty_impl>hs_is_empty_impl</a></li><li><a href=#Hash_Set_Impl-hs_size_impl>hs_size_impl</a></li><li><a href=#Hash_Set_Impl-hs_iterate_impl>hs_iterate_impl</a></li></ul></li><li><a href=#To_List_GA>To_List_GA</a><ul><li><a href=#To_List_GA-to_list_ga_rec_rule>to_list_ga_rec_rule</a></li><li><a href=#To_List_GA-to_list_ga_rule>to_list_ga_rule</a></li></ul></li><li><a href=#Union_Find>Union_Find</a><ul><li><a href=#Union_Find-ufa_invarD>ufa_invarD</a></li><li><a href=#Union_Find-rep_of_refl>rep_of_refl</a></li><li><a href=#Union_Find-rep_of_step>rep_of_step</a></li><li><a href=#Union_Find-rep_of_iff>rep_of_iff</a></li><li><a href=#Union_Find-rep_of_induct>rep_of_induct</a></li><li><a href=#Union_Find-rep_of_min>rep_of_min</a></li><li><a href=#Union_Find-rep_of_bound>rep_of_bound</a></li><li><a href=#Union_Find-rep_of_idem>rep_of_idem</a></li><li><a href=#Union_Find-rep_of_min_upd>rep_of_min_upd</a></li><li><a href=#Union_Find-rep_of_idx>rep_of_idx</a></li><li><a href=#Union_Find-ufa_%ce%b1_equiv>ufa_α_equiv</a></li><li><a href=#Union_Find-ufa_%ce%b1_lenD>ufa_α_lenD</a></li><li><a href=#Union_Find-ufa_%ce%b1_dom>ufa_α_dom</a></li><li><a href=#Union_Find-ufa_%ce%b1_refl>ufa_α_refl</a></li><li><a href=#Union_Find-ufa_%ce%b1_len_eq>ufa_α_len_eq</a></li><li><a href=#Union_Find-ufa_init_invar>ufa_init_invar</a></li><li><a href=#Union_Find-ufa_init_correct>ufa_init_correct</a></li><li><a href=#Union_Find-ufa_find_correct>ufa_find_correct</a></li><li><a href=#Union_Find-ufa_union_invar>ufa_union_invar</a></li><li><a href=#Union_Find-ufa_union_aux>ufa_union_aux</a></li><li><a href=#Union_Find-ufa_union_correct>ufa_union_correct</a></li><li><a href=#Union_Find-ufa_compress_aux>ufa_compress_aux</a></li><li><a href=#Union_Find-ufa_compress_invar>ufa_compress_invar</a></li><li><a href=#Union_Find-ufa_compress_correct>ufa_compress_correct</a></li><li><a href=#Union_Find-uf_init_rule>uf_init_rule</a></li><li><a href=#Union_Find-uf_rep_of_rule>uf_rep_of_rule</a></li><li><a href=#Union_Find-uf_compress_rule>uf_compress_rule</a></li><li><a href=#Union_Find-uf_rep_of_c_rule>uf_rep_of_c_rule</a></li><li><a href=#Union_Find-cnv_to_ufa_%ce%b1_eq>cnv_to_ufa_α_eq</a></li><li><a href=#Union_Find-uf_cmp_rule>uf_cmp_rule</a></li><li><a href=#Union_Find-uf_union_rule>uf_union_rule</a></li></ul></li><li><a href=#Idioms>Idioms</a><ul><li><a href=#Idioms-complete_ht_rehash>complete_ht_rehash</a></li><li><a href=#Idioms-cs_append_rule>cs_append_rule</a></li><li><a href=#Idioms-ins_from_list_correct>ins_from_list_correct</a></li><li><a href=#Idioms-os_sum%27_rule>os_sum'_rule</a></li><li><a href=#Idioms-lseg_prec3>lseg_prec3</a></li></ul></li><li><a href=#Default_Insts>Default_Insts</a></li><li><a href=#Array_Blit>Array_Blit</a><ul><li><a href=#Array_Blit-blit_rule>blit_rule</a></li><li><a href=#Array_Blit-array_shrink_rule>array_shrink_rule</a></li><li><a href=#Array_Blit-array_grow_rule>array_grow_rule</a></li><li><a href=#Array_Blit-array_copy_rule>array_copy_rule</a></li></ul></li><li><a href=#Array_Map_Impl>Array_Map_Impl</a><ul><li><a href=#Array_Map_Impl-precise_iam>precise_iam</a></li><li><a href=#Array_Map_Impl-iam_new_abs>iam_new_abs</a></li><li><a href=#Array_Map_Impl-iam_new_sz_rule>iam_new_sz_rule</a></li><li><a href=#Array_Map_Impl-iam_new_rule>iam_new_rule</a></li><li><a href=#Array_Map_Impl-iam_lookup_abs1>iam_lookup_abs1</a></li><li><a href=#Array_Map_Impl-iam_lookup_abs2>iam_lookup_abs2</a></li><li><a href=#Array_Map_Impl-iam_lookup_rule>iam_lookup_rule</a></li><li><a href=#Array_Map_Impl-iam_delete_abs1>iam_delete_abs1</a></li><li><a href=#Array_Map_Impl-iam_delete_abs2>iam_delete_abs2</a></li><li><a href=#Array_Map_Impl-iam_delete_rule>iam_delete_rule</a></li><li><a href=#Array_Map_Impl-iam_update_abs1>iam_update_abs1</a></li><li><a href=#Array_Map_Impl-iam_update_abs2>iam_update_abs2</a></li><li><a href=#Array_Map_Impl-iam_update_rule>iam_update_rule</a></li></ul></li><li><a href=#Array_Set_Impl>Array_Set_Impl</a><ul><li><a href=#Array_Set_Impl-precise_ias>precise_ias</a></li><li><a href=#Array_Set_Impl-ias_new_abs>ias_new_abs</a></li><li><a href=#Array_Set_Impl-ias_new_sz_rule>ias_new_sz_rule</a></li><li><a href=#Array_Set_Impl-ias_new_rule>ias_new_rule</a></li><li><a href=#Array_Set_Impl-ias_memb_abs1>ias_memb_abs1</a></li><li><a href=#Array_Set_Impl-ias_memb_abs2>ias_memb_abs2</a></li><li><a href=#Array_Set_Impl-ias_memb_rule>ias_memb_rule</a></li><li><a href=#Array_Set_Impl-ias_delete_abs1>ias_delete_abs1</a></li><li><a href=#Array_Set_Impl-ias_delete_abs2>ias_delete_abs2</a></li><li><a href=#Array_Set_Impl-ias_delete_rule>ias_delete_rule</a></li><li><a href=#Array_Set_Impl-ias_ins_abs1>ias_ins_abs1</a></li><li><a href=#Array_Set_Impl-ias_ins_abs2>ias_ins_abs2</a></li><li><a href=#Array_Set_Impl-ias_ins_rule>ias_ins_rule</a></li><li><a href=#Array_Set_Impl-ias_set_impl>ias_set_impl</a></li><li><a href=#Array_Set_Impl-ias_empty_impl>ias_empty_impl</a></li><li><a href=#Array_Set_Impl-ias_empty_sz_impl>ias_empty_sz_impl</a></li><li><a href=#Array_Set_Impl-ias_memb_impl>ias_memb_impl</a></li><li><a href=#Array_Set_Impl-ias_delete_impl>ias_delete_impl</a></li><li><a href=#Array_Set_Impl-ias_ins_impl>ias_ins_impl</a></li></ul></li><li><a href=#From_List_GA>From_List_GA</a><ul><li><a href=#From_List_GA-from_list_ga_aux_rule>from_list_ga_aux_rule</a></li><li><a href=#From_List_GA-from_list_ga_rule>from_list_ga_rule</a></li></ul></li><li><a href=#Sep_Examples>Sep_Examples</a></li></ul></div><ul><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Separation_Logic_Imperative_HOL/outline.pdf>Proof
-outline</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Separation_Logic_Imperative_HOL/document.pdf>Proof
-document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Separation_Logic_Imperative_HOL/session_graph.pdf>Theory dependencies</a></li></ul></div></aside><div class="content theories"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
-<datalist id=autocomplete></datalist></div></form><h1><span class=first>S</span>ession <span class=first>S</span>eparation_<span class=first>L</span>ogic_<span class=first>I</span>mperative_<span class=first>H</span><span class=first>O</span><span class=first>L</span></h1><div></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><div id=Imperative_HOL_Add><div class=head><h1>Theory Imperative_HOL_Add</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Additions to Imperative/HOL›</span></span>
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Session Separation_Logic_Imperative_HOL - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session Separation_Logic_Imperative_HOL">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="/entries/separation_logic_imperative_hol/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories">
+<meta property="og:site_name" content="Archive of Formal Proofs">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="/images/afp.png">
+<meta name=twitter:title content="Session Separation_Logic_Imperative_HOL">
+<meta name=twitter:description content>
+<link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css>
+<link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script>
+<script src=/js/banner.js></script><script src=/js/header-search.js></script></head>
+<body class=mathjax_ignore>
+<aside>
+<div>
+<div>
+<a href=/>
+<img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo>
+</a>
+<ul>
+<li><a href=/entries/separation_logic_imperative_hol>Return to entry</a></li>
+</ul>
+<hr>
+<ul><li><a href=#Imperative_HOL_Add>Imperative_HOL_Add</a>
+<ul>
+<li><a href=#Imperative_HOL_Add-effect_ref>effect_ref</a></li>
+<li><a href=#Imperative_HOL_Add-lim_Ref_alloc>lim_Ref_alloc</a></li>
+<li><a href=#Imperative_HOL_Add-lim_Array_alloc>lim_Array_alloc</a></li>
+<li><a href=#Imperative_HOL_Add-lim_Array_set>lim_Array_set</a></li>
+<li><a href=#Imperative_HOL_Add-lim_Array_update>lim_Array_update</a></li>
+<li><a href=#Imperative_HOL_Add-addr_of_ref_alloc>addr_of_ref_alloc</a></li>
+<li><a href=#Imperative_HOL_Add-addr_of_array_alloc>addr_of_array_alloc</a></li>
+</ul>
+</li><li><a href=#Syntax_Match>Syntax_Match</a>
+<ul>
+<li><a href=#Syntax_Match-left_commute>left_commute</a></li>
+<li><a href=#Syntax_Match-right_commute>right_commute</a></li>
+<li><a href=#Syntax_Match-safe_commute>safe_commute</a></li>
+</ul>
+</li><li><a href=#Run>Run</a>
+<ul>
+<li><a href=#Run-run_effectE>run_effectE</a></li>
+<li><a href=#Run-run_effectI>run_effectI</a></li>
+<li><a href=#Run-effect_run>effect_run</a></li>
+<li><a href=#Run-success_run>success_run</a></li>
+<li><a href=#Run-run_complete>run_complete</a></li>
+<li><a href=#Run-run_detE>run_detE</a></li>
+<li><a href=#Run-run_detI>run_detI</a></li>
+<li><a href=#Run-run_exn>run_exn</a></li>
+<li><a href=#Run-runE>runE</a></li>
+<li><a href=#Run-runE%27>runE'</a></li>
+<li><a href=#Run-run_return>run_return</a></li>
+<li><a href=#Run-run_raise_iff>run_raise_iff</a></li>
+<li><a href=#Run-run_raise>run_raise</a></li>
+<li><a href=#Run-run_raiseI>run_raiseI</a></li>
+<li><a href=#Run-run_if>run_if</a></li>
+<li><a href=#Run-run_case_option>run_case_option</a></li>
+<li><a href=#Run-run_heap>run_heap</a></li>
+<li><a href=#Run-run_length>run_length</a></li>
+<li><a href=#Run-run_new_array>run_new_array</a></li>
+<li><a href=#Run-run_make>run_make</a></li>
+<li><a href=#Run-run_upd>run_upd</a></li>
+<li><a href=#Run-run_nth>run_nth</a></li>
+<li><a href=#Run-run_of_list>run_of_list</a></li>
+<li><a href=#Run-run_freeze>run_freeze</a></li>
+<li><a href=#Run-run_new_ref>run_new_ref</a></li>
+<li><a href=#Run-run_update>run_update</a></li>
+<li><a href=#Run-run_lookup>run_lookup</a></li>
+</ul>
+</li><li><a href=#Assertions>Assertions</a>
+<ul>
+<li><a href=#Assertions-in_range_empty>in_range_empty</a></li>
+<li><a href=#Assertions-in_range_dist_union>in_range_dist_union</a></li>
+<li><a href=#Assertions-in_range_subset>in_range_subset</a></li>
+<li><a href=#Assertions-relH_in_rangeI>relH_in_rangeI</a></li>
+<li><a href=#Assertions-relH_refl>relH_refl</a></li>
+<li><a href=#Assertions-relH_sym>relH_sym</a></li>
+<li><a href=#Assertions-relH_trans>relH_trans</a></li>
+<li><a href=#Assertions-relH_dist_union>relH_dist_union</a></li>
+<li><a href=#Assertions-relH_subset>relH_subset</a></li>
+<li><a href=#Assertions-relH_ref>relH_ref</a></li>
+<li><a href=#Assertions-relH_array>relH_array</a></li>
+<li><a href=#Assertions-relH_set_ref>relH_set_ref</a></li>
+<li><a href=#Assertions-relH_set_array>relH_set_array</a></li>
+<li><a href=#Assertions-properI>properI</a></li>
+<li><a href=#Assertions-properD1>properD1</a></li>
+<li><a href=#Assertions-properD2>properD2</a></li>
+<li><a href=#Assertions-proper_iff>proper_iff</a></li>
+<li><a href=#Assertions-Abs_assn_eqI>Abs_assn_eqI</a></li>
+<li><a href=#Assertions-models_in_range>models_in_range</a></li>
+<li><a href=#Assertions-mod_h_bot_indep>mod_h_bot_indep</a></li>
+<li><a href=#Assertions-mod_h_bot_normalize>mod_h_bot_normalize</a></li>
+<li><a href=#Assertions-mod_relH>mod_relH</a></li>
+<li><a href=#Assertions-one_assn_proper>one_assn_proper</a></li>
+<li><a href=#Assertions-times_assn_proper>times_assn_proper</a></li>
+<li><a href=#Assertions-mod_star_conv>mod_star_conv</a></li>
+<li><a href=#Assertions-mod_starD>mod_starD</a></li>
+<li><a href=#Assertions-star_assnI>star_assnI</a></li>
+<li><a href=#Assertions-assn_one_left>assn_one_left</a></li>
+<li><a href=#Assertions-assn_times_comm>assn_times_comm</a></li>
+<li><a href=#Assertions-assn_times_assoc>assn_times_assoc</a></li>
+<li><a href=#Assertions-wand_proper>wand_proper</a></li>
+<li><a href=#Assertions-wand_assnI>wand_assnI</a></li>
+<li><a href=#Assertions-bool_assn_proper>bool_assn_proper</a></li>
+<li><a href=#Assertions-star_false_left>star_false_left</a></li>
+<li><a href=#Assertions-star_false_right>star_false_right</a></li>
+<li><a href=#Assertions-assn_basic_inequalities>assn_basic_inequalities</a></li>
+<li><a href=#Assertions-ex_assn_proper>ex_assn_proper</a></li>
+<li><a href=#Assertions-ex_assn_const>ex_assn_const</a></li>
+<li><a href=#Assertions-ex_one_point_gen>ex_one_point_gen</a></li>
+<li><a href=#Assertions-ex_distrib_star>ex_distrib_star</a></li>
+<li><a href=#Assertions-ex_distrib_and>ex_distrib_and</a></li>
+<li><a href=#Assertions-ex_distrib_or>ex_distrib_or</a></li>
+<li><a href=#Assertions-ex_join_or>ex_join_or</a></li>
+<li><a href=#Assertions-pure_assn_proper>pure_assn_proper</a></li>
+<li><a href=#Assertions-pure_true>pure_true</a></li>
+<li><a href=#Assertions-pure_false>pure_false</a></li>
+<li><a href=#Assertions-pure_assn_eq_false_iff>pure_assn_eq_false_iff</a></li>
+<li><a href=#Assertions-pure_assn_eq_emp_iff>pure_assn_eq_emp_iff</a></li>
+<li><a href=#Assertions-merge_pure_star>merge_pure_star</a></li>
+<li><a href=#Assertions-merge_true_star>merge_true_star</a></li>
+<li><a href=#Assertions-merge_pure_and>merge_pure_and</a></li>
+<li><a href=#Assertions-merge_pure_or>merge_pure_or</a></li>
+<li><a href=#Assertions-pure_assn_eq_conv>pure_assn_eq_conv</a></li>
+<li><a href=#Assertions-is_pure_assnE>is_pure_assnE</a></li>
+<li><a href=#Assertions-is_pure_assn_pure>is_pure_assn_pure</a></li>
+<li><a href=#Assertions-is_pure_assn_basic_simps>is_pure_assn_basic_simps</a></li>
+<li><a href=#Assertions-is_pure_assn_starI>is_pure_assn_starI</a></li>
+<li><a href=#Assertions-sngr_assn_proper>sngr_assn_proper</a></li>
+<li><a href=#Assertions-snga_assn_proper>snga_assn_proper</a></li>
+<li><a href=#Assertions-sngr_same_false>sngr_same_false</a></li>
+<li><a href=#Assertions-snga_same_false>snga_same_false</a></li>
+<li><a href=#Assertions-mod_true>mod_true</a></li>
+<li><a href=#Assertions-mod_false>mod_false</a></li>
+<li><a href=#Assertions-mod_emp>mod_emp</a></li>
+<li><a href=#Assertions-mod_emp_simp>mod_emp_simp</a></li>
+<li><a href=#Assertions-mod_pure>mod_pure</a></li>
+<li><a href=#Assertions-mod_ex_dist>mod_ex_dist</a></li>
+<li><a href=#Assertions-mod_exI>mod_exI</a></li>
+<li><a href=#Assertions-mod_exE>mod_exE</a></li>
+<li><a href=#Assertions-mod_and_dist>mod_and_dist</a></li>
+<li><a href=#Assertions-mod_or_dist>mod_or_dist</a></li>
+<li><a href=#Assertions-mod_not_dist>mod_not_dist</a></li>
+<li><a href=#Assertions-mod_pure_star_dist>mod_pure_star_dist</a></li>
+<li><a href=#Assertions-mod_star_trueI>mod_star_trueI</a></li>
+<li><a href=#Assertions-mod_star_trueE%27>mod_star_trueE'</a></li>
+<li><a href=#Assertions-mod_star_trueE>mod_star_trueE</a></li>
+<li><a href=#Assertions-mod_h_bot_iff>mod_h_bot_iff</a></li>
+<li><a href=#Assertions-entailsI>entailsI</a></li>
+<li><a href=#Assertions-entailsD>entailsD</a></li>
+<li><a href=#Assertions-ent_fwd>ent_fwd</a></li>
+<li><a href=#Assertions-ent_refl>ent_refl</a></li>
+<li><a href=#Assertions-ent_trans>ent_trans</a></li>
+<li><a href=#Assertions-ent_iffI>ent_iffI</a></li>
+<li><a href=#Assertions-ent_false>ent_false</a></li>
+<li><a href=#Assertions-ent_true>ent_true</a></li>
+<li><a href=#Assertions-ent_false_iff>ent_false_iff</a></li>
+<li><a href=#Assertions-ent_pure_pre_iff>ent_pure_pre_iff</a></li>
+<li><a href=#Assertions-ent_pure_pre_iff_sng>ent_pure_pre_iff_sng</a></li>
+<li><a href=#Assertions-ent_pure_post_iff>ent_pure_post_iff</a></li>
+<li><a href=#Assertions-ent_pure_post_iff_sng>ent_pure_post_iff_sng</a></li>
+<li><a href=#Assertions-ent_ex_preI>ent_ex_preI</a></li>
+<li><a href=#Assertions-ent_ex_postI>ent_ex_postI</a></li>
+<li><a href=#Assertions-ent_mp>ent_mp</a></li>
+<li><a href=#Assertions-ent_star_mono>ent_star_mono</a></li>
+<li><a href=#Assertions-ent_wandI>ent_wandI</a></li>
+<li><a href=#Assertions-ent_disjI1>ent_disjI1</a></li>
+<li><a href=#Assertions-ent_disjI2>ent_disjI2</a></li>
+<li><a href=#Assertions-ent_disjI1_direct>ent_disjI1_direct</a></li>
+<li><a href=#Assertions-ent_disjI2_direct>ent_disjI2_direct</a></li>
+<li><a href=#Assertions-ent_disjE>ent_disjE</a></li>
+<li><a href=#Assertions-ent_conjI>ent_conjI</a></li>
+<li><a href=#Assertions-ent_conjE1>ent_conjE1</a></li>
+<li><a href=#Assertions-ent_conjE2>ent_conjE2</a></li>
+<li><a href=#Assertions-star_or_dist1>star_or_dist1</a></li>
+<li><a href=#Assertions-star_or_dist2>star_or_dist2</a></li>
+<li><a href=#Assertions-ent_disjI1%27>ent_disjI1'</a></li>
+<li><a href=#Assertions-ent_disjI2%27>ent_disjI2'</a></li>
+<li><a href=#Assertions-triv_exI>triv_exI</a></li>
+<li><a href=#Assertions-enttI>enttI</a></li>
+<li><a href=#Assertions-enttD>enttD</a></li>
+<li><a href=#Assertions-entt_trans>entt_trans</a></li>
+<li><a href=#Assertions-entt_refl>entt_refl</a></li>
+<li><a href=#Assertions-entt_true>entt_true</a></li>
+<li><a href=#Assertions-entt_emp>entt_emp</a></li>
+<li><a href=#Assertions-entt_star_true_simp>entt_star_true_simp</a></li>
+<li><a href=#Assertions-entt_star_mono>entt_star_mono</a></li>
+<li><a href=#Assertions-entt_frame_fwd>entt_frame_fwd</a></li>
+<li><a href=#Assertions-enttI_true>enttI_true</a></li>
+<li><a href=#Assertions-entt_def_true>entt_def_true</a></li>
+<li><a href=#Assertions-ent_imp_entt>ent_imp_entt</a></li>
+<li><a href=#Assertions-entt_disjI1_direct>entt_disjI1_direct</a></li>
+<li><a href=#Assertions-entt_disjI2_direct>entt_disjI2_direct</a></li>
+<li><a href=#Assertions-entt_disjI1%27>entt_disjI1'</a></li>
+<li><a href=#Assertions-entt_disjI2%27>entt_disjI2'</a></li>
+<li><a href=#Assertions-entt_disjE>entt_disjE</a></li>
+<li><a href=#Assertions-entt_disjD1>entt_disjD1</a></li>
+<li><a href=#Assertions-entt_disjD2>entt_disjD2</a></li>
+<li><a href=#Assertions-preciseI>preciseI</a></li>
+<li><a href=#Assertions-preciseD>preciseD</a></li>
+<li><a href=#Assertions-preciseD%27>preciseD'</a></li>
+<li><a href=#Assertions-precise_extr_pure>precise_extr_pure</a></li>
+<li><a href=#Assertions-sngr_prec>sngr_prec</a></li>
+<li><a href=#Assertions-snga_prec>snga_prec</a></li>
+</ul>
+</li><li><a href=#Hoare_Triple>Hoare_Triple</a>
+<ul>
+<li><a href=#Hoare_Triple-new_addr_refl>new_addr_refl</a></li>
+<li><a href=#Hoare_Triple-hoare_tripleD>hoare_tripleD</a></li>
+<li><a href=#Hoare_Triple-hoare_triple_preI>hoare_triple_preI</a></li>
+<li><a href=#Hoare_Triple-frame_rule>frame_rule</a></li>
+<li><a href=#Hoare_Triple-false_rule>false_rule</a></li>
+<li><a href=#Hoare_Triple-cons_rule>cons_rule</a></li>
+<li><a href=#Hoare_Triple-cons_rulet>cons_rulet</a></li>
+<li><a href=#Hoare_Triple-norm_pre_ex_rule>norm_pre_ex_rule</a></li>
+<li><a href=#Hoare_Triple-norm_pre_pure_iff>norm_pre_pure_iff</a></li>
+<li><a href=#Hoare_Triple-norm_pre_pure_iff_sng>norm_pre_pure_iff_sng</a></li>
+<li><a href=#Hoare_Triple-norm_pre_pure_rule1>norm_pre_pure_rule1</a></li>
+<li><a href=#Hoare_Triple-norm_pre_pure_rule2>norm_pre_pure_rule2</a></li>
+<li><a href=#Hoare_Triple-post_exI_rule>post_exI_rule</a></li>
+<li><a href=#Hoare_Triple-ref_rule>ref_rule</a></li>
+<li><a href=#Hoare_Triple-lookup_rule>lookup_rule</a></li>
+<li><a href=#Hoare_Triple-update_rule>update_rule</a></li>
+<li><a href=#Hoare_Triple-update_wp_rule>update_wp_rule</a></li>
+<li><a href=#Hoare_Triple-new_rule>new_rule</a></li>
+<li><a href=#Hoare_Triple-make_rule>make_rule</a></li>
+<li><a href=#Hoare_Triple-of_list_rule>of_list_rule</a></li>
+<li><a href=#Hoare_Triple-length_rule>length_rule</a></li>
+<li><a href=#Hoare_Triple-nth_rule>nth_rule</a></li>
+<li><a href=#Hoare_Triple-upd_rule>upd_rule</a></li>
+<li><a href=#Hoare_Triple-freeze_rule>freeze_rule</a></li>
+<li><a href=#Hoare_Triple-return_wp_rule>return_wp_rule</a></li>
+<li><a href=#Hoare_Triple-return_sp_rule>return_sp_rule</a></li>
+<li><a href=#Hoare_Triple-raise_iff>raise_iff</a></li>
+<li><a href=#Hoare_Triple-raise_rule>raise_rule</a></li>
+<li><a href=#Hoare_Triple-bind_rule>bind_rule</a></li>
+<li><a href=#Hoare_Triple-if_rule>if_rule</a></li>
+<li><a href=#Hoare_Triple-if_rule_split>if_rule_split</a></li>
+<li><a href=#Hoare_Triple-split_rule>split_rule</a></li>
+<li><a href=#Hoare_Triple-case_prod_rule>case_prod_rule</a></li>
+<li><a href=#Hoare_Triple-case_list_rule>case_list_rule</a></li>
+<li><a href=#Hoare_Triple-case_option_rule>case_option_rule</a></li>
+<li><a href=#Hoare_Triple-case_sum_rule>case_sum_rule</a></li>
+<li><a href=#Hoare_Triple-let_rule>let_rule</a></li>
+</ul>
+</li><li><a href=#Automation>Automation</a>
+<ul>
+<li><a href=#Automation-merge_true_star_ctx>merge_true_star_ctx</a></li>
+<li><a href=#Automation-ex_assn_move_out>ex_assn_move_out</a></li>
+<li><a href=#Automation-and_extract_pure_left_iff>and_extract_pure_left_iff</a></li>
+<li><a href=#Automation-and_extract_pure_left_ctx_iff>and_extract_pure_left_ctx_iff</a></li>
+<li><a href=#Automation-and_extract_pure_right_iff>and_extract_pure_right_iff</a></li>
+<li><a href=#Automation-and_extract_pure_right_ctx_iff>and_extract_pure_right_ctx_iff</a></li>
+<li><a href=#Automation-not_same_noteqr>not_same_noteqr</a></li>
+<li><a href=#Automation-not_same_noteqa>not_same_noteqa</a></li>
+<li><a href=#Automation-enorm_exI%27>enorm_exI'</a></li>
+<li><a href=#Automation-is_hoare_triple>is_hoare_triple</a></li>
+<li><a href=#Automation-is_entails>is_entails</a></li>
+<li><a href=#Automation-SLN_left>SLN_left</a></li>
+<li><a href=#Automation-SLN_right>SLN_right</a></li>
+<li><a href=#Automation-FI_init>FI_init</a></li>
+<li><a href=#Automation-FI_finalize>FI_finalize</a></li>
+<li><a href=#Automation-fi_match_entails>fi_match_entails</a></li>
+<li><a href=#Automation-FI_match>FI_match</a></li>
+<li><a href=#Automation-FI_p_nomatch>FI_p_nomatch</a></li>
+<li><a href=#Automation-FI_q_nomatch>FI_q_nomatch</a></li>
+<li><a href=#Automation-frame_inference_init>frame_inference_init</a></li>
+<li><a href=#Automation-frame_inference_finalize>frame_inference_finalize</a></li>
+<li><a href=#Automation-entails_solve_init>entails_solve_init</a></li>
+<li><a href=#Automation-entails_solve_finalize>entails_solve_finalize</a></li>
+<li><a href=#Automation-frame_rule_left>frame_rule_left</a></li>
+<li><a href=#Automation-fi_rule>fi_rule</a></li>
+<li><a href=#Automation-ent_frame_fwd>ent_frame_fwd</a></li>
+<li><a href=#Automation-mod_frame_fwd>mod_frame_fwd</a></li>
+<li><a href=#Automation-prec_frame>prec_frame</a></li>
+<li><a href=#Automation-prec_frame_expl>prec_frame_expl</a></li>
+<li><a href=#Automation-prec_frame%27>prec_frame'</a></li>
+<li><a href=#Automation-ent_wand_frameI>ent_wand_frameI</a></li>
+<li><a href=#Automation-ent_true_drop>ent_true_drop</a></li>
+<li><a href=#Automation-fr_refl>fr_refl</a></li>
+<li><a href=#Automation-fr_rot>fr_rot</a></li>
+<li><a href=#Automation-fr_rot_rhs>fr_rot_rhs</a></li>
+<li><a href=#Automation-ent_star_mono_true>ent_star_mono_true</a></li>
+<li><a href=#Automation-ent_refl_true>ent_refl_true</a></li>
+<li><a href=#Automation-entt_fr_refl>entt_fr_refl</a></li>
+<li><a href=#Automation-entt_fr_drop>entt_fr_drop</a></li>
+</ul>
+</li><li><a href=#Sep_Main>Sep_Main</a>
+</li><li><a href=#Imp_List_Spec>Imp_List_Spec</a>
+</li><li><a href=#List_Seg>List_Seg</a>
+<ul>
+<li><a href=#List_Seg-lseg_if_splitf1>lseg_if_splitf1</a></li>
+<li><a href=#List_Seg-lseg_if_splitf2>lseg_if_splitf2</a></li>
+<li><a href=#List_Seg-lseg_prepend>lseg_prepend</a></li>
+<li><a href=#List_Seg-lseg_append>lseg_append</a></li>
+<li><a href=#List_Seg-lseg_conc>lseg_conc</a></li>
+<li><a href=#List_Seg-lseg_split>lseg_split</a></li>
+<li><a href=#List_Seg-lseg_prec1>lseg_prec1</a></li>
+<li><a href=#List_Seg-lseg_prec2>lseg_prec2</a></li>
+<li><a href=#List_Seg-lseg_prec3>lseg_prec3</a></li>
+</ul>
+</li><li><a href=#Open_List>Open_List</a>
+<ul>
+<li><a href=#Open_List-os_prec>os_prec</a></li>
+<li><a href=#Open_List-os_imp_list_impl>os_imp_list_impl</a></li>
+<li><a href=#Open_List-os_empty_rule>os_empty_rule</a></li>
+<li><a href=#Open_List-os_empty_impl>os_empty_impl</a></li>
+<li><a href=#Open_List-os_is_empty_rule>os_is_empty_rule</a></li>
+<li><a href=#Open_List-os_is_empty_impl>os_is_empty_impl</a></li>
+<li><a href=#Open_List-os_prepend_rule>os_prepend_rule</a></li>
+<li><a href=#Open_List-os_prepend_impl>os_prepend_impl</a></li>
+<li><a href=#Open_List-os_pop_rule>os_pop_rule</a></li>
+<li><a href=#Open_List-os_pop_impl>os_pop_impl</a></li>
+<li><a href=#Open_List-os_reverse_aux_rule>os_reverse_aux_rule</a></li>
+<li><a href=#Open_List-os_reverse_rule>os_reverse_rule</a></li>
+<li><a href=#Open_List-os_reverse_impl>os_reverse_impl</a></li>
+<li><a href=#Open_List-os_rem_rule>os_rem_rule</a></li>
+<li><a href=#Open_List-os_rem_rule_alt_proof>os_rem_rule_alt_proof</a></li>
+<li><a href=#Open_List-os_iterate_impl>os_iterate_impl</a></li>
+<li><a href=#Open_List-os_sum%27_rule>os_sum'_rule</a></li>
+<li><a href=#Open_List-os_sum_rule>os_sum_rule</a></li>
+</ul>
+</li><li><a href=#Circ_List>Circ_List</a>
+<ul>
+<li><a href=#Circ_List-cs_prec>cs_prec</a></li>
+<li><a href=#Circ_List-cs_imp_list_impl>cs_imp_list_impl</a></li>
+<li><a href=#Circ_List-cs_empty_rule>cs_empty_rule</a></li>
+<li><a href=#Circ_List-cs_empty_impl>cs_empty_impl</a></li>
+<li><a href=#Circ_List-cs_prepend_rule>cs_prepend_rule</a></li>
+<li><a href=#Circ_List-cs_prepend_impl>cs_prepend_impl</a></li>
+<li><a href=#Circ_List-cs_append_rule>cs_append_rule</a></li>
+<li><a href=#Circ_List-cs_append_impl>cs_append_impl</a></li>
+<li><a href=#Circ_List-cs_pop_rule>cs_pop_rule</a></li>
+<li><a href=#Circ_List-cs_pop_impl>cs_pop_impl</a></li>
+<li><a href=#Circ_List-cs_rotate_rule>cs_rotate_rule</a></li>
+<li><a href=#Circ_List-cs_rotate_impl>cs_rotate_impl</a></li>
+</ul>
+</li><li><a href=#Imp_Map_Spec>Imp_Map_Spec</a>
+</li><li><a href=#Hash_Table>Hash_Table</a>
+<ul>
+<li><a href=#Hash_Table-is_hashtable_prec>is_hashtable_prec</a></li>
+<li><a href=#Hash_Table-ht_array_nth_rule>ht_array_nth_rule</a></li>
+<li><a href=#Hash_Table-ht_array_length_rule>ht_array_length_rule</a></li>
+<li><a href=#Hash_Table-ht_hash_replicate>ht_hash_replicate</a></li>
+<li><a href=#Hash_Table-ht_distinct_replicate>ht_distinct_replicate</a></li>
+<li><a href=#Hash_Table-ht_size_replicate>ht_size_replicate</a></li>
+<li><a href=#Hash_Table-complete_ht_new_sz>complete_ht_new_sz</a></li>
+<li><a href=#Hash_Table-complete_ht_new>complete_ht_new</a></li>
+<li><a href=#Hash_Table-complete_ht_lookup>complete_ht_lookup</a></li>
+<li><a href=#Hash_Table-complete_ht_lookup_alt_proof>complete_ht_lookup_alt_proof</a></li>
+<li><a href=#Hash_Table-ls_update_snd_set>ls_update_snd_set</a></li>
+<li><a href=#Hash_Table-ls_update_fst_set>ls_update_fst_set</a></li>
+<li><a href=#Hash_Table-ls_update_fst_map_set>ls_update_fst_map_set</a></li>
+<li><a href=#Hash_Table-ls_update_distinct>ls_update_distinct</a></li>
+<li><a href=#Hash_Table-ls_update_length>ls_update_length</a></li>
+<li><a href=#Hash_Table-ls_update_length_snd_True>ls_update_length_snd_True</a></li>
+<li><a href=#Hash_Table-ls_update_length_snd_False>ls_update_length_snd_False</a></li>
+<li><a href=#Hash_Table-ht_hash_update>ht_hash_update</a></li>
+<li><a href=#Hash_Table-ht_distinct_update>ht_distinct_update</a></li>
+<li><a href=#Hash_Table-length_update>length_update</a></li>
+<li><a href=#Hash_Table-ht_size_update1>ht_size_update1</a></li>
+<li><a href=#Hash_Table-ht_size_update2>ht_size_update2</a></li>
+<li><a href=#Hash_Table-complete_ht_upd>complete_ht_upd</a></li>
+<li><a href=#Hash_Table-complete_ht_upd_alt_proof>complete_ht_upd_alt_proof</a></li>
+<li><a href=#Hash_Table-ls_delete_snd_set>ls_delete_snd_set</a></li>
+<li><a href=#Hash_Table-ls_delete_fst_set>ls_delete_fst_set</a></li>
+<li><a href=#Hash_Table-ls_delete_fst_map_set>ls_delete_fst_map_set</a></li>
+<li><a href=#Hash_Table-ls_delete_distinct>ls_delete_distinct</a></li>
+<li><a href=#Hash_Table-ls_delete_length>ls_delete_length</a></li>
+<li><a href=#Hash_Table-ls_delete_length_snd_True>ls_delete_length_snd_True</a></li>
+<li><a href=#Hash_Table-ls_delete_length_snd_False>ls_delete_length_snd_False</a></li>
+<li><a href=#Hash_Table-ht_hash_delete>ht_hash_delete</a></li>
+<li><a href=#Hash_Table-ht_distinct_delete>ht_distinct_delete</a></li>
+<li><a href=#Hash_Table-ht_size_delete1>ht_size_delete1</a></li>
+<li><a href=#Hash_Table-ht_size_delete2>ht_size_delete2</a></li>
+<li><a href=#Hash_Table-complete_ht_delete>complete_ht_delete</a></li>
+<li><a href=#Hash_Table-ht_hash_ls_insls>ht_hash_ls_insls</a></li>
+<li><a href=#Hash_Table-ht_distinct_ls_insls>ht_distinct_ls_insls</a></li>
+<li><a href=#Hash_Table-length_ls_insls>length_ls_insls</a></li>
+<li><a href=#Hash_Table-complete_ht_insls>complete_ht_insls</a></li>
+<li><a href=#Hash_Table-ht_hash_ls_copy>ht_hash_ls_copy</a></li>
+<li><a href=#Hash_Table-ht_distinct_ls_copy>ht_distinct_ls_copy</a></li>
+<li><a href=#Hash_Table-length_ls_copy>length_ls_copy</a></li>
+<li><a href=#Hash_Table-complete_ht_copy>complete_ht_copy</a></li>
+<li><a href=#Hash_Table-complete_ht_copy_alt_proof>complete_ht_copy_alt_proof</a></li>
+<li><a href=#Hash_Table-ht_hash_ls_rehash>ht_hash_ls_rehash</a></li>
+<li><a href=#Hash_Table-ht_distinct_ls_rehash>ht_distinct_ls_rehash</a></li>
+<li><a href=#Hash_Table-length_ls_rehash>length_ls_rehash</a></li>
+<li><a href=#Hash_Table-ht_imp_len>ht_imp_len</a></li>
+<li><a href=#Hash_Table-complete_ht_rehash>complete_ht_rehash</a></li>
+<li><a href=#Hash_Table-complete_ht_update_normal>complete_ht_update_normal</a></li>
+<li><a href=#Hash_Table-complete_ht_update_rehash>complete_ht_update_rehash</a></li>
+<li><a href=#Hash_Table-complete_ht_to_list>complete_ht_to_list</a></li>
+</ul>
+</li><li><a href=#Hash_Map>Hash_Map</a>
+<ul>
+<li><a href=#Hash_Map-map_of_ls_update>map_of_ls_update</a></li>
+<li><a href=#Hash_Map-map_of_concat>map_of_concat</a></li>
+<li><a href=#Hash_Map-map_of_concat%27>map_of_concat'</a></li>
+<li><a href=#Hash_Map-map_of_concat%27%27%27>map_of_concat'''</a></li>
+<li><a href=#Hash_Map-map_of_concat%27%27>map_of_concat''</a></li>
+<li><a href=#Hash_Map-abs_update_length>abs_update_length</a></li>
+<li><a href=#Hash_Map-ls_update_map_of_eq>ls_update_map_of_eq</a></li>
+<li><a href=#Hash_Map-ls_update_map_of_neq>ls_update_map_of_neq</a></li>
+<li><a href=#Hash_Map-is_hashmap%27_prec>is_hashmap'_prec</a></li>
+<li><a href=#Hash_Map-is_hashmap_prec>is_hashmap_prec</a></li>
+<li><a href=#Hash_Map-hm_new_rule%27>hm_new_rule'</a></li>
+<li><a href=#Hash_Map-hm_new_rule>hm_new_rule</a></li>
+<li><a href=#Hash_Map-ht_hash_distinct>ht_hash_distinct</a></li>
+<li><a href=#Hash_Map-ht_hash_in_dom_in_dom_bounded_hashcode_nat>ht_hash_in_dom_in_dom_bounded_hashcode_nat</a></li>
+<li><a href=#Hash_Map-ht_hash_in_dom_bounded_hashcode_nat_in_dom>ht_hash_in_dom_bounded_hashcode_nat_in_dom</a></li>
+<li><a href=#Hash_Map-ht_hash_in_dom_in_dom_bounded_hashcode_nat_eq>ht_hash_in_dom_in_dom_bounded_hashcode_nat_eq</a></li>
+<li><a href=#Hash_Map-ht_hash_in_dom_i_bounded_hashcode_nat_i>ht_hash_in_dom_i_bounded_hashcode_nat_i</a></li>
+<li><a href=#Hash_Map-ht_hash_in_bounded_hashcode_nat_not_i_not_in_dom_i>ht_hash_in_bounded_hashcode_nat_not_i_not_in_dom_i</a></li>
+<li><a href=#Hash_Map-ht_hash_ht_distinct_in_dom_unique_value>ht_hash_ht_distinct_in_dom_unique_value</a></li>
+<li><a href=#Hash_Map-ht_hash_ht_distinct_map_of>ht_hash_ht_distinct_map_of</a></li>
+<li><a href=#Hash_Map-ls_lookup_map_of_pre>ls_lookup_map_of_pre</a></li>
+<li><a href=#Hash_Map-ls_lookup_map_of>ls_lookup_map_of</a></li>
+<li><a href=#Hash_Map-hm_lookup_rule%27>hm_lookup_rule'</a></li>
+<li><a href=#Hash_Map-hm_lookup_rule>hm_lookup_rule</a></li>
+<li><a href=#Hash_Map-abs_update_map_of%27%27>abs_update_map_of''</a></li>
+<li><a href=#Hash_Map-abs_update_map_of_hceq>abs_update_map_of_hceq</a></li>
+<li><a href=#Hash_Map-abs_update_map_of_hcneq>abs_update_map_of_hcneq</a></li>
+<li><a href=#Hash_Map-abs_update_map_of%27%27%27>abs_update_map_of'''</a></li>
+<li><a href=#Hash_Map-abs_update_map_of%27>abs_update_map_of'</a></li>
+<li><a href=#Hash_Map-abs_update_map_of>abs_update_map_of</a></li>
+<li><a href=#Hash_Map-ls_insls_map_of>ls_insls_map_of</a></li>
+<li><a href=#Hash_Map-ls_insls_map_of%27>ls_insls_map_of'</a></li>
+<li><a href=#Hash_Map-ls_copy_map_of>ls_copy_map_of</a></li>
+<li><a href=#Hash_Map-ls_rehash_map_of>ls_rehash_map_of</a></li>
+<li><a href=#Hash_Map-abs_update_rehash_map_of>abs_update_rehash_map_of</a></li>
+<li><a href=#Hash_Map-hm_update_rule%27>hm_update_rule'</a></li>
+<li><a href=#Hash_Map-hm_update_rule>hm_update_rule</a></li>
+<li><a href=#Hash_Map-ls_delete_map_of>ls_delete_map_of</a></li>
+<li><a href=#Hash_Map-update_ls_delete_map_of>update_ls_delete_map_of</a></li>
+<li><a href=#Hash_Map-hm_delete_rule%27>hm_delete_rule'</a></li>
+<li><a href=#Hash_Map-hm_delete_rule>hm_delete_rule</a></li>
+<li><a href=#Hash_Map-hm_isEmpty_rule%27>hm_isEmpty_rule'</a></li>
+<li><a href=#Hash_Map-hm_isEmpty_rule>hm_isEmpty_rule</a></li>
+<li><a href=#Hash_Map-length_card_dom_map_of>length_card_dom_map_of</a></li>
+<li><a href=#Hash_Map-ht_hash_dom_map_of_disj>ht_hash_dom_map_of_disj</a></li>
+<li><a href=#Hash_Map-ht_hash_dom_map_of_disj_drop>ht_hash_dom_map_of_disj_drop</a></li>
+<li><a href=#Hash_Map-sum_list_length_card_dom_map_of_concat>sum_list_length_card_dom_map_of_concat</a></li>
+<li><a href=#Hash_Map-hm_size_rule%27>hm_size_rule'</a></li>
+<li><a href=#Hash_Map-hm_size_rule>hm_size_rule</a></li>
+<li><a href=#Hash_Map-concat_take_Suc_empty>concat_take_Suc_empty</a></li>
+<li><a href=#Hash_Map-nth_concat_splitE>nth_concat_splitE</a></li>
+<li><a href=#Hash_Map-is_hashmap%27_distinct>is_hashmap'_distinct</a></li>
+<li><a href=#Hash_Map-take_set>take_set</a></li>
+<li><a href=#Hash_Map-skip_empty_aux>skip_empty_aux</a></li>
+<li><a href=#Hash_Map-take_Suc0>take_Suc0</a></li>
+<li><a href=#Hash_Map-concat_take_Suc_app_nth>concat_take_Suc_app_nth</a></li>
+<li><a href=#Hash_Map-hm_hashcode_eq>hm_hashcode_eq</a></li>
+<li><a href=#Hash_Map-distinct_imp_distinct_take>distinct_imp_distinct_take</a></li>
+<li><a href=#Hash_Map-hm_it_adjust_rule>hm_it_adjust_rule</a></li>
+<li><a href=#Hash_Map-hm_it_next_rule%27>hm_it_next_rule'</a></li>
+<li><a href=#Hash_Map-hm_it_next_rule>hm_it_next_rule</a></li>
+<li><a href=#Hash_Map-hm_it_init_rule>hm_it_init_rule</a></li>
+<li><a href=#Hash_Map-hm_it_has_next_rule>hm_it_has_next_rule</a></li>
+<li><a href=#Hash_Map-hm_it_finish>hm_it_finish</a></li>
+</ul>
+</li><li><a href=#Hash_Map_Impl>Hash_Map_Impl</a>
+<ul>
+<li><a href=#Hash_Map_Impl-hm_map_impl>hm_map_impl</a></li>
+<li><a href=#Hash_Map_Impl-hm_empty_impl>hm_empty_impl</a></li>
+<li><a href=#Hash_Map_Impl-hm_lookup_impl>hm_lookup_impl</a></li>
+<li><a href=#Hash_Map_Impl-hm_update_impl>hm_update_impl</a></li>
+<li><a href=#Hash_Map_Impl-hm_delete_impl>hm_delete_impl</a></li>
+<li><a href=#Hash_Map_Impl-hm_is_empty_impl>hm_is_empty_impl</a></li>
+<li><a href=#Hash_Map_Impl-hm_size_impl>hm_size_impl</a></li>
+<li><a href=#Hash_Map_Impl-hm_iterate_impl>hm_iterate_impl</a></li>
+</ul>
+</li><li><a href=#Imp_Set_Spec>Imp_Set_Spec</a>
+</li><li><a href=#Hash_Set_Impl>Hash_Set_Impl</a>
+<ul>
+<li><a href=#Hash_Set_Impl-ne_some_unit_eq>ne_some_unit_eq</a></li>
+<li><a href=#Hash_Set_Impl-map_of_set_simps>map_of_set_simps</a></li>
+<li><a href=#Hash_Set_Impl-map_of_set_eq%27>map_of_set_eq'</a></li>
+<li><a href=#Hash_Set_Impl-map_of_set_eq>map_of_set_eq</a></li>
+<li><a href=#Hash_Set_Impl-hs_set_impl>hs_set_impl</a></li>
+<li><a href=#Hash_Set_Impl-hs_new_impl>hs_new_impl</a></li>
+<li><a href=#Hash_Set_Impl-hs_memb_impl>hs_memb_impl</a></li>
+<li><a href=#Hash_Set_Impl-hs_ins_impl>hs_ins_impl</a></li>
+<li><a href=#Hash_Set_Impl-hs_delete_impl>hs_delete_impl</a></li>
+<li><a href=#Hash_Set_Impl-hs_is_empty_impl>hs_is_empty_impl</a></li>
+<li><a href=#Hash_Set_Impl-hs_size_impl>hs_size_impl</a></li>
+<li><a href=#Hash_Set_Impl-hs_iterate_impl>hs_iterate_impl</a></li>
+</ul>
+</li><li><a href=#To_List_GA>To_List_GA</a>
+<ul>
+<li><a href=#To_List_GA-to_list_ga_rec_rule>to_list_ga_rec_rule</a></li>
+<li><a href=#To_List_GA-to_list_ga_rule>to_list_ga_rule</a></li>
+</ul>
+</li><li><a href=#Union_Find>Union_Find</a>
+<ul>
+<li><a href=#Union_Find-ufa_invarD>ufa_invarD</a></li>
+<li><a href=#Union_Find-rep_of_refl>rep_of_refl</a></li>
+<li><a href=#Union_Find-rep_of_step>rep_of_step</a></li>
+<li><a href=#Union_Find-rep_of_iff>rep_of_iff</a></li>
+<li><a href=#Union_Find-rep_of_induct>rep_of_induct</a></li>
+<li><a href=#Union_Find-rep_of_min>rep_of_min</a></li>
+<li><a href=#Union_Find-rep_of_bound>rep_of_bound</a></li>
+<li><a href=#Union_Find-rep_of_idem>rep_of_idem</a></li>
+<li><a href=#Union_Find-rep_of_min_upd>rep_of_min_upd</a></li>
+<li><a href=#Union_Find-rep_of_idx>rep_of_idx</a></li>
+<li><a href=#Union_Find-ufa_%ce%b1_equiv>ufa_α_equiv</a></li>
+<li><a href=#Union_Find-ufa_%ce%b1_lenD>ufa_α_lenD</a></li>
+<li><a href=#Union_Find-ufa_%ce%b1_dom>ufa_α_dom</a></li>
+<li><a href=#Union_Find-ufa_%ce%b1_refl>ufa_α_refl</a></li>
+<li><a href=#Union_Find-ufa_%ce%b1_len_eq>ufa_α_len_eq</a></li>
+<li><a href=#Union_Find-ufa_init_invar>ufa_init_invar</a></li>
+<li><a href=#Union_Find-ufa_init_correct>ufa_init_correct</a></li>
+<li><a href=#Union_Find-ufa_find_correct>ufa_find_correct</a></li>
+<li><a href=#Union_Find-ufa_union_invar>ufa_union_invar</a></li>
+<li><a href=#Union_Find-ufa_union_aux>ufa_union_aux</a></li>
+<li><a href=#Union_Find-ufa_union_correct>ufa_union_correct</a></li>
+<li><a href=#Union_Find-ufa_compress_aux>ufa_compress_aux</a></li>
+<li><a href=#Union_Find-ufa_compress_invar>ufa_compress_invar</a></li>
+<li><a href=#Union_Find-ufa_compress_correct>ufa_compress_correct</a></li>
+<li><a href=#Union_Find-uf_init_rule>uf_init_rule</a></li>
+<li><a href=#Union_Find-uf_rep_of_rule>uf_rep_of_rule</a></li>
+<li><a href=#Union_Find-uf_compress_rule>uf_compress_rule</a></li>
+<li><a href=#Union_Find-uf_rep_of_c_rule>uf_rep_of_c_rule</a></li>
+<li><a href=#Union_Find-cnv_to_ufa_%ce%b1_eq>cnv_to_ufa_α_eq</a></li>
+<li><a href=#Union_Find-uf_cmp_rule>uf_cmp_rule</a></li>
+<li><a href=#Union_Find-uf_union_rule>uf_union_rule</a></li>
+</ul>
+</li><li><a href=#Idioms>Idioms</a>
+<ul>
+<li><a href=#Idioms-complete_ht_rehash>complete_ht_rehash</a></li>
+<li><a href=#Idioms-cs_append_rule>cs_append_rule</a></li>
+<li><a href=#Idioms-ins_from_list_correct>ins_from_list_correct</a></li>
+<li><a href=#Idioms-os_sum%27_rule>os_sum'_rule</a></li>
+<li><a href=#Idioms-lseg_prec3>lseg_prec3</a></li>
+</ul>
+</li><li><a href=#Default_Insts>Default_Insts</a>
+</li><li><a href=#Array_Blit>Array_Blit</a>
+<ul>
+<li><a href=#Array_Blit-blit_rule>blit_rule</a></li>
+<li><a href=#Array_Blit-array_shrink_rule>array_shrink_rule</a></li>
+<li><a href=#Array_Blit-array_grow_rule>array_grow_rule</a></li>
+<li><a href=#Array_Blit-array_copy_rule>array_copy_rule</a></li>
+</ul>
+</li><li><a href=#Array_Map_Impl>Array_Map_Impl</a>
+<ul>
+<li><a href=#Array_Map_Impl-precise_iam>precise_iam</a></li>
+<li><a href=#Array_Map_Impl-iam_new_abs>iam_new_abs</a></li>
+<li><a href=#Array_Map_Impl-iam_new_sz_rule>iam_new_sz_rule</a></li>
+<li><a href=#Array_Map_Impl-iam_new_rule>iam_new_rule</a></li>
+<li><a href=#Array_Map_Impl-iam_lookup_abs1>iam_lookup_abs1</a></li>
+<li><a href=#Array_Map_Impl-iam_lookup_abs2>iam_lookup_abs2</a></li>
+<li><a href=#Array_Map_Impl-iam_lookup_rule>iam_lookup_rule</a></li>
+<li><a href=#Array_Map_Impl-iam_delete_abs1>iam_delete_abs1</a></li>
+<li><a href=#Array_Map_Impl-iam_delete_abs2>iam_delete_abs2</a></li>
+<li><a href=#Array_Map_Impl-iam_delete_rule>iam_delete_rule</a></li>
+<li><a href=#Array_Map_Impl-iam_update_abs1>iam_update_abs1</a></li>
+<li><a href=#Array_Map_Impl-iam_update_abs2>iam_update_abs2</a></li>
+<li><a href=#Array_Map_Impl-iam_update_rule>iam_update_rule</a></li>
+</ul>
+</li><li><a href=#Array_Set_Impl>Array_Set_Impl</a>
+<ul>
+<li><a href=#Array_Set_Impl-precise_ias>precise_ias</a></li>
+<li><a href=#Array_Set_Impl-ias_new_abs>ias_new_abs</a></li>
+<li><a href=#Array_Set_Impl-ias_new_sz_rule>ias_new_sz_rule</a></li>
+<li><a href=#Array_Set_Impl-ias_new_rule>ias_new_rule</a></li>
+<li><a href=#Array_Set_Impl-ias_memb_abs1>ias_memb_abs1</a></li>
+<li><a href=#Array_Set_Impl-ias_memb_abs2>ias_memb_abs2</a></li>
+<li><a href=#Array_Set_Impl-ias_memb_rule>ias_memb_rule</a></li>
+<li><a href=#Array_Set_Impl-ias_delete_abs1>ias_delete_abs1</a></li>
+<li><a href=#Array_Set_Impl-ias_delete_abs2>ias_delete_abs2</a></li>
+<li><a href=#Array_Set_Impl-ias_delete_rule>ias_delete_rule</a></li>
+<li><a href=#Array_Set_Impl-ias_ins_abs1>ias_ins_abs1</a></li>
+<li><a href=#Array_Set_Impl-ias_ins_abs2>ias_ins_abs2</a></li>
+<li><a href=#Array_Set_Impl-ias_ins_rule>ias_ins_rule</a></li>
+<li><a href=#Array_Set_Impl-ias_set_impl>ias_set_impl</a></li>
+<li><a href=#Array_Set_Impl-ias_empty_impl>ias_empty_impl</a></li>
+<li><a href=#Array_Set_Impl-ias_empty_sz_impl>ias_empty_sz_impl</a></li>
+<li><a href=#Array_Set_Impl-ias_memb_impl>ias_memb_impl</a></li>
+<li><a href=#Array_Set_Impl-ias_delete_impl>ias_delete_impl</a></li>
+<li><a href=#Array_Set_Impl-ias_ins_impl>ias_ins_impl</a></li>
+</ul>
+</li><li><a href=#From_List_GA>From_List_GA</a>
+<ul>
+<li><a href=#From_List_GA-from_list_ga_aux_rule>from_list_ga_aux_rule</a></li>
+<li><a href=#From_List_GA-from_list_ga_rule>from_list_ga_rule</a></li>
+</ul>
+</li><li><a href=#Sep_Examples>Sep_Examples</a>
+</li>
+</ul>
+</div>
+<ul>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Separation_Logic_Imperative_HOL/outline.pdf>Proof
+outline</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Separation_Logic_Imperative_HOL/document.pdf>Proof
+document</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Separation_Logic_Imperative_HOL/session_graph.pdf>Theory dependencies</a></li>
+</ul>
+</div>
+</aside>
+<div class="content theories"><header>
+<form action=/%20search>
+<div class=form-container>
+<input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
+<datalist id=autocomplete>
+</datalist>
+</div>
+</form>
+<h1><span class=first>S</span>ession <span class=first>S</span>eparation_<span class=first>L</span>ogic_<span class=first>I</span>mperative_<span class=first>H</span><span class=first>O</span><span class=first>L</span></h1>
+<div>
+</div>
+</header><div id=banner data-id=0>
+<p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button>
+</div>
+<div><main>
+<div id=Imperative_HOL_Add>
+<div class=head>
+<h1>Theory Imperative_HOL_Add</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Additions to Imperative/HOL›</span></span>
 <span class=keyword1><span class=command>theory</span></span> Imperative_HOL_Add
 <span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL-Imperative_HOL/Imperative_HOL.html>HOL-Imperative_HOL.Imperative_HOL</a>"</span> 
 <span class=keyword2><span class=keyword>begin</span></span> 
@@ -58,7 +677,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Se
   <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> Let_def<span class=main>)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Syntax_Match><div class=head><h1>Theory Syntax_Match</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Syntactic Matching in the Simplifier›</span></span>
+</pre>
+</div><div id=Syntax_Match>
+<div class=head>
+<h1>Theory Syntax_Match</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Syntactic Matching in the Simplifier›</span></span>
 <span class=keyword1><span class=command>theory</span></span> Syntax_Match
 <span class=keyword2><span class=keyword>imports</span></span> <a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL/Main.html>Main</a>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -171,7 +795,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Se
   <span class=keyword1><span class=command>by</span></span> <span class=operator>unfold_locales</span> <span class=operator>auto</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Run><div class=head><h1>Theory Run</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Exception-Aware Relational Framework›</span></span>
+</pre>
+</div><div id=Run>
+<div class=head>
+<h1>Theory Run</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Exception-Aware Relational Framework›</span></span>
 <span class=keyword1><span class=command>theory</span></span> Run
 <span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL-Imperative_HOL/Imperative_HOL.html>HOL-Imperative_HOL.Imperative_HOL</a>"</span>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -537,7 +1166,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Se
   <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>auto</span> <span class=quasi_keyword>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> run.simps <span class=dynamic><span class=dynamic>execute_simps</span></span><span class=main>)</span>
   
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Assertions><div class=head><h1>Theory Assertions</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>"Assertions"</span></span>
+</pre>
+</div><div id=Assertions>
+<div class=head>
+<h1>Theory Assertions</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>"Assertions"</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Assertions
 <span class=keyword2><span class=keyword>imports</span></span> 
@@ -1519,7 +2153,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Se
   <span class=keyword1><span class=command><span class=improper><span class=command>done</span></span></span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Hoare_Triple><div class=head><h1>Theory Hoare_Triple</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Hoare-Triples›</span></span>
+</pre>
+</div><div id=Hoare_Triple>
+<div class=head>
+<h1>Theory Hoare_Triple</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Hoare-Triples›</span></span>
 <span class=keyword1><span class=command>theory</span></span> Hoare_Triple
 <span class=keyword2><span class=keyword>imports</span></span> <a href=#Run>Run</a> <a href=#Assertions>Assertions</a>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -1991,7 +2630,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Se
   <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>auto</span><span class=main>)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Automation><div class=head><h1>Theory Automation</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Automation›</span></span>
+</pre>
+</div><div id=Automation>
+<div class=head>
+<h1>Theory Automation</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Automation›</span></span>
 <span class=keyword1><span class=command>theory</span></span> Automation
 <span class=keyword2><span class=keyword>imports</span></span> <a href=#Hoare_Triple>Hoare_Triple</a> <span class=comment1>(*"../Lib/Refine_Util"*)</span>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -3057,14 +3701,24 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Se
 <span class=comment1>(*&gt;*)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Sep_Main><div class=head><h1>Theory Sep_Main</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Separation Logic Framework Entrypoint›</span></span>
+</pre>
+</div><div id=Sep_Main>
+<div class=head>
+<h1>Theory Sep_Main</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Separation Logic Framework Entrypoint›</span></span>
 <span class=keyword1><span class=command>theory</span></span> Sep_Main
 <span class=keyword2><span class=keyword>imports</span></span> <a href=#Automation>Automation</a>
 <span class=keyword2><span class=keyword>begin</span></span>
   <span class=keyword1><span class=command>text</span></span> <span class=quoted><span class=plain_text>‹Import this theory to make available Imperative/HOL with 
     separation logic.›</span></span>
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Imp_List_Spec><div class=head><h1>Theory Imp_List_Spec</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Interface for Lists›</span></span>
+</pre>
+</div><div id=Imp_List_Spec>
+<div class=head>
+<h1>Theory Imp_List_Spec</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Interface for Lists›</span></span>
 <span class=keyword1><span class=command>theory</span></span> Imp_List_Spec
 <span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=#Sep_Main>../Sep_Main</a>"</span>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -3149,7 +3803,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Se
     <span class=quoted><span class=quoted>"<span class=free>is_it</span> <span class=free>l</span> <span class=free>p</span> <span class=free>l'</span> <span class=free>it</span> <span class=keyword1>⟹<span class=hidden>⇩</span><sub>A</sub></span> <span class=free>is_list</span> <span class=free>l</span> <span class=free>p</span> <span class=main>*</span> <span class=keyword1>true</span>"</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=List_Seg><div class=head><h1>Theory List_Seg</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Singly Linked List Segments›</span></span>
+</pre>
+</div><div id=List_Seg>
+<div class=head>
+<h1>Theory List_Seg</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Singly Linked List Segments›</span></span>
 <span class=keyword1><span class=command>theory</span></span> List_Seg
 <span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=#Sep_Main>../Sep_Main</a>"</span>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -3387,7 +4046,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Se
 <span class=keyword1><span class=command>qed</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Open_List><div class=head><h1>Theory Open_List</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Open Singly Linked Lists›</span></span>
+</pre>
+</div><div id=Open_List>
+<div class=head>
+<h1>Theory Open_List</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Open Singly Linked Lists›</span></span>
 <span class=keyword1><span class=command>theory</span></span> Open_List
 <span class=keyword2><span class=keyword>imports</span></span> <a href=#List_Seg>List_Seg</a> <a href=#Imp_List_Spec>Imp_List_Spec</a>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -3689,7 +4353,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Se
   <span class=keyword1><span class=command>by</span></span> <span class=operator>sep_auto</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Circ_List><div class=head><h1>Theory Circ_List</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Circular Singly Linked Lists›</span></span>
+</pre>
+</div><div id=Circ_List>
+<div class=head>
+<h1>Theory Circ_List</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Circular Singly Linked Lists›</span></span>
 <span class=keyword1><span class=command>theory</span></span> Circ_List
 <span class=keyword2><span class=keyword>imports</span></span> <a href=#List_Seg>List_Seg</a> <a href=#Imp_List_Spec>Imp_List_Spec</a>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -3939,7 +4608,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Se
 <span class=keyword1><span class=command>hide_const</span></span> <span class=main>(</span><span class=keyword2><span class=keyword>open</span></span><span class=main>)</span> test test_result
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Imp_Map_Spec><div class=head><h1>Theory Imp_Map_Spec</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Interface for Maps›</span></span>
+</pre>
+</div><div id=Imp_Map_Spec>
+<div class=head>
+<h1>Theory Imp_Map_Spec</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Interface for Maps›</span></span>
 <span class=keyword1><span class=command>theory</span></span> Imp_Map_Spec
 <span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=#Sep_Main>../Sep_Main</a>"</span>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -4031,7 +4705,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Se
     <span class=quoted><span class=quoted>"<span class=free>is_it</span> <span class=free>m</span> <span class=free>p</span> <span class=free>l</span> <span class=free>it</span> <span class=keyword1>⟹<span class=hidden>⇩</span><sub>A</sub></span> <span class=free>is_map</span> <span class=free>m</span> <span class=free>p</span> <span class=main>*</span> <span class=keyword1>true</span>"</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Hash_Table><div class=head><h1>Theory Hash_Table</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>"Hash-Tables"</span></span>
+</pre>
+</div><div id=Hash_Table>
+<div class=head>
+<h1>Theory Hash_Table</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>"Hash-Tables"</span></span>
 <span class=keyword1><span class=command>theory</span></span> Hash_Table
 <span class=keyword2><span class=keyword>imports</span></span>
   <a href=../../collections/theories/#HashCode>Collections.HashCode</a>
@@ -4935,7 +5614,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Se
   <span class=keyword1><span class=command>by</span></span> <span class=operator>sep_auto</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Hash_Map><div class=head><h1>Theory Hash_Map</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>"Hash-Maps"</span></span>
+</pre>
+</div><div id=Hash_Map>
+<div class=head>
+<h1>Theory Hash_Map</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>"Hash-Maps"</span></span>
 <span class=keyword1><span class=command>theory</span></span> Hash_Map
   <span class=keyword2><span class=keyword>imports</span></span> <a href=#Hash_Table>Hash_Table</a>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -6037,7 +6721,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Se
   <span class=keyword1><span class=command>by</span></span> <span class=operator>sep_auto</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Hash_Map_Impl><div class=head><h1>Theory Hash_Map_Impl</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>"Hash-Maps (Interface Instantiations)"</span></span>
+</pre>
+</div><div id=Hash_Map_Impl>
+<div class=head>
+<h1>Theory Hash_Map_Impl</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>"Hash-Maps (Interface Instantiations)"</span></span>
 <span class=keyword1><span class=command>theory</span></span> Hash_Map_Impl
 <span class=keyword2><span class=keyword>imports</span></span> <a href=#Imp_Map_Spec>Imp_Map_Spec</a> <a href=#Hash_Map>Hash_Map</a>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -6121,7 +6810,12 @@ lemma hm_iterate'_impl:
   <span class=keyword2><span class=keyword>checking</span></span> SML_imp
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Imp_Set_Spec><div class=head><h1>Theory Imp_Set_Spec</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Interface for Sets›</span></span>
+</pre>
+</div><div id=Imp_Set_Spec>
+<div class=head>
+<h1>Theory Imp_Set_Spec</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Interface for Sets›</span></span>
 <span class=keyword1><span class=command>theory</span></span> Imp_Set_Spec
 <span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=#Sep_Main>../Sep_Main</a>"</span>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -6188,7 +6882,12 @@ lemma hm_iterate'_impl:
     <span class=quoted><span class=quoted>"<span class=free>is_it</span> <span class=free>s</span> <span class=free>p</span> <span class=free>s'</span> <span class=free>it</span> <span class=keyword1>⟹<span class=hidden>⇩</span><sub>A</sub></span> <span class=free>is_set</span> <span class=free>s</span> <span class=free>p</span> <span class=main>*</span> <span class=keyword1>true</span>"</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Hash_Set_Impl><div class=head><h1>Theory Hash_Set_Impl</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>"Hash-Sets"</span></span>
+</pre>
+</div><div id=Hash_Set_Impl>
+<div class=head>
+<h1>Theory Hash_Set_Impl</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>"Hash-Sets"</span></span>
 <span class=keyword1><span class=command>theory</span></span> Hash_Set_Impl
 <span class=keyword2><span class=keyword>imports</span></span> <a href=#Imp_Set_Spec>Imp_Set_Spec</a> <a href=#Hash_Map_Impl>Hash_Map_Impl</a>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -6338,7 +7037,12 @@ lemma hm_iterate'_impl:
   <span class=keyword2><span class=keyword>checking</span></span> SML_imp
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=To_List_GA><div class=head><h1>Theory To_List_GA</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Generic Algorithm to Convert Sets to Lists›</span></span>
+</pre>
+</div><div id=To_List_GA>
+<div class=head>
+<h1>Theory To_List_GA</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Generic Algorithm to Convert Sets to Lists›</span></span>
 <span class=keyword1><span class=command>theory</span></span> To_List_GA
 <span class=keyword2><span class=keyword>imports</span></span> <a href=#Imp_Set_Spec>Imp_Set_Spec</a> <a href=#Imp_List_Spec>Imp_List_Spec</a> <a href=#Hash_Set_Impl>Hash_Set_Impl</a> <a href=#Open_List>Open_List</a>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -6437,7 +7141,12 @@ lemma hm_iterate'_impl:
   <span class=keyword1><span class=command>export_code</span></span> <span class=quoted><span class=quoted>hs_to_ol</span></span> <span class=keyword2><span class=keyword>checking</span></span> SML_imp
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Union_Find><div class=head><h1>Theory Union_Find</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Union-Find Data-Structure›</span></span>
+</pre>
+</div><div id=Union_Find>
+<div class=head>
+<h1>Theory Union_Find</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Union-Find Data-Structure›</span></span>
 <span class=keyword1><span class=command>theory</span></span> Union_Find
 <span class=keyword2><span class=keyword>imports</span></span> 
   <span class=quoted>"<a href=#Sep_Main>../Sep_Main</a>"</span> 
@@ -6967,7 +7676,12 @@ ML_val {*
 *}*)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Idioms><div class=head><h1>Theory Idioms</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Common Proof Methods and Idioms›</span></span> 
+</pre>
+</div><div id=Idioms>
+<div class=head>
+<h1>Theory Idioms</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Common Proof Methods and Idioms›</span></span> 
 <span class=keyword1><span class=command>theory</span></span> Idioms 
 <span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=#Sep_Main>../Sep_Main</a>"</span> <a href=#Open_List>Open_List</a> <a href=#Circ_List>Circ_List</a> <a href=#Hash_Set_Impl>Hash_Set_Impl</a>
 <span class=keyword2><span class=keyword>begin</span></span> 
@@ -7224,7 +7938,12 @@ ML_val {*
       <span class=keyword1><span class=command><span class=improper><span class=command>done</span></span></span></span>
   <span class=keyword1><span class=command>qed</span></span>
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Default_Insts><div class=head><h1>Theory Default_Insts</h1></div><pre class=source><span class=keyword1><span class=command>theory</span></span> Default_Insts
+</pre>
+</div><div id=Default_Insts>
+<div class=head>
+<h1>Theory Default_Insts</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>theory</span></span> Default_Insts
 <span class=keyword2><span class=keyword>imports</span></span> <a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL/Main.html>Main</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
@@ -7263,7 +7982,12 @@ ML_val {*
     <span class=keyword1><span class=command>instance</span></span> <span class=keyword1><span class=command>..</span></span>
   <span class=keyword2><span class=keyword>end</span></span>
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Array_Blit><div class=head><h1>Theory Array_Blit</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Bit Block Transfer and Other Array Optimizations›</span></span>
+</pre>
+</div><div id=Array_Blit>
+<div class=head>
+<h1>Theory Array_Blit</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Bit Block Transfer and Other Array Optimizations›</span></span>
 <span class=keyword1><span class=command>theory</span></span> Array_Blit
 <span class=keyword2><span class=keyword>imports</span></span> 
   <span class=quoted>"<a href=#Sep_Main>../Sep_Main</a>"</span> 
@@ -7456,7 +8180,12 @@ ML_val {*
     
     
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Array_Map_Impl><div class=head><h1>Theory Array_Map_Impl</h1></div><pre class=source><span class=keyword1><span class=command>theory</span></span> Array_Map_Impl
+</pre>
+</div><div id=Array_Map_Impl>
+<div class=head>
+<h1>Theory Array_Map_Impl</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>theory</span></span> Array_Map_Impl
 <span class=keyword2><span class=keyword>imports</span></span> 
   <span class=quoted>"<a href=#Sep_Main>../Sep_Main</a>"</span> <a href=#Imp_Map_Spec>Imp_Map_Spec</a> <a href=#Array_Blit>Array_Blit</a>
   <span class=quoted>"<a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL-Library/Code_Target_Numeral.html>HOL-Library.Code_Target_Numeral</a>"</span>
@@ -7630,7 +8359,12 @@ ML_val {*
     <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>sep_auto</span> <span class=quasi_keyword>heap</span><span class=main><span class=main>:</span></span> iam_update_rule<span class=main>)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Array_Set_Impl><div class=head><h1>Theory Array_Set_Impl</h1></div><pre class=source><span class=keyword1><span class=command>theory</span></span> Array_Set_Impl
+</pre>
+</div><div id=Array_Set_Impl>
+<div class=head>
+<h1>Theory Array_Set_Impl</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>theory</span></span> Array_Set_Impl
 <span class=keyword2><span class=keyword>imports</span></span> 
   <span class=quoted>"<a href=#Sep_Main>../Sep_Main</a>"</span> <a href=#Imp_Set_Spec>Imp_Set_Spec</a> <a href=#Array_Blit>Array_Blit</a>
   <span class=quoted>"<a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL-Library/Code_Target_Numeral.html>HOL-Library.Code_Target_Numeral</a>"</span>
@@ -7812,7 +8546,12 @@ ML_val {*
     <span class=keyword1><span class=command>using</span></span> ias_ins_impl <span class=keyword1><span class=command>.</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=From_List_GA><div class=head><h1>Theory From_List_GA</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Generic Algorithm to Generate Sets from Lists›</span></span>
+</pre>
+</div><div id=From_List_GA>
+<div class=head>
+<h1>Theory From_List_GA</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Generic Algorithm to Generate Sets from Lists›</span></span>
 <span class=keyword1><span class=command>theory</span></span> From_List_GA
 <span class=keyword2><span class=keyword>imports</span></span> <a href=#Imp_Set_Spec>Imp_Set_Spec</a> <a href=#Imp_List_Spec>Imp_List_Spec</a> <a href=#Hash_Set_Impl>Hash_Set_Impl</a> <a href=#Array_Set_Impl>Array_Set_Impl</a>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -7862,7 +8601,12 @@ ML_val {*
         <span class=operator>folded</span> ias_from_list_def<span class=main>]</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Sep_Examples><div class=head><h1>Theory Sep_Examples</h1></div><pre class=source><span class=comment1>(*&lt;*)</span>
+</pre>
+</div><div id=Sep_Examples>
+<div class=head>
+<h1>Theory Sep_Examples</h1>
+</div>
+<pre class=source><span class=comment1>(*&lt;*)</span>
 <span class=keyword1><span class=command>theory</span></span> Sep_Examples
 <span class=keyword2><span class=keyword>imports</span></span> 
   <a href=#Sep_Main>Sep_Main</a>
@@ -7879,4 +8623,10 @@ ML_val {*
 
 <span class=keyword2><span class=keyword>end</span></span>
 <span class=comment1>(*&gt;*)</span>
-</pre></div></main></div></div></body></html>
+</pre>
+</div>
+</main>
+</div>
+</div>
+</body>
+</html>

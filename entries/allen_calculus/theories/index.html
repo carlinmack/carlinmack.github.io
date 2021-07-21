@@ -1,7 +1,345 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Session Allen_Calculus - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session Allen_Calculus"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/allen_calculus/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Session Allen_Calculus"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css><link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script><script src=/js/banner.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><li><a href=/entries/allen_calculus>Return to entry</a></li></ul><hr><ul><li><a href=#xor_cal>xor_cal</a><ul><li><a href=#xor_cal-xor_distr_L>xor_distr_L</a></li><li><a href=#xor_cal-xor_distr_R>xor_distr_R</a></li></ul></li><li><a href=#axioms>axioms</a></li><li><a href=#allen>allen</a><ul><li><a href=#allen-cer>cer</a></li><li><a href=#allen-cre>cre</a></li><li><a href=#allen-cbov>cbov</a></li><li><a href=#allen-cbfi>cbfi</a></li><li><a href=#allen-cbdi>cbdi</a></li><li><a href=#allen-cbs>cbs</a></li><li><a href=#allen-cbsi>cbsi</a></li><li><a href=#allen-cmm>cmm</a></li><li><a href=#allen-cmov>cmov</a></li><li><a href=#allen-cmfi>cmfi</a></li><li><a href=#allen-cmdi>cmdi</a></li><li><a href=#allen-cms>cms</a></li><li><a href=#allen-cmsi>cmsi</a></li><li><a href=#allen-covb>covb</a></li><li><a href=#allen-covm>covm</a></li><li><a href=#allen-covs>covs</a></li><li><a href=#allen-cfib>cfib</a></li><li><a href=#allen-cfim>cfim</a></li><li><a href=#allen-cfiov>cfiov</a></li><li><a href=#allen-cfifi>cfifi</a></li><li><a href=#allen-cfidi>cfidi</a></li><li><a href=#allen-cfis>cfis</a></li><li><a href=#allen-cfisi>cfisi</a></li><li><a href=#allen-cdifi>cdifi</a></li><li><a href=#allen-cdidi>cdidi</a></li><li><a href=#allen-cdisi>cdisi</a></li><li><a href=#allen-csb>csb</a></li><li><a href=#allen-csm>csm</a></li><li><a href=#allen-css>css</a></li><li><a href=#allen-csifi>csifi</a></li><li><a href=#allen-csidi>csidi</a></li><li><a href=#allen-cdb>cdb</a></li><li><a href=#allen-cdm>cdm</a></li><li><a href=#allen-cfb>cfb</a></li><li><a href=#allen-cfm>cfm</a></li><li><a href=#allen-cmovi>cmovi</a></li><li><a href=#allen-covd>covd</a></li><li><a href=#allen-covf>covf</a></li><li><a href=#allen-cfid>cfid</a></li><li><a href=#allen-cfov>cfov</a></li><li><a href=#allen-covsi>covsi</a></li><li><a href=#allen-cdim>cdim</a></li><li><a href=#allen-cdiov>cdiov</a></li><li><a href=#allen-cdis>cdis</a></li><li><a href=#allen-csim>csim</a></li><li><a href=#allen-csiov>csiov</a></li><li><a href=#allen-covim>covim</a></li><li><a href=#allen-covov>covov</a></li><li><a href=#allen-covfi>covfi</a></li><li><a href=#allen-csov>csov</a></li><li><a href=#allen-csfi>csfi</a></li><li><a href=#allen-cmmi>cmmi</a></li><li><a href=#allen-cfif>cfif</a></li><li><a href=#allen-cffi>cffi</a></li><li><a href=#allen-cssi>cssi</a></li><li><a href=#allen-csis>csis</a></li><li><a href=#allen-cmim>cmim</a></li><li><a href=#allen-cbd>cbd</a></li><li><a href=#allen-cbf>cbf</a></li><li><a href=#allen-cbovi>cbovi</a></li><li><a href=#allen-cbmi>cbmi</a></li><li><a href=#allen-cdov>cdov</a></li><li><a href=#allen-cdfi>cdfi</a></li><li><a href=#allen-covdi>covdi</a></li><li><a href=#allen-cdib>cdib</a></li><li><a href=#allen-csdi>csdi</a></li><li><a href=#allen-csib>csib</a></li><li><a href=#allen-covib>covib</a></li><li><a href=#allen-cmib>cmib</a></li><li><a href=#allen-covovi>covovi</a></li><li><a href=#allen-cdid>cdid</a></li><li><a href=#allen-coviov>coviov</a></li><li><a href=#allen-cbbi>cbbi</a></li><li><a href=#allen-cbib>cbib</a></li><li><a href=#allen-cddi>cddi</a></li><li><a href=#allen-cmbi>cmbi</a></li><li><a href=#allen-covmi>covmi</a></li><li><a href=#allen-covbi>covbi</a></li><li><a href=#allen-cfiovi>cfiovi</a></li><li><a href=#allen-cfimi>cfimi</a></li><li><a href=#allen-cfibi>cfibi</a></li><li><a href=#allen-cdif>cdif</a></li><li><a href=#allen-cdiovi>cdiovi</a></li><li><a href=#allen-cdimi>cdimi</a></li><li><a href=#allen-cdibi>cdibi</a></li><li><a href=#allen-csd>csd</a></li><li><a href=#allen-csf>csf</a></li><li><a href=#allen-csovi>csovi</a></li><li><a href=#allen-csmi>csmi</a></li><li><a href=#allen-csbi>csbi</a></li><li><a href=#allen-csisi>csisi</a></li><li><a href=#allen-csid>csid</a></li><li><a href=#allen-csif>csif</a></li><li><a href=#allen-csiovi>csiovi</a></li><li><a href=#allen-csimi>csimi</a></li><li><a href=#allen-csibi>csibi</a></li><li><a href=#allen-cds>cds</a></li><li><a href=#allen-cdsi>cdsi</a></li><li><a href=#allen-cdd>cdd</a></li><li><a href=#allen-cdf>cdf</a></li><li><a href=#allen-cdovi>cdovi</a></li><li><a href=#allen-cdmi>cdmi</a></li><li><a href=#allen-cdbi>cdbi</a></li><li><a href=#allen-cfdi>cfdi</a></li><li><a href=#allen-cfs>cfs</a></li><li><a href=#allen-cfsi>cfsi</a></li><li><a href=#allen-cfd>cfd</a></li><li><a href=#allen-cff>cff</a></li><li><a href=#allen-cfovi>cfovi</a></li><li><a href=#allen-cfmi>cfmi</a></li><li><a href=#allen-cfbi>cfbi</a></li><li><a href=#allen-covifi>covifi</a></li><li><a href=#allen-covidi>covidi</a></li><li><a href=#allen-covis>covis</a></li><li><a href=#allen-covisi>covisi</a></li><li><a href=#allen-covid>covid</a></li><li><a href=#allen-covif>covif</a></li><li><a href=#allen-coviovi>coviovi</a></li><li><a href=#allen-covimi>covimi</a></li><li><a href=#allen-covibi>covibi</a></li><li><a href=#allen-cmiov>cmiov</a></li><li><a href=#allen-cmifi>cmifi</a></li><li><a href=#allen-cmidi>cmidi</a></li><li><a href=#allen-cmis>cmis</a></li><li><a href=#allen-cmisi>cmisi</a></li><li><a href=#allen-cmid>cmid</a></li><li><a href=#allen-cmif>cmif</a></li><li><a href=#allen-cmiovi>cmiovi</a></li><li><a href=#allen-cmimi>cmimi</a></li><li><a href=#allen-cmibi>cmibi</a></li><li><a href=#allen-cbim>cbim</a></li><li><a href=#allen-cbiov>cbiov</a></li><li><a href=#allen-cbifi>cbifi</a></li><li><a href=#allen-cbidi>cbidi</a></li><li><a href=#allen-cbis>cbis</a></li><li><a href=#allen-cbisi>cbisi</a></li><li><a href=#allen-cbid>cbid</a></li><li><a href=#allen-cbif>cbif</a></li><li><a href=#allen-cbiovi>cbiovi</a></li><li><a href=#allen-cbimi>cbimi</a></li><li><a href=#allen-cbibi>cbibi</a></li></ul></li><li><a href=#disjoint_relations>disjoint_relations</a><ul><li><a href=#disjoint_relations-em>em</a></li><li><a href=#disjoint_relations-eb>eb</a></li><li><a href=#disjoint_relations-eov>eov</a></li><li><a href=#disjoint_relations-es>es</a></li><li><a href=#disjoint_relations-ef>ef</a></li><li><a href=#disjoint_relations-ed>ed</a></li><li><a href=#disjoint_relations-emi>emi</a></li><li><a href=#disjoint_relations-ebi>ebi</a></li><li><a href=#disjoint_relations-eovi>eovi</a></li><li><a href=#disjoint_relations-esi>esi</a></li><li><a href=#disjoint_relations-efi>efi</a></li><li><a href=#disjoint_relations-edi>edi</a></li><li><a href=#disjoint_relations-mb>mb</a></li><li><a href=#disjoint_relations-mov>mov</a></li><li><a href=#disjoint_relations-ms>ms</a></li><li><a href=#disjoint_relations-mf>mf</a></li><li><a href=#disjoint_relations-md>md</a></li><li><a href=#disjoint_relations-mi>mi</a></li><li><a href=#disjoint_relations-mbi>mbi</a></li><li><a href=#disjoint_relations-movi>movi</a></li><li><a href=#disjoint_relations-msi>msi</a></li><li><a href=#disjoint_relations-mfi>mfi</a></li><li><a href=#disjoint_relations-mdi>mdi</a></li><li><a href=#disjoint_relations-bov>bov</a></li><li><a href=#disjoint_relations-bs>bs</a></li><li><a href=#disjoint_relations-bf>bf</a></li><li><a href=#disjoint_relations-bd>bd</a></li><li><a href=#disjoint_relations-bmi>bmi</a></li><li><a href=#disjoint_relations-bi>bi</a></li><li><a href=#disjoint_relations-bovi>bovi</a></li><li><a href=#disjoint_relations-bsi>bsi</a></li><li><a href=#disjoint_relations-bfi>bfi</a></li><li><a href=#disjoint_relations-bdi>bdi</a></li><li><a href=#disjoint_relations-ovs>ovs</a></li><li><a href=#disjoint_relations-ovf>ovf</a></li><li><a href=#disjoint_relations-ovd>ovd</a></li><li><a href=#disjoint_relations-ovmi>ovmi</a></li><li><a href=#disjoint_relations-ovbi>ovbi</a></li><li><a href=#disjoint_relations-ovi>ovi</a></li><li><a href=#disjoint_relations-ovsi>ovsi</a></li><li><a href=#disjoint_relations-ovfi>ovfi</a></li><li><a href=#disjoint_relations-ovdi>ovdi</a></li><li><a href=#disjoint_relations-sf>sf</a></li><li><a href=#disjoint_relations-sd>sd</a></li><li><a href=#disjoint_relations-smi>smi</a></li><li><a href=#disjoint_relations-sbi>sbi</a></li><li><a href=#disjoint_relations-sovi>sovi</a></li><li><a href=#disjoint_relations-si>si</a></li><li><a href=#disjoint_relations-sfi>sfi</a></li><li><a href=#disjoint_relations-sdi>sdi</a></li><li><a href=#disjoint_relations-fd>fd</a></li><li><a href=#disjoint_relations-fmi>fmi</a></li><li><a href=#disjoint_relations-fbi>fbi</a></li><li><a href=#disjoint_relations-fovi>fovi</a></li><li><a href=#disjoint_relations-fsi>fsi</a></li><li><a href=#disjoint_relations-fi>fi</a></li><li><a href=#disjoint_relations-fdi>fdi</a></li><li><a href=#disjoint_relations-dmi>dmi</a></li><li><a href=#disjoint_relations-dbi>dbi</a></li><li><a href=#disjoint_relations-dovi>dovi</a></li><li><a href=#disjoint_relations-dsi>dsi</a></li><li><a href=#disjoint_relations-dfi>dfi</a></li><li><a href=#disjoint_relations-di>di</a></li><li><a href=#disjoint_relations-mibi>mibi</a></li><li><a href=#disjoint_relations-miovi>miovi</a></li><li><a href=#disjoint_relations-misi>misi</a></li><li><a href=#disjoint_relations-mifi>mifi</a></li><li><a href=#disjoint_relations-midi>midi</a></li><li><a href=#disjoint_relations-bid>bid</a></li><li><a href=#disjoint_relations-bimi>bimi</a></li><li><a href=#disjoint_relations-biovi>biovi</a></li><li><a href=#disjoint_relations-bisi>bisi</a></li><li><a href=#disjoint_relations-bifi>bifi</a></li><li><a href=#disjoint_relations-bidi>bidi</a></li><li><a href=#disjoint_relations-ovisi>ovisi</a></li><li><a href=#disjoint_relations-ovifi>ovifi</a></li><li><a href=#disjoint_relations-ovidi>ovidi</a></li><li><a href=#disjoint_relations-sifi>sifi</a></li><li><a href=#disjoint_relations-sidi>sidi</a></li><li><a href=#disjoint_relations-fidi>fidi</a></li><li><a href=#disjoint_relations-eei>eei</a></li><li><a href=#disjoint_relations-rdisj_sym>rdisj_sym</a></li></ul></li><li><a href=#jointly_exhaustive>jointly_exhaustive</a></li><li><a href=#examples>examples</a><ul><li><a href=#examples-eovisidifmifiOm>eovisidifmifiOm</a></li><li><a href=#examples-ovsmfidiesiOmi>ovsmfidiesiOmi</a></li><li><a href=#examples-ovsmfidiesiOm>ovsmfidiesiOm</a></li><li><a href=#examples-ovsmfidiesiOssie>ovsmfidiesiOssie</a></li><li><a href=#examples-ebmovovissifsiddib>ebmovovissifsiddib</a></li><li><a href=#examples-ebmovovissiffiddibmovsd>ebmovovissiffiddibmovsd</a></li><li><a href=#examples-difimov>difimov</a></li><li><a href=#examples-difibs>difibs</a></li><li><a href=#examples-bebmovovissiffiddi>bebmovovissiffiddi</a></li><li><a href=#examples-ovsmfidiesi>ovsmfidiesi</a></li><li><a href=#examples-piiq>piiq</a></li><li><a href=#examples-ceovisidiffimi_ffie>ceovisidiffimi_ffie</a></li><li><a href=#examples-ceovisidiffimi_ffie_simp>ceovisidiffimi_ffie_simp</a></li><li><a href=#examples-ceovisidiffimi_fife>ceovisidiffimi_fife</a></li><li><a href=#examples-m_ovsmfidiesi>m_ovsmfidiesi</a></li><li><a href=#examples-ovsmfidiesi_d>ovsmfidiesi_d</a></li><li><a href=#examples-cbi_esdovovisiffidi>cbi_esdovovisiffidi</a></li><li><a href=#examples-cm_alpha1ialpha4mi>cm_alpha1ialpha4mi</a></li><li><a href=#examples-cbi_alpha1ialpha4mi>cbi_alpha1ialpha4mi</a></li><li><a href=#examples-cbeta2_beta2>cbeta2_beta2</a></li><li><a href=#examples-cbeta2_gammabm>cbeta2_gammabm</a></li><li><a href=#examples-calpha1_alpha1>calpha1_alpha1</a></li><li><a href=#examples-inter_ov>inter_ov</a></li><li><a href=#examples-neq_beta2i_alpha2alpha5m>neq_beta2i_alpha2alpha5m</a></li><li><a href=#examples-neq_bi_alpha1ialpha4mi>neq_bi_alpha1ialpha4mi</a></li></ul></li><li><a href=#nest>nest</a><ul><li><a href=#nest-intv1>intv1</a></li><li><a href=#nest-intv2>intv2</a></li><li><a href=#nest-NEST_nonempty>NEST_nonempty</a></li><li><a href=#nest-NEST_BEGIN>NEST_BEGIN</a></li><li><a href=#nest-NEST_END>NEST_END</a></li><li><a href=#nest-before>before</a></li><li><a href=#nest-meets>meets</a></li><li><a href=#nest-starts>starts</a></li><li><a href=#nest-xj_set>xj_set</a></li><li><a href=#nest-ends>ends</a></li><li><a href=#nest-before_irrefl>before_irrefl</a></li><li><a href=#nest-BEGIN_before>BEGIN_before</a></li><li><a href=#nest-BEGIN_END_before>BEGIN_END_before</a></li><li><a href=#nest-END_BEGIN_before>END_BEGIN_before</a></li><li><a href=#nest-END_END_before>END_END_before</a></li><li><a href=#nest-overlaps>overlaps</a></li></ul></li></ul></div><ul><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Allen_Calculus/outline.pdf>Proof
-outline</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Allen_Calculus/document.pdf>Proof
-document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Allen_Calculus/session_graph.pdf>Theory dependencies</a></li></ul></div></aside><div class="content theories"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
-<datalist id=autocomplete></datalist></div></form><h1><span class=first>S</span>ession <span class=first>A</span>llen_<span class=first>C</span>alculus</h1><div></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><div id=xor_cal><div class=head><h1>Theory xor_cal</h1></div><pre class=source><span class=comment1>(*
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Session Allen_Calculus - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session Allen_Calculus">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="/entries/allen_calculus/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories">
+<meta property="og:site_name" content="Archive of Formal Proofs">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="/images/afp.png">
+<meta name=twitter:title content="Session Allen_Calculus">
+<meta name=twitter:description content>
+<link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css>
+<link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script>
+<script src=/js/banner.js></script><script src=/js/header-search.js></script></head>
+<body class=mathjax_ignore>
+<aside>
+<div>
+<div>
+<a href=/>
+<img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo>
+</a>
+<ul>
+<li><a href=/entries/allen_calculus>Return to entry</a></li>
+</ul>
+<hr>
+<ul><li><a href=#xor_cal>xor_cal</a>
+<ul>
+<li><a href=#xor_cal-xor_distr_L>xor_distr_L</a></li>
+<li><a href=#xor_cal-xor_distr_R>xor_distr_R</a></li>
+</ul>
+</li><li><a href=#axioms>axioms</a>
+</li><li><a href=#allen>allen</a>
+<ul>
+<li><a href=#allen-cer>cer</a></li>
+<li><a href=#allen-cre>cre</a></li>
+<li><a href=#allen-cbov>cbov</a></li>
+<li><a href=#allen-cbfi>cbfi</a></li>
+<li><a href=#allen-cbdi>cbdi</a></li>
+<li><a href=#allen-cbs>cbs</a></li>
+<li><a href=#allen-cbsi>cbsi</a></li>
+<li><a href=#allen-cmm>cmm</a></li>
+<li><a href=#allen-cmov>cmov</a></li>
+<li><a href=#allen-cmfi>cmfi</a></li>
+<li><a href=#allen-cmdi>cmdi</a></li>
+<li><a href=#allen-cms>cms</a></li>
+<li><a href=#allen-cmsi>cmsi</a></li>
+<li><a href=#allen-covb>covb</a></li>
+<li><a href=#allen-covm>covm</a></li>
+<li><a href=#allen-covs>covs</a></li>
+<li><a href=#allen-cfib>cfib</a></li>
+<li><a href=#allen-cfim>cfim</a></li>
+<li><a href=#allen-cfiov>cfiov</a></li>
+<li><a href=#allen-cfifi>cfifi</a></li>
+<li><a href=#allen-cfidi>cfidi</a></li>
+<li><a href=#allen-cfis>cfis</a></li>
+<li><a href=#allen-cfisi>cfisi</a></li>
+<li><a href=#allen-cdifi>cdifi</a></li>
+<li><a href=#allen-cdidi>cdidi</a></li>
+<li><a href=#allen-cdisi>cdisi</a></li>
+<li><a href=#allen-csb>csb</a></li>
+<li><a href=#allen-csm>csm</a></li>
+<li><a href=#allen-css>css</a></li>
+<li><a href=#allen-csifi>csifi</a></li>
+<li><a href=#allen-csidi>csidi</a></li>
+<li><a href=#allen-cdb>cdb</a></li>
+<li><a href=#allen-cdm>cdm</a></li>
+<li><a href=#allen-cfb>cfb</a></li>
+<li><a href=#allen-cfm>cfm</a></li>
+<li><a href=#allen-cmovi>cmovi</a></li>
+<li><a href=#allen-covd>covd</a></li>
+<li><a href=#allen-covf>covf</a></li>
+<li><a href=#allen-cfid>cfid</a></li>
+<li><a href=#allen-cfov>cfov</a></li>
+<li><a href=#allen-covsi>covsi</a></li>
+<li><a href=#allen-cdim>cdim</a></li>
+<li><a href=#allen-cdiov>cdiov</a></li>
+<li><a href=#allen-cdis>cdis</a></li>
+<li><a href=#allen-csim>csim</a></li>
+<li><a href=#allen-csiov>csiov</a></li>
+<li><a href=#allen-covim>covim</a></li>
+<li><a href=#allen-covov>covov</a></li>
+<li><a href=#allen-covfi>covfi</a></li>
+<li><a href=#allen-csov>csov</a></li>
+<li><a href=#allen-csfi>csfi</a></li>
+<li><a href=#allen-cmmi>cmmi</a></li>
+<li><a href=#allen-cfif>cfif</a></li>
+<li><a href=#allen-cffi>cffi</a></li>
+<li><a href=#allen-cssi>cssi</a></li>
+<li><a href=#allen-csis>csis</a></li>
+<li><a href=#allen-cmim>cmim</a></li>
+<li><a href=#allen-cbd>cbd</a></li>
+<li><a href=#allen-cbf>cbf</a></li>
+<li><a href=#allen-cbovi>cbovi</a></li>
+<li><a href=#allen-cbmi>cbmi</a></li>
+<li><a href=#allen-cdov>cdov</a></li>
+<li><a href=#allen-cdfi>cdfi</a></li>
+<li><a href=#allen-covdi>covdi</a></li>
+<li><a href=#allen-cdib>cdib</a></li>
+<li><a href=#allen-csdi>csdi</a></li>
+<li><a href=#allen-csib>csib</a></li>
+<li><a href=#allen-covib>covib</a></li>
+<li><a href=#allen-cmib>cmib</a></li>
+<li><a href=#allen-covovi>covovi</a></li>
+<li><a href=#allen-cdid>cdid</a></li>
+<li><a href=#allen-coviov>coviov</a></li>
+<li><a href=#allen-cbbi>cbbi</a></li>
+<li><a href=#allen-cbib>cbib</a></li>
+<li><a href=#allen-cddi>cddi</a></li>
+<li><a href=#allen-cmbi>cmbi</a></li>
+<li><a href=#allen-covmi>covmi</a></li>
+<li><a href=#allen-covbi>covbi</a></li>
+<li><a href=#allen-cfiovi>cfiovi</a></li>
+<li><a href=#allen-cfimi>cfimi</a></li>
+<li><a href=#allen-cfibi>cfibi</a></li>
+<li><a href=#allen-cdif>cdif</a></li>
+<li><a href=#allen-cdiovi>cdiovi</a></li>
+<li><a href=#allen-cdimi>cdimi</a></li>
+<li><a href=#allen-cdibi>cdibi</a></li>
+<li><a href=#allen-csd>csd</a></li>
+<li><a href=#allen-csf>csf</a></li>
+<li><a href=#allen-csovi>csovi</a></li>
+<li><a href=#allen-csmi>csmi</a></li>
+<li><a href=#allen-csbi>csbi</a></li>
+<li><a href=#allen-csisi>csisi</a></li>
+<li><a href=#allen-csid>csid</a></li>
+<li><a href=#allen-csif>csif</a></li>
+<li><a href=#allen-csiovi>csiovi</a></li>
+<li><a href=#allen-csimi>csimi</a></li>
+<li><a href=#allen-csibi>csibi</a></li>
+<li><a href=#allen-cds>cds</a></li>
+<li><a href=#allen-cdsi>cdsi</a></li>
+<li><a href=#allen-cdd>cdd</a></li>
+<li><a href=#allen-cdf>cdf</a></li>
+<li><a href=#allen-cdovi>cdovi</a></li>
+<li><a href=#allen-cdmi>cdmi</a></li>
+<li><a href=#allen-cdbi>cdbi</a></li>
+<li><a href=#allen-cfdi>cfdi</a></li>
+<li><a href=#allen-cfs>cfs</a></li>
+<li><a href=#allen-cfsi>cfsi</a></li>
+<li><a href=#allen-cfd>cfd</a></li>
+<li><a href=#allen-cff>cff</a></li>
+<li><a href=#allen-cfovi>cfovi</a></li>
+<li><a href=#allen-cfmi>cfmi</a></li>
+<li><a href=#allen-cfbi>cfbi</a></li>
+<li><a href=#allen-covifi>covifi</a></li>
+<li><a href=#allen-covidi>covidi</a></li>
+<li><a href=#allen-covis>covis</a></li>
+<li><a href=#allen-covisi>covisi</a></li>
+<li><a href=#allen-covid>covid</a></li>
+<li><a href=#allen-covif>covif</a></li>
+<li><a href=#allen-coviovi>coviovi</a></li>
+<li><a href=#allen-covimi>covimi</a></li>
+<li><a href=#allen-covibi>covibi</a></li>
+<li><a href=#allen-cmiov>cmiov</a></li>
+<li><a href=#allen-cmifi>cmifi</a></li>
+<li><a href=#allen-cmidi>cmidi</a></li>
+<li><a href=#allen-cmis>cmis</a></li>
+<li><a href=#allen-cmisi>cmisi</a></li>
+<li><a href=#allen-cmid>cmid</a></li>
+<li><a href=#allen-cmif>cmif</a></li>
+<li><a href=#allen-cmiovi>cmiovi</a></li>
+<li><a href=#allen-cmimi>cmimi</a></li>
+<li><a href=#allen-cmibi>cmibi</a></li>
+<li><a href=#allen-cbim>cbim</a></li>
+<li><a href=#allen-cbiov>cbiov</a></li>
+<li><a href=#allen-cbifi>cbifi</a></li>
+<li><a href=#allen-cbidi>cbidi</a></li>
+<li><a href=#allen-cbis>cbis</a></li>
+<li><a href=#allen-cbisi>cbisi</a></li>
+<li><a href=#allen-cbid>cbid</a></li>
+<li><a href=#allen-cbif>cbif</a></li>
+<li><a href=#allen-cbiovi>cbiovi</a></li>
+<li><a href=#allen-cbimi>cbimi</a></li>
+<li><a href=#allen-cbibi>cbibi</a></li>
+</ul>
+</li><li><a href=#disjoint_relations>disjoint_relations</a>
+<ul>
+<li><a href=#disjoint_relations-em>em</a></li>
+<li><a href=#disjoint_relations-eb>eb</a></li>
+<li><a href=#disjoint_relations-eov>eov</a></li>
+<li><a href=#disjoint_relations-es>es</a></li>
+<li><a href=#disjoint_relations-ef>ef</a></li>
+<li><a href=#disjoint_relations-ed>ed</a></li>
+<li><a href=#disjoint_relations-emi>emi</a></li>
+<li><a href=#disjoint_relations-ebi>ebi</a></li>
+<li><a href=#disjoint_relations-eovi>eovi</a></li>
+<li><a href=#disjoint_relations-esi>esi</a></li>
+<li><a href=#disjoint_relations-efi>efi</a></li>
+<li><a href=#disjoint_relations-edi>edi</a></li>
+<li><a href=#disjoint_relations-mb>mb</a></li>
+<li><a href=#disjoint_relations-mov>mov</a></li>
+<li><a href=#disjoint_relations-ms>ms</a></li>
+<li><a href=#disjoint_relations-mf>mf</a></li>
+<li><a href=#disjoint_relations-md>md</a></li>
+<li><a href=#disjoint_relations-mi>mi</a></li>
+<li><a href=#disjoint_relations-mbi>mbi</a></li>
+<li><a href=#disjoint_relations-movi>movi</a></li>
+<li><a href=#disjoint_relations-msi>msi</a></li>
+<li><a href=#disjoint_relations-mfi>mfi</a></li>
+<li><a href=#disjoint_relations-mdi>mdi</a></li>
+<li><a href=#disjoint_relations-bov>bov</a></li>
+<li><a href=#disjoint_relations-bs>bs</a></li>
+<li><a href=#disjoint_relations-bf>bf</a></li>
+<li><a href=#disjoint_relations-bd>bd</a></li>
+<li><a href=#disjoint_relations-bmi>bmi</a></li>
+<li><a href=#disjoint_relations-bi>bi</a></li>
+<li><a href=#disjoint_relations-bovi>bovi</a></li>
+<li><a href=#disjoint_relations-bsi>bsi</a></li>
+<li><a href=#disjoint_relations-bfi>bfi</a></li>
+<li><a href=#disjoint_relations-bdi>bdi</a></li>
+<li><a href=#disjoint_relations-ovs>ovs</a></li>
+<li><a href=#disjoint_relations-ovf>ovf</a></li>
+<li><a href=#disjoint_relations-ovd>ovd</a></li>
+<li><a href=#disjoint_relations-ovmi>ovmi</a></li>
+<li><a href=#disjoint_relations-ovbi>ovbi</a></li>
+<li><a href=#disjoint_relations-ovi>ovi</a></li>
+<li><a href=#disjoint_relations-ovsi>ovsi</a></li>
+<li><a href=#disjoint_relations-ovfi>ovfi</a></li>
+<li><a href=#disjoint_relations-ovdi>ovdi</a></li>
+<li><a href=#disjoint_relations-sf>sf</a></li>
+<li><a href=#disjoint_relations-sd>sd</a></li>
+<li><a href=#disjoint_relations-smi>smi</a></li>
+<li><a href=#disjoint_relations-sbi>sbi</a></li>
+<li><a href=#disjoint_relations-sovi>sovi</a></li>
+<li><a href=#disjoint_relations-si>si</a></li>
+<li><a href=#disjoint_relations-sfi>sfi</a></li>
+<li><a href=#disjoint_relations-sdi>sdi</a></li>
+<li><a href=#disjoint_relations-fd>fd</a></li>
+<li><a href=#disjoint_relations-fmi>fmi</a></li>
+<li><a href=#disjoint_relations-fbi>fbi</a></li>
+<li><a href=#disjoint_relations-fovi>fovi</a></li>
+<li><a href=#disjoint_relations-fsi>fsi</a></li>
+<li><a href=#disjoint_relations-fi>fi</a></li>
+<li><a href=#disjoint_relations-fdi>fdi</a></li>
+<li><a href=#disjoint_relations-dmi>dmi</a></li>
+<li><a href=#disjoint_relations-dbi>dbi</a></li>
+<li><a href=#disjoint_relations-dovi>dovi</a></li>
+<li><a href=#disjoint_relations-dsi>dsi</a></li>
+<li><a href=#disjoint_relations-dfi>dfi</a></li>
+<li><a href=#disjoint_relations-di>di</a></li>
+<li><a href=#disjoint_relations-mibi>mibi</a></li>
+<li><a href=#disjoint_relations-miovi>miovi</a></li>
+<li><a href=#disjoint_relations-misi>misi</a></li>
+<li><a href=#disjoint_relations-mifi>mifi</a></li>
+<li><a href=#disjoint_relations-midi>midi</a></li>
+<li><a href=#disjoint_relations-bid>bid</a></li>
+<li><a href=#disjoint_relations-bimi>bimi</a></li>
+<li><a href=#disjoint_relations-biovi>biovi</a></li>
+<li><a href=#disjoint_relations-bisi>bisi</a></li>
+<li><a href=#disjoint_relations-bifi>bifi</a></li>
+<li><a href=#disjoint_relations-bidi>bidi</a></li>
+<li><a href=#disjoint_relations-ovisi>ovisi</a></li>
+<li><a href=#disjoint_relations-ovifi>ovifi</a></li>
+<li><a href=#disjoint_relations-ovidi>ovidi</a></li>
+<li><a href=#disjoint_relations-sifi>sifi</a></li>
+<li><a href=#disjoint_relations-sidi>sidi</a></li>
+<li><a href=#disjoint_relations-fidi>fidi</a></li>
+<li><a href=#disjoint_relations-eei>eei</a></li>
+<li><a href=#disjoint_relations-rdisj_sym>rdisj_sym</a></li>
+</ul>
+</li><li><a href=#jointly_exhaustive>jointly_exhaustive</a>
+</li><li><a href=#examples>examples</a>
+<ul>
+<li><a href=#examples-eovisidifmifiOm>eovisidifmifiOm</a></li>
+<li><a href=#examples-ovsmfidiesiOmi>ovsmfidiesiOmi</a></li>
+<li><a href=#examples-ovsmfidiesiOm>ovsmfidiesiOm</a></li>
+<li><a href=#examples-ovsmfidiesiOssie>ovsmfidiesiOssie</a></li>
+<li><a href=#examples-ebmovovissifsiddib>ebmovovissifsiddib</a></li>
+<li><a href=#examples-ebmovovissiffiddibmovsd>ebmovovissiffiddibmovsd</a></li>
+<li><a href=#examples-difimov>difimov</a></li>
+<li><a href=#examples-difibs>difibs</a></li>
+<li><a href=#examples-bebmovovissiffiddi>bebmovovissiffiddi</a></li>
+<li><a href=#examples-ovsmfidiesi>ovsmfidiesi</a></li>
+<li><a href=#examples-piiq>piiq</a></li>
+<li><a href=#examples-ceovisidiffimi_ffie>ceovisidiffimi_ffie</a></li>
+<li><a href=#examples-ceovisidiffimi_ffie_simp>ceovisidiffimi_ffie_simp</a></li>
+<li><a href=#examples-ceovisidiffimi_fife>ceovisidiffimi_fife</a></li>
+<li><a href=#examples-m_ovsmfidiesi>m_ovsmfidiesi</a></li>
+<li><a href=#examples-ovsmfidiesi_d>ovsmfidiesi_d</a></li>
+<li><a href=#examples-cbi_esdovovisiffidi>cbi_esdovovisiffidi</a></li>
+<li><a href=#examples-cm_alpha1ialpha4mi>cm_alpha1ialpha4mi</a></li>
+<li><a href=#examples-cbi_alpha1ialpha4mi>cbi_alpha1ialpha4mi</a></li>
+<li><a href=#examples-cbeta2_beta2>cbeta2_beta2</a></li>
+<li><a href=#examples-cbeta2_gammabm>cbeta2_gammabm</a></li>
+<li><a href=#examples-calpha1_alpha1>calpha1_alpha1</a></li>
+<li><a href=#examples-inter_ov>inter_ov</a></li>
+<li><a href=#examples-neq_beta2i_alpha2alpha5m>neq_beta2i_alpha2alpha5m</a></li>
+<li><a href=#examples-neq_bi_alpha1ialpha4mi>neq_bi_alpha1ialpha4mi</a></li>
+</ul>
+</li><li><a href=#nest>nest</a>
+<ul>
+<li><a href=#nest-intv1>intv1</a></li>
+<li><a href=#nest-intv2>intv2</a></li>
+<li><a href=#nest-NEST_nonempty>NEST_nonempty</a></li>
+<li><a href=#nest-NEST_BEGIN>NEST_BEGIN</a></li>
+<li><a href=#nest-NEST_END>NEST_END</a></li>
+<li><a href=#nest-before>before</a></li>
+<li><a href=#nest-meets>meets</a></li>
+<li><a href=#nest-starts>starts</a></li>
+<li><a href=#nest-xj_set>xj_set</a></li>
+<li><a href=#nest-ends>ends</a></li>
+<li><a href=#nest-before_irrefl>before_irrefl</a></li>
+<li><a href=#nest-BEGIN_before>BEGIN_before</a></li>
+<li><a href=#nest-BEGIN_END_before>BEGIN_END_before</a></li>
+<li><a href=#nest-END_BEGIN_before>END_BEGIN_before</a></li>
+<li><a href=#nest-END_END_before>END_END_before</a></li>
+<li><a href=#nest-overlaps>overlaps</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<ul>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Allen_Calculus/outline.pdf>Proof
+outline</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Allen_Calculus/document.pdf>Proof
+document</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Allen_Calculus/session_graph.pdf>Theory dependencies</a></li>
+</ul>
+</div>
+</aside>
+<div class="content theories"><header>
+<form action=/%20search>
+<div class=form-container>
+<input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
+<datalist id=autocomplete>
+</datalist>
+</div>
+</form>
+<h1><span class=first>S</span>ession <span class=first>A</span>llen_<span class=first>C</span>alculus</h1>
+<div>
+</div>
+</header><div id=banner data-id=0>
+<p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button>
+</div>
+<div><main>
+<div id=xor_cal>
+<div class=head>
+<h1>Theory xor_cal</h1>
+</div>
+<pre class=source><span class=comment1>(*
 Title:  Allen's qualitative temporal calculus
 Author:  Fadoua Ghourabi (fadouaghourabi@gmail.com)
 Affiliation: Ochanomizu University, Japan
@@ -31,7 +369,12 @@ Affiliation: Ochanomizu University, Japan
 <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=axioms><div class=head><h1>Theory axioms</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=axioms>
+<div class=head>
+<h1>Theory axioms</h1>
+</div>
+<pre class=source><span class=comment1>(*
 Title:  Allen's qualitative temporal calculus
 Author:  Fadoua Ghourabi (fadouaghourabi@gmail.com)
 Affiliation: Ochanomizu University, Japan
@@ -131,7 +474,12 @@ A set of 5 axioms ((M1) $\sim$ (M5)) are then defined based on relation meets.â€
 
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=allen><div class=head><h1>Theory allen</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=allen>
+<div class=head>
+<h1>Theory allen</h1>
+</div>
+<pre class=source><span class=comment1>(*
 Title:  Allen's qualitative temporal calculus
 Author:  Fadoua Ghourabi (fadouaghourabi@gmail.com)
 Affiliation: Ochanomizu University, Japan
@@ -2442,7 +2790,12 @@ cmidi<span class=main>[</span><span class=operator>crdi_rules</span><span class=
 
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=disjoint_relations><div class=head><h1>Theory disjoint_relations</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=disjoint_relations>
+<div class=head>
+<h1>Theory disjoint_relations</h1>
+</div>
+<pre class=source><span class=comment1>(*
 Title:  Allen's qualitative temporal calculus
 Author:  Fadoua Ghourabi (fadouaghourabi@gmail.com)
 Affiliation: Ochanomizu University, Japan
@@ -2802,7 +3155,12 @@ ovd<span class=main>[</span><span class=operator>THEN</span> rdisj_sym<span clas
 
  
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=jointly_exhaustive><div class=head><h1>Theory jointly_exhaustive</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=jointly_exhaustive>
+<div class=head>
+<h1>Theory jointly_exhaustive</h1>
+</div>
+<pre class=source><span class=comment1>(*
 Title:  Allen's qualitative temporal calculus
 Author:  Fadoua Ghourabi (fadouaghourabi@gmail.com)
 Affiliation: Ochanomizu University, Japan
@@ -2917,7 +3275,12 @@ Affiliation: Ochanomizu University, Japan
 
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=examples><div class=head><h1>Theory examples</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=examples>
+<div class=head>
+<h1>Theory examples</h1>
+</div>
+<pre class=source><span class=comment1>(*
 Title:  Allen's Interval Algebra 
 Author:  Fadoua Ghourabi (fadouaghourabi@gmail.com)
 Affiliation: Ochanomizu University, Japan
@@ -3127,7 +3490,12 @@ We prove few of these compositions that are required in theory nest.thy.â€º</spa
 
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=nest><div class=head><h1>Theory nest</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=nest>
+<div class=head>
+<h1>Theory nest</h1>
+</div>
+<pre class=source><span class=comment1>(*
 Title:  Allen's qualitative temporal calculus
 Author:  Fadoua Ghourabi (fadouaghourabi@gmail.com)
 Affiliation: Ochanomizu University, Japan
@@ -3936,4 +4304,10 @@ Affiliation: Ochanomizu University, Japan
          
 <span class=keyword2><span class=keyword>end</span></span>
 
-</pre></div></main></div></div></body></html>
+</pre>
+</div>
+</main>
+</div>
+</div>
+</body>
+</html>

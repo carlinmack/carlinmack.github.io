@@ -1,7 +1,68 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Session Lazy_Case - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session Lazy_Case"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/lazy_case/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Session Lazy_Case"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css><link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script><script src=/js/banner.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><li><a href=/entries/lazy_case>Return to entry</a></li></ul><hr><ul><li><a href=#Lazy_Case>Lazy_Case</a></li><li><a href=#files%2flazy_case.ML>files/lazy_case.ML</a></li><li><a href=#Test_Lazy_Case>Test_Lazy_Case</a><ul><li><a href=#Test_Lazy_Case-map_tree>map_tree</a></li></ul></li></ul></div><ul><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Lazy_Case/outline.pdf>Proof
-outline</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Lazy_Case/document.pdf>Proof
-document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Lazy_Case/session_graph.pdf>Theory dependencies</a></li></ul></div></aside><div class="content theories"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
-<datalist id=autocomplete></datalist></div></form><h1><span class=first>S</span>ession <span class=first>L</span>azy_<span class=first>C</span>ase</h1><div></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><div id=Lazy_Case><div class=head><h1>Theory Lazy_Case</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Introduction›</span></span>
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Session Lazy_Case - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session Lazy_Case">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="/entries/lazy_case/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories">
+<meta property="og:site_name" content="Archive of Formal Proofs">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="/images/afp.png">
+<meta name=twitter:title content="Session Lazy_Case">
+<meta name=twitter:description content>
+<link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css>
+<link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script>
+<script src=/js/banner.js></script><script src=/js/header-search.js></script></head>
+<body class=mathjax_ignore>
+<aside>
+<div>
+<div>
+<a href=/>
+<img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo>
+</a>
+<ul>
+<li><a href=/entries/lazy_case>Return to entry</a></li>
+</ul>
+<hr>
+<ul><li><a href=#Lazy_Case>Lazy_Case</a>
+</li><li><a href=#files%2flazy_case.ML>files/lazy_case.ML</a>
+</li><li><a href=#Test_Lazy_Case>Test_Lazy_Case</a>
+<ul>
+<li><a href=#Test_Lazy_Case-map_tree>map_tree</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<ul>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Lazy_Case/outline.pdf>Proof
+outline</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Lazy_Case/document.pdf>Proof
+document</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Lazy_Case/session_graph.pdf>Theory dependencies</a></li>
+</ul>
+</div>
+</aside>
+<div class="content theories"><header>
+<form action=/%20search>
+<div class=form-container>
+<input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
+<datalist id=autocomplete>
+</datalist>
+</div>
+</form>
+<h1><span class=first>S</span>ession <span class=first>L</span>azy_<span class=first>C</span>ase</h1>
+<div>
+</div>
+</header><div id=banner data-id=0>
+<p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button>
+</div>
+<div><main>
+<div id=Lazy_Case>
+<div class=head>
+<h1>Theory Lazy_Case</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Introduction›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Lazy_Case
   <span class=keyword2><span class=keyword>imports</span></span> <a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL/Main.html>Main</a>
@@ -41,7 +102,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/La
 <span class=keyword1><span class=command>ML_file</span></span> <span class=quoted>‹lazy_case.ML›</span>
 <span class=keyword1><span class=command>setup</span></span> <span class=quoted>‹<span class=entity>Lazy_Case.setup</span>›</span>
 
-<span class=keyword2><span class=keyword>end</span></span></pre></div><div id=files/lazy_case.ML><div class=head><h1>File ‹lazy_case.ML›</h1></div><pre class=source><span class=keyword1><span class=keyword>signature</span></span> <span class=entity>LAZY_CASE</span> <span class=main>=</span> <span class=keyword2><span class=keyword>sig</span></span>
+<span class=keyword2><span class=keyword>end</span></span></pre>
+</div><div id=files/lazy_case.ML>
+<div class=head>
+<h1>File ‹lazy_case.ML›</h1>
+</div>
+<pre class=source><span class=keyword1><span class=keyword>signature</span></span> <span class=entity>LAZY_CASE</span> <span class=main>=</span> <span class=keyword2><span class=keyword>sig</span></span>
   <span class=keyword1><span class=keyword>val</span></span> lazify<span class=main>:</span> <span class=entity>Ctr_Sugar.ctr_sugar</span> <span class=main>-&gt;</span> local_theory <span class=main>-&gt;</span> local_theory
   <span class=keyword1><span class=keyword>val</span></span> lazify_typ<span class=main>:</span> typ <span class=main>-&gt;</span> local_theory <span class=main>-&gt;</span> local_theory
   <span class=keyword1><span class=keyword>val</span></span> lazify_cmd<span class=main>:</span> string <span class=main>-&gt;</span> local_theory <span class=main>-&gt;</span> local_theory
@@ -233,7 +299,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/La
 
 <span class=keyword1><span class=keyword>val</span></span> <span class=entity>setup</span> <span class=main>=</span> <span class=entity>Ctr_Sugar.ctr_sugar_interpretation</span> <span class=entity>lazy_case_plugin</span> <span class=main>(</span><span class=entity>lazify_typ</span> o <span class=main>#</span>T<span class=main>)</span>
 
-<span class=keyword2><span class=keyword>end</span></span></pre></div><div id=Test_Lazy_Case><div class=head><h1>Theory Test_Lazy_Case</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Usage›</span></span>
+<span class=keyword2><span class=keyword>end</span></span></pre>
+</div><div id=Test_Lazy_Case>
+<div class=head>
+<h1>Theory Test_Lazy_Case</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Usage›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Test_Lazy_Case
 <span class=keyword2><span class=keyword>imports</span></span> <a href=#Lazy_Case>Lazy_Case</a>
@@ -330,4 +401,10 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/La
 
 <span class=comment1>(*&gt;*)</span>
 
-<span class=keyword2><span class=keyword>end</span></span></pre></div></main></div></div></body></html>
+<span class=keyword2><span class=keyword>end</span></span></pre>
+</div>
+</main>
+</div>
+</div>
+</body>
+</html>

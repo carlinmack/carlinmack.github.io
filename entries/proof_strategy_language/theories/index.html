@@ -1,7 +1,78 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Session Proof_Strategy_Language - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session Proof_Strategy_Language"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/proof_strategy_language/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Session Proof_Strategy_Language"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css><link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script><script src=/js/banner.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><li><a href=/entries/proof_strategy_language>Return to entry</a></li></ul><hr><ul><li><a href=#Try_Hard>Try_Hard</a></li><li><a href=#files%2fUtils.ML>files/Utils.ML</a></li><li><a href=#files%2fSubtool.ML>files/Subtool.ML</a></li><li><a href=#files%2fDynamic_Tactic_Generation.ML>files/Dynamic_Tactic_Generation.ML</a></li><li><a href=#files%2fConstructor_Class.ML>files/Constructor_Class.ML</a></li><li><a href=#files%2fInstantiation.ML>files/Instantiation.ML</a></li><li><a href=#files%2fMonadic_Prover.ML>files/Monadic_Prover.ML</a></li><li><a href=#files%2fParser_Combinator.ML>files/Parser_Combinator.ML</a></li><li><a href=#files%2fPSL_Parser.ML>files/PSL_Parser.ML</a></li><li><a href=#files%2fIsar_Interface.ML>files/Isar_Interface.ML</a></li><li><a href=#PSL>PSL</a></li><li><a href=#Example>Example</a><ul><li><a href=#Example-state_safety>state_safety</a></li><li><a href=#Example-cnjct2>cnjct2</a></li></ul></li></ul></div><ul><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Proof_Strategy_Language/outline.pdf>Proof
-outline</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Proof_Strategy_Language/document.pdf>Proof
-document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Proof_Strategy_Language/session_graph.pdf>Theory dependencies</a></li></ul></div></aside><div class="content theories"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
-<datalist id=autocomplete></datalist></div></form><h1><span class=first>S</span>ession <span class=first>P</span>roof_<span class=first>S</span>trategy_<span class=first>L</span>anguage</h1><div></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><div id=Try_Hard><div class=head><h1>Theory Try_Hard</h1></div><pre class=source><span class=comment1>(*  Title:      src/Try_Hard.thy
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Session Proof_Strategy_Language - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session Proof_Strategy_Language">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="/entries/proof_strategy_language/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories">
+<meta property="og:site_name" content="Archive of Formal Proofs">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="/images/afp.png">
+<meta name=twitter:title content="Session Proof_Strategy_Language">
+<meta name=twitter:description content>
+<link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css>
+<link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script>
+<script src=/js/banner.js></script><script src=/js/header-search.js></script></head>
+<body class=mathjax_ignore>
+<aside>
+<div>
+<div>
+<a href=/>
+<img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo>
+</a>
+<ul>
+<li><a href=/entries/proof_strategy_language>Return to entry</a></li>
+</ul>
+<hr>
+<ul><li><a href=#Try_Hard>Try_Hard</a>
+</li><li><a href=#files%2fUtils.ML>files/Utils.ML</a>
+</li><li><a href=#files%2fSubtool.ML>files/Subtool.ML</a>
+</li><li><a href=#files%2fDynamic_Tactic_Generation.ML>files/Dynamic_Tactic_Generation.ML</a>
+</li><li><a href=#files%2fConstructor_Class.ML>files/Constructor_Class.ML</a>
+</li><li><a href=#files%2fInstantiation.ML>files/Instantiation.ML</a>
+</li><li><a href=#files%2fMonadic_Prover.ML>files/Monadic_Prover.ML</a>
+</li><li><a href=#files%2fParser_Combinator.ML>files/Parser_Combinator.ML</a>
+</li><li><a href=#files%2fPSL_Parser.ML>files/PSL_Parser.ML</a>
+</li><li><a href=#files%2fIsar_Interface.ML>files/Isar_Interface.ML</a>
+</li><li><a href=#PSL>PSL</a>
+</li><li><a href=#Example>Example</a>
+<ul>
+<li><a href=#Example-state_safety>state_safety</a></li>
+<li><a href=#Example-cnjct2>cnjct2</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<ul>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Proof_Strategy_Language/outline.pdf>Proof
+outline</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Proof_Strategy_Language/document.pdf>Proof
+document</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Proof_Strategy_Language/session_graph.pdf>Theory dependencies</a></li>
+</ul>
+</div>
+</aside>
+<div class="content theories"><header>
+<form action=/%20search>
+<div class=form-container>
+<input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
+<datalist id=autocomplete>
+</datalist>
+</div>
+</form>
+<h1><span class=first>S</span>ession <span class=first>P</span>roof_<span class=first>S</span>trategy_<span class=first>L</span>anguage</h1>
+<div>
+</div>
+</header><div id=banner data-id=0>
+<p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button>
+</div>
+<div><main>
+<div id=Try_Hard>
+<div class=head>
+<h1>Theory Try_Hard</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      src/Try_Hard.thy
     Author:     Yutaka Nagashima, Data61, CSIRO
 
 This file defines the default strategy "TryHard".
@@ -166,7 +237,12 @@ They can be called by the keywords: try_hard, try_hard_one, try_hard_all, and tr
        <span class=main>]</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=files/Utils.ML><div class=head><h1>File ‹Utils.ML›</h1></div><pre class=source><span class=comment1>(*  Title:      Utils.ML
+</pre>
+</div><div id=files/Utils.ML>
+<div class=head>
+<h1>File ‹Utils.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      Utils.ML
     Author:     Yutaka Nagashima, Data61, CSIRO
 
 This file provides utility functions that are not specific to Isabelle/HOL.
@@ -844,7 +920,12 @@ This file provides utility functions that are not specific to Isabelle/HOL.
     |&gt; Active.sendback_markup_properties <span class=main>[</span>Markup.padding_command<span class=main>]</span><span class=main>)</span> <span class=main>:</span> string<span class=main>;</span>
 <span class=keyword2><span class=keyword>end</span></span><span class=main>;</span>
 
-<span class=keyword2><span class=keyword>end</span></span><span class=main>;</span></pre></div><div id=files/Subtool.ML><div class=head><h1>File ‹Subtool.ML›</h1></div><pre class=source><span class=comment1>(*  Title:      Subtool.ML
+<span class=keyword2><span class=keyword>end</span></span><span class=main>;</span></pre>
+</div><div id=files/Subtool.ML>
+<div class=head>
+<h1>File ‹Subtool.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      Subtool.ML
     Author:     Yutaka Nagashima, Data61, CSIRO
 
 This file provides utility functions that are useful to generate tactics at run-time.
@@ -1077,7 +1158,12 @@ This file provides utility functions that are useful to generate tactics at run-
 
 <span class=keyword1><span class=keyword>val</span></span> <span class=entity>subgoal</span> <span class=main>=</span> <span class=entity>to_stttac</span> <span class=main>(</span><span class=main>[</span><span class=entity>Dynamic_Utils.Subgoal</span><span class=main>]</span><span class=main>,</span> <span class=entity>subgoal_nontac</span><span class=main>)</span><span class=main>;</span>
 
-<span class=keyword2><span class=keyword>end</span></span><span class=main>;</span></pre></div><div id=files/Dynamic_Tactic_Generation.ML><div class=head><h1>File ‹Dynamic_Tactic_Generation.ML›</h1></div><pre class=source><span class=comment1>(*  Title:      Dynamic_Tactic_Generation.ML
+<span class=keyword2><span class=keyword>end</span></span><span class=main>;</span></pre>
+</div><div id=files/Dynamic_Tactic_Generation.ML>
+<div class=head>
+<h1>File ‹Dynamic_Tactic_Generation.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      Dynamic_Tactic_Generation.ML
     Author:     Yutaka Nagashima, Data61, CSIRO
 
 This file provides a mechanism to generate several state monad based tactics at runtime.
@@ -1837,7 +1923,12 @@ fun increment  _                 ([]:mods)           (added:mods) (_:pstate) (_:
 <span class=keyword1><span class=keyword>val</span></span> <span class=entity>fastforce</span>   <span class=main>=</span> <span class=entity>Dynamic_Fastforce.get_state_stttacs</span><span class=main>;</span>
 <span class=keyword1><span class=keyword>val</span></span> <span class=entity>auto</span>        <span class=main>=</span> <span class=entity>Dynamic_Auto.get_state_stttacs</span><span class=main>;</span>
 
-<span class=keyword2><span class=keyword>end</span></span><span class=main>;</span></pre></div><div id=files/Constructor_Class.ML><div class=head><h1>File ‹Constructor_Class.ML›</h1></div><pre class=source><span class=comment1>(*  Title:      Constructor_Class.ML
+<span class=keyword2><span class=keyword>end</span></span><span class=main>;</span></pre>
+</div><div id=files/Constructor_Class.ML>
+<div class=head>
+<h1>File ‹Constructor_Class.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      Constructor_Class.ML
     Author:     Yutaka Nagashima, Data61, CSIRO
 
 This file contains the hierarchical formalisation of modular constructor classes.
@@ -2193,7 +2284,12 @@ keeping the code base small and clean.
   <span class=keyword3><span class=keyword>open</span></span> <span class=entity>Monad0Plus</span><span class=main>;</span>
   <span class=keyword1><span class=keyword>structure</span></span> <span class=entity>Base</span> <span class=main>=</span> <span class=entity>mk_Monad_0Plus</span> <span class=main>(</span><span class=entity>Min.Base</span> <span class=main>:</span> <span class=entity>MONAD_0PLUS_MIN</span><span class=main>)</span><span class=main>;</span>
   <span class=keyword1><span class=keyword>val</span></span> <span class=entity>lift</span> <span class=main>=</span> <span class=entity>Min.lift</span><span class=main>;</span>
-<span class=keyword2><span class=keyword>end</span></span><span class=main>;</span></pre></div><div id=files/Instantiation.ML><div class=head><h1>File ‹Instantiation.ML›</h1></div><pre class=source><span class=comment1>(*  Title:      Instantiation.ML
+<span class=keyword2><span class=keyword>end</span></span><span class=main>;</span></pre>
+</div><div id=files/Instantiation.ML>
+<div class=head>
+<h1>File ‹Instantiation.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      Instantiation.ML
     Author:     Yutaka Nagashima, Data61, CSIRO
 
 This file provides various instances of constructor classes.
@@ -2357,7 +2453,12 @@ The implementation is inspired by the corresponding formalisation used in the Ha
   <span class=keyword1><span class=keyword>val</span></span> <span class=entity>update</span> <span class=main>=</span> <span class=entity>TState_M0p_Min.update</span><span class=main>;</span>
   <span class=keyword1><span class=keyword>fun</span></span> <span class=entity>set</span> <span class=entity>s</span>   <span class=main>=</span> <span class=entity>update</span> <span class=main>(</span><span class=keyword1><span class=keyword>fn</span></span> <span class=main>_</span> <span class=main>=&gt;</span> <span class=entity>s</span><span class=main>)</span><span class=main>;</span>
   <span class=keyword1><span class=keyword>fun</span></span> <span class=entity>fetch</span> <span class=entity>s</span> <span class=main>=</span> <span class=entity>update</span> I <span class=entity>s</span><span class=main>;</span>
-<span class=keyword2><span class=keyword>end</span></span> <span class=main>:</span> <span class=entity>TSTATE_MONAD_0PLUS</span><span class=main>;</span></pre></div><div id=files/Monadic_Prover.ML><div class=head><h1>File ‹Monadic_Prover.ML›</h1></div><pre class=source><span class=comment1>(*  Title:      Monadic_Prover.ML
+<span class=keyword2><span class=keyword>end</span></span> <span class=main>:</span> <span class=entity>TSTATE_MONAD_0PLUS</span><span class=main>;</span></pre>
+</div><div id=files/Monadic_Prover.ML>
+<div class=head>
+<h1>File ‹Monadic_Prover.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      Monadic_Prover.ML
     Author:     Yutaka Nagashima, Data61, CSIRO
 
 The core of PSL. This file provides the skeleton of PSL.
@@ -3057,7 +3158,12 @@ Monadic_Interpreter_Params flesh out this skeleton with concrete evaluation func
   <span class=keyword3><span class=keyword>open</span></span> Monadic_Interpreter_Core<span class=main>;</span>
   <span class=keyword3><span class=keyword>open</span></span> Monadic_Interpreter<span class=main>;</span>
   <span class=keyword3><span class=keyword>open</span></span> Monadic_Interpreter_Params<span class=main>;</span>
-<span class=keyword2><span class=keyword>end</span></span><span class=main>;</span></pre></div><div id=files/Parser_Combinator.ML><div class=head><h1>File ‹Parser_Combinator.ML›</h1></div><pre class=source><span class=comment1>(*  Title:      Parser_Combinator.ML
+<span class=keyword2><span class=keyword>end</span></span><span class=main>;</span></pre>
+</div><div id=files/Parser_Combinator.ML>
+<div class=head>
+<h1>File ‹Parser_Combinator.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      Parser_Combinator.ML
     Author:     Yutaka Nagashima, Data61, CSIRO
 
 Monadic Parser Combinators described by Graham Hutton and Erik Meijer in 1996.
@@ -3185,7 +3291,12 @@ Note that the smallest textual unit in Isabelle is Symbol.symbol.
   <span class=keyword1><span class=keyword>fun</span></span> <span class=entity>token</span> <span class=entity>p</span> <span class=main>=</span> <span class=entity>p</span>    <span class=entity>&gt;&gt;=</span> <span class=main>(</span><span class=keyword1><span class=keyword>fn</span></span> <span class=entity>v</span> <span class=main>=&gt;</span>
                 <span class=entity>junk</span> <span class=entity>&gt;&gt;=</span> <span class=main>(</span>K <span class=main>(</span>
                 <span class=entity>result</span> <span class=entity>v</span><span class=main>)</span><span class=main>)</span><span class=main>)</span><span class=main>;</span>
-<span class=keyword2><span class=keyword>end</span></span><span class=main>;</span></pre></div><div id=files/PSL_Parser.ML><div class=head><h1>File ‹PSL_Parser.ML›</h1></div><pre class=source><span class=comment1>(*  Title:      PSL_Parser.ML
+<span class=keyword2><span class=keyword>end</span></span><span class=main>;</span></pre>
+</div><div id=files/PSL_Parser.ML>
+<div class=head>
+<h1>File ‹PSL_Parser.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      PSL_Parser.ML
     Author:     Yutaka Nagashima, Data61, CSIRO
 
 This file provides the monadic parser of PSL.
@@ -3410,7 +3521,12 @@ This file provides the monadic parser of PSL.
 
 <span class=keyword1><span class=keyword>val</span></span> <span class=entity>invocation_parser</span> <span class=main>=</span> <span class=entity>token</span> <span class=entity>word</span> <span class=entity>&gt;&gt;=</span> <span class=entity>result</span> <span class=main>:</span> string <span class=entity>parser</span><span class=main>;</span>
 
-<span class=keyword2><span class=keyword>end</span></span><span class=main>;</span></pre></div><div id=files/Isar_Interface.ML><div class=head><h1>File ‹Isar_Interface.ML›</h1></div><pre class=source><span class=comment1>(*  Title:      Isar_Interface.ML
+<span class=keyword2><span class=keyword>end</span></span><span class=main>;</span></pre>
+</div><div id=files/Isar_Interface.ML>
+<div class=head>
+<h1>File ‹Isar_Interface.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      Isar_Interface.ML
     Author:     Yutaka Nagashima, Data61, CSIRO
 
 This file provides the Isar-level interface of PSL.
@@ -3579,7 +3695,12 @@ One can activate the interfaces by calling the function, "PSL_Interface.activate
 <span class=keyword2><span class=keyword>end</span></span><span class=main>;</span>
 
 <span class=comment1>(*** activate the Isar interface of PSL. ***)</span>
-<span class=entity>PSL_Interface.activate_isar_interface</span> <span class=main>(</span><span class=main>)</span><span class=main>;</span></pre></div><div id=PSL><div class=head><h1>Theory PSL</h1></div><pre class=source><span class=comment1>(*  Title:      PSL.thy
+<span class=entity>PSL_Interface.activate_isar_interface</span> <span class=main>(</span><span class=main>)</span><span class=main>;</span></pre>
+</div><div id=PSL>
+<div class=head>
+<h1>Theory PSL</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      PSL.thy
     Author:     Yutaka Nagashima, Data61, CSIRO
 
 Import this file to install PSL. That is all you need to do to install PSL.
@@ -3598,7 +3719,12 @@ ML{* Goal.parallel_proofs := 0 *}
 *)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Example><div class=head><h1>Theory Example</h1></div><pre class=source><span class=comment1>(*  Title:      PSL.ML
+</pre>
+</div><div id=Example>
+<div class=head>
+<h1>Theory Example</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      PSL.ML
     Author:     Yutaka Nagashima, Data61, CSIRO
 
 This file contains small examples showing how to use PSL and its default strategy try-hard.
@@ -3733,4 +3859,10 @@ See other files from AFP for more involved examples.
 <span class=keyword1><span class=command>oops</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div></main></div></div></body></html>
+</pre>
+</div>
+</main>
+</div>
+</div>
+</body>
+</html>

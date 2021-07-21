@@ -1,7 +1,96 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Session BinarySearchTree - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session BinarySearchTree"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/binarysearchtree/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Session BinarySearchTree"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css><link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script><script src=/js/banner.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><li><a href=/entries/binarysearchtree>Return to entry</a></li></ul><hr><ul><li><a href=#BinaryTree>BinaryTree</a><ul><li><a href=#BinaryTree-sortLemmaL>sortLemmaL</a></li><li><a href=#BinaryTree-sortLemmaR>sortLemmaR</a></li><li><a href=#BinaryTree-tlookup_none>tlookup_none</a></li><li><a href=#BinaryTree-tlookup_some>tlookup_some</a></li><li><a href=#BinaryTree-cases3>cases3</a></li><li><a href=#BinaryTree-sorted_distinct>sorted_distinct</a></li><li><a href=#BinaryTree-tlookup_finds>tlookup_finds</a></li><li><a href=#BinaryTree-disjCond>disjCond</a></li><li><a href=#BinaryTree-binsert_set>binsert_set</a></li><li><a href=#BinaryTree-binsert_sorted>binsert_sorted</a></li><li><a href=#BinaryTree-rm_set>rm_set</a></li><li><a href=#BinaryTree-wrm_set>wrm_set</a></li><li><a href=#BinaryTree-wrm_set1>wrm_set1</a></li><li><a href=#BinaryTree-wrm_sort>wrm_sort</a></li><li><a href=#BinaryTree-wrm_less_rm>wrm_less_rm</a></li><li><a href=#BinaryTree-remove_set>remove_set</a></li><li><a href=#BinaryTree-remove_sort>remove_sort</a></li></ul></li><li><a href=#BinaryTree_Map>BinaryTree_Map</a><ul><li><a href=#BinaryTree_Map-mapOf_lookup1>mapOf_lookup1</a></li><li><a href=#BinaryTree_Map-mapOf_lookup2>mapOf_lookup2</a></li><li><a href=#BinaryTree_Map-mnew_spec_valid>mnew_spec_valid</a></li><li><a href=#BinaryTree_Map-mtip_spec_empty>mtip_spec_empty</a></li></ul></li><li><a href=#BinaryTree_TacticStyle>BinaryTree_TacticStyle</a><ul><li><a href=#BinaryTree_TacticStyle-member_set>member_set</a></li><li><a href=#BinaryTree_TacticStyle-rm_in_set_of>rm_in_set_of</a></li><li><a href=#BinaryTree_TacticStyle-set_of_rem>set_of_rem</a></li><li><a href=#BinaryTree_TacticStyle-sorted_rem>sorted_rem</a></li></ul></li></ul></div><ul><li><a href=https://www.isa-afp.org/browser_info/current/AFP/BinarySearchTree/outline.pdf>Proof
-outline</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/BinarySearchTree/document.pdf>Proof
-document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/BinarySearchTree/session_graph.pdf>Theory dependencies</a></li></ul></div></aside><div class="content theories"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
-<datalist id=autocomplete></datalist></div></form><h1><span class=first>S</span>ession <span class=first>B</span>inary<span class=first>S</span>earch<span class=first>T</span>ree</h1><div></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><div id=BinaryTree><div class=head><h1>Theory BinaryTree</h1></div><pre class=source><span class=comment1>(*  Title:       Binary Search Trees, Isar-Style
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Session BinarySearchTree - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session BinarySearchTree">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="/entries/binarysearchtree/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories">
+<meta property="og:site_name" content="Archive of Formal Proofs">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="/images/afp.png">
+<meta name=twitter:title content="Session BinarySearchTree">
+<meta name=twitter:description content>
+<link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css>
+<link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script>
+<script src=/js/banner.js></script><script src=/js/header-search.js></script></head>
+<body class=mathjax_ignore>
+<aside>
+<div>
+<div>
+<a href=/>
+<img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo>
+</a>
+<ul>
+<li><a href=/entries/binarysearchtree>Return to entry</a></li>
+</ul>
+<hr>
+<ul><li><a href=#BinaryTree>BinaryTree</a>
+<ul>
+<li><a href=#BinaryTree-sortLemmaL>sortLemmaL</a></li>
+<li><a href=#BinaryTree-sortLemmaR>sortLemmaR</a></li>
+<li><a href=#BinaryTree-tlookup_none>tlookup_none</a></li>
+<li><a href=#BinaryTree-tlookup_some>tlookup_some</a></li>
+<li><a href=#BinaryTree-cases3>cases3</a></li>
+<li><a href=#BinaryTree-sorted_distinct>sorted_distinct</a></li>
+<li><a href=#BinaryTree-tlookup_finds>tlookup_finds</a></li>
+<li><a href=#BinaryTree-disjCond>disjCond</a></li>
+<li><a href=#BinaryTree-binsert_set>binsert_set</a></li>
+<li><a href=#BinaryTree-binsert_sorted>binsert_sorted</a></li>
+<li><a href=#BinaryTree-rm_set>rm_set</a></li>
+<li><a href=#BinaryTree-wrm_set>wrm_set</a></li>
+<li><a href=#BinaryTree-wrm_set1>wrm_set1</a></li>
+<li><a href=#BinaryTree-wrm_sort>wrm_sort</a></li>
+<li><a href=#BinaryTree-wrm_less_rm>wrm_less_rm</a></li>
+<li><a href=#BinaryTree-remove_set>remove_set</a></li>
+<li><a href=#BinaryTree-remove_sort>remove_sort</a></li>
+</ul>
+</li><li><a href=#BinaryTree_Map>BinaryTree_Map</a>
+<ul>
+<li><a href=#BinaryTree_Map-mapOf_lookup1>mapOf_lookup1</a></li>
+<li><a href=#BinaryTree_Map-mapOf_lookup2>mapOf_lookup2</a></li>
+<li><a href=#BinaryTree_Map-mnew_spec_valid>mnew_spec_valid</a></li>
+<li><a href=#BinaryTree_Map-mtip_spec_empty>mtip_spec_empty</a></li>
+</ul>
+</li><li><a href=#BinaryTree_TacticStyle>BinaryTree_TacticStyle</a>
+<ul>
+<li><a href=#BinaryTree_TacticStyle-member_set>member_set</a></li>
+<li><a href=#BinaryTree_TacticStyle-rm_in_set_of>rm_in_set_of</a></li>
+<li><a href=#BinaryTree_TacticStyle-set_of_rem>set_of_rem</a></li>
+<li><a href=#BinaryTree_TacticStyle-sorted_rem>sorted_rem</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<ul>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/BinarySearchTree/outline.pdf>Proof
+outline</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/BinarySearchTree/document.pdf>Proof
+document</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/BinarySearchTree/session_graph.pdf>Theory dependencies</a></li>
+</ul>
+</div>
+</aside>
+<div class="content theories"><header>
+<form action=/%20search>
+<div class=form-container>
+<input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
+<datalist id=autocomplete>
+</datalist>
+</div>
+</form>
+<h1><span class=first>S</span>ession <span class=first>B</span>inary<span class=first>S</span>earch<span class=first>T</span>ree</h1>
+<div>
+</div>
+</header><div id=banner data-id=0>
+<p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button>
+</div>
+<div><main>
+<div id=BinaryTree>
+<div class=head>
+<h1>Theory BinaryTree</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:       Binary Search Trees, Isar-Style
     Author:      Viktor Kuncak, MIT CSAIL, November 2003
     Maintainer:  Larry Paulson &lt;Larry.Paulson at cl.cam.ac.uk&gt;
     License:     LGPL
@@ -799,7 +888,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Bi
   <span class=keyword2><span class=keyword>in</span></span> SML <span class=keyword2><span class=keyword>module_name</span></span> BinaryTree_Code <span class=keyword2><span class=keyword>file</span></span> <span class=quoted>‹BinaryTree_Code.ML›</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=BinaryTree_Map><div class=head><h1>Theory BinaryTree_Map</h1></div><pre class=source><span class=comment1>(*  Title:       Binary Search Trees, Isar-Style
+</pre>
+</div><div id=BinaryTree_Map>
+<div class=head>
+<h1>Theory BinaryTree_Map</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:       Binary Search Trees, Isar-Style
     Author:      Viktor Kuncak, MIT CSAIL, November 2003
     Maintainer:  Larry Paulson &lt;Larry.Paulson at cl.cam.ac.uk&gt;
     License:     LGPL
@@ -1058,7 +1152,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Bi
 <span class=keyword1><span class=command>qed</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=BinaryTree_TacticStyle><div class=head><h1>Theory BinaryTree_TacticStyle</h1></div><pre class=source><span class=comment1>(*  Title:       Binary Search Trees, Tactic-Style
+</pre>
+</div><div id=BinaryTree_TacticStyle>
+<div class=head>
+<h1>Theory BinaryTree_TacticStyle</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:       Binary Search Trees, Tactic-Style
     Author:      Viktor Kuncak, MIT CSAIL, November 2003
     Maintainer:  Larry Paulson &lt;Larry.Paulson at cl.cam.ac.uk&gt;
     License:     LGPL
@@ -1210,4 +1309,10 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Bi
   <span class=keyword2><span class=keyword>in</span></span> SML <span class=keyword2><span class=keyword>module_name</span></span> BinaryTree_TacticStyle_Code <span class=keyword2><span class=keyword>file</span></span> <span class=quoted>‹BinaryTree_TacticStyle_Code.ML›</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div></main></div></div></body></html>
+</pre>
+</div>
+</main>
+</div>
+</div>
+</body>
+</html>

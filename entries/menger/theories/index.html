@@ -1,7 +1,238 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Session Menger - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session Menger"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/menger/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Session Menger"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css><link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script><script src=/js/banner.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><li><a href=/entries/menger>Return to entry</a></li></ul><hr><ul><li><a href=#Helpers>Helpers</a><ul><li><a href=#Helpers-card_finite_less_ex>card_finite_less_ex</a></li><li><a href=#Helpers-card_intersect_sum_disjoint>card_intersect_sum_disjoint</a></li><li><a href=#Helpers-set_butlast>set_butlast</a></li><li><a href=#Helpers-arg_min_ex>arg_min_ex</a></li></ul></li><li><a href=#Graph>Graph</a><ul><li><a href=#Graph-finite_edge_set>finite_edge_set</a></li><li><a href=#Graph-edges_are_in_V>edges_are_in_V</a></li><li><a href=#Graph-walk_2>walk_2</a></li><li><a href=#Graph-walk_comp>walk_comp</a></li><li><a href=#Graph-walk_tl>walk_tl</a></li><li><a href=#Graph-walk_drop>walk_drop</a></li><li><a href=#Graph-walk_take>walk_take</a></li><li><a href=#Graph-walk_decomp>walk_decomp</a></li><li><a href=#Graph-walk_in_V>walk_in_V</a></li><li><a href=#Graph-walk_first_edge>walk_first_edge</a></li><li><a href=#Graph-walk_first_edge%27>walk_first_edge'</a></li><li><a href=#Graph-walk_middle_edge>walk_middle_edge</a></li><li><a href=#Graph-walk_last_edge>walk_last_edge</a></li><li><a href=#Graph-path_singleton>path_singleton</a></li><li><a href=#Graph-path_2>path_2</a></li><li><a href=#Graph-path_cons>path_cons</a></li><li><a href=#Graph-path_comp>path_comp</a></li><li><a href=#Graph-path_tl>path_tl</a></li><li><a href=#Graph-path_drop>path_drop</a></li><li><a href=#Graph-path_take>path_take</a></li><li><a href=#Graph-path_decomp>path_decomp</a></li><li><a href=#Graph-path_decomp%27>path_decomp'</a></li><li><a href=#Graph-path_in_V>path_in_V</a></li><li><a href=#Graph-path_length>path_length</a></li><li><a href=#Graph-path_first_edge>path_first_edge</a></li><li><a href=#Graph-path_first_edge%27>path_first_edge'</a></li><li><a href=#Graph-path_middle_edge>path_middle_edge</a></li><li><a href=#Graph-path_first_vertex>path_first_vertex</a></li><li><a href=#Graph-path_disjoint>path_disjoint</a></li><li><a href=#Graph-finitely_many_paths>finitely_many_paths</a></li><li><a href=#Graph-path_from_toI>path_from_toI</a></li><li><a href=#Graph-path_from_to_ends>path_from_to_ends</a></li><li><a href=#Graph-path_from_to_combine>path_from_to_combine</a></li><li><a href=#Graph-path_from_to_first>path_from_to_first</a></li><li><a href=#Graph-path_from_to_first%27>path_from_to_first'</a></li><li><a href=#Graph-path_from_to_last>path_from_to_last</a></li><li><a href=#Graph-path_from_to_last%27>path_from_to_last'</a></li><li><a href=#Graph-walk_to_path>walk_to_path</a></li><li><a href=#Graph-edges_of_walkE>edges_of_walkE</a></li><li><a href=#Graph-edges_of_walk_in_E>edges_of_walk_in_E</a></li><li><a href=#Graph-edges_of_walk_finite>edges_of_walk_finite</a></li><li><a href=#Graph-edges_of_walk_empty>edges_of_walk_empty</a></li><li><a href=#Graph-edges_of_walk_2>edges_of_walk_2</a></li><li><a href=#Graph-edges_of_walk_edge>edges_of_walk_edge</a></li><li><a href=#Graph-edges_of_walk_middle>edges_of_walk_middle</a></li><li><a href=#Graph-edges_of_comp1>edges_of_comp1</a></li><li><a href=#Graph-edges_of_comp2>edges_of_comp2</a></li><li><a href=#Graph-walk_edges_decomp_simple>walk_edges_decomp_simple</a></li><li><a href=#Graph-walk_edges_decomp>walk_edges_decomp</a></li><li><a href=#Graph-walk_edges_decomp%27>walk_edges_decomp'</a></li><li><a href=#Graph-walk_edges_vertices>walk_edges_vertices</a></li><li><a href=#Graph-walk_edges_subset>walk_edges_subset</a></li><li><a href=#Graph-path_edges>path_edges</a></li><li><a href=#Graph-path_edges_remove_prefix>path_edges_remove_prefix</a></li><li><a href=#Graph-first_edge_in_edges>first_edge_in_edges</a></li><li><a href=#Graph-first_edge_hd_tl>first_edge_hd_tl</a></li><li><a href=#Graph-first_edge_first>first_edge_first</a></li><li><a href=#Graph-distance_lengths_finite>distance_lengths_finite</a></li><li><a href=#Graph-distance_upper_bound>distance_upper_bound</a></li><li><a href=#Graph-distance_witness>distance_witness</a></li><li><a href=#Graph-remove_vertex_V>remove_vertex_V</a></li><li><a href=#Graph-remove_vertex_V%27>remove_vertex_V'</a></li><li><a href=#Graph-remove_vertex_E>remove_vertex_E</a></li><li><a href=#Graph-remove_vertex_E%27>remove_vertex_E'</a></li><li><a href=#Graph-remove_vertex_E%27%27>remove_vertex_E''</a></li><li><a href=#Graph-remove_vertex_Digraph>remove_vertex_Digraph</a></li><li><a href=#Graph-remove_vertex_walk>remove_vertex_walk</a></li><li><a href=#Graph-remove_vertex_path_from_to>remove_vertex_path_from_to</a></li><li><a href=#Graph-remove_vertex_walk_add>remove_vertex_walk_add</a></li><li><a href=#Graph-remove_vertex_path_from_to_add>remove_vertex_path_from_to_add</a></li></ul></li><li><a href=#Separations>Separations</a></li><li><a href=#DisjointPaths>DisjointPaths</a><ul><li><a href=#DisjointPaths-paths_in_all_paths>paths_in_all_paths</a></li><li><a href=#DisjointPaths-finite_paths>finite_paths</a></li><li><a href=#DisjointPaths-paths_edge_finite>paths_edge_finite</a></li><li><a href=#DisjointPaths-paths_tl_notnil>paths_tl_notnil</a></li><li><a href=#DisjointPaths-paths_second_in_V>paths_second_in_V</a></li><li><a href=#DisjointPaths-paths_second_not_v0>paths_second_not_v0</a></li><li><a href=#DisjointPaths-paths_second_not_v1>paths_second_not_v1</a></li><li><a href=#DisjointPaths-paths_second_disjoint>paths_second_disjoint</a></li><li><a href=#DisjointPaths-paths_edge_disjoint>paths_edge_disjoint</a></li><li><a href=#DisjointPaths-DisjointPaths_extend>DisjointPaths_extend</a></li><li><a href=#DisjointPaths-DisjointPaths_reduce>DisjointPaths_reduce</a></li><li><a href=#DisjointPaths-second_vertex_inj>second_vertex_inj</a></li><li><a href=#DisjointPaths-second_vertices_card>second_vertices_card</a></li><li><a href=#DisjointPaths-second_vertices_in_V>second_vertices_in_V</a></li><li><a href=#DisjointPaths-v0_v1_notin_second_vertices>v0_v1_notin_second_vertices</a></li><li><a href=#DisjointPaths-second_vertices_new_path>second_vertices_new_path</a></li><li><a href=#DisjointPaths-second_vertices_first_edge>second_vertices_first_edge</a></li><li><a href=#DisjointPaths-disjoint_paths_new_path>disjoint_paths_new_path</a></li><li><a href=#DisjointPaths-P_new_hd_disjoint>P_new_hd_disjoint</a></li><li><a href=#DisjointPaths-P_new_new>P_new_new</a></li><li><a href=#DisjointPaths-card_paths_with_new>card_paths_with_new</a></li><li><a href=#DisjointPaths-paths_with_new_no_Nil>paths_with_new_no_Nil</a></li><li><a href=#DisjointPaths-paths_with_new_path>paths_with_new_path</a></li><li><a href=#DisjointPaths-paths_with_new_start_in_v0>paths_with_new_start_in_v0</a></li><li><a href=#DisjointPaths-P_new_decomp>P_new_decomp</a></li><li><a href=#DisjointPaths-new_pre_not_Nil>new_pre_not_Nil</a></li><li><a href=#DisjointPaths-new_pre_hitting>new_pre_hitting</a></li><li><a href=#DisjointPaths-P_hit>P_hit</a></li><li><a href=#DisjointPaths-new_last_neq_v0>new_last_neq_v0</a></li><li><a href=#DisjointPaths-new_last_in_V>new_last_in_V</a></li><li><a href=#DisjointPaths-new_last_to_v1>new_last_to_v1</a></li><li><a href=#DisjointPaths-paths_plus_one_disjoint>paths_plus_one_disjoint</a></li><li><a href=#DisjointPaths-P_new_solves_if_disjoint>P_new_solves_if_disjoint</a></li><li><a href=#DisjointPaths-H_x_Digraph>H_x_Digraph</a></li><li><a href=#DisjointPaths-H_x_v0_v1_Digraph>H_x_v0_v1_Digraph</a></li><li><a href=#DisjointPaths-new_path_follows_old_paths>new_path_follows_old_paths</a></li></ul></li><li><a href=#MengerInduction>MengerInduction</a><ul><li><a href=#MengerInduction-Q_exists>Q_exists</a></li><li><a href=#MengerInduction-Q>Q</a></li><li><a href=#MengerInduction-P_k>P_k</a></li><li><a href=#MengerInduction-path_P_k>path_P_k</a></li><li><a href=#MengerInduction-hd_P_k_v0>hd_P_k_v0</a></li><li><a href=#MengerInduction-P_k_hits_Q>P_k_hits_Q</a></li><li><a href=#MengerInduction-y_neq_v0>y_neq_v0</a></li><li><a href=#MengerInduction-P_k_pre_not_Nil>P_k_pre_not_Nil</a></li><li><a href=#MengerInduction-second_P_k_pre_not_in_Q>second_P_k_pre_not_in_Q</a></li><li><a href=#MengerInduction-y_eq_v1_implies_P_k_neq_P_new>y_eq_v1_implies_P_k_neq_P_new</a></li><li><a href=#MengerInduction-y_eq_v1_solves>y_eq_v1_solves</a></li></ul></li><li><a href=#Y_eq_new_last>Y_eq_new_last</a><ul><li><a href=#Y_eq_new_last-R>R</a></li><li><a href=#Y_eq_new_last-v1_in_Q>v1_in_Q</a></li><li><a href=#Y_eq_new_last-R_hits_Q>R_hits_Q</a></li><li><a href=#Y_eq_new_last-R_decomp_exists>R_decomp_exists</a></li><li><a href=#Y_eq_new_last-z_neq_v0>z_neq_v0</a></li><li><a href=#Y_eq_new_last-z_neq_new_last>z_neq_new_last</a></li><li><a href=#Y_eq_new_last-R_pre_neq_Nil>R_pre_neq_Nil</a></li><li><a href=#Y_eq_new_last-z_closer_than_new_last>z_closer_than_new_last</a></li><li><a href=#Y_eq_new_last-R%27_walk_not_Nil>R'_walk_not_Nil</a></li><li><a href=#Y_eq_new_last-R%27_walk_no_Q>R'_walk_no_Q</a></li><li><a href=#Y_eq_new_last-R%27>R'</a></li><li><a href=#Y_eq_new_last-hd_R%27>hd_R'</a></li><li><a href=#Y_eq_new_last-R%27_no_Q>R'_no_Q</a></li><li><a href=#Y_eq_new_last-v0_R%27_path>v0_R'_path</a></li><li><a href=#Y_eq_new_last-z_eq_v1_solves>z_eq_v1_solves</a></li><li><a href=#Y_eq_new_last-z_neq_v1_solves>z_neq_v1_solves</a></li></ul></li><li><a href=#Y_neq_new_last>Y_neq_new_last</a><ul><li><a href=#Y_neq_new_last-Q_hit_exists>Q_hit_exists</a></li><li><a href=#Y_neq_new_last-Q_hit_v0_v1>Q_hit_v0_v1</a></li><li><a href=#Y_neq_new_last-Q_hit_vertices>Q_hit_vertices</a></li><li><a href=#Y_neq_new_last-Q_hit_pre_not_Nil>Q_hit_pre_not_Nil</a></li><li><a href=#Y_neq_new_last-tl_Q_hit_pre>tl_Q_hit_pre</a></li><li><a href=#Y_neq_new_last-Q_hit_pre_edges>Q_hit_pre_edges</a></li><li><a href=#Y_neq_new_last-P_k_pre_edges>P_k_pre_edges</a></li><li><a href=#Y_neq_new_last-Q_hit%27_v0_v1>Q_hit'_v0_v1</a></li><li><a href=#Y_neq_new_last-Q_hit%27_v0_v1_H_x>Q_hit'_v0_v1_H_x</a></li><li><a href=#Y_neq_new_last-Q_hit_edges_disjoint>Q_hit_edges_disjoint</a></li><li><a href=#Y_neq_new_last-Q_hit%27_notin_Q_minus_Q_hit>Q_hit'_notin_Q_minus_Q_hit</a></li><li><a href=#Y_neq_new_last-Q_weight_smaller>Q_weight_smaller</a></li><li><a href=#Y_neq_new_last-DisjointPaths_Q%27>DisjointPaths_Q'</a></li><li><a href=#Y_neq_new_last-card_Q%27>card_Q'</a></li><li><a href=#Y_neq_new_last-contradiction%27>contradiction'</a></li></ul></li><li><a href=#Menger>Menger</a><ul><li><a href=#Menger-one_more_paths_exists_trivial>one_more_paths_exists_trivial</a></li><li><a href=#Menger-one_more_paths_exists_nontrivial>one_more_paths_exists_nontrivial</a></li></ul></li></ul></div><ul><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Menger/outline.pdf>Proof
-outline</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Menger/document.pdf>Proof
-document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Menger/session_graph.pdf>Theory dependencies</a></li></ul></div></aside><div class="content theories"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
-<datalist id=autocomplete></datalist></div></form><h1><span class=first>S</span>ession <span class=first>M</span>enger</h1><div></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><div id=Helpers><div class=head><h1>Theory Helpers</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Helpers›</span></span>
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Session Menger - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session Menger">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="/entries/menger/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories">
+<meta property="og:site_name" content="Archive of Formal Proofs">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="/images/afp.png">
+<meta name=twitter:title content="Session Menger">
+<meta name=twitter:description content>
+<link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css>
+<link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script>
+<script src=/js/banner.js></script><script src=/js/header-search.js></script></head>
+<body class=mathjax_ignore>
+<aside>
+<div>
+<div>
+<a href=/>
+<img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo>
+</a>
+<ul>
+<li><a href=/entries/menger>Return to entry</a></li>
+</ul>
+<hr>
+<ul><li><a href=#Helpers>Helpers</a>
+<ul>
+<li><a href=#Helpers-card_finite_less_ex>card_finite_less_ex</a></li>
+<li><a href=#Helpers-card_intersect_sum_disjoint>card_intersect_sum_disjoint</a></li>
+<li><a href=#Helpers-set_butlast>set_butlast</a></li>
+<li><a href=#Helpers-arg_min_ex>arg_min_ex</a></li>
+</ul>
+</li><li><a href=#Graph>Graph</a>
+<ul>
+<li><a href=#Graph-finite_edge_set>finite_edge_set</a></li>
+<li><a href=#Graph-edges_are_in_V>edges_are_in_V</a></li>
+<li><a href=#Graph-walk_2>walk_2</a></li>
+<li><a href=#Graph-walk_comp>walk_comp</a></li>
+<li><a href=#Graph-walk_tl>walk_tl</a></li>
+<li><a href=#Graph-walk_drop>walk_drop</a></li>
+<li><a href=#Graph-walk_take>walk_take</a></li>
+<li><a href=#Graph-walk_decomp>walk_decomp</a></li>
+<li><a href=#Graph-walk_in_V>walk_in_V</a></li>
+<li><a href=#Graph-walk_first_edge>walk_first_edge</a></li>
+<li><a href=#Graph-walk_first_edge%27>walk_first_edge'</a></li>
+<li><a href=#Graph-walk_middle_edge>walk_middle_edge</a></li>
+<li><a href=#Graph-walk_last_edge>walk_last_edge</a></li>
+<li><a href=#Graph-path_singleton>path_singleton</a></li>
+<li><a href=#Graph-path_2>path_2</a></li>
+<li><a href=#Graph-path_cons>path_cons</a></li>
+<li><a href=#Graph-path_comp>path_comp</a></li>
+<li><a href=#Graph-path_tl>path_tl</a></li>
+<li><a href=#Graph-path_drop>path_drop</a></li>
+<li><a href=#Graph-path_take>path_take</a></li>
+<li><a href=#Graph-path_decomp>path_decomp</a></li>
+<li><a href=#Graph-path_decomp%27>path_decomp'</a></li>
+<li><a href=#Graph-path_in_V>path_in_V</a></li>
+<li><a href=#Graph-path_length>path_length</a></li>
+<li><a href=#Graph-path_first_edge>path_first_edge</a></li>
+<li><a href=#Graph-path_first_edge%27>path_first_edge'</a></li>
+<li><a href=#Graph-path_middle_edge>path_middle_edge</a></li>
+<li><a href=#Graph-path_first_vertex>path_first_vertex</a></li>
+<li><a href=#Graph-path_disjoint>path_disjoint</a></li>
+<li><a href=#Graph-finitely_many_paths>finitely_many_paths</a></li>
+<li><a href=#Graph-path_from_toI>path_from_toI</a></li>
+<li><a href=#Graph-path_from_to_ends>path_from_to_ends</a></li>
+<li><a href=#Graph-path_from_to_combine>path_from_to_combine</a></li>
+<li><a href=#Graph-path_from_to_first>path_from_to_first</a></li>
+<li><a href=#Graph-path_from_to_first%27>path_from_to_first'</a></li>
+<li><a href=#Graph-path_from_to_last>path_from_to_last</a></li>
+<li><a href=#Graph-path_from_to_last%27>path_from_to_last'</a></li>
+<li><a href=#Graph-walk_to_path>walk_to_path</a></li>
+<li><a href=#Graph-edges_of_walkE>edges_of_walkE</a></li>
+<li><a href=#Graph-edges_of_walk_in_E>edges_of_walk_in_E</a></li>
+<li><a href=#Graph-edges_of_walk_finite>edges_of_walk_finite</a></li>
+<li><a href=#Graph-edges_of_walk_empty>edges_of_walk_empty</a></li>
+<li><a href=#Graph-edges_of_walk_2>edges_of_walk_2</a></li>
+<li><a href=#Graph-edges_of_walk_edge>edges_of_walk_edge</a></li>
+<li><a href=#Graph-edges_of_walk_middle>edges_of_walk_middle</a></li>
+<li><a href=#Graph-edges_of_comp1>edges_of_comp1</a></li>
+<li><a href=#Graph-edges_of_comp2>edges_of_comp2</a></li>
+<li><a href=#Graph-walk_edges_decomp_simple>walk_edges_decomp_simple</a></li>
+<li><a href=#Graph-walk_edges_decomp>walk_edges_decomp</a></li>
+<li><a href=#Graph-walk_edges_decomp%27>walk_edges_decomp'</a></li>
+<li><a href=#Graph-walk_edges_vertices>walk_edges_vertices</a></li>
+<li><a href=#Graph-walk_edges_subset>walk_edges_subset</a></li>
+<li><a href=#Graph-path_edges>path_edges</a></li>
+<li><a href=#Graph-path_edges_remove_prefix>path_edges_remove_prefix</a></li>
+<li><a href=#Graph-first_edge_in_edges>first_edge_in_edges</a></li>
+<li><a href=#Graph-first_edge_hd_tl>first_edge_hd_tl</a></li>
+<li><a href=#Graph-first_edge_first>first_edge_first</a></li>
+<li><a href=#Graph-distance_lengths_finite>distance_lengths_finite</a></li>
+<li><a href=#Graph-distance_upper_bound>distance_upper_bound</a></li>
+<li><a href=#Graph-distance_witness>distance_witness</a></li>
+<li><a href=#Graph-remove_vertex_V>remove_vertex_V</a></li>
+<li><a href=#Graph-remove_vertex_V%27>remove_vertex_V'</a></li>
+<li><a href=#Graph-remove_vertex_E>remove_vertex_E</a></li>
+<li><a href=#Graph-remove_vertex_E%27>remove_vertex_E'</a></li>
+<li><a href=#Graph-remove_vertex_E%27%27>remove_vertex_E''</a></li>
+<li><a href=#Graph-remove_vertex_Digraph>remove_vertex_Digraph</a></li>
+<li><a href=#Graph-remove_vertex_walk>remove_vertex_walk</a></li>
+<li><a href=#Graph-remove_vertex_path_from_to>remove_vertex_path_from_to</a></li>
+<li><a href=#Graph-remove_vertex_walk_add>remove_vertex_walk_add</a></li>
+<li><a href=#Graph-remove_vertex_path_from_to_add>remove_vertex_path_from_to_add</a></li>
+</ul>
+</li><li><a href=#Separations>Separations</a>
+</li><li><a href=#DisjointPaths>DisjointPaths</a>
+<ul>
+<li><a href=#DisjointPaths-paths_in_all_paths>paths_in_all_paths</a></li>
+<li><a href=#DisjointPaths-finite_paths>finite_paths</a></li>
+<li><a href=#DisjointPaths-paths_edge_finite>paths_edge_finite</a></li>
+<li><a href=#DisjointPaths-paths_tl_notnil>paths_tl_notnil</a></li>
+<li><a href=#DisjointPaths-paths_second_in_V>paths_second_in_V</a></li>
+<li><a href=#DisjointPaths-paths_second_not_v0>paths_second_not_v0</a></li>
+<li><a href=#DisjointPaths-paths_second_not_v1>paths_second_not_v1</a></li>
+<li><a href=#DisjointPaths-paths_second_disjoint>paths_second_disjoint</a></li>
+<li><a href=#DisjointPaths-paths_edge_disjoint>paths_edge_disjoint</a></li>
+<li><a href=#DisjointPaths-DisjointPaths_extend>DisjointPaths_extend</a></li>
+<li><a href=#DisjointPaths-DisjointPaths_reduce>DisjointPaths_reduce</a></li>
+<li><a href=#DisjointPaths-second_vertex_inj>second_vertex_inj</a></li>
+<li><a href=#DisjointPaths-second_vertices_card>second_vertices_card</a></li>
+<li><a href=#DisjointPaths-second_vertices_in_V>second_vertices_in_V</a></li>
+<li><a href=#DisjointPaths-v0_v1_notin_second_vertices>v0_v1_notin_second_vertices</a></li>
+<li><a href=#DisjointPaths-second_vertices_new_path>second_vertices_new_path</a></li>
+<li><a href=#DisjointPaths-second_vertices_first_edge>second_vertices_first_edge</a></li>
+<li><a href=#DisjointPaths-disjoint_paths_new_path>disjoint_paths_new_path</a></li>
+<li><a href=#DisjointPaths-P_new_hd_disjoint>P_new_hd_disjoint</a></li>
+<li><a href=#DisjointPaths-P_new_new>P_new_new</a></li>
+<li><a href=#DisjointPaths-card_paths_with_new>card_paths_with_new</a></li>
+<li><a href=#DisjointPaths-paths_with_new_no_Nil>paths_with_new_no_Nil</a></li>
+<li><a href=#DisjointPaths-paths_with_new_path>paths_with_new_path</a></li>
+<li><a href=#DisjointPaths-paths_with_new_start_in_v0>paths_with_new_start_in_v0</a></li>
+<li><a href=#DisjointPaths-P_new_decomp>P_new_decomp</a></li>
+<li><a href=#DisjointPaths-new_pre_not_Nil>new_pre_not_Nil</a></li>
+<li><a href=#DisjointPaths-new_pre_hitting>new_pre_hitting</a></li>
+<li><a href=#DisjointPaths-P_hit>P_hit</a></li>
+<li><a href=#DisjointPaths-new_last_neq_v0>new_last_neq_v0</a></li>
+<li><a href=#DisjointPaths-new_last_in_V>new_last_in_V</a></li>
+<li><a href=#DisjointPaths-new_last_to_v1>new_last_to_v1</a></li>
+<li><a href=#DisjointPaths-paths_plus_one_disjoint>paths_plus_one_disjoint</a></li>
+<li><a href=#DisjointPaths-P_new_solves_if_disjoint>P_new_solves_if_disjoint</a></li>
+<li><a href=#DisjointPaths-H_x_Digraph>H_x_Digraph</a></li>
+<li><a href=#DisjointPaths-H_x_v0_v1_Digraph>H_x_v0_v1_Digraph</a></li>
+<li><a href=#DisjointPaths-new_path_follows_old_paths>new_path_follows_old_paths</a></li>
+</ul>
+</li><li><a href=#MengerInduction>MengerInduction</a>
+<ul>
+<li><a href=#MengerInduction-Q_exists>Q_exists</a></li>
+<li><a href=#MengerInduction-Q>Q</a></li>
+<li><a href=#MengerInduction-P_k>P_k</a></li>
+<li><a href=#MengerInduction-path_P_k>path_P_k</a></li>
+<li><a href=#MengerInduction-hd_P_k_v0>hd_P_k_v0</a></li>
+<li><a href=#MengerInduction-P_k_hits_Q>P_k_hits_Q</a></li>
+<li><a href=#MengerInduction-y_neq_v0>y_neq_v0</a></li>
+<li><a href=#MengerInduction-P_k_pre_not_Nil>P_k_pre_not_Nil</a></li>
+<li><a href=#MengerInduction-second_P_k_pre_not_in_Q>second_P_k_pre_not_in_Q</a></li>
+<li><a href=#MengerInduction-y_eq_v1_implies_P_k_neq_P_new>y_eq_v1_implies_P_k_neq_P_new</a></li>
+<li><a href=#MengerInduction-y_eq_v1_solves>y_eq_v1_solves</a></li>
+</ul>
+</li><li><a href=#Y_eq_new_last>Y_eq_new_last</a>
+<ul>
+<li><a href=#Y_eq_new_last-R>R</a></li>
+<li><a href=#Y_eq_new_last-v1_in_Q>v1_in_Q</a></li>
+<li><a href=#Y_eq_new_last-R_hits_Q>R_hits_Q</a></li>
+<li><a href=#Y_eq_new_last-R_decomp_exists>R_decomp_exists</a></li>
+<li><a href=#Y_eq_new_last-z_neq_v0>z_neq_v0</a></li>
+<li><a href=#Y_eq_new_last-z_neq_new_last>z_neq_new_last</a></li>
+<li><a href=#Y_eq_new_last-R_pre_neq_Nil>R_pre_neq_Nil</a></li>
+<li><a href=#Y_eq_new_last-z_closer_than_new_last>z_closer_than_new_last</a></li>
+<li><a href=#Y_eq_new_last-R%27_walk_not_Nil>R'_walk_not_Nil</a></li>
+<li><a href=#Y_eq_new_last-R%27_walk_no_Q>R'_walk_no_Q</a></li>
+<li><a href=#Y_eq_new_last-R%27>R'</a></li>
+<li><a href=#Y_eq_new_last-hd_R%27>hd_R'</a></li>
+<li><a href=#Y_eq_new_last-R%27_no_Q>R'_no_Q</a></li>
+<li><a href=#Y_eq_new_last-v0_R%27_path>v0_R'_path</a></li>
+<li><a href=#Y_eq_new_last-z_eq_v1_solves>z_eq_v1_solves</a></li>
+<li><a href=#Y_eq_new_last-z_neq_v1_solves>z_neq_v1_solves</a></li>
+</ul>
+</li><li><a href=#Y_neq_new_last>Y_neq_new_last</a>
+<ul>
+<li><a href=#Y_neq_new_last-Q_hit_exists>Q_hit_exists</a></li>
+<li><a href=#Y_neq_new_last-Q_hit_v0_v1>Q_hit_v0_v1</a></li>
+<li><a href=#Y_neq_new_last-Q_hit_vertices>Q_hit_vertices</a></li>
+<li><a href=#Y_neq_new_last-Q_hit_pre_not_Nil>Q_hit_pre_not_Nil</a></li>
+<li><a href=#Y_neq_new_last-tl_Q_hit_pre>tl_Q_hit_pre</a></li>
+<li><a href=#Y_neq_new_last-Q_hit_pre_edges>Q_hit_pre_edges</a></li>
+<li><a href=#Y_neq_new_last-P_k_pre_edges>P_k_pre_edges</a></li>
+<li><a href=#Y_neq_new_last-Q_hit%27_v0_v1>Q_hit'_v0_v1</a></li>
+<li><a href=#Y_neq_new_last-Q_hit%27_v0_v1_H_x>Q_hit'_v0_v1_H_x</a></li>
+<li><a href=#Y_neq_new_last-Q_hit_edges_disjoint>Q_hit_edges_disjoint</a></li>
+<li><a href=#Y_neq_new_last-Q_hit%27_notin_Q_minus_Q_hit>Q_hit'_notin_Q_minus_Q_hit</a></li>
+<li><a href=#Y_neq_new_last-Q_weight_smaller>Q_weight_smaller</a></li>
+<li><a href=#Y_neq_new_last-DisjointPaths_Q%27>DisjointPaths_Q'</a></li>
+<li><a href=#Y_neq_new_last-card_Q%27>card_Q'</a></li>
+<li><a href=#Y_neq_new_last-contradiction%27>contradiction'</a></li>
+</ul>
+</li><li><a href=#Menger>Menger</a>
+<ul>
+<li><a href=#Menger-one_more_paths_exists_trivial>one_more_paths_exists_trivial</a></li>
+<li><a href=#Menger-one_more_paths_exists_nontrivial>one_more_paths_exists_nontrivial</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<ul>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Menger/outline.pdf>Proof
+outline</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Menger/document.pdf>Proof
+document</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Menger/session_graph.pdf>Theory dependencies</a></li>
+</ul>
+</div>
+</aside>
+<div class="content theories"><header>
+<form action=/%20search>
+<div class=form-container>
+<input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
+<datalist id=autocomplete>
+</datalist>
+</div>
+</form>
+<h1><span class=first>S</span>ession <span class=first>M</span>enger</h1>
+<div>
+</div>
+</header><div id=banner data-id=0>
+<p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button>
+</div>
+<div><main>
+<div id=Helpers>
+<div class=head>
+<h1>Theory Helpers</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Helpers›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Helpers <span class=keyword2><span class=keyword>imports</span></span> <a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL/Main.html>Main</a> <span class=keyword2><span class=keyword>begin</span></span>
 
@@ -61,7 +292,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Me
 <span class=keyword1><span class=command>qed</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Graph><div class=head><h1>Theory Graph</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Graphs›</span></span>
+</pre>
+</div><div id=Graph>
+<div class=head>
+<h1>Theory Graph</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Graphs›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Graph <span class=keyword2><span class=keyword>imports</span></span> <a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL/Main.html>Main</a> <span class=keyword2><span class=keyword>begin</span></span>
 
@@ -619,7 +855,12 @@ Nil <span class=main>[</span><span class=operator>simp</span><span class=main>]<
 ›</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Separations><div class=head><h1>Theory Separations</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Separations›</span></span>
+</pre>
+</div><div id=Separations>
+<div class=head>
+<h1>Theory Separations</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Separations›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Separations <span class=keyword2><span class=keyword>imports</span></span> <a href=#Helpers>Helpers</a> <a href=#Graph>Graph</a> <span class=keyword2><span class=keyword>begin</span></span>
 
@@ -668,7 +909,12 @@ Nil <span class=main>[</span><span class=operator>simp</span><span class=main>]<
   <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>meson</span> assms Separation.intro Separation_axioms.intro v0_v1_Digraph_axioms<span class=main>)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=DisjointPaths><div class=head><h1>Theory DisjointPaths</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Internally Vertex-Disjoint Paths›</span></span>
+</pre>
+</div><div id=DisjointPaths>
+<div class=head>
+<h1>Theory DisjointPaths</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Internally Vertex-Disjoint Paths›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> DisjointPaths <span class=keyword2><span class=keyword>imports</span></span> <a href=#Separations>Separations</a> <span class=keyword2><span class=keyword>begin</span></span>
 
@@ -1016,7 +1262,12 @@ Nil <span class=main>[</span><span class=operator>simp</span><span class=main>]<
 <span class=keyword2><span class=keyword>end</span></span> <span class=comment1>― ‹locale <span class=antiquoted><span class=antiquote>@{</span><span class=operator>locale</span> DisjointPathsPlusOne<span class=antiquote>}</span></span>›</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=MengerInduction><div class=head><h1>Theory MengerInduction</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Induction of Menger's Theorem›</span></span>
+</pre>
+</div><div id=MengerInduction>
+<div class=head>
+<h1>Theory MengerInduction</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Induction of Menger's Theorem›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> MengerInduction <span class=keyword2><span class=keyword>imports</span></span> <a href=#Separations>Separations</a> <a href=#DisjointPaths>DisjointPaths</a> <span class=keyword2><span class=keyword>begin</span></span>
 
@@ -1268,7 +1519,12 @@ Nil <span class=main>[</span><span class=operator>simp</span><span class=main>]<
 <span class=keyword2><span class=keyword>end</span></span> <span class=comment1>― ‹locale <span class=antiquoted><span class=antiquote>@{</span><span class=operator>locale</span> ProofStepInduct_NonTrivial_P_k_pre<span class=antiquote>}</span></span>›</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Y_eq_new_last><div class=head><h1>Theory Y_eq_new_last</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹The case $y = new\_last$›</span></span>
+</pre>
+</div><div id=Y_eq_new_last>
+<div class=head>
+<h1>Theory Y_eq_new_last</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹The case $y = new\_last$›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Y_eq_new_last <span class=keyword2><span class=keyword>imports</span></span> <a href=#MengerInduction>MengerInduction</a> <span class=keyword2><span class=keyword>begin</span></span>
 
@@ -1482,7 +1738,12 @@ Nil <span class=main>[</span><span class=operator>simp</span><span class=main>]<
 
 <span class=keyword2><span class=keyword>end</span></span> <span class=comment1>― ‹locale <span class=antiquoted><span class=antiquote>@{</span><span class=operator>locale</span> ProofStepInduct_y_eq_new_last<span class=antiquote>}</span></span>›</span>
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Y_neq_new_last><div class=head><h1>Theory Y_neq_new_last</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹The case $y \neq new\_last$›</span></span>
+</pre>
+</div><div id=Y_neq_new_last>
+<div class=head>
+<h1>Theory Y_neq_new_last</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹The case $y \neq new\_last$›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Y_neq_new_last <span class=keyword2><span class=keyword>imports</span></span> <a href=#MengerInduction>MengerInduction</a> <span class=keyword2><span class=keyword>begin</span></span>
 
@@ -1733,7 +1994,12 @@ Nil <span class=main>[</span><span class=operator>simp</span><span class=main>]<
 
 <span class=keyword2><span class=keyword>end</span></span> <span class=comment1>― ‹locale <span class=antiquoted><span class=antiquote>@{</span><span class=operator>locale</span> ProofStepInduct_y_neq_new_last<span class=antiquote>}</span></span>›</span>
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Menger><div class=head><h1>Theory Menger</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Menger's Theorem›</span></span>
+</pre>
+</div><div id=Menger>
+<div class=head>
+<h1>Theory Menger</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Menger's Theorem›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Menger <span class=keyword2><span class=keyword>imports</span></span> <a href=#Y_eq_new_last>Y_eq_new_last</a> <a href=#Y_neq_new_last>Y_neq_new_last</a> <span class=keyword2><span class=keyword>begin</span></span>
 
@@ -1994,4 +2260,10 @@ Nil <span class=main>[</span><span class=operator>simp</span><span class=main>]<
 <span class=keyword1><span class=command>qed</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div></main></div></div></body></html>
+</pre>
+</div>
+</main>
+</div>
+</div>
+</body>
+</html>

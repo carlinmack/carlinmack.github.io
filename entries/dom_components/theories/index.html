@@ -1,7 +1,126 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Session DOM_Components - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session DOM_Components"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/dom_components/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Session DOM_Components"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css><link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script><script src=/js/banner.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><li><a href=/entries/dom_components>Return to entry</a></li></ul><hr><ul><li><a href=#Core_DOM_Components>Core_DOM_Components</a><ul><li><a href=#Core_DOM_Components-get_dom_component_ptr_in_heap>get_dom_component_ptr_in_heap</a></li><li><a href=#Core_DOM_Components-get_component_ok>get_component_ok</a></li><li><a href=#Core_DOM_Components-get_dom_component_ptr>get_dom_component_ptr</a></li><li><a href=#Core_DOM_Components-get_component_parent_inside>get_component_parent_inside</a></li><li><a href=#Core_DOM_Components-get_component_subset>get_component_subset</a></li><li><a href=#Core_DOM_Components-get_component_to_tree_order_subset>get_component_to_tree_order_subset</a></li><li><a href=#Core_DOM_Components-get_component_to_tree_order>get_component_to_tree_order</a></li><li><a href=#Core_DOM_Components-get_component_root_node_same>get_component_root_node_same</a></li><li><a href=#Core_DOM_Components-get_dom_component_no_overlap>get_dom_component_no_overlap</a></li><li><a href=#Core_DOM_Components-get_component_separates_tree_order>get_component_separates_tree_order</a></li><li><a href=#Core_DOM_Components-get_component_separates_tree_order_general>get_component_separates_tree_order_general</a></li><li><a href=#Core_DOM_Components-get_dom_component_get_child_nodes>get_dom_component_get_child_nodes</a></li><li><a href=#Core_DOM_Components-get_child_nodes_get_component>get_child_nodes_get_component</a></li><li><a href=#Core_DOM_Components-get_child_nodes_strongly_dom_component_safe>get_child_nodes_strongly_dom_component_safe</a></li><li><a href=#Core_DOM_Components-get_parent_is_strongly_dom_component_safe_step>get_parent_is_strongly_dom_component_safe_step</a></li><li><a href=#Core_DOM_Components-get_parent_is_strongly_dom_component_safe>get_parent_is_strongly_dom_component_safe</a></li><li><a href=#Core_DOM_Components-get_root_node_is_strongly_dom_component_safe_step>get_root_node_is_strongly_dom_component_safe_step</a></li><li><a href=#Core_DOM_Components-get_root_node_is_strongly_dom_component_safe>get_root_node_is_strongly_dom_component_safe</a></li><li><a href=#Core_DOM_Components-get_element_by_id_is_strongly_dom_component_safe_step>get_element_by_id_is_strongly_dom_component_safe_step</a></li><li><a href=#Core_DOM_Components-get_element_by_id_is_strongly_dom_component_safe>get_element_by_id_is_strongly_dom_component_safe</a></li><li><a href=#Core_DOM_Components-get_elements_by_class_name_result_in_tree_order>get_elements_by_class_name_result_in_tree_order</a></li><li><a href=#Core_DOM_Components-get_elements_by_class_name_is_strongly_dom_component_safe_step>get_elements_by_class_name_is_strongly_dom_component_safe_step</a></li><li><a href=#Core_DOM_Components-get_elements_by_class_name_pure>get_elements_by_class_name_pure</a></li><li><a href=#Core_DOM_Components-get_elements_by_class_name_is_strongly_dom_component_safe>get_elements_by_class_name_is_strongly_dom_component_safe</a></li><li><a href=#Core_DOM_Components-get_elements_by_tag_name_result_in_tree_order>get_elements_by_tag_name_result_in_tree_order</a></li><li><a href=#Core_DOM_Components-get_elements_by_tag_name_is_strongly_dom_component_safe_step>get_elements_by_tag_name_is_strongly_dom_component_safe_step</a></li><li><a href=#Core_DOM_Components-get_elements_by_tag_name_is_strongly_dom_component_safe>get_elements_by_tag_name_is_strongly_dom_component_safe</a></li><li><a href=#Core_DOM_Components-remove_child_not_strongly_dom_component_safe>remove_child_not_strongly_dom_component_safe</a></li><li><a href=#Core_DOM_Components-adopt_node_not_strongly_dom_component_safe>adopt_node_not_strongly_dom_component_safe</a></li><li><a href=#Core_DOM_Components-create_element_not_strongly_component_safe>create_element_not_strongly_component_safe</a></li><li><a href=#Core_DOM_Components-create_element_is_weakly_dom_component_safe_step>create_element_is_weakly_dom_component_safe_step</a></li><li><a href=#Core_DOM_Components-create_element_is_weakly_dom_component_safe>create_element_is_weakly_dom_component_safe</a></li><li><a href=#Core_DOM_Components-create_character_data_not_strongly_component_safe>create_character_data_not_strongly_component_safe</a></li><li><a href=#Core_DOM_Components-create_character_data_is_weakly_dom_component_safe_step>create_character_data_is_weakly_dom_component_safe_step</a></li><li><a href=#Core_DOM_Components-create_character_data_is_weakly_dom_component_safe>create_character_data_is_weakly_dom_component_safe</a></li><li><a href=#Core_DOM_Components-create_document_not_strongly_component_safe>create_document_not_strongly_component_safe</a></li><li><a href=#Core_DOM_Components-create_document_is_weakly_component_safe_step>create_document_is_weakly_component_safe_step</a></li><li><a href=#Core_DOM_Components-create_document_is_weakly_component_safe>create_document_is_weakly_component_safe</a></li><li><a href=#Core_DOM_Components-insert_before_not_strongly_dom_component_safe>insert_before_not_strongly_dom_component_safe</a></li><li><a href=#Core_DOM_Components-append_child_not_strongly_dom_component_safe>append_child_not_strongly_dom_component_safe</a></li><li><a href=#Core_DOM_Components-get_owner_document_not_strongly_dom_component_safe>get_owner_document_not_strongly_dom_component_safe</a></li></ul></li><li><a href=#Shadow_DOM_Components>Shadow_DOM_Components</a><ul><li><a href=#Shadow_DOM_Components-attach_shadow_root_not_strongly_component_safe>attach_shadow_root_not_strongly_component_safe</a></li><li><a href=#Shadow_DOM_Components-attach_shadow_root_is_weakly_dom_component_safe>attach_shadow_root_is_weakly_dom_component_safe</a></li><li><a href=#Shadow_DOM_Components-get_shadow_root_not_weakly_component_safe>get_shadow_root_not_weakly_component_safe</a></li><li><a href=#Shadow_DOM_Components-get_shadow_root_is_component_unsafe>get_shadow_root_is_component_unsafe</a></li><li><a href=#Shadow_DOM_Components-get_host_not_weakly_component_safe>get_host_not_weakly_component_safe</a></li><li><a href=#Shadow_DOM_Components-get_host_is_component_unsafe>get_host_is_component_unsafe</a></li><li><a href=#Shadow_DOM_Components-get_root_node_si_is_component_unsafe>get_root_node_si_is_component_unsafe</a></li><li><a href=#Shadow_DOM_Components-assigned_nodes_not_weakly_component_safe>assigned_nodes_not_weakly_component_safe</a></li><li><a href=#Shadow_DOM_Components-get_composed_root_node_not_weakly_component_safe>get_composed_root_node_not_weakly_component_safe</a></li><li><a href=#Shadow_DOM_Components-assigned_slot_not_weakly_component_safe>assigned_slot_not_weakly_component_safe</a></li><li><a href=#Shadow_DOM_Components-find_slot_is_component_unsafe>find_slot_is_component_unsafe</a></li><li><a href=#Shadow_DOM_Components-assigned_slot_pure>assigned_slot_pure</a></li><li><a href=#Shadow_DOM_Components-assigned_slot_is_strongly_dom_component_safe>assigned_slot_is_strongly_dom_component_safe</a></li><li><a href=#Shadow_DOM_Components-assigned_nodes_is_component_unsafe>assigned_nodes_is_component_unsafe</a></li><li><a href=#Shadow_DOM_Components-flatten_dom_assigned_nodes_become_children>flatten_dom_assigned_nodes_become_children</a></li><li><a href=#Shadow_DOM_Components-get_owner_document_is_component_unsafe>get_owner_document_is_component_unsafe</a></li></ul></li><li><a href=#fancy_tabs>fancy_tabs</a></li></ul></div><ul><li><a href=https://www.isa-afp.org/browser_info/current/AFP/DOM_Components/outline.pdf>Proof
-outline</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/DOM_Components/document.pdf>Proof
-document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/DOM_Components/session_graph.pdf>Theory dependencies</a></li></ul></div></aside><div class="content theories"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
-<datalist id=autocomplete></datalist></div></form><h1><span class=first>S</span>ession <span class=first>D</span><span class=first>O</span><span class=first>M</span>_<span class=first>C</span>omponents</h1><div></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><div id=Core_DOM_Components><div class=head><h1>Theory Core_DOM_Components</h1></div><pre class=source><span class=comment1>(***********************************************************************************
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Session DOM_Components - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session DOM_Components">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="/entries/dom_components/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories">
+<meta property="og:site_name" content="Archive of Formal Proofs">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="/images/afp.png">
+<meta name=twitter:title content="Session DOM_Components">
+<meta name=twitter:description content>
+<link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css>
+<link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script>
+<script src=/js/banner.js></script><script src=/js/header-search.js></script></head>
+<body class=mathjax_ignore>
+<aside>
+<div>
+<div>
+<a href=/>
+<img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo>
+</a>
+<ul>
+<li><a href=/entries/dom_components>Return to entry</a></li>
+</ul>
+<hr>
+<ul><li><a href=#Core_DOM_Components>Core_DOM_Components</a>
+<ul>
+<li><a href=#Core_DOM_Components-get_dom_component_ptr_in_heap>get_dom_component_ptr_in_heap</a></li>
+<li><a href=#Core_DOM_Components-get_component_ok>get_component_ok</a></li>
+<li><a href=#Core_DOM_Components-get_dom_component_ptr>get_dom_component_ptr</a></li>
+<li><a href=#Core_DOM_Components-get_component_parent_inside>get_component_parent_inside</a></li>
+<li><a href=#Core_DOM_Components-get_component_subset>get_component_subset</a></li>
+<li><a href=#Core_DOM_Components-get_component_to_tree_order_subset>get_component_to_tree_order_subset</a></li>
+<li><a href=#Core_DOM_Components-get_component_to_tree_order>get_component_to_tree_order</a></li>
+<li><a href=#Core_DOM_Components-get_component_root_node_same>get_component_root_node_same</a></li>
+<li><a href=#Core_DOM_Components-get_dom_component_no_overlap>get_dom_component_no_overlap</a></li>
+<li><a href=#Core_DOM_Components-get_component_separates_tree_order>get_component_separates_tree_order</a></li>
+<li><a href=#Core_DOM_Components-get_component_separates_tree_order_general>get_component_separates_tree_order_general</a></li>
+<li><a href=#Core_DOM_Components-get_dom_component_get_child_nodes>get_dom_component_get_child_nodes</a></li>
+<li><a href=#Core_DOM_Components-get_child_nodes_get_component>get_child_nodes_get_component</a></li>
+<li><a href=#Core_DOM_Components-get_child_nodes_strongly_dom_component_safe>get_child_nodes_strongly_dom_component_safe</a></li>
+<li><a href=#Core_DOM_Components-get_parent_is_strongly_dom_component_safe_step>get_parent_is_strongly_dom_component_safe_step</a></li>
+<li><a href=#Core_DOM_Components-get_parent_is_strongly_dom_component_safe>get_parent_is_strongly_dom_component_safe</a></li>
+<li><a href=#Core_DOM_Components-get_root_node_is_strongly_dom_component_safe_step>get_root_node_is_strongly_dom_component_safe_step</a></li>
+<li><a href=#Core_DOM_Components-get_root_node_is_strongly_dom_component_safe>get_root_node_is_strongly_dom_component_safe</a></li>
+<li><a href=#Core_DOM_Components-get_element_by_id_is_strongly_dom_component_safe_step>get_element_by_id_is_strongly_dom_component_safe_step</a></li>
+<li><a href=#Core_DOM_Components-get_element_by_id_is_strongly_dom_component_safe>get_element_by_id_is_strongly_dom_component_safe</a></li>
+<li><a href=#Core_DOM_Components-get_elements_by_class_name_result_in_tree_order>get_elements_by_class_name_result_in_tree_order</a></li>
+<li><a href=#Core_DOM_Components-get_elements_by_class_name_is_strongly_dom_component_safe_step>get_elements_by_class_name_is_strongly_dom_component_safe_step</a></li>
+<li><a href=#Core_DOM_Components-get_elements_by_class_name_pure>get_elements_by_class_name_pure</a></li>
+<li><a href=#Core_DOM_Components-get_elements_by_class_name_is_strongly_dom_component_safe>get_elements_by_class_name_is_strongly_dom_component_safe</a></li>
+<li><a href=#Core_DOM_Components-get_elements_by_tag_name_result_in_tree_order>get_elements_by_tag_name_result_in_tree_order</a></li>
+<li><a href=#Core_DOM_Components-get_elements_by_tag_name_is_strongly_dom_component_safe_step>get_elements_by_tag_name_is_strongly_dom_component_safe_step</a></li>
+<li><a href=#Core_DOM_Components-get_elements_by_tag_name_is_strongly_dom_component_safe>get_elements_by_tag_name_is_strongly_dom_component_safe</a></li>
+<li><a href=#Core_DOM_Components-remove_child_not_strongly_dom_component_safe>remove_child_not_strongly_dom_component_safe</a></li>
+<li><a href=#Core_DOM_Components-adopt_node_not_strongly_dom_component_safe>adopt_node_not_strongly_dom_component_safe</a></li>
+<li><a href=#Core_DOM_Components-create_element_not_strongly_component_safe>create_element_not_strongly_component_safe</a></li>
+<li><a href=#Core_DOM_Components-create_element_is_weakly_dom_component_safe_step>create_element_is_weakly_dom_component_safe_step</a></li>
+<li><a href=#Core_DOM_Components-create_element_is_weakly_dom_component_safe>create_element_is_weakly_dom_component_safe</a></li>
+<li><a href=#Core_DOM_Components-create_character_data_not_strongly_component_safe>create_character_data_not_strongly_component_safe</a></li>
+<li><a href=#Core_DOM_Components-create_character_data_is_weakly_dom_component_safe_step>create_character_data_is_weakly_dom_component_safe_step</a></li>
+<li><a href=#Core_DOM_Components-create_character_data_is_weakly_dom_component_safe>create_character_data_is_weakly_dom_component_safe</a></li>
+<li><a href=#Core_DOM_Components-create_document_not_strongly_component_safe>create_document_not_strongly_component_safe</a></li>
+<li><a href=#Core_DOM_Components-create_document_is_weakly_component_safe_step>create_document_is_weakly_component_safe_step</a></li>
+<li><a href=#Core_DOM_Components-create_document_is_weakly_component_safe>create_document_is_weakly_component_safe</a></li>
+<li><a href=#Core_DOM_Components-insert_before_not_strongly_dom_component_safe>insert_before_not_strongly_dom_component_safe</a></li>
+<li><a href=#Core_DOM_Components-append_child_not_strongly_dom_component_safe>append_child_not_strongly_dom_component_safe</a></li>
+<li><a href=#Core_DOM_Components-get_owner_document_not_strongly_dom_component_safe>get_owner_document_not_strongly_dom_component_safe</a></li>
+</ul>
+</li><li><a href=#Shadow_DOM_Components>Shadow_DOM_Components</a>
+<ul>
+<li><a href=#Shadow_DOM_Components-attach_shadow_root_not_strongly_component_safe>attach_shadow_root_not_strongly_component_safe</a></li>
+<li><a href=#Shadow_DOM_Components-attach_shadow_root_is_weakly_dom_component_safe>attach_shadow_root_is_weakly_dom_component_safe</a></li>
+<li><a href=#Shadow_DOM_Components-get_shadow_root_not_weakly_component_safe>get_shadow_root_not_weakly_component_safe</a></li>
+<li><a href=#Shadow_DOM_Components-get_shadow_root_is_component_unsafe>get_shadow_root_is_component_unsafe</a></li>
+<li><a href=#Shadow_DOM_Components-get_host_not_weakly_component_safe>get_host_not_weakly_component_safe</a></li>
+<li><a href=#Shadow_DOM_Components-get_host_is_component_unsafe>get_host_is_component_unsafe</a></li>
+<li><a href=#Shadow_DOM_Components-get_root_node_si_is_component_unsafe>get_root_node_si_is_component_unsafe</a></li>
+<li><a href=#Shadow_DOM_Components-assigned_nodes_not_weakly_component_safe>assigned_nodes_not_weakly_component_safe</a></li>
+<li><a href=#Shadow_DOM_Components-get_composed_root_node_not_weakly_component_safe>get_composed_root_node_not_weakly_component_safe</a></li>
+<li><a href=#Shadow_DOM_Components-assigned_slot_not_weakly_component_safe>assigned_slot_not_weakly_component_safe</a></li>
+<li><a href=#Shadow_DOM_Components-find_slot_is_component_unsafe>find_slot_is_component_unsafe</a></li>
+<li><a href=#Shadow_DOM_Components-assigned_slot_pure>assigned_slot_pure</a></li>
+<li><a href=#Shadow_DOM_Components-assigned_slot_is_strongly_dom_component_safe>assigned_slot_is_strongly_dom_component_safe</a></li>
+<li><a href=#Shadow_DOM_Components-assigned_nodes_is_component_unsafe>assigned_nodes_is_component_unsafe</a></li>
+<li><a href=#Shadow_DOM_Components-flatten_dom_assigned_nodes_become_children>flatten_dom_assigned_nodes_become_children</a></li>
+<li><a href=#Shadow_DOM_Components-get_owner_document_is_component_unsafe>get_owner_document_is_component_unsafe</a></li>
+</ul>
+</li><li><a href=#fancy_tabs>fancy_tabs</a>
+</li>
+</ul>
+</div>
+<ul>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/DOM_Components/outline.pdf>Proof
+outline</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/DOM_Components/document.pdf>Proof
+document</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/DOM_Components/session_graph.pdf>Theory dependencies</a></li>
+</ul>
+</div>
+</aside>
+<div class="content theories"><header>
+<form action=/%20search>
+<div class=form-container>
+<input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
+<datalist id=autocomplete>
+</datalist>
+</div>
+</form>
+<h1><span class=first>S</span>ession <span class=first>D</span><span class=first>O</span><span class=first>M</span>_<span class=first>C</span>omponents</h1>
+<div>
+</div>
+</header><div id=banner data-id=0>
+<p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button>
+</div>
+<div><main>
+<div id=Core_DOM_Components>
+<div class=head>
+<h1>Theory Core_DOM_Components</h1>
+</div>
+<pre class=source><span class=comment1>(***********************************************************************************
  * Copyright (c) 2016-2020 The University of Sheffield, UK
  *               2019-2020 University of Exeter, UK
  *
@@ -2155,7 +2274,12 @@ set <span class=main>|</span><span class=free>h'</span> <span class=main>⊢</sp
 
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Shadow_DOM_Components><div class=head><h1>Theory Shadow_DOM_Components</h1></div><pre class=source><span class=comment1>(***********************************************************************************
+</pre>
+</div><div id=Shadow_DOM_Components>
+<div class=head>
+<h1>Theory Shadow_DOM_Components</h1>
+</div>
+<pre class=source><span class=comment1>(***********************************************************************************
  * Copyright (c) 2016-2020 The University of Sheffield, UK
  *               2019-2020 University of Exeter, UK
  *
@@ -3719,7 +3843,12 @@ distinct <span class=bound>assigned_nodes</span>›</span></span> <span class=qu
     <span class=quoted><span class=quoted>"<span class=free>is_shadow_root_component</span> <span class=free><span class=bound><span class=entity>c</span></span></span> <span class=main>=</span> is_shadow_root_ptr_kind <span class=main>(</span>hd <span class=free><span class=bound><span class=entity>c</span></span></span><span class=main>)</span>"</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=fancy_tabs><div class=head><h1>Theory fancy_tabs</h1></div><pre class=source><span class=comment1>(***********************************************************************************
+</pre>
+</div><div id=fancy_tabs>
+<div class=head>
+<h1>Theory fancy_tabs</h1>
+</div>
+<pre class=source><span class=comment1>(***********************************************************************************
  * Copyright (c) 2016-2020 The University of Sheffield, UK
  *               2019-2020 University of Exeter, UK
  *
@@ -3815,4 +3944,10 @@ distinct <span class=bound>assigned_nodes</span>›</span></span> <span class=qu
 
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div></main></div></div></body></html>
+</pre>
+</div>
+</main>
+</div>
+</div>
+</body>
+</html>

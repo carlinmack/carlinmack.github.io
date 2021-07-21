@@ -1,7 +1,97 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Session Weight_Balanced_Trees - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session Weight_Balanced_Trees"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/weight_balanced_trees/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Session Weight_Balanced_Trees"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css><link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script><script src=/js/banner.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><li><a href=/entries/weight_balanced_trees>Return to entry</a></li></ul><hr><ul><li><a href=#Weight_Balanced_Trees_log>Weight_Balanced_Trees_log</a><ul><li><a href=#Weight_Balanced_Trees_log-height_size1_exp>height_size1_exp</a></li><li><a href=#Weight_Balanced_Trees_log-height_size1_log>height_size1_log</a></li></ul></li><li><a href=#Weight_Balanced_Trees>Weight_Balanced_Trees</a><ul><li><a href=#Weight_Balanced_Trees-neq_Leaf2_iff>neq_Leaf2_iff</a></li><li><a href=#Weight_Balanced_Trees-size_wbt_eq_size>size_wbt_eq_size</a></li><li><a href=#Weight_Balanced_Trees-not_Leaf_if_not_balanced1>not_Leaf_if_not_balanced1</a></li><li><a href=#Weight_Balanced_Trees-not_Leaf_if_not_single>not_Leaf_if_not_single</a></li><li><a href=#Weight_Balanced_Trees-inorder_rot2>inorder_rot2</a></li><li><a href=#Weight_Balanced_Trees-inorder_rotateL>inorder_rotateL</a></li><li><a href=#Weight_Balanced_Trees-inorder_rotateR>inorder_rotateR</a></li><li><a href=#Weight_Balanced_Trees-inorder_insert>inorder_insert</a></li><li><a href=#Weight_Balanced_Trees-split_minD>split_minD</a></li><li><a href=#Weight_Balanced_Trees-del_maxD>del_maxD</a></li><li><a href=#Weight_Balanced_Trees-inorder_combine>inorder_combine</a></li><li><a href=#Weight_Balanced_Trees-inorder_delete>inorder_delete</a></li><li><a href=#Weight_Balanced_Trees-size_rot2L>size_rot2L</a></li><li><a href=#Weight_Balanced_Trees-size_rotateR>size_rotateR</a></li><li><a href=#Weight_Balanced_Trees-size_rotateL>size_rotateL</a></li><li><a href=#Weight_Balanced_Trees-size_length>size_length</a></li><li><a href=#Weight_Balanced_Trees-size_insert>size_insert</a></li><li><a href=#Weight_Balanced_Trees-size_delete_if_isin>size_delete_if_isin</a></li><li><a href=#Weight_Balanced_Trees-delete_id_if_wbt_notin>delete_id_if_wbt_notin</a></li><li><a href=#Weight_Balanced_Trees-size_split_min>size_split_min</a></li><li><a href=#Weight_Balanced_Trees-size_del_max>size_del_max</a></li><li><a href=#Weight_Balanced_Trees-wbt_insert>wbt_insert</a></li><li><a href=#Weight_Balanced_Trees-wbt_balanceL>wbt_balanceL</a></li><li><a href=#Weight_Balanced_Trees-wbt_balanceR>wbt_balanceR</a></li><li><a href=#Weight_Balanced_Trees-wbt_split_min>wbt_split_min</a></li><li><a href=#Weight_Balanced_Trees-wbt_del_max>wbt_del_max</a></li><li><a href=#Weight_Balanced_Trees-wbt_delete>wbt_delete</a></li></ul></li></ul></div><ul><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Weight_Balanced_Trees/outline.pdf>Proof
-outline</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Weight_Balanced_Trees/document.pdf>Proof
-document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Weight_Balanced_Trees/session_graph.pdf>Theory dependencies</a></li></ul></div></aside><div class="content theories"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
-<datalist id=autocomplete></datalist></div></form><h1><span class=first>S</span>ession <span class=first>W</span>eight_<span class=first>B</span>alanced_<span class=first>T</span>rees</h1><div></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><div id=Weight_Balanced_Trees_log><div class=head><h1>Theory Weight_Balanced_Trees_log</h1></div><pre class=source><span class=comment1>(* Author: Tobias Nipkow *)</span>
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Session Weight_Balanced_Trees - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session Weight_Balanced_Trees">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="/entries/weight_balanced_trees/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories">
+<meta property="og:site_name" content="Archive of Formal Proofs">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="/images/afp.png">
+<meta name=twitter:title content="Session Weight_Balanced_Trees">
+<meta name=twitter:description content>
+<link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css>
+<link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script>
+<script src=/js/banner.js></script><script src=/js/header-search.js></script></head>
+<body class=mathjax_ignore>
+<aside>
+<div>
+<div>
+<a href=/>
+<img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo>
+</a>
+<ul>
+<li><a href=/entries/weight_balanced_trees>Return to entry</a></li>
+</ul>
+<hr>
+<ul><li><a href=#Weight_Balanced_Trees_log>Weight_Balanced_Trees_log</a>
+<ul>
+<li><a href=#Weight_Balanced_Trees_log-height_size1_exp>height_size1_exp</a></li>
+<li><a href=#Weight_Balanced_Trees_log-height_size1_log>height_size1_log</a></li>
+</ul>
+</li><li><a href=#Weight_Balanced_Trees>Weight_Balanced_Trees</a>
+<ul>
+<li><a href=#Weight_Balanced_Trees-neq_Leaf2_iff>neq_Leaf2_iff</a></li>
+<li><a href=#Weight_Balanced_Trees-size_wbt_eq_size>size_wbt_eq_size</a></li>
+<li><a href=#Weight_Balanced_Trees-not_Leaf_if_not_balanced1>not_Leaf_if_not_balanced1</a></li>
+<li><a href=#Weight_Balanced_Trees-not_Leaf_if_not_single>not_Leaf_if_not_single</a></li>
+<li><a href=#Weight_Balanced_Trees-inorder_rot2>inorder_rot2</a></li>
+<li><a href=#Weight_Balanced_Trees-inorder_rotateL>inorder_rotateL</a></li>
+<li><a href=#Weight_Balanced_Trees-inorder_rotateR>inorder_rotateR</a></li>
+<li><a href=#Weight_Balanced_Trees-inorder_insert>inorder_insert</a></li>
+<li><a href=#Weight_Balanced_Trees-split_minD>split_minD</a></li>
+<li><a href=#Weight_Balanced_Trees-del_maxD>del_maxD</a></li>
+<li><a href=#Weight_Balanced_Trees-inorder_combine>inorder_combine</a></li>
+<li><a href=#Weight_Balanced_Trees-inorder_delete>inorder_delete</a></li>
+<li><a href=#Weight_Balanced_Trees-size_rot2L>size_rot2L</a></li>
+<li><a href=#Weight_Balanced_Trees-size_rotateR>size_rotateR</a></li>
+<li><a href=#Weight_Balanced_Trees-size_rotateL>size_rotateL</a></li>
+<li><a href=#Weight_Balanced_Trees-size_length>size_length</a></li>
+<li><a href=#Weight_Balanced_Trees-size_insert>size_insert</a></li>
+<li><a href=#Weight_Balanced_Trees-size_delete_if_isin>size_delete_if_isin</a></li>
+<li><a href=#Weight_Balanced_Trees-delete_id_if_wbt_notin>delete_id_if_wbt_notin</a></li>
+<li><a href=#Weight_Balanced_Trees-size_split_min>size_split_min</a></li>
+<li><a href=#Weight_Balanced_Trees-size_del_max>size_del_max</a></li>
+<li><a href=#Weight_Balanced_Trees-wbt_insert>wbt_insert</a></li>
+<li><a href=#Weight_Balanced_Trees-wbt_balanceL>wbt_balanceL</a></li>
+<li><a href=#Weight_Balanced_Trees-wbt_balanceR>wbt_balanceR</a></li>
+<li><a href=#Weight_Balanced_Trees-wbt_split_min>wbt_split_min</a></li>
+<li><a href=#Weight_Balanced_Trees-wbt_del_max>wbt_del_max</a></li>
+<li><a href=#Weight_Balanced_Trees-wbt_delete>wbt_delete</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<ul>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Weight_Balanced_Trees/outline.pdf>Proof
+outline</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Weight_Balanced_Trees/document.pdf>Proof
+document</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Weight_Balanced_Trees/session_graph.pdf>Theory dependencies</a></li>
+</ul>
+</div>
+</aside>
+<div class="content theories"><header>
+<form action=/%20search>
+<div class=form-container>
+<input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
+<datalist id=autocomplete>
+</datalist>
+</div>
+</form>
+<h1><span class=first>S</span>ession <span class=first>W</span>eight_<span class=first>B</span>alanced_<span class=first>T</span>rees</h1>
+<div>
+</div>
+</header><div id=banner data-id=0>
+<p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button>
+</div>
+<div><main>
+<div id=Weight_Balanced_Trees_log>
+<div class=head>
+<h1>Theory Weight_Balanced_Trees_log</h1>
+</div>
+<pre class=source><span class=comment1>(* Author: Tobias Nipkow *)</span>
 
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Weight-Balanced Trees Have Logarithmic Height›</span></span>
 
@@ -92,7 +182,12 @@ of the size of the node.›</span></span>
 <span class=keyword2><span class=keyword>end</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Weight_Balanced_Trees><div class=head><h1>Theory Weight_Balanced_Trees</h1></div><pre class=source><span class=comment1>(* Author: Tobias Nipkow &amp; Stefan Dirix *)</span>
+</pre>
+</div><div id=Weight_Balanced_Trees>
+<div class=head>
+<h1>Theory Weight_Balanced_Trees</h1>
+</div>
+<pre class=source><span class=comment1>(* Author: Tobias Nipkow &amp; Stefan Dirix *)</span>
 
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Weight Balanced Tree Implementation of Sets›</span></span>
 
@@ -694,4 +789,10 @@ qed
 <span class=keyword1><span class=command>qed</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div></main></div></div></body></html>
+</pre>
+</div>
+</main>
+</div>
+</div>
+</body>
+</html>

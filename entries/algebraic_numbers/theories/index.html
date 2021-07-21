@@ -1,7 +1,674 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Session Algebraic_Numbers - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session Algebraic_Numbers"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/algebraic_numbers/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Session Algebraic_Numbers"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css><link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script><script src=/js/banner.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><li><a href=/entries/algebraic_numbers>Return to entry</a></li></ul><hr><ul><li><a href=#Algebraic_Numbers_Prelim>Algebraic_Numbers_Prelim</a><ul><li><a href=#Algebraic_Numbers_Prelim-primitive_imp_unit_iff>primitive_imp_unit_iff</a></li><li><a href=#Algebraic_Numbers_Prelim-dvd_all_coeffs_imp_dvd>dvd_all_coeffs_imp_dvd</a></li><li><a href=#Algebraic_Numbers_Prelim-irreducible_content>irreducible_content</a></li><li><a href=#Algebraic_Numbers_Prelim-linear_irreducible_field>linear_irreducible_field</a></li><li><a href=#Algebraic_Numbers_Prelim-linear_irreducible_int>linear_irreducible_int</a></li><li><a href=#Algebraic_Numbers_Prelim-irreducible_connect_rev>irreducible_connect_rev</a></li><li><a href=#Algebraic_Numbers_Prelim-poly_map_poly_code>poly_map_poly_code</a></li><li><a href=#Algebraic_Numbers_Prelim-of_rat_of_int>of_rat_of_int</a></li><li><a href=#Algebraic_Numbers_Prelim-ipoly_of_rat>ipoly_of_rat</a></li><li><a href=#Algebraic_Numbers_Prelim-ipoly_of_real>ipoly_of_real</a></li><li><a href=#Algebraic_Numbers_Prelim-finite_ipoly_roots>finite_ipoly_roots</a></li><li><a href=#Algebraic_Numbers_Prelim-algebraic_altdef_ipoly>algebraic_altdef_ipoly</a></li><li><a href=#Algebraic_Numbers_Prelim-representsI>representsI</a></li><li><a href=#Algebraic_Numbers_Prelim-representsD>representsD</a></li><li><a href=#Algebraic_Numbers_Prelim-representsE>representsE</a></li><li><a href=#Algebraic_Numbers_Prelim-represents_imp_degree>represents_imp_degree</a></li><li><a href=#Algebraic_Numbers_Prelim-representsE_full>representsE_full</a></li><li><a href=#Algebraic_Numbers_Prelim-represents_of_rat>represents_of_rat</a></li><li><a href=#Algebraic_Numbers_Prelim-represents_of_real>represents_of_real</a></li><li><a href=#Algebraic_Numbers_Prelim-algebraic_iff_represents>algebraic_iff_represents</a></li><li><a href=#Algebraic_Numbers_Prelim-represents_irr_non_0>represents_irr_non_0</a></li><li><a href=#Algebraic_Numbers_Prelim-pos_poly_abs_poly>pos_poly_abs_poly</a></li><li><a href=#Algebraic_Numbers_Prelim-abs_int_poly_0>abs_int_poly_0</a></li><li><a href=#Algebraic_Numbers_Prelim-abs_int_poly_eq_0_iff>abs_int_poly_eq_0_iff</a></li><li><a href=#Algebraic_Numbers_Prelim-degree_abs_int_poly>degree_abs_int_poly</a></li><li><a href=#Algebraic_Numbers_Prelim-abs_int_poly_dvd>abs_int_poly_dvd</a></li><li><a href=#Algebraic_Numbers_Prelim-irreducible_abs_int_poly>irreducible_abs_int_poly</a></li><li><a href=#Algebraic_Numbers_Prelim-coeff_abs_int_poly>coeff_abs_int_poly</a></li><li><a href=#Algebraic_Numbers_Prelim-lead_coeff_abs_int_poly>lead_coeff_abs_int_poly</a></li><li><a href=#Algebraic_Numbers_Prelim-ipoly_abs_int_poly_eq_zero_iff>ipoly_abs_int_poly_eq_zero_iff</a></li><li><a href=#Algebraic_Numbers_Prelim-abs_int_poly_represents>abs_int_poly_represents</a></li><li><a href=#Algebraic_Numbers_Prelim-content_pCons>content_pCons</a></li><li><a href=#Algebraic_Numbers_Prelim-content_uminus>content_uminus</a></li><li><a href=#Algebraic_Numbers_Prelim-primitive_abs_int_poly>primitive_abs_int_poly</a></li><li><a href=#Algebraic_Numbers_Prelim-abs_int_poly_inv>abs_int_poly_inv</a></li><li><a href=#Algebraic_Numbers_Prelim-sgn_is_unit>sgn_is_unit</a></li><li><a href=#Algebraic_Numbers_Prelim-cf_pos_poly_0>cf_pos_poly_0</a></li><li><a href=#Algebraic_Numbers_Prelim-cf_pos_poly_eq_0>cf_pos_poly_eq_0</a></li><li><a href=#Algebraic_Numbers_Prelim-irreducible_connect_int>irreducible_connect_int</a></li><li><a href=#Algebraic_Numbers_Prelim-cf_pos_poly_eq_1>cf_pos_poly_eq_1</a></li><li><a href=#Algebraic_Numbers_Prelim-irr_cf_poly_rat>irr_cf_poly_rat</a></li><li><a href=#Algebraic_Numbers_Prelim-poly_rat>poly_rat</a></li><li><a href=#Algebraic_Numbers_Prelim-poly_rat_represents_of_rat>poly_rat_represents_of_rat</a></li><li><a href=#Algebraic_Numbers_Prelim-ipoly_smult_0_iff>ipoly_smult_0_iff</a></li><li><a href=#Algebraic_Numbers_Prelim-not_irreducibleD>not_irreducibleD</a></li><li><a href=#Algebraic_Numbers_Prelim-cf_pos_poly_represents>cf_pos_poly_represents</a></li><li><a href=#Algebraic_Numbers_Prelim-coprime_prod>coprime_prod</a></li><li><a href=#Algebraic_Numbers_Prelim-smult_prod>smult_prod</a></li><li><a href=#Algebraic_Numbers_Prelim-degree_map_poly_2>degree_map_poly_2</a></li><li><a href=#Algebraic_Numbers_Prelim-irreducible_cf_pos_poly>irreducible_cf_pos_poly</a></li><li><a href=#Algebraic_Numbers_Prelim-hom_dvd_hom_iff>hom_dvd_hom_iff</a></li><li><a href=#Algebraic_Numbers_Prelim-smult_inverse_monom>smult_inverse_monom</a></li><li><a href=#Algebraic_Numbers_Prelim-of_int_monom>of_int_monom</a></li><li><a href=#Algebraic_Numbers_Prelim-degree_0_content>degree_0_content</a></li><li><a href=#Algebraic_Numbers_Prelim-prime_elem_imp_gcd_eq>prime_elem_imp_gcd_eq</a></li><li><a href=#Algebraic_Numbers_Prelim-irreducible_pos_gcd>irreducible_pos_gcd</a></li><li><a href=#Algebraic_Numbers_Prelim-irreducible_pos_gcd_twice>irreducible_pos_gcd_twice</a></li><li><a href=#Algebraic_Numbers_Prelim-poly_zero_imp_not_unit>poly_zero_imp_not_unit</a></li><li><a href=#Algebraic_Numbers_Prelim-poly_prod_mset_zero_iff>poly_prod_mset_zero_iff</a></li><li><a href=#Algebraic_Numbers_Prelim-algebraic_imp_represents_irreducible>algebraic_imp_represents_irreducible</a></li><li><a href=#Algebraic_Numbers_Prelim-algebraic_imp_represents_irreducible_cf_pos>algebraic_imp_represents_irreducible_cf_pos</a></li><li><a href=#Algebraic_Numbers_Prelim-gcd_of_int_poly>gcd_of_int_poly</a></li><li><a href=#Algebraic_Numbers_Prelim-algebraic_imp_represents_unique>algebraic_imp_represents_unique</a></li><li><a href=#Algebraic_Numbers_Prelim-ipoly_poly_compose>ipoly_poly_compose</a></li><li><a href=#Algebraic_Numbers_Prelim-poly_uminus_pCons_pCons>poly_uminus_pCons_pCons</a></li><li><a href=#Algebraic_Numbers_Prelim-poly_uminus_code>poly_uminus_code</a></li><li><a href=#Algebraic_Numbers_Prelim-poly_uminus_inner_0>poly_uminus_inner_0</a></li><li><a href=#Algebraic_Numbers_Prelim-degree_poly_uminus_inner>degree_poly_uminus_inner</a></li><li><a href=#Algebraic_Numbers_Prelim-ipoly_uminus_inner>ipoly_uminus_inner</a></li><li><a href=#Algebraic_Numbers_Prelim-represents_uminus>represents_uminus</a></li><li><a href=#Algebraic_Numbers_Prelim-content_poly_uminus_inner>content_poly_uminus_inner</a></li><li><a href=#Algebraic_Numbers_Prelim-inverse_pow_minus>inverse_pow_minus</a></li><li><a href=#Algebraic_Numbers_Prelim-ipoly_reflect_poly>ipoly_reflect_poly</a></li><li><a href=#Algebraic_Numbers_Prelim-represents_inverse>represents_inverse</a></li><li><a href=#Algebraic_Numbers_Prelim-inverse_roots>inverse_roots</a></li><li><a href=#Algebraic_Numbers_Prelim-ipoly_nth_root>ipoly_nth_root</a></li><li><a href=#Algebraic_Numbers_Prelim-poly_nth_root_0>poly_nth_root_0</a></li><li><a href=#Algebraic_Numbers_Prelim-represents_nth_root>represents_nth_root</a></li><li><a href=#Algebraic_Numbers_Prelim-represents_nth_root_odd_real>represents_nth_root_odd_real</a></li><li><a href=#Algebraic_Numbers_Prelim-represents_nth_root_pos_real>represents_nth_root_pos_real</a></li><li><a href=#Algebraic_Numbers_Prelim-represents_nth_root_neg_real>represents_nth_root_neg_real</a></li><li><a href=#Algebraic_Numbers_Prelim-represents_csqrt>represents_csqrt</a></li><li><a href=#Algebraic_Numbers_Prelim-represents_sqrt>represents_sqrt</a></li><li><a href=#Algebraic_Numbers_Prelim-represents_degree>represents_degree</a></li><li><a href=#Algebraic_Numbers_Prelim-coeff_poly_mult_rat_main>coeff_poly_mult_rat_main</a></li><li><a href=#Algebraic_Numbers_Prelim-degree_poly_mult_rat_main>degree_poly_mult_rat_main</a></li><li><a href=#Algebraic_Numbers_Prelim-ipoly_mult_rat_main>ipoly_mult_rat_main</a></li><li><a href=#Algebraic_Numbers_Prelim-degree_poly_mult_rat>degree_poly_mult_rat</a></li><li><a href=#Algebraic_Numbers_Prelim-ipoly_mult_rat>ipoly_mult_rat</a></li><li><a href=#Algebraic_Numbers_Prelim-poly_mult_rat_main_0>poly_mult_rat_main_0</a></li><li><a href=#Algebraic_Numbers_Prelim-poly_mult_rat_0>poly_mult_rat_0</a></li><li><a href=#Algebraic_Numbers_Prelim-represents_mult_rat>represents_mult_rat</a></li><li><a href=#Algebraic_Numbers_Prelim-poly_add_rat_code>poly_add_rat_code</a></li><li><a href=#Algebraic_Numbers_Prelim-degree_poly_add_rat>degree_poly_add_rat</a></li><li><a href=#Algebraic_Numbers_Prelim-ipoly_add_rat>ipoly_add_rat</a></li><li><a href=#Algebraic_Numbers_Prelim-poly_add_rat_0>poly_add_rat_0</a></li><li><a href=#Algebraic_Numbers_Prelim-add_rat_roots>add_rat_roots</a></li><li><a href=#Algebraic_Numbers_Prelim-represents_add_rat>represents_add_rat</a></li><li><a href=#Algebraic_Numbers_Prelim-ipoly_add_rat_pos_neg>ipoly_add_rat_pos_neg</a></li><li><a href=#Algebraic_Numbers_Prelim-sgn_ipoly_add_rat>sgn_ipoly_add_rat</a></li><li><a href=#Algebraic_Numbers_Prelim-deg_nonzero_represents>deg_nonzero_represents</a></li></ul></li><li><a href=#Bivariate_Polynomials>Bivariate_Polynomials</a><ul><li><a href=#Bivariate_Polynomials-poly2_by_map>poly2_by_map</a></li><li><a href=#Bivariate_Polynomials-poly2_const>poly2_const</a></li><li><a href=#Bivariate_Polynomials-poly2_smult>poly2_smult</a></li><li><a href=#Bivariate_Polynomials-poly2_pCons>poly2_pCons</a></li><li><a href=#Bivariate_Polynomials-poly2_monom>poly2_monom</a></li><li><a href=#Bivariate_Polynomials-poly_poly_as_poly2>poly_poly_as_poly2</a></li><li><a href=#Bivariate_Polynomials-poly2_ext>poly2_ext</a></li><li><a href=#Bivariate_Polynomials-coeff_lift2_lift>coeff_lift2_lift</a></li><li><a href=#Bivariate_Polynomials-degree_poly_lift>degree_poly_lift</a></li><li><a href=#Bivariate_Polynomials-poly_lift_0>poly_lift_0</a></li><li><a href=#Bivariate_Polynomials-poly_lift_0_iff>poly_lift_0_iff</a></li><li><a href=#Bivariate_Polynomials-poly_lift_pCons>poly_lift_pCons</a></li><li><a href=#Bivariate_Polynomials-coeff_poly_lift>coeff_poly_lift</a></li><li><a href=#Bivariate_Polynomials-pcompose_conv_poly>pcompose_conv_poly</a></li><li><a href=#Bivariate_Polynomials-poly_poly_lift>poly_poly_lift</a></li><li><a href=#Bivariate_Polynomials-degree_poly_lift2>degree_poly_lift2</a></li><li><a href=#Bivariate_Polynomials-poly_lift2_0>poly_lift2_0</a></li><li><a href=#Bivariate_Polynomials-poly_lift2_0_iff>poly_lift2_0_iff</a></li><li><a href=#Bivariate_Polynomials-poly_lift2_pCons>poly_lift2_pCons</a></li><li><a href=#Bivariate_Polynomials-poly_lift2_lift>poly_lift2_lift</a></li><li><a href=#Bivariate_Polynomials-poly2_poly_lift>poly2_poly_lift</a></li><li><a href=#Bivariate_Polynomials-poly_lift2_nonzero>poly_lift2_nonzero</a></li><li><a href=#Bivariate_Polynomials-poly_y_x_fix_y_deg>poly_y_x_fix_y_deg</a></li><li><a href=#Bivariate_Polynomials-poly_y_x_fixed_deg>poly_y_x_fixed_deg</a></li><li><a href=#Bivariate_Polynomials-poly_y_x_swapped>poly_y_x_swapped</a></li><li><a href=#Bivariate_Polynomials-poly2_poly_y_x>poly2_poly_y_x</a></li><li><a href=#Bivariate_Polynomials-poly_monom_mult>poly_monom_mult</a></li><li><a href=#Bivariate_Polynomials-poly_poly_y_x>poly_poly_y_x</a></li><li><a href=#Bivariate_Polynomials-map_poly_sum_commute>map_poly_sum_commute</a></li><li><a href=#Bivariate_Polynomials-poly_y_x_const>poly_y_x_const</a></li><li><a href=#Bivariate_Polynomials-poly_y_x_pCons>poly_y_x_pCons</a></li><li><a href=#Bivariate_Polynomials-poly_y_x_pCons_0>poly_y_x_pCons_0</a></li><li><a href=#Bivariate_Polynomials-poly_y_x_map_poly_pCons_0>poly_y_x_map_poly_pCons_0</a></li><li><a href=#Bivariate_Polynomials-poly_y_x_poly_lift>poly_y_x_poly_lift</a></li><li><a href=#Bivariate_Polynomials-poly_y_x_id>poly_y_x_id</a></li><li><a href=#Bivariate_Polynomials-inv_poly_y_x>inv_poly_y_x</a></li><li><a href=#Bivariate_Polynomials-pCons_as_add>pCons_as_add</a></li><li><a href=#Bivariate_Polynomials-mult_pCons_0>mult_pCons_0</a></li><li><a href=#Bivariate_Polynomials-pCons_0_as_mult>pCons_0_as_mult</a></li><li><a href=#Bivariate_Polynomials-map_poly_pCons_0_as_mult>map_poly_pCons_0_as_mult</a></li><li><a href=#Bivariate_Polynomials-poly_y_x_monom>poly_y_x_monom</a></li><li><a href=#Bivariate_Polynomials-poly_y_x_smult>poly_y_x_smult</a></li><li><a href=#Bivariate_Polynomials-Max_degree_coeff_pCons>Max_degree_coeff_pCons</a></li><li><a href=#Bivariate_Polynomials-degree_poly_y_x>degree_poly_y_x</a></li></ul></li><li><a href=#Resultant>Resultant</a><ul><li><a href=#Resultant-vec_of_poly_rev_shifted_dim>vec_of_poly_rev_shifted_dim</a></li><li><a href=#Resultant-col_sylvester>col_sylvester</a></li><li><a href=#Resultant-inj_on_diff_nat2>inj_on_diff_nat2</a></li><li><a href=#Resultant-image_diff_atMost>image_diff_atMost</a></li><li><a href=#Resultant-sylvester_sum_mat_upper>sylvester_sum_mat_upper</a></li><li><a href=#Resultant-sylvester_sum_mat_lower>sylvester_sum_mat_lower</a></li><li><a href=#Resultant-poly_of_vec_of_poly>poly_of_vec_of_poly</a></li><li><a href=#Resultant-poly_of_vec_0>poly_of_vec_0</a></li><li><a href=#Resultant-poly_of_vec_0_iff>poly_of_vec_0_iff</a></li><li><a href=#Resultant-degree_sum_smaller>degree_sum_smaller</a></li><li><a href=#Resultant-degree_poly_of_vec_less>degree_poly_of_vec_less</a></li><li><a href=#Resultant-coeff_poly_of_vec>coeff_poly_of_vec</a></li><li><a href=#Resultant-vec_of_poly_rev_shifted_scalar_prod>vec_of_poly_rev_shifted_scalar_prod</a></li><li><a href=#Resultant-sylvester_vec_poly>sylvester_vec_poly</a></li><li><a href=#Resultant-mk_poly_sub_dim>mk_poly_sub_dim</a></li><li><a href=#Resultant-mk_poly_sub_carrier>mk_poly_sub_carrier</a></li><li><a href=#Resultant-mk_poly_dim>mk_poly_dim</a></li><li><a href=#Resultant-mk_poly_sub_others>mk_poly_sub_others</a></li><li><a href=#Resultant-mk_poly_others>mk_poly_others</a></li><li><a href=#Resultant-mk_poly_delete>mk_poly_delete</a></li><li><a href=#Resultant-col_mk_poly_sub>col_mk_poly_sub</a></li><li><a href=#Resultant-det_mk_poly_sub>det_mk_poly_sub</a></li><li><a href=#Resultant-det_mk_poly>det_mk_poly</a></li><li><a href=#Resultant-mk_poly2_row_dim>mk_poly2_row_dim</a></li><li><a href=#Resultant-mk_poly2_col_dim>mk_poly2_col_dim</a></li><li><a href=#Resultant-mk_poly2_row>mk_poly2_row</a></li><li><a href=#Resultant-mk_poly2_row_col>mk_poly2_row_col</a></li><li><a href=#Resultant-mk_poly2_col>mk_poly2_col</a></li><li><a href=#Resultant-mk_poly2_pre>mk_poly2_pre</a></li><li><a href=#Resultant-mk_poly2>mk_poly2</a></li><li><a href=#Resultant-mk_poly2_sylvester_upper>mk_poly2_sylvester_upper</a></li><li><a href=#Resultant-mk_poly2_sylvester_lower>mk_poly2_sylvester_lower</a></li><li><a href=#Resultant-foo>foo</a></li><li><a href=#Resultant-mk_poly_sub_corresp>mk_poly_sub_corresp</a></li><li><a href=#Resultant-col_mk_poly_mk_poly2>col_mk_poly_mk_poly2</a></li><li><a href=#Resultant-mk_poly_mk_poly2>mk_poly_mk_poly2</a></li><li><a href=#Resultant-mk_poly_sylvester_upper>mk_poly_sylvester_upper</a></li><li><a href=#Resultant-mk_poly_sylvester_lower>mk_poly_sylvester_lower</a></li><li><a href=#Resultant-resultant_as_poly>resultant_as_poly</a></li><li><a href=#Resultant-resultant_zero>resultant_zero</a></li><li><a href=#Resultant-poly_resultant_zero>poly_resultant_zero</a></li><li><a href=#Resultant-resultant_as_nonzero_poly_weak>resultant_as_nonzero_poly_weak</a></li><li><a href=#Resultant-resultant_as_nonzero_poly>resultant_as_nonzero_poly</a></li><li><a href=#Resultant-resultant_zero_imp_common_factor>resultant_zero_imp_common_factor</a></li><li><a href=#Resultant-resultant_non_zero_imp_coprime>resultant_non_zero_imp_coprime</a></li></ul></li><li><a href=#Algebraic_Numbers>Algebraic_Numbers</a><ul><li><a href=#Algebraic_Numbers-coeff_xy_power>coeff_xy_power</a></li><li><a href=#Algebraic_Numbers-poly2_x_y>poly2_x_y</a></li><li><a href=#Algebraic_Numbers-degree_poly_x_minus_y>degree_poly_x_minus_y</a></li><li><a href=#Algebraic_Numbers-poly_x_minus_y_pCons>poly_x_minus_y_pCons</a></li><li><a href=#Algebraic_Numbers-poly_poly_poly_x_minus_y>poly_poly_poly_x_minus_y</a></li><li><a href=#Algebraic_Numbers-poly2_poly_x_minus_y>poly2_poly_x_minus_y</a></li><li><a href=#Algebraic_Numbers-x_y_nonzero>x_y_nonzero</a></li><li><a href=#Algebraic_Numbers-degree_x_y>degree_x_y</a></li><li><a href=#Algebraic_Numbers-poly_add>poly_add</a></li><li><a href=#Algebraic_Numbers-poly_x_minus_y_as_comp>poly_x_minus_y_as_comp</a></li><li><a href=#Algebraic_Numbers-poly_y_x_const>poly_y_x_const</a></li><li><a href=#Algebraic_Numbers-poly_y_x_x_y>poly_y_x_x_y</a></li><li><a href=#Algebraic_Numbers-y_x>y_x</a></li><li><a href=#Algebraic_Numbers-poly_y_minus_x_0>poly_y_minus_x_0</a></li><li><a href=#Algebraic_Numbers-poly_y_minus_x_pCons>poly_y_minus_x_pCons</a></li><li><a href=#Algebraic_Numbers-poly_y_x_poly_x_minus_y>poly_y_x_poly_x_minus_y</a></li><li><a href=#Algebraic_Numbers-degree_poly_y_minus_x>degree_poly_y_minus_x</a></li><li><a href=#Algebraic_Numbers-dvd_all_coeffs_iff>dvd_all_coeffs_iff</a></li><li><a href=#Algebraic_Numbers-primitive_imp_no_constant_factor>primitive_imp_no_constant_factor</a></li><li><a href=#Algebraic_Numbers-coprime_poly_x_minus_y_poly_lift>coprime_poly_x_minus_y_poly_lift</a></li><li><a href=#Algebraic_Numbers-poly_add_nonzero>poly_add_nonzero</a></li><li><a href=#Algebraic_Numbers-lead_coeff_poly_x_minus_y>lead_coeff_poly_x_minus_y</a></li><li><a href=#Algebraic_Numbers-degree_coeff_poly_x_minus_y>degree_coeff_poly_x_minus_y</a></li><li><a href=#Algebraic_Numbers-coeff_0_poly_x_minus_y>coeff_0_poly_x_minus_y</a></li><li><a href=#Algebraic_Numbers-ipoly_poly_add>ipoly_poly_add</a></li><li><a href=#Algebraic_Numbers-primitive_field_poly>primitive_field_poly</a></li><li><a href=#Algebraic_Numbers-ipoly_poly_add_nonzero>ipoly_poly_add_nonzero</a></li><li><a href=#Algebraic_Numbers-represents_add>represents_add</a></li><li><a href=#Algebraic_Numbers-coeff_poly_x_mult_y>coeff_poly_x_mult_y</a></li><li><a href=#Algebraic_Numbers-poly_x_mult_y_code>poly_x_mult_y_code</a></li><li><a href=#Algebraic_Numbers-poly2_poly_x_mult_y>poly2_poly_x_mult_y</a></li><li><a href=#Algebraic_Numbers-poly_div>poly_div</a></li><li><a href=#Algebraic_Numbers-degree_poly_x_mult_y>degree_poly_x_mult_y</a></li><li><a href=#Algebraic_Numbers-irreducible_dvd_degree>irreducible_dvd_degree</a></li><li><a href=#Algebraic_Numbers-coprime_poly_x_mult_y_poly_lift>coprime_poly_x_mult_y_poly_lift</a></li><li><a href=#Algebraic_Numbers-poly_div_nonzero>poly_div_nonzero</a></li><li><a href=#Algebraic_Numbers-ipoly_poly_div>ipoly_poly_div</a></li><li><a href=#Algebraic_Numbers-ipoly_poly_div_nonzero>ipoly_poly_div_nonzero</a></li><li><a href=#Algebraic_Numbers-represents_div>represents_div</a></li><li><a href=#Algebraic_Numbers-represents_mult>represents_mult</a></li><li><a href=#Algebraic_Numbers-algebraic_representsI>algebraic_representsI</a></li><li><a href=#Algebraic_Numbers-algebraic_of_rat>algebraic_of_rat</a></li><li><a href=#Algebraic_Numbers-algebraic_uminus>algebraic_uminus</a></li><li><a href=#Algebraic_Numbers-algebraic_inverse>algebraic_inverse</a></li><li><a href=#Algebraic_Numbers-algebraic_plus>algebraic_plus</a></li><li><a href=#Algebraic_Numbers-algebraic_div>algebraic_div</a></li><li><a href=#Algebraic_Numbers-algebraic_times>algebraic_times</a></li><li><a href=#Algebraic_Numbers-algebraic_root>algebraic_root</a></li><li><a href=#Algebraic_Numbers-algebraic_nth_root>algebraic_nth_root</a></li><li><a href=#Algebraic_Numbers-lead_coeff_poly_add>lead_coeff_poly_add</a></li><li><a href=#Algebraic_Numbers-lead_coeff_poly_mult>lead_coeff_poly_mult</a></li><li><a href=#Algebraic_Numbers-algebraic_int_plus>algebraic_int_plus</a></li><li><a href=#Algebraic_Numbers-algebraic_int_times>algebraic_int_times</a></li><li><a href=#Algebraic_Numbers-algebraic_int_power>algebraic_int_power</a></li><li><a href=#Algebraic_Numbers-algebraic_int_diff>algebraic_int_diff</a></li><li><a href=#Algebraic_Numbers-algebraic_int_sum>algebraic_int_sum</a></li><li><a href=#Algebraic_Numbers-algebraic_int_prod>algebraic_int_prod</a></li><li><a href=#Algebraic_Numbers-algebraic_int_nth_root_real_iff>algebraic_int_nth_root_real_iff</a></li><li><a href=#Algebraic_Numbers-algebraic_int_power_iff>algebraic_int_power_iff</a></li><li><a href=#Algebraic_Numbers-algebraic_int_power_iff%27>algebraic_int_power_iff'</a></li><li><a href=#Algebraic_Numbers-algebraic_int_sqrt_iff>algebraic_int_sqrt_iff</a></li><li><a href=#Algebraic_Numbers-algebraic_int_csqrt_iff>algebraic_int_csqrt_iff</a></li><li><a href=#Algebraic_Numbers-algebraic_int_norm_complex>algebraic_int_norm_complex</a></li></ul></li><li><a href=#Sturm_Rat>Sturm_Rat</a><ul><li><a href=#Sturm_Rat-root_primitive_part>root_primitive_part</a></li><li><a href=#Sturm_Rat-irreducible_primitive_part>irreducible_primitive_part</a></li><li><a href=#Sturm_Rat-count_roots_interval_iff>count_roots_interval_iff</a></li><li><a href=#Sturm_Rat-count_roots_interval_sf>count_roots_interval_sf</a></li><li><a href=#Sturm_Rat-count_roots_interval>count_roots_interval</a></li><li><a href=#Sturm_Rat-root_info_condD>root_info_condD</a></li><li><a href=#Sturm_Rat-count_roots_interval_sf_rat>count_roots_interval_sf_rat</a></li><li><a href=#Sturm_Rat-of_rat_of_int_poly>of_rat_of_int_poly</a></li><li><a href=#Sturm_Rat-square_free_of_int_poly>square_free_of_int_poly</a></li><li><a href=#Sturm_Rat-count_roots_interval_rat>count_roots_interval_rat</a></li><li><a href=#Sturm_Rat-count_roots_rat>count_roots_rat</a></li><li><a href=#Sturm_Rat-sturm_aux_rat>sturm_aux_rat</a></li><li><a href=#Sturm_Rat-sturm_rat>sturm_rat</a></li><li><a href=#Sturm_Rat-poly_number_rootat>poly_number_rootat</a></li><li><a href=#Sturm_Rat-poly_neg_number_rootat>poly_neg_number_rootat</a></li><li><a href=#Sturm_Rat-real_of_rat_list_neq>real_of_rat_list_neq</a></li><li><a href=#Sturm_Rat-real_of_rat_remdups_adj>real_of_rat_remdups_adj</a></li><li><a href=#Sturm_Rat-sign_changes_rat>sign_changes_rat</a></li><li><a href=#Sturm_Rat-sign_changes_neg_number_rootat>sign_changes_neg_number_rootat</a></li><li><a href=#Sturm_Rat-sign_changes_number_rootat>sign_changes_number_rootat</a></li><li><a href=#Sturm_Rat-count_roots_interval_rat_code>count_roots_interval_rat_code</a></li><li><a href=#Sturm_Rat-count_roots_rat_code>count_roots_rat_code</a></li><li><a href=#Sturm_Rat-root_info>root_info</a></li></ul></li><li><a href=#Factors_of_Int_Poly>Factors_of_Int_Poly</a><ul><li><a href=#Factors_of_Int_Poly-degree_of_gcd>degree_of_gcd</a></li><li><a href=#Factors_of_Int_Poly-factors_of_int_poly_const>factors_of_int_poly_const</a></li><li><a href=#Factors_of_Int_Poly-factors_of_int_poly>factors_of_int_poly</a></li><li><a href=#Factors_of_Int_Poly-factors_int_poly_represents>factors_int_poly_represents</a></li><li><a href=#Factors_of_Int_Poly-irreducible_preservation>irreducible_preservation</a></li><li><a href=#Factors_of_Int_Poly-poly_uminus_irreducible>poly_uminus_irreducible</a></li><li><a href=#Factors_of_Int_Poly-reflect_poly_irreducible>reflect_poly_irreducible</a></li><li><a href=#Factors_of_Int_Poly-poly_add_rat_irreducible>poly_add_rat_irreducible</a></li><li><a href=#Factors_of_Int_Poly-poly_mult_rat_irreducible>poly_mult_rat_irreducible</a></li></ul></li><li><a href=#Real_Algebraic_Numbers>Real_Algebraic_Numbers</a><ul><li><a href=#Real_Algebraic_Numbers-ex1_imp_Collect_singleton>ex1_imp_Collect_singleton</a></li><li><a href=#Real_Algebraic_Numbers-ex1_Collect_singleton>ex1_Collect_singleton</a></li><li><a href=#Real_Algebraic_Numbers-ex1_iff_Collect_singleton>ex1_iff_Collect_singleton</a></li><li><a href=#Real_Algebraic_Numbers-bij_imp_ex1_iff>bij_imp_ex1_iff</a></li><li><a href=#Real_Algebraic_Numbers-bij_ex1_imp_the_shift>bij_ex1_imp_the_shift</a></li><li><a href=#Real_Algebraic_Numbers-bij_imp_Collect_image>bij_imp_Collect_image</a></li><li><a href=#Real_Algebraic_Numbers-bij_imp_card_image>bij_imp_card_image</a></li><li><a href=#Real_Algebraic_Numbers-bij_imp_card>bij_imp_card</a></li><li><a href=#Real_Algebraic_Numbers-bij_add>bij_add</a></li><li><a href=#Real_Algebraic_Numbers-ex1_the_shift>ex1_the_shift</a></li><li><a href=#Real_Algebraic_Numbers-card_shift_image>card_shift_image</a></li><li><a href=#Real_Algebraic_Numbers-irreducible_root_free>irreducible_root_free</a></li><li><a href=#Real_Algebraic_Numbers-root_condI>root_condI</a></li><li><a href=#Real_Algebraic_Numbers-root_condE>root_condE</a></li><li><a href=#Real_Algebraic_Numbers-unique_rootE>unique_rootE</a></li><li><a href=#Real_Algebraic_Numbers-unique_rootI>unique_rootI</a></li><li><a href=#Real_Algebraic_Numbers-poly_condI>poly_condI</a></li><li><a href=#Real_Algebraic_Numbers-poly_condD>poly_condD</a></li><li><a href=#Real_Algebraic_Numbers-poly_condE>poly_condE</a></li><li><a href=#Real_Algebraic_Numbers-invariant_1I>invariant_1I</a></li><li><a href=#Real_Algebraic_Numbers-invariant_1E>invariant_1E</a></li><li><a href=#Real_Algebraic_Numbers-invariant_1_realI>invariant_1_realI</a></li><li><a href=#Real_Algebraic_Numbers-real_of_1_0>real_of_1_0</a></li><li><a href=#Real_Algebraic_Numbers-invariant_1_pos>invariant_1_pos</a></li><li><a href=#Real_Algebraic_Numbers-poly_cond2I>poly_cond2I</a></li><li><a href=#Real_Algebraic_Numbers-poly_cond2D>poly_cond2D</a></li><li><a href=#Real_Algebraic_Numbers-poly_cond2E>poly_cond2E</a></li><li><a href=#Real_Algebraic_Numbers-invariant_1_2_poly_cond2>invariant_1_2_poly_cond2</a></li><li><a href=#Real_Algebraic_Numbers-invariant_1_2I>invariant_1_2I</a></li><li><a href=#Real_Algebraic_Numbers-invariant_1_2E>invariant_1_2E</a></li><li><a href=#Real_Algebraic_Numbers-invariant_1_2_realI>invariant_1_2_realI</a></li><li><a href=#Real_Algebraic_Numbers-of_rat_2>of_rat_2</a></li><li><a href=#Real_Algebraic_Numbers-real_of_inj>real_of_inj</a></li><li><a href=#Real_Algebraic_Numbers-sgn_1>sgn_1</a></li><li><a href=#Real_Algebraic_Numbers-sgn_1_inj>sgn_1_inj</a></li><li><a href=#Real_Algebraic_Numbers-unique_root_lr>unique_root_lr</a></li><li><a href=#Real_Algebraic_Numbers-ipoly_roots_finite>ipoly_roots_finite</a></li><li><a href=#Real_Algebraic_Numbers-roots_below_the_unique_root>roots_below_the_unique_root</a></li><li><a href=#Real_Algebraic_Numbers-unique_root_sub_interval>unique_root_sub_interval</a></li><li><a href=#Real_Algebraic_Numbers-invariant_1_sub_interval>invariant_1_sub_interval</a></li><li><a href=#Real_Algebraic_Numbers-root_sign_change>root_sign_change</a></li><li><a href=#Real_Algebraic_Numbers-rational_root_free_degree_iff>rational_root_free_degree_iff</a></li><li><a href=#Real_Algebraic_Numbers-rational_poly_cond_iff>rational_poly_cond_iff</a></li><li><a href=#Real_Algebraic_Numbers-poly_cond_degree_gt_1>poly_cond_degree_gt_1</a></li><li><a href=#Real_Algebraic_Numbers-poly_cond2_no_rat_root>poly_cond2_no_rat_root</a></li><li><a href=#Real_Algebraic_Numbers-gt_rat_sign_change>gt_rat_sign_change</a></li><li><a href=#Real_Algebraic_Numbers-tighten_poly_bounds>tighten_poly_bounds</a></li><li><a href=#Real_Algebraic_Numbers-tighten_poly_bounds_epsilon>tighten_poly_bounds_epsilon</a></li><li><a href=#Real_Algebraic_Numbers-tighten_poly_bounds_for_x>tighten_poly_bounds_for_x</a></li><li><a href=#Real_Algebraic_Numbers-real_alg_precision>real_alg_precision</a></li><li><a href=#Real_Algebraic_Numbers-root_cond_cong>root_cond_cong</a></li><li><a href=#Real_Algebraic_Numbers-the_unique_root_cong>the_unique_root_cong</a></li><li><a href=#Real_Algebraic_Numbers-unique_root_cong>unique_root_cong</a></li><li><a href=#Real_Algebraic_Numbers-normalize_bounds_1_main>normalize_bounds_1_main</a></li><li><a href=#Real_Algebraic_Numbers-normalize_bounds_1>normalize_bounds_1</a></li><li><a href=#Real_Algebraic_Numbers-normalize_bound_1_poly>normalize_bound_1_poly</a></li><li><a href=#Real_Algebraic_Numbers-degree_1_ipoly>degree_1_ipoly</a></li><li><a href=#Real_Algebraic_Numbers-invariant_1_degree_0>invariant_1_degree_0</a></li><li><a href=#Real_Algebraic_Numbers-real_alg_2_main>real_alg_2_main</a></li><li><a href=#Real_Algebraic_Numbers-real_alg_2>real_alg_2</a></li><li><a href=#Real_Algebraic_Numbers-invariant_2_realI>invariant_2_realI</a></li><li><a href=#Real_Algebraic_Numbers-compare_rat_1>compare_rat_1</a></li><li><a href=#Real_Algebraic_Numbers-cf_pos_0>cf_pos_0</a></li><li><a href=#Real_Algebraic_Numbers-uminus_1>uminus_1</a></li><li><a href=#Real_Algebraic_Numbers-uminus_1_2>uminus_1_2</a></li><li><a href=#Real_Algebraic_Numbers-uminus_2>uminus_2</a></li><li><a href=#Real_Algebraic_Numbers-uminus_3>uminus_3</a></li><li><a href=#Real_Algebraic_Numbers-uminus_real_alg>uminus_real_alg</a></li><li><a href=#Real_Algebraic_Numbers-invariant_1_2_of_rat>invariant_1_2_of_rat</a></li><li><a href=#Real_Algebraic_Numbers-inverse_1>inverse_1</a></li><li><a href=#Real_Algebraic_Numbers-inverse_2>inverse_2</a></li><li><a href=#Real_Algebraic_Numbers-inverse_3>inverse_3</a></li><li><a href=#Real_Algebraic_Numbers-floor_1>floor_1</a></li><li><a href=#Real_Algebraic_Numbers-card_1_Collect_ex1>card_1_Collect_ex1</a></li><li><a href=#Real_Algebraic_Numbers-select_correct_factor_main>select_correct_factor_main</a></li><li><a href=#Real_Algebraic_Numbers-select_correct_factor>select_correct_factor</a></li><li><a href=#Real_Algebraic_Numbers-real_alg_2%27_code>real_alg_2'_code</a></li><li><a href=#Real_Algebraic_Numbers-real_alg_2%27%27>real_alg_2''</a></li><li><a href=#Real_Algebraic_Numbers-poly_cond_degree_0_imp_no_root>poly_cond_degree_0_imp_no_root</a></li><li><a href=#Real_Algebraic_Numbers-real_alg_2%27>real_alg_2'</a></li><li><a href=#Real_Algebraic_Numbers-select_correct_factor_int_poly>select_correct_factor_int_poly</a></li><li><a href=#Real_Algebraic_Numbers-ipoly_0_0>ipoly_0_0</a></li><li><a href=#Real_Algebraic_Numbers-add_rat_roots_below>add_rat_roots_below</a></li><li><a href=#Real_Algebraic_Numbers-add_rat_root_cond>add_rat_root_cond</a></li><li><a href=#Real_Algebraic_Numbers-add_rat_unique_root>add_rat_unique_root</a></li><li><a href=#Real_Algebraic_Numbers-poly_real_alg_1_add_rat>poly_real_alg_1_add_rat</a></li><li><a href=#Real_Algebraic_Numbers-sgn_cf_pos>sgn_cf_pos</a></li><li><a href=#Real_Algebraic_Numbers-add_rat_1>add_rat_1</a></li><li><a href=#Real_Algebraic_Numbers-tighten_poly_bounds_binary>tighten_poly_bounds_binary</a></li><li><a href=#Real_Algebraic_Numbers-add_1>add_1</a></li><li><a href=#Real_Algebraic_Numbers-mult_rat_1_pos>mult_rat_1_pos</a></li><li><a href=#Real_Algebraic_Numbers-mult_1_pos>mult_1_pos</a></li><li><a href=#Real_Algebraic_Numbers-mult_1>mult_1</a></li><li><a href=#Real_Algebraic_Numbers-mult_rat_1>mult_rat_1</a></li><li><a href=#Real_Algebraic_Numbers-ipoly_root_delta>ipoly_root_delta</a></li><li><a href=#Real_Algebraic_Numbers-sgn_less_eq_1_rat>sgn_less_eq_1_rat</a></li><li><a href=#Real_Algebraic_Numbers-sgn_less_eq_1_real>sgn_less_eq_1_real</a></li><li><a href=#Real_Algebraic_Numbers-compare_real_of_rat>compare_real_of_rat</a></li><li><a href=#Real_Algebraic_Numbers-compare_1_rat>compare_1_rat</a></li><li><a href=#Real_Algebraic_Numbers-tighten_bound_root>tighten_bound_root</a></li><li><a href=#Real_Algebraic_Numbers-initial_upper_bound>initial_upper_bound</a></li><li><a href=#Real_Algebraic_Numbers-initial_lower_bound>initial_lower_bound</a></li><li><a href=#Real_Algebraic_Numbers-root_pos_1>root_pos_1</a></li><li><a href=#Real_Algebraic_Numbers-root_1>root_1</a></li><li><a href=#Real_Algebraic_Numbers-of_rat_1>of_rat_1</a></li><li><a href=#Real_Algebraic_Numbers-info_2_card>info_2_card</a></li><li><a href=#Real_Algebraic_Numbers-real_of_2_Irrational>real_of_2_Irrational</a></li><li><a href=#Real_Algebraic_Numbers-info_2>info_2</a></li><li><a href=#Real_Algebraic_Numbers-info_2_unique>info_2_unique</a></li><li><a href=#Real_Algebraic_Numbers-info_2_inj>info_2_inj</a></li><li><a href=#Real_Algebraic_Numbers-compare_1>compare_1</a></li><li><a href=#Real_Algebraic_Numbers-real_alg_1>real_alg_1</a></li><li><a href=#Real_Algebraic_Numbers-root_2>root_2</a></li><li><a href=#Real_Algebraic_Numbers-add_2>add_2</a></li><li><a href=#Real_Algebraic_Numbers-mult_2>mult_2</a></li><li><a href=#Real_Algebraic_Numbers-to_rat_2>to_rat_2</a></li><li><a href=#Real_Algebraic_Numbers-equal_2>equal_2</a></li><li><a href=#Real_Algebraic_Numbers-compare_2>compare_2</a></li><li><a href=#Real_Algebraic_Numbers-sgn_2>sgn_2</a></li><li><a href=#Real_Algebraic_Numbers-floor_2>floor_2</a></li><li><a href=#Real_Algebraic_Numbers-of_rat_3>of_rat_3</a></li><li><a href=#Real_Algebraic_Numbers-root_3>root_3</a></li><li><a href=#Real_Algebraic_Numbers-equal_3>equal_3</a></li><li><a href=#Real_Algebraic_Numbers-compare_3>compare_3</a></li><li><a href=#Real_Algebraic_Numbers-add_3>add_3</a></li><li><a href=#Real_Algebraic_Numbers-mult_3>mult_3</a></li><li><a href=#Real_Algebraic_Numbers-sgn_3>sgn_3</a></li><li><a href=#Real_Algebraic_Numbers-to_rat_3>to_rat_3</a></li><li><a href=#Real_Algebraic_Numbers-floor_3>floor_3</a></li><li><a href=#Real_Algebraic_Numbers-info_3_fun>info_3_fun</a></li><li><a href=#Real_Algebraic_Numbers-info_real_alg>info_real_alg</a></li><li><a href=#Real_Algebraic_Numbers-plus_real_alg>plus_real_alg</a></li><li><a href=#Real_Algebraic_Numbers-minus_real_alg>minus_real_alg</a></li><li><a href=#Real_Algebraic_Numbers-of_rat_real_alg>of_rat_real_alg</a></li><li><a href=#Real_Algebraic_Numbers-zero_real_alg>zero_real_alg</a></li><li><a href=#Real_Algebraic_Numbers-one_real_alg>one_real_alg</a></li><li><a href=#Real_Algebraic_Numbers-times_real_alg>times_real_alg</a></li><li><a href=#Real_Algebraic_Numbers-inverse_real_alg>inverse_real_alg</a></li><li><a href=#Real_Algebraic_Numbers-divide_real_alg>divide_real_alg</a></li><li><a href=#Real_Algebraic_Numbers-root_real_alg>root_real_alg</a></li><li><a href=#Real_Algebraic_Numbers-sgn_real_alg_rat>sgn_real_alg_rat</a></li><li><a href=#Real_Algebraic_Numbers-sgn_real_alg>sgn_real_alg</a></li><li><a href=#Real_Algebraic_Numbers-equal_real_alg>equal_real_alg</a></li><li><a href=#Real_Algebraic_Numbers-less_real_alg>less_real_alg</a></li><li><a href=#Real_Algebraic_Numbers-less_eq_real_alg>less_eq_real_alg</a></li><li><a href=#Real_Algebraic_Numbers-compare_real_alg>compare_real_alg</a></li><li><a href=#Real_Algebraic_Numbers-less_eq_real_alg_code>less_eq_real_alg_code</a></li><li><a href=#Real_Algebraic_Numbers-abs_real_alg>abs_real_alg</a></li><li><a href=#Real_Algebraic_Numbers-sgn_real_alg_sound>sgn_real_alg_sound</a></li><li><a href=#Real_Algebraic_Numbers-real_of_of_int>real_of_of_int</a></li><li><a href=#Real_Algebraic_Numbers-floor_real_alg>floor_real_alg</a></li><li><a href=#Real_Algebraic_Numbers-real_alg_of_real_code>real_alg_of_real_code</a></li><li><a href=#Real_Algebraic_Numbers-to_rat_real_alg_main>to_rat_real_alg_main</a></li><li><a href=#Real_Algebraic_Numbers-is_rat_real_alg>is_rat_real_alg</a></li><li><a href=#Real_Algebraic_Numbers-to_rat_real_alg>to_rat_real_alg</a></li><li><a href=#Real_Algebraic_Numbers-Ratreal_code>Ratreal_code</a></li><li><a href=#Real_Algebraic_Numbers-real_of_post>real_of_post</a></li></ul></li><li><a href=#Real_Roots>Real_Roots</a><ul><li><a href=#Real_Roots-root_imp_deg_nonzero>root_imp_deg_nonzero</a></li><li><a href=#Real_Roots-cauchy_root_bound>cauchy_root_bound</a></li><li><a href=#Real_Roots-div_le_div_ceiling>div_le_div_ceiling</a></li><li><a href=#Real_Roots-div_ceiling>div_ceiling</a></li><li><a href=#Real_Roots-max_list_non_empty_map>max_list_non_empty_map</a></li><li><a href=#Real_Roots-root_bound>root_bound</a></li><li><a href=#Real_Roots-roots_of_2_irr>roots_of_2_irr</a></li><li><a href=#Real_Roots-roots_of_2>roots_of_2</a></li><li><a href=#Real_Roots-roots_of_3>roots_of_3</a></li><li><a href=#Real_Roots-roots_of_real_alg>roots_of_real_alg</a></li><li><a href=#Real_Roots-real_alg_2_list_length>real_alg_2_list_length</a></li><li><a href=#Real_Roots-real_alg_2_list_convert>real_alg_2_list_convert</a></li><li><a href=#Real_Roots-roots_of_3_code>roots_of_3_code</a></li><li><a href=#Real_Roots-real_roots_of_int_poly>real_roots_of_int_poly</a></li><li><a href=#Real_Roots-real_roots_of_rat_poly>real_roots_of_rat_poly</a></li><li><a href=#Real_Roots-roots_of_real_main>roots_of_real_main</a></li><li><a href=#Real_Roots-roots_of_real_poly>roots_of_real_poly</a></li></ul></li><li><a href=#Complex_Roots_Real_Poly>Complex_Roots_Real_Poly</a><ul><li><a href=#Complex_Roots_Real_Poly-real_poly_real_coeff>real_poly_real_coeff</a></li><li><a href=#Complex_Roots_Real_Poly-complex_conjugate_root>complex_conjugate_root</a></li><li><a href=#Complex_Roots_Real_Poly-map_poly_Re_poly>map_poly_Re_poly</a></li><li><a href=#Complex_Roots_Real_Poly-map_poly_Re_coeffs>map_poly_Re_coeffs</a></li><li><a href=#Complex_Roots_Real_Poly-map_poly_Re_0>map_poly_Re_0</a></li><li><a href=#Complex_Roots_Real_Poly-real_poly_add>real_poly_add</a></li><li><a href=#Complex_Roots_Real_Poly-real_poly_sum>real_poly_sum</a></li><li><a href=#Complex_Roots_Real_Poly-real_poly_smult>real_poly_smult</a></li><li><a href=#Complex_Roots_Real_Poly-real_poly_pCons>real_poly_pCons</a></li><li><a href=#Complex_Roots_Real_Poly-real_poly_mult>real_poly_mult</a></li><li><a href=#Complex_Roots_Real_Poly-real_poly_power>real_poly_power</a></li><li><a href=#Complex_Roots_Real_Poly-real_poly_prod>real_poly_prod</a></li><li><a href=#Complex_Roots_Real_Poly-real_poly_uminus>real_poly_uminus</a></li><li><a href=#Complex_Roots_Real_Poly-real_poly_minus>real_poly_minus</a></li><li><a href=#Complex_Roots_Real_Poly-real_poly_factor>real_poly_factor</a></li><li><a href=#Complex_Roots_Real_Poly-complex_conjugate_order>complex_conjugate_order</a></li><li><a href=#Complex_Roots_Real_Poly-map_poly_of_real_Re>map_poly_of_real_Re</a></li><li><a href=#Complex_Roots_Real_Poly-map_poly_Re_of_real>map_poly_Re_of_real</a></li><li><a href=#Complex_Roots_Real_Poly-map_poly_Re_mult>map_poly_Re_mult</a></li><li><a href=#Complex_Roots_Real_Poly-map_poly_Re_power>map_poly_Re_power</a></li><li><a href=#Complex_Roots_Real_Poly-real_degree_2_factorization_exists_complex>real_degree_2_factorization_exists_complex</a></li><li><a href=#Complex_Roots_Real_Poly-real_degree_2_factorization_exists>real_degree_2_factorization_exists</a></li><li><a href=#Complex_Roots_Real_Poly-odd_degree_imp_real_root>odd_degree_imp_real_root</a></li></ul></li><li><a href=#Compare_Complex>Compare_Complex</a><ul><li><a href=#Compare_Complex-in_reals_code>in_reals_code</a></li><li><a href=#Compare_Complex-is_norm_1>is_norm_1</a></li><li><a href=#Compare_Complex-is_norm_le_1>is_norm_le_1</a></li></ul></li><li><a href=#Interval_Arithmetic>Interval_Arithmetic</a><ul><li><a href=#Interval_Arithmetic-interval_uminus_zero>interval_uminus_zero</a></li><li><a href=#Interval_Arithmetic-interval_diff_zero>interval_diff_zero</a></li><li><a href=#Interval_Arithmetic-in_interval_to_interval>in_interval_to_interval</a></li><li><a href=#Interval_Arithmetic-plus_in_interval>plus_in_interval</a></li><li><a href=#Interval_Arithmetic-uminus_in_interval>uminus_in_interval</a></li><li><a href=#Interval_Arithmetic-minus_in_interval>minus_in_interval</a></li><li><a href=#Interval_Arithmetic-times_in_interval>times_in_interval</a></li><li><a href=#Interval_Arithmetic-interval_tendstoI>interval_tendstoI</a></li><li><a href=#Interval_Arithmetic-const_interval_tendsto>const_interval_tendsto</a></li><li><a href=#Interval_Arithmetic-interval_tendsto_0>interval_tendsto_0</a></li><li><a href=#Interval_Arithmetic-plus_interval_tendsto>plus_interval_tendsto</a></li><li><a href=#Interval_Arithmetic-uminus_interval_tendsto>uminus_interval_tendsto</a></li><li><a href=#Interval_Arithmetic-minus_interval_tendsto>minus_interval_tendsto</a></li><li><a href=#Interval_Arithmetic-times_interval_tendsto>times_interval_tendsto</a></li><li><a href=#Interval_Arithmetic-interval_tendsto_neq>interval_tendsto_neq</a></li><li><a href=#Interval_Arithmetic-plus_complex_interval>plus_complex_interval</a></li><li><a href=#Interval_Arithmetic-of_int_complex_interval_0>of_int_complex_interval_0</a></li><li><a href=#Interval_Arithmetic-of_int_complex_interval>of_int_complex_interval</a></li><li><a href=#Interval_Arithmetic-times_complex_interval>times_complex_interval</a></li><li><a href=#Interval_Arithmetic-ipoly_complex_interval_0>ipoly_complex_interval_0</a></li><li><a href=#Interval_Arithmetic-ipoly_complex_interval_pCons>ipoly_complex_interval_pCons</a></li><li><a href=#Interval_Arithmetic-ipoly_complex_interval>ipoly_complex_interval</a></li><li><a href=#Interval_Arithmetic-complex_interval_tendstoI>complex_interval_tendstoI</a></li><li><a href=#Interval_Arithmetic-of_int_complex_interval_tendsto>of_int_complex_interval_tendsto</a></li><li><a href=#Interval_Arithmetic-Im_interval_plus>Im_interval_plus</a></li><li><a href=#Interval_Arithmetic-Re_interval_plus>Re_interval_plus</a></li><li><a href=#Interval_Arithmetic-Im_interval_minus>Im_interval_minus</a></li><li><a href=#Interval_Arithmetic-Re_interval_minus>Re_interval_minus</a></li><li><a href=#Interval_Arithmetic-Re_interval_times>Re_interval_times</a></li><li><a href=#Interval_Arithmetic-Im_interval_times>Im_interval_times</a></li><li><a href=#Interval_Arithmetic-plus_complex_interval_tendsto>plus_complex_interval_tendsto</a></li><li><a href=#Interval_Arithmetic-minus_complex_interval_tendsto>minus_complex_interval_tendsto</a></li><li><a href=#Interval_Arithmetic-times_complex_interval_tendsto>times_complex_interval_tendsto</a></li><li><a href=#Interval_Arithmetic-ipoly_complex_interval_tendsto>ipoly_complex_interval_tendsto</a></li><li><a href=#Interval_Arithmetic-complex_interval_tendsto_neq>complex_interval_tendsto_neq</a></li></ul></li><li><a href=#Complex_Algebraic_Numbers>Complex_Algebraic_Numbers</a><ul><li><a href=#Complex_Algebraic_Numbers-poly_complex_to_real>poly_complex_to_real</a></li><li><a href=#Complex_Algebraic_Numbers-represents_cnj>represents_cnj</a></li><li><a href=#Complex_Algebraic_Numbers-represents_2i>represents_2i</a></li><li><a href=#Complex_Algebraic_Numbers-root_poly_Re_code>root_poly_Re_code</a></li><li><a href=#Complex_Algebraic_Numbers-represents_root_poly>represents_root_poly</a></li><li><a href=#Complex_Algebraic_Numbers-real_of_3_remdups_equal_3>real_of_3_remdups_equal_3</a></li><li><a href=#Complex_Algebraic_Numbers-distinct_remdups_equal_3>distinct_remdups_equal_3</a></li><li><a href=#Complex_Algebraic_Numbers-real_of_3_code>real_of_3_code</a></li><li><a href=#Complex_Algebraic_Numbers-real_parts_3>real_parts_3</a></li><li><a href=#Complex_Algebraic_Numbers-distinct_real_parts_3>distinct_real_parts_3</a></li><li><a href=#Complex_Algebraic_Numbers-pos_imaginary_parts_3>pos_imaginary_parts_3</a></li><li><a href=#Complex_Algebraic_Numbers-distinct_pos_imaginary_parts_3>distinct_pos_imaginary_parts_3</a></li><li><a href=#Complex_Algebraic_Numbers-remdups_gen_subset>remdups_gen_subset</a></li><li><a href=#Complex_Algebraic_Numbers-positive_pos_imaginary_parts_3>positive_pos_imaginary_parts_3</a></li><li><a href=#Complex_Algebraic_Numbers-get_bounds_2>get_bounds_2</a></li><li><a href=#Complex_Algebraic_Numbers-get_itvl_3>get_itvl_3</a></li><li><a href=#Complex_Algebraic_Numbers-tighten_bounds_2>tighten_bounds_2</a></li><li><a href=#Complex_Algebraic_Numbers-tighten_bounds_3>tighten_bounds_3</a></li><li><a href=#Complex_Algebraic_Numbers-filter_list_length>filter_list_length</a></li><li><a href=#Complex_Algebraic_Numbers-in_real_itvl_get_bounds_tighten>in_real_itvl_get_bounds_tighten</a></li><li><a href=#Complex_Algebraic_Numbers-sandwitch_real>sandwitch_real</a></li><li><a href=#Complex_Algebraic_Numbers-real_of_tighten_bounds_many>real_of_tighten_bounds_many</a></li><li><a href=#Complex_Algebraic_Numbers-interval_size_3>interval_size_3</a></li><li><a href=#Complex_Algebraic_Numbers-interval_size_3_tendsto_0>interval_size_3_tendsto_0</a></li><li><a href=#Complex_Algebraic_Numbers-dist_tendsto_0_imp_tendsto>dist_tendsto_0_imp_tendsto</a></li><li><a href=#Complex_Algebraic_Numbers-upper_3_tendsto>upper_3_tendsto</a></li><li><a href=#Complex_Algebraic_Numbers-lower_3_tendsto>lower_3_tendsto</a></li><li><a href=#Complex_Algebraic_Numbers-tends_to_tight_bounds_3>tends_to_tight_bounds_3</a></li><li><a href=#Complex_Algebraic_Numbers-complex_roots_of_int_poly3>complex_roots_of_int_poly3</a></li><li><a href=#Complex_Algebraic_Numbers-complex_roots_of_int_poly_all>complex_roots_of_int_poly_all</a></li><li><a href=#Complex_Algebraic_Numbers-complex_roots_of_int_poly>complex_roots_of_int_poly</a></li><li><a href=#Complex_Algebraic_Numbers-complex_roots_of_rat_poly>complex_roots_of_rat_poly</a></li><li><a href=#Complex_Algebraic_Numbers-roots_of_complex_main>roots_of_complex_main</a></li><li><a href=#Complex_Algebraic_Numbers-roots_of_complex_poly>roots_of_complex_poly</a></li><li><a href=#Complex_Algebraic_Numbers-factorize_complex_main>factorize_complex_main</a></li><li><a href=#Complex_Algebraic_Numbers-distinct_factorize_complex_main>distinct_factorize_complex_main</a></li><li><a href=#Complex_Algebraic_Numbers-factorize_complex_poly>factorize_complex_poly</a></li></ul></li><li><a href=#Real_Factorization>Real_Factorization</a><ul><li><a href=#Real_Factorization-delete_cnj_length>delete_cnj_length</a></li><li><a href=#Real_Factorization-monic_imp_nonzero>monic_imp_nonzero</a></li><li><a href=#Real_Factorization-delete_cnj>delete_cnj</a></li><li><a href=#Real_Factorization-factorize_real_poly>factorize_real_poly</a></li></ul></li><li><a href=#Show_Real_Alg>Show_Real_Alg</a><ul><li><a href=#Show_Real_Alg-show_law_real_alg>show_law_real_alg</a></li><li><a href=#Show_Real_Alg-showsp_real_alg_append>showsp_real_alg_append</a></li></ul></li><li><a href=#Show_Real_Approx>Show_Real_Approx</a></li><li><a href=#Show_Real_Precise>Show_Real_Precise</a><ul><li><a href=#Show_Real_Precise-real_alg_show_info>real_alg_show_info</a></li></ul></li><li><a href=#Algebraic_Number_Tests>Algebraic_Number_Tests</a></li><li><a href=#Algebraic_Numbers_External_Code>Algebraic_Numbers_External_Code</a></li></ul></div><ul><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Algebraic_Numbers/outline.pdf>Proof
-outline</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Algebraic_Numbers/document.pdf>Proof
-document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Algebraic_Numbers/session_graph.pdf>Theory dependencies</a></li></ul></div></aside><div class="content theories"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
-<datalist id=autocomplete></datalist></div></form><h1><span class=first>S</span>ession <span class=first>A</span>lgebraic_<span class=first>N</span>umbers</h1><div></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><div id=Algebraic_Numbers_Prelim><div class=head><h1>Theory Algebraic_Numbers_Prelim</h1></div><pre class=source><span class=comment1>(*
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Session Algebraic_Numbers - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session Algebraic_Numbers">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="/entries/algebraic_numbers/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories">
+<meta property="og:site_name" content="Archive of Formal Proofs">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="/images/afp.png">
+<meta name=twitter:title content="Session Algebraic_Numbers">
+<meta name=twitter:description content>
+<link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css>
+<link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script>
+<script src=/js/banner.js></script><script src=/js/header-search.js></script></head>
+<body class=mathjax_ignore>
+<aside>
+<div>
+<div>
+<a href=/>
+<img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo>
+</a>
+<ul>
+<li><a href=/entries/algebraic_numbers>Return to entry</a></li>
+</ul>
+<hr>
+<ul><li><a href=#Algebraic_Numbers_Prelim>Algebraic_Numbers_Prelim</a>
+<ul>
+<li><a href=#Algebraic_Numbers_Prelim-primitive_imp_unit_iff>primitive_imp_unit_iff</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-dvd_all_coeffs_imp_dvd>dvd_all_coeffs_imp_dvd</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-irreducible_content>irreducible_content</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-linear_irreducible_field>linear_irreducible_field</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-linear_irreducible_int>linear_irreducible_int</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-irreducible_connect_rev>irreducible_connect_rev</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-poly_map_poly_code>poly_map_poly_code</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-of_rat_of_int>of_rat_of_int</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-ipoly_of_rat>ipoly_of_rat</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-ipoly_of_real>ipoly_of_real</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-finite_ipoly_roots>finite_ipoly_roots</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-algebraic_altdef_ipoly>algebraic_altdef_ipoly</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-representsI>representsI</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-representsD>representsD</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-representsE>representsE</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-represents_imp_degree>represents_imp_degree</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-representsE_full>representsE_full</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-represents_of_rat>represents_of_rat</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-represents_of_real>represents_of_real</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-algebraic_iff_represents>algebraic_iff_represents</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-represents_irr_non_0>represents_irr_non_0</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-pos_poly_abs_poly>pos_poly_abs_poly</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-abs_int_poly_0>abs_int_poly_0</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-abs_int_poly_eq_0_iff>abs_int_poly_eq_0_iff</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-degree_abs_int_poly>degree_abs_int_poly</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-abs_int_poly_dvd>abs_int_poly_dvd</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-irreducible_abs_int_poly>irreducible_abs_int_poly</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-coeff_abs_int_poly>coeff_abs_int_poly</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-lead_coeff_abs_int_poly>lead_coeff_abs_int_poly</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-ipoly_abs_int_poly_eq_zero_iff>ipoly_abs_int_poly_eq_zero_iff</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-abs_int_poly_represents>abs_int_poly_represents</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-content_pCons>content_pCons</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-content_uminus>content_uminus</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-primitive_abs_int_poly>primitive_abs_int_poly</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-abs_int_poly_inv>abs_int_poly_inv</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-sgn_is_unit>sgn_is_unit</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-cf_pos_poly_0>cf_pos_poly_0</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-cf_pos_poly_eq_0>cf_pos_poly_eq_0</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-irreducible_connect_int>irreducible_connect_int</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-cf_pos_poly_eq_1>cf_pos_poly_eq_1</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-irr_cf_poly_rat>irr_cf_poly_rat</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-poly_rat>poly_rat</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-poly_rat_represents_of_rat>poly_rat_represents_of_rat</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-ipoly_smult_0_iff>ipoly_smult_0_iff</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-not_irreducibleD>not_irreducibleD</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-cf_pos_poly_represents>cf_pos_poly_represents</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-coprime_prod>coprime_prod</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-smult_prod>smult_prod</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-degree_map_poly_2>degree_map_poly_2</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-irreducible_cf_pos_poly>irreducible_cf_pos_poly</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-hom_dvd_hom_iff>hom_dvd_hom_iff</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-smult_inverse_monom>smult_inverse_monom</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-of_int_monom>of_int_monom</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-degree_0_content>degree_0_content</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-prime_elem_imp_gcd_eq>prime_elem_imp_gcd_eq</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-irreducible_pos_gcd>irreducible_pos_gcd</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-irreducible_pos_gcd_twice>irreducible_pos_gcd_twice</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-poly_zero_imp_not_unit>poly_zero_imp_not_unit</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-poly_prod_mset_zero_iff>poly_prod_mset_zero_iff</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-algebraic_imp_represents_irreducible>algebraic_imp_represents_irreducible</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-algebraic_imp_represents_irreducible_cf_pos>algebraic_imp_represents_irreducible_cf_pos</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-gcd_of_int_poly>gcd_of_int_poly</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-algebraic_imp_represents_unique>algebraic_imp_represents_unique</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-ipoly_poly_compose>ipoly_poly_compose</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-poly_uminus_pCons_pCons>poly_uminus_pCons_pCons</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-poly_uminus_code>poly_uminus_code</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-poly_uminus_inner_0>poly_uminus_inner_0</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-degree_poly_uminus_inner>degree_poly_uminus_inner</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-ipoly_uminus_inner>ipoly_uminus_inner</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-represents_uminus>represents_uminus</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-content_poly_uminus_inner>content_poly_uminus_inner</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-inverse_pow_minus>inverse_pow_minus</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-ipoly_reflect_poly>ipoly_reflect_poly</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-represents_inverse>represents_inverse</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-inverse_roots>inverse_roots</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-ipoly_nth_root>ipoly_nth_root</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-poly_nth_root_0>poly_nth_root_0</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-represents_nth_root>represents_nth_root</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-represents_nth_root_odd_real>represents_nth_root_odd_real</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-represents_nth_root_pos_real>represents_nth_root_pos_real</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-represents_nth_root_neg_real>represents_nth_root_neg_real</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-represents_csqrt>represents_csqrt</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-represents_sqrt>represents_sqrt</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-represents_degree>represents_degree</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-coeff_poly_mult_rat_main>coeff_poly_mult_rat_main</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-degree_poly_mult_rat_main>degree_poly_mult_rat_main</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-ipoly_mult_rat_main>ipoly_mult_rat_main</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-degree_poly_mult_rat>degree_poly_mult_rat</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-ipoly_mult_rat>ipoly_mult_rat</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-poly_mult_rat_main_0>poly_mult_rat_main_0</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-poly_mult_rat_0>poly_mult_rat_0</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-represents_mult_rat>represents_mult_rat</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-poly_add_rat_code>poly_add_rat_code</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-degree_poly_add_rat>degree_poly_add_rat</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-ipoly_add_rat>ipoly_add_rat</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-poly_add_rat_0>poly_add_rat_0</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-add_rat_roots>add_rat_roots</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-represents_add_rat>represents_add_rat</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-ipoly_add_rat_pos_neg>ipoly_add_rat_pos_neg</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-sgn_ipoly_add_rat>sgn_ipoly_add_rat</a></li>
+<li><a href=#Algebraic_Numbers_Prelim-deg_nonzero_represents>deg_nonzero_represents</a></li>
+</ul>
+</li><li><a href=#Bivariate_Polynomials>Bivariate_Polynomials</a>
+<ul>
+<li><a href=#Bivariate_Polynomials-poly2_by_map>poly2_by_map</a></li>
+<li><a href=#Bivariate_Polynomials-poly2_const>poly2_const</a></li>
+<li><a href=#Bivariate_Polynomials-poly2_smult>poly2_smult</a></li>
+<li><a href=#Bivariate_Polynomials-poly2_pCons>poly2_pCons</a></li>
+<li><a href=#Bivariate_Polynomials-poly2_monom>poly2_monom</a></li>
+<li><a href=#Bivariate_Polynomials-poly_poly_as_poly2>poly_poly_as_poly2</a></li>
+<li><a href=#Bivariate_Polynomials-poly2_ext>poly2_ext</a></li>
+<li><a href=#Bivariate_Polynomials-coeff_lift2_lift>coeff_lift2_lift</a></li>
+<li><a href=#Bivariate_Polynomials-degree_poly_lift>degree_poly_lift</a></li>
+<li><a href=#Bivariate_Polynomials-poly_lift_0>poly_lift_0</a></li>
+<li><a href=#Bivariate_Polynomials-poly_lift_0_iff>poly_lift_0_iff</a></li>
+<li><a href=#Bivariate_Polynomials-poly_lift_pCons>poly_lift_pCons</a></li>
+<li><a href=#Bivariate_Polynomials-coeff_poly_lift>coeff_poly_lift</a></li>
+<li><a href=#Bivariate_Polynomials-pcompose_conv_poly>pcompose_conv_poly</a></li>
+<li><a href=#Bivariate_Polynomials-poly_poly_lift>poly_poly_lift</a></li>
+<li><a href=#Bivariate_Polynomials-degree_poly_lift2>degree_poly_lift2</a></li>
+<li><a href=#Bivariate_Polynomials-poly_lift2_0>poly_lift2_0</a></li>
+<li><a href=#Bivariate_Polynomials-poly_lift2_0_iff>poly_lift2_0_iff</a></li>
+<li><a href=#Bivariate_Polynomials-poly_lift2_pCons>poly_lift2_pCons</a></li>
+<li><a href=#Bivariate_Polynomials-poly_lift2_lift>poly_lift2_lift</a></li>
+<li><a href=#Bivariate_Polynomials-poly2_poly_lift>poly2_poly_lift</a></li>
+<li><a href=#Bivariate_Polynomials-poly_lift2_nonzero>poly_lift2_nonzero</a></li>
+<li><a href=#Bivariate_Polynomials-poly_y_x_fix_y_deg>poly_y_x_fix_y_deg</a></li>
+<li><a href=#Bivariate_Polynomials-poly_y_x_fixed_deg>poly_y_x_fixed_deg</a></li>
+<li><a href=#Bivariate_Polynomials-poly_y_x_swapped>poly_y_x_swapped</a></li>
+<li><a href=#Bivariate_Polynomials-poly2_poly_y_x>poly2_poly_y_x</a></li>
+<li><a href=#Bivariate_Polynomials-poly_monom_mult>poly_monom_mult</a></li>
+<li><a href=#Bivariate_Polynomials-poly_poly_y_x>poly_poly_y_x</a></li>
+<li><a href=#Bivariate_Polynomials-map_poly_sum_commute>map_poly_sum_commute</a></li>
+<li><a href=#Bivariate_Polynomials-poly_y_x_const>poly_y_x_const</a></li>
+<li><a href=#Bivariate_Polynomials-poly_y_x_pCons>poly_y_x_pCons</a></li>
+<li><a href=#Bivariate_Polynomials-poly_y_x_pCons_0>poly_y_x_pCons_0</a></li>
+<li><a href=#Bivariate_Polynomials-poly_y_x_map_poly_pCons_0>poly_y_x_map_poly_pCons_0</a></li>
+<li><a href=#Bivariate_Polynomials-poly_y_x_poly_lift>poly_y_x_poly_lift</a></li>
+<li><a href=#Bivariate_Polynomials-poly_y_x_id>poly_y_x_id</a></li>
+<li><a href=#Bivariate_Polynomials-inv_poly_y_x>inv_poly_y_x</a></li>
+<li><a href=#Bivariate_Polynomials-pCons_as_add>pCons_as_add</a></li>
+<li><a href=#Bivariate_Polynomials-mult_pCons_0>mult_pCons_0</a></li>
+<li><a href=#Bivariate_Polynomials-pCons_0_as_mult>pCons_0_as_mult</a></li>
+<li><a href=#Bivariate_Polynomials-map_poly_pCons_0_as_mult>map_poly_pCons_0_as_mult</a></li>
+<li><a href=#Bivariate_Polynomials-poly_y_x_monom>poly_y_x_monom</a></li>
+<li><a href=#Bivariate_Polynomials-poly_y_x_smult>poly_y_x_smult</a></li>
+<li><a href=#Bivariate_Polynomials-Max_degree_coeff_pCons>Max_degree_coeff_pCons</a></li>
+<li><a href=#Bivariate_Polynomials-degree_poly_y_x>degree_poly_y_x</a></li>
+</ul>
+</li><li><a href=#Resultant>Resultant</a>
+<ul>
+<li><a href=#Resultant-vec_of_poly_rev_shifted_dim>vec_of_poly_rev_shifted_dim</a></li>
+<li><a href=#Resultant-col_sylvester>col_sylvester</a></li>
+<li><a href=#Resultant-inj_on_diff_nat2>inj_on_diff_nat2</a></li>
+<li><a href=#Resultant-image_diff_atMost>image_diff_atMost</a></li>
+<li><a href=#Resultant-sylvester_sum_mat_upper>sylvester_sum_mat_upper</a></li>
+<li><a href=#Resultant-sylvester_sum_mat_lower>sylvester_sum_mat_lower</a></li>
+<li><a href=#Resultant-poly_of_vec_of_poly>poly_of_vec_of_poly</a></li>
+<li><a href=#Resultant-poly_of_vec_0>poly_of_vec_0</a></li>
+<li><a href=#Resultant-poly_of_vec_0_iff>poly_of_vec_0_iff</a></li>
+<li><a href=#Resultant-degree_sum_smaller>degree_sum_smaller</a></li>
+<li><a href=#Resultant-degree_poly_of_vec_less>degree_poly_of_vec_less</a></li>
+<li><a href=#Resultant-coeff_poly_of_vec>coeff_poly_of_vec</a></li>
+<li><a href=#Resultant-vec_of_poly_rev_shifted_scalar_prod>vec_of_poly_rev_shifted_scalar_prod</a></li>
+<li><a href=#Resultant-sylvester_vec_poly>sylvester_vec_poly</a></li>
+<li><a href=#Resultant-mk_poly_sub_dim>mk_poly_sub_dim</a></li>
+<li><a href=#Resultant-mk_poly_sub_carrier>mk_poly_sub_carrier</a></li>
+<li><a href=#Resultant-mk_poly_dim>mk_poly_dim</a></li>
+<li><a href=#Resultant-mk_poly_sub_others>mk_poly_sub_others</a></li>
+<li><a href=#Resultant-mk_poly_others>mk_poly_others</a></li>
+<li><a href=#Resultant-mk_poly_delete>mk_poly_delete</a></li>
+<li><a href=#Resultant-col_mk_poly_sub>col_mk_poly_sub</a></li>
+<li><a href=#Resultant-det_mk_poly_sub>det_mk_poly_sub</a></li>
+<li><a href=#Resultant-det_mk_poly>det_mk_poly</a></li>
+<li><a href=#Resultant-mk_poly2_row_dim>mk_poly2_row_dim</a></li>
+<li><a href=#Resultant-mk_poly2_col_dim>mk_poly2_col_dim</a></li>
+<li><a href=#Resultant-mk_poly2_row>mk_poly2_row</a></li>
+<li><a href=#Resultant-mk_poly2_row_col>mk_poly2_row_col</a></li>
+<li><a href=#Resultant-mk_poly2_col>mk_poly2_col</a></li>
+<li><a href=#Resultant-mk_poly2_pre>mk_poly2_pre</a></li>
+<li><a href=#Resultant-mk_poly2>mk_poly2</a></li>
+<li><a href=#Resultant-mk_poly2_sylvester_upper>mk_poly2_sylvester_upper</a></li>
+<li><a href=#Resultant-mk_poly2_sylvester_lower>mk_poly2_sylvester_lower</a></li>
+<li><a href=#Resultant-foo>foo</a></li>
+<li><a href=#Resultant-mk_poly_sub_corresp>mk_poly_sub_corresp</a></li>
+<li><a href=#Resultant-col_mk_poly_mk_poly2>col_mk_poly_mk_poly2</a></li>
+<li><a href=#Resultant-mk_poly_mk_poly2>mk_poly_mk_poly2</a></li>
+<li><a href=#Resultant-mk_poly_sylvester_upper>mk_poly_sylvester_upper</a></li>
+<li><a href=#Resultant-mk_poly_sylvester_lower>mk_poly_sylvester_lower</a></li>
+<li><a href=#Resultant-resultant_as_poly>resultant_as_poly</a></li>
+<li><a href=#Resultant-resultant_zero>resultant_zero</a></li>
+<li><a href=#Resultant-poly_resultant_zero>poly_resultant_zero</a></li>
+<li><a href=#Resultant-resultant_as_nonzero_poly_weak>resultant_as_nonzero_poly_weak</a></li>
+<li><a href=#Resultant-resultant_as_nonzero_poly>resultant_as_nonzero_poly</a></li>
+<li><a href=#Resultant-resultant_zero_imp_common_factor>resultant_zero_imp_common_factor</a></li>
+<li><a href=#Resultant-resultant_non_zero_imp_coprime>resultant_non_zero_imp_coprime</a></li>
+</ul>
+</li><li><a href=#Algebraic_Numbers>Algebraic_Numbers</a>
+<ul>
+<li><a href=#Algebraic_Numbers-coeff_xy_power>coeff_xy_power</a></li>
+<li><a href=#Algebraic_Numbers-poly2_x_y>poly2_x_y</a></li>
+<li><a href=#Algebraic_Numbers-degree_poly_x_minus_y>degree_poly_x_minus_y</a></li>
+<li><a href=#Algebraic_Numbers-poly_x_minus_y_pCons>poly_x_minus_y_pCons</a></li>
+<li><a href=#Algebraic_Numbers-poly_poly_poly_x_minus_y>poly_poly_poly_x_minus_y</a></li>
+<li><a href=#Algebraic_Numbers-poly2_poly_x_minus_y>poly2_poly_x_minus_y</a></li>
+<li><a href=#Algebraic_Numbers-x_y_nonzero>x_y_nonzero</a></li>
+<li><a href=#Algebraic_Numbers-degree_x_y>degree_x_y</a></li>
+<li><a href=#Algebraic_Numbers-poly_add>poly_add</a></li>
+<li><a href=#Algebraic_Numbers-poly_x_minus_y_as_comp>poly_x_minus_y_as_comp</a></li>
+<li><a href=#Algebraic_Numbers-poly_y_x_const>poly_y_x_const</a></li>
+<li><a href=#Algebraic_Numbers-poly_y_x_x_y>poly_y_x_x_y</a></li>
+<li><a href=#Algebraic_Numbers-y_x>y_x</a></li>
+<li><a href=#Algebraic_Numbers-poly_y_minus_x_0>poly_y_minus_x_0</a></li>
+<li><a href=#Algebraic_Numbers-poly_y_minus_x_pCons>poly_y_minus_x_pCons</a></li>
+<li><a href=#Algebraic_Numbers-poly_y_x_poly_x_minus_y>poly_y_x_poly_x_minus_y</a></li>
+<li><a href=#Algebraic_Numbers-degree_poly_y_minus_x>degree_poly_y_minus_x</a></li>
+<li><a href=#Algebraic_Numbers-dvd_all_coeffs_iff>dvd_all_coeffs_iff</a></li>
+<li><a href=#Algebraic_Numbers-primitive_imp_no_constant_factor>primitive_imp_no_constant_factor</a></li>
+<li><a href=#Algebraic_Numbers-coprime_poly_x_minus_y_poly_lift>coprime_poly_x_minus_y_poly_lift</a></li>
+<li><a href=#Algebraic_Numbers-poly_add_nonzero>poly_add_nonzero</a></li>
+<li><a href=#Algebraic_Numbers-lead_coeff_poly_x_minus_y>lead_coeff_poly_x_minus_y</a></li>
+<li><a href=#Algebraic_Numbers-degree_coeff_poly_x_minus_y>degree_coeff_poly_x_minus_y</a></li>
+<li><a href=#Algebraic_Numbers-coeff_0_poly_x_minus_y>coeff_0_poly_x_minus_y</a></li>
+<li><a href=#Algebraic_Numbers-ipoly_poly_add>ipoly_poly_add</a></li>
+<li><a href=#Algebraic_Numbers-primitive_field_poly>primitive_field_poly</a></li>
+<li><a href=#Algebraic_Numbers-ipoly_poly_add_nonzero>ipoly_poly_add_nonzero</a></li>
+<li><a href=#Algebraic_Numbers-represents_add>represents_add</a></li>
+<li><a href=#Algebraic_Numbers-coeff_poly_x_mult_y>coeff_poly_x_mult_y</a></li>
+<li><a href=#Algebraic_Numbers-poly_x_mult_y_code>poly_x_mult_y_code</a></li>
+<li><a href=#Algebraic_Numbers-poly2_poly_x_mult_y>poly2_poly_x_mult_y</a></li>
+<li><a href=#Algebraic_Numbers-poly_div>poly_div</a></li>
+<li><a href=#Algebraic_Numbers-degree_poly_x_mult_y>degree_poly_x_mult_y</a></li>
+<li><a href=#Algebraic_Numbers-irreducible_dvd_degree>irreducible_dvd_degree</a></li>
+<li><a href=#Algebraic_Numbers-coprime_poly_x_mult_y_poly_lift>coprime_poly_x_mult_y_poly_lift</a></li>
+<li><a href=#Algebraic_Numbers-poly_div_nonzero>poly_div_nonzero</a></li>
+<li><a href=#Algebraic_Numbers-ipoly_poly_div>ipoly_poly_div</a></li>
+<li><a href=#Algebraic_Numbers-ipoly_poly_div_nonzero>ipoly_poly_div_nonzero</a></li>
+<li><a href=#Algebraic_Numbers-represents_div>represents_div</a></li>
+<li><a href=#Algebraic_Numbers-represents_mult>represents_mult</a></li>
+<li><a href=#Algebraic_Numbers-algebraic_representsI>algebraic_representsI</a></li>
+<li><a href=#Algebraic_Numbers-algebraic_of_rat>algebraic_of_rat</a></li>
+<li><a href=#Algebraic_Numbers-algebraic_uminus>algebraic_uminus</a></li>
+<li><a href=#Algebraic_Numbers-algebraic_inverse>algebraic_inverse</a></li>
+<li><a href=#Algebraic_Numbers-algebraic_plus>algebraic_plus</a></li>
+<li><a href=#Algebraic_Numbers-algebraic_div>algebraic_div</a></li>
+<li><a href=#Algebraic_Numbers-algebraic_times>algebraic_times</a></li>
+<li><a href=#Algebraic_Numbers-algebraic_root>algebraic_root</a></li>
+<li><a href=#Algebraic_Numbers-algebraic_nth_root>algebraic_nth_root</a></li>
+<li><a href=#Algebraic_Numbers-lead_coeff_poly_add>lead_coeff_poly_add</a></li>
+<li><a href=#Algebraic_Numbers-lead_coeff_poly_mult>lead_coeff_poly_mult</a></li>
+<li><a href=#Algebraic_Numbers-algebraic_int_plus>algebraic_int_plus</a></li>
+<li><a href=#Algebraic_Numbers-algebraic_int_times>algebraic_int_times</a></li>
+<li><a href=#Algebraic_Numbers-algebraic_int_power>algebraic_int_power</a></li>
+<li><a href=#Algebraic_Numbers-algebraic_int_diff>algebraic_int_diff</a></li>
+<li><a href=#Algebraic_Numbers-algebraic_int_sum>algebraic_int_sum</a></li>
+<li><a href=#Algebraic_Numbers-algebraic_int_prod>algebraic_int_prod</a></li>
+<li><a href=#Algebraic_Numbers-algebraic_int_nth_root_real_iff>algebraic_int_nth_root_real_iff</a></li>
+<li><a href=#Algebraic_Numbers-algebraic_int_power_iff>algebraic_int_power_iff</a></li>
+<li><a href=#Algebraic_Numbers-algebraic_int_power_iff%27>algebraic_int_power_iff'</a></li>
+<li><a href=#Algebraic_Numbers-algebraic_int_sqrt_iff>algebraic_int_sqrt_iff</a></li>
+<li><a href=#Algebraic_Numbers-algebraic_int_csqrt_iff>algebraic_int_csqrt_iff</a></li>
+<li><a href=#Algebraic_Numbers-algebraic_int_norm_complex>algebraic_int_norm_complex</a></li>
+</ul>
+</li><li><a href=#Sturm_Rat>Sturm_Rat</a>
+<ul>
+<li><a href=#Sturm_Rat-root_primitive_part>root_primitive_part</a></li>
+<li><a href=#Sturm_Rat-irreducible_primitive_part>irreducible_primitive_part</a></li>
+<li><a href=#Sturm_Rat-count_roots_interval_iff>count_roots_interval_iff</a></li>
+<li><a href=#Sturm_Rat-count_roots_interval_sf>count_roots_interval_sf</a></li>
+<li><a href=#Sturm_Rat-count_roots_interval>count_roots_interval</a></li>
+<li><a href=#Sturm_Rat-root_info_condD>root_info_condD</a></li>
+<li><a href=#Sturm_Rat-count_roots_interval_sf_rat>count_roots_interval_sf_rat</a></li>
+<li><a href=#Sturm_Rat-of_rat_of_int_poly>of_rat_of_int_poly</a></li>
+<li><a href=#Sturm_Rat-square_free_of_int_poly>square_free_of_int_poly</a></li>
+<li><a href=#Sturm_Rat-count_roots_interval_rat>count_roots_interval_rat</a></li>
+<li><a href=#Sturm_Rat-count_roots_rat>count_roots_rat</a></li>
+<li><a href=#Sturm_Rat-sturm_aux_rat>sturm_aux_rat</a></li>
+<li><a href=#Sturm_Rat-sturm_rat>sturm_rat</a></li>
+<li><a href=#Sturm_Rat-poly_number_rootat>poly_number_rootat</a></li>
+<li><a href=#Sturm_Rat-poly_neg_number_rootat>poly_neg_number_rootat</a></li>
+<li><a href=#Sturm_Rat-real_of_rat_list_neq>real_of_rat_list_neq</a></li>
+<li><a href=#Sturm_Rat-real_of_rat_remdups_adj>real_of_rat_remdups_adj</a></li>
+<li><a href=#Sturm_Rat-sign_changes_rat>sign_changes_rat</a></li>
+<li><a href=#Sturm_Rat-sign_changes_neg_number_rootat>sign_changes_neg_number_rootat</a></li>
+<li><a href=#Sturm_Rat-sign_changes_number_rootat>sign_changes_number_rootat</a></li>
+<li><a href=#Sturm_Rat-count_roots_interval_rat_code>count_roots_interval_rat_code</a></li>
+<li><a href=#Sturm_Rat-count_roots_rat_code>count_roots_rat_code</a></li>
+<li><a href=#Sturm_Rat-root_info>root_info</a></li>
+</ul>
+</li><li><a href=#Factors_of_Int_Poly>Factors_of_Int_Poly</a>
+<ul>
+<li><a href=#Factors_of_Int_Poly-degree_of_gcd>degree_of_gcd</a></li>
+<li><a href=#Factors_of_Int_Poly-factors_of_int_poly_const>factors_of_int_poly_const</a></li>
+<li><a href=#Factors_of_Int_Poly-factors_of_int_poly>factors_of_int_poly</a></li>
+<li><a href=#Factors_of_Int_Poly-factors_int_poly_represents>factors_int_poly_represents</a></li>
+<li><a href=#Factors_of_Int_Poly-irreducible_preservation>irreducible_preservation</a></li>
+<li><a href=#Factors_of_Int_Poly-poly_uminus_irreducible>poly_uminus_irreducible</a></li>
+<li><a href=#Factors_of_Int_Poly-reflect_poly_irreducible>reflect_poly_irreducible</a></li>
+<li><a href=#Factors_of_Int_Poly-poly_add_rat_irreducible>poly_add_rat_irreducible</a></li>
+<li><a href=#Factors_of_Int_Poly-poly_mult_rat_irreducible>poly_mult_rat_irreducible</a></li>
+</ul>
+</li><li><a href=#Real_Algebraic_Numbers>Real_Algebraic_Numbers</a>
+<ul>
+<li><a href=#Real_Algebraic_Numbers-ex1_imp_Collect_singleton>ex1_imp_Collect_singleton</a></li>
+<li><a href=#Real_Algebraic_Numbers-ex1_Collect_singleton>ex1_Collect_singleton</a></li>
+<li><a href=#Real_Algebraic_Numbers-ex1_iff_Collect_singleton>ex1_iff_Collect_singleton</a></li>
+<li><a href=#Real_Algebraic_Numbers-bij_imp_ex1_iff>bij_imp_ex1_iff</a></li>
+<li><a href=#Real_Algebraic_Numbers-bij_ex1_imp_the_shift>bij_ex1_imp_the_shift</a></li>
+<li><a href=#Real_Algebraic_Numbers-bij_imp_Collect_image>bij_imp_Collect_image</a></li>
+<li><a href=#Real_Algebraic_Numbers-bij_imp_card_image>bij_imp_card_image</a></li>
+<li><a href=#Real_Algebraic_Numbers-bij_imp_card>bij_imp_card</a></li>
+<li><a href=#Real_Algebraic_Numbers-bij_add>bij_add</a></li>
+<li><a href=#Real_Algebraic_Numbers-ex1_the_shift>ex1_the_shift</a></li>
+<li><a href=#Real_Algebraic_Numbers-card_shift_image>card_shift_image</a></li>
+<li><a href=#Real_Algebraic_Numbers-irreducible_root_free>irreducible_root_free</a></li>
+<li><a href=#Real_Algebraic_Numbers-root_condI>root_condI</a></li>
+<li><a href=#Real_Algebraic_Numbers-root_condE>root_condE</a></li>
+<li><a href=#Real_Algebraic_Numbers-unique_rootE>unique_rootE</a></li>
+<li><a href=#Real_Algebraic_Numbers-unique_rootI>unique_rootI</a></li>
+<li><a href=#Real_Algebraic_Numbers-poly_condI>poly_condI</a></li>
+<li><a href=#Real_Algebraic_Numbers-poly_condD>poly_condD</a></li>
+<li><a href=#Real_Algebraic_Numbers-poly_condE>poly_condE</a></li>
+<li><a href=#Real_Algebraic_Numbers-invariant_1I>invariant_1I</a></li>
+<li><a href=#Real_Algebraic_Numbers-invariant_1E>invariant_1E</a></li>
+<li><a href=#Real_Algebraic_Numbers-invariant_1_realI>invariant_1_realI</a></li>
+<li><a href=#Real_Algebraic_Numbers-real_of_1_0>real_of_1_0</a></li>
+<li><a href=#Real_Algebraic_Numbers-invariant_1_pos>invariant_1_pos</a></li>
+<li><a href=#Real_Algebraic_Numbers-poly_cond2I>poly_cond2I</a></li>
+<li><a href=#Real_Algebraic_Numbers-poly_cond2D>poly_cond2D</a></li>
+<li><a href=#Real_Algebraic_Numbers-poly_cond2E>poly_cond2E</a></li>
+<li><a href=#Real_Algebraic_Numbers-invariant_1_2_poly_cond2>invariant_1_2_poly_cond2</a></li>
+<li><a href=#Real_Algebraic_Numbers-invariant_1_2I>invariant_1_2I</a></li>
+<li><a href=#Real_Algebraic_Numbers-invariant_1_2E>invariant_1_2E</a></li>
+<li><a href=#Real_Algebraic_Numbers-invariant_1_2_realI>invariant_1_2_realI</a></li>
+<li><a href=#Real_Algebraic_Numbers-of_rat_2>of_rat_2</a></li>
+<li><a href=#Real_Algebraic_Numbers-real_of_inj>real_of_inj</a></li>
+<li><a href=#Real_Algebraic_Numbers-sgn_1>sgn_1</a></li>
+<li><a href=#Real_Algebraic_Numbers-sgn_1_inj>sgn_1_inj</a></li>
+<li><a href=#Real_Algebraic_Numbers-unique_root_lr>unique_root_lr</a></li>
+<li><a href=#Real_Algebraic_Numbers-ipoly_roots_finite>ipoly_roots_finite</a></li>
+<li><a href=#Real_Algebraic_Numbers-roots_below_the_unique_root>roots_below_the_unique_root</a></li>
+<li><a href=#Real_Algebraic_Numbers-unique_root_sub_interval>unique_root_sub_interval</a></li>
+<li><a href=#Real_Algebraic_Numbers-invariant_1_sub_interval>invariant_1_sub_interval</a></li>
+<li><a href=#Real_Algebraic_Numbers-root_sign_change>root_sign_change</a></li>
+<li><a href=#Real_Algebraic_Numbers-rational_root_free_degree_iff>rational_root_free_degree_iff</a></li>
+<li><a href=#Real_Algebraic_Numbers-rational_poly_cond_iff>rational_poly_cond_iff</a></li>
+<li><a href=#Real_Algebraic_Numbers-poly_cond_degree_gt_1>poly_cond_degree_gt_1</a></li>
+<li><a href=#Real_Algebraic_Numbers-poly_cond2_no_rat_root>poly_cond2_no_rat_root</a></li>
+<li><a href=#Real_Algebraic_Numbers-gt_rat_sign_change>gt_rat_sign_change</a></li>
+<li><a href=#Real_Algebraic_Numbers-tighten_poly_bounds>tighten_poly_bounds</a></li>
+<li><a href=#Real_Algebraic_Numbers-tighten_poly_bounds_epsilon>tighten_poly_bounds_epsilon</a></li>
+<li><a href=#Real_Algebraic_Numbers-tighten_poly_bounds_for_x>tighten_poly_bounds_for_x</a></li>
+<li><a href=#Real_Algebraic_Numbers-real_alg_precision>real_alg_precision</a></li>
+<li><a href=#Real_Algebraic_Numbers-root_cond_cong>root_cond_cong</a></li>
+<li><a href=#Real_Algebraic_Numbers-the_unique_root_cong>the_unique_root_cong</a></li>
+<li><a href=#Real_Algebraic_Numbers-unique_root_cong>unique_root_cong</a></li>
+<li><a href=#Real_Algebraic_Numbers-normalize_bounds_1_main>normalize_bounds_1_main</a></li>
+<li><a href=#Real_Algebraic_Numbers-normalize_bounds_1>normalize_bounds_1</a></li>
+<li><a href=#Real_Algebraic_Numbers-normalize_bound_1_poly>normalize_bound_1_poly</a></li>
+<li><a href=#Real_Algebraic_Numbers-degree_1_ipoly>degree_1_ipoly</a></li>
+<li><a href=#Real_Algebraic_Numbers-invariant_1_degree_0>invariant_1_degree_0</a></li>
+<li><a href=#Real_Algebraic_Numbers-real_alg_2_main>real_alg_2_main</a></li>
+<li><a href=#Real_Algebraic_Numbers-real_alg_2>real_alg_2</a></li>
+<li><a href=#Real_Algebraic_Numbers-invariant_2_realI>invariant_2_realI</a></li>
+<li><a href=#Real_Algebraic_Numbers-compare_rat_1>compare_rat_1</a></li>
+<li><a href=#Real_Algebraic_Numbers-cf_pos_0>cf_pos_0</a></li>
+<li><a href=#Real_Algebraic_Numbers-uminus_1>uminus_1</a></li>
+<li><a href=#Real_Algebraic_Numbers-uminus_1_2>uminus_1_2</a></li>
+<li><a href=#Real_Algebraic_Numbers-uminus_2>uminus_2</a></li>
+<li><a href=#Real_Algebraic_Numbers-uminus_3>uminus_3</a></li>
+<li><a href=#Real_Algebraic_Numbers-uminus_real_alg>uminus_real_alg</a></li>
+<li><a href=#Real_Algebraic_Numbers-invariant_1_2_of_rat>invariant_1_2_of_rat</a></li>
+<li><a href=#Real_Algebraic_Numbers-inverse_1>inverse_1</a></li>
+<li><a href=#Real_Algebraic_Numbers-inverse_2>inverse_2</a></li>
+<li><a href=#Real_Algebraic_Numbers-inverse_3>inverse_3</a></li>
+<li><a href=#Real_Algebraic_Numbers-floor_1>floor_1</a></li>
+<li><a href=#Real_Algebraic_Numbers-card_1_Collect_ex1>card_1_Collect_ex1</a></li>
+<li><a href=#Real_Algebraic_Numbers-select_correct_factor_main>select_correct_factor_main</a></li>
+<li><a href=#Real_Algebraic_Numbers-select_correct_factor>select_correct_factor</a></li>
+<li><a href=#Real_Algebraic_Numbers-real_alg_2%27_code>real_alg_2'_code</a></li>
+<li><a href=#Real_Algebraic_Numbers-real_alg_2%27%27>real_alg_2''</a></li>
+<li><a href=#Real_Algebraic_Numbers-poly_cond_degree_0_imp_no_root>poly_cond_degree_0_imp_no_root</a></li>
+<li><a href=#Real_Algebraic_Numbers-real_alg_2%27>real_alg_2'</a></li>
+<li><a href=#Real_Algebraic_Numbers-select_correct_factor_int_poly>select_correct_factor_int_poly</a></li>
+<li><a href=#Real_Algebraic_Numbers-ipoly_0_0>ipoly_0_0</a></li>
+<li><a href=#Real_Algebraic_Numbers-add_rat_roots_below>add_rat_roots_below</a></li>
+<li><a href=#Real_Algebraic_Numbers-add_rat_root_cond>add_rat_root_cond</a></li>
+<li><a href=#Real_Algebraic_Numbers-add_rat_unique_root>add_rat_unique_root</a></li>
+<li><a href=#Real_Algebraic_Numbers-poly_real_alg_1_add_rat>poly_real_alg_1_add_rat</a></li>
+<li><a href=#Real_Algebraic_Numbers-sgn_cf_pos>sgn_cf_pos</a></li>
+<li><a href=#Real_Algebraic_Numbers-add_rat_1>add_rat_1</a></li>
+<li><a href=#Real_Algebraic_Numbers-tighten_poly_bounds_binary>tighten_poly_bounds_binary</a></li>
+<li><a href=#Real_Algebraic_Numbers-add_1>add_1</a></li>
+<li><a href=#Real_Algebraic_Numbers-mult_rat_1_pos>mult_rat_1_pos</a></li>
+<li><a href=#Real_Algebraic_Numbers-mult_1_pos>mult_1_pos</a></li>
+<li><a href=#Real_Algebraic_Numbers-mult_1>mult_1</a></li>
+<li><a href=#Real_Algebraic_Numbers-mult_rat_1>mult_rat_1</a></li>
+<li><a href=#Real_Algebraic_Numbers-ipoly_root_delta>ipoly_root_delta</a></li>
+<li><a href=#Real_Algebraic_Numbers-sgn_less_eq_1_rat>sgn_less_eq_1_rat</a></li>
+<li><a href=#Real_Algebraic_Numbers-sgn_less_eq_1_real>sgn_less_eq_1_real</a></li>
+<li><a href=#Real_Algebraic_Numbers-compare_real_of_rat>compare_real_of_rat</a></li>
+<li><a href=#Real_Algebraic_Numbers-compare_1_rat>compare_1_rat</a></li>
+<li><a href=#Real_Algebraic_Numbers-tighten_bound_root>tighten_bound_root</a></li>
+<li><a href=#Real_Algebraic_Numbers-initial_upper_bound>initial_upper_bound</a></li>
+<li><a href=#Real_Algebraic_Numbers-initial_lower_bound>initial_lower_bound</a></li>
+<li><a href=#Real_Algebraic_Numbers-root_pos_1>root_pos_1</a></li>
+<li><a href=#Real_Algebraic_Numbers-root_1>root_1</a></li>
+<li><a href=#Real_Algebraic_Numbers-of_rat_1>of_rat_1</a></li>
+<li><a href=#Real_Algebraic_Numbers-info_2_card>info_2_card</a></li>
+<li><a href=#Real_Algebraic_Numbers-real_of_2_Irrational>real_of_2_Irrational</a></li>
+<li><a href=#Real_Algebraic_Numbers-info_2>info_2</a></li>
+<li><a href=#Real_Algebraic_Numbers-info_2_unique>info_2_unique</a></li>
+<li><a href=#Real_Algebraic_Numbers-info_2_inj>info_2_inj</a></li>
+<li><a href=#Real_Algebraic_Numbers-compare_1>compare_1</a></li>
+<li><a href=#Real_Algebraic_Numbers-real_alg_1>real_alg_1</a></li>
+<li><a href=#Real_Algebraic_Numbers-root_2>root_2</a></li>
+<li><a href=#Real_Algebraic_Numbers-add_2>add_2</a></li>
+<li><a href=#Real_Algebraic_Numbers-mult_2>mult_2</a></li>
+<li><a href=#Real_Algebraic_Numbers-to_rat_2>to_rat_2</a></li>
+<li><a href=#Real_Algebraic_Numbers-equal_2>equal_2</a></li>
+<li><a href=#Real_Algebraic_Numbers-compare_2>compare_2</a></li>
+<li><a href=#Real_Algebraic_Numbers-sgn_2>sgn_2</a></li>
+<li><a href=#Real_Algebraic_Numbers-floor_2>floor_2</a></li>
+<li><a href=#Real_Algebraic_Numbers-of_rat_3>of_rat_3</a></li>
+<li><a href=#Real_Algebraic_Numbers-root_3>root_3</a></li>
+<li><a href=#Real_Algebraic_Numbers-equal_3>equal_3</a></li>
+<li><a href=#Real_Algebraic_Numbers-compare_3>compare_3</a></li>
+<li><a href=#Real_Algebraic_Numbers-add_3>add_3</a></li>
+<li><a href=#Real_Algebraic_Numbers-mult_3>mult_3</a></li>
+<li><a href=#Real_Algebraic_Numbers-sgn_3>sgn_3</a></li>
+<li><a href=#Real_Algebraic_Numbers-to_rat_3>to_rat_3</a></li>
+<li><a href=#Real_Algebraic_Numbers-floor_3>floor_3</a></li>
+<li><a href=#Real_Algebraic_Numbers-info_3_fun>info_3_fun</a></li>
+<li><a href=#Real_Algebraic_Numbers-info_real_alg>info_real_alg</a></li>
+<li><a href=#Real_Algebraic_Numbers-plus_real_alg>plus_real_alg</a></li>
+<li><a href=#Real_Algebraic_Numbers-minus_real_alg>minus_real_alg</a></li>
+<li><a href=#Real_Algebraic_Numbers-of_rat_real_alg>of_rat_real_alg</a></li>
+<li><a href=#Real_Algebraic_Numbers-zero_real_alg>zero_real_alg</a></li>
+<li><a href=#Real_Algebraic_Numbers-one_real_alg>one_real_alg</a></li>
+<li><a href=#Real_Algebraic_Numbers-times_real_alg>times_real_alg</a></li>
+<li><a href=#Real_Algebraic_Numbers-inverse_real_alg>inverse_real_alg</a></li>
+<li><a href=#Real_Algebraic_Numbers-divide_real_alg>divide_real_alg</a></li>
+<li><a href=#Real_Algebraic_Numbers-root_real_alg>root_real_alg</a></li>
+<li><a href=#Real_Algebraic_Numbers-sgn_real_alg_rat>sgn_real_alg_rat</a></li>
+<li><a href=#Real_Algebraic_Numbers-sgn_real_alg>sgn_real_alg</a></li>
+<li><a href=#Real_Algebraic_Numbers-equal_real_alg>equal_real_alg</a></li>
+<li><a href=#Real_Algebraic_Numbers-less_real_alg>less_real_alg</a></li>
+<li><a href=#Real_Algebraic_Numbers-less_eq_real_alg>less_eq_real_alg</a></li>
+<li><a href=#Real_Algebraic_Numbers-compare_real_alg>compare_real_alg</a></li>
+<li><a href=#Real_Algebraic_Numbers-less_eq_real_alg_code>less_eq_real_alg_code</a></li>
+<li><a href=#Real_Algebraic_Numbers-abs_real_alg>abs_real_alg</a></li>
+<li><a href=#Real_Algebraic_Numbers-sgn_real_alg_sound>sgn_real_alg_sound</a></li>
+<li><a href=#Real_Algebraic_Numbers-real_of_of_int>real_of_of_int</a></li>
+<li><a href=#Real_Algebraic_Numbers-floor_real_alg>floor_real_alg</a></li>
+<li><a href=#Real_Algebraic_Numbers-real_alg_of_real_code>real_alg_of_real_code</a></li>
+<li><a href=#Real_Algebraic_Numbers-to_rat_real_alg_main>to_rat_real_alg_main</a></li>
+<li><a href=#Real_Algebraic_Numbers-is_rat_real_alg>is_rat_real_alg</a></li>
+<li><a href=#Real_Algebraic_Numbers-to_rat_real_alg>to_rat_real_alg</a></li>
+<li><a href=#Real_Algebraic_Numbers-Ratreal_code>Ratreal_code</a></li>
+<li><a href=#Real_Algebraic_Numbers-real_of_post>real_of_post</a></li>
+</ul>
+</li><li><a href=#Real_Roots>Real_Roots</a>
+<ul>
+<li><a href=#Real_Roots-root_imp_deg_nonzero>root_imp_deg_nonzero</a></li>
+<li><a href=#Real_Roots-cauchy_root_bound>cauchy_root_bound</a></li>
+<li><a href=#Real_Roots-div_le_div_ceiling>div_le_div_ceiling</a></li>
+<li><a href=#Real_Roots-div_ceiling>div_ceiling</a></li>
+<li><a href=#Real_Roots-max_list_non_empty_map>max_list_non_empty_map</a></li>
+<li><a href=#Real_Roots-root_bound>root_bound</a></li>
+<li><a href=#Real_Roots-roots_of_2_irr>roots_of_2_irr</a></li>
+<li><a href=#Real_Roots-roots_of_2>roots_of_2</a></li>
+<li><a href=#Real_Roots-roots_of_3>roots_of_3</a></li>
+<li><a href=#Real_Roots-roots_of_real_alg>roots_of_real_alg</a></li>
+<li><a href=#Real_Roots-real_alg_2_list_length>real_alg_2_list_length</a></li>
+<li><a href=#Real_Roots-real_alg_2_list_convert>real_alg_2_list_convert</a></li>
+<li><a href=#Real_Roots-roots_of_3_code>roots_of_3_code</a></li>
+<li><a href=#Real_Roots-real_roots_of_int_poly>real_roots_of_int_poly</a></li>
+<li><a href=#Real_Roots-real_roots_of_rat_poly>real_roots_of_rat_poly</a></li>
+<li><a href=#Real_Roots-roots_of_real_main>roots_of_real_main</a></li>
+<li><a href=#Real_Roots-roots_of_real_poly>roots_of_real_poly</a></li>
+</ul>
+</li><li><a href=#Complex_Roots_Real_Poly>Complex_Roots_Real_Poly</a>
+<ul>
+<li><a href=#Complex_Roots_Real_Poly-real_poly_real_coeff>real_poly_real_coeff</a></li>
+<li><a href=#Complex_Roots_Real_Poly-complex_conjugate_root>complex_conjugate_root</a></li>
+<li><a href=#Complex_Roots_Real_Poly-map_poly_Re_poly>map_poly_Re_poly</a></li>
+<li><a href=#Complex_Roots_Real_Poly-map_poly_Re_coeffs>map_poly_Re_coeffs</a></li>
+<li><a href=#Complex_Roots_Real_Poly-map_poly_Re_0>map_poly_Re_0</a></li>
+<li><a href=#Complex_Roots_Real_Poly-real_poly_add>real_poly_add</a></li>
+<li><a href=#Complex_Roots_Real_Poly-real_poly_sum>real_poly_sum</a></li>
+<li><a href=#Complex_Roots_Real_Poly-real_poly_smult>real_poly_smult</a></li>
+<li><a href=#Complex_Roots_Real_Poly-real_poly_pCons>real_poly_pCons</a></li>
+<li><a href=#Complex_Roots_Real_Poly-real_poly_mult>real_poly_mult</a></li>
+<li><a href=#Complex_Roots_Real_Poly-real_poly_power>real_poly_power</a></li>
+<li><a href=#Complex_Roots_Real_Poly-real_poly_prod>real_poly_prod</a></li>
+<li><a href=#Complex_Roots_Real_Poly-real_poly_uminus>real_poly_uminus</a></li>
+<li><a href=#Complex_Roots_Real_Poly-real_poly_minus>real_poly_minus</a></li>
+<li><a href=#Complex_Roots_Real_Poly-real_poly_factor>real_poly_factor</a></li>
+<li><a href=#Complex_Roots_Real_Poly-complex_conjugate_order>complex_conjugate_order</a></li>
+<li><a href=#Complex_Roots_Real_Poly-map_poly_of_real_Re>map_poly_of_real_Re</a></li>
+<li><a href=#Complex_Roots_Real_Poly-map_poly_Re_of_real>map_poly_Re_of_real</a></li>
+<li><a href=#Complex_Roots_Real_Poly-map_poly_Re_mult>map_poly_Re_mult</a></li>
+<li><a href=#Complex_Roots_Real_Poly-map_poly_Re_power>map_poly_Re_power</a></li>
+<li><a href=#Complex_Roots_Real_Poly-real_degree_2_factorization_exists_complex>real_degree_2_factorization_exists_complex</a></li>
+<li><a href=#Complex_Roots_Real_Poly-real_degree_2_factorization_exists>real_degree_2_factorization_exists</a></li>
+<li><a href=#Complex_Roots_Real_Poly-odd_degree_imp_real_root>odd_degree_imp_real_root</a></li>
+</ul>
+</li><li><a href=#Compare_Complex>Compare_Complex</a>
+<ul>
+<li><a href=#Compare_Complex-in_reals_code>in_reals_code</a></li>
+<li><a href=#Compare_Complex-is_norm_1>is_norm_1</a></li>
+<li><a href=#Compare_Complex-is_norm_le_1>is_norm_le_1</a></li>
+</ul>
+</li><li><a href=#Interval_Arithmetic>Interval_Arithmetic</a>
+<ul>
+<li><a href=#Interval_Arithmetic-interval_uminus_zero>interval_uminus_zero</a></li>
+<li><a href=#Interval_Arithmetic-interval_diff_zero>interval_diff_zero</a></li>
+<li><a href=#Interval_Arithmetic-in_interval_to_interval>in_interval_to_interval</a></li>
+<li><a href=#Interval_Arithmetic-plus_in_interval>plus_in_interval</a></li>
+<li><a href=#Interval_Arithmetic-uminus_in_interval>uminus_in_interval</a></li>
+<li><a href=#Interval_Arithmetic-minus_in_interval>minus_in_interval</a></li>
+<li><a href=#Interval_Arithmetic-times_in_interval>times_in_interval</a></li>
+<li><a href=#Interval_Arithmetic-interval_tendstoI>interval_tendstoI</a></li>
+<li><a href=#Interval_Arithmetic-const_interval_tendsto>const_interval_tendsto</a></li>
+<li><a href=#Interval_Arithmetic-interval_tendsto_0>interval_tendsto_0</a></li>
+<li><a href=#Interval_Arithmetic-plus_interval_tendsto>plus_interval_tendsto</a></li>
+<li><a href=#Interval_Arithmetic-uminus_interval_tendsto>uminus_interval_tendsto</a></li>
+<li><a href=#Interval_Arithmetic-minus_interval_tendsto>minus_interval_tendsto</a></li>
+<li><a href=#Interval_Arithmetic-times_interval_tendsto>times_interval_tendsto</a></li>
+<li><a href=#Interval_Arithmetic-interval_tendsto_neq>interval_tendsto_neq</a></li>
+<li><a href=#Interval_Arithmetic-plus_complex_interval>plus_complex_interval</a></li>
+<li><a href=#Interval_Arithmetic-of_int_complex_interval_0>of_int_complex_interval_0</a></li>
+<li><a href=#Interval_Arithmetic-of_int_complex_interval>of_int_complex_interval</a></li>
+<li><a href=#Interval_Arithmetic-times_complex_interval>times_complex_interval</a></li>
+<li><a href=#Interval_Arithmetic-ipoly_complex_interval_0>ipoly_complex_interval_0</a></li>
+<li><a href=#Interval_Arithmetic-ipoly_complex_interval_pCons>ipoly_complex_interval_pCons</a></li>
+<li><a href=#Interval_Arithmetic-ipoly_complex_interval>ipoly_complex_interval</a></li>
+<li><a href=#Interval_Arithmetic-complex_interval_tendstoI>complex_interval_tendstoI</a></li>
+<li><a href=#Interval_Arithmetic-of_int_complex_interval_tendsto>of_int_complex_interval_tendsto</a></li>
+<li><a href=#Interval_Arithmetic-Im_interval_plus>Im_interval_plus</a></li>
+<li><a href=#Interval_Arithmetic-Re_interval_plus>Re_interval_plus</a></li>
+<li><a href=#Interval_Arithmetic-Im_interval_minus>Im_interval_minus</a></li>
+<li><a href=#Interval_Arithmetic-Re_interval_minus>Re_interval_minus</a></li>
+<li><a href=#Interval_Arithmetic-Re_interval_times>Re_interval_times</a></li>
+<li><a href=#Interval_Arithmetic-Im_interval_times>Im_interval_times</a></li>
+<li><a href=#Interval_Arithmetic-plus_complex_interval_tendsto>plus_complex_interval_tendsto</a></li>
+<li><a href=#Interval_Arithmetic-minus_complex_interval_tendsto>minus_complex_interval_tendsto</a></li>
+<li><a href=#Interval_Arithmetic-times_complex_interval_tendsto>times_complex_interval_tendsto</a></li>
+<li><a href=#Interval_Arithmetic-ipoly_complex_interval_tendsto>ipoly_complex_interval_tendsto</a></li>
+<li><a href=#Interval_Arithmetic-complex_interval_tendsto_neq>complex_interval_tendsto_neq</a></li>
+</ul>
+</li><li><a href=#Complex_Algebraic_Numbers>Complex_Algebraic_Numbers</a>
+<ul>
+<li><a href=#Complex_Algebraic_Numbers-poly_complex_to_real>poly_complex_to_real</a></li>
+<li><a href=#Complex_Algebraic_Numbers-represents_cnj>represents_cnj</a></li>
+<li><a href=#Complex_Algebraic_Numbers-represents_2i>represents_2i</a></li>
+<li><a href=#Complex_Algebraic_Numbers-root_poly_Re_code>root_poly_Re_code</a></li>
+<li><a href=#Complex_Algebraic_Numbers-represents_root_poly>represents_root_poly</a></li>
+<li><a href=#Complex_Algebraic_Numbers-real_of_3_remdups_equal_3>real_of_3_remdups_equal_3</a></li>
+<li><a href=#Complex_Algebraic_Numbers-distinct_remdups_equal_3>distinct_remdups_equal_3</a></li>
+<li><a href=#Complex_Algebraic_Numbers-real_of_3_code>real_of_3_code</a></li>
+<li><a href=#Complex_Algebraic_Numbers-real_parts_3>real_parts_3</a></li>
+<li><a href=#Complex_Algebraic_Numbers-distinct_real_parts_3>distinct_real_parts_3</a></li>
+<li><a href=#Complex_Algebraic_Numbers-pos_imaginary_parts_3>pos_imaginary_parts_3</a></li>
+<li><a href=#Complex_Algebraic_Numbers-distinct_pos_imaginary_parts_3>distinct_pos_imaginary_parts_3</a></li>
+<li><a href=#Complex_Algebraic_Numbers-remdups_gen_subset>remdups_gen_subset</a></li>
+<li><a href=#Complex_Algebraic_Numbers-positive_pos_imaginary_parts_3>positive_pos_imaginary_parts_3</a></li>
+<li><a href=#Complex_Algebraic_Numbers-get_bounds_2>get_bounds_2</a></li>
+<li><a href=#Complex_Algebraic_Numbers-get_itvl_3>get_itvl_3</a></li>
+<li><a href=#Complex_Algebraic_Numbers-tighten_bounds_2>tighten_bounds_2</a></li>
+<li><a href=#Complex_Algebraic_Numbers-tighten_bounds_3>tighten_bounds_3</a></li>
+<li><a href=#Complex_Algebraic_Numbers-filter_list_length>filter_list_length</a></li>
+<li><a href=#Complex_Algebraic_Numbers-in_real_itvl_get_bounds_tighten>in_real_itvl_get_bounds_tighten</a></li>
+<li><a href=#Complex_Algebraic_Numbers-sandwitch_real>sandwitch_real</a></li>
+<li><a href=#Complex_Algebraic_Numbers-real_of_tighten_bounds_many>real_of_tighten_bounds_many</a></li>
+<li><a href=#Complex_Algebraic_Numbers-interval_size_3>interval_size_3</a></li>
+<li><a href=#Complex_Algebraic_Numbers-interval_size_3_tendsto_0>interval_size_3_tendsto_0</a></li>
+<li><a href=#Complex_Algebraic_Numbers-dist_tendsto_0_imp_tendsto>dist_tendsto_0_imp_tendsto</a></li>
+<li><a href=#Complex_Algebraic_Numbers-upper_3_tendsto>upper_3_tendsto</a></li>
+<li><a href=#Complex_Algebraic_Numbers-lower_3_tendsto>lower_3_tendsto</a></li>
+<li><a href=#Complex_Algebraic_Numbers-tends_to_tight_bounds_3>tends_to_tight_bounds_3</a></li>
+<li><a href=#Complex_Algebraic_Numbers-complex_roots_of_int_poly3>complex_roots_of_int_poly3</a></li>
+<li><a href=#Complex_Algebraic_Numbers-complex_roots_of_int_poly_all>complex_roots_of_int_poly_all</a></li>
+<li><a href=#Complex_Algebraic_Numbers-complex_roots_of_int_poly>complex_roots_of_int_poly</a></li>
+<li><a href=#Complex_Algebraic_Numbers-complex_roots_of_rat_poly>complex_roots_of_rat_poly</a></li>
+<li><a href=#Complex_Algebraic_Numbers-roots_of_complex_main>roots_of_complex_main</a></li>
+<li><a href=#Complex_Algebraic_Numbers-roots_of_complex_poly>roots_of_complex_poly</a></li>
+<li><a href=#Complex_Algebraic_Numbers-factorize_complex_main>factorize_complex_main</a></li>
+<li><a href=#Complex_Algebraic_Numbers-distinct_factorize_complex_main>distinct_factorize_complex_main</a></li>
+<li><a href=#Complex_Algebraic_Numbers-factorize_complex_poly>factorize_complex_poly</a></li>
+</ul>
+</li><li><a href=#Real_Factorization>Real_Factorization</a>
+<ul>
+<li><a href=#Real_Factorization-delete_cnj_length>delete_cnj_length</a></li>
+<li><a href=#Real_Factorization-monic_imp_nonzero>monic_imp_nonzero</a></li>
+<li><a href=#Real_Factorization-delete_cnj>delete_cnj</a></li>
+<li><a href=#Real_Factorization-factorize_real_poly>factorize_real_poly</a></li>
+</ul>
+</li><li><a href=#Show_Real_Alg>Show_Real_Alg</a>
+<ul>
+<li><a href=#Show_Real_Alg-show_law_real_alg>show_law_real_alg</a></li>
+<li><a href=#Show_Real_Alg-showsp_real_alg_append>showsp_real_alg_append</a></li>
+</ul>
+</li><li><a href=#Show_Real_Approx>Show_Real_Approx</a>
+</li><li><a href=#Show_Real_Precise>Show_Real_Precise</a>
+<ul>
+<li><a href=#Show_Real_Precise-real_alg_show_info>real_alg_show_info</a></li>
+</ul>
+</li><li><a href=#Algebraic_Number_Tests>Algebraic_Number_Tests</a>
+</li><li><a href=#Algebraic_Numbers_External_Code>Algebraic_Numbers_External_Code</a>
+</li>
+</ul>
+</div>
+<ul>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Algebraic_Numbers/outline.pdf>Proof
+outline</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Algebraic_Numbers/document.pdf>Proof
+document</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Algebraic_Numbers/session_graph.pdf>Theory dependencies</a></li>
+</ul>
+</div>
+</aside>
+<div class="content theories"><header>
+<form action=/%20search>
+<div class=form-container>
+<input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
+<datalist id=autocomplete>
+</datalist>
+</div>
+</form>
+<h1><span class=first>S</span>ession <span class=first>A</span>lgebraic_<span class=first>N</span>umbers</h1>
+<div>
+</div>
+</header><div id=banner data-id=0>
+<p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button>
+</div>
+<div><main>
+<div id=Algebraic_Numbers_Prelim>
+<div class=head>
+<h1>Theory Algebraic_Numbers_Prelim</h1>
+</div>
+<pre class=source><span class=comment1>(*
     Author:      René Thiemann
                  Sebastiaan Joosten
                  Akihisa Yamada
@@ -1083,7 +1750,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Al
 <span class=keyword1><span class=command>qed</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Bivariate_Polynomials><div class=head><h1>Theory Bivariate_Polynomials</h1></div><pre class=source><span class=comment1>(*  
+</pre>
+</div><div id=Bivariate_Polynomials>
+<div class=head>
+<h1>Theory Bivariate_Polynomials</h1>
+</div>
+<pre class=source><span class=comment1>(*  
     Author:      René Thiemann 
                  Akihisa Yamada
     License:     BSD
@@ -1604,7 +2276,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Al
 <span class=keyword1><span class=command>qed</span></span> <span class=operator>auto</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Resultant><div class=head><h1>Theory Resultant</h1></div><pre class=source><span class=comment1>(*  
+</pre>
+</div><div id=Resultant>
+<div class=head>
+<h1>Theory Resultant</h1>
+</div>
+<pre class=source><span class=comment1>(*  
     Author:      René Thiemann 
                  Akihisa Yamada
     License:     BSD
@@ -2685,7 +3362,12 @@ qed
 <span class=keyword1><span class=command>qed</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Algebraic_Numbers><div class=head><h1>Theory Algebraic_Numbers</h1></div><pre class=source><span class=comment1>(*  
+</pre>
+</div><div id=Algebraic_Numbers>
+<div class=head>
+<h1>Theory Algebraic_Numbers</h1>
+</div>
+<pre class=source><span class=comment1>(*  
     Author:       René Thiemann 
                   Akihisa Yamada
     Contributors: Manuel Eberl (algebraic integers)
@@ -4034,7 +4716,12 @@ qed
 <span class=keyword1><span class=command>hide_const</span></span> <span class=main>(</span><span class=keyword2><span class=keyword>open</span></span><span class=main>)</span> x_y
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Sturm_Rat><div class=head><h1>Theory Sturm_Rat</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Separation of Roots: Sturm›</span></span>
+</pre>
+</div><div id=Sturm_Rat>
+<div class=head>
+<h1>Theory Sturm_Rat</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Separation of Roots: Sturm›</span></span>
 
 <span class=keyword1><span class=command>text</span></span> <span class=quoted><span class=plain_text>‹We adapt the existing theory on Sturm's theorem to work on rational numbers instead of real 
   numbers. The reason is that we want to implement real numbers as real algebraic numbers with the
@@ -4356,7 +5043,12 @@ qed
 <span class=keyword1><span class=command>qed</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Factors_of_Int_Poly><div class=head><h1>Theory Factors_of_Int_Poly</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Getting Small Representative Polynomials via Factorization›</span></span>
+</pre>
+</div><div id=Factors_of_Int_Poly>
+<div class=head>
+<h1>Theory Factors_of_Int_Poly</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Getting Small Representative Polynomials via Factorization›</span></span>
 
 <span class=keyword1><span class=command>text</span></span> <span class=quoted><span class=plain_text>‹In this theory we import a factorization algorithm for 
   integer polynomials to turn a representing polynomial of some algebraic number into
@@ -4648,7 +5340,12 @@ qed
 
 
 
-<span class=keyword2><span class=keyword>end</span></span></pre></div><div id=Real_Algebraic_Numbers><div class=head><h1>Theory Real_Algebraic_Numbers</h1></div><pre class=source><span class=comment1>(*  
+<span class=keyword2><span class=keyword>end</span></span></pre>
+</div><div id=Real_Algebraic_Numbers>
+<div class=head>
+<h1>Theory Real_Algebraic_Numbers</h1>
+</div>
+<pre class=source><span class=comment1>(*  
     Author:      Sebastiaan Joosten
                  René Thiemann 
                  Akihisa Yamada
@@ -8201,7 +8898,12 @@ qed
 <span class=keyword1><span class=command>qed</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Real_Roots><div class=head><h1>Theory Real_Roots</h1></div><pre class=source><span class=comment1>(*  
+</pre>
+</div><div id=Real_Roots>
+<div class=head>
+<h1>Theory Real_Roots</h1>
+</div>
+<pre class=source><span class=comment1>(*  
     Author:      René Thiemann 
                  Akihisa Yamada
     License:     BSD
@@ -8947,7 +9649,12 @@ qed
 <span class=keyword1><span class=command>qed</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Complex_Roots_Real_Poly><div class=head><h1>Theory Complex_Roots_Real_Poly</h1></div><pre class=source><span class=comment1>(*  
+</pre>
+</div><div id=Complex_Roots_Real_Poly>
+<div class=head>
+<h1>Theory Complex_Roots_Real_Poly</h1>
+</div>
+<pre class=source><span class=comment1>(*  
     Author:      René Thiemann 
                  Akihisa Yamada
     License:     BSD
@@ -9392,7 +10099,12 @@ qed
 <span class=keyword1><span class=command>qed</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Compare_Complex><div class=head><h1>Theory Compare_Complex</h1></div><pre class=source><span class=comment1>(*  
+</pre>
+</div><div id=Compare_Complex>
+<div class=head>
+<h1>Theory Compare_Complex</h1>
+</div>
+<pre class=source><span class=comment1>(*  
     Author:      René Thiemann 
                  Akihisa Yamada
     License:     BSD
@@ -9481,7 +10193,12 @@ qed
 <span class=keyword1><span class=command>derive</span></span> <span class=main>(</span>dlist<span class=main>)</span> set_impl <span class=quoted>complex</span> <span class=quoted>real</span>
  
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Interval_Arithmetic><div class=head><h1>Theory Interval_Arithmetic</h1></div><pre class=source><span class=comment1>(*  
+</pre>
+</div><div id=Interval_Arithmetic>
+<div class=head>
+<h1>Theory Interval_Arithmetic</h1>
+</div>
+<pre class=source><span class=comment1>(*  
     Author:      Sebastiaan Joosten 
                  René Thiemann
                  Akihisa Yamada
@@ -9984,7 +10701,12 @@ qed
 <span class=keyword1><span class=command>qed</span></span>
   
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Complex_Algebraic_Numbers><div class=head><h1>Theory Complex_Algebraic_Numbers</h1></div><pre class=source><span class=comment1>(*  
+</pre>
+</div><div id=Complex_Algebraic_Numbers>
+<div class=head>
+<h1>Theory Complex_Algebraic_Numbers</h1>
+</div>
+<pre class=source><span class=comment1>(*  
     Author:      Sebastiaan Joosten 
                  René Thiemann
                  Akihisa Yamada
@@ -11119,7 +11841,12 @@ qed
 <span class=keyword1><span class=command>qed</span></span>
   
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Real_Factorization><div class=head><h1>Theory Real_Factorization</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Real Factorization›</span></span>
+</pre>
+</div><div id=Real_Factorization>
+<div class=head>
+<h1>Theory Real_Factorization</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Real Factorization›</span></span>
 
 <span class=keyword1><span class=command>text</span></span> <span class=quoted><span class=plain_text>‹This theory contains an algorithm to completely factorize real polynomials with rational
   coefficients. It internally does a complex polynomial factorization, and then combines 
@@ -11401,7 +12128,12 @@ qed
   <span class=quoted><span class=quoted>"<span class=main>(</span><span class=free>q</span><span class=main>,</span><span class=free>j</span><span class=main>)</span> <span class=main>∈</span> set <span class=free>qis</span> <span class=main>⟹</span> irreducible <span class=free>q</span> <span class=main>∧</span> <span class=free>j</span> <span class=main>≠</span> <span class=main>0</span> <span class=main>∧</span> monic <span class=free>q</span> <span class=main>∧</span> degree <span class=free>q</span> <span class=main>∈</span> <span class=main>{</span><span class=main>1</span><span class=main>,</span><span class=numeral>2</span><span class=main>}</span>"</span></span> <span class=keyword1><span class=command>by</span></span> <span class=operator>blast</span><span class=main><span class=keyword3>+</span></span>
 <span class=keyword1><span class=command>qed</span></span>
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Show_Real_Alg><div class=head><h1>Theory Show_Real_Alg</h1></div><pre class=source><span class=comment1>(*  
+</pre>
+</div><div id=Show_Real_Alg>
+<div class=head>
+<h1>Theory Show_Real_Alg</h1>
+</div>
+<pre class=source><span class=comment1>(*  
     Author:      René Thiemann 
                  Akihisa Yamada
     License:     BSD
@@ -11445,7 +12177,12 @@ qed
 <span class=keyword2><span class=keyword>end</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Show_Real_Approx><div class=head><h1>Theory Show_Real_Approx</h1></div><pre class=source><span class=comment1>(*  
+</pre>
+</div><div id=Show_Real_Approx>
+<div class=head>
+<h1>Theory Show_Real_Approx</h1>
+</div>
+<pre class=source><span class=comment1>(*  
     Author:      René Thiemann 
                  Akihisa Yamada
     License:     BSD
@@ -11475,7 +12212,12 @@ qed
 <span class=keyword2><span class=keyword>end</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Show_Real_Precise><div class=head><h1>Theory Show_Real_Precise</h1></div><pre class=source><span class=comment1>(*  
+</pre>
+</div><div id=Show_Real_Precise>
+<div class=head>
+<h1>Theory Show_Real_Precise</h1>
+</div>
+<pre class=source><span class=comment1>(*  
     Author:      René Thiemann 
                  Akihisa Yamada
     License:     BSD
@@ -11603,7 +12345,12 @@ qed
     <span class=quoted><span class=quoted>"show_real_alg <span class=free><span class=bound><span class=entity>x</span></span></span> <span class=main>≡</span> show_rai_info <span class=main>(</span>floor <span class=free><span class=bound><span class=entity>x</span></span></span><span class=main>)</span> <span class=main>(</span>real_alg_show_info <span class=free><span class=bound><span class=entity>x</span></span></span><span class=main>)</span>"</span></span>
 <span class=keyword2><span class=keyword>end</span></span> 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Algebraic_Number_Tests><div class=head><h1>Theory Algebraic_Number_Tests</h1></div><pre class=source><span class=comment1>(*  
+</pre>
+</div><div id=Algebraic_Number_Tests>
+<div class=head>
+<h1>Theory Algebraic_Number_Tests</h1>
+</div>
+<pre class=source><span class=comment1>(*  
     Author:      René Thiemann 
                  Akihisa Yamada
     License:     BSD
@@ -11691,7 +12438,12 @@ qed
 <span class=keyword1><span class=command>value</span></span> <span class=main>[</span>code<span class=main>]</span> <span class=quoted>spectral_radius_test</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Algebraic_Numbers_External_Code><div class=head><h1>Theory Algebraic_Numbers_External_Code</h1></div><pre class=source><span class=comment1>(*  
+</pre>
+</div><div id=Algebraic_Numbers_External_Code>
+<div class=head>
+<h1>Theory Algebraic_Numbers_External_Code</h1>
+</div>
+<pre class=source><span class=comment1>(*  
     Author:      René Thiemann 
     License:     BSD
 *)</span>
@@ -11821,4 +12573,10 @@ qed
 <span class=keyword2><span class=keyword>in</span></span> Haskell <span class=keyword2><span class=keyword>module_name</span></span> Algebraic_Numbers <span class=comment1>(* file ‹~/Code/Algebraic_Numbers› *)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div></main></div></div></body></html>
+</pre>
+</div>
+</main>
+</div>
+</div>
+</body>
+</html>

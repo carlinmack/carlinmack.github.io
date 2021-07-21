@@ -1,20 +1,100 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Deriving class instances for datatypes - Archive of Formal Proofs</title><meta name=description content=" We provide a framework for registering automatic methods to derive class instances of datatypes, as it is possible using Haskell's ``deriving Ord, Show,..."><meta property="og:title" content="Deriving class instances for datatypes"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/deriving/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="entries"><meta property="article:published_time" content="2015-03-11T00:00:00+00:00"><meta property="article:modified_time" content="2015-03-11T00:00:00+00:00"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Deriving class instances for datatypes"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=icon href=/images/favicon.ico type=image/icon><script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]},processEscapes:!0,svg:{fontCache:'global'}}</script><script id=MathJax-script async src=/js/mathjax/es5/tex-mml-chtml.js></script><script src=/js/entries.js></script><script src=/js/flexsearch.min.js></script><script src=/js/banner.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><li><a href=/>Home</a></li><li><a href=/topics/>Topics</a></li><li><a href=/download/>Download</a></li><li><a href=/help/>Help</a></li><li><a href=/statistics/>Statistics</a></li><li><a href=/about/>About</a></li></ul></div><ul><li><a href=/contribution/>Contribution</a></li></ul></div></aside><div class="content entries"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
-<datalist id=autocomplete></datalist></div></form><h1><span class=first>D</span>eriving <span class=first>C</span>lass <span class=first>I</span>nstances for <span class=first>D</span>atatypes</h1><div><p><a href=/authors/christian-sternagel>Christian Sternagel</a> and <a href=/authors/ren%C3%A9-thiemann>René Thiemann</a></p><p class=date>11 March 2015</p></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><h3>Abstract</h3><div class="abstract mathjax_process"><p>We provide a framework for registering automatic methods
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Deriving class instances for datatypes - Archive of Formal Proofs</title><meta name=description content=" We provide a framework for registering automatic methods to derive class instances of datatypes, as it is possible using Haskell's ``deriving Ord, Show,..."><meta property="og:title" content="Deriving class instances for datatypes">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="/entries/deriving/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="entries">
+<meta property="article:published_time" content="2015-03-11T00:00:00+00:00">
+<meta property="article:modified_time" content="2015-03-11T00:00:00+00:00"><meta property="og:site_name" content="Archive of Formal Proofs">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="/images/afp.png">
+<meta name=twitter:title content="Deriving class instances for datatypes">
+<meta name=twitter:description content>
+<link rel=stylesheet type=text/css href=/css/front.min.css>
+<link rel=icon href=/images/favicon.ico type=image/icon>
+<script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]},processEscapes:!0,svg:{fontCache:'global'}}</script>
+<script id=MathJax-script async src=/js/mathjax/es5/tex-mml-chtml.js></script>
+<script src=/js/entries.js></script><script src=/js/flexsearch.min.js></script>
+<script src=/js/banner.js></script><script src=/js/header-search.js></script></head>
+<body class=mathjax_ignore>
+<aside>
+<div>
+<div>
+<a href=/>
+<img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo>
+</a>
+<ul>
+<li><a href=/>Home</a></li>
+<li><a href=/topics/>Topics</a></li>
+<li><a href=/download/>Download</a></li>
+<li><a href=/help/>Help</a></li>
+<li><a href=/statistics/>Statistics</a></li>
+<li><a href=/about/>About</a></li>
+</ul>
+</div>
+<ul>
+<li><a href=/contribution/>Contribution</a></li>
+</ul>
+</div>
+</aside>
+<div class="content entries"><header>
+<form action=/%20search>
+<div class=form-container>
+<input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
+<datalist id=autocomplete>
+</datalist>
+</div>
+</form>
+<h1><span class=first>D</span>eriving <span class=first>C</span>lass <span class=first>I</span>nstances for <span class=first>D</span>atatypes</h1>
+<div>
+<p><a href=/authors/christian-sternagel>Christian Sternagel</a> and <a href=/authors/ren%C3%A9-thiemann>René Thiemann</a>
+</p>
+<p class=date>11 March 2015</p>
+</div>
+</header><div id=banner data-id=0>
+<p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button>
+</div>
+<div><main>
+<h3>Abstract</h3>
+<div class="abstract mathjax_process"><p>We provide a framework for registering automatic methods
 to derive class instances of datatypes,
-as it is possible using Haskell's ``deriving Ord, Show, ...'' feature.</p><p>We further implemented such automatic methods to derive comparators, linear orders, parametrizable equality functions,
+as it is possible using Haskell's ``deriving Ord, Show, ...'' feature.</p>
+<p>We further implemented such automatic methods to derive comparators, linear orders, parametrizable equality functions,
 and hash-functions which are required in the
 Isabelle Collection Framework and the Container Framework.
 Moreover, for the tactic of Blanchette to show that a datatype is countable, we implemented a
 wrapper so that this tactic becomes accessible in our framework. All of the generators are based on
-the infrastructure that is provided by the BNF-based datatype package.</p><p>Our formalization was performed as part of the <a href=http://cl-informatik.uibk.ac.at/software/ceta>IsaFoR/CeTA</a> project.
+the infrastructure that is provided by the BNF-based datatype package.</p>
+<p>Our formalization was performed as part of the <a href=http://cl-informatik.uibk.ac.at/software/ceta>IsaFoR/CeTA</a> project.
 With our new tactics we could remove
 several tedious proofs for (conditional) linear orders, and conditional equality operators
-within IsaFoR and the Container Framework.</p></div><a href=http://isa-afp.org/LICENSE>BSD License</a><h3>Depends On</h3><ul><li><a href=/entries/collections>Collections</a></li></ul><h3>Used by</h3><ul><li><a href=/entries/ltl_master_theorem/>LTL_Master_Theorem</a></li><li><a href=/entries/groebner_bases/>Groebner_Bases</a></li><li><a href=/entries/formula_derivatives/>Formula_Derivatives</a></li><li><a href=/entries/show/>Show</a></li><li><a href=/entries/mso_regex_equivalence/>MSO_Regex_Equivalence</a></li><li><a href=/entries/affine_arithmetic/>Affine_Arithmetic</a></li><li><a href=/entries/real_impl/>Real_Impl</a></li><li><a href=/entries/containers/>Containers</a></li><li><a href=/entries/datatype_order_generator/>Datatype_Order_Generator</a></li></ul><h3>Topics</h3><ul><li><a href=/topics/computer-science/data-structures>Computer science/Data structures</a></li></ul><h3>Related Entries</h3><ul><li><a href=/entries/datatype_order_generator>Datatype_Order_Generator</a></li></ul><h3>Theories</h3><ul><li><a href=theories/#Derive_Manager>Derive_Manager</a></li><li><a href=theories/#files/derive_manager.ML>files/derive_manager.ML</a></li><li><a href=theories/#Generator_Aux>Generator_Aux</a></li><li><a href=theories/#files/bnf_access.ML>files/bnf_access.ML</a></li><li><a href=theories/#files/generator_aux.ML>files/generator_aux.ML</a></li><li><a href=theories/#Comparator>Comparator</a></li><li><a href=theories/#Compare>Compare</a></li><li><a href=theories/#files/compare_code.ML>files/compare_code.ML</a></li><li><a href=theories/#RBT_Compare_Order_Impl>RBT_Compare_Order_Impl</a></li><li><a href=theories/#RBT_Comparator_Impl>RBT_Comparator_Impl</a></li><li><a href=theories/#Comparator_Generator>Comparator_Generator</a></li><li><a href=theories/#files/comparator_generator.ML>files/comparator_generator.ML</a></li><li><a href=theories/#Compare_Generator>Compare_Generator</a></li><li><a href=theories/#files/compare_generator.ML>files/compare_generator.ML</a></li><li><a href=theories/#Compare_Instances>Compare_Instances</a></li><li><a href=theories/#Compare_Order_Instances>Compare_Order_Instances</a></li><li><a href=theories/#Compare_Rat>Compare_Rat</a></li><li><a href=theories/#Compare_Real>Compare_Real</a></li><li><a href=theories/#Equality_Generator>Equality_Generator</a></li><li><a href=theories/#files/equality_generator.ML>files/equality_generator.ML</a></li><li><a href=theories/#Equality_Instances>Equality_Instances</a></li><li><a href=theories/#Hash_Generator>Hash_Generator</a></li><li><a href=theories/#files/hash_generator.ML>files/hash_generator.ML</a></li><li><a href=theories/#Hash_Instances>Hash_Instances</a></li><li><a href=theories/#Countable_Generator>Countable_Generator</a></li><li><a href=theories/#Derive>Derive</a></li><li><a href=theories/#Derive_Examples>Derive_Examples</a></li></ul></main><nav class=links><a class=popUpButton href=#citePopUp>Cite</a>
-<a class=popUpButton href=#downloadPopUp>Download</a><h4>PDFs</h4><a href=https://www.isa-afp.org/browser_info/current/AFP/Deriving/outline.pdf>Proof
+within IsaFoR and the Container Framework.</p></div><a href=http://isa-afp.org/LICENSE>BSD License</a><h3>Depends On</h3><ul><li><a href=/entries/collections>Collections</a></li></ul><h3>Used by</h3>
+<ul><li><a href=/entries/ltl_master_theorem/>LTL_Master_Theorem</a></li><li><a href=/entries/groebner_bases/>Groebner_Bases</a></li><li><a href=/entries/formula_derivatives/>Formula_Derivatives</a></li><li><a href=/entries/show/>Show</a></li><li><a href=/entries/mso_regex_equivalence/>MSO_Regex_Equivalence</a></li><li><a href=/entries/affine_arithmetic/>Affine_Arithmetic</a></li><li><a href=/entries/real_impl/>Real_Impl</a></li><li><a href=/entries/containers/>Containers</a></li><li><a href=/entries/datatype_order_generator/>Datatype_Order_Generator</a></li></ul><h3>Topics</h3>
+<ul><li><a href=/topics/computer-science/data-structures>Computer science/Data structures</a></li></ul><h3>Related Entries</h3>
+<ul><li><a href=/entries/datatype_order_generator>Datatype_Order_Generator</a></li></ul><h3>Theories</h3>
+<ul>
+<li><a href=theories/#Derive_Manager>Derive_Manager</a></li><li><a href=theories/#files/derive_manager.ML>files/derive_manager.ML</a></li><li><a href=theories/#Generator_Aux>Generator_Aux</a></li><li><a href=theories/#files/bnf_access.ML>files/bnf_access.ML</a></li><li><a href=theories/#files/generator_aux.ML>files/generator_aux.ML</a></li><li><a href=theories/#Comparator>Comparator</a></li><li><a href=theories/#Compare>Compare</a></li><li><a href=theories/#files/compare_code.ML>files/compare_code.ML</a></li><li><a href=theories/#RBT_Compare_Order_Impl>RBT_Compare_Order_Impl</a></li><li><a href=theories/#RBT_Comparator_Impl>RBT_Comparator_Impl</a></li><li><a href=theories/#Comparator_Generator>Comparator_Generator</a></li><li><a href=theories/#files/comparator_generator.ML>files/comparator_generator.ML</a></li><li><a href=theories/#Compare_Generator>Compare_Generator</a></li><li><a href=theories/#files/compare_generator.ML>files/compare_generator.ML</a></li><li><a href=theories/#Compare_Instances>Compare_Instances</a></li><li><a href=theories/#Compare_Order_Instances>Compare_Order_Instances</a></li><li><a href=theories/#Compare_Rat>Compare_Rat</a></li><li><a href=theories/#Compare_Real>Compare_Real</a></li><li><a href=theories/#Equality_Generator>Equality_Generator</a></li><li><a href=theories/#files/equality_generator.ML>files/equality_generator.ML</a></li><li><a href=theories/#Equality_Instances>Equality_Instances</a></li><li><a href=theories/#Hash_Generator>Hash_Generator</a></li><li><a href=theories/#files/hash_generator.ML>files/hash_generator.ML</a></li><li><a href=theories/#Hash_Instances>Hash_Instances</a></li><li><a href=theories/#Countable_Generator>Countable_Generator</a></li><li><a href=theories/#Derive>Derive</a></li><li><a href=theories/#Derive_Examples>Derive_Examples</a></li></ul>
+</main>
+<nav class=links>
+<a class=popUpButton href=#citePopUp>Cite</a>
+<a class=popUpButton href=#downloadPopUp>Download</a>
+<h4>PDFs</h4>
+<a href=https://www.isa-afp.org/browser_info/current/AFP/Deriving/outline.pdf>Proof
 outline</a>
 <a href=https://www.isa-afp.org/browser_info/current/AFP/Deriving/document.pdf>Proof
 document</a>
-<a href=https://www.isa-afp.org/browser_info/current/AFP/Deriving/session_graph.pdf>Dependencies</a></nav><div id=citePopUp class=overlay><a class=cancel href=#></a><div class=popup><h2>Cite</h2><a class=close href=#>&#215;</a><div><p style=display:none id=bibtexFileName>Deriving-AFP</p><pre id=copyText>@article{Deriving-AFP,
+<a href=https://www.isa-afp.org/browser_info/current/AFP/Deriving/session_graph.pdf>Dependencies</a>
+</nav>
+<div id=citePopUp class=overlay>
+<a class=cancel href=#></a>
+<div class=popup>
+<h2>Cite</h2>
+<a class=close href=#>&#215;</a>
+<div>
+<p style=display:none id=bibtexFileName>Deriving-AFP</p>
+<pre id=copyText>@article{Deriving-AFP,
   author  = {Christian Sternagel and René Thiemann},
   title   = {Deriving class instances for datatypes},
   journal = {Archive of Formal Proofs},
@@ -23,11 +103,46 @@ document</a>
   note    = {\url{http://isa-afp.org/entries/Deriving.html},
             Formal proof development},
   ISSN    = {2150-914x},
-}</pre><button id=copyBibtex>Copy</button> <a id=downloadBibtex>Download</a></div></div></div><div id=downloadPopUp class=overlay><a class=cancel href=#></a><div class=popup><h2>Download</h2><a class=close href=#>&#215;</a>
-<a href=https://isa-afp.org/release/afp-Deriving-current.tar.gz download>Download latest</a><p>Older releases:</p><ul><li>Isabelle2019:
-<a href=https://isa-afp.org/release/afp-Deriving-2019-06-11.tar.gz>afp-Deriving-2019-06-11.tar.gz</a></li><li>Isabelle2018:
-<a href=https://isa-afp.org/release/afp-Deriving-2018-08-16.tar.gz>afp-Deriving-2018-08-16.tar.gz</a></li><li>Isabelle2017:
-<a href=https://isa-afp.org/release/afp-Deriving-2017-10-10.tar.gz>afp-Deriving-2017-10-10.tar.gz</a></li><li>Isabelle2016-1:
-<a href=https://isa-afp.org/release/afp-Deriving-2016-12-17.tar.gz>afp-Deriving-2016-12-17.tar.gz</a></li><li>Isabelle2016:
-<a href=https://isa-afp.org/release/afp-Deriving-2016-02-22.tar.gz>afp-Deriving-2016-02-22.tar.gz</a></li><li>Isabelle2015:
-<a href=https://isa-afp.org/release/afp-Deriving-2015-05-27.tar.gz>afp-Deriving-2015-05-27.tar.gz</a></li></ul></div></div></div></div></body></html>
+}</pre>
+<button id=copyBibtex>Copy</button> <a id=downloadBibtex>Download</a>
+</div>
+</div>
+</div>
+<div id=downloadPopUp class=overlay>
+<a class=cancel href=#></a>
+<div class=popup>
+<h2>Download</h2>
+<a class=close href=#>&#215;</a>
+<a href=https://isa-afp.org/release/afp-Deriving-current.tar.gz download>Download latest</a>
+<p>Older releases:</p>
+<ul><li>Isabelle2019:
+<a href=https://isa-afp.org/release/afp-Deriving-2019-06-11.tar.gz>
+afp-Deriving-2019-06-11.tar.gz
+</a>
+</li><li>Isabelle2018:
+<a href=https://isa-afp.org/release/afp-Deriving-2018-08-16.tar.gz>
+afp-Deriving-2018-08-16.tar.gz
+</a>
+</li><li>Isabelle2017:
+<a href=https://isa-afp.org/release/afp-Deriving-2017-10-10.tar.gz>
+afp-Deriving-2017-10-10.tar.gz
+</a>
+</li><li>Isabelle2016-1:
+<a href=https://isa-afp.org/release/afp-Deriving-2016-12-17.tar.gz>
+afp-Deriving-2016-12-17.tar.gz
+</a>
+</li><li>Isabelle2016:
+<a href=https://isa-afp.org/release/afp-Deriving-2016-02-22.tar.gz>
+afp-Deriving-2016-02-22.tar.gz
+</a>
+</li><li>Isabelle2015:
+<a href=https://isa-afp.org/release/afp-Deriving-2015-05-27.tar.gz>
+afp-Deriving-2015-05-27.tar.gz
+</a>
+</li></ul>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

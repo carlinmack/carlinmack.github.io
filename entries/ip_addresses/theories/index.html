@@ -1,7 +1,297 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Session IP_Addresses - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session IP_Addresses"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/ip_addresses/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Session IP_Addresses"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css><link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script><script src=/js/banner.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><li><a href=/entries/ip_addresses>Return to entry</a></li></ul><hr><ul><li><a href=#NumberWang_IPv4>NumberWang_IPv4</a><ul><li><a href=#NumberWang_IPv4-zdiv_mult_self>zdiv_mult_self</a></li><li><a href=#NumberWang_IPv4-mod256>mod256</a></li><li><a href=#NumberWang_IPv4-div65536>div65536</a></li><li><a href=#NumberWang_IPv4-div256>div256</a></li></ul></li><li><a href=#NumberWang_IPv6>NumberWang_IPv6</a><ul><li><a href=#NumberWang_IPv6-length_drop_bl>length_drop_bl</a></li><li><a href=#NumberWang_IPv6-bl_drop_leading_zeros>bl_drop_leading_zeros</a></li><li><a href=#NumberWang_IPv6-bl_length_drop_bound>bl_length_drop_bound</a></li><li><a href=#NumberWang_IPv6-length_drop_mask_outer>length_drop_mask_outer</a></li><li><a href=#NumberWang_IPv6-length_drop_mask_inner>length_drop_mask_inner</a></li><li><a href=#NumberWang_IPv6-mask128>mask128</a></li><li><a href=#NumberWang_IPv6-helper_masked_ucast_generic>helper_masked_ucast_generic</a></li><li><a href=#NumberWang_IPv6-unat_of_bl_128_16_less_helper>unat_of_bl_128_16_less_helper</a></li><li><a href=#NumberWang_IPv6-unat_of_bl_128_16_le_helper>unat_of_bl_128_16_le_helper</a></li><li><a href=#NumberWang_IPv6-helper_masked_ucast_reverse_generic>helper_masked_ucast_reverse_generic</a></li><li><a href=#NumberWang_IPv6-helper_masked_ucast_equal_generic>helper_masked_ucast_equal_generic</a></li></ul></li><li><a href=#WordInterval>WordInterval</a><ul><li><a href=#WordInterval-wordinterval_element_set_eq>wordinterval_element_set_eq</a></li><li><a href=#WordInterval-wordinterval_union_set_eq>wordinterval_union_set_eq</a></li><li><a href=#WordInterval-wordinterval_empty_set_eq>wordinterval_empty_set_eq</a></li><li><a href=#WordInterval-wordinterval_empty_Empty_WordInterval>wordinterval_empty_Empty_WordInterval</a></li><li><a href=#WordInterval-Empty_WordInterval_set_eq>Empty_WordInterval_set_eq</a></li><li><a href=#WordInterval-l2wi_append>l2wi_append</a></li><li><a href=#WordInterval-l2wi_wi2l>l2wi_wi2l</a></li><li><a href=#WordInterval-l2wi>l2wi</a></li><li><a href=#WordInterval-wi2l>wi2l</a></li><li><a href=#WordInterval-l2wi_remdups>l2wi_remdups</a></li><li><a href=#WordInterval-wi2l_empty>wi2l_empty</a></li><li><a href=#WordInterval-wordinterval_optimize_empty_set_eq>wordinterval_optimize_empty_set_eq</a></li><li><a href=#WordInterval-wordinterval_optimize_empty_double>wordinterval_optimize_empty_double</a></li><li><a href=#WordInterval-helper_optimize_shallow>helper_optimize_shallow</a></li><li><a href=#WordInterval-wordinterval_optimize_empty_code>wordinterval_optimize_empty_code</a></li><li><a href=#WordInterval-not_disjoint_union>not_disjoint_union</a></li><li><a href=#WordInterval-disjoint_subset>disjoint_subset</a></li><li><a href=#WordInterval-merge_overlap_helper1>merge_overlap_helper1</a></li><li><a href=#WordInterval-merge_overlap_helper2>merge_overlap_helper2</a></li><li><a href=#WordInterval-merge_overlap_length>merge_overlap_length</a></li><li><a href=#WordInterval-listwordinterval_compress>listwordinterval_compress</a></li><li><a href=#WordInterval-A_in_listwordinterval_compress>A_in_listwordinterval_compress</a></li><li><a href=#WordInterval-listwordinterval_compress_disjoint>listwordinterval_compress_disjoint</a></li><li><a href=#WordInterval-merge_adjacent_helper>merge_adjacent_helper</a></li><li><a href=#WordInterval-merge_adjacent_length>merge_adjacent_length</a></li><li><a href=#WordInterval-listwordinterval_adjacent>listwordinterval_adjacent</a></li><li><a href=#WordInterval-wordinterval_compress>wordinterval_compress</a></li><li><a href=#WordInterval-wordinterval_Union>wordinterval_Union</a></li><li><a href=#WordInterval-wordinterval_setminus%27_rr_set_eq>wordinterval_setminus'_rr_set_eq</a></li><li><a href=#WordInterval-wordinterval_setminus%27_set_eq>wordinterval_setminus'_set_eq</a></li><li><a href=#WordInterval-wordinterval_setminus%27_empty_struct>wordinterval_setminus'_empty_struct</a></li><li><a href=#WordInterval-wordinterval_setminus_set_eq>wordinterval_setminus_set_eq</a></li><li><a href=#WordInterval-wordinterval_UNIV_set_eq>wordinterval_UNIV_set_eq</a></li><li><a href=#WordInterval-wordinterval_invert_set_eq>wordinterval_invert_set_eq</a></li><li><a href=#WordInterval-wordinterval_invert_UNIV_empty>wordinterval_invert_UNIV_empty</a></li><li><a href=#WordInterval-wi2l_univ>wi2l_univ</a></li><li><a href=#WordInterval-wordinterval_intersection%27_set_eq>wordinterval_intersection'_set_eq</a></li><li><a href=#WordInterval-wordinterval_intersection_set_eq>wordinterval_intersection_set_eq</a></li><li><a href=#WordInterval-wordinterval_subset_set_eq>wordinterval_subset_set_eq</a></li><li><a href=#WordInterval-wordinterval_eq_set_eq>wordinterval_eq_set_eq</a></li><li><a href=#WordInterval-wordinterval_eq_comm>wordinterval_eq_comm</a></li><li><a href=#WordInterval-wordinterval_to_set_alt>wordinterval_to_set_alt</a></li><li><a href=#WordInterval-wordinterval_un_empty>wordinterval_un_empty</a></li><li><a href=#WordInterval-wordinterval_un_emty_b>wordinterval_un_emty_b</a></li><li><a href=#WordInterval-wordinterval_Diff_triv>wordinterval_Diff_triv</a></li><li><a href=#WordInterval-wordinterval_size_length>wordinterval_size_length</a></li><li><a href=#WordInterval-Ex_wordinterval_nonempty>Ex_wordinterval_nonempty</a></li><li><a href=#WordInterval-wordinterval_eq_reflp>wordinterval_eq_reflp</a></li><li><a href=#WordInterval-wordintervalt_eq_symp>wordintervalt_eq_symp</a></li><li><a href=#WordInterval-wordinterval_eq_transp>wordinterval_eq_transp</a></li><li><a href=#WordInterval-wordinterval_eq_equivp>wordinterval_eq_equivp</a></li><li><a href=#WordInterval-wordinterval_lowest_none_empty>wordinterval_lowest_none_empty</a></li><li><a href=#WordInterval-wordinterval_lowest_element_correct_A>wordinterval_lowest_element_correct_A</a></li><li><a href=#WordInterval-wordinterval_lowest_element_set_eq>wordinterval_lowest_element_set_eq</a></li><li><a href=#WordInterval-card_atLeastAtMost_word>card_atLeastAtMost_word</a></li><li><a href=#WordInterval-wordinterval_card>wordinterval_card</a></li></ul></li><li><a href=#Hs_Compat>Hs_Compat</a><ul><li><a href=#Hs_Compat-uncurry_simp>uncurry_simp</a></li><li><a href=#Hs_Compat-uncurry_curry_id>uncurry_curry_id</a></li><li><a href=#Hs_Compat-uncurry_split>uncurry_split</a></li><li><a href=#Hs_Compat-uncurry_split_asm>uncurry_split_asm</a></li><li><a href=#Hs_Compat-uncurry_case_stmt>uncurry_case_stmt</a></li></ul></li><li><a href=#IP_Address>IP_Address</a><ul><li><a href=#IP_Address-max_ip_addr_max_word>max_ip_addr_max_word</a></li><li><a href=#IP_Address-max_ip_addr_max>max_ip_addr_max</a></li><li><a href=#IP_Address-range_0_max_UNIV>range_0_max_UNIV</a></li><li><a href=#IP_Address-ipset_from_netmask_minusone>ipset_from_netmask_minusone</a></li><li><a href=#IP_Address-ipset_from_netmask_maxword>ipset_from_netmask_maxword</a></li><li><a href=#IP_Address-ipset_from_netmask_zero>ipset_from_netmask_zero</a></li><li><a href=#IP_Address-ipset_from_cidr_0>ipset_from_cidr_0</a></li><li><a href=#IP_Address-ipset_from_cidr_wordlength>ipset_from_cidr_wordlength</a></li><li><a href=#IP_Address-ipset_from_cidr_bl>ipset_from_cidr_bl</a></li><li><a href=#IP_Address-ipset_from_cidr_alt>ipset_from_cidr_alt</a></li><li><a href=#IP_Address-ipset_from_cidr_alt2>ipset_from_cidr_alt2</a></li><li><a href=#IP_Address-ipset_from_cidr_not_empty>ipset_from_cidr_not_empty</a></li><li><a href=#IP_Address-ipset_from_cidr_base_wellforemd>ipset_from_cidr_base_wellforemd</a></li><li><a href=#IP_Address-ipset_from_cidr_large_pfxlen>ipset_from_cidr_large_pfxlen</a></li><li><a href=#IP_Address-ipset_from_netmask_base_mask_consume>ipset_from_netmask_base_mask_consume</a></li><li><a href=#IP_Address-ipset_from_cidr_eq_ip_cidr_set>ipset_from_cidr_eq_ip_cidr_set</a></li><li><a href=#IP_Address-ip_cidr_set_change_base>ip_cidr_set_change_base</a></li><li><a href=#IP_Address-iprange_interval_uncurry>iprange_interval_uncurry</a></li><li><a href=#IP_Address-ipset_from_cidr_ipcidr_to_interval>ipset_from_cidr_ipcidr_to_interval</a></li><li><a href=#IP_Address-ipcidr_to_interval>ipcidr_to_interval</a></li><li><a href=#IP_Address-wordinterval_to_set_ipcidr_tuple_to_wordinterval>wordinterval_to_set_ipcidr_tuple_to_wordinterval</a></li><li><a href=#IP_Address-wordinterval_to_set_ipcidr_tuple_to_wordinterval_uncurry>wordinterval_to_set_ipcidr_tuple_to_wordinterval_uncurry</a></li><li><a href=#IP_Address-ipcidr_union_set_uncurry>ipcidr_union_set_uncurry</a></li><li><a href=#IP_Address-less_and_not_mask_eq>less_and_not_mask_eq</a></li><li><a href=#IP_Address-ip_cidr_set_less>ip_cidr_set_less</a></li><li><a href=#IP_Address-ip_cidr_set_intersect_subset_helper>ip_cidr_set_intersect_subset_helper</a></li><li><a href=#IP_Address-ip_cidr_set_notsubset_empty_inter>ip_cidr_set_notsubset_empty_inter</a></li><li><a href=#IP_Address-ip_cidr_intersect>ip_cidr_intersect</a></li><li><a href=#IP_Address-ipcidr_conjunct_any>ipcidr_conjunct_any</a></li><li><a href=#IP_Address-ipcidr_conjunct_correct>ipcidr_conjunct_correct</a></li><li><a href=#IP_Address-ipcidr_conjunct_word>ipcidr_conjunct_word</a></li><li><a href=#IP_Address-addr_in_ipset_from_netmask_code>addr_in_ipset_from_netmask_code</a></li><li><a href=#IP_Address-addr_in_ipset_from_cidr_code>addr_in_ipset_from_cidr_code</a></li></ul></li><li><a href=#IPv4>IPv4</a><ul><li><a href=#IPv4-take_bit_word_beyond_length_eq>take_bit_word_beyond_length_eq</a></li><li><a href=#IPv4-max_ipv4_addr_number>max_ipv4_addr_number</a></li><li><a href=#IPv4-max_ipv4_addr_max_word>max_ipv4_addr_max_word</a></li><li><a href=#IPv4-max_ipv4_addr_max>max_ipv4_addr_max</a></li><li><a href=#IPv4-UNIV_ipv4addrset>UNIV_ipv4addrset</a></li><li><a href=#IPv4-nat_of_ipv4addr_ipv4addr_of_nat_mod>nat_of_ipv4addr_ipv4addr_of_nat_mod</a></li><li><a href=#IPv4-nat_of_ipv4addr_ipv4addr_of_nat>nat_of_ipv4addr_ipv4addr_of_nat</a></li><li><a href=#IPv4-ipv4addr_of_nat_nat_of_ipv4addr>ipv4addr_of_nat_nat_of_ipv4addr</a></li><li><a href=#IPv4-ipv4addr_of_dotdecimal_bit>ipv4addr_of_dotdecimal_bit</a></li><li><a href=#IPv4-size_ipv4addr>size_ipv4addr</a></li><li><a href=#IPv4-dotdecimal_of_ipv4addr_ipv4addr_of_dotdecimal>dotdecimal_of_ipv4addr_ipv4addr_of_dotdecimal</a></li><li><a href=#IPv4-ipv4addr_of_dotdecimal_dotdecimal_of_ipv4addr>ipv4addr_of_dotdecimal_dotdecimal_of_ipv4addr</a></li><li><a href=#IPv4-ipv4addr_of_dotdecimal_eqE>ipv4addr_of_dotdecimal_eqE</a></li><li><a href=#IPv4-ipv4set_from_cidr_32>ipv4set_from_cidr_32</a></li><li><a href=#IPv4-addr_in_ipv4set_from_netmask_code>addr_in_ipv4set_from_netmask_code</a></li><li><a href=#IPv4-addr_in_ipv4set_from_cidr_code>addr_in_ipv4set_from_cidr_code</a></li><li><a href=#IPv4-ipv4range_UNIV_set_eq>ipv4range_UNIV_set_eq</a></li><li><a href=#IPv4-ipv4cidr_to_interval_simps>ipv4cidr_to_interval_simps</a></li></ul></li><li><a href=#IPv6>IPv6</a><ul><li><a href=#IPv6-max_ipv6_addr_number>max_ipv6_addr_number</a></li><li><a href=#IPv6-max_ipv6_addr_max_word>max_ipv6_addr_max_word</a></li><li><a href=#IPv6-max_ipv6_addr_max>max_ipv6_addr_max</a></li><li><a href=#IPv6-UNIV_ipv6addrset>UNIV_ipv6addrset</a></li><li><a href=#IPv6-nat_of_ipv6addr_ipv6addr_of_nat_mod>nat_of_ipv6addr_ipv6addr_of_nat_mod</a></li><li><a href=#IPv6-nat_of_ipv6addr_ipv6addr_of_nat>nat_of_ipv6addr_ipv6addr_of_nat</a></li><li><a href=#IPv6-ipv6addr_of_nat_nat_of_ipv6addr>ipv6addr_of_nat_nat_of_ipv6addr</a></li><li><a href=#IPv6-parse_ipv6_address_compressed_exists>parse_ipv6_address_compressed_exists</a></li><li><a href=#IPv6-parse_ipv6_address_compressed_identity>parse_ipv6_address_compressed_identity</a></li><li><a href=#IPv6-parse_ipv6_address_compressed_someE>parse_ipv6_address_compressed_someE</a></li><li><a href=#IPv6-parse_ipv6_address_compressed_identity2>parse_ipv6_address_compressed_identity2</a></li><li><a href=#IPv6-RFC_4291_format>RFC_4291_format</a></li><li><a href=#IPv6-word128_masks_ipv6pieces>word128_masks_ipv6pieces</a></li><li><a href=#IPv6-ipv6preferred_to_int_int_to_ipv6preferred>ipv6preferred_to_int_int_to_ipv6preferred</a></li><li><a href=#IPv6-int_to_ipv6preferred_ipv6preferred_to_int>int_to_ipv6preferred_ipv6preferred_to_int</a></li><li><a href=#IPv6-ipv6_unparsed_compressed_to_preferred_identity1>ipv6_unparsed_compressed_to_preferred_identity1</a></li><li><a href=#IPv6-ipv6_unparsed_compressed_to_preferred_identity2>ipv6_unparsed_compressed_to_preferred_identity2</a></li><li><a href=#IPv6-List_explode_def>List_explode_def</a></li><li><a href=#IPv6-List_explode_no_empty>List_explode_no_empty</a></li><li><a href=#IPv6-List_explode_replace1>List_explode_replace1</a></li><li><a href=#IPv6-foldr_max_length>foldr_max_length</a></li><li><a href=#IPv6-List_explode_goup_by_zeros>List_explode_goup_by_zeros</a></li><li><a href=#IPv6-max_zero_streak_def2>max_zero_streak_def2</a></li><li><a href=#IPv6-ipv6_preferred_to_compressed_pull_out_if>ipv6_preferred_to_compressed_pull_out_if</a></li><li><a href=#IPv6-ipv6_preferred_to_compressed_RFC_4291_format>ipv6_preferred_to_compressed_RFC_4291_format</a></li><li><a href=#IPv6-ipv6_preferred_to_compressed>ipv6_preferred_to_compressed</a></li></ul></li><li><a href=#Prefix_Match>Prefix_Match</a><ul><li><a href=#Prefix_Match-mk_valid_prefix>mk_valid_prefix</a></li><li><a href=#Prefix_Match-valid_prefix_00>valid_prefix_00</a></li><li><a href=#Prefix_Match-prefix_match_to_CIDR_def2>prefix_match_to_CIDR_def2</a></li><li><a href=#Prefix_Match-valid_prefix_E>valid_prefix_E</a></li><li><a href=#Prefix_Match-valid_prefix_alt>valid_prefix_alt</a></li><li><a href=#Prefix_Match-same_length_prefixes_distinct>same_length_prefixes_distinct</a></li><li><a href=#Prefix_Match-pfx_not_empty>pfx_not_empty</a></li><li><a href=#Prefix_Match-zero_prefix_match_all>zero_prefix_match_all</a></li><li><a href=#Prefix_Match-prefix_to_wordset_subset_ipset_from_cidr>prefix_to_wordset_subset_ipset_from_cidr</a></li><li><a href=#Prefix_Match-valid_prefix_ipset_from_netmask_ipset_from_cidr>valid_prefix_ipset_from_netmask_ipset_from_cidr</a></li><li><a href=#Prefix_Match-prefix_match_semantics_ipset_from_netmask>prefix_match_semantics_ipset_from_netmask</a></li><li><a href=#Prefix_Match-prefix_match_semantics_ipset_from_netmask2>prefix_match_semantics_ipset_from_netmask2</a></li><li><a href=#Prefix_Match-prefix_to_wordset_ipset_from_cidr>prefix_to_wordset_ipset_from_cidr</a></li><li><a href=#Prefix_Match-prefix_to_wordinterval_set_eq>prefix_to_wordinterval_set_eq</a></li><li><a href=#Prefix_Match-prefix_to_wordinterval_def2>prefix_to_wordinterval_def2</a></li><li><a href=#Prefix_Match-prefix_never_empty>prefix_never_empty</a></li><li><a href=#Prefix_Match-ipset_from_cidr_lowest>ipset_from_cidr_lowest</a></li></ul></li><li><a href=#CIDR_Split>CIDR_Split</a><ul><li><a href=#CIDR_Split-ipv4addr_upto>ipv4addr_upto</a></li><li><a href=#CIDR_Split-find_SomeD>find_SomeD</a></li><li><a href=#CIDR_Split-wordinterval_CIDR_split1_innard_helper>wordinterval_CIDR_split1_innard_helper</a></li><li><a href=#CIDR_Split-r_split1_not_none>r_split1_not_none</a></li><li><a href=#CIDR_Split-largest_contained_prefix_subset>largest_contained_prefix_subset</a></li><li><a href=#CIDR_Split-wordinterval_CIDR_split1_snd>wordinterval_CIDR_split1_snd</a></li><li><a href=#CIDR_Split-largest_contained_prefix_subset_s1D>largest_contained_prefix_subset_s1D</a></li><li><a href=#CIDR_Split-wordinterval_CIDR_split1_some_r_ne>wordinterval_CIDR_split1_some_r_ne</a></li><li><a href=#CIDR_Split-wordinterval_CIDR_split1_distinct>wordinterval_CIDR_split1_distinct</a></li><li><a href=#CIDR_Split-wordinterval_CIDR_split1_distinct2>wordinterval_CIDR_split1_distinct2</a></li><li><a href=#CIDR_Split-unfold_rsplit_case>unfold_rsplit_case</a></li><li><a href=#CIDR_Split-wordinterval_CIDR_split_prefixmatch_all_valid_Ball>wordinterval_CIDR_split_prefixmatch_all_valid_Ball</a></li><li><a href=#CIDR_Split-wordinterval_CIDR_split_prefixmatch_all_valid_less_Ball_hlp>wordinterval_CIDR_split_prefixmatch_all_valid_less_Ball_hlp</a></li><li><a href=#CIDR_Split-wordinterval_CIDR_split_disjunct>wordinterval_CIDR_split_disjunct</a></li><li><a href=#CIDR_Split-wordinterval_CIDR_split_distinct>wordinterval_CIDR_split_distinct</a></li><li><a href=#CIDR_Split-wordinterval_CIDR_split_existential>wordinterval_CIDR_split_existential</a></li><li><a href=#CIDR_Split-interval_in_splitD>interval_in_splitD</a></li><li><a href=#CIDR_Split-cidrsplit_no_overlaps>cidrsplit_no_overlaps</a></li></ul></li><li><a href=#WordInterval_Sorted>WordInterval_Sorted</a><ul><li><a href=#WordInterval_Sorted-wordinterval_sort>wordinterval_sort</a></li></ul></li><li><a href=#IP_Address_Parser>IP_Address_Parser</a></li><li><a href=#Lib_Numbers_toString>Lib_Numbers_toString</a></li><li><a href=#Lib_Word_toString>Lib_Word_toString</a><ul><li><a href=#Lib_Word_toString-string_of_word_single_atoi>string_of_word_single_atoi</a></li><li><a href=#Lib_Word_toString-bintrunc_pos_eq>bintrunc_pos_eq</a></li><li><a href=#Lib_Word_toString-string_of_word_base_ten_zeropad>string_of_word_base_ten_zeropad</a></li><li><a href=#Lib_Word_toString-dec_string_of_word0>dec_string_of_word0</a></li></ul></li><li><a href=#Lib_List_toString>Lib_List_toString</a><ul><li><a href=#Lib_List_toString-list_separated_toString_helper>list_separated_toString_helper</a></li><li><a href=#Lib_List_toString-list_separated_toString_intersperse>list_separated_toString_intersperse</a></li></ul></li><li><a href=#IP_Address_toString>IP_Address_toString</a></li><li><a href=#Prefix_Match_toString>Prefix_Match_toString</a></li></ul></div><ul><li><a href=https://www.isa-afp.org/browser_info/current/AFP/IP_Addresses/outline.pdf>Proof
-outline</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/IP_Addresses/document.pdf>Proof
-document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/IP_Addresses/session_graph.pdf>Theory dependencies</a></li></ul></div></aside><div class="content theories"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
-<datalist id=autocomplete></datalist></div></form><h1><span class=first>S</span>ession <span class=first>I</span><span class=first>P</span>_<span class=first>A</span>ddresses</h1><div></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><div id=NumberWang_IPv4><div class=head><h1>Theory NumberWang_IPv4</h1></div><pre class=source><span class=keyword1><span class=command>theory</span></span> NumberWang_IPv4
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Session IP_Addresses - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session IP_Addresses">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="/entries/ip_addresses/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories">
+<meta property="og:site_name" content="Archive of Formal Proofs">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="/images/afp.png">
+<meta name=twitter:title content="Session IP_Addresses">
+<meta name=twitter:description content>
+<link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css>
+<link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script>
+<script src=/js/banner.js></script><script src=/js/header-search.js></script></head>
+<body class=mathjax_ignore>
+<aside>
+<div>
+<div>
+<a href=/>
+<img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo>
+</a>
+<ul>
+<li><a href=/entries/ip_addresses>Return to entry</a></li>
+</ul>
+<hr>
+<ul><li><a href=#NumberWang_IPv4>NumberWang_IPv4</a>
+<ul>
+<li><a href=#NumberWang_IPv4-zdiv_mult_self>zdiv_mult_self</a></li>
+<li><a href=#NumberWang_IPv4-mod256>mod256</a></li>
+<li><a href=#NumberWang_IPv4-div65536>div65536</a></li>
+<li><a href=#NumberWang_IPv4-div256>div256</a></li>
+</ul>
+</li><li><a href=#NumberWang_IPv6>NumberWang_IPv6</a>
+<ul>
+<li><a href=#NumberWang_IPv6-length_drop_bl>length_drop_bl</a></li>
+<li><a href=#NumberWang_IPv6-bl_drop_leading_zeros>bl_drop_leading_zeros</a></li>
+<li><a href=#NumberWang_IPv6-bl_length_drop_bound>bl_length_drop_bound</a></li>
+<li><a href=#NumberWang_IPv6-length_drop_mask_outer>length_drop_mask_outer</a></li>
+<li><a href=#NumberWang_IPv6-length_drop_mask_inner>length_drop_mask_inner</a></li>
+<li><a href=#NumberWang_IPv6-mask128>mask128</a></li>
+<li><a href=#NumberWang_IPv6-helper_masked_ucast_generic>helper_masked_ucast_generic</a></li>
+<li><a href=#NumberWang_IPv6-unat_of_bl_128_16_less_helper>unat_of_bl_128_16_less_helper</a></li>
+<li><a href=#NumberWang_IPv6-unat_of_bl_128_16_le_helper>unat_of_bl_128_16_le_helper</a></li>
+<li><a href=#NumberWang_IPv6-helper_masked_ucast_reverse_generic>helper_masked_ucast_reverse_generic</a></li>
+<li><a href=#NumberWang_IPv6-helper_masked_ucast_equal_generic>helper_masked_ucast_equal_generic</a></li>
+</ul>
+</li><li><a href=#WordInterval>WordInterval</a>
+<ul>
+<li><a href=#WordInterval-wordinterval_element_set_eq>wordinterval_element_set_eq</a></li>
+<li><a href=#WordInterval-wordinterval_union_set_eq>wordinterval_union_set_eq</a></li>
+<li><a href=#WordInterval-wordinterval_empty_set_eq>wordinterval_empty_set_eq</a></li>
+<li><a href=#WordInterval-wordinterval_empty_Empty_WordInterval>wordinterval_empty_Empty_WordInterval</a></li>
+<li><a href=#WordInterval-Empty_WordInterval_set_eq>Empty_WordInterval_set_eq</a></li>
+<li><a href=#WordInterval-l2wi_append>l2wi_append</a></li>
+<li><a href=#WordInterval-l2wi_wi2l>l2wi_wi2l</a></li>
+<li><a href=#WordInterval-l2wi>l2wi</a></li>
+<li><a href=#WordInterval-wi2l>wi2l</a></li>
+<li><a href=#WordInterval-l2wi_remdups>l2wi_remdups</a></li>
+<li><a href=#WordInterval-wi2l_empty>wi2l_empty</a></li>
+<li><a href=#WordInterval-wordinterval_optimize_empty_set_eq>wordinterval_optimize_empty_set_eq</a></li>
+<li><a href=#WordInterval-wordinterval_optimize_empty_double>wordinterval_optimize_empty_double</a></li>
+<li><a href=#WordInterval-helper_optimize_shallow>helper_optimize_shallow</a></li>
+<li><a href=#WordInterval-wordinterval_optimize_empty_code>wordinterval_optimize_empty_code</a></li>
+<li><a href=#WordInterval-not_disjoint_union>not_disjoint_union</a></li>
+<li><a href=#WordInterval-disjoint_subset>disjoint_subset</a></li>
+<li><a href=#WordInterval-merge_overlap_helper1>merge_overlap_helper1</a></li>
+<li><a href=#WordInterval-merge_overlap_helper2>merge_overlap_helper2</a></li>
+<li><a href=#WordInterval-merge_overlap_length>merge_overlap_length</a></li>
+<li><a href=#WordInterval-listwordinterval_compress>listwordinterval_compress</a></li>
+<li><a href=#WordInterval-A_in_listwordinterval_compress>A_in_listwordinterval_compress</a></li>
+<li><a href=#WordInterval-listwordinterval_compress_disjoint>listwordinterval_compress_disjoint</a></li>
+<li><a href=#WordInterval-merge_adjacent_helper>merge_adjacent_helper</a></li>
+<li><a href=#WordInterval-merge_adjacent_length>merge_adjacent_length</a></li>
+<li><a href=#WordInterval-listwordinterval_adjacent>listwordinterval_adjacent</a></li>
+<li><a href=#WordInterval-wordinterval_compress>wordinterval_compress</a></li>
+<li><a href=#WordInterval-wordinterval_Union>wordinterval_Union</a></li>
+<li><a href=#WordInterval-wordinterval_setminus%27_rr_set_eq>wordinterval_setminus'_rr_set_eq</a></li>
+<li><a href=#WordInterval-wordinterval_setminus%27_set_eq>wordinterval_setminus'_set_eq</a></li>
+<li><a href=#WordInterval-wordinterval_setminus%27_empty_struct>wordinterval_setminus'_empty_struct</a></li>
+<li><a href=#WordInterval-wordinterval_setminus_set_eq>wordinterval_setminus_set_eq</a></li>
+<li><a href=#WordInterval-wordinterval_UNIV_set_eq>wordinterval_UNIV_set_eq</a></li>
+<li><a href=#WordInterval-wordinterval_invert_set_eq>wordinterval_invert_set_eq</a></li>
+<li><a href=#WordInterval-wordinterval_invert_UNIV_empty>wordinterval_invert_UNIV_empty</a></li>
+<li><a href=#WordInterval-wi2l_univ>wi2l_univ</a></li>
+<li><a href=#WordInterval-wordinterval_intersection%27_set_eq>wordinterval_intersection'_set_eq</a></li>
+<li><a href=#WordInterval-wordinterval_intersection_set_eq>wordinterval_intersection_set_eq</a></li>
+<li><a href=#WordInterval-wordinterval_subset_set_eq>wordinterval_subset_set_eq</a></li>
+<li><a href=#WordInterval-wordinterval_eq_set_eq>wordinterval_eq_set_eq</a></li>
+<li><a href=#WordInterval-wordinterval_eq_comm>wordinterval_eq_comm</a></li>
+<li><a href=#WordInterval-wordinterval_to_set_alt>wordinterval_to_set_alt</a></li>
+<li><a href=#WordInterval-wordinterval_un_empty>wordinterval_un_empty</a></li>
+<li><a href=#WordInterval-wordinterval_un_emty_b>wordinterval_un_emty_b</a></li>
+<li><a href=#WordInterval-wordinterval_Diff_triv>wordinterval_Diff_triv</a></li>
+<li><a href=#WordInterval-wordinterval_size_length>wordinterval_size_length</a></li>
+<li><a href=#WordInterval-Ex_wordinterval_nonempty>Ex_wordinterval_nonempty</a></li>
+<li><a href=#WordInterval-wordinterval_eq_reflp>wordinterval_eq_reflp</a></li>
+<li><a href=#WordInterval-wordintervalt_eq_symp>wordintervalt_eq_symp</a></li>
+<li><a href=#WordInterval-wordinterval_eq_transp>wordinterval_eq_transp</a></li>
+<li><a href=#WordInterval-wordinterval_eq_equivp>wordinterval_eq_equivp</a></li>
+<li><a href=#WordInterval-wordinterval_lowest_none_empty>wordinterval_lowest_none_empty</a></li>
+<li><a href=#WordInterval-wordinterval_lowest_element_correct_A>wordinterval_lowest_element_correct_A</a></li>
+<li><a href=#WordInterval-wordinterval_lowest_element_set_eq>wordinterval_lowest_element_set_eq</a></li>
+<li><a href=#WordInterval-card_atLeastAtMost_word>card_atLeastAtMost_word</a></li>
+<li><a href=#WordInterval-wordinterval_card>wordinterval_card</a></li>
+</ul>
+</li><li><a href=#Hs_Compat>Hs_Compat</a>
+<ul>
+<li><a href=#Hs_Compat-uncurry_simp>uncurry_simp</a></li>
+<li><a href=#Hs_Compat-uncurry_curry_id>uncurry_curry_id</a></li>
+<li><a href=#Hs_Compat-uncurry_split>uncurry_split</a></li>
+<li><a href=#Hs_Compat-uncurry_split_asm>uncurry_split_asm</a></li>
+<li><a href=#Hs_Compat-uncurry_case_stmt>uncurry_case_stmt</a></li>
+</ul>
+</li><li><a href=#IP_Address>IP_Address</a>
+<ul>
+<li><a href=#IP_Address-max_ip_addr_max_word>max_ip_addr_max_word</a></li>
+<li><a href=#IP_Address-max_ip_addr_max>max_ip_addr_max</a></li>
+<li><a href=#IP_Address-range_0_max_UNIV>range_0_max_UNIV</a></li>
+<li><a href=#IP_Address-ipset_from_netmask_minusone>ipset_from_netmask_minusone</a></li>
+<li><a href=#IP_Address-ipset_from_netmask_maxword>ipset_from_netmask_maxword</a></li>
+<li><a href=#IP_Address-ipset_from_netmask_zero>ipset_from_netmask_zero</a></li>
+<li><a href=#IP_Address-ipset_from_cidr_0>ipset_from_cidr_0</a></li>
+<li><a href=#IP_Address-ipset_from_cidr_wordlength>ipset_from_cidr_wordlength</a></li>
+<li><a href=#IP_Address-ipset_from_cidr_bl>ipset_from_cidr_bl</a></li>
+<li><a href=#IP_Address-ipset_from_cidr_alt>ipset_from_cidr_alt</a></li>
+<li><a href=#IP_Address-ipset_from_cidr_alt2>ipset_from_cidr_alt2</a></li>
+<li><a href=#IP_Address-ipset_from_cidr_not_empty>ipset_from_cidr_not_empty</a></li>
+<li><a href=#IP_Address-ipset_from_cidr_base_wellforemd>ipset_from_cidr_base_wellforemd</a></li>
+<li><a href=#IP_Address-ipset_from_cidr_large_pfxlen>ipset_from_cidr_large_pfxlen</a></li>
+<li><a href=#IP_Address-ipset_from_netmask_base_mask_consume>ipset_from_netmask_base_mask_consume</a></li>
+<li><a href=#IP_Address-ipset_from_cidr_eq_ip_cidr_set>ipset_from_cidr_eq_ip_cidr_set</a></li>
+<li><a href=#IP_Address-ip_cidr_set_change_base>ip_cidr_set_change_base</a></li>
+<li><a href=#IP_Address-iprange_interval_uncurry>iprange_interval_uncurry</a></li>
+<li><a href=#IP_Address-ipset_from_cidr_ipcidr_to_interval>ipset_from_cidr_ipcidr_to_interval</a></li>
+<li><a href=#IP_Address-ipcidr_to_interval>ipcidr_to_interval</a></li>
+<li><a href=#IP_Address-wordinterval_to_set_ipcidr_tuple_to_wordinterval>wordinterval_to_set_ipcidr_tuple_to_wordinterval</a></li>
+<li><a href=#IP_Address-wordinterval_to_set_ipcidr_tuple_to_wordinterval_uncurry>wordinterval_to_set_ipcidr_tuple_to_wordinterval_uncurry</a></li>
+<li><a href=#IP_Address-ipcidr_union_set_uncurry>ipcidr_union_set_uncurry</a></li>
+<li><a href=#IP_Address-less_and_not_mask_eq>less_and_not_mask_eq</a></li>
+<li><a href=#IP_Address-ip_cidr_set_less>ip_cidr_set_less</a></li>
+<li><a href=#IP_Address-ip_cidr_set_intersect_subset_helper>ip_cidr_set_intersect_subset_helper</a></li>
+<li><a href=#IP_Address-ip_cidr_set_notsubset_empty_inter>ip_cidr_set_notsubset_empty_inter</a></li>
+<li><a href=#IP_Address-ip_cidr_intersect>ip_cidr_intersect</a></li>
+<li><a href=#IP_Address-ipcidr_conjunct_any>ipcidr_conjunct_any</a></li>
+<li><a href=#IP_Address-ipcidr_conjunct_correct>ipcidr_conjunct_correct</a></li>
+<li><a href=#IP_Address-ipcidr_conjunct_word>ipcidr_conjunct_word</a></li>
+<li><a href=#IP_Address-addr_in_ipset_from_netmask_code>addr_in_ipset_from_netmask_code</a></li>
+<li><a href=#IP_Address-addr_in_ipset_from_cidr_code>addr_in_ipset_from_cidr_code</a></li>
+</ul>
+</li><li><a href=#IPv4>IPv4</a>
+<ul>
+<li><a href=#IPv4-take_bit_word_beyond_length_eq>take_bit_word_beyond_length_eq</a></li>
+<li><a href=#IPv4-max_ipv4_addr_number>max_ipv4_addr_number</a></li>
+<li><a href=#IPv4-max_ipv4_addr_max_word>max_ipv4_addr_max_word</a></li>
+<li><a href=#IPv4-max_ipv4_addr_max>max_ipv4_addr_max</a></li>
+<li><a href=#IPv4-UNIV_ipv4addrset>UNIV_ipv4addrset</a></li>
+<li><a href=#IPv4-nat_of_ipv4addr_ipv4addr_of_nat_mod>nat_of_ipv4addr_ipv4addr_of_nat_mod</a></li>
+<li><a href=#IPv4-nat_of_ipv4addr_ipv4addr_of_nat>nat_of_ipv4addr_ipv4addr_of_nat</a></li>
+<li><a href=#IPv4-ipv4addr_of_nat_nat_of_ipv4addr>ipv4addr_of_nat_nat_of_ipv4addr</a></li>
+<li><a href=#IPv4-ipv4addr_of_dotdecimal_bit>ipv4addr_of_dotdecimal_bit</a></li>
+<li><a href=#IPv4-size_ipv4addr>size_ipv4addr</a></li>
+<li><a href=#IPv4-dotdecimal_of_ipv4addr_ipv4addr_of_dotdecimal>dotdecimal_of_ipv4addr_ipv4addr_of_dotdecimal</a></li>
+<li><a href=#IPv4-ipv4addr_of_dotdecimal_dotdecimal_of_ipv4addr>ipv4addr_of_dotdecimal_dotdecimal_of_ipv4addr</a></li>
+<li><a href=#IPv4-ipv4addr_of_dotdecimal_eqE>ipv4addr_of_dotdecimal_eqE</a></li>
+<li><a href=#IPv4-ipv4set_from_cidr_32>ipv4set_from_cidr_32</a></li>
+<li><a href=#IPv4-addr_in_ipv4set_from_netmask_code>addr_in_ipv4set_from_netmask_code</a></li>
+<li><a href=#IPv4-addr_in_ipv4set_from_cidr_code>addr_in_ipv4set_from_cidr_code</a></li>
+<li><a href=#IPv4-ipv4range_UNIV_set_eq>ipv4range_UNIV_set_eq</a></li>
+<li><a href=#IPv4-ipv4cidr_to_interval_simps>ipv4cidr_to_interval_simps</a></li>
+</ul>
+</li><li><a href=#IPv6>IPv6</a>
+<ul>
+<li><a href=#IPv6-max_ipv6_addr_number>max_ipv6_addr_number</a></li>
+<li><a href=#IPv6-max_ipv6_addr_max_word>max_ipv6_addr_max_word</a></li>
+<li><a href=#IPv6-max_ipv6_addr_max>max_ipv6_addr_max</a></li>
+<li><a href=#IPv6-UNIV_ipv6addrset>UNIV_ipv6addrset</a></li>
+<li><a href=#IPv6-nat_of_ipv6addr_ipv6addr_of_nat_mod>nat_of_ipv6addr_ipv6addr_of_nat_mod</a></li>
+<li><a href=#IPv6-nat_of_ipv6addr_ipv6addr_of_nat>nat_of_ipv6addr_ipv6addr_of_nat</a></li>
+<li><a href=#IPv6-ipv6addr_of_nat_nat_of_ipv6addr>ipv6addr_of_nat_nat_of_ipv6addr</a></li>
+<li><a href=#IPv6-parse_ipv6_address_compressed_exists>parse_ipv6_address_compressed_exists</a></li>
+<li><a href=#IPv6-parse_ipv6_address_compressed_identity>parse_ipv6_address_compressed_identity</a></li>
+<li><a href=#IPv6-parse_ipv6_address_compressed_someE>parse_ipv6_address_compressed_someE</a></li>
+<li><a href=#IPv6-parse_ipv6_address_compressed_identity2>parse_ipv6_address_compressed_identity2</a></li>
+<li><a href=#IPv6-RFC_4291_format>RFC_4291_format</a></li>
+<li><a href=#IPv6-word128_masks_ipv6pieces>word128_masks_ipv6pieces</a></li>
+<li><a href=#IPv6-ipv6preferred_to_int_int_to_ipv6preferred>ipv6preferred_to_int_int_to_ipv6preferred</a></li>
+<li><a href=#IPv6-int_to_ipv6preferred_ipv6preferred_to_int>int_to_ipv6preferred_ipv6preferred_to_int</a></li>
+<li><a href=#IPv6-ipv6_unparsed_compressed_to_preferred_identity1>ipv6_unparsed_compressed_to_preferred_identity1</a></li>
+<li><a href=#IPv6-ipv6_unparsed_compressed_to_preferred_identity2>ipv6_unparsed_compressed_to_preferred_identity2</a></li>
+<li><a href=#IPv6-List_explode_def>List_explode_def</a></li>
+<li><a href=#IPv6-List_explode_no_empty>List_explode_no_empty</a></li>
+<li><a href=#IPv6-List_explode_replace1>List_explode_replace1</a></li>
+<li><a href=#IPv6-foldr_max_length>foldr_max_length</a></li>
+<li><a href=#IPv6-List_explode_goup_by_zeros>List_explode_goup_by_zeros</a></li>
+<li><a href=#IPv6-max_zero_streak_def2>max_zero_streak_def2</a></li>
+<li><a href=#IPv6-ipv6_preferred_to_compressed_pull_out_if>ipv6_preferred_to_compressed_pull_out_if</a></li>
+<li><a href=#IPv6-ipv6_preferred_to_compressed_RFC_4291_format>ipv6_preferred_to_compressed_RFC_4291_format</a></li>
+<li><a href=#IPv6-ipv6_preferred_to_compressed>ipv6_preferred_to_compressed</a></li>
+</ul>
+</li><li><a href=#Prefix_Match>Prefix_Match</a>
+<ul>
+<li><a href=#Prefix_Match-mk_valid_prefix>mk_valid_prefix</a></li>
+<li><a href=#Prefix_Match-valid_prefix_00>valid_prefix_00</a></li>
+<li><a href=#Prefix_Match-prefix_match_to_CIDR_def2>prefix_match_to_CIDR_def2</a></li>
+<li><a href=#Prefix_Match-valid_prefix_E>valid_prefix_E</a></li>
+<li><a href=#Prefix_Match-valid_prefix_alt>valid_prefix_alt</a></li>
+<li><a href=#Prefix_Match-same_length_prefixes_distinct>same_length_prefixes_distinct</a></li>
+<li><a href=#Prefix_Match-pfx_not_empty>pfx_not_empty</a></li>
+<li><a href=#Prefix_Match-zero_prefix_match_all>zero_prefix_match_all</a></li>
+<li><a href=#Prefix_Match-prefix_to_wordset_subset_ipset_from_cidr>prefix_to_wordset_subset_ipset_from_cidr</a></li>
+<li><a href=#Prefix_Match-valid_prefix_ipset_from_netmask_ipset_from_cidr>valid_prefix_ipset_from_netmask_ipset_from_cidr</a></li>
+<li><a href=#Prefix_Match-prefix_match_semantics_ipset_from_netmask>prefix_match_semantics_ipset_from_netmask</a></li>
+<li><a href=#Prefix_Match-prefix_match_semantics_ipset_from_netmask2>prefix_match_semantics_ipset_from_netmask2</a></li>
+<li><a href=#Prefix_Match-prefix_to_wordset_ipset_from_cidr>prefix_to_wordset_ipset_from_cidr</a></li>
+<li><a href=#Prefix_Match-prefix_to_wordinterval_set_eq>prefix_to_wordinterval_set_eq</a></li>
+<li><a href=#Prefix_Match-prefix_to_wordinterval_def2>prefix_to_wordinterval_def2</a></li>
+<li><a href=#Prefix_Match-prefix_never_empty>prefix_never_empty</a></li>
+<li><a href=#Prefix_Match-ipset_from_cidr_lowest>ipset_from_cidr_lowest</a></li>
+</ul>
+</li><li><a href=#CIDR_Split>CIDR_Split</a>
+<ul>
+<li><a href=#CIDR_Split-ipv4addr_upto>ipv4addr_upto</a></li>
+<li><a href=#CIDR_Split-find_SomeD>find_SomeD</a></li>
+<li><a href=#CIDR_Split-wordinterval_CIDR_split1_innard_helper>wordinterval_CIDR_split1_innard_helper</a></li>
+<li><a href=#CIDR_Split-r_split1_not_none>r_split1_not_none</a></li>
+<li><a href=#CIDR_Split-largest_contained_prefix_subset>largest_contained_prefix_subset</a></li>
+<li><a href=#CIDR_Split-wordinterval_CIDR_split1_snd>wordinterval_CIDR_split1_snd</a></li>
+<li><a href=#CIDR_Split-largest_contained_prefix_subset_s1D>largest_contained_prefix_subset_s1D</a></li>
+<li><a href=#CIDR_Split-wordinterval_CIDR_split1_some_r_ne>wordinterval_CIDR_split1_some_r_ne</a></li>
+<li><a href=#CIDR_Split-wordinterval_CIDR_split1_distinct>wordinterval_CIDR_split1_distinct</a></li>
+<li><a href=#CIDR_Split-wordinterval_CIDR_split1_distinct2>wordinterval_CIDR_split1_distinct2</a></li>
+<li><a href=#CIDR_Split-unfold_rsplit_case>unfold_rsplit_case</a></li>
+<li><a href=#CIDR_Split-wordinterval_CIDR_split_prefixmatch_all_valid_Ball>wordinterval_CIDR_split_prefixmatch_all_valid_Ball</a></li>
+<li><a href=#CIDR_Split-wordinterval_CIDR_split_prefixmatch_all_valid_less_Ball_hlp>wordinterval_CIDR_split_prefixmatch_all_valid_less_Ball_hlp</a></li>
+<li><a href=#CIDR_Split-wordinterval_CIDR_split_disjunct>wordinterval_CIDR_split_disjunct</a></li>
+<li><a href=#CIDR_Split-wordinterval_CIDR_split_distinct>wordinterval_CIDR_split_distinct</a></li>
+<li><a href=#CIDR_Split-wordinterval_CIDR_split_existential>wordinterval_CIDR_split_existential</a></li>
+<li><a href=#CIDR_Split-interval_in_splitD>interval_in_splitD</a></li>
+<li><a href=#CIDR_Split-cidrsplit_no_overlaps>cidrsplit_no_overlaps</a></li>
+</ul>
+</li><li><a href=#WordInterval_Sorted>WordInterval_Sorted</a>
+<ul>
+<li><a href=#WordInterval_Sorted-wordinterval_sort>wordinterval_sort</a></li>
+</ul>
+</li><li><a href=#IP_Address_Parser>IP_Address_Parser</a>
+</li><li><a href=#Lib_Numbers_toString>Lib_Numbers_toString</a>
+</li><li><a href=#Lib_Word_toString>Lib_Word_toString</a>
+<ul>
+<li><a href=#Lib_Word_toString-string_of_word_single_atoi>string_of_word_single_atoi</a></li>
+<li><a href=#Lib_Word_toString-bintrunc_pos_eq>bintrunc_pos_eq</a></li>
+<li><a href=#Lib_Word_toString-string_of_word_base_ten_zeropad>string_of_word_base_ten_zeropad</a></li>
+<li><a href=#Lib_Word_toString-dec_string_of_word0>dec_string_of_word0</a></li>
+</ul>
+</li><li><a href=#Lib_List_toString>Lib_List_toString</a>
+<ul>
+<li><a href=#Lib_List_toString-list_separated_toString_helper>list_separated_toString_helper</a></li>
+<li><a href=#Lib_List_toString-list_separated_toString_intersperse>list_separated_toString_intersperse</a></li>
+</ul>
+</li><li><a href=#IP_Address_toString>IP_Address_toString</a>
+</li><li><a href=#Prefix_Match_toString>Prefix_Match_toString</a>
+</li>
+</ul>
+</div>
+<ul>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/IP_Addresses/outline.pdf>Proof
+outline</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/IP_Addresses/document.pdf>Proof
+document</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/IP_Addresses/session_graph.pdf>Theory dependencies</a></li>
+</ul>
+</div>
+</aside>
+<div class="content theories"><header>
+<form action=/%20search>
+<div class=form-container>
+<input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
+<datalist id=autocomplete>
+</datalist>
+</div>
+</form>
+<h1><span class=first>S</span>ession <span class=first>I</span><span class=first>P</span>_<span class=first>A</span>ddresses</h1>
+<div>
+</div>
+</header><div id=banner data-id=0>
+<p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button>
+</div>
+<div><main>
+<div id=NumberWang_IPv4>
+<div class=head>
+<h1>Theory NumberWang_IPv4</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>theory</span></span> NumberWang_IPv4
 <span class=keyword2><span class=keyword>imports</span></span> <a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL/Main.html>Main</a>
   <span class=quoted>"<a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL-Library/Word.html>HOL-Library.Word</a>"</span>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -66,7 +356,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/IP
 <span class=keyword1><span class=command>qed</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=NumberWang_IPv6><div class=head><h1>Theory NumberWang_IPv6</h1></div><pre class=source><span class=keyword1><span class=command>theory</span></span> NumberWang_IPv6
+</pre>
+</div><div id=NumberWang_IPv6>
+<div class=head>
+<h1>Theory NumberWang_IPv6</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>theory</span></span> NumberWang_IPv6
 <span class=keyword2><span class=keyword>imports</span></span> 
   <a href=../../word_lib/theories/#Word_Lemmas>Word_Lib.Word_Lemmas</a>
   <a href=../../word_lib/theories/#Word_Syntax>Word_Lib.Word_Syntax</a>
@@ -296,7 +591,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/IP
 <span class=keyword1><span class=command>qed</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=WordInterval><div class=head><h1>Theory WordInterval</h1></div><pre class=source><span class=comment1>(*  Title:      WordInterval.thy
+</pre>
+</div><div id=WordInterval>
+<div class=head>
+<h1>Theory WordInterval</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      WordInterval.thy
     Authors:    Julius Michaelis, Cornelius Diekmann
 *)</span>
 <span class=keyword1><span class=command>theory</span></span> WordInterval
@@ -1073,7 +1373,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/IP
 <span class=keyword2><span class=keyword>end</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Hs_Compat><div class=head><h1>Theory Hs_Compat</h1></div><pre class=source><span class=keyword1><span class=command>theory</span></span> Hs_Compat
+</pre>
+</div><div id=Hs_Compat>
+<div class=head>
+<h1>Theory Hs_Compat</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>theory</span></span> Hs_Compat
 <span class=keyword2><span class=keyword>imports</span></span> <a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL/Main.html>Main</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
@@ -1101,7 +1406,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/IP
   <span class=keyword1><span class=command>by</span></span><span class=main>(</span><span class=operator>cases</span> <span class=quoted><span class=free>x</span></span><span class=main><span class=keyword3>,</span></span> <span class=operator>simp</span><span class=main>)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=IP_Address><div class=head><h1>Theory IP_Address</h1></div><pre class=source><span class=comment1>(*  Title:      IP_Address.thy
+</pre>
+</div><div id=IP_Address>
+<div class=head>
+<h1>Theory IP_Address</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      IP_Address.thy
     Authors:    Cornelius Diekmann
 *)</span>
 <span class=keyword1><span class=command>theory</span></span> IP_Address
@@ -1516,7 +1826,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/IP
 
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=IPv4><div class=head><h1>Theory IPv4</h1></div><pre class=source><span class=comment1>(*  Title:      IPv4.thy
+</pre>
+</div><div id=IPv4>
+<div class=head>
+<h1>Theory IPv4</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      IPv4.thy
     Authors:    Cornelius Diekmann, Julius Michaelis
 *)</span>
 <span class=keyword1><span class=command>theory</span></span> IPv4
@@ -1777,7 +2092,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/IP
   <span class=keyword1><span class=command>by</span></span><span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> ipcidr_to_interval_def Let_def ipcidr_to_interval_start.simps ipcidr_to_interval_end.simps<span class=main>)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=IPv6><div class=head><h1>Theory IPv6</h1></div><pre class=source><span class=comment1>(*  Title:      IPv6.thy
+</pre>
+</div><div id=IPv6>
+<div class=head>
+<h1>Theory IPv6</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      IPv6.thy
     Authors:    Cornelius Diekmann
 *)</span>
 <span class=keyword1><span class=command>theory</span></span> IPv6
@@ -2723,7 +3043,12 @@ RFC5952:
 <span class=keyword2><span class=keyword>end</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Prefix_Match><div class=head><h1>Theory Prefix_Match</h1></div><pre class=source><span class=comment1>(*  Title:      Prefix_Match.thy
+</pre>
+</div><div id=Prefix_Match>
+<div class=head>
+<h1>Theory Prefix_Match</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      Prefix_Match.thy
     Authors:    Julius Michaelis, Cornelius Diekmann
 *)</span>
 <span class=keyword1><span class=command>theory</span></span> Prefix_Match
@@ -2958,7 +3283,12 @@ RFC5952:
     <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> diff_zero eq_iff mask_out_sub_mask word_and_le2 word_bw_comms<span class=main><span class=main>(</span></span>1<span class=main><span class=main>)</span></span><span class=main>)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=CIDR_Split><div class=head><h1>Theory CIDR_Split</h1></div><pre class=source><span class=comment1>(*  Title:      CIDR_Split.thy
+</pre>
+</div><div id=CIDR_Split>
+<div class=head>
+<h1>Theory CIDR_Split</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      CIDR_Split.thy
     Authors:    Julius Michaelis, Cornelius Diekmann
 *)</span>
 <span class=keyword1><span class=command>theory</span></span> CIDR_Split
@@ -3340,7 +3670,12 @@ RFC5952:
 
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=WordInterval_Sorted><div class=head><h1>Theory WordInterval_Sorted</h1></div><pre class=source><span class=keyword1><span class=command>theory</span></span> WordInterval_Sorted
+</pre>
+</div><div id=WordInterval_Sorted>
+<div class=head>
+<h1>Theory WordInterval_Sorted</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>theory</span></span> WordInterval_Sorted
 <span class=keyword2><span class=keyword>imports</span></span> <a href=#WordInterval>WordInterval</a>
         <a href=../../automatic_refinement/theories/#Misc>Automatic_Refinement.Misc</a> <span class=comment1>(*Mergesort. TODO: dependnecy! we need a mergesort afp entry!!*)</span>
         <span class=quoted>"<a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL-Library/Product_Lexorder.html>HOL-Library.Product_Lexorder</a>"</span>
@@ -3360,7 +3695,12 @@ RFC5952:
 
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=IP_Address_Parser><div class=head><h1>Theory IP_Address_Parser</h1></div><pre class=source><span class=keyword1><span class=command>theory</span></span> IP_Address_Parser
+</pre>
+</div><div id=IP_Address_Parser>
+<div class=head>
+<h1>Theory IP_Address_Parser</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>theory</span></span> IP_Address_Parser
 <span class=keyword2><span class=keyword>imports</span></span> <a href=#IP_Address>IP_Address</a>
         <a href=#IPv4>IPv4</a>
         <a href=#IPv6>IPv6</a>
@@ -3490,7 +3830,12 @@ RFC5952:
 <span class=keyword2><span class=keyword>end</span></span><span class=main>;</span>
 ›</span>
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Lib_Numbers_toString><div class=head><h1>Theory Lib_Numbers_toString</h1></div><pre class=source><span class=keyword1><span class=command>theory</span></span> Lib_Numbers_toString
+</pre>
+</div><div id=Lib_Numbers_toString>
+<div class=head>
+<h1>Theory Lib_Numbers_toString</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>theory</span></span> Lib_Numbers_toString
 <span class=keyword2><span class=keyword>imports</span></span> <a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL/Main.html>Main</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
@@ -3509,7 +3854,12 @@ RFC5952:
 <span class=keyword1><span class=command>declare</span></span> string_of_nat.simps<span class=main>[</span><span class=operator>simp</span> <span class=quasi_keyword>del</span><span class=main>]</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Lib_Word_toString><div class=head><h1>Theory Lib_Word_toString</h1></div><pre class=source><span class=keyword1><span class=command>theory</span></span> Lib_Word_toString
+</pre>
+</div><div id=Lib_Word_toString>
+<div class=head>
+<h1>Theory Lib_Word_toString</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>theory</span></span> Lib_Word_toString
 <span class=keyword2><span class=keyword>imports</span></span> <a href=#Lib_Numbers_toString>Lib_Numbers_toString</a>
         <a href=../../word_lib/theories/#Word_Lemmas>Word_Lib.Word_Lemmas</a>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -3689,7 +4039,12 @@ RFC5952:
   <span class=keyword1><span class=command>using</span></span> string_of_word_base_ten_zeropad <span class=keyword1><span class=command>by</span></span> <span class=operator>force</span><span class=main><span class=keyword3>+</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Lib_List_toString><div class=head><h1>Theory Lib_List_toString</h1></div><pre class=source><span class=keyword1><span class=command>theory</span></span> Lib_List_toString
+</pre>
+</div><div id=Lib_List_toString>
+<div class=head>
+<h1>Theory Lib_List_toString</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>theory</span></span> Lib_List_toString
 <span class=keyword2><span class=keyword>imports</span></span> <a href=#Lib_Numbers_toString>Lib_Numbers_toString</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
@@ -3730,7 +4085,12 @@ RFC5952:
 <span class=keyword1><span class=command>lemma</span></span> <span class=quoted><span class=quoted>"list_toString string_of_nat <span class=main>[</span><span class=main>1</span><span class=main>,</span><span class=numeral>2</span><span class=main>,</span><span class=numeral>3</span><span class=main>]</span> <span class=main>=</span> <span class=inner_quoted>''[1, 2, 3]''</span>"</span></span> <span class=keyword1><span class=command>by</span></span> <span class=operator>eval</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=IP_Address_toString><div class=head><h1>Theory IP_Address_toString</h1></div><pre class=source><span class=keyword1><span class=command>theory</span></span> IP_Address_toString
+</pre>
+</div><div id=IP_Address_toString>
+<div class=head>
+<h1>Theory IP_Address_toString</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>theory</span></span> IP_Address_toString
 <span class=keyword2><span class=keyword>imports</span></span> <a href=#IP_Address>IP_Address</a> <a href=#IPv4>IPv4</a> <a href=#IPv6>IPv6</a>
         <a href=#Lib_Word_toString>Lib_Word_toString</a>
         <a href=#Lib_List_toString>Lib_List_toString</a>
@@ -3842,7 +4202,12 @@ RFC5952:
 
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Prefix_Match_toString><div class=head><h1>Theory Prefix_Match_toString</h1></div><pre class=source><span class=keyword1><span class=command>theory</span></span> Prefix_Match_toString
+</pre>
+</div><div id=Prefix_Match_toString>
+<div class=head>
+<h1>Theory Prefix_Match_toString</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>theory</span></span> Prefix_Match_toString
 <span class=keyword2><span class=keyword>imports</span></span> <a href=#IP_Address_toString>IP_Address_toString</a> <a href=#Prefix_Match>Prefix_Match</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
@@ -3852,4 +4217,10 @@ RFC5952:
   <span class=quoted><span class=quoted>"<span class=free>prefix_match_128_toString</span> <span class=free><span class=bound><span class=entity>pfx</span></span></span> <span class=main>=</span> <span class=main>(</span><span class=keyword1>case</span> <span class=free><span class=bound><span class=entity>pfx</span></span></span> <span class=keyword1>of</span> PrefixMatch <span class=bound>p</span> <span class=bound>l</span> <span class=main>⇒</span> ipv6addr_toString <span class=bound>p</span> <span class=main>@</span> <span class=main>(</span><span class=keyword1>if</span> <span class=bound>l</span> <span class=main>≠</span> <span class=numeral>128</span> <span class=keyword1>then</span> <span class=inner_quoted>''/''</span> <span class=main>@</span> string_of_nat <span class=bound>l</span> <span class=keyword1>else</span> <span class=main>[]</span><span class=main>)</span><span class=main>)</span>"</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div></main></div></div></body></html>
+</pre>
+</div>
+</main>
+</div>
+</div>
+</body>
+</html>

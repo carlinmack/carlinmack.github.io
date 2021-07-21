@@ -1,7 +1,78 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Session Blue_Eyes - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session Blue_Eyes"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/blue_eyes/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Session Blue_Eyes"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css><link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script><script src=/js/banner.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><li><a href=/entries/blue_eyes>Return to entry</a></li></ul><hr><ul><li><a href=#Blue_Eyes>Blue_Eyes</a><ul><li><a href=#Blue_Eyes-possible_sym>possible_sym</a></li><li><a href=#Blue_Eyes-possible_refl>possible_refl</a></li><li><a href=#Blue_Eyes-possible_trans>possible_trans</a></li><li><a href=#Blue_Eyes-try_swap_valid>try_swap_valid</a></li><li><a href=#Blue_Eyes-try_swap_eq>try_swap_eq</a></li><li><a href=#Blue_Eyes-try_swap_inv>try_swap_inv</a></li><li><a href=#Blue_Eyes-leaves_try_swap>leaves_try_swap</a></li><li><a href=#Blue_Eyes-people_finite>people_finite</a></li><li><a href=#Blue_Eyes-possibleD_colors>possibleD_colors</a></li><li><a href=#Blue_Eyes-blues_seen_others>blues_seen_others</a></li><li><a href=#Blue_Eyes-blues_seen_same>blues_seen_same</a></li><li><a href=#Blue_Eyes-possible_blues_seen>possible_blues_seen</a></li><li><a href=#Blue_Eyes-blue_leaves>blue_leaves</a></li></ul></li></ul></div><ul><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Blue_Eyes/outline.pdf>Proof
-outline</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Blue_Eyes/document.pdf>Proof
-document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Blue_Eyes/session_graph.pdf>Theory dependencies</a></li></ul></div></aside><div class="content theories"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
-<datalist id=autocomplete></datalist></div></form><h1><span class=first>S</span>ession <span class=first>B</span>lue_<span class=first>E</span>yes</h1><div></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><div id=Blue_Eyes><div class=head><h1>Theory Blue_Eyes</h1></div><pre class=source><span class=comment1>(*&lt;*)</span>
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Session Blue_Eyes - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session Blue_Eyes">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="/entries/blue_eyes/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories">
+<meta property="og:site_name" content="Archive of Formal Proofs">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="/images/afp.png">
+<meta name=twitter:title content="Session Blue_Eyes">
+<meta name=twitter:description content>
+<link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css>
+<link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script>
+<script src=/js/banner.js></script><script src=/js/header-search.js></script></head>
+<body class=mathjax_ignore>
+<aside>
+<div>
+<div>
+<a href=/>
+<img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo>
+</a>
+<ul>
+<li><a href=/entries/blue_eyes>Return to entry</a></li>
+</ul>
+<hr>
+<ul><li><a href=#Blue_Eyes>Blue_Eyes</a>
+<ul>
+<li><a href=#Blue_Eyes-possible_sym>possible_sym</a></li>
+<li><a href=#Blue_Eyes-possible_refl>possible_refl</a></li>
+<li><a href=#Blue_Eyes-possible_trans>possible_trans</a></li>
+<li><a href=#Blue_Eyes-try_swap_valid>try_swap_valid</a></li>
+<li><a href=#Blue_Eyes-try_swap_eq>try_swap_eq</a></li>
+<li><a href=#Blue_Eyes-try_swap_inv>try_swap_inv</a></li>
+<li><a href=#Blue_Eyes-leaves_try_swap>leaves_try_swap</a></li>
+<li><a href=#Blue_Eyes-people_finite>people_finite</a></li>
+<li><a href=#Blue_Eyes-possibleD_colors>possibleD_colors</a></li>
+<li><a href=#Blue_Eyes-blues_seen_others>blues_seen_others</a></li>
+<li><a href=#Blue_Eyes-blues_seen_same>blues_seen_same</a></li>
+<li><a href=#Blue_Eyes-possible_blues_seen>possible_blues_seen</a></li>
+<li><a href=#Blue_Eyes-blue_leaves>blue_leaves</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<ul>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Blue_Eyes/outline.pdf>Proof
+outline</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Blue_Eyes/document.pdf>Proof
+document</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Blue_Eyes/session_graph.pdf>Theory dependencies</a></li>
+</ul>
+</div>
+</aside>
+<div class="content theories"><header>
+<form action=/%20search>
+<div class=form-container>
+<input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
+<datalist id=autocomplete>
+</datalist>
+</div>
+</form>
+<h1><span class=first>S</span>ession <span class=first>B</span>lue_<span class=first>E</span>yes</h1>
+<div>
+</div>
+</header><div id=banner data-id=0>
+<p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button>
+</div>
+<div><main>
+<div id=Blue_Eyes>
+<div class=head>
+<h1>Theory Blue_Eyes</h1>
+</div>
+<pre class=source><span class=comment1>(*&lt;*)</span>
 <span class=keyword1><span class=command>theory</span></span> Blue_Eyes
   <span class=keyword2><span class=keyword>imports</span></span> <a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL/Main.html>Main</a>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -424,4 +495,10 @@ puzzle is the instance where <span class=antiquoted><span class=raw_text><span c
 <span class=keyword1><span class=command>text</span></span> <span class=quoted><span class=plain_text>‹After completing this formalization, I have been made aware of epistemic logic.
 The <span class=antiquoted><span class=antiquoted><span class=antiquote><span class=antiquote>@{</span></span><span class=operator><span class=operator>emph</span></span> ‹possible worlds›<span class=antiquote><span class=antiquote>}</span></span></span></span> model in \cref{sec:world} turns out to be quite similar
 to the usual semantics of this logic. It might be interesting to solve this puzzle within
-the axiom system of epistemic logic, without explicit reasoning about possible worlds.›</span></span></pre></div></main></div></div></body></html>
+the axiom system of epistemic logic, without explicit reasoning about possible worlds.›</span></span></pre>
+</div>
+</main>
+</div>
+</div>
+</body>
+</html>

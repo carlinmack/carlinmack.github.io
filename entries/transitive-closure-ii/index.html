@@ -1,19 +1,100 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Executable Transitive Closures - Archive of Formal Proofs</title><meta name=description content="  We provide a generic work-list algorithm to compute the (reflexive-)transitive closure of relations where only successors of newly detected states are..."><meta property="og:title" content="Executable Transitive Closures"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/transitive-closure-ii/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="entries"><meta property="article:published_time" content="2012-02-29T00:00:00+00:00"><meta property="article:modified_time" content="2012-02-29T00:00:00+00:00"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Executable Transitive Closures"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=icon href=/images/favicon.ico type=image/icon><script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]},processEscapes:!0,svg:{fontCache:'global'}}</script><script id=MathJax-script async src=/js/mathjax/es5/tex-mml-chtml.js></script><script src=/js/entries.js></script><script src=/js/flexsearch.min.js></script><script src=/js/banner.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><li><a href=/>Home</a></li><li><a href=/topics/>Topics</a></li><li><a href=/download/>Download</a></li><li><a href=/help/>Help</a></li><li><a href=/statistics/>Statistics</a></li><li><a href=/about/>About</a></li></ul></div><ul><li><a href=/contribution/>Contribution</a></li></ul></div></aside><div class="content entries"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
-<datalist id=autocomplete></datalist></div></form><h1><span class=first>E</span>xecutable <span class=first>T</span>ransitive <span class=first>C</span>losures</h1><div><p><a href=/authors/ren%C3%A9-thiemann>René Thiemann</a></p><p class=date>29 February 2012</p></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><h3>Abstract</h3><div class="abstract mathjax_process"><p>We provide a generic work-list algorithm to compute the
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Executable Transitive Closures - Archive of Formal Proofs</title><meta name=description content="  We provide a generic work-list algorithm to compute the (reflexive-)transitive closure of relations where only successors of newly detected states are..."><meta property="og:title" content="Executable Transitive Closures">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="/entries/transitive-closure-ii/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="entries">
+<meta property="article:published_time" content="2012-02-29T00:00:00+00:00">
+<meta property="article:modified_time" content="2012-02-29T00:00:00+00:00"><meta property="og:site_name" content="Archive of Formal Proofs">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="/images/afp.png">
+<meta name=twitter:title content="Executable Transitive Closures">
+<meta name=twitter:description content>
+<link rel=stylesheet type=text/css href=/css/front.min.css>
+<link rel=icon href=/images/favicon.ico type=image/icon>
+<script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]},processEscapes:!0,svg:{fontCache:'global'}}</script>
+<script id=MathJax-script async src=/js/mathjax/es5/tex-mml-chtml.js></script>
+<script src=/js/entries.js></script><script src=/js/flexsearch.min.js></script>
+<script src=/js/banner.js></script><script src=/js/header-search.js></script></head>
+<body class=mathjax_ignore>
+<aside>
+<div>
+<div>
+<a href=/>
+<img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo>
+</a>
+<ul>
+<li><a href=/>Home</a></li>
+<li><a href=/topics/>Topics</a></li>
+<li><a href=/download/>Download</a></li>
+<li><a href=/help/>Help</a></li>
+<li><a href=/statistics/>Statistics</a></li>
+<li><a href=/about/>About</a></li>
+</ul>
+</div>
+<ul>
+<li><a href=/contribution/>Contribution</a></li>
+</ul>
+</div>
+</aside>
+<div class="content entries"><header>
+<form action=/%20search>
+<div class=form-container>
+<input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
+<datalist id=autocomplete>
+</datalist>
+</div>
+</form>
+<h1><span class=first>E</span>xecutable <span class=first>T</span>ransitive <span class=first>C</span>losures</h1>
+<div>
+<p><a href=/authors/ren%C3%A9-thiemann>René Thiemann</a>
+</p>
+<p class=date>29 February 2012</p>
+</div>
+</header><div id=banner data-id=0>
+<p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button>
+</div>
+<div><main>
+<h3>Abstract</h3>
+<div class="abstract mathjax_process"><p>
+We provide a generic work-list algorithm to compute the
 (reflexive-)transitive closure of relations where only successors of newly
 detected states are generated.
 In contrast to our previous work, the relations do not have to be finite,
 but each element must only have finitely many (indirect) successors.
 Moreover, a subsumption relation can be used instead of pure equality.
 An executable variant of the algorithm is available where the generic operations
-are instantiated with list operations.</p><p>This formalization was performed as part of the IsaFoR/CeTA project,
+are instantiated with list operations.
+</p><p>
+This formalization was performed as part of the IsaFoR/CeTA project,
 and it has been used to certify size-change
-termination proofs where large transitive closures have to be computed.</p></div><a href=http://isa-afp.org/LICENSE.LGPL>GNU Lesser General Public License (LGPL)</a><h3>Depends On</h3><ul><li><a href=/entries/regular-sets>Regular-Sets</a></li></ul><h3>Topics</h3><ul><li><a href=/topics/computer-science/algorithms/graph>Computer science/Algorithms/Graph</a></li></ul><h3>Related Entries</h3><ul><li><a href=/entries/transitive-closure>Transitive-Closure</a></li></ul><h3>Theories</h3><ul><li><a href=theories/#RTrancl>RTrancl</a></li></ul></main><nav class=links><a class=popUpButton href=#citePopUp>Cite</a>
-<a class=popUpButton href=#downloadPopUp>Download</a><h4>PDFs</h4><a href=https://www.isa-afp.org/browser_info/current/AFP/Transitive-Closure-II/outline.pdf>Proof
+termination proofs where large transitive closures have to be computed.
+</p></div><a href=http://isa-afp.org/LICENSE.LGPL>GNU Lesser General Public License (LGPL)</a><h3>Depends On</h3><ul><li><a href=/entries/regular-sets>Regular-Sets</a></li></ul><h3>Topics</h3>
+<ul><li><a href=/topics/computer-science/algorithms/graph>Computer science/Algorithms/Graph</a></li></ul><h3>Related Entries</h3>
+<ul><li><a href=/entries/transitive-closure>Transitive-Closure</a></li></ul><h3>Theories</h3>
+<ul>
+<li><a href=theories/#RTrancl>RTrancl</a></li></ul>
+</main>
+<nav class=links>
+<a class=popUpButton href=#citePopUp>Cite</a>
+<a class=popUpButton href=#downloadPopUp>Download</a>
+<h4>PDFs</h4>
+<a href=https://www.isa-afp.org/browser_info/current/AFP/Transitive-Closure-II/outline.pdf>Proof
 outline</a>
 <a href=https://www.isa-afp.org/browser_info/current/AFP/Transitive-Closure-II/document.pdf>Proof
 document</a>
-<a href=https://www.isa-afp.org/browser_info/current/AFP/Transitive-Closure-II/session_graph.pdf>Dependencies</a></nav><div id=citePopUp class=overlay><a class=cancel href=#></a><div class=popup><h2>Cite</h2><a class=close href=#>&#215;</a><div><p style=display:none id=bibtexFileName>Transitive-Closure-II-AFP</p><pre id=copyText>@article{Transitive-Closure-II-AFP,
+<a href=https://www.isa-afp.org/browser_info/current/AFP/Transitive-Closure-II/session_graph.pdf>Dependencies</a>
+</nav>
+<div id=citePopUp class=overlay>
+<a class=cancel href=#></a>
+<div class=popup>
+<h2>Cite</h2>
+<a class=close href=#>&#215;</a>
+<div>
+<p style=display:none id=bibtexFileName>Transitive-Closure-II-AFP</p>
+<pre id=copyText>@article{Transitive-Closure-II-AFP,
   author  = {René Thiemann},
   title   = {Executable Transitive Closures},
   journal = {Archive of Formal Proofs},
@@ -22,18 +103,74 @@ document</a>
   note    = {\url{http://isa-afp.org/entries/Transitive-Closure-II.html},
             Formal proof development},
   ISSN    = {2150-914x},
-}</pre><button id=copyBibtex>Copy</button> <a id=downloadBibtex>Download</a></div></div></div><div id=downloadPopUp class=overlay><a class=cancel href=#></a><div class=popup><h2>Download</h2><a class=close href=#>&#215;</a>
-<a href=https://isa-afp.org/release/afp-Transitive-Closure-II-current.tar.gz download>Download latest</a><p>Older releases:</p><ul><li>Isabelle2019:
-<a href=https://isa-afp.org/release/afp-Transitive-Closure-II-2019-06-11.tar.gz>afp-Transitive-Closure-II-2019-06-11.tar.gz</a></li><li>Isabelle2018:
-<a href=https://isa-afp.org/release/afp-Transitive-Closure-II-2018-08-16.tar.gz>afp-Transitive-Closure-II-2018-08-16.tar.gz</a></li><li>Isabelle2017:
-<a href=https://isa-afp.org/release/afp-Transitive-Closure-II-2017-10-10.tar.gz>afp-Transitive-Closure-II-2017-10-10.tar.gz</a></li><li>Isabelle2016-1:
-<a href=https://isa-afp.org/release/afp-Transitive-Closure-II-2016-12-17.tar.gz>afp-Transitive-Closure-II-2016-12-17.tar.gz</a></li><li>Isabelle2016:
-<a href=https://isa-afp.org/release/afp-Transitive-Closure-II-2016-02-22.tar.gz>afp-Transitive-Closure-II-2016-02-22.tar.gz</a></li><li>Isabelle2015:
-<a href=https://isa-afp.org/release/afp-Transitive-Closure-II-2015-05-27.tar.gz>afp-Transitive-Closure-II-2015-05-27.tar.gz</a></li><li>Isabelle2014:
-<a href=https://isa-afp.org/release/afp-Transitive-Closure-II-2014-08-28.tar.gz>afp-Transitive-Closure-II-2014-08-28.tar.gz</a></li><li>Isabelle2013-2:
-<a href=https://isa-afp.org/release/afp-Transitive-Closure-II-2013-12-11.tar.gz>afp-Transitive-Closure-II-2013-12-11.tar.gz</a></li><li>Isabelle2013-1:
-<a href=https://isa-afp.org/release/afp-Transitive-Closure-II-2013-11-17.tar.gz>afp-Transitive-Closure-II-2013-11-17.tar.gz</a></li><li>Isabelle2013:
-<a href=https://isa-afp.org/release/afp-Transitive-Closure-II-2013-02-16.tar.gz>afp-Transitive-Closure-II-2013-02-16.tar.gz</a></li><li>Isabelle2012:
-<a href=https://isa-afp.org/release/afp-Transitive-Closure-II-2012-05-24.tar.gz>afp-Transitive-Closure-II-2012-05-24.tar.gz</a></li><li>Isabelle2011-1:
-<a href=https://isa-afp.org/release/afp-Transitive-Closure-II-2012-03-15.tar.gz>afp-Transitive-Closure-II-2012-03-15.tar.gz</a></li><li>Isabelle2011-1:
-<a href=https://isa-afp.org/release/afp-Transitive-Closure-II-2012-02-29.tar.gz>afp-Transitive-Closure-II-2012-02-29.tar.gz</a></li></ul></div></div></div></div></body></html>
+}</pre>
+<button id=copyBibtex>Copy</button> <a id=downloadBibtex>Download</a>
+</div>
+</div>
+</div>
+<div id=downloadPopUp class=overlay>
+<a class=cancel href=#></a>
+<div class=popup>
+<h2>Download</h2>
+<a class=close href=#>&#215;</a>
+<a href=https://isa-afp.org/release/afp-Transitive-Closure-II-current.tar.gz download>Download latest</a>
+<p>Older releases:</p>
+<ul><li>Isabelle2019:
+<a href=https://isa-afp.org/release/afp-Transitive-Closure-II-2019-06-11.tar.gz>
+afp-Transitive-Closure-II-2019-06-11.tar.gz
+</a>
+</li><li>Isabelle2018:
+<a href=https://isa-afp.org/release/afp-Transitive-Closure-II-2018-08-16.tar.gz>
+afp-Transitive-Closure-II-2018-08-16.tar.gz
+</a>
+</li><li>Isabelle2017:
+<a href=https://isa-afp.org/release/afp-Transitive-Closure-II-2017-10-10.tar.gz>
+afp-Transitive-Closure-II-2017-10-10.tar.gz
+</a>
+</li><li>Isabelle2016-1:
+<a href=https://isa-afp.org/release/afp-Transitive-Closure-II-2016-12-17.tar.gz>
+afp-Transitive-Closure-II-2016-12-17.tar.gz
+</a>
+</li><li>Isabelle2016:
+<a href=https://isa-afp.org/release/afp-Transitive-Closure-II-2016-02-22.tar.gz>
+afp-Transitive-Closure-II-2016-02-22.tar.gz
+</a>
+</li><li>Isabelle2015:
+<a href=https://isa-afp.org/release/afp-Transitive-Closure-II-2015-05-27.tar.gz>
+afp-Transitive-Closure-II-2015-05-27.tar.gz
+</a>
+</li><li>Isabelle2014:
+<a href=https://isa-afp.org/release/afp-Transitive-Closure-II-2014-08-28.tar.gz>
+afp-Transitive-Closure-II-2014-08-28.tar.gz
+</a>
+</li><li>Isabelle2013-2:
+<a href=https://isa-afp.org/release/afp-Transitive-Closure-II-2013-12-11.tar.gz>
+afp-Transitive-Closure-II-2013-12-11.tar.gz
+</a>
+</li><li>Isabelle2013-1:
+<a href=https://isa-afp.org/release/afp-Transitive-Closure-II-2013-11-17.tar.gz>
+afp-Transitive-Closure-II-2013-11-17.tar.gz
+</a>
+</li><li>Isabelle2013:
+<a href=https://isa-afp.org/release/afp-Transitive-Closure-II-2013-02-16.tar.gz>
+afp-Transitive-Closure-II-2013-02-16.tar.gz
+</a>
+</li><li>Isabelle2012:
+<a href=https://isa-afp.org/release/afp-Transitive-Closure-II-2012-05-24.tar.gz>
+afp-Transitive-Closure-II-2012-05-24.tar.gz
+</a>
+</li><li>Isabelle2011-1:
+<a href=https://isa-afp.org/release/afp-Transitive-Closure-II-2012-03-15.tar.gz>
+afp-Transitive-Closure-II-2012-03-15.tar.gz
+</a>
+</li><li>Isabelle2011-1:
+<a href=https://isa-afp.org/release/afp-Transitive-Closure-II-2012-02-29.tar.gz>
+afp-Transitive-Closure-II-2012-02-29.tar.gz
+</a>
+</li></ul>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

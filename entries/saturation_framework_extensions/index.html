@@ -1,20 +1,99 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Extensions to the Comprehensive Framework for Saturation Theorem Proving - Archive of Formal Proofs</title><meta name=description content=" This Isabelle/HOL formalization extends the AFP entry Saturation_Framework with the following contributions:  an application of the framework to prove..."><meta property="og:title" content="Extensions to the Comprehensive Framework for Saturation Theorem Proving"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/saturation_framework_extensions/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="entries"><meta property="article:published_time" content="2020-08-25T00:00:00+00:00"><meta property="article:modified_time" content="2020-08-25T00:00:00+00:00"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Extensions to the Comprehensive Framework for Saturation Theorem Proving"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=icon href=/images/favicon.ico type=image/icon><script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]},processEscapes:!0,svg:{fontCache:'global'}}</script><script id=MathJax-script async src=/js/mathjax/es5/tex-mml-chtml.js></script><script src=/js/entries.js></script><script src=/js/flexsearch.min.js></script><script src=/js/banner.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><li><a href=/>Home</a></li><li><a href=/topics/>Topics</a></li><li><a href=/download/>Download</a></li><li><a href=/help/>Help</a></li><li><a href=/statistics/>Statistics</a></li><li><a href=/about/>About</a></li></ul></div><ul><li><a href=/contribution/>Contribution</a></li></ul></div></aside><div class="content entries"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
-<datalist id=autocomplete></datalist></div></form><h1><span class=first>E</span>xtensions to the <span class=first>C</span>omprehensive <span class=first>F</span>ramework for <span class=first>S</span>aturation <span class=first>T</span>heorem <span class=first>P</span>roving</h1><div><p><a href=/authors/jasmin-christian-blanchette>Jasmin Christian Blanchette</a> and <a href=/authors/sophie-tourret>Sophie Tourret</a></p><p class=date>25 August 2020</p></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><h3>Abstract</h3><div class="abstract mathjax_process">This Isabelle/HOL formalization extends the AFP entry
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Extensions to the Comprehensive Framework for Saturation Theorem Proving - Archive of Formal Proofs</title><meta name=description content=" This Isabelle/HOL formalization extends the AFP entry Saturation_Framework with the following contributions:  an application of the framework to prove..."><meta property="og:title" content="Extensions to the Comprehensive Framework for Saturation Theorem Proving">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="/entries/saturation_framework_extensions/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="entries">
+<meta property="article:published_time" content="2020-08-25T00:00:00+00:00">
+<meta property="article:modified_time" content="2020-08-25T00:00:00+00:00"><meta property="og:site_name" content="Archive of Formal Proofs">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="/images/afp.png">
+<meta name=twitter:title content="Extensions to the Comprehensive Framework for Saturation Theorem Proving">
+<meta name=twitter:description content>
+<link rel=stylesheet type=text/css href=/css/front.min.css>
+<link rel=icon href=/images/favicon.ico type=image/icon>
+<script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]},processEscapes:!0,svg:{fontCache:'global'}}</script>
+<script id=MathJax-script async src=/js/mathjax/es5/tex-mml-chtml.js></script>
+<script src=/js/entries.js></script><script src=/js/flexsearch.min.js></script>
+<script src=/js/banner.js></script><script src=/js/header-search.js></script></head>
+<body class=mathjax_ignore>
+<aside>
+<div>
+<div>
+<a href=/>
+<img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo>
+</a>
+<ul>
+<li><a href=/>Home</a></li>
+<li><a href=/topics/>Topics</a></li>
+<li><a href=/download/>Download</a></li>
+<li><a href=/help/>Help</a></li>
+<li><a href=/statistics/>Statistics</a></li>
+<li><a href=/about/>About</a></li>
+</ul>
+</div>
+<ul>
+<li><a href=/contribution/>Contribution</a></li>
+</ul>
+</div>
+</aside>
+<div class="content entries"><header>
+<form action=/%20search>
+<div class=form-container>
+<input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
+<datalist id=autocomplete>
+</datalist>
+</div>
+</form>
+<h1><span class=first>E</span>xtensions to the <span class=first>C</span>omprehensive <span class=first>F</span>ramework for <span class=first>S</span>aturation <span class=first>T</span>heorem <span class=first>P</span>roving</h1>
+<div>
+<p><a href=/authors/jasmin-christian-blanchette>Jasmin Christian Blanchette</a> and <a href=/authors/sophie-tourret>Sophie Tourret</a>
+</p>
+<p class=date>25 August 2020</p>
+</div>
+</header><div id=banner data-id=0>
+<p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button>
+</div>
+<div><main>
+<h3>Abstract</h3>
+<div class="abstract mathjax_process">This Isabelle/HOL formalization extends the AFP entry
 <em>Saturation_Framework</em> with the following
-contributions:<ul><li>an application of the framework
+contributions: <ul> <li>an application of the framework
 to prove Bachmair and Ganzinger's resolution prover RP
 refutationally complete, which was formalized in a more ad hoc fashion
 by Schlichtkrull et al. in the AFP entry
-<em>Ordered_Resultion_Prover</em>;</li><li>generalizations of various basic concepts formalized by
+<em>Ordered_Resultion_Prover</em>;</li>
+<li>generalizations of various basic concepts formalized by
 Schlichtkrull et al., which were needed to verify RP and could be
-useful to formalize other calculi, such as superposition;</li><li>alternative proofs of fairness (and hence saturation and
+useful to formalize other calculi, such as superposition;</li>
+<li>alternative proofs of fairness (and hence saturation and
 ultimately refutational completeness) for the given clause procedures
-GC and LGC, based on invariance.</li></ul></div><a href=http://isa-afp.org/LICENSE>BSD License</a><h3>Depends On</h3><ul><li><a href=/entries/saturation_framework>Saturation_Framework</a></li><li><a href=/entries/ordered_resolution_prover>Ordered_Resolution_Prover</a></li><li><a href=/entries/first_order_terms>First_Order_Terms</a></li><li><a href=/entries/well_quasi_orders>Well_Quasi_Orders</a></li></ul><h3>Topics</h3><ul><li><a href=/topics/logic/general-logic/mechanization-of-proofs>Logic/General logic/Mechanization of proofs</a></li></ul><h3>Related Entries</h3><ul><li><a href=/entries/functional_ordered_resolution_prover>Functional_Ordered_Resolution_Prover</a></li><li><a href=/entries/saturation_framework>Saturation_Framework</a></li></ul><h3>Theories</h3><ul><li><a href=theories/#Soundness>Soundness</a></li><li><a href=theories/#Standard_Redundancy_Criterion>Standard_Redundancy_Criterion</a></li><li><a href=theories/#Clausal_Calculus>Clausal_Calculus</a></li><li><a href=theories/#FO_Ordered_Resolution_Prover_Revisited>FO_Ordered_Resolution_Prover_Revisited</a></li><li><a href=theories/#Given_Clause_Architectures_Revisited>Given_Clause_Architectures_Revisited</a></li></ul></main><nav class=links><a class=popUpButton href=#citePopUp>Cite</a>
-<a class=popUpButton href=#downloadPopUp>Download</a><h4>PDFs</h4><a href=https://www.isa-afp.org/browser_info/current/AFP/Saturation_Framework_Extensions/outline.pdf>Proof
+GC and LGC, based on invariance.</li> </ul></div><a href=http://isa-afp.org/LICENSE>BSD License</a><h3>Depends On</h3><ul><li><a href=/entries/saturation_framework>Saturation_Framework</a></li><li><a href=/entries/ordered_resolution_prover>Ordered_Resolution_Prover</a></li><li><a href=/entries/first_order_terms>First_Order_Terms</a></li><li><a href=/entries/well_quasi_orders>Well_Quasi_Orders</a></li></ul><h3>Topics</h3>
+<ul><li><a href=/topics/logic/general-logic/mechanization-of-proofs>Logic/General logic/Mechanization of proofs</a></li></ul><h3>Related Entries</h3>
+<ul><li><a href=/entries/functional_ordered_resolution_prover>Functional_Ordered_Resolution_Prover</a></li><li><a href=/entries/saturation_framework>Saturation_Framework</a></li></ul><h3>Theories</h3>
+<ul>
+<li><a href=theories/#Soundness>Soundness</a></li><li><a href=theories/#Standard_Redundancy_Criterion>Standard_Redundancy_Criterion</a></li><li><a href=theories/#Clausal_Calculus>Clausal_Calculus</a></li><li><a href=theories/#FO_Ordered_Resolution_Prover_Revisited>FO_Ordered_Resolution_Prover_Revisited</a></li><li><a href=theories/#Given_Clause_Architectures_Revisited>Given_Clause_Architectures_Revisited</a></li></ul>
+</main>
+<nav class=links>
+<a class=popUpButton href=#citePopUp>Cite</a>
+<a class=popUpButton href=#downloadPopUp>Download</a>
+<h4>PDFs</h4>
+<a href=https://www.isa-afp.org/browser_info/current/AFP/Saturation_Framework_Extensions/outline.pdf>Proof
 outline</a>
 <a href=https://www.isa-afp.org/browser_info/current/AFP/Saturation_Framework_Extensions/document.pdf>Proof
 document</a>
-<a href=https://www.isa-afp.org/browser_info/current/AFP/Saturation_Framework_Extensions/session_graph.pdf>Dependencies</a></nav><div id=citePopUp class=overlay><a class=cancel href=#></a><div class=popup><h2>Cite</h2><a class=close href=#>&#215;</a><div><p style=display:none id=bibtexFileName>Saturation_Framework_Extensions-AFP</p><pre id=copyText>@article{Saturation_Framework_Extensions-AFP,
+<a href=https://www.isa-afp.org/browser_info/current/AFP/Saturation_Framework_Extensions/session_graph.pdf>Dependencies</a>
+</nav>
+<div id=citePopUp class=overlay>
+<a class=cancel href=#></a>
+<div class=popup>
+<h2>Cite</h2>
+<a class=close href=#>&#215;</a>
+<div>
+<p style=display:none id=bibtexFileName>Saturation_Framework_Extensions-AFP</p>
+<pre id=copyText>@article{Saturation_Framework_Extensions-AFP,
   author  = {Jasmin Christian Blanchette and Sophie Tourret},
   title   = {Extensions to the Comprehensive Framework for Saturation Theorem Proving},
   journal = {Archive of Formal Proofs},
@@ -23,5 +102,20 @@ document</a>
   note    = {\url{http://isa-afp.org/entries/Saturation_Framework_Extensions.html},
             Formal proof development},
   ISSN    = {2150-914x},
-}</pre><button id=copyBibtex>Copy</button> <a id=downloadBibtex>Download</a></div></div></div><div id=downloadPopUp class=overlay><a class=cancel href=#></a><div class=popup><h2>Download</h2><a class=close href=#>&#215;</a>
-<a href=https://isa-afp.org/release/afp-Saturation_Framework_Extensions-current.tar.gz download>Download latest</a></div></div></div></div></body></html>
+}</pre>
+<button id=copyBibtex>Copy</button> <a id=downloadBibtex>Download</a>
+</div>
+</div>
+</div>
+<div id=downloadPopUp class=overlay>
+<a class=cancel href=#></a>
+<div class=popup>
+<h2>Download</h2>
+<a class=close href=#>&#215;</a>
+<a href=https://isa-afp.org/release/afp-Saturation_Framework_Extensions-current.tar.gz download>Download latest</a>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

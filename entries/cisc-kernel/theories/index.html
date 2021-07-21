@@ -1,7 +1,216 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Session CISC-Kernel - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session CISC-Kernel"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/cisc-kernel/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Session CISC-Kernel"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css><link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script><script src=/js/banner.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><li><a href=/entries/cisc-kernel>Return to entry</a></li></ul><hr><ul><li><a href=#Option_Binders>Option_Binders</a><ul><li><a href=#Option_Binders-rewrite_B2_to_cases>rewrite_B2_to_cases</a></li><li><a href=#Option_Binders-rewrite_B_None>rewrite_B_None</a></li><li><a href=#Option_Binders-rewrite_B_m_True>rewrite_B_m_True</a></li><li><a href=#Option_Binders-rewrite_B2_cases>rewrite_B2_cases</a></li></ul></li><li><a href=#List_Theorems>List_Theorems</a><ul><li><a href=#List_Theorems-drop_one>drop_one</a></li><li><a href=#List_Theorems-length_ge_one>length_ge_one</a></li><li><a href=#List_Theorems-take_but_one>take_but_one</a></li><li><a href=#List_Theorems-Suc_m_minus_n>Suc_m_minus_n</a></li><li><a href=#List_Theorems-lastn_one_less>lastn_one_less</a></li><li><a href=#List_Theorems-list_sub_implies_member>list_sub_implies_member</a></li><li><a href=#List_Theorems-subset_smaller_list>subset_smaller_list</a></li><li><a href=#List_Theorems-second_elt_is_hd_tl>second_elt_is_hd_tl</a></li><li><a href=#List_Theorems-length_ge_2_implies_tl_not_empty>length_ge_2_implies_tl_not_empty</a></li><li><a href=#List_Theorems-length_lt_2_implies_tl_empty>length_lt_2_implies_tl_empty</a></li><li><a href=#List_Theorems-first_second_is_sub_seq>first_second_is_sub_seq</a></li><li><a href=#List_Theorems-hd_drop_is_nth>hd_drop_is_nth</a></li><li><a href=#List_Theorems-def_of_hd>def_of_hd</a></li><li><a href=#List_Theorems-def_of_tl>def_of_tl</a></li><li><a href=#List_Theorems-drop_yields_results_implies_nbound>drop_yields_results_implies_nbound</a></li><li><a href=#List_Theorems-consecutive_is_sub_seq>consecutive_is_sub_seq</a></li><li><a href=#List_Theorems-sub_seq_in_prefixes>sub_seq_in_prefixes</a></li><li><a href=#List_Theorems-set_tl_is_subset>set_tl_is_subset</a></li><li><a href=#List_Theorems-x_is_hd_snd_tl>x_is_hd_snd_tl</a></li><li><a href=#List_Theorems-tl_x_not_x>tl_x_not_x</a></li><li><a href=#List_Theorems-tl_hd_x_not_tl_x>tl_hd_x_not_tl_x</a></li></ul></li><li><a href=#K>K</a></li><li><a href=#SK>SK</a><ul><li><a href=#SK-vpeq_s_nt>vpeq_s_nt</a></li><li><a href=#SK-vpeq_ns_t>vpeq_ns_t</a></li><li><a href=#SK-vpeq_ns_nt_ifp_u>vpeq_ns_nt_ifp_u</a></li><li><a href=#SK-vpeq_ns_nt_not_ifp_u>vpeq_ns_nt_not_ifp_u</a></li><li><a href=#SK-unwinding_implies_view_partitioned_ind>unwinding_implies_view_partitioned_ind</a></li><li><a href=#SK-unwinding_implies_view_partitioned>unwinding_implies_view_partitioned</a></li><li><a href=#SK-vpeq_involved_domains>vpeq_involved_domains</a></li><li><a href=#SK-ipurge_l_removes_gateway_communications>ipurge_l_removes_gateway_communications</a></li><li><a href=#SK-iunwinding_implies_view_partitioned1>iunwinding_implies_view_partitioned1</a></li><li><a href=#SK-current_independent_of_domain_actions>current_independent_of_domain_actions</a></li></ul></li><li><a href=#ISK>ISK</a><ul><li><a href=#ISK-next_execution_is_realistic_partial>next_execution_is_realistic_partial</a></li><li><a href=#ISK-run_total_equals_run>run_total_equals_run</a></li><li><a href=#ISK-realistic_purge>realistic_purge</a></li><li><a href=#ISK-remove_gateway_comm_subset>remove_gateway_comm_subset</a></li><li><a href=#ISK-realistic_ipurge_l>realistic_ipurge_l</a></li><li><a href=#ISK-realistic_ipurge_r>realistic_ipurge_r</a></li></ul></li><li><a href=#CISK>CISK</a><ul><li><a href=#CISK-next_action_consistent>next_action_consistent</a></li><li><a href=#CISK-next_execs_consistent>next_execs_consistent</a></li><li><a href=#CISK-next_state_consistent>next_state_consistent</a></li><li><a href=#CISK-current_next_state>current_next_state</a></li><li><a href=#CISK-locally_respects_next_state>locally_respects_next_state</a></li><li><a href=#CISK-CISK_control_spec>CISK_control_spec</a></li><li><a href=#CISK-next_action_after_cswitch>next_action_after_cswitch</a></li><li><a href=#CISK-next_action_after_next_state>next_action_after_next_state</a></li><li><a href=#CISK-next_action_after_step>next_action_after_step</a></li><li><a href=#CISK-next_state_precondition>next_state_precondition</a></li><li><a href=#CISK-next_state_invariant>next_state_invariant</a></li><li><a href=#CISK-next_action_from_execs>next_action_from_execs</a></li><li><a href=#CISK-next_execs_subset>next_execs_subset</a></li></ul></li><li><a href=#Step_configuration>Step_configuration</a></li><li><a href=#Step_policies>Step_policies</a><ul><li><a href=#Step_policies-correct>correct</a></li><li><a href=#Step_policies-example_how_to_use_properties_in_proofs>example_how_to_use_properties_in_proofs</a></li></ul></li><li><a href=#Step>Step</a></li><li><a href=#Step_invariants>Step_invariants</a><ul><li><a href=#Step_invariants-set_object_value_invariant>set_object_value_invariant</a></li><li><a href=#Step_invariants-set_thread_value_invariant>set_thread_value_invariant</a></li><li><a href=#Step_invariants-atomic_ipc_preserves_invariants>atomic_ipc_preserves_invariants</a></li><li><a href=#Step_invariants-atomic_ev_wait_one_preserves_invariants>atomic_ev_wait_one_preserves_invariants</a></li><li><a href=#Step_invariants-atomic_ev_wait_all_preserves_invariants>atomic_ev_wait_all_preserves_invariants</a></li><li><a href=#Step_invariants-atomic_ev_signal_preserves_invariants>atomic_ev_signal_preserves_invariants</a></li></ul></li><li><a href=#Step_vpeq>Step_vpeq</a><ul><li><a href=#Step_vpeq-vpeq_rel>vpeq_rel</a></li><li><a href=#Step_vpeq-set_object_value_ign>set_object_value_ign</a></li></ul></li><li><a href=#Step_vpeq_locally_respects>Step_vpeq_locally_respects</a><ul><li><a href=#Step_vpeq_locally_respects-ipc_respects_policy>ipc_respects_policy</a></li><li><a href=#Step_vpeq_locally_respects-ev_signal_respects_policy>ev_signal_respects_policy</a></li><li><a href=#Step_vpeq_locally_respects-ev_wait_all_respects_policy>ev_wait_all_respects_policy</a></li><li><a href=#Step_vpeq_locally_respects-ev_wait_one_respects_policy>ev_wait_one_respects_policy</a></li></ul></li><li><a href=#Step_vpeq_weakly_step_consistent>Step_vpeq_weakly_step_consistent</a><ul><li><a href=#Step_vpeq_weakly_step_consistent-ipc_precondition_weakly_step_consistent>ipc_precondition_weakly_step_consistent</a></li><li><a href=#Step_vpeq_weakly_step_consistent-ev_signal_precondition_weakly_step_consistent>ev_signal_precondition_weakly_step_consistent</a></li><li><a href=#Step_vpeq_weakly_step_consistent-set_object_value_consistent>set_object_value_consistent</a></li><li><a href=#Step_vpeq_weakly_step_consistent-ipc_weakly_step_consistent>ipc_weakly_step_consistent</a></li><li><a href=#Step_vpeq_weakly_step_consistent-ev_wait_one_weakly_step_consistent>ev_wait_one_weakly_step_consistent</a></li><li><a href=#Step_vpeq_weakly_step_consistent-ev_wait_all_weakly_step_consistent>ev_wait_all_weakly_step_consistent</a></li><li><a href=#Step_vpeq_weakly_step_consistent-ev_signal_weakly_step_consistent>ev_signal_weakly_step_consistent</a></li><li><a href=#Step_vpeq_weakly_step_consistent-extend_subj_subj_consistent>extend_subj_subj_consistent</a></li></ul></li><li><a href=#Separation_kernel_model>Separation_kernel_model</a><ul><li><a href=#Separation_kernel_model-initial_invariant>initial_invariant</a></li><li><a href=#Separation_kernel_model-rstate_invariant>rstate_invariant</a></li><li><a href=#Separation_kernel_model-rstate_down_up>rstate_down_up</a></li><li><a href=#Separation_kernel_model-rstate_up_down>rstate_up_down</a></li><li><a href=#Separation_kernel_model-inst_vpeq_rel>inst_vpeq_rel</a></li><li><a href=#Separation_kernel_model-inst_ifp_refl>inst_ifp_refl</a></li><li><a href=#Separation_kernel_model-inst_step_atomicity>inst_step_atomicity</a></li><li><a href=#Separation_kernel_model-inst_weakly_step_consistent>inst_weakly_step_consistent</a></li><li><a href=#Separation_kernel_model-inst_local_respect>inst_local_respect</a></li><li><a href=#Separation_kernel_model-inst_output_consistency>inst_output_consistency</a></li><li><a href=#Separation_kernel_model-inst_cswitch_independent_of_state>inst_cswitch_independent_of_state</a></li><li><a href=#Separation_kernel_model-inst_cswitch_consistency>inst_cswitch_consistency</a></li><li><a href=#Separation_kernel_model-prec_first_IPC_action>prec_first_IPC_action</a></li><li><a href=#Separation_kernel_model-prec_first_EV_WAIT_action>prec_first_EV_WAIT_action</a></li><li><a href=#Separation_kernel_model-prec_first_EV_SIGNAL_action>prec_first_EV_SIGNAL_action</a></li><li><a href=#Separation_kernel_model-prec_after_IPC_step>prec_after_IPC_step</a></li><li><a href=#Separation_kernel_model-prec_after_EV_WAIT_step>prec_after_EV_WAIT_step</a></li><li><a href=#Separation_kernel_model-prec_after_EV_SIGNAL_step>prec_after_EV_SIGNAL_step</a></li><li><a href=#Separation_kernel_model-on_set_object_value>on_set_object_value</a></li><li><a href=#Separation_kernel_model-prec_IPC_dom_independent>prec_IPC_dom_independent</a></li><li><a href=#Separation_kernel_model-prec_ev_signal_dom_independent>prec_ev_signal_dom_independent</a></li><li><a href=#Separation_kernel_model-prec_ev_wait_one_dom_independent>prec_ev_wait_one_dom_independent</a></li><li><a href=#Separation_kernel_model-prec_ev_wait_all_dom_independent>prec_ev_wait_all_dom_independent</a></li><li><a href=#Separation_kernel_model-prec_dom_independent>prec_dom_independent</a></li><li><a href=#Separation_kernel_model-ipc_precondition_after_cswitch>ipc_precondition_after_cswitch</a></li><li><a href=#Separation_kernel_model-precondition_after_cswitch>precondition_after_cswitch</a></li><li><a href=#Separation_kernel_model-aborting_switch_independent>aborting_switch_independent</a></li><li><a href=#Separation_kernel_model-waiting_switch_independent>waiting_switch_independent</a></li><li><a href=#Separation_kernel_model-aborting_after_IPC_step>aborting_after_IPC_step</a></li><li><a href=#Separation_kernel_model-waiting_after_IPC_step>waiting_after_IPC_step</a></li><li><a href=#Separation_kernel_model-raborting_consistent>raborting_consistent</a></li><li><a href=#Separation_kernel_model-aborting_dom_independent>aborting_dom_independent</a></li><li><a href=#Separation_kernel_model-ipc_precondition_of_partner_consistent>ipc_precondition_of_partner_consistent</a></li><li><a href=#Separation_kernel_model-ev_signal_precondition_of_partner_consistent>ev_signal_precondition_of_partner_consistent</a></li><li><a href=#Separation_kernel_model-waiting_consistent>waiting_consistent</a></li><li><a href=#Separation_kernel_model-ipc_precondition_ensures_ifp>ipc_precondition_ensures_ifp</a></li><li><a href=#Separation_kernel_model-ev_signal_precondition_ensures_ifp>ev_signal_precondition_ensures_ifp</a></li><li><a href=#Separation_kernel_model-involved_ifp>involved_ifp</a></li><li><a href=#Separation_kernel_model-spec_of_waiting_ev>spec_of_waiting_ev</a></li><li><a href=#Separation_kernel_model-spec_of_waiting_ev_w>spec_of_waiting_ev_w</a></li><li><a href=#Separation_kernel_model-spec_of_waiting>spec_of_waiting</a></li></ul></li><li><a href=#Link_separation_kernel_model_to_CISK>Link_separation_kernel_model_to_CISK</a></li></ul></div><ul><li><a href=https://www.isa-afp.org/browser_info/current/AFP/CISC-Kernel/outline.pdf>Proof
-outline</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/CISC-Kernel/document.pdf>Proof
-document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/CISC-Kernel/session_graph.pdf>Theory dependencies</a></li></ul></div></aside><div class="content theories"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
-<datalist id=autocomplete></datalist></div></form><h1><span class=first>S</span>ession <span class=first>C</span><span class=first>I</span><span class=first>S</span><span class=first>C</span>-<span class=first>K</span>ernel</h1><div></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><div id=Option_Binders><div class=head><h1>Theory Option_Binders</h1></div><pre class=source><span class=keyword1><span class=command>subsection</span></span> <span class=quoted><span class=plain_text>‹Binders for the option type \label{sect:binders}›</span></span>
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Session CISC-Kernel - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session CISC-Kernel">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="/entries/cisc-kernel/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories">
+<meta property="og:site_name" content="Archive of Formal Proofs">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="/images/afp.png">
+<meta name=twitter:title content="Session CISC-Kernel">
+<meta name=twitter:description content>
+<link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css>
+<link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script>
+<script src=/js/banner.js></script><script src=/js/header-search.js></script></head>
+<body class=mathjax_ignore>
+<aside>
+<div>
+<div>
+<a href=/>
+<img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo>
+</a>
+<ul>
+<li><a href=/entries/cisc-kernel>Return to entry</a></li>
+</ul>
+<hr>
+<ul><li><a href=#Option_Binders>Option_Binders</a>
+<ul>
+<li><a href=#Option_Binders-rewrite_B2_to_cases>rewrite_B2_to_cases</a></li>
+<li><a href=#Option_Binders-rewrite_B_None>rewrite_B_None</a></li>
+<li><a href=#Option_Binders-rewrite_B_m_True>rewrite_B_m_True</a></li>
+<li><a href=#Option_Binders-rewrite_B2_cases>rewrite_B2_cases</a></li>
+</ul>
+</li><li><a href=#List_Theorems>List_Theorems</a>
+<ul>
+<li><a href=#List_Theorems-drop_one>drop_one</a></li>
+<li><a href=#List_Theorems-length_ge_one>length_ge_one</a></li>
+<li><a href=#List_Theorems-take_but_one>take_but_one</a></li>
+<li><a href=#List_Theorems-Suc_m_minus_n>Suc_m_minus_n</a></li>
+<li><a href=#List_Theorems-lastn_one_less>lastn_one_less</a></li>
+<li><a href=#List_Theorems-list_sub_implies_member>list_sub_implies_member</a></li>
+<li><a href=#List_Theorems-subset_smaller_list>subset_smaller_list</a></li>
+<li><a href=#List_Theorems-second_elt_is_hd_tl>second_elt_is_hd_tl</a></li>
+<li><a href=#List_Theorems-length_ge_2_implies_tl_not_empty>length_ge_2_implies_tl_not_empty</a></li>
+<li><a href=#List_Theorems-length_lt_2_implies_tl_empty>length_lt_2_implies_tl_empty</a></li>
+<li><a href=#List_Theorems-first_second_is_sub_seq>first_second_is_sub_seq</a></li>
+<li><a href=#List_Theorems-hd_drop_is_nth>hd_drop_is_nth</a></li>
+<li><a href=#List_Theorems-def_of_hd>def_of_hd</a></li>
+<li><a href=#List_Theorems-def_of_tl>def_of_tl</a></li>
+<li><a href=#List_Theorems-drop_yields_results_implies_nbound>drop_yields_results_implies_nbound</a></li>
+<li><a href=#List_Theorems-consecutive_is_sub_seq>consecutive_is_sub_seq</a></li>
+<li><a href=#List_Theorems-sub_seq_in_prefixes>sub_seq_in_prefixes</a></li>
+<li><a href=#List_Theorems-set_tl_is_subset>set_tl_is_subset</a></li>
+<li><a href=#List_Theorems-x_is_hd_snd_tl>x_is_hd_snd_tl</a></li>
+<li><a href=#List_Theorems-tl_x_not_x>tl_x_not_x</a></li>
+<li><a href=#List_Theorems-tl_hd_x_not_tl_x>tl_hd_x_not_tl_x</a></li>
+</ul>
+</li><li><a href=#K>K</a>
+</li><li><a href=#SK>SK</a>
+<ul>
+<li><a href=#SK-vpeq_s_nt>vpeq_s_nt</a></li>
+<li><a href=#SK-vpeq_ns_t>vpeq_ns_t</a></li>
+<li><a href=#SK-vpeq_ns_nt_ifp_u>vpeq_ns_nt_ifp_u</a></li>
+<li><a href=#SK-vpeq_ns_nt_not_ifp_u>vpeq_ns_nt_not_ifp_u</a></li>
+<li><a href=#SK-unwinding_implies_view_partitioned_ind>unwinding_implies_view_partitioned_ind</a></li>
+<li><a href=#SK-unwinding_implies_view_partitioned>unwinding_implies_view_partitioned</a></li>
+<li><a href=#SK-vpeq_involved_domains>vpeq_involved_domains</a></li>
+<li><a href=#SK-ipurge_l_removes_gateway_communications>ipurge_l_removes_gateway_communications</a></li>
+<li><a href=#SK-iunwinding_implies_view_partitioned1>iunwinding_implies_view_partitioned1</a></li>
+<li><a href=#SK-current_independent_of_domain_actions>current_independent_of_domain_actions</a></li>
+</ul>
+</li><li><a href=#ISK>ISK</a>
+<ul>
+<li><a href=#ISK-next_execution_is_realistic_partial>next_execution_is_realistic_partial</a></li>
+<li><a href=#ISK-run_total_equals_run>run_total_equals_run</a></li>
+<li><a href=#ISK-realistic_purge>realistic_purge</a></li>
+<li><a href=#ISK-remove_gateway_comm_subset>remove_gateway_comm_subset</a></li>
+<li><a href=#ISK-realistic_ipurge_l>realistic_ipurge_l</a></li>
+<li><a href=#ISK-realistic_ipurge_r>realistic_ipurge_r</a></li>
+</ul>
+</li><li><a href=#CISK>CISK</a>
+<ul>
+<li><a href=#CISK-next_action_consistent>next_action_consistent</a></li>
+<li><a href=#CISK-next_execs_consistent>next_execs_consistent</a></li>
+<li><a href=#CISK-next_state_consistent>next_state_consistent</a></li>
+<li><a href=#CISK-current_next_state>current_next_state</a></li>
+<li><a href=#CISK-locally_respects_next_state>locally_respects_next_state</a></li>
+<li><a href=#CISK-CISK_control_spec>CISK_control_spec</a></li>
+<li><a href=#CISK-next_action_after_cswitch>next_action_after_cswitch</a></li>
+<li><a href=#CISK-next_action_after_next_state>next_action_after_next_state</a></li>
+<li><a href=#CISK-next_action_after_step>next_action_after_step</a></li>
+<li><a href=#CISK-next_state_precondition>next_state_precondition</a></li>
+<li><a href=#CISK-next_state_invariant>next_state_invariant</a></li>
+<li><a href=#CISK-next_action_from_execs>next_action_from_execs</a></li>
+<li><a href=#CISK-next_execs_subset>next_execs_subset</a></li>
+</ul>
+</li><li><a href=#Step_configuration>Step_configuration</a>
+</li><li><a href=#Step_policies>Step_policies</a>
+<ul>
+<li><a href=#Step_policies-correct>correct</a></li>
+<li><a href=#Step_policies-example_how_to_use_properties_in_proofs>example_how_to_use_properties_in_proofs</a></li>
+</ul>
+</li><li><a href=#Step>Step</a>
+</li><li><a href=#Step_invariants>Step_invariants</a>
+<ul>
+<li><a href=#Step_invariants-set_object_value_invariant>set_object_value_invariant</a></li>
+<li><a href=#Step_invariants-set_thread_value_invariant>set_thread_value_invariant</a></li>
+<li><a href=#Step_invariants-atomic_ipc_preserves_invariants>atomic_ipc_preserves_invariants</a></li>
+<li><a href=#Step_invariants-atomic_ev_wait_one_preserves_invariants>atomic_ev_wait_one_preserves_invariants</a></li>
+<li><a href=#Step_invariants-atomic_ev_wait_all_preserves_invariants>atomic_ev_wait_all_preserves_invariants</a></li>
+<li><a href=#Step_invariants-atomic_ev_signal_preserves_invariants>atomic_ev_signal_preserves_invariants</a></li>
+</ul>
+</li><li><a href=#Step_vpeq>Step_vpeq</a>
+<ul>
+<li><a href=#Step_vpeq-vpeq_rel>vpeq_rel</a></li>
+<li><a href=#Step_vpeq-set_object_value_ign>set_object_value_ign</a></li>
+</ul>
+</li><li><a href=#Step_vpeq_locally_respects>Step_vpeq_locally_respects</a>
+<ul>
+<li><a href=#Step_vpeq_locally_respects-ipc_respects_policy>ipc_respects_policy</a></li>
+<li><a href=#Step_vpeq_locally_respects-ev_signal_respects_policy>ev_signal_respects_policy</a></li>
+<li><a href=#Step_vpeq_locally_respects-ev_wait_all_respects_policy>ev_wait_all_respects_policy</a></li>
+<li><a href=#Step_vpeq_locally_respects-ev_wait_one_respects_policy>ev_wait_one_respects_policy</a></li>
+</ul>
+</li><li><a href=#Step_vpeq_weakly_step_consistent>Step_vpeq_weakly_step_consistent</a>
+<ul>
+<li><a href=#Step_vpeq_weakly_step_consistent-ipc_precondition_weakly_step_consistent>ipc_precondition_weakly_step_consistent</a></li>
+<li><a href=#Step_vpeq_weakly_step_consistent-ev_signal_precondition_weakly_step_consistent>ev_signal_precondition_weakly_step_consistent</a></li>
+<li><a href=#Step_vpeq_weakly_step_consistent-set_object_value_consistent>set_object_value_consistent</a></li>
+<li><a href=#Step_vpeq_weakly_step_consistent-ipc_weakly_step_consistent>ipc_weakly_step_consistent</a></li>
+<li><a href=#Step_vpeq_weakly_step_consistent-ev_wait_one_weakly_step_consistent>ev_wait_one_weakly_step_consistent</a></li>
+<li><a href=#Step_vpeq_weakly_step_consistent-ev_wait_all_weakly_step_consistent>ev_wait_all_weakly_step_consistent</a></li>
+<li><a href=#Step_vpeq_weakly_step_consistent-ev_signal_weakly_step_consistent>ev_signal_weakly_step_consistent</a></li>
+<li><a href=#Step_vpeq_weakly_step_consistent-extend_subj_subj_consistent>extend_subj_subj_consistent</a></li>
+</ul>
+</li><li><a href=#Separation_kernel_model>Separation_kernel_model</a>
+<ul>
+<li><a href=#Separation_kernel_model-initial_invariant>initial_invariant</a></li>
+<li><a href=#Separation_kernel_model-rstate_invariant>rstate_invariant</a></li>
+<li><a href=#Separation_kernel_model-rstate_down_up>rstate_down_up</a></li>
+<li><a href=#Separation_kernel_model-rstate_up_down>rstate_up_down</a></li>
+<li><a href=#Separation_kernel_model-inst_vpeq_rel>inst_vpeq_rel</a></li>
+<li><a href=#Separation_kernel_model-inst_ifp_refl>inst_ifp_refl</a></li>
+<li><a href=#Separation_kernel_model-inst_step_atomicity>inst_step_atomicity</a></li>
+<li><a href=#Separation_kernel_model-inst_weakly_step_consistent>inst_weakly_step_consistent</a></li>
+<li><a href=#Separation_kernel_model-inst_local_respect>inst_local_respect</a></li>
+<li><a href=#Separation_kernel_model-inst_output_consistency>inst_output_consistency</a></li>
+<li><a href=#Separation_kernel_model-inst_cswitch_independent_of_state>inst_cswitch_independent_of_state</a></li>
+<li><a href=#Separation_kernel_model-inst_cswitch_consistency>inst_cswitch_consistency</a></li>
+<li><a href=#Separation_kernel_model-prec_first_IPC_action>prec_first_IPC_action</a></li>
+<li><a href=#Separation_kernel_model-prec_first_EV_WAIT_action>prec_first_EV_WAIT_action</a></li>
+<li><a href=#Separation_kernel_model-prec_first_EV_SIGNAL_action>prec_first_EV_SIGNAL_action</a></li>
+<li><a href=#Separation_kernel_model-prec_after_IPC_step>prec_after_IPC_step</a></li>
+<li><a href=#Separation_kernel_model-prec_after_EV_WAIT_step>prec_after_EV_WAIT_step</a></li>
+<li><a href=#Separation_kernel_model-prec_after_EV_SIGNAL_step>prec_after_EV_SIGNAL_step</a></li>
+<li><a href=#Separation_kernel_model-on_set_object_value>on_set_object_value</a></li>
+<li><a href=#Separation_kernel_model-prec_IPC_dom_independent>prec_IPC_dom_independent</a></li>
+<li><a href=#Separation_kernel_model-prec_ev_signal_dom_independent>prec_ev_signal_dom_independent</a></li>
+<li><a href=#Separation_kernel_model-prec_ev_wait_one_dom_independent>prec_ev_wait_one_dom_independent</a></li>
+<li><a href=#Separation_kernel_model-prec_ev_wait_all_dom_independent>prec_ev_wait_all_dom_independent</a></li>
+<li><a href=#Separation_kernel_model-prec_dom_independent>prec_dom_independent</a></li>
+<li><a href=#Separation_kernel_model-ipc_precondition_after_cswitch>ipc_precondition_after_cswitch</a></li>
+<li><a href=#Separation_kernel_model-precondition_after_cswitch>precondition_after_cswitch</a></li>
+<li><a href=#Separation_kernel_model-aborting_switch_independent>aborting_switch_independent</a></li>
+<li><a href=#Separation_kernel_model-waiting_switch_independent>waiting_switch_independent</a></li>
+<li><a href=#Separation_kernel_model-aborting_after_IPC_step>aborting_after_IPC_step</a></li>
+<li><a href=#Separation_kernel_model-waiting_after_IPC_step>waiting_after_IPC_step</a></li>
+<li><a href=#Separation_kernel_model-raborting_consistent>raborting_consistent</a></li>
+<li><a href=#Separation_kernel_model-aborting_dom_independent>aborting_dom_independent</a></li>
+<li><a href=#Separation_kernel_model-ipc_precondition_of_partner_consistent>ipc_precondition_of_partner_consistent</a></li>
+<li><a href=#Separation_kernel_model-ev_signal_precondition_of_partner_consistent>ev_signal_precondition_of_partner_consistent</a></li>
+<li><a href=#Separation_kernel_model-waiting_consistent>waiting_consistent</a></li>
+<li><a href=#Separation_kernel_model-ipc_precondition_ensures_ifp>ipc_precondition_ensures_ifp</a></li>
+<li><a href=#Separation_kernel_model-ev_signal_precondition_ensures_ifp>ev_signal_precondition_ensures_ifp</a></li>
+<li><a href=#Separation_kernel_model-involved_ifp>involved_ifp</a></li>
+<li><a href=#Separation_kernel_model-spec_of_waiting_ev>spec_of_waiting_ev</a></li>
+<li><a href=#Separation_kernel_model-spec_of_waiting_ev_w>spec_of_waiting_ev_w</a></li>
+<li><a href=#Separation_kernel_model-spec_of_waiting>spec_of_waiting</a></li>
+</ul>
+</li><li><a href=#Link_separation_kernel_model_to_CISK>Link_separation_kernel_model_to_CISK</a>
+</li>
+</ul>
+</div>
+<ul>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/CISC-Kernel/outline.pdf>Proof
+outline</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/CISC-Kernel/document.pdf>Proof
+document</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/CISC-Kernel/session_graph.pdf>Theory dependencies</a></li>
+</ul>
+</div>
+</aside>
+<div class="content theories"><header>
+<form action=/%20search>
+<div class=form-container>
+<input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
+<datalist id=autocomplete>
+</datalist>
+</div>
+</form>
+<h1><span class=first>S</span>ession <span class=first>C</span><span class=first>I</span><span class=first>S</span><span class=first>C</span>-<span class=first>K</span>ernel</h1>
+<div>
+</div>
+</header><div id=banner data-id=0>
+<p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button>
+</div>
+<div><main>
+<div id=Option_Binders>
+<div class=head>
+<h1>Theory Option_Binders</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>subsection</span></span> <span class=quoted><span class=plain_text>‹Binders for the option type \label{sect:binders}›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Option_Binders
   <span class=keyword2><span class=keyword>imports</span></span> <a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL/Main.html>Main</a>
@@ -45,7 +254,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/CI
 <span class=keyword2><span class=keyword>where</span></span> <span class=quoted><span class=quoted>"<span class=free>strict_equal</span> <span class=free><span class=bound><span class=entity>m</span></span></span> <span class=free><span class=bound><span class=entity>a</span></span></span> <span class=main>≡</span> <span class=keyword1>case</span> <span class=free><span class=bound><span class=entity>m</span></span></span> <span class=keyword1>of</span> None <span class=main>⇒</span> False <span class=main>|</span> <span class=main>(</span>Some <span class=bound>a'</span><span class=main>)</span> <span class=main>⇒</span> <span class=bound>a'</span> <span class=main>=</span> <span class=free><span class=bound><span class=entity>a</span></span></span>"</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=List_Theorems><div class=head><h1>Theory List_Theorems</h1></div><pre class=source><span class=keyword1><span class=command>subsection</span></span> <span class=quoted><span class=plain_text>‹Theorems on lists›</span></span>
+</pre>
+</div><div id=List_Theorems>
+<div class=head>
+<h1>Theory List_Theorems</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>subsection</span></span> <span class=quoted><span class=plain_text>‹Theorems on lists›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> List_Theorems
   <span class=keyword2><span class=keyword>imports</span></span> <a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL/Main.html>Main</a>
@@ -174,7 +388,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/CI
 <span class=keyword2><span class=keyword>shows</span></span> <span class=quoted><span class=quoted>"<span class=free>x</span> <span class=main>≠</span> <span class=main>[]</span> <span class=main>∧</span> hd <span class=free>x</span> <span class=main>≠</span> <span class=main>[]</span> <span class=main>⟶</span> tl <span class=main>(</span>hd <span class=free>x</span><span class=main>)</span> <span class=main>#</span> tl <span class=free>x</span> <span class=main>≠</span> <span class=free>x</span>"</span></span> <span class=keyword1><span class=command>using</span></span> tl_x_not_x <span class=keyword1><span class=command>by</span></span><span class=main>(</span><span class=operator>induct</span> <span class=quoted><span class=free>x</span></span><span class=main><span class=keyword3>,</span></span><span class=operator>simp</span><span class=main><span class=keyword3>,</span></span><span class=operator>auto</span><span class=main>)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=K><div class=head><h1>Theory K</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹A generic model for separation kernels \label{sect:generic}›</span></span>
+</pre>
+</div><div id=K>
+<div class=head>
+<h1>Theory K</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹A generic model for separation kernels \label{sect:generic}›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> K
   <span class=keyword2><span class=keyword>imports</span></span> <a href=#List_Theorems>List_Theorems</a> <a href=#Option_Binders>Option_Binders</a>
@@ -335,7 +554,12 @@ Non-kernel actions are not take into account.
 
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=SK><div class=head><h1>Theory SK</h1></div><pre class=source><span class=keyword1><span class=command>subsection</span></span> <span class=quoted><span class=plain_text>‹SK (Separation Kernel) \label{sec:sep_kernel}›</span></span>
+</pre>
+</div><div id=SK>
+<div class=head>
+<h1>Theory SK</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>subsection</span></span> <span class=quoted><span class=plain_text>‹SK (Separation Kernel) \label{sec:sep_kernel}›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> SK
   <span class=keyword2><span class=keyword>imports</span></span> <a href=#K>K</a>
@@ -1722,7 +1946,12 @@ This is expressed by ``secure''.
 <span class=keyword2><span class=keyword>end</span></span>
 <span class=keyword2><span class=keyword>end</span></span>
 
-</pre></div><div id=ISK><div class=head><h1>Theory ISK</h1></div><pre class=source><span class=keyword1><span class=command>subsection</span></span> <span class=quoted><span class=plain_text>‹ISK (Interruptible Separation Kernel)›</span></span>
+</pre>
+</div><div id=ISK>
+<div class=head>
+<h1>Theory ISK</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>subsection</span></span> <span class=quoted><span class=plain_text>‹ISK (Interruptible Separation Kernel)›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> ISK
   <span class=keyword2><span class=keyword>imports</span></span> <a href=#SK>SK</a>
@@ -2439,7 +2668,12 @@ The following constraints are assumed and must therefore be proven for the insta
 
 <span class=keyword2><span class=keyword>end</span></span>
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=CISK><div class=head><h1>Theory CISK</h1></div><pre class=source><span class=keyword1><span class=command>subsection</span></span> <span class=quoted><span class=plain_text>‹CISK (Controlled Interruptible Separation Kernel)›</span></span>
+</pre>
+</div><div id=CISK>
+<div class=head>
+<h1>Theory CISK</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>subsection</span></span> <span class=quoted><span class=plain_text>‹CISK (Controlled Interruptible Separation Kernel)›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> CISK
   <span class=keyword2><span class=keyword>imports</span></span> <a href=#ISK>ISK</a>
@@ -2926,7 +3160,12 @@ The following constraints are assumed and must therefore be proven for the insta
 <span class=keyword2><span class=keyword>end</span></span>
 <span class=keyword2><span class=keyword>end</span></span>
 
-</pre></div><div id=Step_configuration><div class=head><h1>Theory Step_configuration</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Instantiation by a separation kernel with concrete actions \label{sect:instantiation}›</span></span>
+</pre>
+</div><div id=Step_configuration>
+<div class=head>
+<h1>Theory Step_configuration</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Instantiation by a separation kernel with concrete actions \label{sect:instantiation}›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Step_configuration
   <span class=keyword2><span class=keyword>imports</span></span> <a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL/Main.html>Main</a>
@@ -3019,7 +3258,12 @@ maintained, without modeling any API for an open/close operation.}
   partition <span class=main>::</span> <span class=quoted><span class=quoted>"thread_id_t <span class=main>⇒</span> partition_id_t"</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Step_policies><div class=head><h1>Theory Step_policies</h1></div><pre class=source><span class=keyword1><span class=command>subsection</span></span> <span class=quoted><span class=plain_text>‹Formulation of a subject-subject communication policy and an information flow 
+</pre>
+</div><div id=Step_policies>
+<div class=head>
+<h1>Theory Step_policies</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>subsection</span></span> <span class=quoted><span class=plain_text>‹Formulation of a subject-subject communication policy and an information flow 
 policy, and showing both can be derived from subject-object configuration data›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Step_policies
@@ -3120,7 +3364,12 @@ We derive the subject-subject policy and the information flow policy from the co
   <span class=keyword1><span class=command>using</span></span> Policy_properties.ifp_reflexive <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Step><div class=head><h1>Theory Step</h1></div><pre class=source><span class=keyword1><span class=command>subsection</span></span> <span class=quoted><span class=plain_text>‹Separation kernel state and atomic step function›</span></span>
+</pre>
+</div><div id=Step>
+<div class=head>
+<h1>Theory Step</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>subsection</span></span> <span class=quoted><span class=plain_text>‹Separation kernel state and atomic step function›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Step
   <span class=keyword2><span class=keyword>imports</span></span> <a href=#Step_policies>Step_policies</a>
@@ -3322,7 +3571,12 @@ available from the API.›</span></span>
     <span class=main>|</span> NONE <span class=main>⇒</span> <span class=free><span class=bound><span class=entity>s</span></span></span>"</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Step_invariants><div class=head><h1>Theory Step_invariants</h1></div><pre class=source><span class=keyword1><span class=command>subsection</span></span> <span class=quoted><span class=plain_text>‹Preconditions and invariants for the atomic step \label{sect:step_invariants}›</span></span>
+</pre>
+</div><div id=Step_invariants>
+<div class=head>
+<h1>Theory Step_invariants</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>subsection</span></span> <span class=quoted><span class=plain_text>‹Preconditions and invariants for the atomic step \label{sect:step_invariants}›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Step_invariants
   <span class=keyword2><span class=keyword>imports</span></span> <a href=#Step>Step</a>
@@ -3507,7 +3761,12 @@ not a context switch does not change the current thread.›</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
 
-</pre></div><div id=Step_vpeq><div class=head><h1>Theory Step_vpeq</h1></div><pre class=source><span class=keyword1><span class=command>subsection</span></span> <span class=quoted><span class=plain_text>‹The view-partitioning equivalence relation›</span></span>
+</pre>
+</div><div id=Step_vpeq>
+<div class=head>
+<h1>Theory Step_vpeq</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>subsection</span></span> <span class=quoted><span class=plain_text>‹The view-partitioning equivalence relation›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Step_vpeq
   <span class=keyword2><span class=keyword>imports</span></span> <a href=#Step>Step</a> <a href=#Step_invariants>Step_invariants</a>
@@ -3587,7 +3846,12 @@ not a context switch does not change the current thread.›</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
 
-</pre></div><div id=Step_vpeq_locally_respects><div class=head><h1>Theory Step_vpeq_locally_respects</h1></div><pre class=source><span class=keyword1><span class=command>subsection</span></span> <span class=quoted><span class=plain_text>‹Atomic step locally respects the information flow policy›</span></span>
+</pre>
+</div><div id=Step_vpeq_locally_respects>
+<div class=head>
+<h1>Theory Step_vpeq_locally_respects</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>subsection</span></span> <span class=quoted><span class=plain_text>‹Atomic step locally respects the information flow policy›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Step_vpeq_locally_respects
   <span class=keyword2><span class=keyword>imports</span></span> <a href=#Step>Step</a> <a href=#Step_invariants>Step_invariants</a> <a href=#Step_vpeq>Step_vpeq</a>
@@ -3744,7 +4008,12 @@ not a context switch does not change the current thread.›</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
 
-</pre></div><div id=Step_vpeq_weakly_step_consistent><div class=head><h1>Theory Step_vpeq_weakly_step_consistent</h1></div><pre class=source><span class=keyword1><span class=command>subsection</span></span> <span class=quoted><span class=plain_text>‹Weak step consistency›</span></span>
+</pre>
+</div><div id=Step_vpeq_weakly_step_consistent>
+<div class=head>
+<h1>Theory Step_vpeq_weakly_step_consistent</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>subsection</span></span> <span class=quoted><span class=plain_text>‹Weak step consistency›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Step_vpeq_weakly_step_consistent
   <span class=keyword2><span class=keyword>imports</span></span> <a href=#Step>Step</a> <a href=#Step_invariants>Step_invariants</a> <a href=#Step_vpeq>Step_vpeq</a>
@@ -4022,7 +4291,12 @@ not a context switch does not change the current thread.›</span></span>
     <span class=keyword1><span class=command>by</span></span>  <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>split</span><span class=main><span class=main>:</span></span> ev_signal_stage_t.splits<span class=main>)</span>
    <span class=keyword1><span class=command>qed</span></span>
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Separation_kernel_model><div class=head><h1>Theory Separation_kernel_model</h1></div><pre class=source><span class=keyword1><span class=command>subsection</span></span> <span class=quoted><span class=plain_text>‹Separation kernel model \label{sect:separation_kernel_model}›</span></span>
+</pre>
+</div><div id=Separation_kernel_model>
+<div class=head>
+<h1>Theory Separation_kernel_model</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>subsection</span></span> <span class=quoted><span class=plain_text>‹Separation kernel model \label{sect:separation_kernel_model}›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Separation_kernel_model
   <span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=#Step>../../step/Step</a>"</span>
@@ -4834,7 +5108,12 @@ qed
   <span class=keyword1><span class=command>by</span></span><span class=main>(</span><span class=operator>auto</span> <span class=quasi_keyword>split</span><span class=main><span class=main>:</span></span> int_point_t.splits ipc_stage_t.splits ev_wait_stage_t.splits<span class=main>)</span>
 <span class=keyword2><span class=keyword>end</span></span>
 
-</pre></div><div id=Link_separation_kernel_model_to_CISK><div class=head><h1>Theory Link_separation_kernel_model_to_CISK</h1></div><pre class=source><span class=keyword1><span class=command>subsection</span></span> <span class=quoted><span class=plain_text>‹Link implementation to CISK: the specific separation kernel is an interpretation of the generic model.\label{sect:link_to_CISK}›</span></span>
+</pre>
+</div><div id=Link_separation_kernel_model_to_CISK>
+<div class=head>
+<h1>Theory Link_separation_kernel_model_to_CISK</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>subsection</span></span> <span class=quoted><span class=plain_text>‹Link implementation to CISK: the specific separation kernel is an interpretation of the generic model.\label{sect:link_to_CISK}›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Link_separation_kernel_model_to_CISK
   <span class=keyword2><span class=keyword>imports</span></span> <a href=#Separation_kernel_model>Separation_kernel_model</a>         
@@ -4991,4 +5270,10 @@ specification of CISK.
 <span class=keyword1><span class=command>by</span></span> <span class=operator>blast</span>
       
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div></main></div></div></body></html>
+</pre>
+</div>
+</main>
+</div>
+</div>
+</body>
+</html>

@@ -1,7 +1,205 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Session Deriving - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session Deriving"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/deriving/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Session Deriving"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css><link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script><script src=/js/banner.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><li><a href=/entries/deriving>Return to entry</a></li></ul><hr><ul><li><a href=#Derive_Manager>Derive_Manager</a></li><li><a href=#files%2fderive_manager.ML>files/derive_manager.ML</a></li><li><a href=#Generator_Aux>Generator_Aux</a><ul><li><a href=#Generator_Aux-in_set_simps>in_set_simps</a></li><li><a href=#Generator_Aux-conj_weak_cong>conj_weak_cong</a></li><li><a href=#Generator_Aux-refl_True>refl_True</a></li></ul></li><li><a href=#files%2fbnf_access.ML>files/bnf_access.ML</a></li><li><a href=#files%2fgenerator_aux.ML>files/generator_aux.ML</a></li><li><a href=#Comparator>Comparator</a><ul><li><a href=#Comparator-comp_of_ords_of_le_lt>comp_of_ords_of_le_lt</a></li><li><a href=#Comparator-lt_of_comp_of_ords>lt_of_comp_of_ords</a></li><li><a href=#Comparator-le_of_comp_of_ords_gen>le_of_comp_of_ords_gen</a></li><li><a href=#Comparator-le_of_comp_of_ords_linorder>le_of_comp_of_ords_linorder</a></li><li><a href=#Comparator-eq>eq</a></li><li><a href=#Comparator-comp_same>comp_same</a></li><li><a href=#Comparator-linorder>linorder</a></li><li><a href=#Comparator-Gt_lt_conv>Gt_lt_conv</a></li><li><a href=#Comparator-Lt_lt_conv>Lt_lt_conv</a></li><li><a href=#Comparator-eq_Eq_conv>eq_Eq_conv</a></li><li><a href=#Comparator-nGt_le_conv>nGt_le_conv</a></li><li><a href=#Comparator-nLt_le_conv>nLt_le_conv</a></li><li><a href=#Comparator-nEq_neq_conv>nEq_neq_conv</a></li><li><a href=#Comparator-two_comparisons_into_case_order>two_comparisons_into_case_order</a></li><li><a href=#Comparator-comp_of_ords>comp_of_ords</a></li><li><a href=#Comparator-comparator_of>comparator_of</a></li></ul></li><li><a href=#Compare>Compare</a><ul><li><a href=#Compare-compare_Eq_is_eq>compare_Eq_is_eq</a></li><li><a href=#Compare-compare_refl>compare_refl</a></li><li><a href=#Compare-compare_is_comparator_of>compare_is_comparator_of</a></li></ul></li><li><a href=#files%2fcompare_code.ML>files/compare_code.ML</a></li><li><a href=#RBT_Compare_Order_Impl>RBT_Compare_Order_Impl</a></li><li><a href=#RBT_Comparator_Impl>RBT_Comparator_Impl</a><ul><li><a href=#RBT_Comparator_Impl-rbt_split_comp_size>rbt_split_comp_size</a></li><li><a href=#RBT_Comparator_Impl-rbt_comp_union_swap_rec>rbt_comp_union_swap_rec</a></li><li><a href=#RBT_Comparator_Impl-rbt_comp_union_swap_rec_code>rbt_comp_union_swap_rec_code</a></li><li><a href=#RBT_Comparator_Impl-rbt_comp_inter_swap_rec>rbt_comp_inter_swap_rec</a></li><li><a href=#RBT_Comparator_Impl-comp_inter_with_key_code>comp_inter_with_key_code</a></li><li><a href=#RBT_Comparator_Impl-rbt_comp_lookup>rbt_comp_lookup</a></li><li><a href=#RBT_Comparator_Impl-rbt_comp_ins>rbt_comp_ins</a></li><li><a href=#RBT_Comparator_Impl-rbt_comp_insert_with_key>rbt_comp_insert_with_key</a></li><li><a href=#RBT_Comparator_Impl-rbt_comp_insert>rbt_comp_insert</a></li><li><a href=#RBT_Comparator_Impl-rbt_comp_del>rbt_comp_del</a></li><li><a href=#RBT_Comparator_Impl-rbt_comp_delete>rbt_comp_delete</a></li><li><a href=#RBT_Comparator_Impl-rbt_comp_bulkload>rbt_comp_bulkload</a></li><li><a href=#RBT_Comparator_Impl-rbt_comp_map_entry>rbt_comp_map_entry</a></li><li><a href=#RBT_Comparator_Impl-comp_sunion_with>comp_sunion_with</a></li><li><a href=#RBT_Comparator_Impl-anti_sym>anti_sym</a></li><li><a href=#RBT_Comparator_Impl-rbt_split_comp>rbt_split_comp</a></li><li><a href=#RBT_Comparator_Impl-comp_union_with_key>comp_union_with_key</a></li><li><a href=#RBT_Comparator_Impl-comp_sinter_with>comp_sinter_with</a></li><li><a href=#RBT_Comparator_Impl-rbt_comp_union_with_key>rbt_comp_union_with_key</a></li><li><a href=#RBT_Comparator_Impl-comp_inter_with_key>comp_inter_with_key</a></li><li><a href=#RBT_Comparator_Impl-rbt_comp_inter_with_key>rbt_comp_inter_with_key</a></li><li><a href=#RBT_Comparator_Impl-comp_minus>comp_minus</a></li><li><a href=#RBT_Comparator_Impl-rbt_comp_minus>rbt_comp_minus</a></li></ul></li><li><a href=#Comparator_Generator>Comparator_Generator</a><ul><li><a href=#Comparator_Generator-comp_lex_unfolds>comp_lex_unfolds</a></li><li><a href=#Comparator_Generator-comp_lex_eq>comp_lex_eq</a></li><li><a href=#Comparator_Generator-trans_orderI>trans_orderI</a></li><li><a href=#Comparator_Generator-trans_orderD>trans_orderD</a></li><li><a href=#Comparator_Generator-All_less_Suc>All_less_Suc</a></li><li><a href=#Comparator_Generator-comp_lex_trans>comp_lex_trans</a></li><li><a href=#Comparator_Generator-comp_lex_sym>comp_lex_sym</a></li><li><a href=#Comparator_Generator-peq_compD>peq_compD</a></li><li><a href=#Comparator_Generator-peq_compI>peq_compI</a></li><li><a href=#Comparator_Generator-psym_compD>psym_compD</a></li><li><a href=#Comparator_Generator-psym_compI>psym_compI</a></li><li><a href=#Comparator_Generator-ptrans_compD>ptrans_compD</a></li><li><a href=#Comparator_Generator-ptrans_compI>ptrans_compI</a></li><li><a href=#Comparator_Generator-eq_compD2>eq_compD2</a></li><li><a href=#Comparator_Generator-eq_compI2>eq_compI2</a></li><li><a href=#Comparator_Generator-trans_compD2>trans_compD2</a></li><li><a href=#Comparator_Generator-trans_compI2>trans_compI2</a></li><li><a href=#Comparator_Generator-sym_compD2>sym_compD2</a></li><li><a href=#Comparator_Generator-sym_compI2>sym_compI2</a></li><li><a href=#Comparator_Generator-eq_compD>eq_compD</a></li><li><a href=#Comparator_Generator-eq_compI>eq_compI</a></li><li><a href=#Comparator_Generator-trans_compD>trans_compD</a></li><li><a href=#Comparator_Generator-trans_compI>trans_compI</a></li><li><a href=#Comparator_Generator-sym_compD>sym_compD</a></li><li><a href=#Comparator_Generator-sym_compI>sym_compI</a></li><li><a href=#Comparator_Generator-eq_sym_trans_imp_comparator>eq_sym_trans_imp_comparator</a></li><li><a href=#Comparator_Generator-comparator_imp_eq_sym_trans>comparator_imp_eq_sym_trans</a></li><li><a href=#Comparator_Generator-comp_to_psym_comp>comp_to_psym_comp</a></li><li><a href=#Comparator_Generator-comp_to_peq_comp>comp_to_peq_comp</a></li><li><a href=#Comparator_Generator-comp_to_ptrans_comp>comp_to_ptrans_comp</a></li><li><a href=#Comparator_Generator-forall_finite>forall_finite</a></li><li><a href=#Comparator_Generator-trans_order_different>trans_order_different</a></li><li><a href=#Comparator_Generator-length_nth_simps>length_nth_simps</a></li></ul></li><li><a href=#files%2fcomparator_generator.ML>files/comparator_generator.ML</a></li><li><a href=#Compare_Generator>Compare_Generator</a><ul><li><a href=#Compare_Generator-linorder_axiomsD>linorder_axiomsD</a></li></ul></li><li><a href=#files%2fcompare_generator.ML>files/compare_generator.ML</a></li><li><a href=#Compare_Instances>Compare_Instances</a><ul><li><a href=#Compare_Instances-comparator_unit>comparator_unit</a></li><li><a href=#Compare_Instances-comparator_bool>comparator_bool</a></li><li><a href=#Compare_Instances-comparator_bool_comparator_of>comparator_bool_comparator_of</a></li><li><a href=#Compare_Instances-comparator_unit_comparator_of>comparator_unit_comparator_of</a></li></ul></li><li><a href=#Compare_Order_Instances>Compare_Order_Instances</a></li><li><a href=#Compare_Rat>Compare_Rat</a></li><li><a href=#Compare_Real>Compare_Real</a><ul><li><a href=#Compare_Real-invert_order_compare_real>invert_order_compare_real</a></li></ul></li><li><a href=#Equality_Generator>Equality_Generator</a><ul><li><a href=#Equality_Generator-list_all_eq_unfold>list_all_eq_unfold</a></li><li><a href=#Equality_Generator-list_all_eq>list_all_eq</a></li><li><a href=#Equality_Generator-pequalityD>pequalityD</a></li><li><a href=#Equality_Generator-pequalityI>pequalityI</a></li><li><a href=#Equality_Generator-equalityD2>equalityD2</a></li><li><a href=#Equality_Generator-equalityI2>equalityI2</a></li><li><a href=#Equality_Generator-equalityD>equalityD</a></li><li><a href=#Equality_Generator-equalityI>equalityI</a></li><li><a href=#Equality_Generator-equality_imp_eq>equality_imp_eq</a></li><li><a href=#Equality_Generator-eq_equality>eq_equality</a></li><li><a href=#Equality_Generator-equality_def%27>equality_def'</a></li></ul></li><li><a href=#files%2fequality_generator.ML>files/equality_generator.ML</a></li><li><a href=#Equality_Instances>Equality_Instances</a></li><li><a href=#Hash_Generator>Hash_Generator</a><ul><li><a href=#Hash_Generator-hash_combine_unfold>hash_combine_unfold</a></li></ul></li><li><a href=#files%2fhash_generator.ML>files/hash_generator.ML</a></li><li><a href=#Hash_Instances>Hash_Instances</a></li><li><a href=#Countable_Generator>Countable_Generator</a></li><li><a href=#Derive>Derive</a></li><li><a href=#Derive_Examples>Derive_Examples</a></li></ul></div><ul><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Deriving/outline.pdf>Proof
-outline</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Deriving/document.pdf>Proof
-document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Deriving/session_graph.pdf>Theory dependencies</a></li></ul></div></aside><div class="content theories"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
-<datalist id=autocomplete></datalist></div></form><h1><span class=first>S</span>ession <span class=first>D</span>eriving</h1><div></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><div id=Derive_Manager><div class=head><h1>Theory Derive_Manager</h1></div><pre class=source><span class=comment1>(*  Title:       Deriving class instances for datatypes
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Session Deriving - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session Deriving">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="/entries/deriving/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories">
+<meta property="og:site_name" content="Archive of Formal Proofs">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="/images/afp.png">
+<meta name=twitter:title content="Session Deriving">
+<meta name=twitter:description content>
+<link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css>
+<link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script>
+<script src=/js/banner.js></script><script src=/js/header-search.js></script></head>
+<body class=mathjax_ignore>
+<aside>
+<div>
+<div>
+<a href=/>
+<img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo>
+</a>
+<ul>
+<li><a href=/entries/deriving>Return to entry</a></li>
+</ul>
+<hr>
+<ul><li><a href=#Derive_Manager>Derive_Manager</a>
+</li><li><a href=#files%2fderive_manager.ML>files/derive_manager.ML</a>
+</li><li><a href=#Generator_Aux>Generator_Aux</a>
+<ul>
+<li><a href=#Generator_Aux-in_set_simps>in_set_simps</a></li>
+<li><a href=#Generator_Aux-conj_weak_cong>conj_weak_cong</a></li>
+<li><a href=#Generator_Aux-refl_True>refl_True</a></li>
+</ul>
+</li><li><a href=#files%2fbnf_access.ML>files/bnf_access.ML</a>
+</li><li><a href=#files%2fgenerator_aux.ML>files/generator_aux.ML</a>
+</li><li><a href=#Comparator>Comparator</a>
+<ul>
+<li><a href=#Comparator-comp_of_ords_of_le_lt>comp_of_ords_of_le_lt</a></li>
+<li><a href=#Comparator-lt_of_comp_of_ords>lt_of_comp_of_ords</a></li>
+<li><a href=#Comparator-le_of_comp_of_ords_gen>le_of_comp_of_ords_gen</a></li>
+<li><a href=#Comparator-le_of_comp_of_ords_linorder>le_of_comp_of_ords_linorder</a></li>
+<li><a href=#Comparator-eq>eq</a></li>
+<li><a href=#Comparator-comp_same>comp_same</a></li>
+<li><a href=#Comparator-linorder>linorder</a></li>
+<li><a href=#Comparator-Gt_lt_conv>Gt_lt_conv</a></li>
+<li><a href=#Comparator-Lt_lt_conv>Lt_lt_conv</a></li>
+<li><a href=#Comparator-eq_Eq_conv>eq_Eq_conv</a></li>
+<li><a href=#Comparator-nGt_le_conv>nGt_le_conv</a></li>
+<li><a href=#Comparator-nLt_le_conv>nLt_le_conv</a></li>
+<li><a href=#Comparator-nEq_neq_conv>nEq_neq_conv</a></li>
+<li><a href=#Comparator-two_comparisons_into_case_order>two_comparisons_into_case_order</a></li>
+<li><a href=#Comparator-comp_of_ords>comp_of_ords</a></li>
+<li><a href=#Comparator-comparator_of>comparator_of</a></li>
+</ul>
+</li><li><a href=#Compare>Compare</a>
+<ul>
+<li><a href=#Compare-compare_Eq_is_eq>compare_Eq_is_eq</a></li>
+<li><a href=#Compare-compare_refl>compare_refl</a></li>
+<li><a href=#Compare-compare_is_comparator_of>compare_is_comparator_of</a></li>
+</ul>
+</li><li><a href=#files%2fcompare_code.ML>files/compare_code.ML</a>
+</li><li><a href=#RBT_Compare_Order_Impl>RBT_Compare_Order_Impl</a>
+</li><li><a href=#RBT_Comparator_Impl>RBT_Comparator_Impl</a>
+<ul>
+<li><a href=#RBT_Comparator_Impl-rbt_split_comp_size>rbt_split_comp_size</a></li>
+<li><a href=#RBT_Comparator_Impl-rbt_comp_union_swap_rec>rbt_comp_union_swap_rec</a></li>
+<li><a href=#RBT_Comparator_Impl-rbt_comp_union_swap_rec_code>rbt_comp_union_swap_rec_code</a></li>
+<li><a href=#RBT_Comparator_Impl-rbt_comp_inter_swap_rec>rbt_comp_inter_swap_rec</a></li>
+<li><a href=#RBT_Comparator_Impl-comp_inter_with_key_code>comp_inter_with_key_code</a></li>
+<li><a href=#RBT_Comparator_Impl-rbt_comp_lookup>rbt_comp_lookup</a></li>
+<li><a href=#RBT_Comparator_Impl-rbt_comp_ins>rbt_comp_ins</a></li>
+<li><a href=#RBT_Comparator_Impl-rbt_comp_insert_with_key>rbt_comp_insert_with_key</a></li>
+<li><a href=#RBT_Comparator_Impl-rbt_comp_insert>rbt_comp_insert</a></li>
+<li><a href=#RBT_Comparator_Impl-rbt_comp_del>rbt_comp_del</a></li>
+<li><a href=#RBT_Comparator_Impl-rbt_comp_delete>rbt_comp_delete</a></li>
+<li><a href=#RBT_Comparator_Impl-rbt_comp_bulkload>rbt_comp_bulkload</a></li>
+<li><a href=#RBT_Comparator_Impl-rbt_comp_map_entry>rbt_comp_map_entry</a></li>
+<li><a href=#RBT_Comparator_Impl-comp_sunion_with>comp_sunion_with</a></li>
+<li><a href=#RBT_Comparator_Impl-anti_sym>anti_sym</a></li>
+<li><a href=#RBT_Comparator_Impl-rbt_split_comp>rbt_split_comp</a></li>
+<li><a href=#RBT_Comparator_Impl-comp_union_with_key>comp_union_with_key</a></li>
+<li><a href=#RBT_Comparator_Impl-comp_sinter_with>comp_sinter_with</a></li>
+<li><a href=#RBT_Comparator_Impl-rbt_comp_union_with_key>rbt_comp_union_with_key</a></li>
+<li><a href=#RBT_Comparator_Impl-comp_inter_with_key>comp_inter_with_key</a></li>
+<li><a href=#RBT_Comparator_Impl-rbt_comp_inter_with_key>rbt_comp_inter_with_key</a></li>
+<li><a href=#RBT_Comparator_Impl-comp_minus>comp_minus</a></li>
+<li><a href=#RBT_Comparator_Impl-rbt_comp_minus>rbt_comp_minus</a></li>
+</ul>
+</li><li><a href=#Comparator_Generator>Comparator_Generator</a>
+<ul>
+<li><a href=#Comparator_Generator-comp_lex_unfolds>comp_lex_unfolds</a></li>
+<li><a href=#Comparator_Generator-comp_lex_eq>comp_lex_eq</a></li>
+<li><a href=#Comparator_Generator-trans_orderI>trans_orderI</a></li>
+<li><a href=#Comparator_Generator-trans_orderD>trans_orderD</a></li>
+<li><a href=#Comparator_Generator-All_less_Suc>All_less_Suc</a></li>
+<li><a href=#Comparator_Generator-comp_lex_trans>comp_lex_trans</a></li>
+<li><a href=#Comparator_Generator-comp_lex_sym>comp_lex_sym</a></li>
+<li><a href=#Comparator_Generator-peq_compD>peq_compD</a></li>
+<li><a href=#Comparator_Generator-peq_compI>peq_compI</a></li>
+<li><a href=#Comparator_Generator-psym_compD>psym_compD</a></li>
+<li><a href=#Comparator_Generator-psym_compI>psym_compI</a></li>
+<li><a href=#Comparator_Generator-ptrans_compD>ptrans_compD</a></li>
+<li><a href=#Comparator_Generator-ptrans_compI>ptrans_compI</a></li>
+<li><a href=#Comparator_Generator-eq_compD2>eq_compD2</a></li>
+<li><a href=#Comparator_Generator-eq_compI2>eq_compI2</a></li>
+<li><a href=#Comparator_Generator-trans_compD2>trans_compD2</a></li>
+<li><a href=#Comparator_Generator-trans_compI2>trans_compI2</a></li>
+<li><a href=#Comparator_Generator-sym_compD2>sym_compD2</a></li>
+<li><a href=#Comparator_Generator-sym_compI2>sym_compI2</a></li>
+<li><a href=#Comparator_Generator-eq_compD>eq_compD</a></li>
+<li><a href=#Comparator_Generator-eq_compI>eq_compI</a></li>
+<li><a href=#Comparator_Generator-trans_compD>trans_compD</a></li>
+<li><a href=#Comparator_Generator-trans_compI>trans_compI</a></li>
+<li><a href=#Comparator_Generator-sym_compD>sym_compD</a></li>
+<li><a href=#Comparator_Generator-sym_compI>sym_compI</a></li>
+<li><a href=#Comparator_Generator-eq_sym_trans_imp_comparator>eq_sym_trans_imp_comparator</a></li>
+<li><a href=#Comparator_Generator-comparator_imp_eq_sym_trans>comparator_imp_eq_sym_trans</a></li>
+<li><a href=#Comparator_Generator-comp_to_psym_comp>comp_to_psym_comp</a></li>
+<li><a href=#Comparator_Generator-comp_to_peq_comp>comp_to_peq_comp</a></li>
+<li><a href=#Comparator_Generator-comp_to_ptrans_comp>comp_to_ptrans_comp</a></li>
+<li><a href=#Comparator_Generator-forall_finite>forall_finite</a></li>
+<li><a href=#Comparator_Generator-trans_order_different>trans_order_different</a></li>
+<li><a href=#Comparator_Generator-length_nth_simps>length_nth_simps</a></li>
+</ul>
+</li><li><a href=#files%2fcomparator_generator.ML>files/comparator_generator.ML</a>
+</li><li><a href=#Compare_Generator>Compare_Generator</a>
+<ul>
+<li><a href=#Compare_Generator-linorder_axiomsD>linorder_axiomsD</a></li>
+</ul>
+</li><li><a href=#files%2fcompare_generator.ML>files/compare_generator.ML</a>
+</li><li><a href=#Compare_Instances>Compare_Instances</a>
+<ul>
+<li><a href=#Compare_Instances-comparator_unit>comparator_unit</a></li>
+<li><a href=#Compare_Instances-comparator_bool>comparator_bool</a></li>
+<li><a href=#Compare_Instances-comparator_bool_comparator_of>comparator_bool_comparator_of</a></li>
+<li><a href=#Compare_Instances-comparator_unit_comparator_of>comparator_unit_comparator_of</a></li>
+</ul>
+</li><li><a href=#Compare_Order_Instances>Compare_Order_Instances</a>
+</li><li><a href=#Compare_Rat>Compare_Rat</a>
+</li><li><a href=#Compare_Real>Compare_Real</a>
+<ul>
+<li><a href=#Compare_Real-invert_order_compare_real>invert_order_compare_real</a></li>
+</ul>
+</li><li><a href=#Equality_Generator>Equality_Generator</a>
+<ul>
+<li><a href=#Equality_Generator-list_all_eq_unfold>list_all_eq_unfold</a></li>
+<li><a href=#Equality_Generator-list_all_eq>list_all_eq</a></li>
+<li><a href=#Equality_Generator-pequalityD>pequalityD</a></li>
+<li><a href=#Equality_Generator-pequalityI>pequalityI</a></li>
+<li><a href=#Equality_Generator-equalityD2>equalityD2</a></li>
+<li><a href=#Equality_Generator-equalityI2>equalityI2</a></li>
+<li><a href=#Equality_Generator-equalityD>equalityD</a></li>
+<li><a href=#Equality_Generator-equalityI>equalityI</a></li>
+<li><a href=#Equality_Generator-equality_imp_eq>equality_imp_eq</a></li>
+<li><a href=#Equality_Generator-eq_equality>eq_equality</a></li>
+<li><a href=#Equality_Generator-equality_def%27>equality_def'</a></li>
+</ul>
+</li><li><a href=#files%2fequality_generator.ML>files/equality_generator.ML</a>
+</li><li><a href=#Equality_Instances>Equality_Instances</a>
+</li><li><a href=#Hash_Generator>Hash_Generator</a>
+<ul>
+<li><a href=#Hash_Generator-hash_combine_unfold>hash_combine_unfold</a></li>
+</ul>
+</li><li><a href=#files%2fhash_generator.ML>files/hash_generator.ML</a>
+</li><li><a href=#Hash_Instances>Hash_Instances</a>
+</li><li><a href=#Countable_Generator>Countable_Generator</a>
+</li><li><a href=#Derive>Derive</a>
+</li><li><a href=#Derive_Examples>Derive_Examples</a>
+</li>
+</ul>
+</div>
+<ul>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Deriving/outline.pdf>Proof
+outline</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Deriving/document.pdf>Proof
+document</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Deriving/session_graph.pdf>Theory dependencies</a></li>
+</ul>
+</div>
+</aside>
+<div class="content theories"><header>
+<form action=/%20search>
+<div class=form-container>
+<input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
+<datalist id=autocomplete>
+</datalist>
+</div>
+</form>
+<h1><span class=first>S</span>ession <span class=first>D</span>eriving</h1>
+<div>
+</div>
+</header><div id=banner data-id=0>
+<p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button>
+</div>
+<div><main>
+<div id=Derive_Manager>
+<div class=head>
+<h1>Theory Derive_Manager</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:       Deriving class instances for datatypes
     Author:      Christian Sternagel and René Thiemann  &lt;christian.sternagel|rene.thiemann@uibk.ac.at&gt;
     Maintainer:  Christian Sternagel and René Thiemann 
     License:     LGPL
@@ -36,7 +234,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/De
 <span class=keyword1><span class=command>ML_file</span></span> <span class=quoted>‹derive_manager.ML›</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=files/derive_manager.ML><div class=head><h1>File ‹derive_manager.ML›</h1></div><pre class=source><span class=keyword1><span class=keyword>signature</span></span> <span class=entity>DERIVE_MANAGER</span> <span class=main>=</span>
+</pre>
+</div><div id=files/derive_manager.ML>
+<div class=head>
+<h1>File ‹derive_manager.ML›</h1>
+</div>
+<pre class=source><span class=keyword1><span class=keyword>signature</span></span> <span class=entity>DERIVE_MANAGER</span> <span class=main>=</span>
 <span class=keyword2><span class=keyword>sig</span></span>
   <span class=comment1>(* identifier, description, (fn dtyp_name =&gt; param =&gt; derive-method) *)</span>
   <span class=keyword1><span class=keyword>val</span></span> register_derive <span class=main>:</span> string <span class=main>-&gt;</span> string <span class=main>-&gt;</span> <span class=main>(</span>string <span class=main>-&gt;</span> string <span class=main>-&gt;</span> theory <span class=main>-&gt;</span> theory<span class=main>)</span> <span class=main>-&gt;</span> theory <span class=main>-&gt;</span> theory
@@ -101,7 +304,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/De
 
 <span class=keyword2><span class=keyword>end</span></span>
 
-</pre></div><div id=Generator_Aux><div class=head><h1>Theory Generator_Aux</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Shared Utilities for all Generator›</span></span>
+</pre>
+</div><div id=Generator_Aux>
+<div class=head>
+<h1>Theory Generator_Aux</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Shared Utilities for all Generator›</span></span>
 
 <span class=keyword1><span class=command>text</span></span> <span class=quoted><span class=plain_text>‹In this theory we mainly provide some Isabelle/ML infrastructure
   that is used by several generators. It consists of a uniform interface
@@ -130,7 +338,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/De
 <span class=keyword1 id=Generator_Aux-refl_True><span class=command>lemma</span></span> refl_True<span class=main>:</span> <span class=quoted><span class=quoted>"<span class=main>(</span><span class=free>x</span> <span class=main>=</span> <span class=free>x</span><span class=main>)</span> <span class=main>=</span> True"</span></span> <span class=keyword1><span class=command>by</span></span> <span class=operator>simp</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=files/bnf_access.ML><div class=head><h1>File ‹bnf_access.ML›</h1></div><pre class=source><span class=comment1>(*  Title:       Deriving class instances for datatypes
+</pre>
+</div><div id=files/bnf_access.ML>
+<div class=head>
+<h1>File ‹bnf_access.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:       Deriving class instances for datatypes
     Author:      Christian Sternagel and René Thiemann  &lt;christian.sternagel|rene.thiemann@uibk.ac.at&gt;
     Maintainer:  Christian Sternagel and René Thiemann 
     License:     LGPL
@@ -208,7 +421,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/De
   #&gt; the #&gt; <span class=main>#</span>fp_ctr_sugar #&gt; <span class=main>#</span>ctr_sugar #&gt; <span class=main>#</span>casex<span class=main>)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=files/generator_aux.ML><div class=head><h1>File ‹generator_aux.ML›</h1></div><pre class=source><span class=comment1>(*  Title:       Deriving class instances for datatypes
+</pre>
+</div><div id=files/generator_aux.ML>
+<div class=head>
+<h1>File ‹generator_aux.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:       Deriving class instances for datatypes
     Author:      Christian Sternagel and René Thiemann  &lt;christian.sternagel|rene.thiemann@uibk.ac.at&gt;
     Maintainer:  Christian Sternagel and René Thiemann
     License:     LGPL
@@ -580,7 +798,12 @@ involved in its construction*)</span>
         <span class=keyword2><span class=keyword>end</span></span><span class=main>)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Comparator><div class=head><h1>Theory Comparator</h1></div><pre class=source><span class=comment1>(*  Title:       Deriving class instances for datatypes
+</pre>
+</div><div id=Comparator>
+<div class=head>
+<h1>Theory Comparator</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:       Deriving class instances for datatypes
     Author:      Christian Sternagel and René Thiemann  &lt;christian.sternagel|rene.thiemann@uibk.ac.at&gt;
     Maintainer:  Christian Sternagel and René Thiemann 
     License:     LGPL
@@ -734,7 +957,12 @@ involved in its construction*)</span>
   <span class=keyword1><span class=command>by</span></span> <span class=operator>unfold_locales</span> <span class=main>(</span><span class=operator>auto</span> <span class=quasi_keyword>split</span><span class=main><span class=main>:</span></span> if_splits <span class=quasi_keyword>simp</span><span class=main><span class=main>:</span></span> comparator_of_def<span class=main>)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Compare><div class=head><h1>Theory Compare</h1></div><pre class=source><span class=comment1>(*  Title:       Deriving class instances for datatypes
+</pre>
+</div><div id=Compare>
+<div class=head>
+<h1>Theory Compare</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:       Deriving class instances for datatypes
     Author:      Christian Sternagel and René Thiemann  &lt;christian.sternagel|rene.thiemann@uibk.ac.at&gt;
     Maintainer:  Christian Sternagel and René Thiemann 
     License:     LGPL
@@ -809,7 +1037,12 @@ involved in its construction*)</span>
   be no <span class=antiquoted><span class=antiquoted><span class=antiquote><span class=antiquote>@{</span></span><span class=operator><span class=operator>const</span></span> compare<span class=antiquote><span class=antiquote>}</span></span></span></span>-function.›</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=files/compare_code.ML><div class=head><h1>File ‹compare_code.ML›</h1></div><pre class=source><span class=keyword1><span class=keyword>signature</span></span> <span class=entity>COMPARE_CODE</span> <span class=main>=</span>
+</pre>
+</div><div id=files/compare_code.ML>
+<div class=head>
+<h1>File ‹compare_code.ML›</h1>
+</div>
+<pre class=source><span class=keyword1><span class=keyword>signature</span></span> <span class=entity>COMPARE_CODE</span> <span class=main>=</span>
 <span class=keyword2><span class=keyword>sig</span></span>
   
   <span class=comment1>(* changes the code equations of some constant such that
@@ -876,7 +1109,12 @@ involved in its construction*)</span>
       Parse.term &gt;&gt; <span class=main>(</span><span class=keyword1><span class=keyword>fn</span></span> <span class=main>(</span><span class=entity>inst</span><span class=main>,</span> <span class=entity>c</span><span class=main>)</span> <span class=main>=&gt;</span> <span class=entity>change_compare_code_cmd</span> <span class=entity>c</span> <span class=entity>inst</span><span class=main>)</span><span class=main>)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=RBT_Compare_Order_Impl><div class=head><h1>Theory RBT_Compare_Order_Impl</h1></div><pre class=source><span class=keyword1><span class=command>subsection</span></span> <span class=quoted><span class=plain_text>‹Example: Modifying the Code-Equations of Red-Black-Trees›</span></span>
+</pre>
+</div><div id=RBT_Compare_Order_Impl>
+<div class=head>
+<h1>Theory RBT_Compare_Order_Impl</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>subsection</span></span> <span class=quoted><span class=plain_text>‹Example: Modifying the Code-Equations of Red-Black-Trees›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> RBT_Compare_Order_Impl
 <span class=keyword2><span class=keyword>imports</span></span>
@@ -901,7 +1139,12 @@ involved in its construction*)</span>
 <span class=keyword1><span class=command>export_code</span></span> <span class=quoted><span class=quoted>rbt_ins</span></span> <span class=quoted><span class=quoted>rbt_lookup</span></span> <span class=quoted><span class=quoted>rbt_del</span></span> <span class=quoted><span class=quoted>rbt_map_entry</span></span> <span class=quoted><span class=quoted>rbt_union_with_key</span></span> <span class=quoted><span class=quoted>rbt_inter_with_key</span></span> <span class=quoted><span class=quoted>rbt_minus</span></span> <span class=keyword2><span class=keyword>in</span></span> Haskell
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=RBT_Comparator_Impl><div class=head><h1>Theory RBT_Comparator_Impl</h1></div><pre class=source><span class=keyword1><span class=command>subsection</span></span> <span class=quoted><span class=plain_text>‹A Comparator-Interface to Red-Black-Trees›</span></span>
+</pre>
+</div><div id=RBT_Comparator_Impl>
+<div class=head>
+<h1>Theory RBT_Comparator_Impl</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>subsection</span></span> <span class=quoted><span class=plain_text>‹A Comparator-Interface to Red-Black-Trees›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> RBT_Comparator_Impl
 <span class=keyword2><span class=keyword>imports</span></span> 
@@ -1322,7 +1565,12 @@ involved in its construction*)</span>
 <span class=keyword2><span class=keyword>end</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Comparator_Generator><div class=head><h1>Theory Comparator_Generator</h1></div><pre class=source><span class=comment1>(*  Title:       Deriving class instances for datatypes
+</pre>
+</div><div id=Comparator_Generator>
+<div class=head>
+<h1>Theory Comparator_Generator</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:       Deriving class instances for datatypes
     Author:      Christian Sternagel and René Thiemann  &lt;christian.sternagel|rene.thiemann@uibk.ac.at&gt;
     Maintainer:  Christian Sternagel and René Thiemann 
     License:     LGPL
@@ -1573,7 +1821,12 @@ involved in its construction*)</span>
 <span class=keyword1><span class=command>ML_file</span></span> <span class=quoted>‹comparator_generator.ML›</span>
                  
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=files/comparator_generator.ML><div class=head><h1>File ‹comparator_generator.ML›</h1></div><pre class=source><span class=comment1>(*  Title:       Deriving class instances for datatypes
+</pre>
+</div><div id=files/comparator_generator.ML>
+<div class=head>
+<h1>File ‹comparator_generator.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:       Deriving class instances for datatypes
     Author:      Christian Sternagel and René Thiemann  &lt;christian.sternagel|rene.thiemann@uibk.ac.at&gt;
     Maintainer:  Christian Sternagel and René Thiemann
     License:     LGPL
@@ -2214,7 +2467,12 @@ involved in its construction*)</span>
       <span class=entity>generate_comparator_cmd</span><span class=main>)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Compare_Generator><div class=head><h1>Theory Compare_Generator</h1></div><pre class=source><span class=comment1>(*  Title:       Deriving class instances for datatypes
+</pre>
+</div><div id=Compare_Generator>
+<div class=head>
+<h1>Theory Compare_Generator</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:       Deriving class instances for datatypes
     Author:      Christian Sternagel and René Thiemann  &lt;christian.sternagel|rene.thiemann@uibk.ac.at&gt;
     Maintainer:  Christian Sternagel and René Thiemann 
     License:     LGPL
@@ -2265,7 +2523,12 @@ integrate comparators.
 <span class=keyword1><span class=command>ML_file</span></span> <span class=quoted>‹compare_generator.ML›</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=files/compare_generator.ML><div class=head><h1>File ‹compare_generator.ML›</h1></div><pre class=source><span class=comment1>(*  Title:       Deriving class instances for datatypes
+</pre>
+</div><div id=files/compare_generator.ML>
+<div class=head>
+<h1>File ‹compare_generator.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:       Deriving class instances for datatypes
     Author:      Christian Sternagel and René Thiemann  &lt;christian.sternagel|rene.thiemann@uibk.ac.at&gt;
     Maintainer:  Christian Sternagel and René Thiemann 
     License:     LGPL
@@ -2507,7 +2770,12 @@ integrate comparators.
       <span class=entity>linorder_instance_param</span><span class=main>)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Compare_Instances><div class=head><h1>Theory Compare_Instances</h1></div><pre class=source><span class=comment1>(*  Title:       Deriving class instances for datatypes
+</pre>
+</div><div id=Compare_Instances>
+<div class=head>
+<h1>Theory Compare_Instances</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:       Deriving class instances for datatypes
     Author:      Christian Sternagel and René Thiemann  &lt;christian.sternagel|rene.thiemann@uibk.ac.at&gt;
     Maintainer:  Christian Sternagel and René Thiemann 
     License:     LGPL
@@ -2600,7 +2868,12 @@ integrate comparators.
 
 <span class=keyword1><span class=command>derive</span></span> <span class=main>(</span>linorder<span class=main>)</span> compare_order <span class=quoted>bool</span> <span class=quoted>unit</span>
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Compare_Order_Instances><div class=head><h1>Theory Compare_Order_Instances</h1></div><pre class=source><span class=comment1>(*  Title:       Deriving class instances for datatypes
+</pre>
+</div><div id=Compare_Order_Instances>
+<div class=head>
+<h1>Theory Compare_Order_Instances</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:       Deriving class instances for datatypes
     Author:      Christian Sternagel and René Thiemann  &lt;christian.sternagel|rene.thiemann@uibk.ac.at&gt;
     Maintainer:  Christian Sternagel and René Thiemann 
     License:     LGPL
@@ -2713,7 +2986,12 @@ integrate comparators.
 <span class=keyword1><span class=command>qed</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Compare_Rat><div class=head><h1>Theory Compare_Rat</h1></div><pre class=source><span class=comment1>(*  
+</pre>
+</div><div id=Compare_Rat>
+<div class=head>
+<h1>Theory Compare_Rat</h1>
+</div>
+<pre class=source><span class=comment1>(*  
     Author:      René Thiemann 
     License:     LGPL
 *)</span>
@@ -2728,7 +3006,12 @@ integrate comparators.
 <span class=keyword1><span class=command>derive</span></span> <span class=main>(</span>linorder<span class=main>)</span> compare_order <span class=quoted>rat</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Compare_Real><div class=head><h1>Theory Compare_Real</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=Compare_Real>
+<div class=head>
+<h1>Theory Compare_Real</h1>
+</div>
+<pre class=source><span class=comment1>(*
     Author:      René Thiemann
     License:     LGPL
 *)</span>
@@ -2747,7 +3030,12 @@ integrate comparators.
 
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Equality_Generator><div class=head><h1>Theory Equality_Generator</h1></div><pre class=source><span class=comment1>(*  Title:       Deriving class instances for datatypes
+</pre>
+</div><div id=Equality_Generator>
+<div class=head>
+<h1>Theory Equality_Generator</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:       Deriving class instances for datatypes
     Author:      Christian Sternagel and René Thiemann  &lt;christian.sternagel|rene.thiemann@uibk.ac.at&gt;
     Maintainer:  Christian Sternagel and René Thiemann 
     License:     LGPL
@@ -2846,7 +3134,12 @@ integrate comparators.
 <span class=keyword1><span class=command>hide_fact</span></span> <span class=main>(</span><span class=keyword2><span class=keyword>open</span></span><span class=main>)</span> equalityI
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=files/equality_generator.ML><div class=head><h1>File ‹equality_generator.ML›</h1></div><pre class=source><span class=comment1>(*  Title:       Deriving class instances for datatypes
+</pre>
+</div><div id=files/equality_generator.ML>
+<div class=head>
+<h1>File ‹equality_generator.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:       Deriving class instances for datatypes
     Author:      Christian Sternagel and René Thiemann  &lt;christian.sternagel|rene.thiemann@uibk.ac.at&gt;
     Maintainer:  Christian Sternagel and René Thiemann
     License:     LGPL
@@ -3363,7 +3656,12 @@ integrate comparators.
     <span class=main>(</span><span class=entity>Derive_Manager.register_derive</span> <span class=inner_quoted>"equality"</span> <span class=inner_quoted>"generate an equality function, options are () and (eq)"</span> <span class=entity>generate_equality_cmd</span><span class=main>)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Equality_Instances><div class=head><h1>Theory Equality_Instances</h1></div><pre class=source><span class=comment1>(*  Title:       Deriving class instances for datatypes
+</pre>
+</div><div id=Equality_Instances>
+<div class=head>
+<h1>Theory Equality_Instances</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:       Deriving class instances for datatypes
     Author:      Christian Sternagel and René Thiemann  &lt;christian.sternagel|rene.thiemann@uibk.ac.at&gt;
     Maintainer:  Christian Sternagel and René Thiemann 
     License:     LGPL
@@ -3385,7 +3683,12 @@ integrate comparators.
 <span class=keyword1><span class=command>derive</span></span> equality <span class=quoted>sum</span> <span class=quoted>list</span> <span class=quoted>prod</span> <span class=quoted>option</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Hash_Generator><div class=head><h1>Theory Hash_Generator</h1></div><pre class=source><span class=comment1>(*  Title:       Deriving class instances for datatypes
+</pre>
+</div><div id=Hash_Generator>
+<div class=head>
+<h1>Theory Hash_Generator</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:       Deriving class instances for datatypes
     Author:      Christian Sternagel and René Thiemann  &lt;christian.sternagel|rene.thiemann@uibk.ac.at&gt;
     Maintainer:  Christian Sternagel and René Thiemann 
     License:     LGPL
@@ -3424,7 +3727,12 @@ integrate comparators.
 <span class=keyword1><span class=command>ML_file</span></span> <span class=quoted>‹hash_generator.ML›</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=files/hash_generator.ML><div class=head><h1>File ‹hash_generator.ML›</h1></div><pre class=source><span class=comment1>(*  Title:       Deriving class instances for datatypes
+</pre>
+</div><div id=files/hash_generator.ML>
+<div class=head>
+<h1>File ‹hash_generator.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:       Deriving class instances for datatypes
     Author:      Christian Sternagel and René Thiemann  &lt;christian.sternagel|rene.thiemann@uibk.ac.at&gt;
     Maintainer:  Christian Sternagel and René Thiemann 
     License:     LGPL
@@ -3835,7 +4143,12 @@ integrate comparators.
       <span class=main>(</span><span class=keyword1><span class=keyword>fn</span></span> <span class=entity>tyname</span> <span class=main>=&gt;</span> K <span class=main>(</span><span class=entity>hashable_instance</span> <span class=entity>tyname</span><span class=main>)</span><span class=main>)</span><span class=main>)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Hash_Instances><div class=head><h1>Theory Hash_Instances</h1></div><pre class=source><span class=comment1>(*  Title:       Deriving class instances for datatypes
+</pre>
+</div><div id=Hash_Instances>
+<div class=head>
+<h1>Theory Hash_Instances</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:       Deriving class instances for datatypes
     Author:      Christian Sternagel and René Thiemann  &lt;christian.sternagel|rene.thiemann@uibk.ac.at&gt;
     Maintainer:  Christian Sternagel and René Thiemann 
     License:     LGPL
@@ -3861,7 +4174,12 @@ integrate comparators.
   these types in the generator.›</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Countable_Generator><div class=head><h1>Theory Countable_Generator</h1></div><pre class=source><span class=comment1>(*  Title:       Deriving class instances for datatypes
+</pre>
+</div><div id=Countable_Generator>
+<div class=head>
+<h1>Theory Countable_Generator</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:       Deriving class instances for datatypes
     Author:      Christian Sternagel and René Thiemann  &lt;christian.sternagel|rene.thiemann@uibk.ac.at&gt;
     Maintainer:  Christian Sternagel and René Thiemann 
     License:     LGPL
@@ -3908,7 +4226,12 @@ for class-instantiation.
 ›</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Derive><div class=head><h1>Theory Derive</h1></div><pre class=source><span class=comment1>(*  Title:       Deriving class instances for datatypes
+</pre>
+</div><div id=Derive>
+<div class=head>
+<h1>Theory Derive</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:       Deriving class instances for datatypes
     Author:      Christian Sternagel and René Thiemann  &lt;christian.sternagel|rene.thiemann@uibk.ac.at&gt;
     Maintainer:  Christian Sternagel and René Thiemann 
     License:     LGPL
@@ -3931,7 +4254,12 @@ There are further generators available in the AFP entries Containers and Show.
 <span class=keyword1><span class=command>print_derives</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Derive_Examples><div class=head><h1>Theory Derive_Examples</h1></div><pre class=source><span class=comment1>(*  Title:       Deriving class instances for datatypes
+</pre>
+</div><div id=Derive_Examples>
+<div class=head>
+<h1>Theory Derive_Examples</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:       Deriving class instances for datatypes
     Author:      Christian Sternagel and René Thiemann  &lt;christian.sternagel|rene.thiemann@uibk.ac.at&gt;
     Maintainer:  Christian Sternagel and René Thiemann 
     License:     LGPL
@@ -4066,4 +4394,10 @@ uses other datatypes.
 <span class=keyword1><span class=command>derive</span></span> hashable <span class=quoted>complex</span> <span class=quoted>complex2</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div></main></div></div></body></html>
+</pre>
+</div>
+</main>
+</div>
+</div>
+</body>
+</html>

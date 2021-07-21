@@ -1,7 +1,93 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Session Public_Announcement_Logic - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session Public_Announcement_Logic"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/public_announcement_logic/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Session Public_Announcement_Logic"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css><link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script><script src=/js/banner.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><li><a href=/entries/public_announcement_logic>Return to entry</a></li></ul><hr><ul><li><a href=#PAL>PAL</a><ul><li><a href=#PAL-lower_semantics>lower_semantics</a></li><li><a href=#PAL-lift_semantics>lift_semantics</a></li><li><a href=#PAL-lower_lift>lower_lift</a></li><li><a href=#PAL-lift_lower>lift_lower</a></li><li><a href=#PAL-static_reduce%27>static_reduce'</a></li><li><a href=#PAL-static_reduce>static_reduce</a></li><li><a href=#PAL-reduce%27_semantics>reduce'_semantics</a></li><li><a href=#PAL-reduce_semantics>reduce_semantics</a></li><li><a href=#PAL-eval_peval>eval_peval</a></li><li><a href=#PAL-tautology_ptautology>tautology_ptautology</a></li><li><a href=#PAL-peval_eval>peval_eval</a></li><li><a href=#PAL-ptautology_tautology>ptautology_tautology</a></li><li><a href=#PAL-peval_semantics>peval_semantics</a></li><li><a href=#PAL-ptautology>ptautology</a></li><li><a href=#PAL-ConE>ConE</a></li><li><a href=#PAL-Iff_Dis>Iff_Dis</a></li><li><a href=#PAL-Iff_Con>Iff_Con</a></li><li><a href=#PAL-Iff_Imp>Iff_Imp</a></li><li><a href=#PAL-Iff_sym>Iff_sym</a></li><li><a href=#PAL-Iff_Iff>Iff_Iff</a></li><li><a href=#PAL-K%27_A2%27>K'_A2'</a></li><li><a href=#PAL-K%27_map>K'_map</a></li><li><a href=#PAL-ConI>ConI</a></li><li><a href=#PAL-Iff_wk>Iff_wk</a></li><li><a href=#PAL-Iff_reduce%27>Iff_reduce'</a></li><li><a href=#PAL-Iff_Ann1>Iff_Ann1</a></li><li><a href=#PAL-Iff_Ann2>Iff_Ann2</a></li><li><a href=#PAL-Iff_reduce>Iff_reduce</a></li></ul></li></ul></div><ul><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Public_Announcement_Logic/outline.pdf>Proof
-outline</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Public_Announcement_Logic/document.pdf>Proof
-document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Public_Announcement_Logic/session_graph.pdf>Theory dependencies</a></li></ul></div></aside><div class="content theories"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
-<datalist id=autocomplete></datalist></div></form><h1><span class=first>S</span>ession <span class=first>P</span>ublic_<span class=first>A</span>nnouncement_<span class=first>L</span>ogic</h1><div></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><div id=PAL><div class=head><h1>Theory PAL</h1></div><pre class=source><span class=comment1>(*
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Session Public_Announcement_Logic - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session Public_Announcement_Logic">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="/entries/public_announcement_logic/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories">
+<meta property="og:site_name" content="Archive of Formal Proofs">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="/images/afp.png">
+<meta name=twitter:title content="Session Public_Announcement_Logic">
+<meta name=twitter:description content>
+<link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css>
+<link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script>
+<script src=/js/banner.js></script><script src=/js/header-search.js></script></head>
+<body class=mathjax_ignore>
+<aside>
+<div>
+<div>
+<a href=/>
+<img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo>
+</a>
+<ul>
+<li><a href=/entries/public_announcement_logic>Return to entry</a></li>
+</ul>
+<hr>
+<ul><li><a href=#PAL>PAL</a>
+<ul>
+<li><a href=#PAL-lower_semantics>lower_semantics</a></li>
+<li><a href=#PAL-lift_semantics>lift_semantics</a></li>
+<li><a href=#PAL-lower_lift>lower_lift</a></li>
+<li><a href=#PAL-lift_lower>lift_lower</a></li>
+<li><a href=#PAL-static_reduce%27>static_reduce'</a></li>
+<li><a href=#PAL-static_reduce>static_reduce</a></li>
+<li><a href=#PAL-reduce%27_semantics>reduce'_semantics</a></li>
+<li><a href=#PAL-reduce_semantics>reduce_semantics</a></li>
+<li><a href=#PAL-eval_peval>eval_peval</a></li>
+<li><a href=#PAL-tautology_ptautology>tautology_ptautology</a></li>
+<li><a href=#PAL-peval_eval>peval_eval</a></li>
+<li><a href=#PAL-ptautology_tautology>ptautology_tautology</a></li>
+<li><a href=#PAL-peval_semantics>peval_semantics</a></li>
+<li><a href=#PAL-ptautology>ptautology</a></li>
+<li><a href=#PAL-ConE>ConE</a></li>
+<li><a href=#PAL-Iff_Dis>Iff_Dis</a></li>
+<li><a href=#PAL-Iff_Con>Iff_Con</a></li>
+<li><a href=#PAL-Iff_Imp>Iff_Imp</a></li>
+<li><a href=#PAL-Iff_sym>Iff_sym</a></li>
+<li><a href=#PAL-Iff_Iff>Iff_Iff</a></li>
+<li><a href=#PAL-K%27_A2%27>K'_A2'</a></li>
+<li><a href=#PAL-K%27_map>K'_map</a></li>
+<li><a href=#PAL-ConI>ConI</a></li>
+<li><a href=#PAL-Iff_wk>Iff_wk</a></li>
+<li><a href=#PAL-Iff_reduce%27>Iff_reduce'</a></li>
+<li><a href=#PAL-Iff_Ann1>Iff_Ann1</a></li>
+<li><a href=#PAL-Iff_Ann2>Iff_Ann2</a></li>
+<li><a href=#PAL-Iff_reduce>Iff_reduce</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<ul>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Public_Announcement_Logic/outline.pdf>Proof
+outline</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Public_Announcement_Logic/document.pdf>Proof
+document</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Public_Announcement_Logic/session_graph.pdf>Theory dependencies</a></li>
+</ul>
+</div>
+</aside>
+<div class="content theories"><header>
+<form action=/%20search>
+<div class=form-container>
+<input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
+<datalist id=autocomplete>
+</datalist>
+</div>
+</form>
+<h1><span class=first>S</span>ession <span class=first>P</span>ublic_<span class=first>A</span>nnouncement_<span class=first>L</span>ogic</h1>
+<div>
+</div>
+</header><div id=banner data-id=0>
+<p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button>
+</div>
+<div><main>
+<div id=PAL>
+<div class=head>
+<h1>Theory PAL</h1>
+</div>
+<pre class=source><span class=comment1>(*
   File:      PAL.thy
   Author:    Asta Halkjær From
 
@@ -466,4 +552,10 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Pu
 <span class=keyword1><span class=command>qed</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div></main></div></div></body></html>
+</pre>
+</div>
+</main>
+</div>
+</div>
+</body>
+</html>

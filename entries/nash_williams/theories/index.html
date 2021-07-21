@@ -1,7 +1,106 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Session Nash_Williams - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session Nash_Williams"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/nash_williams/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Session Nash_Williams"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css><link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script><script src=/js/banner.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><li><a href=/entries/nash_williams>Return to entry</a></li></ul><hr><ul><li><a href=#Nash_Extras>Nash_Extras</a><ul><li><a href=#Nash_Extras-less_setsD>less_setsD</a></li><li><a href=#Nash_Extras-less_sets_irrefl>less_sets_irrefl</a></li><li><a href=#Nash_Extras-less_sets_trans>less_sets_trans</a></li><li><a href=#Nash_Extras-less_sets_weaken1>less_sets_weaken1</a></li><li><a href=#Nash_Extras-less_sets_weaken2>less_sets_weaken2</a></li><li><a href=#Nash_Extras-less_sets_imp_disjnt>less_sets_imp_disjnt</a></li><li><a href=#Nash_Extras-less_sets_UN1>less_sets_UN1</a></li><li><a href=#Nash_Extras-less_sets_UN2>less_sets_UN2</a></li><li><a href=#Nash_Extras-less_sets_Un1>less_sets_Un1</a></li><li><a href=#Nash_Extras-less_sets_Un2>less_sets_Un2</a></li><li><a href=#Nash_Extras-strict_sorted_imp_less_sets>strict_sorted_imp_less_sets</a></li><li><a href=#Nash_Extras-Sup_nat_less_sets_singleton>Sup_nat_less_sets_singleton</a></li></ul></li><li><a href=#Nash_Williams>Nash_Williams</a><ul><li><a href=#Nash_Williams-finite_nat_Int_greaterThan_iff>finite_nat_Int_greaterThan_iff</a></li><li><a href=#Nash_Williams-init_segment_subset>init_segment_subset</a></li><li><a href=#Nash_Williams-init_segment_refl>init_segment_refl</a></li><li><a href=#Nash_Williams-init_segment_antisym>init_segment_antisym</a></li><li><a href=#Nash_Williams-init_segment_trans>init_segment_trans</a></li><li><a href=#Nash_Williams-init_segment_empty2>init_segment_empty2</a></li><li><a href=#Nash_Williams-init_segment_Un>init_segment_Un</a></li><li><a href=#Nash_Williams-init_segment_iff>init_segment_iff</a></li><li><a href=#Nash_Williams-init_segment_empty>init_segment_empty</a></li><li><a href=#Nash_Williams-init_segment_insert_iff>init_segment_insert_iff</a></li><li><a href=#Nash_Williams-init_segment_insert>init_segment_insert</a></li><li><a href=#Nash_Williams-Ramsey_eq>Ramsey_eq</a></li><li><a href=#Nash_Williams-comparables_iff>comparables_iff</a></li><li><a href=#Nash_Williams-comparables_subset>comparables_subset</a></li><li><a href=#Nash_Williams-comparables_empty>comparables_empty</a></li><li><a href=#Nash_Williams-comparables_mono>comparables_mono</a></li><li><a href=#Nash_Williams-strongly_accepts_imp_accepts>strongly_accepts_imp_accepts</a></li><li><a href=#Nash_Williams-rejects_trivial>rejects_trivial</a></li><li><a href=#Nash_Williams-rejects_subset>rejects_subset</a></li><li><a href=#Nash_Williams-strongly_accepts_subset>strongly_accepts_subset</a></li><li><a href=#Nash_Williams-decides_subset>decides_subset</a></li><li><a href=#Nash_Williams-decides_subsets_subset>decides_subsets_subset</a></li><li><a href=#Nash_Williams-rejects_empty>rejects_empty</a></li><li><a href=#Nash_Williams-strongly_accepts_empty>strongly_accepts_empty</a></li><li><a href=#Nash_Williams-ex_infinite_decides_1>ex_infinite_decides_1</a></li><li><a href=#Nash_Williams-sorted_wrt_subset>sorted_wrt_subset</a></li></ul></li></ul></div><ul><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Nash_Williams/outline.pdf>Proof
-outline</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Nash_Williams/document.pdf>Proof
-document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Nash_Williams/session_graph.pdf>Theory dependencies</a></li></ul></div></aside><div class="content theories"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
-<datalist id=autocomplete></datalist></div></form><h1><span class=first>S</span>ession <span class=first>N</span>ash_<span class=first>W</span>illiams</h1><div></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><div id=Nash_Extras><div class=head><h1>Theory Nash_Extras</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹The Pointwise Less-Than Relation Between Two Sets›</span></span>
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Session Nash_Williams - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session Nash_Williams">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="/entries/nash_williams/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories">
+<meta property="og:site_name" content="Archive of Formal Proofs">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="/images/afp.png">
+<meta name=twitter:title content="Session Nash_Williams">
+<meta name=twitter:description content>
+<link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css>
+<link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script>
+<script src=/js/banner.js></script><script src=/js/header-search.js></script></head>
+<body class=mathjax_ignore>
+<aside>
+<div>
+<div>
+<a href=/>
+<img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo>
+</a>
+<ul>
+<li><a href=/entries/nash_williams>Return to entry</a></li>
+</ul>
+<hr>
+<ul><li><a href=#Nash_Extras>Nash_Extras</a>
+<ul>
+<li><a href=#Nash_Extras-less_setsD>less_setsD</a></li>
+<li><a href=#Nash_Extras-less_sets_irrefl>less_sets_irrefl</a></li>
+<li><a href=#Nash_Extras-less_sets_trans>less_sets_trans</a></li>
+<li><a href=#Nash_Extras-less_sets_weaken1>less_sets_weaken1</a></li>
+<li><a href=#Nash_Extras-less_sets_weaken2>less_sets_weaken2</a></li>
+<li><a href=#Nash_Extras-less_sets_imp_disjnt>less_sets_imp_disjnt</a></li>
+<li><a href=#Nash_Extras-less_sets_UN1>less_sets_UN1</a></li>
+<li><a href=#Nash_Extras-less_sets_UN2>less_sets_UN2</a></li>
+<li><a href=#Nash_Extras-less_sets_Un1>less_sets_Un1</a></li>
+<li><a href=#Nash_Extras-less_sets_Un2>less_sets_Un2</a></li>
+<li><a href=#Nash_Extras-strict_sorted_imp_less_sets>strict_sorted_imp_less_sets</a></li>
+<li><a href=#Nash_Extras-Sup_nat_less_sets_singleton>Sup_nat_less_sets_singleton</a></li>
+</ul>
+</li><li><a href=#Nash_Williams>Nash_Williams</a>
+<ul>
+<li><a href=#Nash_Williams-finite_nat_Int_greaterThan_iff>finite_nat_Int_greaterThan_iff</a></li>
+<li><a href=#Nash_Williams-init_segment_subset>init_segment_subset</a></li>
+<li><a href=#Nash_Williams-init_segment_refl>init_segment_refl</a></li>
+<li><a href=#Nash_Williams-init_segment_antisym>init_segment_antisym</a></li>
+<li><a href=#Nash_Williams-init_segment_trans>init_segment_trans</a></li>
+<li><a href=#Nash_Williams-init_segment_empty2>init_segment_empty2</a></li>
+<li><a href=#Nash_Williams-init_segment_Un>init_segment_Un</a></li>
+<li><a href=#Nash_Williams-init_segment_iff>init_segment_iff</a></li>
+<li><a href=#Nash_Williams-init_segment_empty>init_segment_empty</a></li>
+<li><a href=#Nash_Williams-init_segment_insert_iff>init_segment_insert_iff</a></li>
+<li><a href=#Nash_Williams-init_segment_insert>init_segment_insert</a></li>
+<li><a href=#Nash_Williams-Ramsey_eq>Ramsey_eq</a></li>
+<li><a href=#Nash_Williams-comparables_iff>comparables_iff</a></li>
+<li><a href=#Nash_Williams-comparables_subset>comparables_subset</a></li>
+<li><a href=#Nash_Williams-comparables_empty>comparables_empty</a></li>
+<li><a href=#Nash_Williams-comparables_mono>comparables_mono</a></li>
+<li><a href=#Nash_Williams-strongly_accepts_imp_accepts>strongly_accepts_imp_accepts</a></li>
+<li><a href=#Nash_Williams-rejects_trivial>rejects_trivial</a></li>
+<li><a href=#Nash_Williams-rejects_subset>rejects_subset</a></li>
+<li><a href=#Nash_Williams-strongly_accepts_subset>strongly_accepts_subset</a></li>
+<li><a href=#Nash_Williams-decides_subset>decides_subset</a></li>
+<li><a href=#Nash_Williams-decides_subsets_subset>decides_subsets_subset</a></li>
+<li><a href=#Nash_Williams-rejects_empty>rejects_empty</a></li>
+<li><a href=#Nash_Williams-strongly_accepts_empty>strongly_accepts_empty</a></li>
+<li><a href=#Nash_Williams-ex_infinite_decides_1>ex_infinite_decides_1</a></li>
+<li><a href=#Nash_Williams-sorted_wrt_subset>sorted_wrt_subset</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<ul>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Nash_Williams/outline.pdf>Proof
+outline</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Nash_Williams/document.pdf>Proof
+document</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Nash_Williams/session_graph.pdf>Theory dependencies</a></li>
+</ul>
+</div>
+</aside>
+<div class="content theories"><header>
+<form action=/%20search>
+<div class=form-container>
+<input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
+<datalist id=autocomplete>
+</datalist>
+</div>
+</form>
+<h1><span class=first>S</span>ession <span class=first>N</span>ash_<span class=first>W</span>illiams</h1>
+<div>
+</div>
+</header><div id=banner data-id=0>
+<p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button>
+</div>
+<div><main>
+<div id=Nash_Extras>
+<div class=head>
+<h1>Theory Nash_Extras</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹The Pointwise Less-Than Relation Between Two Sets›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Nash_Extras
   <span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL-Library/Ramsey.html>HOL-Library.Ramsey</a>"</span> <span class=quoted>"<a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL-Library/Countable_Set.html>HOL-Library.Countable_Set</a>"</span>
@@ -56,7 +155,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Na
 
 
 
-</pre></div><div id=Nash_Williams><div class=head><h1>Theory Nash_Williams</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹The Nash-Williams Theorem›</span></span>
+</pre>
+</div><div id=Nash_Williams>
+<div class=head>
+<h1>Theory Nash_Williams</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹The Nash-Williams Theorem›</span></span>
 
 <span class=keyword1><span class=command>text</span></span> <span class=quoted><span class=plain_text>‹Following S. Todorčević, \emph{Introduction to Ramsey Spaces},
 Princeton University Press (2010), 11--12.›</span></span>
@@ -862,4 +966,10 @@ Princeton University Press (2010), 11--12.›</span></span>
 <span class=keyword1><span class=command>qed</span></span> <span class=operator>auto</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div></main></div></div></body></html>
+</pre>
+</div>
+</main>
+</div>
+</div>
+</body>
+</html>

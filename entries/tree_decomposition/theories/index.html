@@ -1,7 +1,174 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Session Tree_Decomposition - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session Tree_Decomposition"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/tree_decomposition/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Session Tree_Decomposition"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css><link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script><script src=/js/banner.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><li><a href=/entries/tree_decomposition>Return to entry</a></li></ul><hr><ul><li><a href=#Graph>Graph</a><ul><li><a href=#Graph-finite_edge_set>finite_edge_set</a></li><li><a href=#Graph-edges_are_in_V>edges_are_in_V</a></li><li><a href=#Graph-walk_2>walk_2</a></li><li><a href=#Graph-walk_comp>walk_comp</a></li><li><a href=#Graph-walk_tl>walk_tl</a></li><li><a href=#Graph-walk_drop>walk_drop</a></li><li><a href=#Graph-walk_take>walk_take</a></li><li><a href=#Graph-walk_rev>walk_rev</a></li><li><a href=#Graph-walk_decomp>walk_decomp</a></li><li><a href=#Graph-walk_dropWhile>walk_dropWhile</a></li><li><a href=#Graph-walk_takeWhile>walk_takeWhile</a></li><li><a href=#Graph-walk_in_V>walk_in_V</a></li><li><a href=#Graph-walk_first_edge>walk_first_edge</a></li><li><a href=#Graph-walk_first_edge%27>walk_first_edge'</a></li><li><a href=#Graph-walk_middle_edge>walk_middle_edge</a></li><li><a href=#Graph-walk_last_edge>walk_last_edge</a></li><li><a href=#Graph-walk_takeWhile_edge>walk_takeWhile_edge</a></li><li><a href=#Graph-connectedI>connectedI</a></li><li><a href=#Graph-connectedE>connectedE</a></li><li><a href=#Graph-connected_in_V>connected_in_V</a></li><li><a href=#Graph-connected_refl>connected_refl</a></li><li><a href=#Graph-connected_edge>connected_edge</a></li><li><a href=#Graph-connected_trans>connected_trans</a></li><li><a href=#Graph-path_singleton>path_singleton</a></li><li><a href=#Graph-path_2>path_2</a></li><li><a href=#Graph-path_cons>path_cons</a></li><li><a href=#Graph-path_comp>path_comp</a></li><li><a href=#Graph-path_tl>path_tl</a></li><li><a href=#Graph-path_drop>path_drop</a></li><li><a href=#Graph-path_take>path_take</a></li><li><a href=#Graph-path_rev>path_rev</a></li><li><a href=#Graph-path_decomp>path_decomp</a></li><li><a href=#Graph-path_dropWhile>path_dropWhile</a></li><li><a href=#Graph-path_takeWhile>path_takeWhile</a></li><li><a href=#Graph-path_in_V>path_in_V</a></li><li><a href=#Graph-path_first_edge>path_first_edge</a></li><li><a href=#Graph-path_first_edge%27>path_first_edge'</a></li><li><a href=#Graph-path_middle_edge>path_middle_edge</a></li><li><a href=#Graph-path_takeWhile_edge>path_takeWhile_edge</a></li><li><a href=#Graph-path_from_toI>path_from_toI</a></li><li><a href=#Graph-walk_to_path>walk_to_path</a></li><li><a href=#Graph-cycleI>cycleI</a></li><li><a href=#Graph-cycleE>cycleE</a></li><li><a href=#Graph-meeting_paths_produce_cycle>meeting_paths_produce_cycle</a></li><li><a href=#Graph-unique_paths_implies_no_cycles>unique_paths_implies_no_cycles</a></li><li><a href=#Graph-no_cycles_implies_unique_paths>no_cycles_implies_unique_paths</a></li></ul></li><li><a href=#Tree>Tree</a><ul><li><a href=#Tree-unique_connecting_path>unique_connecting_path</a></li><li><a href=#Tree-unique_connecting_path_set>unique_connecting_path_set</a></li><li><a href=#Tree-unique_connecting_path_properties>unique_connecting_path_properties</a></li><li><a href=#Tree-unique_connecting_path_unique>unique_connecting_path_unique</a></li><li><a href=#Tree-unique_connecting_path_rev>unique_connecting_path_rev</a></li><li><a href=#Tree-unique_connecting_path_decomp>unique_connecting_path_decomp</a></li><li><a href=#Tree-unique_connecting_path_tl>unique_connecting_path_tl</a></li><li><a href=#Tree-tree_has_edge>tree_has_edge</a></li><li><a href=#Tree-left_treeI>left_treeI</a></li><li><a href=#Tree-left_treeE>left_treeE</a></li><li><a href=#Tree-left_tree_in_V>left_tree_in_V</a></li><li><a href=#Tree-left_tree_initial>left_tree_initial</a></li><li><a href=#Tree-left_tree_initial%27>left_tree_initial'</a></li><li><a href=#Tree-left_tree_initial_edge>left_tree_initial_edge</a></li><li><a href=#Tree-left_tree_union_V>left_tree_union_V</a></li><li><a href=#Tree-left_tree_disjoint>left_tree_disjoint</a></li><li><a href=#Tree-parent_edge>parent_edge</a></li><li><a href=#Tree-parent_edge_root>parent_edge_root</a></li><li><a href=#Tree-parent_in_V>parent_in_V</a></li><li><a href=#Tree-parent_edge_cases>parent_edge_cases</a></li><li><a href=#Tree-sibling_path>sibling_path</a></li></ul></li><li><a href=#TreeDecomposition>TreeDecomposition</a><ul><li><a href=#TreeDecomposition-bags_in_V>bags_in_V</a></li><li><a href=#TreeDecomposition-bag_finite>bag_finite</a></li><li><a href=#TreeDecomposition-bag_bound_V>bag_bound_V</a></li><li><a href=#TreeDecomposition-bag_bound_V_empty>bag_bound_V_empty</a></li><li><a href=#TreeDecomposition-empty_tree_empty_V>empty_tree_empty_V</a></li><li><a href=#TreeDecomposition-bags_exist>bags_exist</a></li><li><a href=#TreeDecomposition-bag_cards_finite>bag_cards_finite</a></li><li><a href=#TreeDecomposition-bag_cards_nonempty>bag_cards_nonempty</a></li><li><a href=#TreeDecomposition-max_bag_card_in_bag_cards>max_bag_card_in_bag_cards</a></li><li><a href=#TreeDecomposition-max_bag_card_lower_bound_bag>max_bag_card_lower_bound_bag</a></li><li><a href=#TreeDecomposition-max_bag_card_lower_bound_1>max_bag_card_lower_bound_1</a></li><li><a href=#TreeDecomposition-max_bag_card_upper_bound_V>max_bag_card_upper_bound_V</a></li><li><a href=#TreeDecomposition-width_upper_bound_V>width_upper_bound_V</a></li><li><a href=#TreeDecomposition-width_V_empty>width_V_empty</a></li><li><a href=#TreeDecomposition-width_bound_V_le>width_bound_V_le</a></li><li><a href=#TreeDecomposition-width_lower_bound_1>width_lower_bound_1</a></li><li><a href=#TreeDecomposition-treewidth_cards_treewidth>treewidth_cards_treewidth</a></li><li><a href=#TreeDecomposition-treewidth_upper_bound_ex>treewidth_upper_bound_ex</a></li><li><a href=#TreeDecomposition-left_partI>left_partI</a></li><li><a href=#TreeDecomposition-left_part_in_V>left_part_in_V</a></li><li><a href=#TreeDecomposition-vertex_subtreeI>vertex_subtreeI</a></li><li><a href=#TreeDecomposition-vertex_subtree_connected>vertex_subtree_connected</a></li><li><a href=#TreeDecomposition-vertex_in_separator>vertex_in_separator</a></li></ul></li><li><a href=#TreewidthTree>TreewidthTree</a></li><li><a href=#TreewidthCompleteGraph>TreewidthCompleteGraph</a></li><li><a href=#ExampleInstantiations>ExampleInstantiations</a><ul><li><a href=#ExampleInstantiations-Graph_T2>Graph_T2</a></li><li><a href=#ExampleInstantiations-Tree_T2>Tree_T2</a></li><li><a href=#ExampleInstantiations-T2_complete>T2_complete</a></li><li><a href=#ExampleInstantiations-treewidth_T2>treewidth_T2</a></li><li><a href=#ExampleInstantiations-Graph_T3>Graph_T3</a></li><li><a href=#ExampleInstantiations-Not_Tree_T3>Not_Tree_T3</a></li><li><a href=#ExampleInstantiations-T3_complete>T3_complete</a></li><li><a href=#ExampleInstantiations-treewidth_T3>treewidth_T3</a></li></ul></li></ul></div><ul><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Tree_Decomposition/outline.pdf>Proof
-outline</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Tree_Decomposition/document.pdf>Proof
-document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Tree_Decomposition/session_graph.pdf>Theory dependencies</a></li></ul></div></aside><div class="content theories"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
-<datalist id=autocomplete></datalist></div></form><h1><span class=first>S</span>ession <span class=first>T</span>ree_<span class=first>D</span>ecomposition</h1><div></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><div id=Graph><div class=head><h1>Theory Graph</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Graphs›</span></span>
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Session Tree_Decomposition - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session Tree_Decomposition">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="/entries/tree_decomposition/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories">
+<meta property="og:site_name" content="Archive of Formal Proofs">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="/images/afp.png">
+<meta name=twitter:title content="Session Tree_Decomposition">
+<meta name=twitter:description content>
+<link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css>
+<link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script>
+<script src=/js/banner.js></script><script src=/js/header-search.js></script></head>
+<body class=mathjax_ignore>
+<aside>
+<div>
+<div>
+<a href=/>
+<img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo>
+</a>
+<ul>
+<li><a href=/entries/tree_decomposition>Return to entry</a></li>
+</ul>
+<hr>
+<ul><li><a href=#Graph>Graph</a>
+<ul>
+<li><a href=#Graph-finite_edge_set>finite_edge_set</a></li>
+<li><a href=#Graph-edges_are_in_V>edges_are_in_V</a></li>
+<li><a href=#Graph-walk_2>walk_2</a></li>
+<li><a href=#Graph-walk_comp>walk_comp</a></li>
+<li><a href=#Graph-walk_tl>walk_tl</a></li>
+<li><a href=#Graph-walk_drop>walk_drop</a></li>
+<li><a href=#Graph-walk_take>walk_take</a></li>
+<li><a href=#Graph-walk_rev>walk_rev</a></li>
+<li><a href=#Graph-walk_decomp>walk_decomp</a></li>
+<li><a href=#Graph-walk_dropWhile>walk_dropWhile</a></li>
+<li><a href=#Graph-walk_takeWhile>walk_takeWhile</a></li>
+<li><a href=#Graph-walk_in_V>walk_in_V</a></li>
+<li><a href=#Graph-walk_first_edge>walk_first_edge</a></li>
+<li><a href=#Graph-walk_first_edge%27>walk_first_edge'</a></li>
+<li><a href=#Graph-walk_middle_edge>walk_middle_edge</a></li>
+<li><a href=#Graph-walk_last_edge>walk_last_edge</a></li>
+<li><a href=#Graph-walk_takeWhile_edge>walk_takeWhile_edge</a></li>
+<li><a href=#Graph-connectedI>connectedI</a></li>
+<li><a href=#Graph-connectedE>connectedE</a></li>
+<li><a href=#Graph-connected_in_V>connected_in_V</a></li>
+<li><a href=#Graph-connected_refl>connected_refl</a></li>
+<li><a href=#Graph-connected_edge>connected_edge</a></li>
+<li><a href=#Graph-connected_trans>connected_trans</a></li>
+<li><a href=#Graph-path_singleton>path_singleton</a></li>
+<li><a href=#Graph-path_2>path_2</a></li>
+<li><a href=#Graph-path_cons>path_cons</a></li>
+<li><a href=#Graph-path_comp>path_comp</a></li>
+<li><a href=#Graph-path_tl>path_tl</a></li>
+<li><a href=#Graph-path_drop>path_drop</a></li>
+<li><a href=#Graph-path_take>path_take</a></li>
+<li><a href=#Graph-path_rev>path_rev</a></li>
+<li><a href=#Graph-path_decomp>path_decomp</a></li>
+<li><a href=#Graph-path_dropWhile>path_dropWhile</a></li>
+<li><a href=#Graph-path_takeWhile>path_takeWhile</a></li>
+<li><a href=#Graph-path_in_V>path_in_V</a></li>
+<li><a href=#Graph-path_first_edge>path_first_edge</a></li>
+<li><a href=#Graph-path_first_edge%27>path_first_edge'</a></li>
+<li><a href=#Graph-path_middle_edge>path_middle_edge</a></li>
+<li><a href=#Graph-path_takeWhile_edge>path_takeWhile_edge</a></li>
+<li><a href=#Graph-path_from_toI>path_from_toI</a></li>
+<li><a href=#Graph-walk_to_path>walk_to_path</a></li>
+<li><a href=#Graph-cycleI>cycleI</a></li>
+<li><a href=#Graph-cycleE>cycleE</a></li>
+<li><a href=#Graph-meeting_paths_produce_cycle>meeting_paths_produce_cycle</a></li>
+<li><a href=#Graph-unique_paths_implies_no_cycles>unique_paths_implies_no_cycles</a></li>
+<li><a href=#Graph-no_cycles_implies_unique_paths>no_cycles_implies_unique_paths</a></li>
+</ul>
+</li><li><a href=#Tree>Tree</a>
+<ul>
+<li><a href=#Tree-unique_connecting_path>unique_connecting_path</a></li>
+<li><a href=#Tree-unique_connecting_path_set>unique_connecting_path_set</a></li>
+<li><a href=#Tree-unique_connecting_path_properties>unique_connecting_path_properties</a></li>
+<li><a href=#Tree-unique_connecting_path_unique>unique_connecting_path_unique</a></li>
+<li><a href=#Tree-unique_connecting_path_rev>unique_connecting_path_rev</a></li>
+<li><a href=#Tree-unique_connecting_path_decomp>unique_connecting_path_decomp</a></li>
+<li><a href=#Tree-unique_connecting_path_tl>unique_connecting_path_tl</a></li>
+<li><a href=#Tree-tree_has_edge>tree_has_edge</a></li>
+<li><a href=#Tree-left_treeI>left_treeI</a></li>
+<li><a href=#Tree-left_treeE>left_treeE</a></li>
+<li><a href=#Tree-left_tree_in_V>left_tree_in_V</a></li>
+<li><a href=#Tree-left_tree_initial>left_tree_initial</a></li>
+<li><a href=#Tree-left_tree_initial%27>left_tree_initial'</a></li>
+<li><a href=#Tree-left_tree_initial_edge>left_tree_initial_edge</a></li>
+<li><a href=#Tree-left_tree_union_V>left_tree_union_V</a></li>
+<li><a href=#Tree-left_tree_disjoint>left_tree_disjoint</a></li>
+<li><a href=#Tree-parent_edge>parent_edge</a></li>
+<li><a href=#Tree-parent_edge_root>parent_edge_root</a></li>
+<li><a href=#Tree-parent_in_V>parent_in_V</a></li>
+<li><a href=#Tree-parent_edge_cases>parent_edge_cases</a></li>
+<li><a href=#Tree-sibling_path>sibling_path</a></li>
+</ul>
+</li><li><a href=#TreeDecomposition>TreeDecomposition</a>
+<ul>
+<li><a href=#TreeDecomposition-bags_in_V>bags_in_V</a></li>
+<li><a href=#TreeDecomposition-bag_finite>bag_finite</a></li>
+<li><a href=#TreeDecomposition-bag_bound_V>bag_bound_V</a></li>
+<li><a href=#TreeDecomposition-bag_bound_V_empty>bag_bound_V_empty</a></li>
+<li><a href=#TreeDecomposition-empty_tree_empty_V>empty_tree_empty_V</a></li>
+<li><a href=#TreeDecomposition-bags_exist>bags_exist</a></li>
+<li><a href=#TreeDecomposition-bag_cards_finite>bag_cards_finite</a></li>
+<li><a href=#TreeDecomposition-bag_cards_nonempty>bag_cards_nonempty</a></li>
+<li><a href=#TreeDecomposition-max_bag_card_in_bag_cards>max_bag_card_in_bag_cards</a></li>
+<li><a href=#TreeDecomposition-max_bag_card_lower_bound_bag>max_bag_card_lower_bound_bag</a></li>
+<li><a href=#TreeDecomposition-max_bag_card_lower_bound_1>max_bag_card_lower_bound_1</a></li>
+<li><a href=#TreeDecomposition-max_bag_card_upper_bound_V>max_bag_card_upper_bound_V</a></li>
+<li><a href=#TreeDecomposition-width_upper_bound_V>width_upper_bound_V</a></li>
+<li><a href=#TreeDecomposition-width_V_empty>width_V_empty</a></li>
+<li><a href=#TreeDecomposition-width_bound_V_le>width_bound_V_le</a></li>
+<li><a href=#TreeDecomposition-width_lower_bound_1>width_lower_bound_1</a></li>
+<li><a href=#TreeDecomposition-treewidth_cards_treewidth>treewidth_cards_treewidth</a></li>
+<li><a href=#TreeDecomposition-treewidth_upper_bound_ex>treewidth_upper_bound_ex</a></li>
+<li><a href=#TreeDecomposition-left_partI>left_partI</a></li>
+<li><a href=#TreeDecomposition-left_part_in_V>left_part_in_V</a></li>
+<li><a href=#TreeDecomposition-vertex_subtreeI>vertex_subtreeI</a></li>
+<li><a href=#TreeDecomposition-vertex_subtree_connected>vertex_subtree_connected</a></li>
+<li><a href=#TreeDecomposition-vertex_in_separator>vertex_in_separator</a></li>
+</ul>
+</li><li><a href=#TreewidthTree>TreewidthTree</a>
+</li><li><a href=#TreewidthCompleteGraph>TreewidthCompleteGraph</a>
+</li><li><a href=#ExampleInstantiations>ExampleInstantiations</a>
+<ul>
+<li><a href=#ExampleInstantiations-Graph_T2>Graph_T2</a></li>
+<li><a href=#ExampleInstantiations-Tree_T2>Tree_T2</a></li>
+<li><a href=#ExampleInstantiations-T2_complete>T2_complete</a></li>
+<li><a href=#ExampleInstantiations-treewidth_T2>treewidth_T2</a></li>
+<li><a href=#ExampleInstantiations-Graph_T3>Graph_T3</a></li>
+<li><a href=#ExampleInstantiations-Not_Tree_T3>Not_Tree_T3</a></li>
+<li><a href=#ExampleInstantiations-T3_complete>T3_complete</a></li>
+<li><a href=#ExampleInstantiations-treewidth_T3>treewidth_T3</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<ul>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Tree_Decomposition/outline.pdf>Proof
+outline</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Tree_Decomposition/document.pdf>Proof
+document</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Tree_Decomposition/session_graph.pdf>Theory dependencies</a></li>
+</ul>
+</div>
+</aside>
+<div class="content theories"><header>
+<form action=/%20search>
+<div class=form-container>
+<input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
+<datalist id=autocomplete>
+</datalist>
+</div>
+</form>
+<h1><span class=first>S</span>ession <span class=first>T</span>ree_<span class=first>D</span>ecomposition</h1>
+<div>
+</div>
+</header><div id=banner data-id=0>
+<p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button>
+</div>
+<div><main>
+<div id=Graph>
+<div class=head>
+<h1>Theory Graph</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Graphs›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Graph
 <span class=keyword2><span class=keyword>imports</span></span> <a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL/Main.html>Main</a> <span class=keyword2><span class=keyword>begin</span></span>
@@ -321,7 +488,12 @@ Nil <span class=main>[</span><span class=operator>simp</span><span class=main>]<
 
 <span class=keyword2><span class=keyword>end</span></span> <span class=comment1>― ‹locale Graph›</span>
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Tree><div class=head><h1>Theory Tree</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Trees›</span></span>
+</pre>
+</div><div id=Tree>
+<div class=head>
+<h1>Theory Tree</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Trees›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Tree
 <span class=keyword2><span class=keyword>imports</span></span> <a href=#Graph>Graph</a> <span class=keyword2><span class=keyword>begin</span></span>
@@ -650,7 +822,12 @@ Nil <span class=main>[</span><span class=operator>simp</span><span class=main>]<
 <span class=keyword2><span class=keyword>end</span></span> <span class=comment1>― ‹locale RootedTree›</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=TreeDecomposition><div class=head><h1>Theory TreeDecomposition</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Tree Decompositions›</span></span>
+</pre>
+</div><div id=TreeDecomposition>
+<div class=head>
+<h1>Theory TreeDecomposition</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Tree Decompositions›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> TreeDecomposition
 <span class=keyword2><span class=keyword>imports</span></span> <a href=#Tree>Tree</a> <span class=keyword2><span class=keyword>begin</span></span>
@@ -920,7 +1097,12 @@ Nil <span class=main>[</span><span class=operator>simp</span><span class=main>]<
 
 <span class=keyword2><span class=keyword>end</span></span> <span class=comment1>― ‹locale TreeDecomposition›</span>
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=TreewidthTree><div class=head><h1>Theory TreewidthTree</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Treewidth of Trees›</span></span>
+</pre>
+</div><div id=TreewidthTree>
+<div class=head>
+<h1>Theory TreewidthTree</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Treewidth of Trees›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> TreewidthTree
 <span class=keyword2><span class=keyword>imports</span></span> <a href=#TreeDecomposition>TreeDecomposition</a> <span class=keyword2><span class=keyword>begin</span></span>
@@ -1012,7 +1194,12 @@ Nil <span class=main>[</span><span class=operator>simp</span><span class=main>]<
   <span class=keyword1><span class=command>by</span></span> <span class=operator>fastforce</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=TreewidthCompleteGraph><div class=head><h1>Theory TreewidthCompleteGraph</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Treewidth of Complete Graphs›</span></span>
+</pre>
+</div><div id=TreewidthCompleteGraph>
+<div class=head>
+<h1>Theory TreewidthCompleteGraph</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Treewidth of Complete Graphs›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> TreewidthCompleteGraph
 <span class=keyword2><span class=keyword>imports</span></span> <a href=#TreeDecomposition>TreeDecomposition</a> <span class=keyword2><span class=keyword>begin</span></span>
@@ -1096,7 +1283,12 @@ Nil <span class=main>[</span><span class=operator>simp</span><span class=main>]<
 <span class=keyword1><span class=command>qed</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=ExampleInstantiations><div class=head><h1>Theory ExampleInstantiations</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Example Instantiations›</span></span>
+</pre>
+</div><div id=ExampleInstantiations>
+<div class=head>
+<h1>Theory ExampleInstantiations</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Example Instantiations›</span></span>
 
 <span class=keyword1><span class=command>text</span></span> <span class=quoted><span class=plain_text>‹
   This section provides a few example instantiations for the locales to show that they are not empty.
@@ -1174,4 +1366,10 @@ Nil <span class=main>[</span><span class=operator>simp</span><span class=main>]<
   <span class=antiquoted><span class=raw_text><span class=antiquoted><span class=raw_text><span class=operator><span class=operator>‹</span></span>tree_decomposition_exists›</span></span></span></span> already shows that it is non-empty.›</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div></main></div></div></body></html>
+</pre>
+</div>
+</main>
+</div>
+</div>
+</body>
+</html>

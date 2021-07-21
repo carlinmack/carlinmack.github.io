@@ -1,5 +1,64 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Verifying Fault-Tolerant Distributed Algorithms in the Heard-Of Model - Archive of Formal Proofs</title><meta name=description content=" Distributed computing is inherently based on replication, promising increased tolerance to failures of individual computing nodes or communication..."><meta property="og:title" content="Verifying Fault-Tolerant Distributed Algorithms in the Heard-Of Model"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/heard_of/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="entries"><meta property="article:published_time" content="2012-07-27T00:00:00+00:00"><meta property="article:modified_time" content="2012-07-27T00:00:00+00:00"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Verifying Fault-Tolerant Distributed Algorithms in the Heard-Of Model"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=icon href=/images/favicon.ico type=image/icon><script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]},processEscapes:!0,svg:{fontCache:'global'}}</script><script id=MathJax-script async src=/js/mathjax/es5/tex-mml-chtml.js></script><script src=/js/entries.js></script><script src=/js/flexsearch.min.js></script><script src=/js/banner.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><li><a href=/>Home</a></li><li><a href=/topics/>Topics</a></li><li><a href=/download/>Download</a></li><li><a href=/help/>Help</a></li><li><a href=/statistics/>Statistics</a></li><li><a href=/about/>About</a></li></ul></div><ul><li><a href=/contribution/>Contribution</a></li></ul></div></aside><div class="content entries"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
-<datalist id=autocomplete></datalist></div></form><h1><span class=first>V</span>erifying <span class=first>F</span>ault-<span class=first>T</span>olerant <span class=first>D</span>istributed <span class=first>A</span>lgorithms in the <span class=first>H</span>eard-of <span class=first>M</span>odel</h1><div><p><a href=/authors/henri-debrat>Henri Debrat</a> and <a href=/authors/stephan-merz>Stephan Merz</a></p><p class=date>27 July 2012</p></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><h3>Abstract</h3><div class="abstract mathjax_process">Distributed computing is inherently based on replication, promising
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Verifying Fault-Tolerant Distributed Algorithms in the Heard-Of Model - Archive of Formal Proofs</title><meta name=description content=" Distributed computing is inherently based on replication, promising increased tolerance to failures of individual computing nodes or communication..."><meta property="og:title" content="Verifying Fault-Tolerant Distributed Algorithms in the Heard-Of Model">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="/entries/heard_of/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="entries">
+<meta property="article:published_time" content="2012-07-27T00:00:00+00:00">
+<meta property="article:modified_time" content="2012-07-27T00:00:00+00:00"><meta property="og:site_name" content="Archive of Formal Proofs">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="/images/afp.png">
+<meta name=twitter:title content="Verifying Fault-Tolerant Distributed Algorithms in the Heard-Of Model">
+<meta name=twitter:description content>
+<link rel=stylesheet type=text/css href=/css/front.min.css>
+<link rel=icon href=/images/favicon.ico type=image/icon>
+<script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]},processEscapes:!0,svg:{fontCache:'global'}}</script>
+<script id=MathJax-script async src=/js/mathjax/es5/tex-mml-chtml.js></script>
+<script src=/js/entries.js></script><script src=/js/flexsearch.min.js></script>
+<script src=/js/banner.js></script><script src=/js/header-search.js></script></head>
+<body class=mathjax_ignore>
+<aside>
+<div>
+<div>
+<a href=/>
+<img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo>
+</a>
+<ul>
+<li><a href=/>Home</a></li>
+<li><a href=/topics/>Topics</a></li>
+<li><a href=/download/>Download</a></li>
+<li><a href=/help/>Help</a></li>
+<li><a href=/statistics/>Statistics</a></li>
+<li><a href=/about/>About</a></li>
+</ul>
+</div>
+<ul>
+<li><a href=/contribution/>Contribution</a></li>
+</ul>
+</div>
+</aside>
+<div class="content entries"><header>
+<form action=/%20search>
+<div class=form-container>
+<input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
+<datalist id=autocomplete>
+</datalist>
+</div>
+</form>
+<h1><span class=first>V</span>erifying <span class=first>F</span>ault-<span class=first>T</span>olerant <span class=first>D</span>istributed <span class=first>A</span>lgorithms in the <span class=first>H</span>eard-of <span class=first>M</span>odel</h1>
+<div>
+<p><a href=/authors/henri-debrat>Henri Debrat</a> and <a href=/authors/stephan-merz>Stephan Merz</a>
+</p>
+<p class=date>27 July 2012</p>
+</div>
+</header><div id=banner data-id=0>
+<p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button>
+</div>
+<div><main>
+<h3>Abstract</h3>
+<div class="abstract mathjax_process">Distributed computing is inherently based on replication, promising
 increased tolerance to failures of individual computing nodes or
 communication channels. Realizing this promise, however, involves
 quite subtle algorithmic mechanisms, and requires precise statements
@@ -8,23 +67,46 @@ as process crashes, communication faults or corrupted values). The
 landmark theorem due to Fischer, Lynch, and Paterson shows that it is
 impossible to achieve Consensus among N asynchronously communicating
 nodes in the presence of even a single permanent failure. Existing
-solutions must rely on assumptions of "partial synchrony".<p>Indeed, there have been numerous misunderstandings on what exactly a given
+solutions must rely on assumptions of "partial synchrony".
+<p>
+Indeed, there have been numerous misunderstandings on what exactly a given
 algorithm is supposed to realize in what kinds of environments. Moreover, the
 abundance of subtly different computational models complicates comparisons
 between different algorithms. Charron-Bost and Schiper introduced the Heard-Of
 model for representing algorithms and failure assumptions in a uniform
-framework, simplifying comparisons between algorithms.<p>In this contribution, we represent the Heard-Of model in Isabelle/HOL. We define
+framework, simplifying comparisons between algorithms.
+<p>
+In this contribution, we represent the Heard-Of model in Isabelle/HOL. We define
 two semantics of runs of algorithms with different unit of atomicity and relate
 these through a reduction theorem that allows us to verify algorithms in the
 coarse-grained semantics (where proofs are easier) and infer their correctness
 for the fine-grained one (which corresponds to actual executions). We
 instantiate the framework by verifying six Consensus algorithms that differ in
-the underlying algorithmic mechanisms and the kinds of faults they tolerate.</div><a href=http://isa-afp.org/LICENSE>BSD License</a><h3>Depends On</h3><ul><li><a href=/entries/stuttering_equivalence>Stuttering_Equivalence</a></li></ul><h3>Used by</h3><ul><li><a href=/entries/consensus_refined/>Consensus_Refined</a></li></ul><h3>Topics</h3><ul><li><a href=/topics/computer-science/algorithms/distributed>Computer science/Algorithms/Distributed</a></li></ul><h3>Related Entries</h3><ul><li><a href=/entries/consensus_refined>Consensus_Refined</a></li></ul><h3>Theories</h3><ul><li><a href=theories/#HOModel>HOModel</a></li><li><a href=theories/#Reduction>Reduction</a></li><li><a href=theories/#Majorities>Majorities</a></li><li><a href=theories/#OneThirdRuleDefs>OneThirdRuleDefs</a></li><li><a href=theories/#OneThirdRuleProof>OneThirdRuleProof</a></li><li><a href=theories/#UvDefs>UvDefs</a></li><li><a href=theories/#UvProof>UvProof</a></li><li><a href=theories/#LastVotingDefs>LastVotingDefs</a></li><li><a href=theories/#LastVotingProof>LastVotingProof</a></li><li><a href=theories/#UteDefs>UteDefs</a></li><li><a href=theories/#UteProof>UteProof</a></li><li><a href=theories/#AteDefs>AteDefs</a></li><li><a href=theories/#AteProof>AteProof</a></li><li><a href=theories/#EigbyzDefs>EigbyzDefs</a></li><li><a href=theories/#EigbyzProof>EigbyzProof</a></li></ul></main><nav class=links><a class=popUpButton href=#citePopUp>Cite</a>
-<a class=popUpButton href=#downloadPopUp>Download</a><h4>PDFs</h4><a href=https://www.isa-afp.org/browser_info/current/AFP/Heard_Of/outline.pdf>Proof
+the underlying algorithmic mechanisms and the kinds of faults they tolerate.</div><a href=http://isa-afp.org/LICENSE>BSD License</a><h3>Depends On</h3><ul><li><a href=/entries/stuttering_equivalence>Stuttering_Equivalence</a></li></ul><h3>Used by</h3>
+<ul><li><a href=/entries/consensus_refined/>Consensus_Refined</a></li></ul><h3>Topics</h3>
+<ul><li><a href=/topics/computer-science/algorithms/distributed>Computer science/Algorithms/Distributed</a></li></ul><h3>Related Entries</h3>
+<ul><li><a href=/entries/consensus_refined>Consensus_Refined</a></li></ul><h3>Theories</h3>
+<ul>
+<li><a href=theories/#HOModel>HOModel</a></li><li><a href=theories/#Reduction>Reduction</a></li><li><a href=theories/#Majorities>Majorities</a></li><li><a href=theories/#OneThirdRuleDefs>OneThirdRuleDefs</a></li><li><a href=theories/#OneThirdRuleProof>OneThirdRuleProof</a></li><li><a href=theories/#UvDefs>UvDefs</a></li><li><a href=theories/#UvProof>UvProof</a></li><li><a href=theories/#LastVotingDefs>LastVotingDefs</a></li><li><a href=theories/#LastVotingProof>LastVotingProof</a></li><li><a href=theories/#UteDefs>UteDefs</a></li><li><a href=theories/#UteProof>UteProof</a></li><li><a href=theories/#AteDefs>AteDefs</a></li><li><a href=theories/#AteProof>AteProof</a></li><li><a href=theories/#EigbyzDefs>EigbyzDefs</a></li><li><a href=theories/#EigbyzProof>EigbyzProof</a></li></ul>
+</main>
+<nav class=links>
+<a class=popUpButton href=#citePopUp>Cite</a>
+<a class=popUpButton href=#downloadPopUp>Download</a>
+<h4>PDFs</h4>
+<a href=https://www.isa-afp.org/browser_info/current/AFP/Heard_Of/outline.pdf>Proof
 outline</a>
 <a href=https://www.isa-afp.org/browser_info/current/AFP/Heard_Of/document.pdf>Proof
 document</a>
-<a href=https://www.isa-afp.org/browser_info/current/AFP/Heard_Of/session_graph.pdf>Dependencies</a></nav><div id=citePopUp class=overlay><a class=cancel href=#></a><div class=popup><h2>Cite</h2><a class=close href=#>&#215;</a><div><p style=display:none id=bibtexFileName>Heard_Of-AFP</p><pre id=copyText>@article{Heard_Of-AFP,
+<a href=https://www.isa-afp.org/browser_info/current/AFP/Heard_Of/session_graph.pdf>Dependencies</a>
+</nav>
+<div id=citePopUp class=overlay>
+<a class=cancel href=#></a>
+<div class=popup>
+<h2>Cite</h2>
+<a class=close href=#>&#215;</a>
+<div>
+<p style=display:none id=bibtexFileName>Heard_Of-AFP</p>
+<pre id=copyText>@article{Heard_Of-AFP,
   author  = {Henri Debrat and Stephan Merz},
   title   = {Verifying Fault-Tolerant Distributed Algorithms in the Heard-Of Model},
   journal = {Archive of Formal Proofs},
@@ -33,17 +115,70 @@ document</a>
   note    = {\url{http://isa-afp.org/entries/Heard_Of.html},
             Formal proof development},
   ISSN    = {2150-914x},
-}</pre><button id=copyBibtex>Copy</button> <a id=downloadBibtex>Download</a></div></div></div><div id=downloadPopUp class=overlay><a class=cancel href=#></a><div class=popup><h2>Download</h2><a class=close href=#>&#215;</a>
-<a href=https://isa-afp.org/release/afp-Heard_Of-current.tar.gz download>Download latest</a><p>Older releases:</p><ul><li>Isabelle2019:
-<a href=https://isa-afp.org/release/afp-Heard_Of-2019-06-11.tar.gz>afp-Heard_Of-2019-06-11.tar.gz</a></li><li>Isabelle2018:
-<a href=https://isa-afp.org/release/afp-Heard_Of-2018-08-16.tar.gz>afp-Heard_Of-2018-08-16.tar.gz</a></li><li>Isabelle2017:
-<a href=https://isa-afp.org/release/afp-Heard_Of-2017-10-10.tar.gz>afp-Heard_Of-2017-10-10.tar.gz</a></li><li>Isabelle2016-1:
-<a href=https://isa-afp.org/release/afp-Heard_Of-2016-12-17.tar.gz>afp-Heard_Of-2016-12-17.tar.gz</a></li><li>Isabelle2016:
-<a href=https://isa-afp.org/release/afp-Heard_Of-2016-02-22.tar.gz>afp-Heard_Of-2016-02-22.tar.gz</a></li><li>Isabelle2015:
-<a href=https://isa-afp.org/release/afp-Heard_Of-2015-05-27.tar.gz>afp-Heard_Of-2015-05-27.tar.gz</a></li><li>Isabelle2014:
-<a href=https://isa-afp.org/release/afp-Heard_Of-2014-08-28.tar.gz>afp-Heard_Of-2014-08-28.tar.gz</a></li><li>Isabelle2013-2:
-<a href=https://isa-afp.org/release/afp-Heard_Of-2013-12-11.tar.gz>afp-Heard_Of-2013-12-11.tar.gz</a></li><li>Isabelle2013-1:
-<a href=https://isa-afp.org/release/afp-Heard_Of-2013-11-17.tar.gz>afp-Heard_Of-2013-11-17.tar.gz</a></li><li>Isabelle2013:
-<a href=https://isa-afp.org/release/afp-Heard_Of-2013-03-02.tar.gz>afp-Heard_Of-2013-03-02.tar.gz</a></li><li>Isabelle2013:
-<a href=https://isa-afp.org/release/afp-Heard_Of-2013-02-16.tar.gz>afp-Heard_Of-2013-02-16.tar.gz</a></li><li>Isabelle2012:
-<a href=https://isa-afp.org/release/afp-Heard_Of-2012-07-30.tar.gz>afp-Heard_Of-2012-07-30.tar.gz</a></li></ul></div></div></div></div></body></html>
+}</pre>
+<button id=copyBibtex>Copy</button> <a id=downloadBibtex>Download</a>
+</div>
+</div>
+</div>
+<div id=downloadPopUp class=overlay>
+<a class=cancel href=#></a>
+<div class=popup>
+<h2>Download</h2>
+<a class=close href=#>&#215;</a>
+<a href=https://isa-afp.org/release/afp-Heard_Of-current.tar.gz download>Download latest</a>
+<p>Older releases:</p>
+<ul><li>Isabelle2019:
+<a href=https://isa-afp.org/release/afp-Heard_Of-2019-06-11.tar.gz>
+afp-Heard_Of-2019-06-11.tar.gz
+</a>
+</li><li>Isabelle2018:
+<a href=https://isa-afp.org/release/afp-Heard_Of-2018-08-16.tar.gz>
+afp-Heard_Of-2018-08-16.tar.gz
+</a>
+</li><li>Isabelle2017:
+<a href=https://isa-afp.org/release/afp-Heard_Of-2017-10-10.tar.gz>
+afp-Heard_Of-2017-10-10.tar.gz
+</a>
+</li><li>Isabelle2016-1:
+<a href=https://isa-afp.org/release/afp-Heard_Of-2016-12-17.tar.gz>
+afp-Heard_Of-2016-12-17.tar.gz
+</a>
+</li><li>Isabelle2016:
+<a href=https://isa-afp.org/release/afp-Heard_Of-2016-02-22.tar.gz>
+afp-Heard_Of-2016-02-22.tar.gz
+</a>
+</li><li>Isabelle2015:
+<a href=https://isa-afp.org/release/afp-Heard_Of-2015-05-27.tar.gz>
+afp-Heard_Of-2015-05-27.tar.gz
+</a>
+</li><li>Isabelle2014:
+<a href=https://isa-afp.org/release/afp-Heard_Of-2014-08-28.tar.gz>
+afp-Heard_Of-2014-08-28.tar.gz
+</a>
+</li><li>Isabelle2013-2:
+<a href=https://isa-afp.org/release/afp-Heard_Of-2013-12-11.tar.gz>
+afp-Heard_Of-2013-12-11.tar.gz
+</a>
+</li><li>Isabelle2013-1:
+<a href=https://isa-afp.org/release/afp-Heard_Of-2013-11-17.tar.gz>
+afp-Heard_Of-2013-11-17.tar.gz
+</a>
+</li><li>Isabelle2013:
+<a href=https://isa-afp.org/release/afp-Heard_Of-2013-03-02.tar.gz>
+afp-Heard_Of-2013-03-02.tar.gz
+</a>
+</li><li>Isabelle2013:
+<a href=https://isa-afp.org/release/afp-Heard_Of-2013-02-16.tar.gz>
+afp-Heard_Of-2013-02-16.tar.gz
+</a>
+</li><li>Isabelle2012:
+<a href=https://isa-afp.org/release/afp-Heard_Of-2012-07-30.tar.gz>
+afp-Heard_Of-2012-07-30.tar.gz
+</a>
+</li></ul>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

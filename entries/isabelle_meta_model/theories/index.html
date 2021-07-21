@@ -1,7 +1,112 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Session Isabelle_Meta_Model - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session Isabelle_Meta_Model"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/isabelle_meta_model/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Session Isabelle_Meta_Model"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css><link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script><script src=/js/banner.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><li><a href=/entries/isabelle_meta_model>Return to entry</a></li></ul><hr><ul><li><a href=#Antiquote_Setup>Antiquote_Setup</a></li><li><a href=#files%2fISABELLE_HOME%2fsrc%2fDoc%2fantiquote_setup.ML>files/ISABELLE_HOME/src/Doc/antiquote_setup.ML</a></li><li><a href=#Isabelle_Cartouche_Examples>Isabelle_Cartouche_Examples</a></li><li><a href=#Isabelle_Main0>Isabelle_Main0</a></li><li><a href=#Isabelle_code_target>Isabelle_code_target</a></li><li><a href=#Isabelle_code_runtime>Isabelle_code_runtime</a></li><li><a href=#Isabelle_Main1>Isabelle_Main1</a></li><li><a href=#Isabelle_typedecl>Isabelle_typedecl</a></li><li><a href=#Isabelle_Main2>Isabelle_Main2</a></li><li><a href=#Init>Init</a></li><li><a href=#Meta_Pure>Meta_Pure</a></li><li><a href=#Parser_init>Parser_init</a></li><li><a href=#Parser_Pure>Parser_Pure</a></li><li><a href=#Meta_SML>Meta_SML</a></li><li><a href=#Meta_Isabelle>Meta_Isabelle</a></li><li><a href=#Printer_init>Printer_init</a></li><li><a href=#Printer_Pure>Printer_Pure</a></li><li><a href=#Printer_SML>Printer_SML</a></li><li><a href=#Printer_Isabelle>Printer_Isabelle</a></li><li><a href=#Toy_Library_Static>Toy_Library_Static</a></li><li><a href=#Init_rbt>Init_rbt</a></li><li><a href=#Meta_Toy>Meta_Toy</a></li><li><a href=#Meta_Toy_extended>Meta_Toy_extended</a></li><li><a href=#Meta_META>Meta_META</a></li><li><a href=#Core_init>Core_init</a></li><li><a href=#Floor1_infra>Floor1_infra</a></li><li><a href=#Floor1_access>Floor1_access</a></li><li><a href=#Floor1_examp>Floor1_examp</a></li><li><a href=#Floor2_examp>Floor2_examp</a></li><li><a href=#Floor1_ctxt>Floor1_ctxt</a></li><li><a href=#Core>Core</a></li><li><a href=#Parser_Toy>Parser_Toy</a></li><li><a href=#Parser_Toy_extended>Parser_Toy_extended</a></li><li><a href=#Parser_META>Parser_META</a></li><li><a href=#Printer_Toy>Printer_Toy</a></li><li><a href=#Printer_Toy_extended>Printer_Toy_extended</a></li><li><a href=#Printer_META>Printer_META</a></li><li><a href=#Printer>Printer</a></li><li><a href=#Generator_static>Generator_static</a></li><li><a href=#Generator_dynamic_sequential>Generator_dynamic_sequential</a></li><li><a href=#Design_deep>Design_deep</a></li><li><a href=#Toy_Library>Toy_Library</a></li><li><a href=#Design_shallow>Design_shallow</a></li><li><a href=#Rail>Rail</a></li><li><a href=#Design_generated>Design_generated</a></li><li><a href=#Design_generated_generated>Design_generated_generated</a><ul><li><a href=#Design_generated_generated-perm_%cf%83>perm_σ</a></li><li><a href=#Design_generated_generated-perm_%cf%83>perm_σ</a></li></ul></li></ul></div><ul><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Isabelle_Meta_Model/outline.pdf>Proof
-outline</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Isabelle_Meta_Model/document.pdf>Proof
-document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Isabelle_Meta_Model/session_graph.pdf>Theory dependencies</a></li></ul></div></aside><div class="content theories"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
-<datalist id=autocomplete></datalist></div></form><h1><span class=first>S</span>ession <span class=first>I</span>sabelle_<span class=first>M</span>eta_<span class=first>M</span>odel</h1><div></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><div id=Antiquote_Setup><div class=head><h1>Theory Antiquote_Setup</h1></div><pre class=source><span class=comment1>(*&lt;*)</span>
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Session Isabelle_Meta_Model - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session Isabelle_Meta_Model">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="/entries/isabelle_meta_model/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories">
+<meta property="og:site_name" content="Archive of Formal Proofs">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="/images/afp.png">
+<meta name=twitter:title content="Session Isabelle_Meta_Model">
+<meta name=twitter:description content>
+<link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css>
+<link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script>
+<script src=/js/banner.js></script><script src=/js/header-search.js></script></head>
+<body class=mathjax_ignore>
+<aside>
+<div>
+<div>
+<a href=/>
+<img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo>
+</a>
+<ul>
+<li><a href=/entries/isabelle_meta_model>Return to entry</a></li>
+</ul>
+<hr>
+<ul><li><a href=#Antiquote_Setup>Antiquote_Setup</a>
+</li><li><a href=#files%2fISABELLE_HOME%2fsrc%2fDoc%2fantiquote_setup.ML>files/ISABELLE_HOME/src/Doc/antiquote_setup.ML</a>
+</li><li><a href=#Isabelle_Cartouche_Examples>Isabelle_Cartouche_Examples</a>
+</li><li><a href=#Isabelle_Main0>Isabelle_Main0</a>
+</li><li><a href=#Isabelle_code_target>Isabelle_code_target</a>
+</li><li><a href=#Isabelle_code_runtime>Isabelle_code_runtime</a>
+</li><li><a href=#Isabelle_Main1>Isabelle_Main1</a>
+</li><li><a href=#Isabelle_typedecl>Isabelle_typedecl</a>
+</li><li><a href=#Isabelle_Main2>Isabelle_Main2</a>
+</li><li><a href=#Init>Init</a>
+</li><li><a href=#Meta_Pure>Meta_Pure</a>
+</li><li><a href=#Parser_init>Parser_init</a>
+</li><li><a href=#Parser_Pure>Parser_Pure</a>
+</li><li><a href=#Meta_SML>Meta_SML</a>
+</li><li><a href=#Meta_Isabelle>Meta_Isabelle</a>
+</li><li><a href=#Printer_init>Printer_init</a>
+</li><li><a href=#Printer_Pure>Printer_Pure</a>
+</li><li><a href=#Printer_SML>Printer_SML</a>
+</li><li><a href=#Printer_Isabelle>Printer_Isabelle</a>
+</li><li><a href=#Toy_Library_Static>Toy_Library_Static</a>
+</li><li><a href=#Init_rbt>Init_rbt</a>
+</li><li><a href=#Meta_Toy>Meta_Toy</a>
+</li><li><a href=#Meta_Toy_extended>Meta_Toy_extended</a>
+</li><li><a href=#Meta_META>Meta_META</a>
+</li><li><a href=#Core_init>Core_init</a>
+</li><li><a href=#Floor1_infra>Floor1_infra</a>
+</li><li><a href=#Floor1_access>Floor1_access</a>
+</li><li><a href=#Floor1_examp>Floor1_examp</a>
+</li><li><a href=#Floor2_examp>Floor2_examp</a>
+</li><li><a href=#Floor1_ctxt>Floor1_ctxt</a>
+</li><li><a href=#Core>Core</a>
+</li><li><a href=#Parser_Toy>Parser_Toy</a>
+</li><li><a href=#Parser_Toy_extended>Parser_Toy_extended</a>
+</li><li><a href=#Parser_META>Parser_META</a>
+</li><li><a href=#Printer_Toy>Printer_Toy</a>
+</li><li><a href=#Printer_Toy_extended>Printer_Toy_extended</a>
+</li><li><a href=#Printer_META>Printer_META</a>
+</li><li><a href=#Printer>Printer</a>
+</li><li><a href=#Generator_static>Generator_static</a>
+</li><li><a href=#Generator_dynamic_sequential>Generator_dynamic_sequential</a>
+</li><li><a href=#Design_deep>Design_deep</a>
+</li><li><a href=#Toy_Library>Toy_Library</a>
+</li><li><a href=#Design_shallow>Design_shallow</a>
+</li><li><a href=#Rail>Rail</a>
+</li><li><a href=#Design_generated>Design_generated</a>
+</li><li><a href=#Design_generated_generated>Design_generated_generated</a>
+<ul>
+<li><a href=#Design_generated_generated-perm_%cf%83>perm_σ</a></li>
+<li><a href=#Design_generated_generated-perm_%cf%83>perm_σ</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<ul>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Isabelle_Meta_Model/outline.pdf>Proof
+outline</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Isabelle_Meta_Model/document.pdf>Proof
+document</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Isabelle_Meta_Model/session_graph.pdf>Theory dependencies</a></li>
+</ul>
+</div>
+</aside>
+<div class="content theories"><header>
+<form action=/%20search>
+<div class=form-container>
+<input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
+<datalist id=autocomplete>
+</datalist>
+</div>
+</form>
+<h1><span class=first>S</span>ession <span class=first>I</span>sabelle_<span class=first>M</span>eta_<span class=first>M</span>odel</h1>
+<div>
+</div>
+</header><div id=banner data-id=0>
+<p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button>
+</div>
+<div><main>
+<div id=Antiquote_Setup>
+<div class=head>
+<h1>Theory Antiquote_Setup</h1>
+</div>
+<pre class=source><span class=comment1>(*&lt;*)</span>
 <span class=keyword1><span class=command>theory</span></span> Antiquote_Setup
 <span class=keyword2><span class=keyword>imports</span></span> <a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL/Main.html>Main</a>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -10,7 +115,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Is
 
 <span class=keyword2><span class=keyword>end</span></span>
 <span class=comment1>(*&gt;*)</span>
-</pre></div><div id=files/ISABELLE_HOME/src/Doc/antiquote_setup.ML><div class=head><h1>File ‹~~/src/Doc/antiquote_setup.ML›</h1></div><pre class=source><span class=comment1>(*  Title:      Doc/antiquote_setup.ML
+</pre>
+</div><div id=files/ISABELLE_HOME/src/Doc/antiquote_setup.ML>
+<div class=head>
+<h1>File ‹~~/src/Doc/antiquote_setup.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      Doc/antiquote_setup.ML
     Author:     Makarius
 
 Auxiliary antiquotations for the Isabelle manuals.
@@ -220,7 +330,12 @@ Auxiliary antiquotations for the Isabelle manuals.
 <span class=keyword2><span class=keyword>end</span></span><span class=main>;</span>
 
 <span class=keyword2><span class=keyword>end</span></span><span class=main>;</span>
-</pre></div><div id=Isabelle_Cartouche_Examples><div class=head><h1>Theory Isabelle_Cartouche_Examples</h1></div><pre class=source><span class=comment1>(******************************************************************************
+</pre>
+</div><div id=Isabelle_Cartouche_Examples>
+<div class=head>
+<h1>Theory Isabelle_Cartouche_Examples</h1>
+</div>
+<pre class=source><span class=comment1>(******************************************************************************
  * ISABELLE COPYRIGHT NOTICE, LICENCE AND DISCLAIMER.
  *
  * Copyright (c) 1986-2018 Contributors (in the changeset history)
@@ -292,7 +407,12 @@ Auxiliary antiquotations for the Isabelle manuals.
 <span class=keyword1><span class=command>syntax</span></span> <span class=quoted>"_cartouche_string"</span> <span class=main>::</span> <span class=quoted><span class=quoted>"cartouche_position <span class=main>⇒</span> <span class=main>_</span>"</span></span>  <span class=main>(</span><span class=quoted>"_"</span><span class=main>)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Isabelle_Main0><div class=head><h1>Theory Isabelle_Main0</h1></div><pre class=source><span class=comment1>(******************************************************************************
+</pre>
+</div><div id=Isabelle_Main0>
+<div class=head>
+<h1>Theory Isabelle_Main0</h1>
+</div>
+<pre class=source><span class=comment1>(******************************************************************************
  * A Meta-Model for the Isabelle API
  *
  * Copyright (c) 2011-2018 Université Paris-Saclay, Univ. Paris-Sud, France
@@ -337,7 +457,12 @@ Auxiliary antiquotations for the Isabelle manuals.
 <span class=keyword2><span class=keyword>imports</span></span>  <span class=quoted>"<a href=#Isabelle_Cartouche_Examples>ex/Isabelle_Cartouche_Examples</a>"</span>
 <span class=keyword2><span class=keyword>begin</span></span>
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Isabelle_code_target><div class=head><h1>Theory Isabelle_code_target</h1></div><pre class=source><span class=comment1>(******************************************************************************
+</pre>
+</div><div id=Isabelle_code_target>
+<div class=head>
+<h1>Theory Isabelle_code_target</h1>
+</div>
+<pre class=source><span class=comment1>(******************************************************************************
  * ISABELLE COPYRIGHT NOTICE, LICENCE AND DISCLAIMER.
  *
  * Copyright (c) 1986-2018 Contributors (in the changeset history)
@@ -550,7 +675,12 @@ Generic infrastructure for target language data.
 ›</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Isabelle_code_runtime><div class=head><h1>Theory Isabelle_code_runtime</h1></div><pre class=source><span class=comment1>(******************************************************************************
+</pre>
+</div><div id=Isabelle_code_runtime>
+<div class=head>
+<h1>Theory Isabelle_code_runtime</h1>
+</div>
+<pre class=source><span class=comment1>(******************************************************************************
  * ISABELLE COPYRIGHT NOTICE, LICENCE AND DISCLAIMER.
  *
  * Copyright (c) 1986-2018 Contributors (in the changeset history)
@@ -769,7 +899,12 @@ Runtime services building on code generation into implementation language SML.
 ›</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Isabelle_Main1><div class=head><h1>Theory Isabelle_Main1</h1></div><pre class=source><span class=comment1>(******************************************************************************
+</pre>
+</div><div id=Isabelle_Main1>
+<div class=head>
+<h1>Theory Isabelle_Main1</h1>
+</div>
+<pre class=source><span class=comment1>(******************************************************************************
  * A Meta-Model for the Isabelle API
  *
  * Copyright (c) 2011-2018 Université Paris-Saclay, Univ. Paris-Sud, France
@@ -815,7 +950,12 @@ Runtime services building on code generation into implementation language SML.
          <span class=quoted>"<a href=#Isabelle_code_runtime>../Tools/Code/Isabelle_code_runtime</a>"</span>
 <span class=keyword2><span class=keyword>begin</span></span>
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Isabelle_typedecl><div class=head><h1>Theory Isabelle_typedecl</h1></div><pre class=source><span class=comment1>(******************************************************************************
+</pre>
+</div><div id=Isabelle_typedecl>
+<div class=head>
+<h1>Theory Isabelle_typedecl</h1>
+</div>
+<pre class=source><span class=comment1>(******************************************************************************
  * ISABELLE COPYRIGHT NOTICE, LICENCE AND DISCLAIMER.
  *
  * Copyright (c) 1986-2018 Contributors (in the changeset history)
@@ -894,7 +1034,12 @@ Type declarations (with object-logic arities) and type abbreviations.
 <span class=keyword2><span class=keyword>end</span></span>
 ›</span>
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Isabelle_Main2><div class=head><h1>Theory Isabelle_Main2</h1></div><pre class=source><span class=comment1>(******************************************************************************
+</pre>
+</div><div id=Isabelle_Main2>
+<div class=head>
+<h1>Theory Isabelle_Main2</h1>
+</div>
+<pre class=source><span class=comment1>(******************************************************************************
  * A Meta-Model for the Isabelle API
  *
  * Copyright (c) 2011-2018 Université Paris-Saclay, Univ. Paris-Sud, France
@@ -939,7 +1084,12 @@ Type declarations (with object-logic arities) and type abbreviations.
 <span class=keyword2><span class=keyword>imports</span></span>  <span class=quoted>"<a href=#Isabelle_typedecl>../Pure/Isar/Isabelle_typedecl</a>"</span>
 <span class=keyword2><span class=keyword>begin</span></span>
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Init><div class=head><h1>Theory Init</h1></div><pre class=source><span class=comment1>(******************************************************************************
+</pre>
+</div><div id=Init>
+<div class=head>
+<h1>Theory Init</h1>
+</div>
+<pre class=source><span class=comment1>(******************************************************************************
  * Citadelle
  *
  * Copyright (c) 2011-2018 Université Paris-Saclay, Univ. Paris-Sud, France
@@ -1336,7 +1486,12 @@ Type declarations (with object-logic arities) and type abbreviations.
 <span class=keyword1><span class=command>definition</span></span> <span class=quoted><span class=quoted>"<span class=free>hol_split</span> <span class=free><span class=bound><span class=entity>s</span></span></span> <span class=main>=</span> S.flatten <span class=main>[</span><span class=free><span class=bound><span class=entity>s</span></span></span><span class=main>,</span> <span class=inner_cartouche>‹.split›</span><span class=main>]</span>"</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Meta_Pure><div class=head><h1>Theory Meta_Pure</h1></div><pre class=source><span class=comment1>(******************************************************************************
+</pre>
+</div><div id=Meta_Pure>
+<div class=head>
+<h1>Theory Meta_Pure</h1>
+</div>
+<pre class=source><span class=comment1>(******************************************************************************
  * A Meta-Model for the Isabelle API
  *
  * Copyright (c) 2011-2018 Université Paris-Saclay, Univ. Paris-Sud, France
@@ -1427,7 +1582,12 @@ Type declarations (with object-logic arities) and type abbreviations.
                               <span class=free><span class=bound><span class=entity>expr</span></span></span>"</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Parser_init><div class=head><h1>Theory Parser_init</h1></div><pre class=source><span class=comment1>(******************************************************************************
+</pre>
+</div><div id=Parser_init>
+<div class=head>
+<h1>Theory Parser_init</h1>
+</div>
+<pre class=source><span class=comment1>(******************************************************************************
  * Citadelle
  *
  * Copyright (c) 2011-2018 Université Paris-Saclay, Univ. Paris-Sud, France
@@ -1567,7 +1727,12 @@ In any case, we are converting (or printing) the above datatypes to another form
 and finally this format will be ``parsed'' by Isabelle!›</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Parser_Pure><div class=head><h1>Theory Parser_Pure</h1></div><pre class=source><span class=comment1>(******************************************************************************
+</pre>
+</div><div id=Parser_Pure>
+<div class=head>
+<h1>Theory Parser_Pure</h1>
+</div>
+<pre class=source><span class=comment1>(******************************************************************************
  * A Meta-Model for the Isabelle API
  *
  * Copyright (c) 2011-2018 Université Paris-Saclay, Univ. Paris-Sud, France
@@ -1649,7 +1814,12 @@ and finally this format will be ``parsed'' by Isabelle!›</span></span>
   Parse.of_pure_term_def
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Meta_SML><div class=head><h1>Theory Meta_SML</h1></div><pre class=source><span class=comment1>(******************************************************************************
+</pre>
+</div><div id=Meta_SML>
+<div class=head>
+<h1>Theory Meta_SML</h1>
+</div>
+<pre class=source><span class=comment1>(******************************************************************************
  * A Meta-Model for the Isabelle API
  *
  * Copyright (c) 2011-2018 Université Paris-Saclay, Univ. Paris-Sud, France
@@ -1771,7 +1941,12 @@ and finally this format will be ``parsed'' by Isabelle!›</span></span>
   SML.rewrite_fun_def
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Meta_Isabelle><div class=head><h1>Theory Meta_Isabelle</h1></div><pre class=source><span class=comment1>(******************************************************************************
+</pre>
+</div><div id=Meta_Isabelle>
+<div class=head>
+<h1>Theory Meta_Isabelle</h1>
+</div>
+<pre class=source><span class=comment1>(******************************************************************************
  * A Meta-Model for the Isabelle API
  *
  * Copyright (c) 2011-2018 Université Paris-Saclay, Univ. Paris-Sud, France
@@ -2222,7 +2397,12 @@ and finally this format will be ``parsed'' by Isabelle!›</span></span>
                            <span class=main>|</span> <span class=bound>x</span> <span class=main>⇒</span> <span class=bound>x</span><span class=main>)</span>"</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Printer_init><div class=head><h1>Theory Printer_init</h1></div><pre class=source><span class=comment1>(******************************************************************************
+</pre>
+</div><div id=Printer_init>
+<div class=head>
+<h1>Theory Printer_init</h1>
+</div>
+<pre class=source><span class=comment1>(******************************************************************************
  * Citadelle
  *
  * Copyright (c) 2011-2018 Université Paris-Saclay, Univ. Paris-Sud, France
@@ -2660,7 +2840,12 @@ end
 weakly typed in Isabelle, we will continue the typing using the type system of target languages.›</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Printer_Pure><div class=head><h1>Theory Printer_Pure</h1></div><pre class=source><span class=comment1>(******************************************************************************
+</pre>
+</div><div id=Printer_Pure>
+<div class=head>
+<h1>Theory Printer_Pure</h1>
+</div>
+<pre class=source><span class=comment1>(******************************************************************************
  * A Meta-Model for the Isabelle API
  *
  * Copyright (c) 2011-2018 Université Paris-Saclay, Univ. Paris-Sud, France
@@ -2728,7 +2913,12 @@ weakly typed in Isabelle, we will continue the typing using the type system of t
   Print.of_pure_term.simps
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Printer_SML><div class=head><h1>Theory Printer_SML</h1></div><pre class=source><span class=comment1>(******************************************************************************
+</pre>
+</div><div id=Printer_SML>
+<div class=head>
+<h1>Theory Printer_SML</h1>
+</div>
+<pre class=source><span class=comment1>(******************************************************************************
  * A Meta-Model for the Isabelle API
  *
  * Copyright (c) 2011-2018 Université Paris-Saclay, Univ. Paris-Sud, France
@@ -2803,7 +2993,12 @@ weakly typed in Isabelle, we will continue the typing using the type system of t
   Print.of_semi__term'.simps
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Printer_Isabelle><div class=head><h1>Theory Printer_Isabelle</h1></div><pre class=source><span class=comment1>(******************************************************************************
+</pre>
+</div><div id=Printer_Isabelle>
+<div class=head>
+<h1>Theory Printer_Isabelle</h1>
+</div>
+<pre class=source><span class=comment1>(******************************************************************************
  * A Meta-Model for the Isabelle API
  *
  * Copyright (c) 2011-2018 Université Paris-Saclay, Univ. Paris-Sud, France
@@ -3258,7 +3453,12 @@ assumes %s: "%s"›</span> <span class=main>(</span><span class=free>To_string</
   Print.of_semi__method.simps
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Toy_Library_Static><div class=head><h1>Theory Toy_Library_Static</h1></div><pre class=source><span class=comment1>(******************************************************************************
+</pre>
+</div><div id=Toy_Library_Static>
+<div class=head>
+<h1>Theory Toy_Library_Static</h1>
+</div>
+<pre class=source><span class=comment1>(******************************************************************************
  * Citadelle
  *
  * Copyright (c) 2011-2018 Université Paris-Saclay, Univ. Paris-Sud, France
@@ -3320,7 +3520,12 @@ also used by generated files, then these functions can be defined in this file.�
   concat <span class=main>(</span>map <span class=main>(</span>choose_1 <span class=keyword1>o</span> <span class=free><span class=bound><span class=entity>to_from</span></span></span><span class=main>)</span> <span class=main>(</span>filter <span class=main>(</span><span class=main>λ</span><span class=bound>p</span><span class=main>.</span> List.member <span class=main>(</span>choose_0 <span class=main>(</span><span class=free><span class=bound><span class=entity>to_from</span></span></span> <span class=bound>p</span><span class=main>)</span><span class=main>)</span> <span class=free><span class=bound><span class=entity>oid</span></span></span><span class=main>)</span> <span class=free><span class=bound><span class=entity>S</span></span></span><span class=main>)</span><span class=main>)</span>"</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Init_rbt><div class=head><h1>Theory Init_rbt</h1></div><pre class=source><span class=comment1>(******************************************************************************
+</pre>
+</div><div id=Init_rbt>
+<div class=head>
+<h1>Theory Init_rbt</h1>
+</div>
+<pre class=source><span class=comment1>(******************************************************************************
  * Citadelle
  *
  * Copyright (c) 2011-2018 Université Paris-Saclay, Univ. Paris-Sud, France
@@ -3402,7 +3607,12 @@ also used by generated files, then these functions can be defined in this file.�
   L.unique_def
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Meta_Toy><div class=head><h1>Theory Meta_Toy</h1></div><pre class=source><span class=comment1>(******************************************************************************
+</pre>
+</div><div id=Meta_Toy>
+<div class=head>
+<h1>Theory Meta_Toy</h1>
+</div>
+<pre class=source><span class=comment1>(******************************************************************************
  * HOL-TOY
  *
  * Copyright (c) 2011-2018 Université Paris-Saclay, Univ. Paris-Sud, France
@@ -3960,7 +4170,12 @@ also used by generated files, then these functions can be defined in this file.�
 <span class=keyword1><span class=command>definition</span></span> <span class=quoted><span class=quoted>"<span class=free>map_class_inh</span> <span class=free><span class=bound><span class=entity>l_inherited</span></span></span> <span class=main>=</span> L.map <span class=main>(</span><span class=main>λ</span> ToyClass <span class=main><span class=bound>_</span></span> <span class=bound>l</span> <span class=main><span class=bound>_</span></span> <span class=main>⇒</span> <span class=bound>l</span><span class=main>)</span> <span class=main>(</span>of_inh <span class=main>(</span>map_inh of_linh <span class=free><span class=bound><span class=entity>l_inherited</span></span></span><span class=main>)</span><span class=main>)</span>"</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Meta_Toy_extended><div class=head><h1>Theory Meta_Toy_extended</h1></div><pre class=source><span class=comment1>(******************************************************************************
+</pre>
+</div><div id=Meta_Toy_extended>
+<div class=head>
+<h1>Theory Meta_Toy_extended</h1>
+</div>
+<pre class=source><span class=comment1>(******************************************************************************
  * HOL-TOY
  *
  * Copyright (c) 2011-2018 Université Paris-Saclay, Univ. Paris-Sud, France
@@ -4097,7 +4312,12 @@ also used by generated files, then these functions can be defined in this file.�
 <span class=keyword1><span class=command>definition</span></span> <span class=quoted><span class=quoted>"<span class=free>fold_instance_single'</span> <span class=free><span class=bound><span class=entity>f</span></span></span> <span class=free><span class=bound><span class=entity>toyi</span></span></span> <span class=main>=</span> fold_list_attr <span class=main>(</span>Inst_ty <span class=free><span class=bound><span class=entity>toyi</span></span></span><span class=main>)</span> <span class=free><span class=bound><span class=entity>f</span></span></span> <span class=main>(</span>Inst_attr <span class=free><span class=bound><span class=entity>toyi</span></span></span><span class=main>)</span>"</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Meta_META><div class=head><h1>Theory Meta_META</h1></div><pre class=source><span class=comment1>(******************************************************************************
+</pre>
+</div><div id=Meta_META>
+<div class=head>
+<h1>Theory Meta_META</h1>
+</div>
+<pre class=source><span class=comment1>(******************************************************************************
  * Citadelle
  *
  * Copyright (c) 2011-2018 Université Paris-Saclay, Univ. Paris-Sud, France
@@ -4360,7 +4580,12 @@ However a corresponding parser and printer would then be required.›</span></sp
                                   <span class=main>|</span> <span class=bound>x</span> <span class=main>⇒</span> <span class=bound>x</span><span class=main>)</span>"</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Core_init><div class=head><h1>Theory Core_init</h1></div><pre class=source><span class=comment1>(******************************************************************************
+</pre>
+</div><div id=Core_init>
+<div class=head>
+<h1>Theory Core_init</h1>
+</div>
+<pre class=source><span class=comment1>(******************************************************************************
  * Citadelle
  *
  * Copyright (c) 2011-2018 Université Paris-Saclay, Univ. Paris-Sud, France
@@ -4621,7 +4846,12 @@ then we could obtain at the end a parsed Isabelle Meta-Model in Isabelle.›</sp
                           <span class=main>,</span> <span class=keyword1>if</span> <span class=free><span class=bound><span class=entity>pref</span></span></span> <span class=main>=</span> ToyCtxtPre <span class=keyword1>then</span> <span class=main>[]</span> <span class=keyword1>else</span> <span class=main>[</span>var_result<span class=main>]</span> <span class=main>]</span><span class=main>)</span>"</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Floor1_infra><div class=head><h1>Theory Floor1_infra</h1></div><pre class=source><span class=comment1>(******************************************************************************
+</pre>
+</div><div id=Floor1_infra>
+<div class=head>
+<h1>Theory Floor1_infra</h1>
+</div>
+<pre class=source><span class=comment1>(******************************************************************************
  * HOL-TOY
  *
  * Copyright (c) 2011-2018 Université Paris-Saclay, Univ. Paris-Sud, France
@@ -4696,7 +4926,12 @@ then we could obtain at the end a parsed Isabelle Meta-Model in Isabelle.›</sp
       <span class=free><span class=bound><span class=entity>expr</span></span></span><span class=main>)</span><span class=main>)</span>"</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Floor1_access><div class=head><h1>Theory Floor1_access</h1></div><pre class=source><span class=comment1>(******************************************************************************
+</pre>
+</div><div id=Floor1_access>
+<div class=head>
+<h1>Theory Floor1_access</h1>
+</div>
+<pre class=source><span class=comment1>(******************************************************************************
  * HOL-TOY
  *
  * Copyright (c) 2011-2018 Université Paris-Saclay, Univ. Paris-Sud, France
@@ -4823,7 +5058,12 @@ then we could obtain at the end a parsed Isabelle Meta-Model in Isabelle.›</sp
   <span class=main>,</span> <span class=main>[]</span><span class=main>]</span> <span class=main>)</span><span class=main>)</span>"</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Floor1_examp><div class=head><h1>Theory Floor1_examp</h1></div><pre class=source><span class=comment1>(******************************************************************************
+</pre>
+</div><div id=Floor1_examp>
+<div class=head>
+<h1>Theory Floor1_examp</h1>
+</div>
+<pre class=source><span class=comment1>(******************************************************************************
  * HOL-TOY
  *
  * Copyright (c) 2011-2018 Université Paris-Saclay, Univ. Paris-Sud, France
@@ -5109,7 +5349,12 @@ then we could obtain at the end a parsed Isabelle Meta-Model in Isabelle.›</sp
                                              <span class=main>(</span>map_option fst <span class=bound>o_post</span><span class=main>)</span><span class=main>)</span> <span class=main>]</span><span class=main>)</span><span class=main>)</span><span class=main>)</span>"</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Floor2_examp><div class=head><h1>Theory Floor2_examp</h1></div><pre class=source><span class=comment1>(******************************************************************************
+</pre>
+</div><div id=Floor2_examp>
+<div class=head>
+<h1>Theory Floor2_examp</h1>
+</div>
+<pre class=source><span class=comment1>(******************************************************************************
  * HOL-TOY
  *
  * Copyright (c) 2011-2018 Université Paris-Saclay, Univ. Paris-Sud, France
@@ -5305,7 +5550,12 @@ then we could obtain at the end a parsed Isabelle Meta-Model in Isabelle.›</sp
   <span class=main>[</span> <span class=bound>pre</span><span class=main>,</span> <span class=bound>post</span> <span class=main>]</span><span class=main>)</span><span class=main>)</span>"</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Floor1_ctxt><div class=head><h1>Theory Floor1_ctxt</h1></div><pre class=source><span class=comment1>(******************************************************************************
+</pre>
+</div><div id=Floor1_ctxt>
+<div class=head>
+<h1>Theory Floor1_ctxt</h1>
+</div>
+<pre class=source><span class=comment1>(******************************************************************************
  * HOL-TOY
  *
  * Copyright (c) 2011-2018 Université Paris-Saclay, Univ. Paris-Sud, France
@@ -5367,7 +5617,12 @@ then we could obtain at the end a parsed Isabelle Meta-Model in Isabelle.›</sp
                                    <span class=bound>ctxt</span><span class=main>)</span><span class=main>)</span><span class=main>)</span> <span class=main>]</span><span class=main>)</span>"</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Core><div class=head><h1>Theory Core</h1></div><pre class=source><span class=comment1>(******************************************************************************
+</pre>
+</div><div id=Core>
+<div class=head>
+<h1>Theory Core</h1>
+</div>
+<pre class=source><span class=comment1>(******************************************************************************
  * Citadelle
  *
  * Copyright (c) 2011-2018 Université Paris-Saclay, Univ. Paris-Sud, France
@@ -5625,7 +5880,12 @@ one-to-one correspondance of Toy-types to types of the meta-language HOL. ›</s
     <span class=main>(</span><span class=bound>env</span><span class=main>,</span> <span class=bound>output_position</span><span class=main>)</span> <span class=main>⇒</span> <span class=bound>env</span> <span class=main>⦇</span> D_output_position <span class=main>:=</span> <span class=bound>output_position</span> <span class=main>⦈</span><span class=main>)</span>"</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Parser_Toy><div class=head><h1>Theory Parser_Toy</h1></div><pre class=source><span class=comment1>(******************************************************************************
+</pre>
+</div><div id=Parser_Toy>
+<div class=head>
+<h1>Theory Parser_Toy</h1>
+</div>
+<pre class=source><span class=comment1>(******************************************************************************
  * HOL-TOY
  *
  * Copyright (c) 2011-2018 Université Paris-Saclay, Univ. Paris-Sud, France
@@ -5943,7 +6203,12 @@ one-to-one correspondance of Toy-types to types of the meta-language HOL. ›</s
   Parse.of_toy_enum_def
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Parser_Toy_extended><div class=head><h1>Theory Parser_Toy_extended</h1></div><pre class=source><span class=comment1>(******************************************************************************
+</pre>
+</div><div id=Parser_Toy_extended>
+<div class=head>
+<h1>Theory Parser_Toy_extended</h1>
+</div>
+<pre class=source><span class=comment1>(******************************************************************************
  * HOL-TOY
  *
  * Copyright (c) 2011-2018 Université Paris-Saclay, Univ. Paris-Sud, France
@@ -6097,7 +6362,12 @@ one-to-one correspondance of Toy-types to types of the meta-language HOL. ›</s
   Parse.of_toy_def_pre_post_def
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Parser_META><div class=head><h1>Theory Parser_META</h1></div><pre class=source><span class=comment1>(******************************************************************************
+</pre>
+</div><div id=Parser_META>
+<div class=head>
+<h1>Theory Parser_META</h1>
+</div>
+<pre class=source><span class=comment1>(******************************************************************************
  * Citadelle
  *
  * Copyright (c) 2011-2018 Université Paris-Saclay, Univ. Paris-Sud, France
@@ -6453,7 +6723,12 @@ when it is embedded in a <span class=antiquoted><span class=antiquoted><span cla
 <span class=keyword1><span class=command>definition</span></span> <span class=quoted><span class=quoted>"<span class=free>sml_apply</span> <span class=free><span class=bound><span class=entity>s</span></span></span> <span class=free><span class=bound><span class=entity>l</span></span></span> <span class=main>=</span> S.flatten <span class=main>[</span><span class=free><span class=bound><span class=entity>s</span></span></span><span class=main>,</span> <span class=inner_cartouche>‹ (›</span><span class=main>,</span> <span class=keyword1>case</span> <span class=free><span class=bound><span class=entity>l</span></span></span> <span class=keyword1>of</span> <span class=bound>x</span> <span class=main>#</span> <span class=bound>xs</span> <span class=main>⇒</span> S.flatten <span class=main>[</span><span class=bound>x</span><span class=main>,</span> S.flatten <span class=main>(</span>L.map <span class=main>(</span><span class=main>λ</span><span class=bound>s</span><span class=main>.</span> S.flatten <span class=main>[</span><span class=inner_cartouche>‹, ›</span><span class=main>,</span> <span class=bound>s</span><span class=main>]</span><span class=main>)</span> <span class=bound>xs</span><span class=main>)</span><span class=main>]</span><span class=main>,</span> <span class=inner_cartouche>‹)›</span> <span class=main>]</span>"</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Printer_Toy><div class=head><h1>Theory Printer_Toy</h1></div><pre class=source><span class=comment1>(******************************************************************************
+</pre>
+</div><div id=Printer_Toy>
+<div class=head>
+<h1>Theory Printer_Toy</h1>
+</div>
+<pre class=source><span class=comment1>(******************************************************************************
  * HOL-TOY
  *
  * Copyright (c) 2011-2018 Université Paris-Saclay, Univ. Paris-Sud, France
@@ -6567,7 +6842,12 @@ when it is embedded in a <span class=antiquoted><span class=antiquoted><span cla
   Print.of_ctxt2_term_aux.simps
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Printer_Toy_extended><div class=head><h1>Theory Printer_Toy_extended</h1></div><pre class=source><span class=comment1>(******************************************************************************
+</pre>
+</div><div id=Printer_Toy_extended>
+<div class=head>
+<h1>Theory Printer_Toy_extended</h1>
+</div>
+<pre class=source><span class=comment1>(******************************************************************************
  * HOL-TOY
  *
  * Copyright (c) 2011-2018 Université Paris-Saclay, Univ. Paris-Sud, France
@@ -6702,7 +6982,12 @@ when it is embedded in a <span class=antiquoted><span class=antiquoted><span cla
   Print.of_toy_data_shallow.simps
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Printer_META><div class=head><h1>Theory Printer_META</h1></div><pre class=source><span class=comment1>(******************************************************************************
+</pre>
+</div><div id=Printer_META>
+<div class=head>
+<h1>Theory Printer_META</h1>
+</div>
+<pre class=source><span class=comment1>(******************************************************************************
  * Citadelle
  *
  * Copyright (c) 2011-2018 Université Paris-Saclay, Univ. Paris-Sud, France
@@ -6869,7 +7154,12 @@ assumes %s: "%s"›</span> <span class=main>(</span><span class=free>To_string</
   <span class=comment1>― ‹fun›</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Printer><div class=head><h1>Theory Printer</h1></div><pre class=source><span class=comment1>(******************************************************************************
+</pre>
+</div><div id=Printer>
+<div class=head>
+<h1>Theory Printer</h1>
+</div>
+<pre class=source><span class=comment1>(******************************************************************************
  * Citadelle
  *
  * Copyright (c) 2011-2018 Université Paris-Saclay, Univ. Paris-Sud, France
@@ -6961,7 +7251,12 @@ assumes %s: "%s"›</span> <span class=main>(</span><span class=free>To_string</
 <span class=keyword1><span class=command>no_type_notation</span></span> abr_string <span class=main>(</span><span class=quoted>"<span class=keyword1>string</span>"</span><span class=main>)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Generator_static><div class=head><h1>Theory Generator_static</h1></div><pre class=source><span class=comment1>(******************************************************************************
+</pre>
+</div><div id=Generator_static>
+<div class=head>
+<h1>Theory Generator_static</h1>
+</div>
+<pre class=source><span class=comment1>(******************************************************************************
  * Citadelle
  *
  * Copyright (c) 2011-2018 Université Paris-Saclay, Univ. Paris-Sud, France
@@ -7066,7 +7361,12 @@ initialized in the above <span class=antiquoted><span class=raw_text><span class
 containing the generated code associated to the above input.›</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Generator_dynamic_sequential><div class=head><h1>Theory Generator_dynamic_sequential</h1></div><pre class=source><span class=comment1>(******************************************************************************
+</pre>
+</div><div id=Generator_dynamic_sequential>
+<div class=head>
+<h1>Theory Generator_dynamic_sequential</h1>
+</div>
+<pre class=source><span class=comment1>(******************************************************************************
  * Citadelle
  *
  * Copyright (c) 2011-2018 Université Paris-Saclay, Univ. Paris-Sud, France
@@ -8784,7 +9084,12 @@ without leaving the editing session, in the same as the one the meta-compiler is
 ›</span>
 <span class=comment1>(*&gt;*)</span>
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Design_deep><div class=head><h1>Theory Design_deep</h1></div><pre class=source><span class=comment1>(******************************************************************************
+</pre>
+</div><div id=Design_deep>
+<div class=head>
+<h1>Theory Design_deep</h1>
+</div>
+<pre class=source><span class=comment1>(******************************************************************************
  * HOL-TOY
  *
  * Copyright (c) 2011-2018 Université Paris-Saclay, Univ. Paris-Sud, France
@@ -9159,7 +9464,12 @@ they would perhaps be implemented in a future version of the meta-compiler...
 ›</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Toy_Library><div class=head><h1>Theory Toy_Library</h1></div><pre class=source><span class=comment1>(******************************************************************************
+</pre>
+</div><div id=Toy_Library>
+<div class=head>
+<h1>Theory Toy_Library</h1>
+</div>
+<pre class=source><span class=comment1>(******************************************************************************
  * HOL-TOY
  *
  * Copyright (c) 2011-2018 Université Paris-Saclay, Univ. Paris-Sud, France
@@ -9225,7 +9535,12 @@ they would perhaps be implemented in a future version of the meta-compiler...
 <span class=keyword1><span class=command>lemmas</span></span> <span class=main>[</span><span class=operator>simp</span><span class=main>,</span><span class=operator>code_unfold</span><span class=main>]</span> <span class=main>=</span> state.defs
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Design_shallow><div class=head><h1>Theory Design_shallow</h1></div><pre class=source><span class=comment1>(******************************************************************************
+</pre>
+</div><div id=Design_shallow>
+<div class=head>
+<h1>Theory Design_shallow</h1>
+</div>
+<pre class=source><span class=comment1>(******************************************************************************
  * HOL-TOY
  *
  * Copyright (c) 2011-2018 Université Paris-Saclay, Univ. Paris-Sud, France
@@ -9361,7 +9676,12 @@ Here in <span class=antiquoted><span class=antiquoted><span class=antiquote><spa
   <span class=keyword2><span class=keyword>Post</span></span> <span class=main>:</span> <span class=quoted><span class=quoted>"<span class=free>a</span> <span class=main>+</span> <span class=free>b</span> <span class=main>=</span> <span class=free>c</span>"</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Rail><div class=head><h1>Theory Rail</h1></div><pre class=source><span class=comment1>(******************************************************************************
+</pre>
+</div><div id=Rail>
+<div class=head>
+<h1>Theory Rail</h1>
+</div>
+<pre class=source><span class=comment1>(******************************************************************************
  * Citadelle
  *
  * Copyright (c) 2011-2018 Université Paris-Saclay, Univ. Paris-Sud, France
@@ -9743,7 +10063,12 @@ it is possible to give an additional piece of SML code as argument to priorly ex
 <span class=comment1>(*&lt;*)</span>
 <span class=keyword2><span class=keyword>end</span></span>
 <span class=comment1>(*&gt;*)</span>
-</pre></div><div id=Design_generated><div class=head><h1>Theory Design_generated</h1></div><pre class=source><span class=keyword1><span class=command>theory</span></span> Design_generated <span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=#Toy_Library>../Toy_Library</a>"</span>   <span class=quoted>"<a href=#Toy_Library_Static>../Toy_Library_Static</a>"</span>   <span class=quoted>"<a href=#Generator_dynamic_sequential>../embedding/Generator_dynamic_sequential</a>"</span> <span class=keyword2><span class=keyword>begin</span></span>
+</pre>
+</div><div id=Design_generated>
+<div class=head>
+<h1>Theory Design_generated</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>theory</span></span> Design_generated <span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=#Toy_Library>../Toy_Library</a>"</span>   <span class=quoted>"<a href=#Toy_Library_Static>../Toy_Library_Static</a>"</span>   <span class=quoted>"<a href=#Generator_dynamic_sequential>../embedding/Generator_dynamic_sequential</a>"</span> <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=comment1>(* 1 ************************************ 0 + 1 *)</span>
 <span class=keyword1><span class=command>text</span></span> <span class=quoted><span class=plain_text>‹
@@ -9850,7 +10175,12 @@ one-to-one correspondance of Toy-types to types of the meta-language HOL. ›</s
 <span class=keyword1><span class=command>PrePost</span></span><span class=main>[</span><span class=keyword2><span class=keyword>shallow</span></span><span class=main>]</span> σ<span class=hidden>⇩</span><sub>1</sub> σ<span class=hidden>⇩</span><sub>1</sub>'
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Design_generated_generated><div class=head><h1>Theory Design_generated_generated</h1></div><pre class=source><span class=keyword1><span class=command>theory</span></span> Design_generated_generated <span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=#Toy_Library>../Toy_Library</a>"</span>   <span class=quoted>"<a href=#Toy_Library_Static>../Toy_Library_Static</a>"</span> <span class=keyword2><span class=keyword>begin</span></span>
+</pre>
+</div><div id=Design_generated_generated>
+<div class=head>
+<h1>Theory Design_generated_generated</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>theory</span></span> Design_generated_generated <span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=#Toy_Library>../Toy_Library</a>"</span>   <span class=quoted>"<a href=#Toy_Library_Static>../Toy_Library_Static</a>"</span> <span class=keyword2><span class=keyword>begin</span></span>
 
 <span class=comment1>(* 1 ************************************ 0 + 1 *)</span>
 <span class=keyword1><span class=command>text</span></span> <span class=quoted><span class=plain_text>‹
@@ -10075,4 +10405,10 @@ one-to-one correspondance of Toy-types to types of the meta-language HOL. ›</s
 <span class=keyword2><span class=keyword>end</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div></main></div></div></body></html>
+</pre>
+</div>
+</main>
+</div>
+</div>
+</body>
+</html>

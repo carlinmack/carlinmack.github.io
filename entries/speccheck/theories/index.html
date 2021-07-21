@@ -1,7 +1,97 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Session SpecCheck - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session SpecCheck"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/speccheck/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Session SpecCheck"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css><link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script><script src=/js/banner.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><li><a href=/entries/speccheck>Return to entry</a></li></ul><hr><ul><li><a href=#SpecCheck_Base>SpecCheck_Base</a></li><li><a href=#files%2futil.ML>files/util.ML</a></li><li><a href=#files%2fspeccheck_base.ML>files/speccheck_base.ML</a></li><li><a href=#files%2fproperty.ML>files/property.ML</a></li><li><a href=#files%2fconfiguration.ML>files/configuration.ML</a></li><li><a href=#files%2frandom.ML>files/random.ML</a></li><li><a href=#SpecCheck_Generators>SpecCheck_Generators</a></li><li><a href=#files%2fgen_types.ML>files/gen_types.ML</a></li><li><a href=#files%2fgen_base.ML>files/gen_base.ML</a></li><li><a href=#files%2fgen_text.ML>files/gen_text.ML</a></li><li><a href=#files%2fgen_int.ML>files/gen_int.ML</a></li><li><a href=#files%2fgen_real.ML>files/gen_real.ML</a></li><li><a href=#files%2fgen_function.ML>files/gen_function.ML</a></li><li><a href=#files%2fgen_term.ML>files/gen_term.ML</a></li><li><a href=#files%2fgen.ML>files/gen.ML</a></li><li><a href=#SpecCheck_Show>SpecCheck_Show</a></li><li><a href=#files%2fshow_types.ML>files/show_types.ML</a></li><li><a href=#files%2fshow_base.ML>files/show_base.ML</a></li><li><a href=#files%2fshow.ML>files/show.ML</a></li><li><a href=#SpecCheck_Output_Style>SpecCheck_Output_Style</a></li><li><a href=#files%2foutput_style_types.ML>files/output_style_types.ML</a></li><li><a href=#files%2foutput_style_perl.ML>files/output_style_perl.ML</a></li><li><a href=#files%2foutput_style_custom.ML>files/output_style_custom.ML</a></li><li><a href=#files%2foutput_style.ML>files/output_style.ML</a></li><li><a href=#SpecCheck_Shrink>SpecCheck_Shrink</a></li><li><a href=#files%2fshrink_types.ML>files/shrink_types.ML</a></li><li><a href=#files%2fshrink_base.ML>files/shrink_base.ML</a></li><li><a href=#files%2fshrink.ML>files/shrink.ML</a></li><li><a href=#SpecCheck>SpecCheck</a></li><li><a href=#files%2fspeccheck.ML>files/speccheck.ML</a></li><li><a href=#files%2flecker.ML>files/lecker.ML</a></li><li><a href=#SpecCheck_Dynamic>SpecCheck_Dynamic</a></li><li><a href=#files%2fdynamic_construct.ML>files/dynamic_construct.ML</a></li><li><a href=#files%2fspeccheck_dynamic.ML>files/speccheck_dynamic.ML</a></li><li><a href=#SpecCheck_Examples>SpecCheck_Examples</a></li></ul></div><ul><li><a href=https://www.isa-afp.org/browser_info/current/AFP/SpecCheck/outline.pdf>Proof
-outline</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/SpecCheck/document.pdf>Proof
-document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/SpecCheck/session_graph.pdf>Theory dependencies</a></li></ul></div></aside><div class="content theories"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
-<datalist id=autocomplete></datalist></div></form><h1><span class=first>S</span>ession <span class=first>S</span>pec<span class=first>C</span>heck</h1><div></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><div id=SpecCheck_Base><div class=head><h1>Theory SpecCheck_Base</h1></div><pre class=source><span class=comment1>✐‹creator "Kevin Kappelmann"›</span>
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Session SpecCheck - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session SpecCheck">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="/entries/speccheck/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories">
+<meta property="og:site_name" content="Archive of Formal Proofs">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="/images/afp.png">
+<meta name=twitter:title content="Session SpecCheck">
+<meta name=twitter:description content>
+<link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css>
+<link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script>
+<script src=/js/banner.js></script><script src=/js/header-search.js></script></head>
+<body class=mathjax_ignore>
+<aside>
+<div>
+<div>
+<a href=/>
+<img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo>
+</a>
+<ul>
+<li><a href=/entries/speccheck>Return to entry</a></li>
+</ul>
+<hr>
+<ul><li><a href=#SpecCheck_Base>SpecCheck_Base</a>
+</li><li><a href=#files%2futil.ML>files/util.ML</a>
+</li><li><a href=#files%2fspeccheck_base.ML>files/speccheck_base.ML</a>
+</li><li><a href=#files%2fproperty.ML>files/property.ML</a>
+</li><li><a href=#files%2fconfiguration.ML>files/configuration.ML</a>
+</li><li><a href=#files%2frandom.ML>files/random.ML</a>
+</li><li><a href=#SpecCheck_Generators>SpecCheck_Generators</a>
+</li><li><a href=#files%2fgen_types.ML>files/gen_types.ML</a>
+</li><li><a href=#files%2fgen_base.ML>files/gen_base.ML</a>
+</li><li><a href=#files%2fgen_text.ML>files/gen_text.ML</a>
+</li><li><a href=#files%2fgen_int.ML>files/gen_int.ML</a>
+</li><li><a href=#files%2fgen_real.ML>files/gen_real.ML</a>
+</li><li><a href=#files%2fgen_function.ML>files/gen_function.ML</a>
+</li><li><a href=#files%2fgen_term.ML>files/gen_term.ML</a>
+</li><li><a href=#files%2fgen.ML>files/gen.ML</a>
+</li><li><a href=#SpecCheck_Show>SpecCheck_Show</a>
+</li><li><a href=#files%2fshow_types.ML>files/show_types.ML</a>
+</li><li><a href=#files%2fshow_base.ML>files/show_base.ML</a>
+</li><li><a href=#files%2fshow.ML>files/show.ML</a>
+</li><li><a href=#SpecCheck_Output_Style>SpecCheck_Output_Style</a>
+</li><li><a href=#files%2foutput_style_types.ML>files/output_style_types.ML</a>
+</li><li><a href=#files%2foutput_style_perl.ML>files/output_style_perl.ML</a>
+</li><li><a href=#files%2foutput_style_custom.ML>files/output_style_custom.ML</a>
+</li><li><a href=#files%2foutput_style.ML>files/output_style.ML</a>
+</li><li><a href=#SpecCheck_Shrink>SpecCheck_Shrink</a>
+</li><li><a href=#files%2fshrink_types.ML>files/shrink_types.ML</a>
+</li><li><a href=#files%2fshrink_base.ML>files/shrink_base.ML</a>
+</li><li><a href=#files%2fshrink.ML>files/shrink.ML</a>
+</li><li><a href=#SpecCheck>SpecCheck</a>
+</li><li><a href=#files%2fspeccheck.ML>files/speccheck.ML</a>
+</li><li><a href=#files%2flecker.ML>files/lecker.ML</a>
+</li><li><a href=#SpecCheck_Dynamic>SpecCheck_Dynamic</a>
+</li><li><a href=#files%2fdynamic_construct.ML>files/dynamic_construct.ML</a>
+</li><li><a href=#files%2fspeccheck_dynamic.ML>files/speccheck_dynamic.ML</a>
+</li><li><a href=#SpecCheck_Examples>SpecCheck_Examples</a>
+</li>
+</ul>
+</div>
+<ul>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/SpecCheck/outline.pdf>Proof
+outline</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/SpecCheck/document.pdf>Proof
+document</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/SpecCheck/session_graph.pdf>Theory dependencies</a></li>
+</ul>
+</div>
+</aside>
+<div class="content theories"><header>
+<form action=/%20search>
+<div class=form-container>
+<input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
+<datalist id=autocomplete>
+</datalist>
+</div>
+</form>
+<h1><span class=first>S</span>ession <span class=first>S</span>pec<span class=first>C</span>heck</h1>
+<div>
+</div>
+</header><div id=banner data-id=0>
+<p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button>
+</div>
+<div><main>
+<div id=SpecCheck_Base>
+<div class=head>
+<h1>Theory SpecCheck_Base</h1>
+</div>
+<pre class=source><span class=comment1>✐‹creator "Kevin Kappelmann"›</span>
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹SpecCheck Base›</span></span>
 <span class=keyword1><span class=command>theory</span></span> SpecCheck_Base
 <span class=keyword2><span class=keyword>imports</span></span> <a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/Pure/Pure/Pure.html>Pure</a>
@@ -19,7 +109,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Sp
 <span class=keyword1><span class=command>ML_file</span></span> <span class=quoted>‹random.ML›</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=files/util.ML><div class=head><h1>File ‹util.ML›</h1></div><pre class=source><span class=comment1>(*  Title:      SpecCheck/util.ML
+</pre>
+</div><div id=files/util.ML>
+<div class=head>
+<h1>File ‹util.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      SpecCheck/util.ML
     Author:     Kevin Kappelmann
 
 General utility functions for SpecCheck.
@@ -38,7 +133,12 @@ General utility functions for SpecCheck.
 <span class=keyword1><span class=keyword>val</span></span> <span class=entity>spaces</span> <span class=main>=</span> space_implode <span class=inner_quoted>" "</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=files/speccheck_base.ML><div class=head><h1>File ‹speccheck_base.ML›</h1></div><pre class=source><span class=comment1>(*  Title:      SpecCheck/speccheck_base.ML
+</pre>
+</div><div id=files/speccheck_base.ML>
+<div class=head>
+<h1>File ‹speccheck_base.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      SpecCheck/speccheck_base.ML
     Author:     Kevin Kappelmann
 
 Types returned by single tests and complete test runs as well as simple utility methods on them.
@@ -149,7 +249,12 @@ Types returned by single tests and complete test runs as well as simple utility 
   <span class=main>|</span> <span class=entity>stats_of_result</span> <span class=main>(</span><span class=entity>Failure</span> <span class=main>(</span><span class=entity>stats</span><span class=main>,</span> <span class=main>_</span><span class=main>)</span><span class=main>)</span> <span class=main>=</span> <span class=entity>stats</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=files/property.ML><div class=head><h1>File ‹property.ML›</h1></div><pre class=source><span class=comment1>(*  Title:      SpecCheck/property.ML
+</pre>
+</div><div id=files/property.ML>
+<div class=head>
+<h1>File ‹property.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      SpecCheck/property.ML
     Author:     Lukas Bulwahn and Nicolai Schaffroth, TU Muenchen
     Author:     Christopher League
 
@@ -195,7 +300,12 @@ preconditions.
 <span class=keyword1><span class=keyword>fun</span></span> <span class=entity>==&gt;</span> <span class=main>(</span><span class=entity>p1</span><span class=main>,</span> <span class=entity>p2</span><span class=main>)</span> <span class=main>=</span> <span class=entity>implies</span> <span class=entity>p1</span> <span class=main>(</span><span class=entity>prop</span> <span class=entity>p2</span><span class=main>)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=files/configuration.ML><div class=head><h1>File ‹configuration.ML›</h1></div><pre class=source><span class=comment1>(*  Title:      SpecCheck/configuration.ML
+</pre>
+</div><div id=files/configuration.ML>
+<div class=head>
+<h1>File ‹configuration.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      SpecCheck/configuration.ML
     Author:     Kevin Kappelmann
 
 Configuration options for SpecCheck.
@@ -236,7 +346,12 @@ Configuration options for SpecCheck.
 <span class=keyword1><span class=keyword>val</span></span> <span class=entity>show_stats</span> <span class=main>=</span> <span class=entity>Attrib.setup_config_bool</span> <span class=antiquoted><span class=entity><span class=operator><span class=hidden>\&lt;^</span><span class=control>binding</span><span class=hidden>&gt;</span></span>‹speccheck_show_stats›</span></span> <span class=main>(</span>K true<span class=main>)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=files/random.ML><div class=head><h1>File ‹random.ML›</h1></div><pre class=source><span class=comment1>(*  Title:      SpecCheck/random.ML
+</pre>
+</div><div id=files/random.ML>
+<div class=head>
+<h1>File ‹random.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      SpecCheck/random.ML
     Author:     Lukas Bulwahn and Nicolai Schaffroth, TU Muenchen
     Author:     Christopher League
 
@@ -297,7 +412,12 @@ sequence of the pseudorandom number generator. Practically, however, it should b
   <span class=keyword2><span class=keyword>in</span></span> <span class=main>(</span><span class=entity>next</span> <span class=entity>r0</span><span class=main>,</span> <span class=entity>next</span> <span class=entity>r1</span><span class=main>)</span> <span class=keyword2><span class=keyword>end</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=SpecCheck_Generators><div class=head><h1>Theory SpecCheck_Generators</h1></div><pre class=source><span class=comment1>✐‹creator "Kevin Kappelmann"›</span>
+</pre>
+</div><div id=SpecCheck_Generators>
+<div class=head>
+<h1>Theory SpecCheck_Generators</h1>
+</div>
+<pre class=source><span class=comment1>✐‹creator "Kevin Kappelmann"›</span>
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Generators›</span></span>
 <span class=keyword1><span class=command>theory</span></span> SpecCheck_Generators
 <span class=keyword2><span class=keyword>imports</span></span> <a href=#SpecCheck_Base>SpecCheck_Base</a>
@@ -317,7 +437,12 @@ a new state. Refer to <span class=antiquoted><span class=antiquoted><span class=
 <span class=keyword1><span class=command>ML_file</span></span> <span class=quoted>‹gen.ML›</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=files/gen_types.ML><div class=head><h1>File ‹gen_types.ML›</h1></div><pre class=source><span class=comment1>(*  Title:      SpecCheck/generators/gen_types.ML
+</pre>
+</div><div id=files/gen_types.ML>
+<div class=head>
+<h1>File ‹gen_types.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      SpecCheck/generators/gen_types.ML
     Author:     Kevin Kappelmann
 
 Shared type definitions for SpecCheck generators.
@@ -351,7 +476,12 @@ Shared type definitions for SpecCheck generators.
 <span class=keyword1><span class=keyword>type</span></span> <span class=main>(</span>'a<span class=main>,</span> 'b<span class=main>)</span> <span class=entity>cogen</span> <span class=main>=</span> <span class=main>(</span>'a<span class=main>,</span> 'b<span class=main>,</span> <span class=entity>SpecCheck_Random.rand</span><span class=main>)</span> <span class=entity>cogen_state</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=files/gen_base.ML><div class=head><h1>File ‹gen_base.ML›</h1></div><pre class=source><span class=comment1>(*  Title:      SpecCheck/generators/gen_base.ML
+</pre>
+</div><div id=files/gen_base.ML>
+<div class=head>
+<h1>File ‹gen_base.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      SpecCheck/generators/gen_base.ML
     Author:     Lukas Bulwahn and Nicolai Schaffroth, TU Muenchen
     Author:     Christopher League
 
@@ -595,7 +725,12 @@ Basic utility functions to create and combine generators.
   <span class=main>|</span> <span class=entity>cooption</span> <span class=entity>co</span> <span class=main>(</span>SOME <span class=entity>x</span><span class=main>)</span> <span class=main>=</span> <span class=entity>co</span> <span class=entity>x</span> o <span class=entity>variant</span> <span class=inner_numeral>1</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=files/gen_text.ML><div class=head><h1>File ‹gen_text.ML›</h1></div><pre class=source><span class=comment1>(*  Title:      SpecCheck/generators/gen_text.ML
+</pre>
+</div><div id=files/gen_text.ML>
+<div class=head>
+<h1>File ‹gen_text.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      SpecCheck/generators/gen_text.ML
     Author:     Lukas Bulwahn and Nicolai Schaffroth, TU Muenchen
     Author:     Christopher League
 
@@ -665,7 +800,12 @@ Random generators for chars and strings.
 <span class=keyword1><span class=keyword>val</span></span> <span class=entity>letter</span> <span class=main>=</span> <span class=entity>one_ofL</span> <span class=main>[</span><span class=entity>lowercase_letter</span><span class=main>,</span> <span class=entity>uppercase_letter</span><span class=main>]</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=files/gen_int.ML><div class=head><h1>File ‹gen_int.ML›</h1></div><pre class=source><span class=comment1>(*  Title:      SpecCheck/generators/gen_int.ML
+</pre>
+</div><div id=files/gen_int.ML>
+<div class=head>
+<h1>File ‹gen_int.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      SpecCheck/generators/gen_int.ML
     Author:     Lukas Bulwahn and Nicolai Schaffroth, TU Muenchen
     Author:     Christopher League
 
@@ -703,7 +843,12 @@ Random generators for ints.
   <span class=keyword2><span class=keyword>else</span></span> <span class=entity>coint</span> <span class=main>(</span><span class=entity>n</span> div <span class=inner_numeral>2</span><span class=main>)</span> o <span class=entity>variant</span> <span class=inner_numeral>2</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=files/gen_real.ML><div class=head><h1>File ‹gen_real.ML›</h1></div><pre class=source><span class=comment1>(*  Title:      SpecCheck/generators/gen_real.ML
+</pre>
+</div><div id=files/gen_real.ML>
+<div class=head>
+<h1>File ‹gen_real.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      SpecCheck/generators/gen_real.ML
     Author:     Lukas Bulwahn and Nicolai Schaffroth, TU Muenchen
     Author:     Christopher League
 
@@ -768,7 +913,12 @@ Random generators for reals.
 <span class=keyword1><span class=keyword>val</span></span> <span class=entity>real_finite</span> <span class=main>=</span> <span class=entity>filter</span> Real.isFinite <span class=entity>real</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=files/gen_function.ML><div class=head><h1>File ‹gen_function.ML›</h1></div><pre class=source><span class=comment1>(*  Title:      SpecCheck/generators/gen_function.ML
+</pre>
+</div><div id=files/gen_function.ML>
+<div class=head>
+<h1>File ‹gen_function.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      SpecCheck/generators/gen_function.ML
     Author:     Lukas Bulwahn and Nicolai Schaffroth, TU Muenchen
     Author:     Christopher League
 
@@ -809,7 +959,12 @@ Random generators for functions.
   <span class=keyword2><span class=keyword>end</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=files/gen_term.ML><div class=head><h1>File ‹gen_term.ML›</h1></div><pre class=source><span class=comment1>(*  Title:      SpecCheck/generators/gen_term.ML
+</pre>
+</div><div id=files/gen_term.ML>
+<div class=head>
+<h1>File ‹gen_term.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      SpecCheck/generators/gen_term.ML
     Author:     Sebastian Willenbrink and Kevin Kappelmann TU Muenchen
 
 Generators for terms and types.
@@ -1078,7 +1233,12 @@ Generators for terms and types.
   <span class=keyword2><span class=keyword>in</span></span> <span class=entity>build_tree</span> <span class=main>[</span><span class=main>]</span> <span class=entity>init_state</span> <span class=keyword2><span class=keyword>end</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=files/gen.ML><div class=head><h1>File ‹gen.ML›</h1></div><pre class=source><span class=comment1>(*  Title:      SpecCheck/generators/gen.ML
+</pre>
+</div><div id=files/gen.ML>
+<div class=head>
+<h1>File ‹gen.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      SpecCheck/generators/gen.ML
     Author:     Kevin Kappelmann, TU Muenchen
 
 Structure containing all generators.
@@ -1093,7 +1253,12 @@ Structure containing all generators.
 <span class=keyword3><span class=keyword>open</span></span> SpecCheck_Gen_Function
 <span class=keyword3><span class=keyword>open</span></span> SpecCheck_Gen_Term
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=SpecCheck_Show><div class=head><h1>Theory SpecCheck_Show</h1></div><pre class=source><span class=comment1>✐‹creator "Kevin Kappelmann"›</span>
+</pre>
+</div><div id=SpecCheck_Show>
+<div class=head>
+<h1>Theory SpecCheck_Show</h1>
+</div>
+<pre class=source><span class=comment1>✐‹creator "Kevin Kappelmann"›</span>
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Show›</span></span>
 <span class=keyword1><span class=command>theory</span></span> SpecCheck_Show
 <span class=keyword2><span class=keyword>imports</span></span> <a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/Pure/Pure/Pure.html>Pure</a>
@@ -1108,7 +1273,12 @@ representation of the value. Refer to <span class=antiquoted><span class=antiquo
 <span class=keyword1><span class=command>ML_file</span></span> <span class=quoted>‹show.ML›</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=files/show_types.ML><div class=head><h1>File ‹show_types.ML›</h1></div><pre class=source><span class=comment1>(*  Title:      SpecCheck/show/show_types.ML
+</pre>
+</div><div id=files/show_types.ML>
+<div class=head>
+<h1>File ‹show_types.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      SpecCheck/show/show_types.ML
     Author:     Kevin Kappelmann
 
 Shared type definitions for SpecCheck showable types.
@@ -1125,7 +1295,12 @@ Shared type definitions for SpecCheck showable types.
 <span class=keyword1><span class=keyword>type</span></span> 'a <span class=entity>show</span> <span class=main>=</span> 'a <span class=main>-&gt;</span> Pretty.T
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=files/show_base.ML><div class=head><h1>File ‹show_base.ML›</h1></div><pre class=source><span class=comment1>(*  Title:      SpecCheck/show/show_base.ML
+</pre>
+</div><div id=files/show_base.ML>
+<div class=head>
+<h1>File ‹show_base.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      SpecCheck/show/show_base.ML
     Author:     Kevin Kappelmann
 
 Basic utility functions to create and combine show functions.
@@ -1172,7 +1347,12 @@ Basic utility functions to create and combine show functions.
 <span class=keyword1><span class=keyword>fun</span></span> <span class=entity>zip4</span> <span class=entity>showA</span> <span class=entity>showB</span> <span class=entity>showC</span> <span class=entity>showD</span> <span class=main>(</span><span class=entity>a</span><span class=main>,</span> <span class=entity>b</span><span class=main>,</span> <span class=entity>c</span><span class=main>,</span> <span class=entity>d</span><span class=main>)</span> <span class=main>=</span> <span class=entity>pretty_tuple</span> <span class=main>[</span><span class=entity>showA</span> <span class=entity>a</span><span class=main>,</span> <span class=entity>showB</span> <span class=entity>b</span><span class=main>,</span> <span class=entity>showC</span> <span class=entity>c</span><span class=main>,</span> <span class=entity>showD</span> <span class=entity>d</span><span class=main>]</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=files/show.ML><div class=head><h1>File ‹show.ML›</h1></div><pre class=source><span class=comment1>(*  Title:      SpecCheck/show/show.ML
+</pre>
+</div><div id=files/show.ML>
+<div class=head>
+<h1>File ‹show.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      SpecCheck/show/show.ML
     Author:     Kevin Kappelmann, TU Muenchen
 
 Structure containing all show functions.
@@ -1181,7 +1361,12 @@ Structure containing all show functions.
 <span class=keyword2><span class=keyword>struct</span></span>
 <span class=keyword3><span class=keyword>open</span></span> SpecCheck_Show_Base
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=SpecCheck_Output_Style><div class=head><h1>Theory SpecCheck_Output_Style</h1></div><pre class=source><span class=comment1>✐‹creator "Kevin Kappelmann"›</span>
+</pre>
+</div><div id=SpecCheck_Output_Style>
+<div class=head>
+<h1>Theory SpecCheck_Output_Style</h1>
+</div>
+<pre class=source><span class=comment1>✐‹creator "Kevin Kappelmann"›</span>
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Output Styles›</span></span>
 <span class=keyword1><span class=command>theory</span></span> SpecCheck_Output_Style
 <span class=keyword2><span class=keyword>imports</span></span>
@@ -1201,7 +1386,12 @@ e.g. by printing it or storing it to a file.›</span></span>
 <span class=keyword1><span class=command>ML_file</span></span> <span class=quoted>‹output_style.ML›</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=files/output_style_types.ML><div class=head><h1>File ‹output_style_types.ML›</h1></div><pre class=source><span class=comment1>(*  Title:      SpecCheck/output_styles/output_style_types.ML
+</pre>
+</div><div id=files/output_style_types.ML>
+<div class=head>
+<h1>File ‹output_style_types.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      SpecCheck/output_styles/output_style_types.ML
     Author:     Lukas Bulwahn and Nicolai Schaffroth, TU Muenchen
     Author:     Christopher League
 
@@ -1225,7 +1415,12 @@ Shared types for SpecCheck output styles.
 <span class=keyword2><span class=keyword>sig</span></span>
   <span class=keyword1><span class=keyword>val</span></span> style <span class=main>:</span> 'a <span class=entity>SpecCheck_Output_Style_Types.output_style</span>
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=files/output_style_perl.ML><div class=head><h1>File ‹output_style_perl.ML›</h1></div><pre class=source><span class=comment1>(*  Title:      SpecCheck/output_styles/output_style_perl.ML
+</pre>
+</div><div id=files/output_style_perl.ML>
+<div class=head>
+<h1>File ‹output_style_perl.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      SpecCheck/output_styles/output_style_perl.ML
     Author:     Lukas Bulwahn and Nicolai Schaffroth, TU Muenchen
     Author:     Christopher League
 
@@ -1279,7 +1474,12 @@ Perl output styles for SpecCheck.
   <span class=keyword2><span class=keyword>end</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=files/output_style_custom.ML><div class=head><h1>File ‹output_style_custom.ML›</h1></div><pre class=source><span class=comment1>(*  Title:      SpecCheck/output_style/output_style_custom.ML
+</pre>
+</div><div id=files/output_style_custom.ML>
+<div class=head>
+<h1>File ‹output_style_custom.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      SpecCheck/output_style/output_style_custom.ML
     Author:     Lukas Bulwahn, Nicolai Schaffroth, Kevin Kappelmann TU Muenchen
     Author:     Christopher League
 
@@ -1362,7 +1562,12 @@ Custom-made, QuickCheck-inspired output style for SpecCheck.
   <span class=keyword2><span class=keyword>end</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=files/output_style.ML><div class=head><h1>File ‹output_style.ML›</h1></div><pre class=source><span class=comment1>(*  Title:      SpecCheck/output_styles/output_style.ML
+</pre>
+</div><div id=files/output_style.ML>
+<div class=head>
+<h1>File ‹output_style.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      SpecCheck/output_styles/output_style.ML
     Author:     Lukas Bulwahn and Nicolai Schaffroth, TU Muenchen
     Author:     Christopher League
 
@@ -1382,7 +1587,12 @@ Output styles for presenting SpecCheck results.
 <span class=keyword1><span class=keyword>val</span></span> <span class=entity>default</span> <span class=main>=</span> <span class=entity>SpecCheck_Output_Style_Custom.style</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=SpecCheck_Shrink><div class=head><h1>Theory SpecCheck_Shrink</h1></div><pre class=source><span class=comment1>✐‹creator "Kevin Kappelmann"›</span>
+</pre>
+</div><div id=SpecCheck_Shrink>
+<div class=head>
+<h1>Theory SpecCheck_Shrink</h1>
+</div>
+<pre class=source><span class=comment1>✐‹creator "Kevin Kappelmann"›</span>
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Shrinkers›</span></span>
 <span class=keyword1><span class=command>theory</span></span> SpecCheck_Shrink
 <span class=keyword2><span class=keyword>imports</span></span> <a href=#SpecCheck_Generators>SpecCheck_Generators</a>
@@ -1397,7 +1607,12 @@ Refer to <span class=antiquoted><span class=antiquoted><span class=antiquote><sp
 <span class=keyword1><span class=command>ML_file</span></span> <span class=quoted>‹shrink.ML›</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=files/shrink_types.ML><div class=head><h1>File ‹shrink_types.ML›</h1></div><pre class=source><span class=comment1>(*  Title:      SpecCheck/shrink/shrink_types.ML
+</pre>
+</div><div id=files/shrink_types.ML>
+<div class=head>
+<h1>File ‹shrink_types.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      SpecCheck/shrink/shrink_types.ML
     Author:     Kevin Kappelmann
 
 Shared type definitions for SpecCheck shrinkable types.
@@ -1414,7 +1629,12 @@ Shared type definitions for SpecCheck shrinkable types.
 <span class=keyword1><span class=keyword>type</span></span> 'a <span class=entity>shrink</span> <span class=main>=</span> 'a <span class=main>-&gt;</span> 'a Seq.seq
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=files/shrink_base.ML><div class=head><h1>File ‹shrink_base.ML›</h1></div><pre class=source><span class=comment1>(*  Title:      SpecCheck/shrink/shrink_base.ML
+</pre>
+</div><div id=files/shrink_base.ML>
+<div class=head>
+<h1>File ‹shrink_base.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      SpecCheck/shrink/shrink_base.ML
     Author:     Kevin Kappelmann
 
 Basic utility functions to create and combine shrink functions.
@@ -1503,7 +1723,12 @@ Basic utility functions to create and combine shrink functions.
   <span class=main>|</span> <span class=entity>term</span> <span class=main>_</span> <span class=main>=</span> Seq.empty
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=files/shrink.ML><div class=head><h1>File ‹shrink.ML›</h1></div><pre class=source><span class=comment1>(*  Title:      SpecCheck/shrink/shrink.ML
+</pre>
+</div><div id=files/shrink.ML>
+<div class=head>
+<h1>File ‹shrink.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      SpecCheck/shrink/shrink.ML
     Author:     Kevin Kappelmann, TU Muenchen
 
 Structure containing all shrink functions.
@@ -1514,7 +1739,12 @@ Structure containing all shrink functions.
 <span class=keyword3><span class=keyword>open</span></span> SpecCheck_Shrink_Base
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=SpecCheck><div class=head><h1>Theory SpecCheck</h1></div><pre class=source><span class=comment1>✐‹creator "Kevin Kappelmann"›</span>
+</pre>
+</div><div id=SpecCheck>
+<div class=head>
+<h1>Theory SpecCheck</h1>
+</div>
+<pre class=source><span class=comment1>✐‹creator "Kevin Kappelmann"›</span>
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹SpecCheck›</span></span>
 <span class=keyword1><span class=command>theory</span></span> SpecCheck
 <span class=keyword2><span class=keyword>imports</span></span>
@@ -1531,7 +1761,12 @@ Structure containing all shrink functions.
 <span class=keyword1><span class=command>ML_file</span></span> <span class=quoted>‹lecker.ML›</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=files/speccheck.ML><div class=head><h1>File ‹speccheck.ML›</h1></div><pre class=source><span class=comment1>(*  Title:      SpecCheck/speccheck.ML
+</pre>
+</div><div id=files/speccheck.ML>
+<div class=head>
+<h1>File ‹speccheck.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      SpecCheck/speccheck.ML
     Author:     Lukas Bulwahn, Nicolai Schaffroth, and Kevin Kappelmann TU Muenchen
     Author:     Christopher League
 
@@ -1736,7 +1971,12 @@ Specification-based testing of ML programs.
 <span class=keyword1><span class=keyword>fun</span></span> <span class=entity>check_list_base</span> <span class=entity>xs</span> <span class=main>=</span> <span class=entity>check_seq_base</span> <span class=main>(</span>Seq.of_list <span class=entity>xs</span><span class=main>)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=files/lecker.ML><div class=head><h1>File ‹lecker.ML›</h1></div><pre class=source><span class=comment1>(*  Title:      SpecCheck/lecker.ML
+</pre>
+</div><div id=files/lecker.ML>
+<div class=head>
+<h1>File ‹lecker.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      SpecCheck/lecker.ML
     Author:     Kevin Kappelmann
 
 Testing framework that lets you combine SpecCheck tests into test suites.
@@ -1759,7 +1999,12 @@ https://hackage.haskell.org/package/tasty
       fold <span class=main>(</span><span class=keyword1><span class=keyword>fn</span></span> <span class=entity>t</span> <span class=main>=&gt;</span> <span class=main>(</span>Pretty.writeln <span class=main>(</span>Pretty.para <span class=inner_quoted>""</span><span class=main>)</span><span class=main>;</span> <span class=entity>t</span> <span class=entity>fixed_param</span><span class=main>)</span><span class=main>)</span> <span class=entity>ts</span> <span class=main>(</span><span class=entity>t</span> <span class=entity>fixed_param</span> <span class=entity>s</span><span class=main>)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=SpecCheck_Dynamic><div class=head><h1>Theory SpecCheck_Dynamic</h1></div><pre class=source><span class=comment1>✐‹creator "Kevin Kappelmann"›</span>
+</pre>
+</div><div id=SpecCheck_Dynamic>
+<div class=head>
+<h1>Theory SpecCheck_Dynamic</h1>
+</div>
+<pre class=source><span class=comment1>✐‹creator "Kevin Kappelmann"›</span>
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Dynamic Generators›</span></span>
 <span class=keyword1><span class=command>theory</span></span> SpecCheck_Dynamic
 <span class=keyword2><span class=keyword>imports</span></span> <a href=#SpecCheck>SpecCheck</a>
@@ -1775,7 +2020,12 @@ examples contrasting this approach to the standard one (specifying generators as
 <span class=keyword1><span class=command>ML_file</span></span> <span class=quoted>‹speccheck_dynamic.ML›</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=files/dynamic_construct.ML><div class=head><h1>File ‹dynamic_construct.ML›</h1></div><pre class=source><span class=comment1>(*  Title:      SpecCheck/dynamic/dynamic_construct.ML
+</pre>
+</div><div id=files/dynamic_construct.ML>
+<div class=head>
+<h1>File ‹dynamic_construct.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      SpecCheck/dynamic/dynamic_construct.ML
     Author:     Lukas Bulwahn and Nicolai Schaffroth, TU Muenchen
 
 Dynamic construction of generators and show functions (returned as strings that need to be compiled)
@@ -1963,7 +2213,12 @@ fun safe_check name (ty, spec) =
 *)</span>
 
 <span class=keyword2><span class=keyword>end</span></span><span class=main>;</span>
-</pre></div><div id=files/speccheck_dynamic.ML><div class=head><h1>File ‹speccheck_dynamic.ML›</h1></div><pre class=source><span class=comment1>(*  Title:      SpecCheck/dynamic/speccheck_dynamic.ML
+</pre>
+</div><div id=files/speccheck_dynamic.ML>
+<div class=head>
+<h1>File ‹speccheck_dynamic.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      SpecCheck/dynamic/speccheck_dynamic.ML
     Author:     Lukas Bulwahn and Nicolai Schaffroth, TU Muenchen
 
 This file allows to run SpecCheck tests specified as a string representing ML code.
@@ -2044,7 +2299,12 @@ TODO: this module is not very well tested.
 val check_property_f = gen_check_property_f Gen_Dynamic.build_check*)</span>
 <span class=comment1>(*val check_property_safe_f_ = gen_check_property_f Construct_Gen.safe_check*)</span>
 <span class=keyword2><span class=keyword>end</span></span><span class=main>;</span>
-</pre></div><div id=SpecCheck_Examples><div class=head><h1>Theory SpecCheck_Examples</h1></div><pre class=source><span class=comment1>✐‹creator "Kevin Kappelmann"›</span>
+</pre>
+</div><div id=SpecCheck_Examples>
+<div class=head>
+<h1>Theory SpecCheck_Examples</h1>
+</div>
+<pre class=source><span class=comment1>✐‹creator "Kevin Kappelmann"›</span>
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Examples›</span></span>
 <span class=keyword1><span class=command>theory</span></span> SpecCheck_Examples
 <span class=keyword2><span class=keyword>imports</span></span> <a href=#SpecCheck_Dynamic>SpecCheck_Dynamic</a>
@@ -2173,4 +2433,10 @@ anyway.›</span></span>
 ›</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div></main></div></div></body></html>
+</pre>
+</div>
+</main>
+</div>
+</div>
+</body>
+</html>

@@ -1,5 +1,64 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Nominal 2 - Archive of Formal Proofs</title><meta name=description content=" Dealing with binders, renaming of bound variables, capture-avoiding substitution, etc., is very often a major problem in formal proofs, especially in..."><meta property="og:title" content="Nominal 2"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/nominal2/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="entries"><meta property="article:published_time" content="2013-02-21T00:00:00+00:00"><meta property="article:modified_time" content="2013-02-21T00:00:00+00:00"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Nominal 2"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=icon href=/images/favicon.ico type=image/icon><script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]},processEscapes:!0,svg:{fontCache:'global'}}</script><script id=MathJax-script async src=/js/mathjax/es5/tex-mml-chtml.js></script><script src=/js/entries.js></script><script src=/js/flexsearch.min.js></script><script src=/js/banner.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><li><a href=/>Home</a></li><li><a href=/topics/>Topics</a></li><li><a href=/download/>Download</a></li><li><a href=/help/>Help</a></li><li><a href=/statistics/>Statistics</a></li><li><a href=/about/>About</a></li></ul></div><ul><li><a href=/contribution/>Contribution</a></li></ul></div></aside><div class="content entries"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
-<datalist id=autocomplete></datalist></div></form><h1><span class=first>N</span>ominal 2</h1><div><p><a href=/authors/christian-urban>Christian Urban</a>, <a href=/authors/stefan-berghofer>Stefan Berghofer</a> and <a href=/authors/cezary-kaliszyk>Cezary Kaliszyk</a></p><p class=date>21 February 2013</p></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><h3>Abstract</h3><div class="abstract mathjax_process"><p>Dealing with binders, renaming of bound variables, capture-avoiding
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Nominal 2 - Archive of Formal Proofs</title><meta name=description content=" Dealing with binders, renaming of bound variables, capture-avoiding substitution, etc., is very often a major problem in formal proofs, especially in..."><meta property="og:title" content="Nominal 2">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="/entries/nominal2/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="entries">
+<meta property="article:published_time" content="2013-02-21T00:00:00+00:00">
+<meta property="article:modified_time" content="2013-02-21T00:00:00+00:00"><meta property="og:site_name" content="Archive of Formal Proofs">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="/images/afp.png">
+<meta name=twitter:title content="Nominal 2">
+<meta name=twitter:description content>
+<link rel=stylesheet type=text/css href=/css/front.min.css>
+<link rel=icon href=/images/favicon.ico type=image/icon>
+<script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]},processEscapes:!0,svg:{fontCache:'global'}}</script>
+<script id=MathJax-script async src=/js/mathjax/es5/tex-mml-chtml.js></script>
+<script src=/js/entries.js></script><script src=/js/flexsearch.min.js></script>
+<script src=/js/banner.js></script><script src=/js/header-search.js></script></head>
+<body class=mathjax_ignore>
+<aside>
+<div>
+<div>
+<a href=/>
+<img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo>
+</a>
+<ul>
+<li><a href=/>Home</a></li>
+<li><a href=/topics/>Topics</a></li>
+<li><a href=/download/>Download</a></li>
+<li><a href=/help/>Help</a></li>
+<li><a href=/statistics/>Statistics</a></li>
+<li><a href=/about/>About</a></li>
+</ul>
+</div>
+<ul>
+<li><a href=/contribution/>Contribution</a></li>
+</ul>
+</div>
+</aside>
+<div class="content entries"><header>
+<form action=/%20search>
+<div class=form-container>
+<input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
+<datalist id=autocomplete>
+</datalist>
+</div>
+</form>
+<h1><span class=first>N</span>ominal 2</h1>
+<div>
+<p><a href=/authors/christian-urban>Christian Urban</a>, <a href=/authors/stefan-berghofer>Stefan Berghofer</a> and <a href=/authors/cezary-kaliszyk>Cezary Kaliszyk</a>
+</p>
+<p class=date>21 February 2013</p>
+</div>
+</header><div id=banner data-id=0>
+<p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button>
+</div>
+<div><main>
+<h3>Abstract</h3>
+<div class="abstract mathjax_process"><p>Dealing with binders, renaming of bound variables, capture-avoiding
 substitution, etc., is very often a major problem in formal
 proofs, especially in proofs by structural and rule
 induction. Nominal Isabelle is designed to make such proofs easy to
@@ -7,13 +66,34 @@ formalise: it provides an infrastructure for declaring nominal
 datatypes (that is alpha-equivalence classes) and for defining
 functions over them by structural recursion. It also provides
 induction principles that have Barendregt’s variable convention
-already built in.</p><p>This entry can be used as a more advanced replacement for
-HOL/Nominal in the Isabelle distribution.</p></div><a href=http://isa-afp.org/LICENSE>BSD License</a><h3>Depends On</h3><ul><li><a href=/entries/finfun>FinFun</a></li></ul><h3>Used by</h3><ul><li><a href=/entries/minisail/>MiniSail</a></li><li><a href=/entries/goedel_hfset_semanticless/>Goedel_HFSet_Semanticless</a></li><li><a href=/entries/robinson_arithmetic/>Robinson_Arithmetic</a></li><li><a href=/entries/lambdaauth/>LambdaAuth</a></li><li><a href=/entries/modal_logics_for_nts/>Modal_Logics_for_NTS</a></li><li><a href=/entries/rewriting_z/>Rewriting_Z</a></li><li><a href=/entries/incompleteness/>Incompleteness</a></li><li><a href=/entries/launchbury/>Launchbury</a></li></ul><h3>Topics</h3><ul><li><a href=/topics/tools>Tools</a></li></ul><h3>Theories</h3><ul><li><a href=theories/#Nominal2_Base>Nominal2_Base</a></li><li><a href=theories/#files/nominal_basics.ML>files/nominal_basics.ML</a></li><li><a href=theories/#files/nominal_thmdecls.ML>files/nominal_thmdecls.ML</a></li><li><a href=theories/#files/nominal_permeq.ML>files/nominal_permeq.ML</a></li><li><a href=theories/#files/nominal_library.ML>files/nominal_library.ML</a></li><li><a href=theories/#files/nominal_atoms.ML>files/nominal_atoms.ML</a></li><li><a href=theories/#files/nominal_eqvt.ML>files/nominal_eqvt.ML</a></li><li><a href=theories/#Nominal2_Abs>Nominal2_Abs</a></li><li><a href=theories/#Nominal2_FCB>Nominal2_FCB</a></li><li><a href=theories/#Nominal2>Nominal2</a></li><li><a href=theories/#files/nominal_dt_data.ML>files/nominal_dt_data.ML</a></li><li><a href=theories/#files/nominal_dt_rawfuns.ML>files/nominal_dt_rawfuns.ML</a></li><li><a href=theories/#files/nominal_dt_alpha.ML>files/nominal_dt_alpha.ML</a></li><li><a href=theories/#files/nominal_dt_quot.ML>files/nominal_dt_quot.ML</a></li><li><a href=theories/#files/nominal_induct.ML>files/nominal_induct.ML</a></li><li><a href=theories/#files/nominal_inductive.ML>files/nominal_inductive.ML</a></li><li><a href=theories/#files/nominal_function_common.ML>files/nominal_function_common.ML</a></li><li><a href=theories/#files/nominal_function_core.ML>files/nominal_function_core.ML</a></li><li><a href=theories/#files/nominal_mutual.ML>files/nominal_mutual.ML</a></li><li><a href=theories/#files/nominal_function.ML>files/nominal_function.ML</a></li><li><a href=theories/#files/nominal_termination.ML>files/nominal_termination.ML</a></li><li><a href=theories/#Atoms>Atoms</a></li><li><a href=theories/#Eqvt>Eqvt</a></li></ul></main><nav class=links><a class=popUpButton href=#citePopUp>Cite</a>
-<a class=popUpButton href=#downloadPopUp>Download</a><h4>PDFs</h4><a href=https://www.isa-afp.org/browser_info/current/AFP/Nominal2/outline.pdf>Proof
+already built in.
+</p><p>
+This entry can be used as a more advanced replacement for
+HOL/Nominal in the Isabelle distribution.
+</p></div><a href=http://isa-afp.org/LICENSE>BSD License</a><h3>Depends On</h3><ul><li><a href=/entries/finfun>FinFun</a></li></ul><h3>Used by</h3>
+<ul><li><a href=/entries/minisail/>MiniSail</a></li><li><a href=/entries/goedel_hfset_semanticless/>Goedel_HFSet_Semanticless</a></li><li><a href=/entries/robinson_arithmetic/>Robinson_Arithmetic</a></li><li><a href=/entries/lambdaauth/>LambdaAuth</a></li><li><a href=/entries/modal_logics_for_nts/>Modal_Logics_for_NTS</a></li><li><a href=/entries/rewriting_z/>Rewriting_Z</a></li><li><a href=/entries/incompleteness/>Incompleteness</a></li><li><a href=/entries/launchbury/>Launchbury</a></li></ul><h3>Topics</h3>
+<ul><li><a href=/topics/tools>Tools</a></li></ul><h3>Theories</h3>
+<ul>
+<li><a href=theories/#Nominal2_Base>Nominal2_Base</a></li><li><a href=theories/#files/nominal_basics.ML>files/nominal_basics.ML</a></li><li><a href=theories/#files/nominal_thmdecls.ML>files/nominal_thmdecls.ML</a></li><li><a href=theories/#files/nominal_permeq.ML>files/nominal_permeq.ML</a></li><li><a href=theories/#files/nominal_library.ML>files/nominal_library.ML</a></li><li><a href=theories/#files/nominal_atoms.ML>files/nominal_atoms.ML</a></li><li><a href=theories/#files/nominal_eqvt.ML>files/nominal_eqvt.ML</a></li><li><a href=theories/#Nominal2_Abs>Nominal2_Abs</a></li><li><a href=theories/#Nominal2_FCB>Nominal2_FCB</a></li><li><a href=theories/#Nominal2>Nominal2</a></li><li><a href=theories/#files/nominal_dt_data.ML>files/nominal_dt_data.ML</a></li><li><a href=theories/#files/nominal_dt_rawfuns.ML>files/nominal_dt_rawfuns.ML</a></li><li><a href=theories/#files/nominal_dt_alpha.ML>files/nominal_dt_alpha.ML</a></li><li><a href=theories/#files/nominal_dt_quot.ML>files/nominal_dt_quot.ML</a></li><li><a href=theories/#files/nominal_induct.ML>files/nominal_induct.ML</a></li><li><a href=theories/#files/nominal_inductive.ML>files/nominal_inductive.ML</a></li><li><a href=theories/#files/nominal_function_common.ML>files/nominal_function_common.ML</a></li><li><a href=theories/#files/nominal_function_core.ML>files/nominal_function_core.ML</a></li><li><a href=theories/#files/nominal_mutual.ML>files/nominal_mutual.ML</a></li><li><a href=theories/#files/nominal_function.ML>files/nominal_function.ML</a></li><li><a href=theories/#files/nominal_termination.ML>files/nominal_termination.ML</a></li><li><a href=theories/#Atoms>Atoms</a></li><li><a href=theories/#Eqvt>Eqvt</a></li></ul>
+</main>
+<nav class=links>
+<a class=popUpButton href=#citePopUp>Cite</a>
+<a class=popUpButton href=#downloadPopUp>Download</a>
+<h4>PDFs</h4>
+<a href=https://www.isa-afp.org/browser_info/current/AFP/Nominal2/outline.pdf>Proof
 outline</a>
 <a href=https://www.isa-afp.org/browser_info/current/AFP/Nominal2/document.pdf>Proof
 document</a>
-<a href=https://www.isa-afp.org/browser_info/current/AFP/Nominal2/session_graph.pdf>Dependencies</a></nav><div id=citePopUp class=overlay><a class=cancel href=#></a><div class=popup><h2>Cite</h2><a class=close href=#>&#215;</a><div><p style=display:none id=bibtexFileName>Nominal2-AFP</p><pre id=copyText>@article{Nominal2-AFP,
+<a href=https://www.isa-afp.org/browser_info/current/AFP/Nominal2/session_graph.pdf>Dependencies</a>
+</nav>
+<div id=citePopUp class=overlay>
+<a class=cancel href=#></a>
+<div class=popup>
+<h2>Cite</h2>
+<a class=close href=#>&#215;</a>
+<div>
+<p style=display:none id=bibtexFileName>Nominal2-AFP</p>
+<pre id=copyText>@article{Nominal2-AFP,
   author  = {Christian Urban, Stefan Berghofer and Cezary Kaliszyk},
   title   = {Nominal 2},
   journal = {Archive of Formal Proofs},
@@ -22,12 +102,50 @@ document</a>
   note    = {\url{http://isa-afp.org/entries/Nominal2.html},
             Formal proof development},
   ISSN    = {2150-914x},
-}</pre><button id=copyBibtex>Copy</button> <a id=downloadBibtex>Download</a></div></div></div><div id=downloadPopUp class=overlay><a class=cancel href=#></a><div class=popup><h2>Download</h2><a class=close href=#>&#215;</a>
-<a href=https://isa-afp.org/release/afp-Nominal2-current.tar.gz download>Download latest</a><p>Older releases:</p><ul><li>Isabelle2019:
-<a href=https://isa-afp.org/release/afp-Nominal2-2019-06-11.tar.gz>afp-Nominal2-2019-06-11.tar.gz</a></li><li>Isabelle2018:
-<a href=https://isa-afp.org/release/afp-Nominal2-2018-08-16.tar.gz>afp-Nominal2-2018-08-16.tar.gz</a></li><li>Isabelle2017:
-<a href=https://isa-afp.org/release/afp-Nominal2-2017-10-10.tar.gz>afp-Nominal2-2017-10-10.tar.gz</a></li><li>Isabelle2016-1:
-<a href=https://isa-afp.org/release/afp-Nominal2-2016-12-17.tar.gz>afp-Nominal2-2016-12-17.tar.gz</a></li><li>Isabelle2016:
-<a href=https://isa-afp.org/release/afp-Nominal2-2016-04-24.tar.gz>afp-Nominal2-2016-04-24.tar.gz</a></li><li>Isabelle2013-1:
-<a href=https://isa-afp.org/release/afp-Nominal2-2013-11-17.tar.gz>afp-Nominal2-2013-11-17.tar.gz</a></li><li>Isabelle2013:
-<a href=https://isa-afp.org/release/afp-Nominal2-2013-02-24.tar.gz>afp-Nominal2-2013-02-24.tar.gz</a></li></ul></div></div></div></div></body></html>
+}</pre>
+<button id=copyBibtex>Copy</button> <a id=downloadBibtex>Download</a>
+</div>
+</div>
+</div>
+<div id=downloadPopUp class=overlay>
+<a class=cancel href=#></a>
+<div class=popup>
+<h2>Download</h2>
+<a class=close href=#>&#215;</a>
+<a href=https://isa-afp.org/release/afp-Nominal2-current.tar.gz download>Download latest</a>
+<p>Older releases:</p>
+<ul><li>Isabelle2019:
+<a href=https://isa-afp.org/release/afp-Nominal2-2019-06-11.tar.gz>
+afp-Nominal2-2019-06-11.tar.gz
+</a>
+</li><li>Isabelle2018:
+<a href=https://isa-afp.org/release/afp-Nominal2-2018-08-16.tar.gz>
+afp-Nominal2-2018-08-16.tar.gz
+</a>
+</li><li>Isabelle2017:
+<a href=https://isa-afp.org/release/afp-Nominal2-2017-10-10.tar.gz>
+afp-Nominal2-2017-10-10.tar.gz
+</a>
+</li><li>Isabelle2016-1:
+<a href=https://isa-afp.org/release/afp-Nominal2-2016-12-17.tar.gz>
+afp-Nominal2-2016-12-17.tar.gz
+</a>
+</li><li>Isabelle2016:
+<a href=https://isa-afp.org/release/afp-Nominal2-2016-04-24.tar.gz>
+afp-Nominal2-2016-04-24.tar.gz
+</a>
+</li><li>Isabelle2013-1:
+<a href=https://isa-afp.org/release/afp-Nominal2-2013-11-17.tar.gz>
+afp-Nominal2-2013-11-17.tar.gz
+</a>
+</li><li>Isabelle2013:
+<a href=https://isa-afp.org/release/afp-Nominal2-2013-02-24.tar.gz>
+afp-Nominal2-2013-02-24.tar.gz
+</a>
+</li></ul>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

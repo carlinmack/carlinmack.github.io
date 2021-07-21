@@ -1,22 +1,112 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Well-Quasi-Orders - Archive of Formal Proofs</title><meta name=description content="Based on Isabelle/HOL's type class for preorders, we introduce a type class for well-quasi-orders (wqo) which is characterized by the absence of &#34;bad&#34;..."><meta property="og:title" content="Well-Quasi-Orders"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/well_quasi_orders/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="entries"><meta property="article:published_time" content="2012-04-13T00:00:00+00:00"><meta property="article:modified_time" content="2012-04-13T00:00:00+00:00"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Well-Quasi-Orders"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=icon href=/images/favicon.ico type=image/icon><script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]},processEscapes:!0,svg:{fontCache:'global'}}</script><script id=MathJax-script async src=/js/mathjax/es5/tex-mml-chtml.js></script><script src=/js/entries.js></script><script src=/js/flexsearch.min.js></script><script src=/js/banner.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><li><a href=/>Home</a></li><li><a href=/topics/>Topics</a></li><li><a href=/download/>Download</a></li><li><a href=/help/>Help</a></li><li><a href=/statistics/>Statistics</a></li><li><a href=/about/>About</a></li></ul></div><ul><li><a href=/contribution/>Contribution</a></li></ul></div></aside><div class="content entries"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
-<datalist id=autocomplete></datalist></div></form><h1><span class=first>W</span>ell-<span class=first>Q</span>uasi-<span class=first>O</span>rders</h1><div><p><a href=/authors/christian-sternagel>Christian Sternagel</a></p><p class=date>13 April 2012</p></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><h3>Abstract</h3><div class="abstract mathjax_process">Based on Isabelle/HOL's type class for preorders,
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Well-Quasi-Orders - Archive of Formal Proofs</title><meta name=description content="Based on Isabelle/HOL's type class for preorders, we introduce a type class for well-quasi-orders (wqo) which is characterized by the absence of &#34;bad&#34;..."><meta property="og:title" content="Well-Quasi-Orders">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="/entries/well_quasi_orders/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="entries">
+<meta property="article:published_time" content="2012-04-13T00:00:00+00:00">
+<meta property="article:modified_time" content="2012-04-13T00:00:00+00:00"><meta property="og:site_name" content="Archive of Formal Proofs">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="/images/afp.png">
+<meta name=twitter:title content="Well-Quasi-Orders">
+<meta name=twitter:description content>
+<link rel=stylesheet type=text/css href=/css/front.min.css>
+<link rel=icon href=/images/favicon.ico type=image/icon>
+<script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]},processEscapes:!0,svg:{fontCache:'global'}}</script>
+<script id=MathJax-script async src=/js/mathjax/es5/tex-mml-chtml.js></script>
+<script src=/js/entries.js></script><script src=/js/flexsearch.min.js></script>
+<script src=/js/banner.js></script><script src=/js/header-search.js></script></head>
+<body class=mathjax_ignore>
+<aside>
+<div>
+<div>
+<a href=/>
+<img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo>
+</a>
+<ul>
+<li><a href=/>Home</a></li>
+<li><a href=/topics/>Topics</a></li>
+<li><a href=/download/>Download</a></li>
+<li><a href=/help/>Help</a></li>
+<li><a href=/statistics/>Statistics</a></li>
+<li><a href=/about/>About</a></li>
+</ul>
+</div>
+<ul>
+<li><a href=/contribution/>Contribution</a></li>
+</ul>
+</div>
+</aside>
+<div class="content entries"><header>
+<form action=/%20search>
+<div class=form-container>
+<input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
+<datalist id=autocomplete>
+</datalist>
+</div>
+</form>
+<h1><span class=first>W</span>ell-<span class=first>Q</span>uasi-<span class=first>O</span>rders</h1>
+<div>
+<p><a href=/authors/christian-sternagel>Christian Sternagel</a>
+</p>
+<p class=date>13 April 2012</p>
+</div>
+</header><div id=banner data-id=0>
+<p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button>
+</div>
+<div><main>
+<h3>Abstract</h3>
+<div class="abstract mathjax_process">Based on Isabelle/HOL's type class for preorders,
 we introduce a type class for well-quasi-orders (wqo)
 which is characterized by the absence of "bad" sequences
 (our proofs are along the lines of the proof of Nash-Williams,
 from which we also borrow terminology). Our main results are
 instantiations for the product type, the list type, and a type of finite trees,
 which (almost) directly follow from our proofs of (1) Dickson's Lemma, (2)
-Higman's Lemma, and (3) Kruskal's Tree Theorem. More concretely:<ul><li>If the sets A and B are wqo then their Cartesian product is wqo.</li><li>If the set A is wqo then the set of finite lists over A is wqo.</li><li>If the set A is wqo then the set of finite trees over A is wqo.</li></ul>The research was funded by the Austrian Science Fund (FWF): J3202.</div><a href=http://isa-afp.org/LICENSE>BSD License</a><h3>Change history</h3><p>[2012-06-11] Added Kruskal's Tree Theorem.<br>[2012-12-19] New variant of Kruskal's tree theorem for terms (as opposed to
+Higman's Lemma, and (3) Kruskal's Tree Theorem. More concretely:
+<ul>
+<li>If the sets A and B are wqo then their Cartesian product is wqo.</li>
+<li>If the set A is wqo then the set of finite lists over A is wqo.</li>
+<li>If the set A is wqo then the set of finite trees over A is wqo.</li>
+</ul>
+The research was funded by the Austrian Science Fund (FWF): J3202.</div><a href=http://isa-afp.org/LICENSE>BSD License</a><h3>Change history</h3>
+<p>[2012-06-11] Added Kruskal's Tree Theorem.<br>
+[2012-12-19] New variant of Kruskal's tree theorem for terms (as opposed to
 variadic terms, i.e., trees), plus finite version of the tree theorem as
-corollary.<br>[2013-05-16] Simplified construction of minimal bad sequences.<br>[2014-07-09] Simplified proofs of Higman's lemma and Kruskal's tree theorem,
-based on homogeneous sequences.<br>[2016-01-03] An alternative proof of Higman's lemma by open induction.<br>[2017-06-08] Proved (classical) equivalence to inductive definition of
+corollary.<br>
+[2013-05-16] Simplified construction of minimal bad sequences.<br>
+[2014-07-09] Simplified proofs of Higman's lemma and Kruskal's tree theorem,
+based on homogeneous sequences.<br>
+[2016-01-03] An alternative proof of Higman's lemma by open induction.<br>
+[2017-06-08] Proved (classical) equivalence to inductive definition of
 almost-full relations according to the ITP 2012 paper "Stop When You Are
-Almost-Full" by Vytiniotis, Coquand, and Wahlstedt.</p><h3>Depends On</h3><ul><li><a href=/entries/abstract-rewriting>Abstract-Rewriting</a></li><li><a href=/entries/open_induction>Open_Induction</a></li></ul><h3>Used by</h3><ul><li><a href=/entries/saturation_framework_extensions/>Saturation_Framework_Extensions</a></li><li><a href=/entries/saturation_framework/>Saturation_Framework</a></li><li><a href=/entries/decreasing-diagrams-ii/>Decreasing-Diagrams-II</a></li><li><a href=/entries/myhill-nerode/>Myhill-Nerode</a></li><li><a href=/entries/polynomials/>Polynomials</a></li></ul><h3>Topics</h3><ul><li><a href=/topics/mathematics/combinatorics>Mathematics/Combinatorics</a></li></ul><h3>Related Entries</h3><ul><li><a href=/entries/decreasing-diagrams-ii>Decreasing-Diagrams-II</a></li><li><a href=/entries/myhill-nerode>Myhill-Nerode</a></li></ul><h3>Theories</h3><ul><li><a href=theories/#Infinite_Sequences>Infinite_Sequences</a></li><li><a href=theories/#Minimal_Elements>Minimal_Elements</a></li><li><a href=theories/#Least_Enum>Least_Enum</a></li><li><a href=theories/#Almost_Full>Almost_Full</a></li><li><a href=theories/#Minimal_Bad_Sequences>Minimal_Bad_Sequences</a></li><li><a href=theories/#Higman_OI>Higman_OI</a></li><li><a href=theories/#Almost_Full_Relations>Almost_Full_Relations</a></li><li><a href=theories/#Well_Quasi_Orders>Well_Quasi_Orders</a></li><li><a href=theories/#Kruskal>Kruskal</a></li><li><a href=theories/#Kruskal_Examples>Kruskal_Examples</a></li><li><a href=theories/#Wqo_Instances>Wqo_Instances</a></li><li><a href=theories/#Multiset_Extension>Multiset_Extension</a></li><li><a href=theories/#Wqo_Multiset>Wqo_Multiset</a></li></ul></main><nav class=links><a class=popUpButton href=#citePopUp>Cite</a>
-<a class=popUpButton href=#downloadPopUp>Download</a><h4>PDFs</h4><a href=https://www.isa-afp.org/browser_info/current/AFP/Well_Quasi_Orders/outline.pdf>Proof
+Almost-Full" by Vytiniotis, Coquand, and Wahlstedt.</p><h3>Depends On</h3><ul><li><a href=/entries/abstract-rewriting>Abstract-Rewriting</a></li><li><a href=/entries/open_induction>Open_Induction</a></li></ul><h3>Used by</h3>
+<ul><li><a href=/entries/saturation_framework_extensions/>Saturation_Framework_Extensions</a></li><li><a href=/entries/saturation_framework/>Saturation_Framework</a></li><li><a href=/entries/decreasing-diagrams-ii/>Decreasing-Diagrams-II</a></li><li><a href=/entries/myhill-nerode/>Myhill-Nerode</a></li><li><a href=/entries/polynomials/>Polynomials</a></li></ul><h3>Topics</h3>
+<ul><li><a href=/topics/mathematics/combinatorics>Mathematics/Combinatorics</a></li></ul><h3>Related Entries</h3>
+<ul><li><a href=/entries/decreasing-diagrams-ii>Decreasing-Diagrams-II</a></li><li><a href=/entries/myhill-nerode>Myhill-Nerode</a></li></ul><h3>Theories</h3>
+<ul>
+<li><a href=theories/#Infinite_Sequences>Infinite_Sequences</a></li><li><a href=theories/#Minimal_Elements>Minimal_Elements</a></li><li><a href=theories/#Least_Enum>Least_Enum</a></li><li><a href=theories/#Almost_Full>Almost_Full</a></li><li><a href=theories/#Minimal_Bad_Sequences>Minimal_Bad_Sequences</a></li><li><a href=theories/#Higman_OI>Higman_OI</a></li><li><a href=theories/#Almost_Full_Relations>Almost_Full_Relations</a></li><li><a href=theories/#Well_Quasi_Orders>Well_Quasi_Orders</a></li><li><a href=theories/#Kruskal>Kruskal</a></li><li><a href=theories/#Kruskal_Examples>Kruskal_Examples</a></li><li><a href=theories/#Wqo_Instances>Wqo_Instances</a></li><li><a href=theories/#Multiset_Extension>Multiset_Extension</a></li><li><a href=theories/#Wqo_Multiset>Wqo_Multiset</a></li></ul>
+</main>
+<nav class=links>
+<a class=popUpButton href=#citePopUp>Cite</a>
+<a class=popUpButton href=#downloadPopUp>Download</a>
+<h4>PDFs</h4>
+<a href=https://www.isa-afp.org/browser_info/current/AFP/Well_Quasi_Orders/outline.pdf>Proof
 outline</a>
 <a href=https://www.isa-afp.org/browser_info/current/AFP/Well_Quasi_Orders/document.pdf>Proof
 document</a>
-<a href=https://www.isa-afp.org/browser_info/current/AFP/Well_Quasi_Orders/session_graph.pdf>Dependencies</a></nav><div id=citePopUp class=overlay><a class=cancel href=#></a><div class=popup><h2>Cite</h2><a class=close href=#>&#215;</a><div><p style=display:none id=bibtexFileName>Well_Quasi_Orders-AFP</p><pre id=copyText>@article{Well_Quasi_Orders-AFP,
+<a href=https://www.isa-afp.org/browser_info/current/AFP/Well_Quasi_Orders/session_graph.pdf>Dependencies</a>
+</nav>
+<div id=citePopUp class=overlay>
+<a class=cancel href=#></a>
+<div class=popup>
+<h2>Cite</h2>
+<a class=close href=#>&#215;</a>
+<div>
+<p style=display:none id=bibtexFileName>Well_Quasi_Orders-AFP</p>
+<pre id=copyText>@article{Well_Quasi_Orders-AFP,
   author  = {Christian Sternagel},
   title   = {Well-Quasi-Orders},
   journal = {Archive of Formal Proofs},
@@ -25,16 +115,66 @@ document</a>
   note    = {\url{http://isa-afp.org/entries/Well_Quasi_Orders.html},
             Formal proof development},
   ISSN    = {2150-914x},
-}</pre><button id=copyBibtex>Copy</button> <a id=downloadBibtex>Download</a></div></div></div><div id=downloadPopUp class=overlay><a class=cancel href=#></a><div class=popup><h2>Download</h2><a class=close href=#>&#215;</a>
-<a href=https://isa-afp.org/release/afp-Well_Quasi_Orders-current.tar.gz download>Download latest</a><p>Older releases:</p><ul><li>Isabelle2019:
-<a href=https://isa-afp.org/release/afp-Well_Quasi_Orders-2019-06-11.tar.gz>afp-Well_Quasi_Orders-2019-06-11.tar.gz</a></li><li>Isabelle2018:
-<a href=https://isa-afp.org/release/afp-Well_Quasi_Orders-2018-08-16.tar.gz>afp-Well_Quasi_Orders-2018-08-16.tar.gz</a></li><li>Isabelle2017:
-<a href=https://isa-afp.org/release/afp-Well_Quasi_Orders-2017-10-10.tar.gz>afp-Well_Quasi_Orders-2017-10-10.tar.gz</a></li><li>Isabelle2016-1:
-<a href=https://isa-afp.org/release/afp-Well_Quasi_Orders-2016-12-17.tar.gz>afp-Well_Quasi_Orders-2016-12-17.tar.gz</a></li><li>Isabelle2016:
-<a href=https://isa-afp.org/release/afp-Well_Quasi_Orders-2016-02-22.tar.gz>afp-Well_Quasi_Orders-2016-02-22.tar.gz</a></li><li>Isabelle2015:
-<a href=https://isa-afp.org/release/afp-Well_Quasi_Orders-2015-05-27.tar.gz>afp-Well_Quasi_Orders-2015-05-27.tar.gz</a></li><li>Isabelle2014:
-<a href=https://isa-afp.org/release/afp-Well_Quasi_Orders-2014-08-28.tar.gz>afp-Well_Quasi_Orders-2014-08-28.tar.gz</a></li><li>Isabelle2013-2:
-<a href=https://isa-afp.org/release/afp-Well_Quasi_Orders-2013-12-11.tar.gz>afp-Well_Quasi_Orders-2013-12-11.tar.gz</a></li><li>Isabelle2013-1:
-<a href=https://isa-afp.org/release/afp-Well_Quasi_Orders-2013-11-17.tar.gz>afp-Well_Quasi_Orders-2013-11-17.tar.gz</a></li><li>Isabelle2013:
-<a href=https://isa-afp.org/release/afp-Well_Quasi_Orders-2013-02-16.tar.gz>afp-Well_Quasi_Orders-2013-02-16.tar.gz</a></li><li>Isabelle2012:
-<a href=https://isa-afp.org/release/afp-Well_Quasi_Orders-2012-05-24.tar.gz>afp-Well_Quasi_Orders-2012-05-24.tar.gz</a></li></ul></div></div></div></div></body></html>
+}</pre>
+<button id=copyBibtex>Copy</button> <a id=downloadBibtex>Download</a>
+</div>
+</div>
+</div>
+<div id=downloadPopUp class=overlay>
+<a class=cancel href=#></a>
+<div class=popup>
+<h2>Download</h2>
+<a class=close href=#>&#215;</a>
+<a href=https://isa-afp.org/release/afp-Well_Quasi_Orders-current.tar.gz download>Download latest</a>
+<p>Older releases:</p>
+<ul><li>Isabelle2019:
+<a href=https://isa-afp.org/release/afp-Well_Quasi_Orders-2019-06-11.tar.gz>
+afp-Well_Quasi_Orders-2019-06-11.tar.gz
+</a>
+</li><li>Isabelle2018:
+<a href=https://isa-afp.org/release/afp-Well_Quasi_Orders-2018-08-16.tar.gz>
+afp-Well_Quasi_Orders-2018-08-16.tar.gz
+</a>
+</li><li>Isabelle2017:
+<a href=https://isa-afp.org/release/afp-Well_Quasi_Orders-2017-10-10.tar.gz>
+afp-Well_Quasi_Orders-2017-10-10.tar.gz
+</a>
+</li><li>Isabelle2016-1:
+<a href=https://isa-afp.org/release/afp-Well_Quasi_Orders-2016-12-17.tar.gz>
+afp-Well_Quasi_Orders-2016-12-17.tar.gz
+</a>
+</li><li>Isabelle2016:
+<a href=https://isa-afp.org/release/afp-Well_Quasi_Orders-2016-02-22.tar.gz>
+afp-Well_Quasi_Orders-2016-02-22.tar.gz
+</a>
+</li><li>Isabelle2015:
+<a href=https://isa-afp.org/release/afp-Well_Quasi_Orders-2015-05-27.tar.gz>
+afp-Well_Quasi_Orders-2015-05-27.tar.gz
+</a>
+</li><li>Isabelle2014:
+<a href=https://isa-afp.org/release/afp-Well_Quasi_Orders-2014-08-28.tar.gz>
+afp-Well_Quasi_Orders-2014-08-28.tar.gz
+</a>
+</li><li>Isabelle2013-2:
+<a href=https://isa-afp.org/release/afp-Well_Quasi_Orders-2013-12-11.tar.gz>
+afp-Well_Quasi_Orders-2013-12-11.tar.gz
+</a>
+</li><li>Isabelle2013-1:
+<a href=https://isa-afp.org/release/afp-Well_Quasi_Orders-2013-11-17.tar.gz>
+afp-Well_Quasi_Orders-2013-11-17.tar.gz
+</a>
+</li><li>Isabelle2013:
+<a href=https://isa-afp.org/release/afp-Well_Quasi_Orders-2013-02-16.tar.gz>
+afp-Well_Quasi_Orders-2013-02-16.tar.gz
+</a>
+</li><li>Isabelle2012:
+<a href=https://isa-afp.org/release/afp-Well_Quasi_Orders-2012-05-24.tar.gz>
+afp-Well_Quasi_Orders-2012-05-24.tar.gz
+</a>
+</li></ul>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

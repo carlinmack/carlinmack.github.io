@@ -1,7 +1,78 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Session Max-Card-Matching - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session Max-Card-Matching"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/max-card-matching/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Session Max-Card-Matching"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css><link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script><script src=/js/banner.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><li><a href=/entries/max-card-matching>Return to entry</a></li></ul><hr><ul><li><a href=#Matching>Matching</a><ul><li><a href=#Matching-definition_of_range>definition_of_range</a></li><li><a href=#Matching-matching_i_edges_as_sets>matching_i_edges_as_sets</a></li><li><a href=#Matching-matching_disjointness>matching_disjointness</a></li><li><a href=#Matching-expand_set_containment>expand_set_containment</a></li><li><a href=#Matching-card_M1_le_NVL1>card_M1_le_NVL1</a></li><li><a href=#Matching-edge_as_set_inj_on_Mi>edge_as_set_inj_on_Mi</a></li><li><a href=#Matching-card_Mi_eq_card_edge_as_set_Mi>card_Mi_eq_card_edge_as_set_Mi</a></li><li><a href=#Matching-card_edge_as_set_Mi_twice_card_partitions>card_edge_as_set_Mi_twice_card_partitions</a></li><li><a href=#Matching-card_Mi_twice_card_Vi>card_Mi_twice_card_Vi</a></li><li><a href=#Matching-card_Mi_le_floor_div_2_Vi>card_Mi_le_floor_div_2_Vi</a></li><li><a href=#Matching-card_Vi_le_NVLi>card_Vi_le_NVLi</a></li><li><a href=#Matching-card_Mi_le_floor_div_2_NVLi>card_Mi_le_floor_div_2_NVLi</a></li><li><a href=#Matching-card_M_le_sum_card_Mi>card_M_le_sum_card_Mi</a></li></ul></li></ul></div><ul><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Max-Card-Matching/outline.pdf>Proof
-outline</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Max-Card-Matching/document.pdf>Proof
-document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Max-Card-Matching/session_graph.pdf>Theory dependencies</a></li></ul></div></aside><div class="content theories"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
-<datalist id=autocomplete></datalist></div></form><h1><span class=first>S</span>ession <span class=first>M</span>ax-<span class=first>C</span>ard-<span class=first>M</span>atching</h1><div></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><div id=Matching><div class=head><h1>Theory Matching</h1></div><pre class=source><span class=keyword1><span class=command>theory</span></span> Matching
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Session Max-Card-Matching - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session Max-Card-Matching">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="/entries/max-card-matching/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories">
+<meta property="og:site_name" content="Archive of Formal Proofs">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="/images/afp.png">
+<meta name=twitter:title content="Session Max-Card-Matching">
+<meta name=twitter:description content>
+<link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css>
+<link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script>
+<script src=/js/banner.js></script><script src=/js/header-search.js></script></head>
+<body class=mathjax_ignore>
+<aside>
+<div>
+<div>
+<a href=/>
+<img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo>
+</a>
+<ul>
+<li><a href=/entries/max-card-matching>Return to entry</a></li>
+</ul>
+<hr>
+<ul><li><a href=#Matching>Matching</a>
+<ul>
+<li><a href=#Matching-definition_of_range>definition_of_range</a></li>
+<li><a href=#Matching-matching_i_edges_as_sets>matching_i_edges_as_sets</a></li>
+<li><a href=#Matching-matching_disjointness>matching_disjointness</a></li>
+<li><a href=#Matching-expand_set_containment>expand_set_containment</a></li>
+<li><a href=#Matching-card_M1_le_NVL1>card_M1_le_NVL1</a></li>
+<li><a href=#Matching-edge_as_set_inj_on_Mi>edge_as_set_inj_on_Mi</a></li>
+<li><a href=#Matching-card_Mi_eq_card_edge_as_set_Mi>card_Mi_eq_card_edge_as_set_Mi</a></li>
+<li><a href=#Matching-card_edge_as_set_Mi_twice_card_partitions>card_edge_as_set_Mi_twice_card_partitions</a></li>
+<li><a href=#Matching-card_Mi_twice_card_Vi>card_Mi_twice_card_Vi</a></li>
+<li><a href=#Matching-card_Mi_le_floor_div_2_Vi>card_Mi_le_floor_div_2_Vi</a></li>
+<li><a href=#Matching-card_Vi_le_NVLi>card_Vi_le_NVLi</a></li>
+<li><a href=#Matching-card_Mi_le_floor_div_2_NVLi>card_Mi_le_floor_div_2_NVLi</a></li>
+<li><a href=#Matching-card_M_le_sum_card_Mi>card_M_le_sum_card_Mi</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<ul>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Max-Card-Matching/outline.pdf>Proof
+outline</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Max-Card-Matching/document.pdf>Proof
+document</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Max-Card-Matching/session_graph.pdf>Theory dependencies</a></li>
+</ul>
+</div>
+</aside>
+<div class="content theories"><header>
+<form action=/%20search>
+<div class=form-container>
+<input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
+<datalist id=autocomplete>
+</datalist>
+</div>
+</form>
+<h1><span class=first>S</span>ession <span class=first>M</span>ax-<span class=first>C</span>ard-<span class=first>M</span>atching</h1>
+<div>
+</div>
+</header><div id=banner data-id=0>
+<p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button>
+</div>
+<div><main>
+<div id=Matching>
+<div class=head>
+<h1>Theory Matching</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>theory</span></span> Matching
 <span class=keyword2><span class=keyword>imports</span></span> <a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL/Main.html>Main</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
@@ -367,4 +438,10 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Ma
 <span class=keyword1><span class=command>text</span></span><span class=quoted><span class=plain_text>‹The widely used algorithmic library LEDA has a certifying algorithm for maximum cardinality matching.
 This Isabelle proof is part of the work done to verify the checker of this certifying algorithm. For more information see \cite{VerificationofCertifyingComputations}.›</span></span>
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div></main></div></div></body></html>
+</pre>
+</div>
+</main>
+</div>
+</div>
+</body>
+</html>

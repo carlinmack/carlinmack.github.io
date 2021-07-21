@@ -1,7 +1,335 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Session VerifyThis2018 - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session VerifyThis2018"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/verifythis2018/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Session VerifyThis2018"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css><link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script><script src=/js/banner.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><li><a href=/entries/verifythis2018>Return to entry</a></li></ul><hr><ul><li><a href=#Dynamic_Array>Dynamic_Array</a><ul><li><a href=#Dynamic_Array-array_grow%27_rule>array_grow'_rule</a></li><li><a href=#Dynamic_Array-dyn_array_new_sz_rl>dyn_array_new_sz_rl</a></li><li><a href=#Dynamic_Array-array_get_dyn_rule>array_get_dyn_rule</a></li><li><a href=#Dynamic_Array-nff_%ce%b1_upd>nff_α_upd</a></li><li><a href=#Dynamic_Array-nff_%ce%b1_append_default>nff_α_append_default</a></li><li><a href=#Dynamic_Array-array_set_dyn_rule>array_set_dyn_rule</a></li></ul></li><li><a href=#DRAT_Misc>DRAT_Misc</a><ul><li><a href=#DRAT_Misc-mbhd_insert_invar>mbhd_insert_invar</a></li><li><a href=#DRAT_Misc-mbhd_insert_correct>mbhd_insert_correct</a></li><li><a href=#DRAT_Misc-mbhd_invar_init>mbhd_invar_init</a></li><li><a href=#DRAT_Misc-mbhd_invar_exit>mbhd_invar_exit</a></li></ul></li><li><a href=#Array_Map_Default>Array_Map_Default</a><ul><li><a href=#Array_Map_Default-is_unused_elem_pure>is_unused_elem_pure</a></li><li><a href=#Array_Map_Default-amd1_empty_refine>amd1_empty_refine</a></li><li><a href=#Array_Map_Default-amd1_lookup_refine>amd1_lookup_refine</a></li><li><a href=#Array_Map_Default-amd1_update_refine>amd1_update_refine</a></li><li><a href=#Array_Map_Default-amd1_delete_refine>amd1_delete_refine</a></li><li><a href=#Array_Map_Default-amd_assn_fold2>amd_assn_fold2</a></li><li><a href=#Array_Map_Default-amd2_empty_refine>amd2_empty_refine</a></li><li><a href=#Array_Map_Default-amd2_lookup_refine>amd2_lookup_refine</a></li><li><a href=#Array_Map_Default-amd2_update_refine>amd2_update_refine</a></li><li><a href=#Array_Map_Default-amd2_delete_refine>amd2_delete_refine</a></li><li><a href=#Array_Map_Default-amd2_update_hnr_aux>amd2_update_hnr_aux</a></li><li><a href=#Array_Map_Default-op_map_update_id_param>op_map_update_id_param</a></li><li><a href=#Array_Map_Default-doa_None_hnr>doa_None_hnr</a></li><li><a href=#Array_Map_Default-doa_Some_hnr>doa_Some_hnr</a></li><li><a href=#Array_Map_Default-doa_is_None_hnr>doa_is_None_hnr</a></li><li><a href=#Array_Map_Default-doa_the_hnr>doa_the_hnr</a></li><li><a href=#Array_Map_Default-cnv_option_case_2_if>cnv_option_case_2_if</a></li><li><a href=#Array_Map_Default-fold_dflt_option>fold_dflt_option</a></li><li><a href=#Array_Map_Default-eq_option_refine>eq_option_refine</a></li></ul></li><li><a href=#Synth_Definition>Synth_Definition</a></li><li><a href=#Exc_Nres_Monad>Exc_Nres_Monad</a><ul><li><a href=#Exc_Nres_Monad-EASSUME_simps>EASSUME_simps</a></li><li><a href=#Exc_Nres_Monad-EASSERT_simps>EASSERT_simps</a></li><li><a href=#Exc_Nres_Monad-CHECK_simps>CHECK_simps</a></li><li><a href=#Exc_Nres_Monad-pw_ESPEC>pw_ESPEC</a></li><li><a href=#Exc_Nres_Monad-pw_ERETURN>pw_ERETURN</a></li><li><a href=#Exc_Nres_Monad-pw_ebind>pw_ebind</a></li><li><a href=#Exc_Nres_Monad-pw_THROW>pw_THROW</a></li><li><a href=#Exc_Nres_Monad-pw_CHECK>pw_CHECK</a></li><li><a href=#Exc_Nres_Monad-pw_EASSUME>pw_EASSUME</a></li><li><a href=#Exc_Nres_Monad-pw_EASSERT>pw_EASSERT</a></li><li><a href=#Exc_Nres_Monad-pw_CATCH>pw_CATCH</a></li><li><a href=#Exc_Nres_Monad-pw_ele_iff>pw_ele_iff</a></li><li><a href=#Exc_Nres_Monad-pw_eeq_iff>pw_eeq_iff</a></li><li><a href=#Exc_Nres_Monad-enres_monad_laws>enres_monad_laws</a></li><li><a href=#Exc_Nres_Monad-enres_additional_laws>enres_additional_laws</a></li><li><a href=#Exc_Nres_Monad-ESPEC_cons>ESPEC_cons</a></li><li><a href=#Exc_Nres_Monad-ebind_rule_iff>ebind_rule_iff</a></li><li><a href=#Exc_Nres_Monad-ERETURN_rule_iff>ERETURN_rule_iff</a></li><li><a href=#Exc_Nres_Monad-ESPEC_rule_iff>ESPEC_rule_iff</a></li><li><a href=#Exc_Nres_Monad-THROW_rule_iff>THROW_rule_iff</a></li><li><a href=#Exc_Nres_Monad-CATCH_rule_iff>CATCH_rule_iff</a></li><li><a href=#Exc_Nres_Monad-CHECK_rule_iff>CHECK_rule_iff</a></li><li><a href=#Exc_Nres_Monad-CHECK_rule>CHECK_rule</a></li><li><a href=#Exc_Nres_Monad-EASSUME_rule>EASSUME_rule</a></li><li><a href=#Exc_Nres_Monad-EASSERT_rule>EASSERT_rule</a></li><li><a href=#Exc_Nres_Monad-eprod_rule>eprod_rule</a></li><li><a href=#Exc_Nres_Monad-eprod2_rule>eprod2_rule</a></li><li><a href=#Exc_Nres_Monad-eif_rule>eif_rule</a></li><li><a href=#Exc_Nres_Monad-eoption_rule>eoption_rule</a></li><li><a href=#Exc_Nres_Monad-eLet_rule>eLet_rule</a></li><li><a href=#Exc_Nres_Monad-eLet_rule%27>eLet_rule'</a></li><li><a href=#Exc_Nres_Monad-EWHILEIT_rule>EWHILEIT_rule</a></li><li><a href=#Exc_Nres_Monad-EWHILET_rule>EWHILET_rule</a></li><li><a href=#Exc_Nres_Monad-EWHILEIT_weaken>EWHILEIT_weaken</a></li><li><a href=#Exc_Nres_Monad-EWHILEIT_expinv_rule>EWHILEIT_expinv_rule</a></li><li><a href=#Exc_Nres_Monad-enfoldli_simps>enfoldli_simps</a></li><li><a href=#Exc_Nres_Monad-enfoldli_rule>enfoldli_rule</a></li><li><a href=#Exc_Nres_Monad-sum_rel_conv>sum_rel_conv</a></li><li><a href=#Exc_Nres_Monad-RELATES_pat_erefine>RELATES_pat_erefine</a></li><li><a href=#Exc_Nres_Monad-pw_econc_iff>pw_econc_iff</a></li><li><a href=#Exc_Nres_Monad-econc_fun_id>econc_fun_id</a></li><li><a href=#Exc_Nres_Monad-econc_fun_ESPEC>econc_fun_ESPEC</a></li><li><a href=#Exc_Nres_Monad-econc_fun_ERETURN>econc_fun_ERETURN</a></li><li><a href=#Exc_Nres_Monad-econc_fun_univ_id>econc_fun_univ_id</a></li><li><a href=#Exc_Nres_Monad-erefine_same_sup_Id>erefine_same_sup_Id</a></li><li><a href=#Exc_Nres_Monad-econc_mono3>econc_mono3</a></li><li><a href=#Exc_Nres_Monad-econc_x_trans>econc_x_trans</a></li><li><a href=#Exc_Nres_Monad-econc_econc_trans>econc_econc_trans</a></li><li><a href=#Exc_Nres_Monad-ERETURN_refine>ERETURN_refine</a></li><li><a href=#Exc_Nres_Monad-EASSERT_bind_refine_right>EASSERT_bind_refine_right</a></li><li><a href=#Exc_Nres_Monad-EASSERT_bind_refine_left>EASSERT_bind_refine_left</a></li><li><a href=#Exc_Nres_Monad-EASSUME_bind_refine_right>EASSUME_bind_refine_right</a></li><li><a href=#Exc_Nres_Monad-EASSUME_bind_refine_left>EASSUME_bind_refine_left</a></li><li><a href=#Exc_Nres_Monad-ebind_refine>ebind_refine</a></li><li><a href=#Exc_Nres_Monad-ebind_refine%27>ebind_refine'</a></li><li><a href=#Exc_Nres_Monad-THROW_refine>THROW_refine</a></li><li><a href=#Exc_Nres_Monad-CATCH_refine%27>CATCH_refine'</a></li><li><a href=#Exc_Nres_Monad-CATCH_refine>CATCH_refine</a></li><li><a href=#Exc_Nres_Monad-CHECK_refine>CHECK_refine</a></li><li><a href=#Exc_Nres_Monad-CHECK_bind_refine>CHECK_bind_refine</a></li><li><a href=#Exc_Nres_Monad-Let_unfold_refine>Let_unfold_refine</a></li><li><a href=#Exc_Nres_Monad-Let_refine>Let_refine</a></li><li><a href=#Exc_Nres_Monad-eif_refine>eif_refine</a></li><li><a href=#Exc_Nres_Monad-enfoldli_refine>enfoldli_refine</a></li><li><a href=#Exc_Nres_Monad-EWHILET_refine>EWHILET_refine</a></li><li><a href=#Exc_Nres_Monad-EWHILEIT_refine>EWHILEIT_refine</a></li><li><a href=#Exc_Nres_Monad-remove_eLet_refine>remove_eLet_refine</a></li><li><a href=#Exc_Nres_Monad-intro_eLet_refine>intro_eLet_refine</a></li><li><a href=#Exc_Nres_Monad-ebind2let_refine>ebind2let_refine</a></li><li><a href=#Exc_Nres_Monad-ebind_Let_refine2>ebind_Let_refine2</a></li><li><a href=#Exc_Nres_Monad-ebind2letRETURN_refine>ebind2letRETURN_refine</a></li><li><a href=#Exc_Nres_Monad-ERETURN_as_SPEC_refine>ERETURN_as_SPEC_refine</a></li><li><a href=#Exc_Nres_Monad-if_ERETURN_refine>if_ERETURN_refine</a></li><li><a href=#Exc_Nres_Monad-enres_lift_rule>enres_lift_rule</a></li><li><a href=#Exc_Nres_Monad-enres_lift_fail>enres_lift_fail</a></li><li><a href=#Exc_Nres_Monad-option_case_enbd>option_case_enbd</a></li><li><a href=#Exc_Nres_Monad-CHECK_monadic_rule_iff>CHECK_monadic_rule_iff</a></li><li><a href=#Exc_Nres_Monad-CHECK_monadic_pw>CHECK_monadic_pw</a></li><li><a href=#Exc_Nres_Monad-CHECK_monadic_rule>CHECK_monadic_rule</a></li><li><a href=#Exc_Nres_Monad-CHECK_monadic_refine>CHECK_monadic_refine</a></li><li><a href=#Exc_Nres_Monad-CHECK_monadic_CHECK_refine>CHECK_monadic_CHECK_refine</a></li><li><a href=#Exc_Nres_Monad-CHECK_monadic_endb>CHECK_monadic_endb</a></li></ul></li><li><a href=#VTcomp>VTcomp</a><ul><li><a href=#VTcomp-nfoldli_upt_rule>nfoldli_upt_rule</a></li><li><a href=#VTcomp-efor_rule>efor_rule</a></li><li><a href=#VTcomp-blit_len>blit_len</a></li><li><a href=#VTcomp-array_blit_hnr_aux>array_blit_hnr_aux</a></li></ul></li><li><a href=#DF_System>DF_System</a><ul><li><a href=#DF_System-reachable0>reachable0</a></li><li><a href=#DF_System-is_invarI>is_invarI</a></li><li><a href=#DF_System-invar_reachable>invar_reachable</a></li><li><a href=#DF_System-is_run_alt>is_run_alt</a></li><li><a href=#DF_System-fair_run_is_run>fair_run_is_run</a></li><li><a href=#DF_System-fair_run_is_fair%27>fair_run_is_fair'</a></li><li><a href=#DF_System-run0>run0</a></li><li><a href=#DF_System-run_reachable>run_reachable</a></li><li><a href=#DF_System-run_invar>run_invar</a></li><li><a href=#DF_System-stepE>stepE</a></li><li><a href=#DF_System-next_step_step>next_step_step</a></li><li><a href=#DF_System-nso_nostep>nso_nostep</a></li><li><a href=#DF_System-rstep_cases>rstep_cases</a></li><li><a href=#DF_System-xfer_reachable>xfer_reachable</a></li><li><a href=#DF_System-xfer_run>xfer_run</a></li><li><a href=#DF_System-xfer_fair_run>xfer_fair_run</a></li><li><a href=#DF_System-sim_trans>sim_trans</a></li><li><a href=#DF_System-simb%27>simb'</a></li><li><a href=#DF_System-xfer_reachable_aux2>xfer_reachable_aux2</a></li><li><a href=#DF_System-xfer_lrun_aux2>xfer_lrun_aux2</a></li><li><a href=#DF_System-xfer_run_aux2>xfer_run_aux2</a></li><li><a href=#DF_System-xfer_fair_run_aux2>xfer_fair_run_aux2</a></li></ul></li><li><a href=#Snippets>Snippets</a><ul><li><a href=#Snippets-find_elem_correct>find_elem_correct</a></li><li><a href=#Snippets-find_elem_r1>find_elem_r1</a></li><li><a href=#Snippets-check_prefix_correct>check_prefix_correct</a></li><li><a href=#Snippets-is_prefix%27_correct>is_prefix'_correct</a></li></ul></li><li><a href=#Challenge1>Challenge1</a><ul><li><a href=#Challenge1-empty_pos>empty_pos</a></li><li><a href=#Challenge1-empty_text>empty_text</a></li><li><a href=#Challenge1-move_left_pos>move_left_pos</a></li><li><a href=#Challenge1-move_left_text>move_left_text</a></li><li><a href=#Challenge1-move_right_pos>move_right_pos</a></li><li><a href=#Challenge1-move_right_text>move_right_text</a></li><li><a href=#Challenge1-insert_pos>insert_pos</a></li><li><a href=#Challenge1-insert_text>insert_text</a></li><li><a href=#Challenge1-delete_pos>delete_pos</a></li><li><a href=#Challenge1-delete_text>delete_text</a></li><li><a href=#Challenge1-delete_text0>delete_text0</a></li><li><a href=#Challenge1-empty1_correct>empty1_correct</a></li><li><a href=#Challenge1-move_left1_correct>move_left1_correct</a></li><li><a href=#Challenge1-move_right1_correct>move_right1_correct</a></li><li><a href=#Challenge1-grow1_correct>grow1_correct</a></li><li><a href=#Challenge1-insert1_correct>insert1_correct</a></li><li><a href=#Challenge1-delete1_correct>delete1_correct</a></li></ul></li><li><a href=#Challenge1_short>Challenge1_short</a><ul><li><a href=#Challenge1_short-move_left1_correct>move_left1_correct</a></li><li><a href=#Challenge1_short-move_right1_correct>move_right1_correct</a></li><li><a href=#Challenge1_short-grow1_correct>grow1_correct</a></li><li><a href=#Challenge1_short-insert1_correct>insert1_correct</a></li><li><a href=#Challenge1_short-delete1_correct>delete1_correct</a></li></ul></li><li><a href=#Challenge2>Challenge2</a><ul><li><a href=#Challenge2-valid_valid%27>valid_valid'</a></li><li><a href=#Challenge2-valid%27_valid>valid'_valid</a></li><li><a href=#Challenge2-valid_eq_valid%27>valid_eq_valid'</a></li><li><a href=#Challenge2-replicate_iff>replicate_iff</a></li><li><a href=#Challenge2-replicate_iff2>replicate_iff2</a></li><li><a href=#Challenge2-replicate_Cons_eq>replicate_Cons_eq</a></li><li><a href=#Challenge2-valid_split>valid_split</a></li><li><a href=#Challenge2-lc0_aux>lc0_aux</a></li><li><a href=#Challenge2-lc0>lc0</a></li><li><a href=#Challenge2-lc1aux>lc1aux</a></li><li><a href=#Challenge2-lc2aux>lc2aux</a></li><li><a href=#Challenge2-valid_3R>valid_3R</a></li><li><a href=#Challenge2-lc3_aux>lc3_aux</a></li><li><a href=#Challenge2-lcounts_init>lcounts_init</a></li><li><a href=#Challenge2-finite_valid_length>finite_valid_length</a></li><li><a href=#Challenge2-valid_line_just_B>valid_line_just_B</a></li><li><a href=#Challenge2-valid_line_aux>valid_line_aux</a></li><li><a href=#Challenge2-replicate_unequal_aux>replicate_unequal_aux</a></li><li><a href=#Challenge2-valid_prepend_B_iff>valid_prepend_B_iff</a></li><li><a href=#Challenge2-lcrec>lcrec</a></li><li><a href=#Challenge2-sum_spec>sum_spec</a></li><li><a href=#Challenge2-valid_lineI>valid_lineI</a></li><li><a href=#Challenge2-valid_B_first>valid_B_first</a></li><li><a href=#Challenge2-valid_line_prepend_B>valid_line_prepend_B</a></li><li><a href=#Challenge2-valid_drop_B>valid_drop_B</a></li><li><a href=#Challenge2-valid_line_drop_B>valid_line_drop_B</a></li><li><a href=#Challenge2-valid_line_prepend_B_iff>valid_line_prepend_B_iff</a></li><li><a href=#Challenge2-cases_valid_line>cases_valid_line</a></li><li><a href=#Challenge2-valid_line_cases>valid_line_cases</a></li><li><a href=#Challenge2-valid_line_split>valid_line_split</a></li><li><a href=#Challenge2-valid_valid_line>valid_valid_line</a></li></ul></li><li><a href=#Challenge3>Challenge3</a><ul><li><a href=#Challenge3-N_gt0>N_gt0</a></li><li><a href=#Challenge3-never_blocked>never_blocked</a></li><li><a href=#Challenge3-has_ticket_simps>has_ticket_simps</a></li><li><a href=#Challenge3-locks_ticket_simps>locks_ticket_simps</a></li><li><a href=#Challenge3-holds_imp_uses>holds_imp_uses</a></li><li><a href=#Challenge3-is_invar1>is_invar1</a></li><li><a href=#Challenge3-mutual_exclusion%27>mutual_exclusion'</a></li><li><a href=#Challenge3-fair_aux>fair_aux</a></li><li><a href=#Challenge3-s_case_expand>s_case_expand</a></li><li><a href=#Challenge3-fair_aux2>fair_aux2</a></li><li><a href=#Challenge3-find_hold_position>find_hold_position</a></li><li><a href=#Challenge3-is_invar2>is_invar2</a></li><li><a href=#Challenge3-has_ticket_unique>has_ticket_unique</a></li><li><a href=#Challenge3-tkt_thread_eq>tkt_thread_eq</a></li><li><a href=#Challenge3-holds_only_current>holds_only_current</a></li><li><a href=#Challenge3-k_gt0>k_gt0</a></li><li><a href=#Challenge3-b_never_blocked>b_never_blocked</a></li><li><a href=#Challenge3-nat_sum_gtZ_iff>nat_sum_gtZ_iff</a></li><li><a href=#Challenge3-n_eq_Suc_sub1_conv>n_eq_Suc_sub1_conv</a></li><li><a href=#Challenge3-mod_mult_mod_eq>mod_mult_mod_eq</a></li><li><a href=#Challenge3-mod_eq_imp_eq_aux>mod_eq_imp_eq_aux</a></li><li><a href=#Challenge3-mod_eq_imp_eq>mod_eq_imp_eq</a></li><li><a href=#Challenge3-map_ticket_addsimps>map_ticket_addsimps</a></li><li><a href=#Challenge3-ni_weight_le1>ni_weight_le1</a></li><li><a href=#Challenge3-num_ni_init>num_ni_init</a></li><li><a href=#Challenge3-num_ni_upd>num_ni_upd</a></li><li><a href=#Challenge3-num_ni_nz_if>num_ni_nz_if</a></li><li><a href=#Challenge3-num_ni_leN>num_ni_leN</a></li><li><a href=#Challenge3-is_invar3>is_invar3</a></li><li><a href=#Challenge3-sraux>sraux</a></li><li><a href=#Challenge3-sraux2>sraux2</a></li><li><a href=#Challenge3-xfer_locks_ticket>xfer_locks_ticket</a></li><li><a href=#Challenge3-b_holds_only_current>b_holds_only_current</a></li><li><a href=#Challenge3-b_mutual_exclusion%27>b_mutual_exclusion'</a></li><li><a href=#Challenge3-xfer_has_ticket>xfer_has_ticket</a></li><li><a href=#Challenge3-has_ticket_in_range>has_ticket_in_range</a></li><li><a href=#Challenge3-b_has_ticket_unique>b_has_ticket_unique</a></li><li><a href=#Challenge3-c_never_blocked>c_never_blocked</a></li><li><a href=#Challenge3-is_invar4>is_invar4</a></li><li><a href=#Challenge3-is_REL_state_simps>is_REL_state_simps</a></li><li><a href=#Challenge3-is_REL_state_aux1>is_REL_state_aux1</a></li><li><a href=#Challenge3-is_REL_state_aux2>is_REL_state_aux2</a></li><li><a href=#Challenge3-xfer_holds>xfer_holds</a></li><li><a href=#Challenge3-xfer_waits>xfer_waits</a></li><li><a href=#Challenge3-xfer_init>xfer_init</a></li></ul></li></ul></div><ul><li><a href=https://www.isa-afp.org/browser_info/current/AFP/VerifyThis2018/outline.pdf>Proof
-outline</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/VerifyThis2018/document.pdf>Proof
-document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/VerifyThis2018/session_graph.pdf>Theory dependencies</a></li></ul></div></aside><div class="content theories"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
-<datalist id=autocomplete></datalist></div></form><h1><span class=first>S</span>ession <span class=first>V</span>erify<span class=first>T</span>his2018</h1><div></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><div id=Dynamic_Array><div class=head><h1>Theory Dynamic_Array</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Arrays with Dynamic Resizing›</span></span>
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Session VerifyThis2018 - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session VerifyThis2018">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="/entries/verifythis2018/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories">
+<meta property="og:site_name" content="Archive of Formal Proofs">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="/images/afp.png">
+<meta name=twitter:title content="Session VerifyThis2018">
+<meta name=twitter:description content>
+<link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css>
+<link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script>
+<script src=/js/banner.js></script><script src=/js/header-search.js></script></head>
+<body class=mathjax_ignore>
+<aside>
+<div>
+<div>
+<a href=/>
+<img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo>
+</a>
+<ul>
+<li><a href=/entries/verifythis2018>Return to entry</a></li>
+</ul>
+<hr>
+<ul><li><a href=#Dynamic_Array>Dynamic_Array</a>
+<ul>
+<li><a href=#Dynamic_Array-array_grow%27_rule>array_grow'_rule</a></li>
+<li><a href=#Dynamic_Array-dyn_array_new_sz_rl>dyn_array_new_sz_rl</a></li>
+<li><a href=#Dynamic_Array-array_get_dyn_rule>array_get_dyn_rule</a></li>
+<li><a href=#Dynamic_Array-nff_%ce%b1_upd>nff_α_upd</a></li>
+<li><a href=#Dynamic_Array-nff_%ce%b1_append_default>nff_α_append_default</a></li>
+<li><a href=#Dynamic_Array-array_set_dyn_rule>array_set_dyn_rule</a></li>
+</ul>
+</li><li><a href=#DRAT_Misc>DRAT_Misc</a>
+<ul>
+<li><a href=#DRAT_Misc-mbhd_insert_invar>mbhd_insert_invar</a></li>
+<li><a href=#DRAT_Misc-mbhd_insert_correct>mbhd_insert_correct</a></li>
+<li><a href=#DRAT_Misc-mbhd_invar_init>mbhd_invar_init</a></li>
+<li><a href=#DRAT_Misc-mbhd_invar_exit>mbhd_invar_exit</a></li>
+</ul>
+</li><li><a href=#Array_Map_Default>Array_Map_Default</a>
+<ul>
+<li><a href=#Array_Map_Default-is_unused_elem_pure>is_unused_elem_pure</a></li>
+<li><a href=#Array_Map_Default-amd1_empty_refine>amd1_empty_refine</a></li>
+<li><a href=#Array_Map_Default-amd1_lookup_refine>amd1_lookup_refine</a></li>
+<li><a href=#Array_Map_Default-amd1_update_refine>amd1_update_refine</a></li>
+<li><a href=#Array_Map_Default-amd1_delete_refine>amd1_delete_refine</a></li>
+<li><a href=#Array_Map_Default-amd_assn_fold2>amd_assn_fold2</a></li>
+<li><a href=#Array_Map_Default-amd2_empty_refine>amd2_empty_refine</a></li>
+<li><a href=#Array_Map_Default-amd2_lookup_refine>amd2_lookup_refine</a></li>
+<li><a href=#Array_Map_Default-amd2_update_refine>amd2_update_refine</a></li>
+<li><a href=#Array_Map_Default-amd2_delete_refine>amd2_delete_refine</a></li>
+<li><a href=#Array_Map_Default-amd2_update_hnr_aux>amd2_update_hnr_aux</a></li>
+<li><a href=#Array_Map_Default-op_map_update_id_param>op_map_update_id_param</a></li>
+<li><a href=#Array_Map_Default-doa_None_hnr>doa_None_hnr</a></li>
+<li><a href=#Array_Map_Default-doa_Some_hnr>doa_Some_hnr</a></li>
+<li><a href=#Array_Map_Default-doa_is_None_hnr>doa_is_None_hnr</a></li>
+<li><a href=#Array_Map_Default-doa_the_hnr>doa_the_hnr</a></li>
+<li><a href=#Array_Map_Default-cnv_option_case_2_if>cnv_option_case_2_if</a></li>
+<li><a href=#Array_Map_Default-fold_dflt_option>fold_dflt_option</a></li>
+<li><a href=#Array_Map_Default-eq_option_refine>eq_option_refine</a></li>
+</ul>
+</li><li><a href=#Synth_Definition>Synth_Definition</a>
+</li><li><a href=#Exc_Nres_Monad>Exc_Nres_Monad</a>
+<ul>
+<li><a href=#Exc_Nres_Monad-EASSUME_simps>EASSUME_simps</a></li>
+<li><a href=#Exc_Nres_Monad-EASSERT_simps>EASSERT_simps</a></li>
+<li><a href=#Exc_Nres_Monad-CHECK_simps>CHECK_simps</a></li>
+<li><a href=#Exc_Nres_Monad-pw_ESPEC>pw_ESPEC</a></li>
+<li><a href=#Exc_Nres_Monad-pw_ERETURN>pw_ERETURN</a></li>
+<li><a href=#Exc_Nres_Monad-pw_ebind>pw_ebind</a></li>
+<li><a href=#Exc_Nres_Monad-pw_THROW>pw_THROW</a></li>
+<li><a href=#Exc_Nres_Monad-pw_CHECK>pw_CHECK</a></li>
+<li><a href=#Exc_Nres_Monad-pw_EASSUME>pw_EASSUME</a></li>
+<li><a href=#Exc_Nres_Monad-pw_EASSERT>pw_EASSERT</a></li>
+<li><a href=#Exc_Nres_Monad-pw_CATCH>pw_CATCH</a></li>
+<li><a href=#Exc_Nres_Monad-pw_ele_iff>pw_ele_iff</a></li>
+<li><a href=#Exc_Nres_Monad-pw_eeq_iff>pw_eeq_iff</a></li>
+<li><a href=#Exc_Nres_Monad-enres_monad_laws>enres_monad_laws</a></li>
+<li><a href=#Exc_Nres_Monad-enres_additional_laws>enres_additional_laws</a></li>
+<li><a href=#Exc_Nres_Monad-ESPEC_cons>ESPEC_cons</a></li>
+<li><a href=#Exc_Nres_Monad-ebind_rule_iff>ebind_rule_iff</a></li>
+<li><a href=#Exc_Nres_Monad-ERETURN_rule_iff>ERETURN_rule_iff</a></li>
+<li><a href=#Exc_Nres_Monad-ESPEC_rule_iff>ESPEC_rule_iff</a></li>
+<li><a href=#Exc_Nres_Monad-THROW_rule_iff>THROW_rule_iff</a></li>
+<li><a href=#Exc_Nres_Monad-CATCH_rule_iff>CATCH_rule_iff</a></li>
+<li><a href=#Exc_Nres_Monad-CHECK_rule_iff>CHECK_rule_iff</a></li>
+<li><a href=#Exc_Nres_Monad-CHECK_rule>CHECK_rule</a></li>
+<li><a href=#Exc_Nres_Monad-EASSUME_rule>EASSUME_rule</a></li>
+<li><a href=#Exc_Nres_Monad-EASSERT_rule>EASSERT_rule</a></li>
+<li><a href=#Exc_Nres_Monad-eprod_rule>eprod_rule</a></li>
+<li><a href=#Exc_Nres_Monad-eprod2_rule>eprod2_rule</a></li>
+<li><a href=#Exc_Nres_Monad-eif_rule>eif_rule</a></li>
+<li><a href=#Exc_Nres_Monad-eoption_rule>eoption_rule</a></li>
+<li><a href=#Exc_Nres_Monad-eLet_rule>eLet_rule</a></li>
+<li><a href=#Exc_Nres_Monad-eLet_rule%27>eLet_rule'</a></li>
+<li><a href=#Exc_Nres_Monad-EWHILEIT_rule>EWHILEIT_rule</a></li>
+<li><a href=#Exc_Nres_Monad-EWHILET_rule>EWHILET_rule</a></li>
+<li><a href=#Exc_Nres_Monad-EWHILEIT_weaken>EWHILEIT_weaken</a></li>
+<li><a href=#Exc_Nres_Monad-EWHILEIT_expinv_rule>EWHILEIT_expinv_rule</a></li>
+<li><a href=#Exc_Nres_Monad-enfoldli_simps>enfoldli_simps</a></li>
+<li><a href=#Exc_Nres_Monad-enfoldli_rule>enfoldli_rule</a></li>
+<li><a href=#Exc_Nres_Monad-sum_rel_conv>sum_rel_conv</a></li>
+<li><a href=#Exc_Nres_Monad-RELATES_pat_erefine>RELATES_pat_erefine</a></li>
+<li><a href=#Exc_Nres_Monad-pw_econc_iff>pw_econc_iff</a></li>
+<li><a href=#Exc_Nres_Monad-econc_fun_id>econc_fun_id</a></li>
+<li><a href=#Exc_Nres_Monad-econc_fun_ESPEC>econc_fun_ESPEC</a></li>
+<li><a href=#Exc_Nres_Monad-econc_fun_ERETURN>econc_fun_ERETURN</a></li>
+<li><a href=#Exc_Nres_Monad-econc_fun_univ_id>econc_fun_univ_id</a></li>
+<li><a href=#Exc_Nres_Monad-erefine_same_sup_Id>erefine_same_sup_Id</a></li>
+<li><a href=#Exc_Nres_Monad-econc_mono3>econc_mono3</a></li>
+<li><a href=#Exc_Nres_Monad-econc_x_trans>econc_x_trans</a></li>
+<li><a href=#Exc_Nres_Monad-econc_econc_trans>econc_econc_trans</a></li>
+<li><a href=#Exc_Nres_Monad-ERETURN_refine>ERETURN_refine</a></li>
+<li><a href=#Exc_Nres_Monad-EASSERT_bind_refine_right>EASSERT_bind_refine_right</a></li>
+<li><a href=#Exc_Nres_Monad-EASSERT_bind_refine_left>EASSERT_bind_refine_left</a></li>
+<li><a href=#Exc_Nres_Monad-EASSUME_bind_refine_right>EASSUME_bind_refine_right</a></li>
+<li><a href=#Exc_Nres_Monad-EASSUME_bind_refine_left>EASSUME_bind_refine_left</a></li>
+<li><a href=#Exc_Nres_Monad-ebind_refine>ebind_refine</a></li>
+<li><a href=#Exc_Nres_Monad-ebind_refine%27>ebind_refine'</a></li>
+<li><a href=#Exc_Nres_Monad-THROW_refine>THROW_refine</a></li>
+<li><a href=#Exc_Nres_Monad-CATCH_refine%27>CATCH_refine'</a></li>
+<li><a href=#Exc_Nres_Monad-CATCH_refine>CATCH_refine</a></li>
+<li><a href=#Exc_Nres_Monad-CHECK_refine>CHECK_refine</a></li>
+<li><a href=#Exc_Nres_Monad-CHECK_bind_refine>CHECK_bind_refine</a></li>
+<li><a href=#Exc_Nres_Monad-Let_unfold_refine>Let_unfold_refine</a></li>
+<li><a href=#Exc_Nres_Monad-Let_refine>Let_refine</a></li>
+<li><a href=#Exc_Nres_Monad-eif_refine>eif_refine</a></li>
+<li><a href=#Exc_Nres_Monad-enfoldli_refine>enfoldli_refine</a></li>
+<li><a href=#Exc_Nres_Monad-EWHILET_refine>EWHILET_refine</a></li>
+<li><a href=#Exc_Nres_Monad-EWHILEIT_refine>EWHILEIT_refine</a></li>
+<li><a href=#Exc_Nres_Monad-remove_eLet_refine>remove_eLet_refine</a></li>
+<li><a href=#Exc_Nres_Monad-intro_eLet_refine>intro_eLet_refine</a></li>
+<li><a href=#Exc_Nres_Monad-ebind2let_refine>ebind2let_refine</a></li>
+<li><a href=#Exc_Nres_Monad-ebind_Let_refine2>ebind_Let_refine2</a></li>
+<li><a href=#Exc_Nres_Monad-ebind2letRETURN_refine>ebind2letRETURN_refine</a></li>
+<li><a href=#Exc_Nres_Monad-ERETURN_as_SPEC_refine>ERETURN_as_SPEC_refine</a></li>
+<li><a href=#Exc_Nres_Monad-if_ERETURN_refine>if_ERETURN_refine</a></li>
+<li><a href=#Exc_Nres_Monad-enres_lift_rule>enres_lift_rule</a></li>
+<li><a href=#Exc_Nres_Monad-enres_lift_fail>enres_lift_fail</a></li>
+<li><a href=#Exc_Nres_Monad-option_case_enbd>option_case_enbd</a></li>
+<li><a href=#Exc_Nres_Monad-CHECK_monadic_rule_iff>CHECK_monadic_rule_iff</a></li>
+<li><a href=#Exc_Nres_Monad-CHECK_monadic_pw>CHECK_monadic_pw</a></li>
+<li><a href=#Exc_Nres_Monad-CHECK_monadic_rule>CHECK_monadic_rule</a></li>
+<li><a href=#Exc_Nres_Monad-CHECK_monadic_refine>CHECK_monadic_refine</a></li>
+<li><a href=#Exc_Nres_Monad-CHECK_monadic_CHECK_refine>CHECK_monadic_CHECK_refine</a></li>
+<li><a href=#Exc_Nres_Monad-CHECK_monadic_endb>CHECK_monadic_endb</a></li>
+</ul>
+</li><li><a href=#VTcomp>VTcomp</a>
+<ul>
+<li><a href=#VTcomp-nfoldli_upt_rule>nfoldli_upt_rule</a></li>
+<li><a href=#VTcomp-efor_rule>efor_rule</a></li>
+<li><a href=#VTcomp-blit_len>blit_len</a></li>
+<li><a href=#VTcomp-array_blit_hnr_aux>array_blit_hnr_aux</a></li>
+</ul>
+</li><li><a href=#DF_System>DF_System</a>
+<ul>
+<li><a href=#DF_System-reachable0>reachable0</a></li>
+<li><a href=#DF_System-is_invarI>is_invarI</a></li>
+<li><a href=#DF_System-invar_reachable>invar_reachable</a></li>
+<li><a href=#DF_System-is_run_alt>is_run_alt</a></li>
+<li><a href=#DF_System-fair_run_is_run>fair_run_is_run</a></li>
+<li><a href=#DF_System-fair_run_is_fair%27>fair_run_is_fair'</a></li>
+<li><a href=#DF_System-run0>run0</a></li>
+<li><a href=#DF_System-run_reachable>run_reachable</a></li>
+<li><a href=#DF_System-run_invar>run_invar</a></li>
+<li><a href=#DF_System-stepE>stepE</a></li>
+<li><a href=#DF_System-next_step_step>next_step_step</a></li>
+<li><a href=#DF_System-nso_nostep>nso_nostep</a></li>
+<li><a href=#DF_System-rstep_cases>rstep_cases</a></li>
+<li><a href=#DF_System-xfer_reachable>xfer_reachable</a></li>
+<li><a href=#DF_System-xfer_run>xfer_run</a></li>
+<li><a href=#DF_System-xfer_fair_run>xfer_fair_run</a></li>
+<li><a href=#DF_System-sim_trans>sim_trans</a></li>
+<li><a href=#DF_System-simb%27>simb'</a></li>
+<li><a href=#DF_System-xfer_reachable_aux2>xfer_reachable_aux2</a></li>
+<li><a href=#DF_System-xfer_lrun_aux2>xfer_lrun_aux2</a></li>
+<li><a href=#DF_System-xfer_run_aux2>xfer_run_aux2</a></li>
+<li><a href=#DF_System-xfer_fair_run_aux2>xfer_fair_run_aux2</a></li>
+</ul>
+</li><li><a href=#Snippets>Snippets</a>
+<ul>
+<li><a href=#Snippets-find_elem_correct>find_elem_correct</a></li>
+<li><a href=#Snippets-find_elem_r1>find_elem_r1</a></li>
+<li><a href=#Snippets-check_prefix_correct>check_prefix_correct</a></li>
+<li><a href=#Snippets-is_prefix%27_correct>is_prefix'_correct</a></li>
+</ul>
+</li><li><a href=#Challenge1>Challenge1</a>
+<ul>
+<li><a href=#Challenge1-empty_pos>empty_pos</a></li>
+<li><a href=#Challenge1-empty_text>empty_text</a></li>
+<li><a href=#Challenge1-move_left_pos>move_left_pos</a></li>
+<li><a href=#Challenge1-move_left_text>move_left_text</a></li>
+<li><a href=#Challenge1-move_right_pos>move_right_pos</a></li>
+<li><a href=#Challenge1-move_right_text>move_right_text</a></li>
+<li><a href=#Challenge1-insert_pos>insert_pos</a></li>
+<li><a href=#Challenge1-insert_text>insert_text</a></li>
+<li><a href=#Challenge1-delete_pos>delete_pos</a></li>
+<li><a href=#Challenge1-delete_text>delete_text</a></li>
+<li><a href=#Challenge1-delete_text0>delete_text0</a></li>
+<li><a href=#Challenge1-empty1_correct>empty1_correct</a></li>
+<li><a href=#Challenge1-move_left1_correct>move_left1_correct</a></li>
+<li><a href=#Challenge1-move_right1_correct>move_right1_correct</a></li>
+<li><a href=#Challenge1-grow1_correct>grow1_correct</a></li>
+<li><a href=#Challenge1-insert1_correct>insert1_correct</a></li>
+<li><a href=#Challenge1-delete1_correct>delete1_correct</a></li>
+</ul>
+</li><li><a href=#Challenge1_short>Challenge1_short</a>
+<ul>
+<li><a href=#Challenge1_short-move_left1_correct>move_left1_correct</a></li>
+<li><a href=#Challenge1_short-move_right1_correct>move_right1_correct</a></li>
+<li><a href=#Challenge1_short-grow1_correct>grow1_correct</a></li>
+<li><a href=#Challenge1_short-insert1_correct>insert1_correct</a></li>
+<li><a href=#Challenge1_short-delete1_correct>delete1_correct</a></li>
+</ul>
+</li><li><a href=#Challenge2>Challenge2</a>
+<ul>
+<li><a href=#Challenge2-valid_valid%27>valid_valid'</a></li>
+<li><a href=#Challenge2-valid%27_valid>valid'_valid</a></li>
+<li><a href=#Challenge2-valid_eq_valid%27>valid_eq_valid'</a></li>
+<li><a href=#Challenge2-replicate_iff>replicate_iff</a></li>
+<li><a href=#Challenge2-replicate_iff2>replicate_iff2</a></li>
+<li><a href=#Challenge2-replicate_Cons_eq>replicate_Cons_eq</a></li>
+<li><a href=#Challenge2-valid_split>valid_split</a></li>
+<li><a href=#Challenge2-lc0_aux>lc0_aux</a></li>
+<li><a href=#Challenge2-lc0>lc0</a></li>
+<li><a href=#Challenge2-lc1aux>lc1aux</a></li>
+<li><a href=#Challenge2-lc2aux>lc2aux</a></li>
+<li><a href=#Challenge2-valid_3R>valid_3R</a></li>
+<li><a href=#Challenge2-lc3_aux>lc3_aux</a></li>
+<li><a href=#Challenge2-lcounts_init>lcounts_init</a></li>
+<li><a href=#Challenge2-finite_valid_length>finite_valid_length</a></li>
+<li><a href=#Challenge2-valid_line_just_B>valid_line_just_B</a></li>
+<li><a href=#Challenge2-valid_line_aux>valid_line_aux</a></li>
+<li><a href=#Challenge2-replicate_unequal_aux>replicate_unequal_aux</a></li>
+<li><a href=#Challenge2-valid_prepend_B_iff>valid_prepend_B_iff</a></li>
+<li><a href=#Challenge2-lcrec>lcrec</a></li>
+<li><a href=#Challenge2-sum_spec>sum_spec</a></li>
+<li><a href=#Challenge2-valid_lineI>valid_lineI</a></li>
+<li><a href=#Challenge2-valid_B_first>valid_B_first</a></li>
+<li><a href=#Challenge2-valid_line_prepend_B>valid_line_prepend_B</a></li>
+<li><a href=#Challenge2-valid_drop_B>valid_drop_B</a></li>
+<li><a href=#Challenge2-valid_line_drop_B>valid_line_drop_B</a></li>
+<li><a href=#Challenge2-valid_line_prepend_B_iff>valid_line_prepend_B_iff</a></li>
+<li><a href=#Challenge2-cases_valid_line>cases_valid_line</a></li>
+<li><a href=#Challenge2-valid_line_cases>valid_line_cases</a></li>
+<li><a href=#Challenge2-valid_line_split>valid_line_split</a></li>
+<li><a href=#Challenge2-valid_valid_line>valid_valid_line</a></li>
+</ul>
+</li><li><a href=#Challenge3>Challenge3</a>
+<ul>
+<li><a href=#Challenge3-N_gt0>N_gt0</a></li>
+<li><a href=#Challenge3-never_blocked>never_blocked</a></li>
+<li><a href=#Challenge3-has_ticket_simps>has_ticket_simps</a></li>
+<li><a href=#Challenge3-locks_ticket_simps>locks_ticket_simps</a></li>
+<li><a href=#Challenge3-holds_imp_uses>holds_imp_uses</a></li>
+<li><a href=#Challenge3-is_invar1>is_invar1</a></li>
+<li><a href=#Challenge3-mutual_exclusion%27>mutual_exclusion'</a></li>
+<li><a href=#Challenge3-fair_aux>fair_aux</a></li>
+<li><a href=#Challenge3-s_case_expand>s_case_expand</a></li>
+<li><a href=#Challenge3-fair_aux2>fair_aux2</a></li>
+<li><a href=#Challenge3-find_hold_position>find_hold_position</a></li>
+<li><a href=#Challenge3-is_invar2>is_invar2</a></li>
+<li><a href=#Challenge3-has_ticket_unique>has_ticket_unique</a></li>
+<li><a href=#Challenge3-tkt_thread_eq>tkt_thread_eq</a></li>
+<li><a href=#Challenge3-holds_only_current>holds_only_current</a></li>
+<li><a href=#Challenge3-k_gt0>k_gt0</a></li>
+<li><a href=#Challenge3-b_never_blocked>b_never_blocked</a></li>
+<li><a href=#Challenge3-nat_sum_gtZ_iff>nat_sum_gtZ_iff</a></li>
+<li><a href=#Challenge3-n_eq_Suc_sub1_conv>n_eq_Suc_sub1_conv</a></li>
+<li><a href=#Challenge3-mod_mult_mod_eq>mod_mult_mod_eq</a></li>
+<li><a href=#Challenge3-mod_eq_imp_eq_aux>mod_eq_imp_eq_aux</a></li>
+<li><a href=#Challenge3-mod_eq_imp_eq>mod_eq_imp_eq</a></li>
+<li><a href=#Challenge3-map_ticket_addsimps>map_ticket_addsimps</a></li>
+<li><a href=#Challenge3-ni_weight_le1>ni_weight_le1</a></li>
+<li><a href=#Challenge3-num_ni_init>num_ni_init</a></li>
+<li><a href=#Challenge3-num_ni_upd>num_ni_upd</a></li>
+<li><a href=#Challenge3-num_ni_nz_if>num_ni_nz_if</a></li>
+<li><a href=#Challenge3-num_ni_leN>num_ni_leN</a></li>
+<li><a href=#Challenge3-is_invar3>is_invar3</a></li>
+<li><a href=#Challenge3-sraux>sraux</a></li>
+<li><a href=#Challenge3-sraux2>sraux2</a></li>
+<li><a href=#Challenge3-xfer_locks_ticket>xfer_locks_ticket</a></li>
+<li><a href=#Challenge3-b_holds_only_current>b_holds_only_current</a></li>
+<li><a href=#Challenge3-b_mutual_exclusion%27>b_mutual_exclusion'</a></li>
+<li><a href=#Challenge3-xfer_has_ticket>xfer_has_ticket</a></li>
+<li><a href=#Challenge3-has_ticket_in_range>has_ticket_in_range</a></li>
+<li><a href=#Challenge3-b_has_ticket_unique>b_has_ticket_unique</a></li>
+<li><a href=#Challenge3-c_never_blocked>c_never_blocked</a></li>
+<li><a href=#Challenge3-is_invar4>is_invar4</a></li>
+<li><a href=#Challenge3-is_REL_state_simps>is_REL_state_simps</a></li>
+<li><a href=#Challenge3-is_REL_state_aux1>is_REL_state_aux1</a></li>
+<li><a href=#Challenge3-is_REL_state_aux2>is_REL_state_aux2</a></li>
+<li><a href=#Challenge3-xfer_holds>xfer_holds</a></li>
+<li><a href=#Challenge3-xfer_waits>xfer_waits</a></li>
+<li><a href=#Challenge3-xfer_init>xfer_init</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<ul>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/VerifyThis2018/outline.pdf>Proof
+outline</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/VerifyThis2018/document.pdf>Proof
+document</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/VerifyThis2018/session_graph.pdf>Theory dependencies</a></li>
+</ul>
+</div>
+</aside>
+<div class="content theories"><header>
+<form action=/%20search>
+<div class=form-container>
+<input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
+<datalist id=autocomplete>
+</datalist>
+</div>
+</form>
+<h1><span class=first>S</span>ession <span class=first>V</span>erify<span class=first>T</span>his2018</h1>
+<div>
+</div>
+</header><div id=banner data-id=0>
+<p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button>
+</div>
+<div><main>
+<div id=Dynamic_Array>
+<div class=head>
+<h1>Theory Dynamic_Array</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Arrays with Dynamic Resizing›</span></span>
 <span class=keyword1><span class=command>theory</span></span> Dynamic_Array
 <span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=../../refine_imperative_hol/theories/#IICF_List>Refine_Imperative_HOL.IICF_List</a>"</span> <span class=quoted>"<a href=../../separation_logic_imperative_hol/theories/#Array_Blit>Separation_Logic_Imperative_HOL.Array_Blit</a>"</span> <span class=quoted>"<a href=../../refine_imperative_hol/theories/#IICF_Array>Refine_Imperative_HOL.IICF_Array</a>"</span> <span class=quoted>"<a href=../../refine_imperative_hol/theories/#IICF_Map>Refine_Imperative_HOL.IICF_Map</a>"</span>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -78,7 +406,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Ve
 <span class=keyword2><span class=keyword>end</span></span>
 
 
-</pre></div><div id=DRAT_Misc><div class=head><h1>Theory DRAT_Misc</h1></div><pre class=source><span class=keyword1><span class=command>theory</span></span> DRAT_Misc
+</pre>
+</div><div id=DRAT_Misc>
+<div class=head>
+<h1>Theory DRAT_Misc</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>theory</span></span> DRAT_Misc
 <span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=../../refine_imperative_hol/theories/#IICF>Refine_Imperative_HOL.IICF</a>"</span>
 <span class=keyword2><span class=keyword>begin</span></span>
   
@@ -110,7 +443,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Ve
   <span class=keyword1><span class=command>unfolding</span></span> mbhd_invar_def <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>cases</span> <span class=quoted><span class=free>l</span></span><span class=main>)</span> <span class=operator>auto</span>
     
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Array_Map_Default><div class=head><h1>Theory Array_Map_Default</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Options and Maps with Default Value for None›</span></span>
+</pre>
+</div><div id=Array_Map_Default>
+<div class=head>
+<h1>Theory Array_Map_Default</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Options and Maps with Default Value for None›</span></span>
 <span class=keyword1><span class=command>theory</span></span> Array_Map_Default
 <span class=keyword2><span class=keyword>imports</span></span> <a href=#Dynamic_Array>Dynamic_Array</a> <a href=#DRAT_Misc>DRAT_Misc</a>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -395,7 +733,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Ve
 <span class=keyword2><span class=keyword>end</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Synth_Definition><div class=head><h1>Theory Synth_Definition</h1></div><pre class=source><span class=keyword1><span class=command>theory</span></span> Synth_Definition
+</pre>
+</div><div id=Synth_Definition>
+<div class=head>
+<h1>Theory Synth_Definition</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>theory</span></span> Synth_Definition
 <span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=../../automatic_refinement/theories/#Refine_Lib>Automatic_Refinement.Refine_Lib</a>"</span> <span class=quoted>"<a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL-Library/Rewrite.html>HOL-Library.Rewrite</a>"</span>
   <span class=quoted>"<a href=../../refine_imperative_hol/theories/#Sepref_Misc>Refine_Imperative_HOL.Sepref_Misc</a>"</span> <span class=comment1>(* FIXME: Some stuff we depend on has not yet been moved out from there! *)</span>
 <span class=keyword2><span class=keyword>keywords</span></span> <span class=quoted>"synth_definition"</span> <span class=main>::</span> thy_goal
@@ -493,7 +836,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Ve
 
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Exc_Nres_Monad><div class=head><h1>Theory Exc_Nres_Monad</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Exception Monad for Refine-Monadic›</span></span>
+</pre>
+</div><div id=Exc_Nres_Monad>
+<div class=head>
+<h1>Theory Exc_Nres_Monad</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Exception Monad for Refine-Monadic›</span></span>
 <span class=keyword1><span class=command>theory</span></span> Exc_Nres_Monad
 <span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=../../refine_monadic/theories/#Refine_Monadic>Refine_Monadic.Refine_Monadic</a>"</span> <a href=#DRAT_Misc>DRAT_Misc</a>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -1252,7 +1600,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Ve
   
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=VTcomp><div class=head><h1>Theory VTcomp</h1></div><pre class=source><span class=keyword1><span class=command>chapter</span></span> <span class=quoted><span class=plain_text>‹VT-Comp Library Setup›</span></span>
+</pre>
+</div><div id=VTcomp>
+<div class=head>
+<h1>Theory VTcomp</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>chapter</span></span> <span class=quoted><span class=plain_text>‹VT-Comp Library Setup›</span></span>
 <span class=keyword1><span class=command>theory</span></span> VTcomp
 <span class=keyword2><span class=keyword>imports</span></span> 
   <a href=#Array_Map_Default>Array_Map_Default</a>
@@ -1383,7 +1736,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Ve
   <span class=keyword2><span class=keyword>end</span></span>  
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=DF_System><div class=head><h1>Theory DF_System</h1></div><pre class=source><span class=keyword1><span class=command>chapter</span></span> <span class=quoted><span class=plain_text>‹Deadlock Free Transition Systems›</span></span>
+</pre>
+</div><div id=DF_System>
+<div class=head>
+<h1>Theory DF_System</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>chapter</span></span> <span class=quoted><span class=plain_text>‹Deadlock Free Transition Systems›</span></span>
 <span class=keyword1><span class=command>theory</span></span> DF_System
 <span class=keyword2><span class=keyword>imports</span></span> <a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL/Main.html>Main</a>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -1690,7 +2048,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Ve
   
 <span class=keyword2><span class=keyword>end</span></span>
 
-</pre></div><div id=Snippets><div class=head><h1>Theory Snippets</h1></div><pre class=source><span class=keyword1><span class=command>chapter</span></span> <span class=quoted><span class=plain_text>‹Code Snippets›</span></span>
+</pre>
+</div><div id=Snippets>
+<div class=head>
+<h1>Theory Snippets</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>chapter</span></span> <span class=quoted><span class=plain_text>‹Code Snippets›</span></span>
 <span class=keyword1><span class=command>theory</span></span> Snippets
 <span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=#VTcomp>lib/VTcomp</a>"</span>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -1914,7 +2277,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Ve
   
   
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Challenge1><div class=head><h1>Theory Challenge1</h1></div><pre class=source><span class=keyword1><span class=command>chapter</span></span> <span class=quoted><span class=plain_text>‹Gap Buffer›</span></span>
+</pre>
+</div><div id=Challenge1>
+<div class=head>
+<h1>Theory Challenge1</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>chapter</span></span> <span class=quoted><span class=plain_text>‹Gap Buffer›</span></span>
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Challenge›</span></span>
 <span class=keyword1><span class=command>text_raw</span></span> <span class=quoted><span class=plain_text>‹{\upshape
 A gap buffer is a data structure for the implementation of text editors,
@@ -2322,7 +2690,12 @@ end-procedure
   ›</span>      
         
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Challenge1_short><div class=head><h1>Theory Challenge1_short</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Shorter Solution›</span></span>
+</pre>
+</div><div id=Challenge1_short>
+<div class=head>
+<h1>Theory Challenge1_short</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Shorter Solution›</span></span>
 <span class=keyword1><span class=command>theory</span></span> Challenge1_short
 <span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=#VTcomp>lib/VTcomp</a>"</span>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -2519,7 +2892,12 @@ end-procedure
     
         
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Challenge2><div class=head><h1>Theory Challenge2</h1></div><pre class=source><span class=keyword1><span class=command>chapter</span></span> <span class=quoted><span class=plain_text>‹Colored Tiles›</span></span>
+</pre>
+</div><div id=Challenge2>
+<div class=head>
+<h1>Theory Challenge2</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>chapter</span></span> <span class=quoted><span class=plain_text>‹Colored Tiles›</span></span>
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Challenge›</span></span>
 <span class=keyword1><span class=command>text_raw</span></span> <span class=quoted><span class=plain_text>‹{\upshape
 This problem is based on Project Euler problem \#114.
@@ -3120,7 +3498,12 @@ a nice specification of a valid coloring and to prove the following properties:
   <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>induction</span> <span class=quoted><span class=free>l</span></span> <span class=quasi_keyword>rule</span><span class=main><span class=main>:</span></span> length_induct<span class=main><span class=keyword3>,</span></span> <span class=operator>subst</span> valid_line_split<span class=main><span class=keyword3>,</span></span> <span class=operator>subst</span> valid_split<span class=main><span class=keyword3>,</span></span> <span class=operator>auto</span><span class=main>)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Challenge3><div class=head><h1>Theory Challenge3</h1></div><pre class=source><span class=keyword1><span class=command>chapter</span></span> <span class=quoted><span class=plain_text>‹Array-Based Queuing Lock›</span></span>
+</pre>
+</div><div id=Challenge3>
+<div class=head>
+<h1>Theory Challenge3</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>chapter</span></span> <span class=quoted><span class=plain_text>‹Array-Based Queuing Lock›</span></span>
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Challenge›</span></span>
 <span class=keyword1><span class=command>text_raw</span></span> <span class=quoted><span class=plain_text>‹{\upshape
 Array-Based Queuing Lock (ABQL)
@@ -4432,4 +4815,10 @@ the non-deterministic behaviour of the scheduler shall be preserved.
   <span class=keyword1><span class=command>qed</span></span>  
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div></main></div></div></body></html>
+</pre>
+</div>
+</main>
+</div>
+</div>
+</body>
+</html>

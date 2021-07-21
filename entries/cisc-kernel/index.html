@@ -1,5 +1,64 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Formal Specification of a Generic Separation Kernel - Archive of Formal Proofs</title><meta name=description content=" Intransitive noninterference has been a widely studied topic in the last few decades. Several well-established methodologies apply interactive theorem..."><meta property="og:title" content="Formal Specification of a Generic Separation Kernel"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/cisc-kernel/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="entries"><meta property="article:published_time" content="2014-07-18T00:00:00+00:00"><meta property="article:modified_time" content="2014-07-18T00:00:00+00:00"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Formal Specification of a Generic Separation Kernel"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=icon href=/images/favicon.ico type=image/icon><script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]},processEscapes:!0,svg:{fontCache:'global'}}</script><script id=MathJax-script async src=/js/mathjax/es5/tex-mml-chtml.js></script><script src=/js/entries.js></script><script src=/js/flexsearch.min.js></script><script src=/js/banner.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><li><a href=/>Home</a></li><li><a href=/topics/>Topics</a></li><li><a href=/download/>Download</a></li><li><a href=/help/>Help</a></li><li><a href=/statistics/>Statistics</a></li><li><a href=/about/>About</a></li></ul></div><ul><li><a href=/contribution/>Contribution</a></li></ul></div></aside><div class="content entries"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
-<datalist id=autocomplete></datalist></div></form><h1><span class=first>F</span>ormal <span class=first>S</span>pecification of a <span class=first>G</span>eneric <span class=first>S</span>eparation <span class=first>K</span>ernel</h1><div><p><a href=/authors/freek-verbeek>Freek Verbeek</a>, <a href=/authors/sergey-tverdyshev>Sergey Tverdyshev</a>, <a href=/authors/oto-havle>Oto Havle</a>, <a href=/authors/holger-blasum>Holger Blasum</a>, <a href=/authors/bruno-langenstein>Bruno Langenstein</a>, <a href=/authors/werner-stephan>Werner Stephan</a>, <a href=/authors/yakoub-nemouchi>Yakoub Nemouchi</a>, <a href=/authors/abderrahmane-feliachi>Abderrahmane Feliachi</a>, <a href=/authors/burkhart-wolff>Burkhart Wolff</a> and <a href=/authors/julien-schmaltz>Julien Schmaltz</a></p><p class=date>18 July 2014</p></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><h3>Abstract</h3><div class="abstract mathjax_process"><p>Intransitive noninterference has been a widely studied topic in the last
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Formal Specification of a Generic Separation Kernel - Archive of Formal Proofs</title><meta name=description content=" Intransitive noninterference has been a widely studied topic in the last few decades. Several well-established methodologies apply interactive theorem..."><meta property="og:title" content="Formal Specification of a Generic Separation Kernel">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="/entries/cisc-kernel/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="entries">
+<meta property="article:published_time" content="2014-07-18T00:00:00+00:00">
+<meta property="article:modified_time" content="2014-07-18T00:00:00+00:00"><meta property="og:site_name" content="Archive of Formal Proofs">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="/images/afp.png">
+<meta name=twitter:title content="Formal Specification of a Generic Separation Kernel">
+<meta name=twitter:description content>
+<link rel=stylesheet type=text/css href=/css/front.min.css>
+<link rel=icon href=/images/favicon.ico type=image/icon>
+<script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]},processEscapes:!0,svg:{fontCache:'global'}}</script>
+<script id=MathJax-script async src=/js/mathjax/es5/tex-mml-chtml.js></script>
+<script src=/js/entries.js></script><script src=/js/flexsearch.min.js></script>
+<script src=/js/banner.js></script><script src=/js/header-search.js></script></head>
+<body class=mathjax_ignore>
+<aside>
+<div>
+<div>
+<a href=/>
+<img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo>
+</a>
+<ul>
+<li><a href=/>Home</a></li>
+<li><a href=/topics/>Topics</a></li>
+<li><a href=/download/>Download</a></li>
+<li><a href=/help/>Help</a></li>
+<li><a href=/statistics/>Statistics</a></li>
+<li><a href=/about/>About</a></li>
+</ul>
+</div>
+<ul>
+<li><a href=/contribution/>Contribution</a></li>
+</ul>
+</div>
+</aside>
+<div class="content entries"><header>
+<form action=/%20search>
+<div class=form-container>
+<input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
+<datalist id=autocomplete>
+</datalist>
+</div>
+</form>
+<h1><span class=first>F</span>ormal <span class=first>S</span>pecification of a <span class=first>G</span>eneric <span class=first>S</span>eparation <span class=first>K</span>ernel</h1>
+<div>
+<p><a href=/authors/freek-verbeek>Freek Verbeek</a>, <a href=/authors/sergey-tverdyshev>Sergey Tverdyshev</a>, <a href=/authors/oto-havle>Oto Havle</a>, <a href=/authors/holger-blasum>Holger Blasum</a>, <a href=/authors/bruno-langenstein>Bruno Langenstein</a>, <a href=/authors/werner-stephan>Werner Stephan</a>, <a href=/authors/yakoub-nemouchi>Yakoub Nemouchi</a>, <a href=/authors/abderrahmane-feliachi>Abderrahmane Feliachi</a>, <a href=/authors/burkhart-wolff>Burkhart Wolff</a> and <a href=/authors/julien-schmaltz>Julien Schmaltz</a>
+</p>
+<p class=date>18 July 2014</p>
+</div>
+</header><div id=banner data-id=0>
+<p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button>
+</div>
+<div><main>
+<h3>Abstract</h3>
+<div class="abstract mathjax_process"><p>Intransitive noninterference has been a widely studied topic in the last
 few decades. Several well-established methodologies apply interactive
 theorem proving to formulate a noninterference theorem over abstract
 academic models. In joint work with several industrial and academic partners
@@ -9,13 +68,32 @@ established theories could not be applied. We present a new generic model of
 separation kernels and a new theory of intransitive noninterference. The
 model is rich in detail, making it suitable for formal verification of
 realistic and industrial systems such as PikeOS. Using a refinement-based
-theorem proving approach, we ensure that proofs remain manageable.</p><p>This document corresponds to the deliverable D31.1 of the EURO-MILS
-Project <a href=http://www.euromils.eu>http://www.euromils.eu</a>.</p></div><a href=http://isa-afp.org/LICENSE>BSD License</a><h3>Topics</h3><ul><li><a href=/topics/computer-science/security>Computer science/Security</a></li></ul><h3>Theories</h3><ul><li><a href=theories/#Option_Binders>Option_Binders</a></li><li><a href=theories/#List_Theorems>List_Theorems</a></li><li><a href=theories/#K>K</a></li><li><a href=theories/#SK>SK</a></li><li><a href=theories/#ISK>ISK</a></li><li><a href=theories/#CISK>CISK</a></li><li><a href=theories/#Step_configuration>Step_configuration</a></li><li><a href=theories/#Step_policies>Step_policies</a></li><li><a href=theories/#Step>Step</a></li><li><a href=theories/#Step_invariants>Step_invariants</a></li><li><a href=theories/#Step_vpeq>Step_vpeq</a></li><li><a href=theories/#Step_vpeq_locally_respects>Step_vpeq_locally_respects</a></li><li><a href=theories/#Step_vpeq_weakly_step_consistent>Step_vpeq_weakly_step_consistent</a></li><li><a href=theories/#Separation_kernel_model>Separation_kernel_model</a></li><li><a href=theories/#Link_separation_kernel_model_to_CISK>Link_separation_kernel_model_to_CISK</a></li></ul></main><nav class=links><a class=popUpButton href=#citePopUp>Cite</a>
-<a class=popUpButton href=#downloadPopUp>Download</a><h4>PDFs</h4><a href=https://www.isa-afp.org/browser_info/current/AFP/CISC-Kernel/outline.pdf>Proof
+theorem proving approach, we ensure that proofs remain manageable.</p>
+<p>
+This document corresponds to the deliverable D31.1 of the EURO-MILS
+Project <a href=http://www.euromils.eu>http://www.euromils.eu</a>.</p></div><a href=http://isa-afp.org/LICENSE>BSD License</a><h3>Topics</h3>
+<ul><li><a href=/topics/computer-science/security>Computer science/Security</a></li></ul><h3>Theories</h3>
+<ul>
+<li><a href=theories/#Option_Binders>Option_Binders</a></li><li><a href=theories/#List_Theorems>List_Theorems</a></li><li><a href=theories/#K>K</a></li><li><a href=theories/#SK>SK</a></li><li><a href=theories/#ISK>ISK</a></li><li><a href=theories/#CISK>CISK</a></li><li><a href=theories/#Step_configuration>Step_configuration</a></li><li><a href=theories/#Step_policies>Step_policies</a></li><li><a href=theories/#Step>Step</a></li><li><a href=theories/#Step_invariants>Step_invariants</a></li><li><a href=theories/#Step_vpeq>Step_vpeq</a></li><li><a href=theories/#Step_vpeq_locally_respects>Step_vpeq_locally_respects</a></li><li><a href=theories/#Step_vpeq_weakly_step_consistent>Step_vpeq_weakly_step_consistent</a></li><li><a href=theories/#Separation_kernel_model>Separation_kernel_model</a></li><li><a href=theories/#Link_separation_kernel_model_to_CISK>Link_separation_kernel_model_to_CISK</a></li></ul>
+</main>
+<nav class=links>
+<a class=popUpButton href=#citePopUp>Cite</a>
+<a class=popUpButton href=#downloadPopUp>Download</a>
+<h4>PDFs</h4>
+<a href=https://www.isa-afp.org/browser_info/current/AFP/CISC-Kernel/outline.pdf>Proof
 outline</a>
 <a href=https://www.isa-afp.org/browser_info/current/AFP/CISC-Kernel/document.pdf>Proof
 document</a>
-<a href=https://www.isa-afp.org/browser_info/current/AFP/CISC-Kernel/session_graph.pdf>Dependencies</a></nav><div id=citePopUp class=overlay><a class=cancel href=#></a><div class=popup><h2>Cite</h2><a class=close href=#>&#215;</a><div><p style=display:none id=bibtexFileName>CISC-Kernel-AFP</p><pre id=copyText>@article{CISC-Kernel-AFP,
+<a href=https://www.isa-afp.org/browser_info/current/AFP/CISC-Kernel/session_graph.pdf>Dependencies</a>
+</nav>
+<div id=citePopUp class=overlay>
+<a class=cancel href=#></a>
+<div class=popup>
+<h2>Cite</h2>
+<a class=close href=#>&#215;</a>
+<div>
+<p style=display:none id=bibtexFileName>CISC-Kernel-AFP</p>
+<pre id=copyText>@article{CISC-Kernel-AFP,
   author  = {Freek Verbeek, Sergey Tverdyshev, Oto Havle, Holger Blasum, Bruno Langenstein, Werner Stephan, Yakoub Nemouchi, Abderrahmane Feliachi, Burkhart Wolff and Julien Schmaltz},
   title   = {Formal Specification of a Generic Separation Kernel},
   journal = {Archive of Formal Proofs},
@@ -24,13 +102,54 @@ document</a>
   note    = {\url{http://isa-afp.org/entries/CISC-Kernel.html},
             Formal proof development},
   ISSN    = {2150-914x},
-}</pre><button id=copyBibtex>Copy</button> <a id=downloadBibtex>Download</a></div></div></div><div id=downloadPopUp class=overlay><a class=cancel href=#></a><div class=popup><h2>Download</h2><a class=close href=#>&#215;</a>
-<a href=https://isa-afp.org/release/afp-CISC-Kernel-current.tar.gz download>Download latest</a><p>Older releases:</p><ul><li>Isabelle2019:
-<a href=https://isa-afp.org/release/afp-CISC-Kernel-2019-06-11.tar.gz>afp-CISC-Kernel-2019-06-11.tar.gz</a></li><li>Isabelle2018:
-<a href=https://isa-afp.org/release/afp-CISC-Kernel-2018-08-16.tar.gz>afp-CISC-Kernel-2018-08-16.tar.gz</a></li><li>Isabelle2017:
-<a href=https://isa-afp.org/release/afp-CISC-Kernel-2017-10-10.tar.gz>afp-CISC-Kernel-2017-10-10.tar.gz</a></li><li>Isabelle2016-1:
-<a href=https://isa-afp.org/release/afp-CISC-Kernel-2016-12-17.tar.gz>afp-CISC-Kernel-2016-12-17.tar.gz</a></li><li>Isabelle2016:
-<a href=https://isa-afp.org/release/afp-CISC-Kernel-2016-02-22.tar.gz>afp-CISC-Kernel-2016-02-22.tar.gz</a></li><li>Isabelle2015:
-<a href=https://isa-afp.org/release/afp-CISC-Kernel-2015-05-27.tar.gz>afp-CISC-Kernel-2015-05-27.tar.gz</a></li><li>Isabelle2014:
-<a href=https://isa-afp.org/release/afp-CISC-Kernel-2014-08-28.tar.gz>afp-CISC-Kernel-2014-08-28.tar.gz</a></li><li>Isabelle2013-2:
-<a href=https://isa-afp.org/release/afp-CISC-Kernel-2014-07-18.tar.gz>afp-CISC-Kernel-2014-07-18.tar.gz</a></li></ul></div></div></div></div></body></html>
+}</pre>
+<button id=copyBibtex>Copy</button> <a id=downloadBibtex>Download</a>
+</div>
+</div>
+</div>
+<div id=downloadPopUp class=overlay>
+<a class=cancel href=#></a>
+<div class=popup>
+<h2>Download</h2>
+<a class=close href=#>&#215;</a>
+<a href=https://isa-afp.org/release/afp-CISC-Kernel-current.tar.gz download>Download latest</a>
+<p>Older releases:</p>
+<ul><li>Isabelle2019:
+<a href=https://isa-afp.org/release/afp-CISC-Kernel-2019-06-11.tar.gz>
+afp-CISC-Kernel-2019-06-11.tar.gz
+</a>
+</li><li>Isabelle2018:
+<a href=https://isa-afp.org/release/afp-CISC-Kernel-2018-08-16.tar.gz>
+afp-CISC-Kernel-2018-08-16.tar.gz
+</a>
+</li><li>Isabelle2017:
+<a href=https://isa-afp.org/release/afp-CISC-Kernel-2017-10-10.tar.gz>
+afp-CISC-Kernel-2017-10-10.tar.gz
+</a>
+</li><li>Isabelle2016-1:
+<a href=https://isa-afp.org/release/afp-CISC-Kernel-2016-12-17.tar.gz>
+afp-CISC-Kernel-2016-12-17.tar.gz
+</a>
+</li><li>Isabelle2016:
+<a href=https://isa-afp.org/release/afp-CISC-Kernel-2016-02-22.tar.gz>
+afp-CISC-Kernel-2016-02-22.tar.gz
+</a>
+</li><li>Isabelle2015:
+<a href=https://isa-afp.org/release/afp-CISC-Kernel-2015-05-27.tar.gz>
+afp-CISC-Kernel-2015-05-27.tar.gz
+</a>
+</li><li>Isabelle2014:
+<a href=https://isa-afp.org/release/afp-CISC-Kernel-2014-08-28.tar.gz>
+afp-CISC-Kernel-2014-08-28.tar.gz
+</a>
+</li><li>Isabelle2013-2:
+<a href=https://isa-afp.org/release/afp-CISC-Kernel-2014-07-18.tar.gz>
+afp-CISC-Kernel-2014-07-18.tar.gz
+</a>
+</li></ul>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

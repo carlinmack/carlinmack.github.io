@@ -1,7 +1,290 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Session SuperCalc - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session SuperCalc"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/supercalc/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Session SuperCalc"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css><link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script><script src=/js/banner.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><li><a href=/entries/supercalc>Return to entry</a></li></ul><hr><ul><li><a href=#multisets_continued>multisets_continued</a><ul><li><a href=#multisets_continued-mset_set_inclusion>mset_set_inclusion</a></li><li><a href=#multisets_continued-mset_ordering_addition>mset_ordering_addition</a></li><li><a href=#multisets_continued-equal_image_mset>equal_image_mset</a></li><li><a href=#multisets_continued-multiset_order_inclusion>multiset_order_inclusion</a></li><li><a href=#multisets_continued-multiset_order_inclusion_eq>multiset_order_inclusion_eq</a></li><li><a href=#multisets_continued-image_mset_ordering>image_mset_ordering</a></li><li><a href=#multisets_continued-image_mset_ordering_eq>image_mset_ordering_eq</a></li><li><a href=#multisets_continued-mult1_def_lemma>mult1_def_lemma</a></li><li><a href=#multisets_continued-mset_ordering_add1>mset_ordering_add1</a></li><li><a href=#multisets_continued-mset_ordering_singleton>mset_ordering_singleton</a></li><li><a href=#multisets_continued-monotonic_fun_mult1>monotonic_fun_mult1</a></li><li><a href=#multisets_continued-monotonic_fun_mult>monotonic_fun_mult</a></li><li><a href=#multisets_continued-mset_set_insert_eq>mset_set_insert_eq</a></li><li><a href=#multisets_continued-mset_set_insert>mset_set_insert</a></li><li><a href=#multisets_continued-mset_image_comp>mset_image_comp</a></li><li><a href=#multisets_continued-mset_set_mset_image>mset_set_mset_image</a></li><li><a href=#multisets_continued-split_mset_set>split_mset_set</a></li><li><a href=#multisets_continued-image_mset_thm>image_mset_thm</a></li><li><a href=#multisets_continued-split_image_mset>split_image_mset</a></li></ul></li><li><a href=#well_founded_continued>well_founded_continued</a><ul><li><a href=#well_founded_continued-measure_wf>measure_wf</a></li><li><a href=#well_founded_continued-finite_proj_wf>finite_proj_wf</a></li></ul></li><li><a href=#terms>terms</a><ul><li><a href=#terms-constants_are_not_variables>constants_are_not_variables</a></li><li><a href=#terms-constants_are_ground>constants_are_ground</a></li><li><a href=#terms-replace_subterm_is_a_function>replace_subterm_is_a_function</a></li><li><a href=#terms-root_subterm>root_subterm</a></li><li><a href=#terms-root_position>root_position</a></li><li><a href=#terms-subterms_of_an_atomic_term>subterms_of_an_atomic_term</a></li><li><a href=#terms-positions_of_an_atomic_term>positions_of_an_atomic_term</a></li><li><a href=#terms-subterm_of_a_subterm_is_a_subterm>subterm_of_a_subterm_is_a_subterm</a></li><li><a href=#terms-occur_in_subterm>occur_in_subterm</a></li><li><a href=#terms-vars_of_subterm>vars_of_subterm</a></li><li><a href=#terms-vars_subterm>vars_subterm</a></li><li><a href=#terms-vars_subterms_of>vars_subterms_of</a></li><li><a href=#terms-subterms_of_a_non_atomic_term>subterms_of_a_non_atomic_term</a></li><li><a href=#terms-positions_of_a_non_atomic_term>positions_of_a_non_atomic_term</a></li><li><a href=#terms-set_of_subterms_is_finite>set_of_subterms_is_finite</a></li><li><a href=#terms-set_of_positions_is_finite>set_of_positions_is_finite</a></li><li><a href=#terms-vars_of_instances>vars_of_instances</a></li><li><a href=#terms-subterms_of_instances>subterms_of_instances</a></li><li><a href=#terms-vars_of_replacement>vars_of_replacement</a></li><li><a href=#terms-vars_of_replacement_set>vars_of_replacement_set</a></li><li><a href=#terms-subst_codomain_is_finite>subst_codomain_is_finite</a></li><li><a href=#terms-subt_decompose>subt_decompose</a></li><li><a href=#terms-subt_irrefl>subt_irrefl</a></li><li><a href=#terms-MGU_exists>MGU_exists</a></li><li><a href=#terms-comp_subst_terms>comp_subst_terms</a></li><li><a href=#terms-ground_instance>ground_instance</a></li><li><a href=#terms-substs_preserve_groundness>substs_preserve_groundness</a></li><li><a href=#terms-ground_subst_exists>ground_subst_exists</a></li><li><a href=#terms-substs_preserve_ground_terms>substs_preserve_ground_terms</a></li><li><a href=#terms-substs_preserve_subterms>substs_preserve_subterms</a></li><li><a href=#terms-substs_preserve_occurs_in>substs_preserve_occurs_in</a></li><li><a href=#terms-coincide_sym>coincide_sym</a></li><li><a href=#terms-coincide_on_term>coincide_on_term</a></li><li><a href=#terms-ground_replacement>ground_replacement</a></li><li><a href=#terms-combine_substs>combine_substs</a></li><li><a href=#terms-map_subst_lemma>map_subst_lemma</a></li><li><a href=#terms-replacement_preserves_congruences>replacement_preserves_congruences</a></li><li><a href=#terms-equivalent_on_term>equivalent_on_term</a></li><li><a href=#terms-renamings_admit_inverse>renamings_admit_inverse</a></li><li><a href=#terms-renaming_exists>renaming_exists</a></li></ul></li><li><a href=#equational_clausal_logic>equational_clausal_logic</a><ul><li><a href=#equational_clausal_logic-decompose_equation_vars>decompose_equation_vars</a></li><li><a href=#equational_clausal_logic-decompose_literal_vars>decompose_literal_vars</a></li><li><a href=#equational_clausal_logic-vars_of_cl_lem>vars_of_cl_lem</a></li><li><a href=#equational_clausal_logic-set_of_variables_is_finite_eq>set_of_variables_is_finite_eq</a></li><li><a href=#equational_clausal_logic-set_of_variables_is_finite_lit>set_of_variables_is_finite_lit</a></li><li><a href=#equational_clausal_logic-set_of_variables_is_finite_cl>set_of_variables_is_finite_cl</a></li><li><a href=#equational_clausal_logic-subterm_lit_vars>subterm_lit_vars</a></li><li><a href=#equational_clausal_logic-subterm_vars>subterm_vars</a></li><li><a href=#equational_clausal_logic-subterm_cl_subst>subterm_cl_subst</a></li><li><a href=#equational_clausal_logic-ground_substs_yield_ground_clause>ground_substs_yield_ground_clause</a></li><li><a href=#equational_clausal_logic-ground_clauses_and_ground_substs>ground_clauses_and_ground_substs</a></li><li><a href=#equational_clausal_logic-ground_instance_exists>ground_instance_exists</a></li><li><a href=#equational_clausal_logic-composition_of_substs>composition_of_substs</a></li><li><a href=#equational_clausal_logic-composition_of_substs_eq>composition_of_substs_eq</a></li><li><a href=#equational_clausal_logic-composition_of_substs_lit>composition_of_substs_lit</a></li><li><a href=#equational_clausal_logic-composition_of_substs_cl>composition_of_substs_cl</a></li><li><a href=#equational_clausal_logic-substs_preserve_ground_lit>substs_preserve_ground_lit</a></li><li><a href=#equational_clausal_logic-substs_preserve_ground_clause>substs_preserve_ground_clause</a></li><li><a href=#equational_clausal_logic-substs_preserve_finiteness>substs_preserve_finiteness</a></li><li><a href=#equational_clausal_logic-subst_eq_eq>subst_eq_eq</a></li><li><a href=#equational_clausal_logic-subst_eq_lit>subst_eq_lit</a></li><li><a href=#equational_clausal_logic-subst_eq_cl>subst_eq_cl</a></li><li><a href=#equational_clausal_logic-coincide_on_eq>coincide_on_eq</a></li><li><a href=#equational_clausal_logic-coincide_on_lit>coincide_on_lit</a></li><li><a href=#equational_clausal_logic-coincide_on_cl>coincide_on_cl</a></li><li><a href=#equational_clausal_logic-set_entails_clause_member>set_entails_clause_member</a></li><li><a href=#equational_clausal_logic-instances_are_entailed>instances_are_entailed</a></li><li><a href=#equational_clausal_logic-equivalent_on_eq>equivalent_on_eq</a></li><li><a href=#equational_clausal_logic-equivalent_on_lit>equivalent_on_lit</a></li><li><a href=#equational_clausal_logic-equivalent_on_cl>equivalent_on_cl</a></li></ul></li><li><a href=#superposition>superposition</a><ul><li><a href=#superposition-lift_orient_lit>lift_orient_lit</a></li><li><a href=#superposition-orient_lit_vars>orient_lit_vars</a></li><li><a href=#superposition-orient_lit_inst_vars>orient_lit_inst_vars</a></li><li><a href=#superposition-orient_lit_inst_coincide>orient_lit_inst_coincide</a></li><li><a href=#superposition-orient_lit_inst_subterms>orient_lit_inst_subterms</a></li><li><a href=#superposition-mset_ecl_and_mset_lit>mset_ecl_and_mset_lit</a></li><li><a href=#superposition-ecl_ord_coincide>ecl_ord_coincide</a></li><li><a href=#superposition-mult_trm_ord_trans>mult_trm_ord_trans</a></li><li><a href=#superposition-lit_ord_trans>lit_ord_trans</a></li><li><a href=#superposition-lit_ord_wf>lit_ord_wf</a></li><li><a href=#superposition-mult_mult_trm_ord_trans>mult_mult_trm_ord_trans</a></li><li><a href=#superposition-ecl_ord_trans>ecl_ord_trans</a></li><li><a href=#superposition-cl_ord_trans>cl_ord_trans</a></li><li><a href=#superposition-cl_ord_eq_trans>cl_ord_eq_trans</a></li><li><a href=#superposition-wf_ecl_ord>wf_ecl_ord</a></li><li><a href=#superposition-eligible_literal_coincide>eligible_literal_coincide</a></li><li><a href=#superposition-lower_or_eq_monotonic>lower_or_eq_monotonic</a></li><li><a href=#superposition-lower_on_term>lower_on_term</a></li><li><a href=#superposition-diff_substs_yield_diff_trms>diff_substs_yield_diff_trms</a></li><li><a href=#superposition-lower_subst_yields_lower_trms>lower_subst_yields_lower_trms</a></li><li><a href=#superposition-lower_on_lit>lower_on_lit</a></li><li><a href=#superposition-lower_on_lit_eq>lower_on_lit_eq</a></li><li><a href=#superposition-lower_on_cl>lower_on_cl</a></li><li><a href=#superposition-subterm_trm_ord>subterm_trm_ord</a></li><li><a href=#superposition-subterm_trm_ord_eq>subterm_trm_ord_eq</a></li><li><a href=#superposition-subterms_of_trm_ord_eq>subterms_of_trm_ord_eq</a></li><li><a href=#superposition-subt_trm_ord>subt_trm_ord</a></li><li><a href=#superposition-trm_ord_vars>trm_ord_vars</a></li><li><a href=#superposition-lower_on_ground>lower_on_ground</a></li><li><a href=#superposition-replacement_monotonic>replacement_monotonic</a></li><li><a href=#superposition-mset_lit_subst>mset_lit_subst</a></li><li><a href=#superposition-lit_ord_irrefl>lit_ord_irrefl</a></li><li><a href=#superposition-lit_ord_subst>lit_ord_subst</a></li><li><a href=#superposition-args_are_strictly_lower>args_are_strictly_lower</a></li><li><a href=#superposition-mset_subst>mset_subst</a></li><li><a href=#superposition-max_lit_exists>max_lit_exists</a></li><li><a href=#superposition-eligible_lit_exists>eligible_lit_exists</a></li><li><a href=#superposition-lit_ord_dominating_term>lit_ord_dominating_term</a></li><li><a href=#superposition-lit_ord_neg_lit_lhs>lit_ord_neg_lit_lhs</a></li><li><a href=#superposition-lit_ord_neg_lit_rhs>lit_ord_neg_lit_rhs</a></li><li><a href=#superposition-lit_ord_rhs>lit_ord_rhs</a></li><li><a href=#superposition-trm_rep_preserves_eq_semantics>trm_rep_preserves_eq_semantics</a></li><li><a href=#superposition-trm_rep_preserves_lit_semantics>trm_rep_preserves_lit_semantics</a></li><li><a href=#superposition-subterms_dominated>subterms_dominated</a></li><li><a href=#superposition-ck_unifier_thm>ck_unifier_thm</a></li><li><a href=#superposition-subst_preserve_ck_unifier>subst_preserve_ck_unifier</a></li><li><a href=#superposition-dom_trm_lemma>dom_trm_lemma</a></li><li><a href=#superposition-dom_trms_subset>dom_trms_subset</a></li><li><a href=#superposition-dom_trm_vars>dom_trm_vars</a></li><li><a href=#superposition-derivable_premisses>derivable_premisses</a></li><li><a href=#superposition-cannot_validate_contradictary_literals>cannot_validate_contradictary_literals</a></li><li><a href=#superposition-ground_reflexion_is_sound>ground_reflexion_is_sound</a></li><li><a href=#superposition-reflexion_is_sound>reflexion_is_sound</a></li><li><a href=#superposition-orient_lit_semantics_pos>orient_lit_semantics_pos</a></li><li><a href=#superposition-orient_lit_semantics_neg>orient_lit_semantics_neg</a></li><li><a href=#superposition-orient_lit_semantics_replacement>orient_lit_semantics_replacement</a></li><li><a href=#superposition-ground_factorization_is_sound>ground_factorization_is_sound</a></li><li><a href=#superposition-factorization_is_sound>factorization_is_sound</a></li><li><a href=#superposition-ground_superposition_is_sound>ground_superposition_is_sound</a></li><li><a href=#superposition-superposition_is_sound>superposition_is_sound</a></li><li><a href=#superposition-superposition_preserves_finiteness>superposition_preserves_finiteness</a></li><li><a href=#superposition-reflexion_preserves_finiteness>reflexion_preserves_finiteness</a></li><li><a href=#superposition-factorization_preserves_finiteness>factorization_preserves_finiteness</a></li><li><a href=#superposition-derivable_clauses_are_finite>derivable_clauses_are_finite</a></li><li><a href=#superposition-derivable_clauses_lemma>derivable_clauses_lemma</a></li><li><a href=#superposition-substs_preserves_decompose_literal>substs_preserves_decompose_literal</a></li><li><a href=#superposition-substs_preserve_dom_trm>substs_preserve_dom_trm</a></li><li><a href=#superposition-substs_preserve_well_constrainedness>substs_preserve_well_constrainedness</a></li><li><a href=#superposition-ck_trms_sound>ck_trms_sound</a></li><li><a href=#superposition-derivable_clauses_are_well_constrained>derivable_clauses_are_well_constrained</a></li><li><a href=#superposition-derivable_clauses_are_entailed>derivable_clauses_are_entailed</a></li><li><a href=#superposition-all_derived_clauses_are_finite>all_derived_clauses_are_finite</a></li><li><a href=#superposition-all_derived_clauses_are_wellconstrained>all_derived_clauses_are_wellconstrained</a></li><li><a href=#superposition-SOUNDNESS>SOUNDNESS</a></li><li><a href=#superposition-REFUTABLE_SETS_ARE_UNSAT>REFUTABLE_SETS_ARE_UNSAT</a></li><li><a href=#superposition-subterms_inclusion_refl>subterms_inclusion_refl</a></li><li><a href=#superposition-subterms_inclusion_subset>subterms_inclusion_subset</a></li><li><a href=#superposition-set_inclusion_preserve_normalization>set_inclusion_preserve_normalization</a></li><li><a href=#superposition-subterms_inclusion_preserves_normalization>subterms_inclusion_preserves_normalization</a></li><li><a href=#superposition-self_redundant_clause>self_redundant_clause</a></li><li><a href=#superposition-conclusion_is_smaller_than_premisses>conclusion_is_smaller_than_premisses</a></li><li><a href=#superposition-redundant_inference_clause>redundant_inference_clause</a></li><li><a href=#superposition-clause_saturated_and_inference_saturated>clause_saturated_and_inference_saturated</a></li><li><a href=#superposition-same_values_fo_int>same_values_fo_int</a></li><li><a href=#superposition-min_trms_not_empty>min_trms_not_empty</a></li><li><a href=#superposition-smaller_lits_are_false_if_cl_not_valid>smaller_lits_are_false_if_cl_not_valid</a></li><li><a href=#superposition-trms_irreducible_lemma>trms_irreducible_lemma</a></li><li><a href=#superposition-trm_rep_is_lower_aux>trm_rep_is_lower_aux</a></li><li><a href=#superposition-trm_rep_init_def>trm_rep_init_def</a></li><li><a href=#superposition-trm_rep_aux_def>trm_rep_aux_def</a></li><li><a href=#superposition-trm_rep_is_lower>trm_rep_is_lower</a></li><li><a href=#superposition-trm_rep_is_lower_subt_red>trm_rep_is_lower_subt_red</a></li><li><a href=#superposition-trm_rep_is_lower_root_red>trm_rep_is_lower_root_red</a></li><li><a href=#superposition-trm_rep_simp_def>trm_rep_simp_def</a></li><li><a href=#superposition-trm_rep_involutive>trm_rep_involutive</a></li><li><a href=#superposition-red_arg_implies_red_trm>red_arg_implies_red_trm</a></li><li><a href=#superposition-subterms_of_irred_trms_are_irred>subterms_of_irred_trms_are_irred</a></li><li><a href=#superposition-trm_rep_compatible_with_structure>trm_rep_compatible_with_structure</a></li><li><a href=#superposition-maximal_literal_is_unique_lemma>maximal_literal_is_unique_lemma</a></li><li><a href=#superposition-max_pos_lit_dominates_cl>max_pos_lit_dominates_cl</a></li><li><a href=#superposition-if_all_smaller_are_false_then_cl_not_valid>if_all_smaller_are_false_then_cl_not_valid</a></li><li><a href=#superposition-candidate_values_renaming>candidate_values_renaming</a></li><li><a href=#superposition-pos_ord_acyclic>pos_ord_acyclic</a></li><li><a href=#superposition-reduction_exists>reduction_exists</a></li><li><a href=#superposition-subts_of_irred_trms_are_irred>subts_of_irred_trms_are_irred</a></li><li><a href=#superposition-allowed_redex_coincide>allowed_redex_coincide</a></li><li><a href=#superposition-irred_terms_and_reduced_subst>irred_terms_and_reduced_subst</a></li><li><a href=#superposition-no_valid_literal>no_valid_literal</a></li><li><a href=#superposition-lift_orient_lit_inst>lift_orient_lit_inst</a></li><li><a href=#superposition-lift_maximal_literal>lift_maximal_literal</a></li><li><a href=#superposition-lift_eligible_literal>lift_eligible_literal</a></li><li><a href=#superposition-lift_allowed_redex>lift_allowed_redex</a></li><li><a href=#superposition-lift_decompose_literal>lift_decompose_literal</a></li><li><a href=#superposition-lift_dom_trm>lift_dom_trm</a></li><li><a href=#superposition-lift_irreducible_terms>lift_irreducible_terms</a></li><li><a href=#superposition-lifting_lemma>lifting_lemma</a></li><li><a href=#superposition-trms_subsumes_and_red_inf>trms_subsumes_and_red_inf</a></li><li><a href=#superposition-lift_inference>lift_inference</a></li><li><a href=#superposition-lift_redundant_cl>lift_redundant_cl</a></li><li><a href=#superposition-inference_closed_sets_are_saturated>inference_closed_sets_are_saturated</a></li><li><a href=#superposition-int_clset_is_a_model>int_clset_is_a_model</a></li><li><a href=#superposition-COMPLETENESS>COMPLETENESS</a></li></ul></li></ul></div><ul><li><a href=https://www.isa-afp.org/browser_info/current/AFP/SuperCalc/outline.pdf>Proof
-outline</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/SuperCalc/document.pdf>Proof
-document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/SuperCalc/session_graph.pdf>Theory dependencies</a></li></ul></div></aside><div class="content theories"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
-<datalist id=autocomplete></datalist></div></form><h1><span class=first>S</span>ession <span class=first>S</span>uper<span class=first>C</span>alc</h1><div></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><div id=multisets_continued><div class=head><h1>Theory multisets_continued</h1></div><pre class=source><span class=keyword1><span class=command>theory</span></span> multisets_continued
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Session SuperCalc - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session SuperCalc">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="/entries/supercalc/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories">
+<meta property="og:site_name" content="Archive of Formal Proofs">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="/images/afp.png">
+<meta name=twitter:title content="Session SuperCalc">
+<meta name=twitter:description content>
+<link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css>
+<link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script>
+<script src=/js/banner.js></script><script src=/js/header-search.js></script></head>
+<body class=mathjax_ignore>
+<aside>
+<div>
+<div>
+<a href=/>
+<img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo>
+</a>
+<ul>
+<li><a href=/entries/supercalc>Return to entry</a></li>
+</ul>
+<hr>
+<ul><li><a href=#multisets_continued>multisets_continued</a>
+<ul>
+<li><a href=#multisets_continued-mset_set_inclusion>mset_set_inclusion</a></li>
+<li><a href=#multisets_continued-mset_ordering_addition>mset_ordering_addition</a></li>
+<li><a href=#multisets_continued-equal_image_mset>equal_image_mset</a></li>
+<li><a href=#multisets_continued-multiset_order_inclusion>multiset_order_inclusion</a></li>
+<li><a href=#multisets_continued-multiset_order_inclusion_eq>multiset_order_inclusion_eq</a></li>
+<li><a href=#multisets_continued-image_mset_ordering>image_mset_ordering</a></li>
+<li><a href=#multisets_continued-image_mset_ordering_eq>image_mset_ordering_eq</a></li>
+<li><a href=#multisets_continued-mult1_def_lemma>mult1_def_lemma</a></li>
+<li><a href=#multisets_continued-mset_ordering_add1>mset_ordering_add1</a></li>
+<li><a href=#multisets_continued-mset_ordering_singleton>mset_ordering_singleton</a></li>
+<li><a href=#multisets_continued-monotonic_fun_mult1>monotonic_fun_mult1</a></li>
+<li><a href=#multisets_continued-monotonic_fun_mult>monotonic_fun_mult</a></li>
+<li><a href=#multisets_continued-mset_set_insert_eq>mset_set_insert_eq</a></li>
+<li><a href=#multisets_continued-mset_set_insert>mset_set_insert</a></li>
+<li><a href=#multisets_continued-mset_image_comp>mset_image_comp</a></li>
+<li><a href=#multisets_continued-mset_set_mset_image>mset_set_mset_image</a></li>
+<li><a href=#multisets_continued-split_mset_set>split_mset_set</a></li>
+<li><a href=#multisets_continued-image_mset_thm>image_mset_thm</a></li>
+<li><a href=#multisets_continued-split_image_mset>split_image_mset</a></li>
+</ul>
+</li><li><a href=#well_founded_continued>well_founded_continued</a>
+<ul>
+<li><a href=#well_founded_continued-measure_wf>measure_wf</a></li>
+<li><a href=#well_founded_continued-finite_proj_wf>finite_proj_wf</a></li>
+</ul>
+</li><li><a href=#terms>terms</a>
+<ul>
+<li><a href=#terms-constants_are_not_variables>constants_are_not_variables</a></li>
+<li><a href=#terms-constants_are_ground>constants_are_ground</a></li>
+<li><a href=#terms-replace_subterm_is_a_function>replace_subterm_is_a_function</a></li>
+<li><a href=#terms-root_subterm>root_subterm</a></li>
+<li><a href=#terms-root_position>root_position</a></li>
+<li><a href=#terms-subterms_of_an_atomic_term>subterms_of_an_atomic_term</a></li>
+<li><a href=#terms-positions_of_an_atomic_term>positions_of_an_atomic_term</a></li>
+<li><a href=#terms-subterm_of_a_subterm_is_a_subterm>subterm_of_a_subterm_is_a_subterm</a></li>
+<li><a href=#terms-occur_in_subterm>occur_in_subterm</a></li>
+<li><a href=#terms-vars_of_subterm>vars_of_subterm</a></li>
+<li><a href=#terms-vars_subterm>vars_subterm</a></li>
+<li><a href=#terms-vars_subterms_of>vars_subterms_of</a></li>
+<li><a href=#terms-subterms_of_a_non_atomic_term>subterms_of_a_non_atomic_term</a></li>
+<li><a href=#terms-positions_of_a_non_atomic_term>positions_of_a_non_atomic_term</a></li>
+<li><a href=#terms-set_of_subterms_is_finite>set_of_subterms_is_finite</a></li>
+<li><a href=#terms-set_of_positions_is_finite>set_of_positions_is_finite</a></li>
+<li><a href=#terms-vars_of_instances>vars_of_instances</a></li>
+<li><a href=#terms-subterms_of_instances>subterms_of_instances</a></li>
+<li><a href=#terms-vars_of_replacement>vars_of_replacement</a></li>
+<li><a href=#terms-vars_of_replacement_set>vars_of_replacement_set</a></li>
+<li><a href=#terms-subst_codomain_is_finite>subst_codomain_is_finite</a></li>
+<li><a href=#terms-subt_decompose>subt_decompose</a></li>
+<li><a href=#terms-subt_irrefl>subt_irrefl</a></li>
+<li><a href=#terms-MGU_exists>MGU_exists</a></li>
+<li><a href=#terms-comp_subst_terms>comp_subst_terms</a></li>
+<li><a href=#terms-ground_instance>ground_instance</a></li>
+<li><a href=#terms-substs_preserve_groundness>substs_preserve_groundness</a></li>
+<li><a href=#terms-ground_subst_exists>ground_subst_exists</a></li>
+<li><a href=#terms-substs_preserve_ground_terms>substs_preserve_ground_terms</a></li>
+<li><a href=#terms-substs_preserve_subterms>substs_preserve_subterms</a></li>
+<li><a href=#terms-substs_preserve_occurs_in>substs_preserve_occurs_in</a></li>
+<li><a href=#terms-coincide_sym>coincide_sym</a></li>
+<li><a href=#terms-coincide_on_term>coincide_on_term</a></li>
+<li><a href=#terms-ground_replacement>ground_replacement</a></li>
+<li><a href=#terms-combine_substs>combine_substs</a></li>
+<li><a href=#terms-map_subst_lemma>map_subst_lemma</a></li>
+<li><a href=#terms-replacement_preserves_congruences>replacement_preserves_congruences</a></li>
+<li><a href=#terms-equivalent_on_term>equivalent_on_term</a></li>
+<li><a href=#terms-renamings_admit_inverse>renamings_admit_inverse</a></li>
+<li><a href=#terms-renaming_exists>renaming_exists</a></li>
+</ul>
+</li><li><a href=#equational_clausal_logic>equational_clausal_logic</a>
+<ul>
+<li><a href=#equational_clausal_logic-decompose_equation_vars>decompose_equation_vars</a></li>
+<li><a href=#equational_clausal_logic-decompose_literal_vars>decompose_literal_vars</a></li>
+<li><a href=#equational_clausal_logic-vars_of_cl_lem>vars_of_cl_lem</a></li>
+<li><a href=#equational_clausal_logic-set_of_variables_is_finite_eq>set_of_variables_is_finite_eq</a></li>
+<li><a href=#equational_clausal_logic-set_of_variables_is_finite_lit>set_of_variables_is_finite_lit</a></li>
+<li><a href=#equational_clausal_logic-set_of_variables_is_finite_cl>set_of_variables_is_finite_cl</a></li>
+<li><a href=#equational_clausal_logic-subterm_lit_vars>subterm_lit_vars</a></li>
+<li><a href=#equational_clausal_logic-subterm_vars>subterm_vars</a></li>
+<li><a href=#equational_clausal_logic-subterm_cl_subst>subterm_cl_subst</a></li>
+<li><a href=#equational_clausal_logic-ground_substs_yield_ground_clause>ground_substs_yield_ground_clause</a></li>
+<li><a href=#equational_clausal_logic-ground_clauses_and_ground_substs>ground_clauses_and_ground_substs</a></li>
+<li><a href=#equational_clausal_logic-ground_instance_exists>ground_instance_exists</a></li>
+<li><a href=#equational_clausal_logic-composition_of_substs>composition_of_substs</a></li>
+<li><a href=#equational_clausal_logic-composition_of_substs_eq>composition_of_substs_eq</a></li>
+<li><a href=#equational_clausal_logic-composition_of_substs_lit>composition_of_substs_lit</a></li>
+<li><a href=#equational_clausal_logic-composition_of_substs_cl>composition_of_substs_cl</a></li>
+<li><a href=#equational_clausal_logic-substs_preserve_ground_lit>substs_preserve_ground_lit</a></li>
+<li><a href=#equational_clausal_logic-substs_preserve_ground_clause>substs_preserve_ground_clause</a></li>
+<li><a href=#equational_clausal_logic-substs_preserve_finiteness>substs_preserve_finiteness</a></li>
+<li><a href=#equational_clausal_logic-subst_eq_eq>subst_eq_eq</a></li>
+<li><a href=#equational_clausal_logic-subst_eq_lit>subst_eq_lit</a></li>
+<li><a href=#equational_clausal_logic-subst_eq_cl>subst_eq_cl</a></li>
+<li><a href=#equational_clausal_logic-coincide_on_eq>coincide_on_eq</a></li>
+<li><a href=#equational_clausal_logic-coincide_on_lit>coincide_on_lit</a></li>
+<li><a href=#equational_clausal_logic-coincide_on_cl>coincide_on_cl</a></li>
+<li><a href=#equational_clausal_logic-set_entails_clause_member>set_entails_clause_member</a></li>
+<li><a href=#equational_clausal_logic-instances_are_entailed>instances_are_entailed</a></li>
+<li><a href=#equational_clausal_logic-equivalent_on_eq>equivalent_on_eq</a></li>
+<li><a href=#equational_clausal_logic-equivalent_on_lit>equivalent_on_lit</a></li>
+<li><a href=#equational_clausal_logic-equivalent_on_cl>equivalent_on_cl</a></li>
+</ul>
+</li><li><a href=#superposition>superposition</a>
+<ul>
+<li><a href=#superposition-lift_orient_lit>lift_orient_lit</a></li>
+<li><a href=#superposition-orient_lit_vars>orient_lit_vars</a></li>
+<li><a href=#superposition-orient_lit_inst_vars>orient_lit_inst_vars</a></li>
+<li><a href=#superposition-orient_lit_inst_coincide>orient_lit_inst_coincide</a></li>
+<li><a href=#superposition-orient_lit_inst_subterms>orient_lit_inst_subterms</a></li>
+<li><a href=#superposition-mset_ecl_and_mset_lit>mset_ecl_and_mset_lit</a></li>
+<li><a href=#superposition-ecl_ord_coincide>ecl_ord_coincide</a></li>
+<li><a href=#superposition-mult_trm_ord_trans>mult_trm_ord_trans</a></li>
+<li><a href=#superposition-lit_ord_trans>lit_ord_trans</a></li>
+<li><a href=#superposition-lit_ord_wf>lit_ord_wf</a></li>
+<li><a href=#superposition-mult_mult_trm_ord_trans>mult_mult_trm_ord_trans</a></li>
+<li><a href=#superposition-ecl_ord_trans>ecl_ord_trans</a></li>
+<li><a href=#superposition-cl_ord_trans>cl_ord_trans</a></li>
+<li><a href=#superposition-cl_ord_eq_trans>cl_ord_eq_trans</a></li>
+<li><a href=#superposition-wf_ecl_ord>wf_ecl_ord</a></li>
+<li><a href=#superposition-eligible_literal_coincide>eligible_literal_coincide</a></li>
+<li><a href=#superposition-lower_or_eq_monotonic>lower_or_eq_monotonic</a></li>
+<li><a href=#superposition-lower_on_term>lower_on_term</a></li>
+<li><a href=#superposition-diff_substs_yield_diff_trms>diff_substs_yield_diff_trms</a></li>
+<li><a href=#superposition-lower_subst_yields_lower_trms>lower_subst_yields_lower_trms</a></li>
+<li><a href=#superposition-lower_on_lit>lower_on_lit</a></li>
+<li><a href=#superposition-lower_on_lit_eq>lower_on_lit_eq</a></li>
+<li><a href=#superposition-lower_on_cl>lower_on_cl</a></li>
+<li><a href=#superposition-subterm_trm_ord>subterm_trm_ord</a></li>
+<li><a href=#superposition-subterm_trm_ord_eq>subterm_trm_ord_eq</a></li>
+<li><a href=#superposition-subterms_of_trm_ord_eq>subterms_of_trm_ord_eq</a></li>
+<li><a href=#superposition-subt_trm_ord>subt_trm_ord</a></li>
+<li><a href=#superposition-trm_ord_vars>trm_ord_vars</a></li>
+<li><a href=#superposition-lower_on_ground>lower_on_ground</a></li>
+<li><a href=#superposition-replacement_monotonic>replacement_monotonic</a></li>
+<li><a href=#superposition-mset_lit_subst>mset_lit_subst</a></li>
+<li><a href=#superposition-lit_ord_irrefl>lit_ord_irrefl</a></li>
+<li><a href=#superposition-lit_ord_subst>lit_ord_subst</a></li>
+<li><a href=#superposition-args_are_strictly_lower>args_are_strictly_lower</a></li>
+<li><a href=#superposition-mset_subst>mset_subst</a></li>
+<li><a href=#superposition-max_lit_exists>max_lit_exists</a></li>
+<li><a href=#superposition-eligible_lit_exists>eligible_lit_exists</a></li>
+<li><a href=#superposition-lit_ord_dominating_term>lit_ord_dominating_term</a></li>
+<li><a href=#superposition-lit_ord_neg_lit_lhs>lit_ord_neg_lit_lhs</a></li>
+<li><a href=#superposition-lit_ord_neg_lit_rhs>lit_ord_neg_lit_rhs</a></li>
+<li><a href=#superposition-lit_ord_rhs>lit_ord_rhs</a></li>
+<li><a href=#superposition-trm_rep_preserves_eq_semantics>trm_rep_preserves_eq_semantics</a></li>
+<li><a href=#superposition-trm_rep_preserves_lit_semantics>trm_rep_preserves_lit_semantics</a></li>
+<li><a href=#superposition-subterms_dominated>subterms_dominated</a></li>
+<li><a href=#superposition-ck_unifier_thm>ck_unifier_thm</a></li>
+<li><a href=#superposition-subst_preserve_ck_unifier>subst_preserve_ck_unifier</a></li>
+<li><a href=#superposition-dom_trm_lemma>dom_trm_lemma</a></li>
+<li><a href=#superposition-dom_trms_subset>dom_trms_subset</a></li>
+<li><a href=#superposition-dom_trm_vars>dom_trm_vars</a></li>
+<li><a href=#superposition-derivable_premisses>derivable_premisses</a></li>
+<li><a href=#superposition-cannot_validate_contradictary_literals>cannot_validate_contradictary_literals</a></li>
+<li><a href=#superposition-ground_reflexion_is_sound>ground_reflexion_is_sound</a></li>
+<li><a href=#superposition-reflexion_is_sound>reflexion_is_sound</a></li>
+<li><a href=#superposition-orient_lit_semantics_pos>orient_lit_semantics_pos</a></li>
+<li><a href=#superposition-orient_lit_semantics_neg>orient_lit_semantics_neg</a></li>
+<li><a href=#superposition-orient_lit_semantics_replacement>orient_lit_semantics_replacement</a></li>
+<li><a href=#superposition-ground_factorization_is_sound>ground_factorization_is_sound</a></li>
+<li><a href=#superposition-factorization_is_sound>factorization_is_sound</a></li>
+<li><a href=#superposition-ground_superposition_is_sound>ground_superposition_is_sound</a></li>
+<li><a href=#superposition-superposition_is_sound>superposition_is_sound</a></li>
+<li><a href=#superposition-superposition_preserves_finiteness>superposition_preserves_finiteness</a></li>
+<li><a href=#superposition-reflexion_preserves_finiteness>reflexion_preserves_finiteness</a></li>
+<li><a href=#superposition-factorization_preserves_finiteness>factorization_preserves_finiteness</a></li>
+<li><a href=#superposition-derivable_clauses_are_finite>derivable_clauses_are_finite</a></li>
+<li><a href=#superposition-derivable_clauses_lemma>derivable_clauses_lemma</a></li>
+<li><a href=#superposition-substs_preserves_decompose_literal>substs_preserves_decompose_literal</a></li>
+<li><a href=#superposition-substs_preserve_dom_trm>substs_preserve_dom_trm</a></li>
+<li><a href=#superposition-substs_preserve_well_constrainedness>substs_preserve_well_constrainedness</a></li>
+<li><a href=#superposition-ck_trms_sound>ck_trms_sound</a></li>
+<li><a href=#superposition-derivable_clauses_are_well_constrained>derivable_clauses_are_well_constrained</a></li>
+<li><a href=#superposition-derivable_clauses_are_entailed>derivable_clauses_are_entailed</a></li>
+<li><a href=#superposition-all_derived_clauses_are_finite>all_derived_clauses_are_finite</a></li>
+<li><a href=#superposition-all_derived_clauses_are_wellconstrained>all_derived_clauses_are_wellconstrained</a></li>
+<li><a href=#superposition-SOUNDNESS>SOUNDNESS</a></li>
+<li><a href=#superposition-REFUTABLE_SETS_ARE_UNSAT>REFUTABLE_SETS_ARE_UNSAT</a></li>
+<li><a href=#superposition-subterms_inclusion_refl>subterms_inclusion_refl</a></li>
+<li><a href=#superposition-subterms_inclusion_subset>subterms_inclusion_subset</a></li>
+<li><a href=#superposition-set_inclusion_preserve_normalization>set_inclusion_preserve_normalization</a></li>
+<li><a href=#superposition-subterms_inclusion_preserves_normalization>subterms_inclusion_preserves_normalization</a></li>
+<li><a href=#superposition-self_redundant_clause>self_redundant_clause</a></li>
+<li><a href=#superposition-conclusion_is_smaller_than_premisses>conclusion_is_smaller_than_premisses</a></li>
+<li><a href=#superposition-redundant_inference_clause>redundant_inference_clause</a></li>
+<li><a href=#superposition-clause_saturated_and_inference_saturated>clause_saturated_and_inference_saturated</a></li>
+<li><a href=#superposition-same_values_fo_int>same_values_fo_int</a></li>
+<li><a href=#superposition-min_trms_not_empty>min_trms_not_empty</a></li>
+<li><a href=#superposition-smaller_lits_are_false_if_cl_not_valid>smaller_lits_are_false_if_cl_not_valid</a></li>
+<li><a href=#superposition-trms_irreducible_lemma>trms_irreducible_lemma</a></li>
+<li><a href=#superposition-trm_rep_is_lower_aux>trm_rep_is_lower_aux</a></li>
+<li><a href=#superposition-trm_rep_init_def>trm_rep_init_def</a></li>
+<li><a href=#superposition-trm_rep_aux_def>trm_rep_aux_def</a></li>
+<li><a href=#superposition-trm_rep_is_lower>trm_rep_is_lower</a></li>
+<li><a href=#superposition-trm_rep_is_lower_subt_red>trm_rep_is_lower_subt_red</a></li>
+<li><a href=#superposition-trm_rep_is_lower_root_red>trm_rep_is_lower_root_red</a></li>
+<li><a href=#superposition-trm_rep_simp_def>trm_rep_simp_def</a></li>
+<li><a href=#superposition-trm_rep_involutive>trm_rep_involutive</a></li>
+<li><a href=#superposition-red_arg_implies_red_trm>red_arg_implies_red_trm</a></li>
+<li><a href=#superposition-subterms_of_irred_trms_are_irred>subterms_of_irred_trms_are_irred</a></li>
+<li><a href=#superposition-trm_rep_compatible_with_structure>trm_rep_compatible_with_structure</a></li>
+<li><a href=#superposition-maximal_literal_is_unique_lemma>maximal_literal_is_unique_lemma</a></li>
+<li><a href=#superposition-max_pos_lit_dominates_cl>max_pos_lit_dominates_cl</a></li>
+<li><a href=#superposition-if_all_smaller_are_false_then_cl_not_valid>if_all_smaller_are_false_then_cl_not_valid</a></li>
+<li><a href=#superposition-candidate_values_renaming>candidate_values_renaming</a></li>
+<li><a href=#superposition-pos_ord_acyclic>pos_ord_acyclic</a></li>
+<li><a href=#superposition-reduction_exists>reduction_exists</a></li>
+<li><a href=#superposition-subts_of_irred_trms_are_irred>subts_of_irred_trms_are_irred</a></li>
+<li><a href=#superposition-allowed_redex_coincide>allowed_redex_coincide</a></li>
+<li><a href=#superposition-irred_terms_and_reduced_subst>irred_terms_and_reduced_subst</a></li>
+<li><a href=#superposition-no_valid_literal>no_valid_literal</a></li>
+<li><a href=#superposition-lift_orient_lit_inst>lift_orient_lit_inst</a></li>
+<li><a href=#superposition-lift_maximal_literal>lift_maximal_literal</a></li>
+<li><a href=#superposition-lift_eligible_literal>lift_eligible_literal</a></li>
+<li><a href=#superposition-lift_allowed_redex>lift_allowed_redex</a></li>
+<li><a href=#superposition-lift_decompose_literal>lift_decompose_literal</a></li>
+<li><a href=#superposition-lift_dom_trm>lift_dom_trm</a></li>
+<li><a href=#superposition-lift_irreducible_terms>lift_irreducible_terms</a></li>
+<li><a href=#superposition-lifting_lemma>lifting_lemma</a></li>
+<li><a href=#superposition-trms_subsumes_and_red_inf>trms_subsumes_and_red_inf</a></li>
+<li><a href=#superposition-lift_inference>lift_inference</a></li>
+<li><a href=#superposition-lift_redundant_cl>lift_redundant_cl</a></li>
+<li><a href=#superposition-inference_closed_sets_are_saturated>inference_closed_sets_are_saturated</a></li>
+<li><a href=#superposition-int_clset_is_a_model>int_clset_is_a_model</a></li>
+<li><a href=#superposition-COMPLETENESS>COMPLETENESS</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<ul>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/SuperCalc/outline.pdf>Proof
+outline</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/SuperCalc/document.pdf>Proof
+document</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/SuperCalc/session_graph.pdf>Theory dependencies</a></li>
+</ul>
+</div>
+</aside>
+<div class="content theories"><header>
+<form action=/%20search>
+<div class=form-container>
+<input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
+<datalist id=autocomplete>
+</datalist>
+</div>
+</form>
+<h1><span class=first>S</span>ession <span class=first>S</span>uper<span class=first>C</span>alc</h1>
+<div>
+</div>
+</header><div id=banner data-id=0>
+<p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button>
+</div>
+<div><main>
+<div id=multisets_continued>
+<div class=head>
+<h1>Theory multisets_continued</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>theory</span></span> multisets_continued
 
 <span class=comment1>(* N. Peltier - http://membres-lig.imag.fr/peltier/ *)</span>
 
@@ -442,7 +725,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Su
 <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> assms<span class=main>)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=well_founded_continued><div class=head><h1>Theory well_founded_continued</h1></div><pre class=source><span class=keyword1><span class=command>theory</span></span> well_founded_continued
+</pre>
+</div><div id=well_founded_continued>
+<div class=head>
+<h1>Theory well_founded_continued</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>theory</span></span> well_founded_continued
 
 <span class=comment1>(* N. Peltier - http://membres-lig.imag.fr/peltier/ *)</span>
 
@@ -509,7 +797,12 @@ We only establish a few convenient results for constructing well-founded sets an
 <span class=keyword1><span class=command>qed</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=terms><div class=head><h1>Theory terms</h1></div><pre class=source><span class=keyword1><span class=command>theory</span></span> terms
+</pre>
+</div><div id=terms>
+<div class=head>
+<h1>Theory terms</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>theory</span></span> terms
 
 <span class=comment1>(* N. Peltier - http://membres-lig.imag.fr/peltier/ *)</span>
 
@@ -1841,7 +2134,12 @@ that is closed under contextual embedding.›</span></span>
 <span class=keyword1><span class=command>qed</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=equational_clausal_logic><div class=head><h1>Theory equational_clausal_logic</h1></div><pre class=source><span class=keyword1><span class=command>theory</span></span> equational_clausal_logic
+</pre>
+</div><div id=equational_clausal_logic>
+<div class=head>
+<h1>Theory equational_clausal_logic</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>theory</span></span> equational_clausal_logic
 
 <span class=comment1>(* N. Peltier - http://membres-lig.imag.fr/peltier/ *)</span>
 
@@ -2485,7 +2783,12 @@ an object.›</span></span>
 <span class=keyword1><span class=command>qed</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=superposition><div class=head><h1>Theory superposition</h1></div><pre class=source><span class=keyword1><span class=command>theory</span></span> superposition
+</pre>
+</div><div id=superposition>
+<div class=head>
+<h1>Theory superposition</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>theory</span></span> superposition
 
 <span class=comment1>(* N. Peltier - http://membres-lig.imag.fr/peltier/ *)</span>
 
@@ -10142,4 +10445,10 @@ trivially saturated).›</span></span>
 <span class=keyword2><span class=keyword>end</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div></main></div></div></body></html>
+</pre>
+</div>
+</main>
+</div>
+</div>
+</body>
+</html>

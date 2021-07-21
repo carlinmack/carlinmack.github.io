@@ -1,7 +1,106 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Session VolpanoSmith - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session VolpanoSmith"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/volpanosmith/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Session VolpanoSmith"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css><link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script><script src=/js/banner.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><li><a href=/entries/volpanosmith>Return to entry</a></li></ul><hr><ul><li><a href=#Semantics>Semantics</a><ul><li><a href=#Semantics-Skip_reds>Skip_reds</a></li><li><a href=#Semantics-LAss_reds>LAss_reds</a></li><li><a href=#Semantics-Seq2_reds>Seq2_reds</a></li><li><a href=#Semantics-Seq_reds>Seq_reds</a></li><li><a href=#Semantics-Cond_True_or_False>Cond_True_or_False</a></li><li><a href=#Semantics-CondTrue_reds>CondTrue_reds</a></li><li><a href=#Semantics-CondFalse_reds>CondFalse_reds</a></li><li><a href=#Semantics-WhileFalse_reds>WhileFalse_reds</a></li><li><a href=#Semantics-WhileTrue_reds>WhileTrue_reds</a></li><li><a href=#Semantics-While_True_or_False>While_True_or_False</a></li><li><a href=#Semantics-Seq_red_nE>Seq_red_nE</a></li><li><a href=#Semantics-while_red_nE>while_red_nE</a></li><li><a href=#Semantics-while_red_n_induct>while_red_n_induct</a></li><li><a href=#Semantics-reds_to_red_n>reds_to_red_n</a></li><li><a href=#Semantics-red_n_to_reds>red_n_to_reds</a></li><li><a href=#Semantics-while_reds_induct>while_reds_induct</a></li><li><a href=#Semantics-red_det>red_det</a></li></ul></li><li><a href=#secTypes>secTypes</a><ul><li><a href=#secTypes-exprTypeable>exprTypeable</a></li><li><a href=#secTypes-exprBinopTypeable>exprBinopTypeable</a></li><li><a href=#secTypes-exprTypingHigh>exprTypingHigh</a></li><li><a href=#secTypes-exprTypingLow>exprTypingLow</a></li><li><a href=#secTypes-typeableFreevars>typeableFreevars</a></li><li><a href=#secTypes-exprNotNone>exprNotNone</a></li><li><a href=#secTypes-lowEquivReflexive>lowEquivReflexive</a></li><li><a href=#secTypes-lowEquivSymmetric>lowEquivSymmetric</a></li><li><a href=#secTypes-lowEquivTransitive>lowEquivTransitive</a></li><li><a href=#secTypes-nonInterferenceI>nonInterferenceI</a></li><li><a href=#secTypes-interpretLow>interpretLow</a></li><li><a href=#secTypes-interpretLow2>interpretLow2</a></li><li><a href=#secTypes-assignNIhighlemma>assignNIhighlemma</a></li><li><a href=#secTypes-assignNIlowlemma>assignNIlowlemma</a></li><li><a href=#secTypes-WhileStepInduct>WhileStepInduct</a></li><li><a href=#secTypes-CondHighCompositionality>CondHighCompositionality</a></li><li><a href=#secTypes-CondLowCompositionality>CondLowCompositionality</a></li><li><a href=#secTypes-WhileHighCompositionality>WhileHighCompositionality</a></li><li><a href=#secTypes-WhileLowStepInduct>WhileLowStepInduct</a></li><li><a href=#secTypes-WhileLowCompositionality>WhileLowCompositionality</a></li></ul></li><li><a href=#Execute>Execute</a></li></ul></div><ul><li><a href=https://www.isa-afp.org/browser_info/current/AFP/VolpanoSmith/outline.pdf>Proof
-outline</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/VolpanoSmith/document.pdf>Proof
-document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/VolpanoSmith/session_graph.pdf>Theory dependencies</a></li></ul></div></aside><div class="content theories"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
-<datalist id=autocomplete></datalist></div></form><h1><span class=first>S</span>ession <span class=first>V</span>olpano<span class=first>S</span>mith</h1><div></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><div id=Semantics><div class=head><h1>Theory Semantics</h1></div><pre class=source><span class=keyword1><span class=command>theory</span></span> Semantics
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Session VolpanoSmith - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session VolpanoSmith">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="/entries/volpanosmith/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories">
+<meta property="og:site_name" content="Archive of Formal Proofs">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="/images/afp.png">
+<meta name=twitter:title content="Session VolpanoSmith">
+<meta name=twitter:description content>
+<link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css>
+<link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script>
+<script src=/js/banner.js></script><script src=/js/header-search.js></script></head>
+<body class=mathjax_ignore>
+<aside>
+<div>
+<div>
+<a href=/>
+<img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo>
+</a>
+<ul>
+<li><a href=/entries/volpanosmith>Return to entry</a></li>
+</ul>
+<hr>
+<ul><li><a href=#Semantics>Semantics</a>
+<ul>
+<li><a href=#Semantics-Skip_reds>Skip_reds</a></li>
+<li><a href=#Semantics-LAss_reds>LAss_reds</a></li>
+<li><a href=#Semantics-Seq2_reds>Seq2_reds</a></li>
+<li><a href=#Semantics-Seq_reds>Seq_reds</a></li>
+<li><a href=#Semantics-Cond_True_or_False>Cond_True_or_False</a></li>
+<li><a href=#Semantics-CondTrue_reds>CondTrue_reds</a></li>
+<li><a href=#Semantics-CondFalse_reds>CondFalse_reds</a></li>
+<li><a href=#Semantics-WhileFalse_reds>WhileFalse_reds</a></li>
+<li><a href=#Semantics-WhileTrue_reds>WhileTrue_reds</a></li>
+<li><a href=#Semantics-While_True_or_False>While_True_or_False</a></li>
+<li><a href=#Semantics-Seq_red_nE>Seq_red_nE</a></li>
+<li><a href=#Semantics-while_red_nE>while_red_nE</a></li>
+<li><a href=#Semantics-while_red_n_induct>while_red_n_induct</a></li>
+<li><a href=#Semantics-reds_to_red_n>reds_to_red_n</a></li>
+<li><a href=#Semantics-red_n_to_reds>red_n_to_reds</a></li>
+<li><a href=#Semantics-while_reds_induct>while_reds_induct</a></li>
+<li><a href=#Semantics-red_det>red_det</a></li>
+</ul>
+</li><li><a href=#secTypes>secTypes</a>
+<ul>
+<li><a href=#secTypes-exprTypeable>exprTypeable</a></li>
+<li><a href=#secTypes-exprBinopTypeable>exprBinopTypeable</a></li>
+<li><a href=#secTypes-exprTypingHigh>exprTypingHigh</a></li>
+<li><a href=#secTypes-exprTypingLow>exprTypingLow</a></li>
+<li><a href=#secTypes-typeableFreevars>typeableFreevars</a></li>
+<li><a href=#secTypes-exprNotNone>exprNotNone</a></li>
+<li><a href=#secTypes-lowEquivReflexive>lowEquivReflexive</a></li>
+<li><a href=#secTypes-lowEquivSymmetric>lowEquivSymmetric</a></li>
+<li><a href=#secTypes-lowEquivTransitive>lowEquivTransitive</a></li>
+<li><a href=#secTypes-nonInterferenceI>nonInterferenceI</a></li>
+<li><a href=#secTypes-interpretLow>interpretLow</a></li>
+<li><a href=#secTypes-interpretLow2>interpretLow2</a></li>
+<li><a href=#secTypes-assignNIhighlemma>assignNIhighlemma</a></li>
+<li><a href=#secTypes-assignNIlowlemma>assignNIlowlemma</a></li>
+<li><a href=#secTypes-WhileStepInduct>WhileStepInduct</a></li>
+<li><a href=#secTypes-CondHighCompositionality>CondHighCompositionality</a></li>
+<li><a href=#secTypes-CondLowCompositionality>CondLowCompositionality</a></li>
+<li><a href=#secTypes-WhileHighCompositionality>WhileHighCompositionality</a></li>
+<li><a href=#secTypes-WhileLowStepInduct>WhileLowStepInduct</a></li>
+<li><a href=#secTypes-WhileLowCompositionality>WhileLowCompositionality</a></li>
+</ul>
+</li><li><a href=#Execute>Execute</a>
+</li>
+</ul>
+</div>
+<ul>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/VolpanoSmith/outline.pdf>Proof
+outline</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/VolpanoSmith/document.pdf>Proof
+document</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/VolpanoSmith/session_graph.pdf>Theory dependencies</a></li>
+</ul>
+</div>
+</aside>
+<div class="content theories"><header>
+<form action=/%20search>
+<div class=form-container>
+<input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
+<datalist id=autocomplete>
+</datalist>
+</div>
+</form>
+<h1><span class=first>S</span>ession <span class=first>V</span>olpano<span class=first>S</span>mith</h1>
+<div>
+</div>
+</header><div id=banner data-id=0>
+<p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button>
+</div>
+<div><main>
+<div id=Semantics>
+<div class=head>
+<h1>Theory Semantics</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>theory</span></span> Semantics
 <span class=keyword2><span class=keyword>imports</span></span> <a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL/Main.html>Main</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
@@ -364,7 +463,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Vo
 
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=secTypes><div class=head><h1>Theory secTypes</h1></div><pre class=source><span class=keyword1><span class=command>theory</span></span> secTypes
+</pre>
+</div><div id=secTypes>
+<div class=head>
+<h1>Theory secTypes</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>theory</span></span> secTypes
 <span class=keyword2><span class=keyword>imports</span></span> <a href=#Semantics>Semantics</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
@@ -1113,7 +1217,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Vo
 <span class=keyword1><span class=command>qed</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Execute><div class=head><h1>Theory Execute</h1></div><pre class=source><span class=comment1>(*  Author:     Lukas Bulwahn, TU Muenchen, 2009  *)</span>
+</pre>
+</div><div id=Execute>
+<div class=head>
+<h1>Theory Execute</h1>
+</div>
+<pre class=source><span class=comment1>(*  Author:     Lukas Bulwahn, TU Muenchen, 2009  *)</span>
 
 <span class=keyword1><span class=command>theory</span></span> Execute
 <span class=keyword2><span class=keyword>imports</span></span> <a href=#secTypes>secTypes</a>
@@ -1218,4 +1327,10 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Vo
 
   
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div></main></div></div></body></html>
+</pre>
+</div>
+</main>
+</div>
+</div>
+</body>
+</html>

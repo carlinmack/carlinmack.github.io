@@ -1,7 +1,320 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Session Extended_Finite_State_Machine_Inference - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session Extended_Finite_State_Machine_Inference"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/extended_finite_state_machine_inference/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Session Extended_Finite_State_Machine_Inference"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css><link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script><script src=/js/banner.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><li><a href=/entries/extended_finite_state_machine_inference>Return to entry</a></li></ul><hr><ul><li><a href=#Subsumption>Subsumption</a><ul><li><a href=#Subsumption-no_functionality_subsumed>no_functionality_subsumed</a></li><li><a href=#Subsumption-subsumes_updates>subsumes_updates</a></li><li><a href=#Subsumption-subsumption>subsumption</a></li><li><a href=#Subsumption-bad_guards>bad_guards</a></li><li><a href=#Subsumption-inconsistent_updates>inconsistent_updates</a></li><li><a href=#Subsumption-bad_outputs>bad_outputs</a></li><li><a href=#Subsumption-no_choice_no_subsumption>no_choice_no_subsumption</a></li><li><a href=#Subsumption-subsumption_def_alt>subsumption_def_alt</a></li><li><a href=#Subsumption-subsumes_update_equality>subsumes_update_equality</a></li><li><a href=#Subsumption-subsumes_reflexive>subsumes_reflexive</a></li><li><a href=#Subsumption-subsumes_transitive>subsumes_transitive</a></li><li><a href=#Subsumption-subsumes_possible_steps_replace>subsumes_possible_steps_replace</a></li><li><a href=#Subsumption-subsumes_in_all_contexts_directly_subsumes>subsumes_in_all_contexts_directly_subsumes</a></li><li><a href=#Subsumption-direct_subsumption>direct_subsumption</a></li><li><a href=#Subsumption-visits_and_not_subsumes>visits_and_not_subsumes</a></li><li><a href=#Subsumption-directly_subsumes_reflexive>directly_subsumes_reflexive</a></li><li><a href=#Subsumption-directly_subsumes_transitive>directly_subsumes_transitive</a></li></ul></li><li><a href=#Drinks_Subsumption>Drinks_Subsumption</a><ul><li><a href=#Drinks_Subsumption-stop_at_3>stop_at_3</a></li><li><a href=#Drinks_Subsumption-no_1_2>no_1_2</a></li><li><a href=#Drinks_Subsumption-no_change_1_1>no_change_1_1</a></li><li><a href=#Drinks_Subsumption-obtains_1>obtains_1</a></li><li><a href=#Drinks_Subsumption-obtains_1_1_2>obtains_1_1_2</a></li><li><a href=#Drinks_Subsumption-obtains_1_c2>obtains_1_c2</a></li><li><a href=#Drinks_Subsumption-directly_subsumes>directly_subsumes</a></li><li><a href=#Drinks_Subsumption-directly_subsumes_flip>directly_subsumes_flip</a></li></ul></li><li><a href=#Inference>Inference</a><ul><li><a href=#Inference-S_alt>S_alt</a></li><li><a href=#Inference-to_in_S>to_in_S</a></li><li><a href=#Inference-from_in_S>from_in_S</a></li><li><a href=#Inference-make_pta_aux_fold>make_pta_aux_fold</a></li><li><a href=#Inference-paths_of_length_1>paths_of_length_1</a></li><li><a href=#Inference-step_score_foldr>step_score_foldr</a></li><li><a href=#Inference-score_1>score_1</a></li><li><a href=#Inference-merge_states_symmetry>merge_states_symmetry</a></li><li><a href=#Inference-merge_state_self>merge_state_self</a></li><li><a href=#Inference-merge_states_self_simp>merge_states_self_simp</a></li><li><a href=#Inference-state_nondeterminism_empty>state_nondeterminism_empty</a></li><li><a href=#Inference-state_nondeterminism_singledestn>state_nondeterminism_singledestn</a></li></ul></li><li><a href=#SelectionStrategies>SelectionStrategies</a></li><li><a href=#Store_Reuse>Store_Reuse</a><ul><li><a href=#Store_Reuse-remove_guard_add_update_preserves_outputs>remove_guard_add_update_preserves_outputs</a></li><li><a href=#Store_Reuse-remove_guard_add_update_preserves_label>remove_guard_add_update_preserves_label</a></li><li><a href=#Store_Reuse-remove_guard_add_update_preserves_arity>remove_guard_add_update_preserves_arity</a></li><li><a href=#Store_Reuse-generalise_output_preserves_label>generalise_output_preserves_label</a></li><li><a href=#Store_Reuse-generalise_output_preserves_arity>generalise_output_preserves_arity</a></li><li><a href=#Store_Reuse-generalise_output_preserves_guard>generalise_output_preserves_guard</a></li><li><a href=#Store_Reuse-generalise_output_preserves_output_length>generalise_output_preserves_output_length</a></li><li><a href=#Store_Reuse-generalise_output_preserves_updates>generalise_output_preserves_updates</a></li></ul></li><li><a href=#Store_Reuse_Subsumption>Store_Reuse_Subsumption</a><ul><li><a href=#Store_Reuse_Subsumption-generalisation_of_preserves>generalisation_of_preserves</a></li><li><a href=#Store_Reuse_Subsumption-is_generalisation_of_guard_subset>is_generalisation_of_guard_subset</a></li><li><a href=#Store_Reuse_Subsumption-is_generalisation_of_medial>is_generalisation_of_medial</a></li><li><a href=#Store_Reuse_Subsumption-is_generalisation_of_preserves_reg>is_generalisation_of_preserves_reg</a></li><li><a href=#Store_Reuse_Subsumption-apply_updates_foldr>apply_updates_foldr</a></li><li><a href=#Store_Reuse_Subsumption-is_generalisation_of_preserves_reg_2>is_generalisation_of_preserves_reg_2</a></li><li><a href=#Store_Reuse_Subsumption-is_generalisation_of_apply_guards>is_generalisation_of_apply_guards</a></li><li><a href=#Store_Reuse_Subsumption-is_generalisation_of_subsumes_original>is_generalisation_of_subsumes_original</a></li><li><a href=#Store_Reuse_Subsumption-generalise_output_posterior>generalise_output_posterior</a></li><li><a href=#Store_Reuse_Subsumption-generalise_output_eq>generalise_output_eq</a></li><li><a href=#Store_Reuse_Subsumption-generalise_output_subsumes_original>generalise_output_subsumes_original</a></li><li><a href=#Store_Reuse_Subsumption-stored_reused_aux_is_generalised_output_of>stored_reused_aux_is_generalised_output_of</a></li><li><a href=#Store_Reuse_Subsumption-stored_reused_is_generalised_output_of>stored_reused_is_generalised_output_of</a></li><li><a href=#Store_Reuse_Subsumption-is_generalised_output_of_subsumes>is_generalised_output_of_subsumes</a></li><li><a href=#Store_Reuse_Subsumption-lists_neq_if>lists_neq_if</a></li><li><a href=#Store_Reuse_Subsumption-is_generalised_output_of_does_not_subsume>is_generalised_output_of_does_not_subsume</a></li><li><a href=#Store_Reuse_Subsumption-generalise_output_directly_subsumes_original>generalise_output_directly_subsumes_original</a></li><li><a href=#Store_Reuse_Subsumption-generalise_output_context_check_directly_subsumes_original>generalise_output_context_check_directly_subsumes_original</a></li><li><a href=#Store_Reuse_Subsumption-generalise_output_directly_subsumes_original_executable>generalise_output_directly_subsumes_original_executable</a></li><li><a href=#Store_Reuse_Subsumption-original_does_not_subsume_generalised_output>original_does_not_subsume_generalised_output</a></li><li><a href=#Store_Reuse_Subsumption-no_incoming_to_zero>no_incoming_to_zero</a></li><li><a href=#Store_Reuse_Subsumption-no_return_to_zero>no_return_to_zero</a></li><li><a href=#Store_Reuse_Subsumption-no_accepting_return_to_zero>no_accepting_return_to_zero</a></li><li><a href=#Store_Reuse_Subsumption-no_return_to_zero_must_be_empty>no_return_to_zero_must_be_empty</a></li><li><a href=#Store_Reuse_Subsumption-input_stored_in_reg_aux_is_generalisation_aux>input_stored_in_reg_aux_is_generalisation_aux</a></li><li><a href=#Store_Reuse_Subsumption-input_stored_in_reg_is_generalisation>input_stored_in_reg_is_generalisation</a></li><li><a href=#Store_Reuse_Subsumption-generalised_directly_subsumes_original>generalised_directly_subsumes_original</a></li><li><a href=#Store_Reuse_Subsumption-drop_guard_add_update_direct_subsumption_implies_direct_subsumption>drop_guard_add_update_direct_subsumption_implies_direct_subsumption</a></li><li><a href=#Store_Reuse_Subsumption-is_generalisation_of_constrains_input>is_generalisation_of_constrains_input</a></li><li><a href=#Store_Reuse_Subsumption-is_generalisation_of_derestricts_input>is_generalisation_of_derestricts_input</a></li><li><a href=#Store_Reuse_Subsumption-is_generalisation_of_same_arity>is_generalisation_of_same_arity</a></li><li><a href=#Store_Reuse_Subsumption-is_generalisation_of_i_lt_arity>is_generalisation_of_i_lt_arity</a></li><li><a href=#Store_Reuse_Subsumption-input_not_constrained_aval_swap_inputs>input_not_constrained_aval_swap_inputs</a></li><li><a href=#Store_Reuse_Subsumption-aval_unconstrained>aval_unconstrained</a></li><li><a href=#Store_Reuse_Subsumption-input_not_constrained_gval_swap_inputs>input_not_constrained_gval_swap_inputs</a></li><li><a href=#Store_Reuse_Subsumption-input_stored_in_reg_not_subsumed>input_stored_in_reg_not_subsumed</a></li><li><a href=#Store_Reuse_Subsumption-aval_updated>aval_updated</a></li><li><a href=#Store_Reuse_Subsumption-can_take_append_subset>can_take_append_subset</a></li><li><a href=#Store_Reuse_Subsumption-general_not_subsume_orig>general_not_subsume_orig</a></li><li><a href=#Store_Reuse_Subsumption-input_stored_in_reg_updates_reg>input_stored_in_reg_updates_reg</a></li><li><a href=#Store_Reuse_Subsumption-diff_outputs_direct_subsumption>diff_outputs_direct_subsumption</a></li><li><a href=#Store_Reuse_Subsumption-not_updated>not_updated</a></li><li><a href=#Store_Reuse_Subsumption-one_extra_update_subsumes>one_extra_update_subsumes</a></li><li><a href=#Store_Reuse_Subsumption-one_extra_update_directly_subsumes>one_extra_update_directly_subsumes</a></li><li><a href=#Store_Reuse_Subsumption-must_be_an_update>must_be_an_update</a></li><li><a href=#Store_Reuse_Subsumption-one_extra_update_direct_subsumption>one_extra_update_direct_subsumption</a></li></ul></li><li><a href=#Increment_Reset>Increment_Reset</a><ul><li><a href=#Increment_Reset-guard_match_commute>guard_match_commute</a></li><li><a href=#Increment_Reset-guard_match_length>guard_match_length</a></li><li><a href=#Increment_Reset-output_match_symmetry>output_match_symmetry</a></li><li><a href=#Increment_Reset-guard_match_symmetry>guard_match_symmetry</a></li></ul></li><li><a href=#Same_Register>Same_Register</a></li><li><a href=#Least_Upper_Bound>Least_Upper_Bound</a><ul><li><a href=#Least_Upper_Bound-literal_args_eq>literal_args_eq</a></li><li><a href=#Least_Upper_Bound-lob_aux_some>lob_aux_some</a></li><li><a href=#Least_Upper_Bound-no_corresponding_bc>no_corresponding_bc</a></li><li><a href=#Least_Upper_Bound-no_corresponding_gt>no_corresponding_gt</a></li><li><a href=#Least_Upper_Bound-no_corresponding_nor>no_corresponding_nor</a></li><li><a href=#Least_Upper_Bound-has_corresponding_eq>has_corresponding_eq</a></li><li><a href=#Least_Upper_Bound-has_corresponding_In>has_corresponding_In</a></li><li><a href=#Least_Upper_Bound-gval_each_one>gval_each_one</a></li><li><a href=#Least_Upper_Bound-has_corresponding_apply_guards>has_corresponding_apply_guards</a></li><li><a href=#Least_Upper_Bound-correspondence_subsumption>correspondence_subsumption</a></li><li><a href=#Least_Upper_Bound-is_lob_direct_subsumption>is_lob_direct_subsumption</a></li><li><a href=#Least_Upper_Bound-has_distinguishing>has_distinguishing</a></li><li><a href=#Least_Upper_Bound-has_distinguishing_Eq>has_distinguishing_Eq</a></li><li><a href=#Least_Upper_Bound-ex_mutex>ex_mutex</a></li><li><a href=#Least_Upper_Bound-has_distinguishing_In>has_distinguishing_In</a></li><li><a href=#Least_Upper_Bound-Eq_apply_guards>Eq_apply_guards</a></li><li><a href=#Least_Upper_Bound-In_neq_apply_guards>In_neq_apply_guards</a></li><li><a href=#Least_Upper_Bound-In_apply_guards>In_apply_guards</a></li><li><a href=#Least_Upper_Bound-input_not_constrained_aval_swap_inputs>input_not_constrained_aval_swap_inputs</a></li><li><a href=#Least_Upper_Bound-input_not_constrained_gval_swap_inputs>input_not_constrained_gval_swap_inputs</a></li><li><a href=#Least_Upper_Bound-test_aux>test_aux</a></li><li><a href=#Least_Upper_Bound-test>test</a></li><li><a href=#Least_Upper_Bound-get_Ins_Cons_equiv>get_Ins_Cons_equiv</a></li><li><a href=#Least_Upper_Bound-Ball_Cons>Ball_Cons</a></li><li><a href=#Least_Upper_Bound-In_in_get_Ins>In_in_get_Ins</a></li><li><a href=#Least_Upper_Bound-no_Ins>no_Ins</a></li><li><a href=#Least_Upper_Bound-test2>test2</a></li><li><a href=#Least_Upper_Bound-distinguishing_subsumption>distinguishing_subsumption</a></li><li><a href=#Least_Upper_Bound-must_be_another>must_be_another</a></li><li><a href=#Least_Upper_Bound-another_swap_inputs>another_swap_inputs</a></li><li><a href=#Least_Upper_Bound-lob_distinguished_2_not_subsumes>lob_distinguished_2_not_subsumes</a></li><li><a href=#Least_Upper_Bound-lob_distinguished_3_not_subsumes>lob_distinguished_3_not_subsumes</a></li><li><a href=#Least_Upper_Bound-guard_subset_eq_outputs_updates_subsumption>guard_subset_eq_outputs_updates_subsumption</a></li><li><a href=#Least_Upper_Bound-guard_subset_eq_outputs_updates_direct_subsumption>guard_subset_eq_outputs_updates_direct_subsumption</a></li><li><a href=#Least_Upper_Bound-unconstrained_input>unconstrained_input</a></li><li><a href=#Least_Upper_Bound-each_input_guarded_once_cons>each_input_guarded_once_cons</a></li><li><a href=#Least_Upper_Bound-literal_args_can_take>literal_args_can_take</a></li><li><a href=#Least_Upper_Bound-opposite_gob_subsumption>opposite_gob_subsumption</a></li><li><a href=#Least_Upper_Bound-opposite_gob_directly_subsumption>opposite_gob_directly_subsumption</a></li><li><a href=#Least_Upper_Bound-not_subset_not_in>not_subset_not_in</a></li><li><a href=#Least_Upper_Bound-get_in_is>get_in_is</a></li><li><a href=#Least_Upper_Bound-gval_rearrange>gval_rearrange</a></li><li><a href=#Least_Upper_Bound-singleton_list>singleton_list</a></li><li><a href=#Least_Upper_Bound-remove_restricted>remove_restricted</a></li><li><a href=#Least_Upper_Bound-unrestricted_input_swap>unrestricted_input_swap</a></li><li><a href=#Least_Upper_Bound-apply_guards_remove_restricted>apply_guards_remove_restricted</a></li><li><a href=#Least_Upper_Bound-In_swap_inputs>In_swap_inputs</a></li><li><a href=#Least_Upper_Bound-these_cons>these_cons</a></li><li><a href=#Least_Upper_Bound-in_get_ins>in_get_ins</a></li><li><a href=#Least_Upper_Bound-restricted_head>restricted_head</a></li><li><a href=#Least_Upper_Bound-restricted_max_once_cons>restricted_max_once_cons</a></li><li><a href=#Least_Upper_Bound-not_restricted_swap_inputs>not_restricted_swap_inputs</a></li></ul></li><li><a href=#Distinguishing_Guards>Distinguishing_Guards</a><ul><li><a href=#Distinguishing_Guards-distinguishing_guard_subsumption>distinguishing_guard_subsumption</a></li><li><a href=#Distinguishing_Guards-can_still_take_direct_subsumption>can_still_take_direct_subsumption</a></li></ul></li><li><a href=#Weak_Subsumption>Weak_Subsumption</a></li><li><a href=#Group_By>Group_By</a><ul><li><a href=#Group_By-not_empty_group_by_drop>not_empty_group_by_drop</a></li><li><a href=#Group_By-no_empty_groups>no_empty_groups</a></li><li><a href=#Group_By-takeWhile_dropWhile>takeWhile_dropWhile</a></li><li><a href=#Group_By-append_pref>append_pref</a></li><li><a href=#Group_By-dropWhile_drop>dropWhile_drop</a></li><li><a href=#Group_By-group_by_drop_foldr>group_by_drop_foldr</a></li><li><a href=#Group_By-group_by_inverse>group_by_inverse</a></li></ul></li><li><a href=#PTA_Generalisation>PTA_Generalisation</a><ul><li><a href=#PTA_Generalisation-same_structure_equiv>same_structure_equiv</a></li><li><a href=#PTA_Generalisation-replace_groups_fold>replace_groups_fold</a></li><li><a href=#PTA_Generalisation-fold_add_groupwise_updates>fold_add_groupwise_updates</a></li><li><a href=#PTA_Generalisation-target_tail>target_tail</a></li><li><a href=#PTA_Generalisation-target_tail_fold>target_tail_fold</a></li><li><a href=#PTA_Generalisation-target_fold>target_fold</a></li><li><a href=#PTA_Generalisation-unzip_3>unzip_3</a></li><li><a href=#PTA_Generalisation-unzip_3_tailrec_rev>unzip_3_tailrec_rev</a></li><li><a href=#PTA_Generalisation-unzip_3_tailrec>unzip_3_tailrec</a></li></ul></li><li><a href=#EFSM_Dot>EFSM_Dot</a><ul><li><a href=#EFSM_Dot-gexp2dot_aux_code>gexp2dot_aux_code</a></li><li><a href=#EFSM_Dot-updates2dot_aux_code>updates2dot_aux_code</a></li></ul></li><li><a href=#efsm2sal>efsm2sal</a></li><li><a href=#Code_Target_List>Code_Target_List</a><ul><li><a href=#Code_Target_List-fold_conv_foldl>fold_conv_foldl</a></li><li><a href=#Code_Target_List-code_list_eq>code_list_eq</a></li><li><a href=#Code_Target_List-nth_take_map>nth_take_map</a></li><li><a href=#Code_Target_List-upt_arbitrary_l>upt_arbitrary_l</a></li><li><a href=#Code_Target_List-remdups_fold>remdups_fold</a></li></ul></li><li><a href=#Code_Target_Set>Code_Target_Set</a><ul><li><a href=#Code_Target_Set-sup_set_append>sup_set_append</a></li></ul></li><li><a href=#Code_Target_FSet>Code_Target_FSet</a><ul><li><a href=#Code_Target_FSet-fprod_code>fprod_code</a></li><li><a href=#Code_Target_FSet-fminus_fset_filter>fminus_fset_filter</a></li><li><a href=#Code_Target_FSet-sup_fset_fold>sup_fset_fold</a></li><li><a href=#Code_Target_FSet-bot_fset>bot_fset</a></li><li><a href=#Code_Target_FSet-finsert>finsert</a></li><li><a href=#Code_Target_FSet-ffilter_filter>ffilter_filter</a></li><li><a href=#Code_Target_FSet-fimage_map>fimage_map</a></li><li><a href=#Code_Target_FSet-ffUnion_fold>ffUnion_fold</a></li><li><a href=#Code_Target_FSet-fmember>fmember</a></li><li><a href=#Code_Target_FSet-fthe_elem>fthe_elem</a></li><li><a href=#Code_Target_FSet-size>size</a></li><li><a href=#Code_Target_FSet-fMax_fold>fMax_fold</a></li><li><a href=#Code_Target_FSet-fMin_fold>fMin_fold</a></li><li><a href=#Code_Target_FSet-fremove_code>fremove_code</a></li><li><a href=#Code_Target_FSet-fsubseteq>fsubseteq</a></li><li><a href=#Code_Target_FSet-fsum_fold>fsum_fold</a></li><li><a href=#Code_Target_FSet-code_fset_eq>code_fset_eq</a></li><li><a href=#Code_Target_FSet-code_fsubset>code_fsubset</a></li><li><a href=#Code_Target_FSet-code_fset>code_fset</a></li><li><a href=#Code_Target_FSet-code_fBall>code_fBall</a></li><li><a href=#Code_Target_FSet-code_fBex>code_fBex</a></li><li><a href=#Code_Target_FSet-sorted_Max_Cons>sorted_Max_Cons</a></li><li><a href=#Code_Target_FSet-sorted_Max>sorted_Max</a></li><li><a href=#Code_Target_FSet-fis_singleton_code>fis_singleton_code</a></li></ul></li><li><a href=#Code_Generation>Code_Generation</a><ul><li><a href=#Code_Generation-mutex_not_gval>mutex_not_gval</a></li><li><a href=#Code_Generation-existing_mutex_not_true>existing_mutex_not_true</a></li><li><a href=#Code_Generation-always_different_outputs_outputs_never_equal>always_different_outputs_outputs_never_equal</a></li><li><a href=#Code_Generation-no_illegal_updates_code_aux>no_illegal_updates_code_aux</a></li><li><a href=#Code_Generation-no_illegal_updates_code>no_illegal_updates_code</a></li><li><a href=#Code_Generation-always_different_outputs_direct_subsumption>always_different_outputs_direct_subsumption</a></li><li><a href=#Code_Generation-gval_negate_cons>gval_negate_cons</a></li><li><a href=#Code_Generation-negate_true_guard>negate_true_guard</a></li><li><a href=#Code_Generation-gval_negate_not_invalid>gval_negate_not_invalid</a></li><li><a href=#Code_Generation-guard_subset_subsumption>guard_subset_subsumption</a></li><li><a href=#Code_Generation-tests_input_equality>tests_input_equality</a></li><li><a href=#Code_Generation-infer_empty>infer_empty</a></li></ul></li></ul></div><ul><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Extended_Finite_State_Machine_Inference/outline.pdf>Proof
-outline</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Extended_Finite_State_Machine_Inference/document.pdf>Proof
-document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Extended_Finite_State_Machine_Inference/session_graph.pdf>Theory dependencies</a></li></ul></div></aside><div class="content theories"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
-<datalist id=autocomplete></datalist></div></form><h1><span class=first>S</span>ession <span class=first>E</span>xtended_<span class=first>F</span>inite_<span class=first>S</span>tate_<span class=first>M</span>achine_<span class=first>I</span>nference</h1><div></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><div id=Subsumption><div class=head><h1>Theory Subsumption</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Contexts and Subsumption›</span></span>
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Session Extended_Finite_State_Machine_Inference - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session Extended_Finite_State_Machine_Inference">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="/entries/extended_finite_state_machine_inference/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories">
+<meta property="og:site_name" content="Archive of Formal Proofs">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="/images/afp.png">
+<meta name=twitter:title content="Session Extended_Finite_State_Machine_Inference">
+<meta name=twitter:description content>
+<link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css>
+<link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script>
+<script src=/js/banner.js></script><script src=/js/header-search.js></script></head>
+<body class=mathjax_ignore>
+<aside>
+<div>
+<div>
+<a href=/>
+<img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo>
+</a>
+<ul>
+<li><a href=/entries/extended_finite_state_machine_inference>Return to entry</a></li>
+</ul>
+<hr>
+<ul><li><a href=#Subsumption>Subsumption</a>
+<ul>
+<li><a href=#Subsumption-no_functionality_subsumed>no_functionality_subsumed</a></li>
+<li><a href=#Subsumption-subsumes_updates>subsumes_updates</a></li>
+<li><a href=#Subsumption-subsumption>subsumption</a></li>
+<li><a href=#Subsumption-bad_guards>bad_guards</a></li>
+<li><a href=#Subsumption-inconsistent_updates>inconsistent_updates</a></li>
+<li><a href=#Subsumption-bad_outputs>bad_outputs</a></li>
+<li><a href=#Subsumption-no_choice_no_subsumption>no_choice_no_subsumption</a></li>
+<li><a href=#Subsumption-subsumption_def_alt>subsumption_def_alt</a></li>
+<li><a href=#Subsumption-subsumes_update_equality>subsumes_update_equality</a></li>
+<li><a href=#Subsumption-subsumes_reflexive>subsumes_reflexive</a></li>
+<li><a href=#Subsumption-subsumes_transitive>subsumes_transitive</a></li>
+<li><a href=#Subsumption-subsumes_possible_steps_replace>subsumes_possible_steps_replace</a></li>
+<li><a href=#Subsumption-subsumes_in_all_contexts_directly_subsumes>subsumes_in_all_contexts_directly_subsumes</a></li>
+<li><a href=#Subsumption-direct_subsumption>direct_subsumption</a></li>
+<li><a href=#Subsumption-visits_and_not_subsumes>visits_and_not_subsumes</a></li>
+<li><a href=#Subsumption-directly_subsumes_reflexive>directly_subsumes_reflexive</a></li>
+<li><a href=#Subsumption-directly_subsumes_transitive>directly_subsumes_transitive</a></li>
+</ul>
+</li><li><a href=#Drinks_Subsumption>Drinks_Subsumption</a>
+<ul>
+<li><a href=#Drinks_Subsumption-stop_at_3>stop_at_3</a></li>
+<li><a href=#Drinks_Subsumption-no_1_2>no_1_2</a></li>
+<li><a href=#Drinks_Subsumption-no_change_1_1>no_change_1_1</a></li>
+<li><a href=#Drinks_Subsumption-obtains_1>obtains_1</a></li>
+<li><a href=#Drinks_Subsumption-obtains_1_1_2>obtains_1_1_2</a></li>
+<li><a href=#Drinks_Subsumption-obtains_1_c2>obtains_1_c2</a></li>
+<li><a href=#Drinks_Subsumption-directly_subsumes>directly_subsumes</a></li>
+<li><a href=#Drinks_Subsumption-directly_subsumes_flip>directly_subsumes_flip</a></li>
+</ul>
+</li><li><a href=#Inference>Inference</a>
+<ul>
+<li><a href=#Inference-S_alt>S_alt</a></li>
+<li><a href=#Inference-to_in_S>to_in_S</a></li>
+<li><a href=#Inference-from_in_S>from_in_S</a></li>
+<li><a href=#Inference-make_pta_aux_fold>make_pta_aux_fold</a></li>
+<li><a href=#Inference-paths_of_length_1>paths_of_length_1</a></li>
+<li><a href=#Inference-step_score_foldr>step_score_foldr</a></li>
+<li><a href=#Inference-score_1>score_1</a></li>
+<li><a href=#Inference-merge_states_symmetry>merge_states_symmetry</a></li>
+<li><a href=#Inference-merge_state_self>merge_state_self</a></li>
+<li><a href=#Inference-merge_states_self_simp>merge_states_self_simp</a></li>
+<li><a href=#Inference-state_nondeterminism_empty>state_nondeterminism_empty</a></li>
+<li><a href=#Inference-state_nondeterminism_singledestn>state_nondeterminism_singledestn</a></li>
+</ul>
+</li><li><a href=#SelectionStrategies>SelectionStrategies</a>
+</li><li><a href=#Store_Reuse>Store_Reuse</a>
+<ul>
+<li><a href=#Store_Reuse-remove_guard_add_update_preserves_outputs>remove_guard_add_update_preserves_outputs</a></li>
+<li><a href=#Store_Reuse-remove_guard_add_update_preserves_label>remove_guard_add_update_preserves_label</a></li>
+<li><a href=#Store_Reuse-remove_guard_add_update_preserves_arity>remove_guard_add_update_preserves_arity</a></li>
+<li><a href=#Store_Reuse-generalise_output_preserves_label>generalise_output_preserves_label</a></li>
+<li><a href=#Store_Reuse-generalise_output_preserves_arity>generalise_output_preserves_arity</a></li>
+<li><a href=#Store_Reuse-generalise_output_preserves_guard>generalise_output_preserves_guard</a></li>
+<li><a href=#Store_Reuse-generalise_output_preserves_output_length>generalise_output_preserves_output_length</a></li>
+<li><a href=#Store_Reuse-generalise_output_preserves_updates>generalise_output_preserves_updates</a></li>
+</ul>
+</li><li><a href=#Store_Reuse_Subsumption>Store_Reuse_Subsumption</a>
+<ul>
+<li><a href=#Store_Reuse_Subsumption-generalisation_of_preserves>generalisation_of_preserves</a></li>
+<li><a href=#Store_Reuse_Subsumption-is_generalisation_of_guard_subset>is_generalisation_of_guard_subset</a></li>
+<li><a href=#Store_Reuse_Subsumption-is_generalisation_of_medial>is_generalisation_of_medial</a></li>
+<li><a href=#Store_Reuse_Subsumption-is_generalisation_of_preserves_reg>is_generalisation_of_preserves_reg</a></li>
+<li><a href=#Store_Reuse_Subsumption-apply_updates_foldr>apply_updates_foldr</a></li>
+<li><a href=#Store_Reuse_Subsumption-is_generalisation_of_preserves_reg_2>is_generalisation_of_preserves_reg_2</a></li>
+<li><a href=#Store_Reuse_Subsumption-is_generalisation_of_apply_guards>is_generalisation_of_apply_guards</a></li>
+<li><a href=#Store_Reuse_Subsumption-is_generalisation_of_subsumes_original>is_generalisation_of_subsumes_original</a></li>
+<li><a href=#Store_Reuse_Subsumption-generalise_output_posterior>generalise_output_posterior</a></li>
+<li><a href=#Store_Reuse_Subsumption-generalise_output_eq>generalise_output_eq</a></li>
+<li><a href=#Store_Reuse_Subsumption-generalise_output_subsumes_original>generalise_output_subsumes_original</a></li>
+<li><a href=#Store_Reuse_Subsumption-stored_reused_aux_is_generalised_output_of>stored_reused_aux_is_generalised_output_of</a></li>
+<li><a href=#Store_Reuse_Subsumption-stored_reused_is_generalised_output_of>stored_reused_is_generalised_output_of</a></li>
+<li><a href=#Store_Reuse_Subsumption-is_generalised_output_of_subsumes>is_generalised_output_of_subsumes</a></li>
+<li><a href=#Store_Reuse_Subsumption-lists_neq_if>lists_neq_if</a></li>
+<li><a href=#Store_Reuse_Subsumption-is_generalised_output_of_does_not_subsume>is_generalised_output_of_does_not_subsume</a></li>
+<li><a href=#Store_Reuse_Subsumption-generalise_output_directly_subsumes_original>generalise_output_directly_subsumes_original</a></li>
+<li><a href=#Store_Reuse_Subsumption-generalise_output_context_check_directly_subsumes_original>generalise_output_context_check_directly_subsumes_original</a></li>
+<li><a href=#Store_Reuse_Subsumption-generalise_output_directly_subsumes_original_executable>generalise_output_directly_subsumes_original_executable</a></li>
+<li><a href=#Store_Reuse_Subsumption-original_does_not_subsume_generalised_output>original_does_not_subsume_generalised_output</a></li>
+<li><a href=#Store_Reuse_Subsumption-no_incoming_to_zero>no_incoming_to_zero</a></li>
+<li><a href=#Store_Reuse_Subsumption-no_return_to_zero>no_return_to_zero</a></li>
+<li><a href=#Store_Reuse_Subsumption-no_accepting_return_to_zero>no_accepting_return_to_zero</a></li>
+<li><a href=#Store_Reuse_Subsumption-no_return_to_zero_must_be_empty>no_return_to_zero_must_be_empty</a></li>
+<li><a href=#Store_Reuse_Subsumption-input_stored_in_reg_aux_is_generalisation_aux>input_stored_in_reg_aux_is_generalisation_aux</a></li>
+<li><a href=#Store_Reuse_Subsumption-input_stored_in_reg_is_generalisation>input_stored_in_reg_is_generalisation</a></li>
+<li><a href=#Store_Reuse_Subsumption-generalised_directly_subsumes_original>generalised_directly_subsumes_original</a></li>
+<li><a href=#Store_Reuse_Subsumption-drop_guard_add_update_direct_subsumption_implies_direct_subsumption>drop_guard_add_update_direct_subsumption_implies_direct_subsumption</a></li>
+<li><a href=#Store_Reuse_Subsumption-is_generalisation_of_constrains_input>is_generalisation_of_constrains_input</a></li>
+<li><a href=#Store_Reuse_Subsumption-is_generalisation_of_derestricts_input>is_generalisation_of_derestricts_input</a></li>
+<li><a href=#Store_Reuse_Subsumption-is_generalisation_of_same_arity>is_generalisation_of_same_arity</a></li>
+<li><a href=#Store_Reuse_Subsumption-is_generalisation_of_i_lt_arity>is_generalisation_of_i_lt_arity</a></li>
+<li><a href=#Store_Reuse_Subsumption-input_not_constrained_aval_swap_inputs>input_not_constrained_aval_swap_inputs</a></li>
+<li><a href=#Store_Reuse_Subsumption-aval_unconstrained>aval_unconstrained</a></li>
+<li><a href=#Store_Reuse_Subsumption-input_not_constrained_gval_swap_inputs>input_not_constrained_gval_swap_inputs</a></li>
+<li><a href=#Store_Reuse_Subsumption-input_stored_in_reg_not_subsumed>input_stored_in_reg_not_subsumed</a></li>
+<li><a href=#Store_Reuse_Subsumption-aval_updated>aval_updated</a></li>
+<li><a href=#Store_Reuse_Subsumption-can_take_append_subset>can_take_append_subset</a></li>
+<li><a href=#Store_Reuse_Subsumption-general_not_subsume_orig>general_not_subsume_orig</a></li>
+<li><a href=#Store_Reuse_Subsumption-input_stored_in_reg_updates_reg>input_stored_in_reg_updates_reg</a></li>
+<li><a href=#Store_Reuse_Subsumption-diff_outputs_direct_subsumption>diff_outputs_direct_subsumption</a></li>
+<li><a href=#Store_Reuse_Subsumption-not_updated>not_updated</a></li>
+<li><a href=#Store_Reuse_Subsumption-one_extra_update_subsumes>one_extra_update_subsumes</a></li>
+<li><a href=#Store_Reuse_Subsumption-one_extra_update_directly_subsumes>one_extra_update_directly_subsumes</a></li>
+<li><a href=#Store_Reuse_Subsumption-must_be_an_update>must_be_an_update</a></li>
+<li><a href=#Store_Reuse_Subsumption-one_extra_update_direct_subsumption>one_extra_update_direct_subsumption</a></li>
+</ul>
+</li><li><a href=#Increment_Reset>Increment_Reset</a>
+<ul>
+<li><a href=#Increment_Reset-guard_match_commute>guard_match_commute</a></li>
+<li><a href=#Increment_Reset-guard_match_length>guard_match_length</a></li>
+<li><a href=#Increment_Reset-output_match_symmetry>output_match_symmetry</a></li>
+<li><a href=#Increment_Reset-guard_match_symmetry>guard_match_symmetry</a></li>
+</ul>
+</li><li><a href=#Same_Register>Same_Register</a>
+</li><li><a href=#Least_Upper_Bound>Least_Upper_Bound</a>
+<ul>
+<li><a href=#Least_Upper_Bound-literal_args_eq>literal_args_eq</a></li>
+<li><a href=#Least_Upper_Bound-lob_aux_some>lob_aux_some</a></li>
+<li><a href=#Least_Upper_Bound-no_corresponding_bc>no_corresponding_bc</a></li>
+<li><a href=#Least_Upper_Bound-no_corresponding_gt>no_corresponding_gt</a></li>
+<li><a href=#Least_Upper_Bound-no_corresponding_nor>no_corresponding_nor</a></li>
+<li><a href=#Least_Upper_Bound-has_corresponding_eq>has_corresponding_eq</a></li>
+<li><a href=#Least_Upper_Bound-has_corresponding_In>has_corresponding_In</a></li>
+<li><a href=#Least_Upper_Bound-gval_each_one>gval_each_one</a></li>
+<li><a href=#Least_Upper_Bound-has_corresponding_apply_guards>has_corresponding_apply_guards</a></li>
+<li><a href=#Least_Upper_Bound-correspondence_subsumption>correspondence_subsumption</a></li>
+<li><a href=#Least_Upper_Bound-is_lob_direct_subsumption>is_lob_direct_subsumption</a></li>
+<li><a href=#Least_Upper_Bound-has_distinguishing>has_distinguishing</a></li>
+<li><a href=#Least_Upper_Bound-has_distinguishing_Eq>has_distinguishing_Eq</a></li>
+<li><a href=#Least_Upper_Bound-ex_mutex>ex_mutex</a></li>
+<li><a href=#Least_Upper_Bound-has_distinguishing_In>has_distinguishing_In</a></li>
+<li><a href=#Least_Upper_Bound-Eq_apply_guards>Eq_apply_guards</a></li>
+<li><a href=#Least_Upper_Bound-In_neq_apply_guards>In_neq_apply_guards</a></li>
+<li><a href=#Least_Upper_Bound-In_apply_guards>In_apply_guards</a></li>
+<li><a href=#Least_Upper_Bound-input_not_constrained_aval_swap_inputs>input_not_constrained_aval_swap_inputs</a></li>
+<li><a href=#Least_Upper_Bound-input_not_constrained_gval_swap_inputs>input_not_constrained_gval_swap_inputs</a></li>
+<li><a href=#Least_Upper_Bound-test_aux>test_aux</a></li>
+<li><a href=#Least_Upper_Bound-test>test</a></li>
+<li><a href=#Least_Upper_Bound-get_Ins_Cons_equiv>get_Ins_Cons_equiv</a></li>
+<li><a href=#Least_Upper_Bound-Ball_Cons>Ball_Cons</a></li>
+<li><a href=#Least_Upper_Bound-In_in_get_Ins>In_in_get_Ins</a></li>
+<li><a href=#Least_Upper_Bound-no_Ins>no_Ins</a></li>
+<li><a href=#Least_Upper_Bound-test2>test2</a></li>
+<li><a href=#Least_Upper_Bound-distinguishing_subsumption>distinguishing_subsumption</a></li>
+<li><a href=#Least_Upper_Bound-must_be_another>must_be_another</a></li>
+<li><a href=#Least_Upper_Bound-another_swap_inputs>another_swap_inputs</a></li>
+<li><a href=#Least_Upper_Bound-lob_distinguished_2_not_subsumes>lob_distinguished_2_not_subsumes</a></li>
+<li><a href=#Least_Upper_Bound-lob_distinguished_3_not_subsumes>lob_distinguished_3_not_subsumes</a></li>
+<li><a href=#Least_Upper_Bound-guard_subset_eq_outputs_updates_subsumption>guard_subset_eq_outputs_updates_subsumption</a></li>
+<li><a href=#Least_Upper_Bound-guard_subset_eq_outputs_updates_direct_subsumption>guard_subset_eq_outputs_updates_direct_subsumption</a></li>
+<li><a href=#Least_Upper_Bound-unconstrained_input>unconstrained_input</a></li>
+<li><a href=#Least_Upper_Bound-each_input_guarded_once_cons>each_input_guarded_once_cons</a></li>
+<li><a href=#Least_Upper_Bound-literal_args_can_take>literal_args_can_take</a></li>
+<li><a href=#Least_Upper_Bound-opposite_gob_subsumption>opposite_gob_subsumption</a></li>
+<li><a href=#Least_Upper_Bound-opposite_gob_directly_subsumption>opposite_gob_directly_subsumption</a></li>
+<li><a href=#Least_Upper_Bound-not_subset_not_in>not_subset_not_in</a></li>
+<li><a href=#Least_Upper_Bound-get_in_is>get_in_is</a></li>
+<li><a href=#Least_Upper_Bound-gval_rearrange>gval_rearrange</a></li>
+<li><a href=#Least_Upper_Bound-singleton_list>singleton_list</a></li>
+<li><a href=#Least_Upper_Bound-remove_restricted>remove_restricted</a></li>
+<li><a href=#Least_Upper_Bound-unrestricted_input_swap>unrestricted_input_swap</a></li>
+<li><a href=#Least_Upper_Bound-apply_guards_remove_restricted>apply_guards_remove_restricted</a></li>
+<li><a href=#Least_Upper_Bound-In_swap_inputs>In_swap_inputs</a></li>
+<li><a href=#Least_Upper_Bound-these_cons>these_cons</a></li>
+<li><a href=#Least_Upper_Bound-in_get_ins>in_get_ins</a></li>
+<li><a href=#Least_Upper_Bound-restricted_head>restricted_head</a></li>
+<li><a href=#Least_Upper_Bound-restricted_max_once_cons>restricted_max_once_cons</a></li>
+<li><a href=#Least_Upper_Bound-not_restricted_swap_inputs>not_restricted_swap_inputs</a></li>
+</ul>
+</li><li><a href=#Distinguishing_Guards>Distinguishing_Guards</a>
+<ul>
+<li><a href=#Distinguishing_Guards-distinguishing_guard_subsumption>distinguishing_guard_subsumption</a></li>
+<li><a href=#Distinguishing_Guards-can_still_take_direct_subsumption>can_still_take_direct_subsumption</a></li>
+</ul>
+</li><li><a href=#Weak_Subsumption>Weak_Subsumption</a>
+</li><li><a href=#Group_By>Group_By</a>
+<ul>
+<li><a href=#Group_By-not_empty_group_by_drop>not_empty_group_by_drop</a></li>
+<li><a href=#Group_By-no_empty_groups>no_empty_groups</a></li>
+<li><a href=#Group_By-takeWhile_dropWhile>takeWhile_dropWhile</a></li>
+<li><a href=#Group_By-append_pref>append_pref</a></li>
+<li><a href=#Group_By-dropWhile_drop>dropWhile_drop</a></li>
+<li><a href=#Group_By-group_by_drop_foldr>group_by_drop_foldr</a></li>
+<li><a href=#Group_By-group_by_inverse>group_by_inverse</a></li>
+</ul>
+</li><li><a href=#PTA_Generalisation>PTA_Generalisation</a>
+<ul>
+<li><a href=#PTA_Generalisation-same_structure_equiv>same_structure_equiv</a></li>
+<li><a href=#PTA_Generalisation-replace_groups_fold>replace_groups_fold</a></li>
+<li><a href=#PTA_Generalisation-fold_add_groupwise_updates>fold_add_groupwise_updates</a></li>
+<li><a href=#PTA_Generalisation-target_tail>target_tail</a></li>
+<li><a href=#PTA_Generalisation-target_tail_fold>target_tail_fold</a></li>
+<li><a href=#PTA_Generalisation-target_fold>target_fold</a></li>
+<li><a href=#PTA_Generalisation-unzip_3>unzip_3</a></li>
+<li><a href=#PTA_Generalisation-unzip_3_tailrec_rev>unzip_3_tailrec_rev</a></li>
+<li><a href=#PTA_Generalisation-unzip_3_tailrec>unzip_3_tailrec</a></li>
+</ul>
+</li><li><a href=#EFSM_Dot>EFSM_Dot</a>
+<ul>
+<li><a href=#EFSM_Dot-gexp2dot_aux_code>gexp2dot_aux_code</a></li>
+<li><a href=#EFSM_Dot-updates2dot_aux_code>updates2dot_aux_code</a></li>
+</ul>
+</li><li><a href=#efsm2sal>efsm2sal</a>
+</li><li><a href=#Code_Target_List>Code_Target_List</a>
+<ul>
+<li><a href=#Code_Target_List-fold_conv_foldl>fold_conv_foldl</a></li>
+<li><a href=#Code_Target_List-code_list_eq>code_list_eq</a></li>
+<li><a href=#Code_Target_List-nth_take_map>nth_take_map</a></li>
+<li><a href=#Code_Target_List-upt_arbitrary_l>upt_arbitrary_l</a></li>
+<li><a href=#Code_Target_List-remdups_fold>remdups_fold</a></li>
+</ul>
+</li><li><a href=#Code_Target_Set>Code_Target_Set</a>
+<ul>
+<li><a href=#Code_Target_Set-sup_set_append>sup_set_append</a></li>
+</ul>
+</li><li><a href=#Code_Target_FSet>Code_Target_FSet</a>
+<ul>
+<li><a href=#Code_Target_FSet-fprod_code>fprod_code</a></li>
+<li><a href=#Code_Target_FSet-fminus_fset_filter>fminus_fset_filter</a></li>
+<li><a href=#Code_Target_FSet-sup_fset_fold>sup_fset_fold</a></li>
+<li><a href=#Code_Target_FSet-bot_fset>bot_fset</a></li>
+<li><a href=#Code_Target_FSet-finsert>finsert</a></li>
+<li><a href=#Code_Target_FSet-ffilter_filter>ffilter_filter</a></li>
+<li><a href=#Code_Target_FSet-fimage_map>fimage_map</a></li>
+<li><a href=#Code_Target_FSet-ffUnion_fold>ffUnion_fold</a></li>
+<li><a href=#Code_Target_FSet-fmember>fmember</a></li>
+<li><a href=#Code_Target_FSet-fthe_elem>fthe_elem</a></li>
+<li><a href=#Code_Target_FSet-size>size</a></li>
+<li><a href=#Code_Target_FSet-fMax_fold>fMax_fold</a></li>
+<li><a href=#Code_Target_FSet-fMin_fold>fMin_fold</a></li>
+<li><a href=#Code_Target_FSet-fremove_code>fremove_code</a></li>
+<li><a href=#Code_Target_FSet-fsubseteq>fsubseteq</a></li>
+<li><a href=#Code_Target_FSet-fsum_fold>fsum_fold</a></li>
+<li><a href=#Code_Target_FSet-code_fset_eq>code_fset_eq</a></li>
+<li><a href=#Code_Target_FSet-code_fsubset>code_fsubset</a></li>
+<li><a href=#Code_Target_FSet-code_fset>code_fset</a></li>
+<li><a href=#Code_Target_FSet-code_fBall>code_fBall</a></li>
+<li><a href=#Code_Target_FSet-code_fBex>code_fBex</a></li>
+<li><a href=#Code_Target_FSet-sorted_Max_Cons>sorted_Max_Cons</a></li>
+<li><a href=#Code_Target_FSet-sorted_Max>sorted_Max</a></li>
+<li><a href=#Code_Target_FSet-fis_singleton_code>fis_singleton_code</a></li>
+</ul>
+</li><li><a href=#Code_Generation>Code_Generation</a>
+<ul>
+<li><a href=#Code_Generation-mutex_not_gval>mutex_not_gval</a></li>
+<li><a href=#Code_Generation-existing_mutex_not_true>existing_mutex_not_true</a></li>
+<li><a href=#Code_Generation-always_different_outputs_outputs_never_equal>always_different_outputs_outputs_never_equal</a></li>
+<li><a href=#Code_Generation-no_illegal_updates_code_aux>no_illegal_updates_code_aux</a></li>
+<li><a href=#Code_Generation-no_illegal_updates_code>no_illegal_updates_code</a></li>
+<li><a href=#Code_Generation-always_different_outputs_direct_subsumption>always_different_outputs_direct_subsumption</a></li>
+<li><a href=#Code_Generation-gval_negate_cons>gval_negate_cons</a></li>
+<li><a href=#Code_Generation-negate_true_guard>negate_true_guard</a></li>
+<li><a href=#Code_Generation-gval_negate_not_invalid>gval_negate_not_invalid</a></li>
+<li><a href=#Code_Generation-guard_subset_subsumption>guard_subset_subsumption</a></li>
+<li><a href=#Code_Generation-tests_input_equality>tests_input_equality</a></li>
+<li><a href=#Code_Generation-infer_empty>infer_empty</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<ul>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Extended_Finite_State_Machine_Inference/outline.pdf>Proof
+outline</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Extended_Finite_State_Machine_Inference/document.pdf>Proof
+document</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Extended_Finite_State_Machine_Inference/session_graph.pdf>Theory dependencies</a></li>
+</ul>
+</div>
+</aside>
+<div class="content theories"><header>
+<form action=/%20search>
+<div class=form-container>
+<input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
+<datalist id=autocomplete>
+</datalist>
+</div>
+</form>
+<h1><span class=first>S</span>ession <span class=first>E</span>xtended_<span class=first>F</span>inite_<span class=first>S</span>tate_<span class=first>M</span>achine_<span class=first>I</span>nference</h1>
+<div>
+</div>
+</header><div id=banner data-id=0>
+<p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button>
+</div>
+<div><main>
+<div id=Subsumption>
+<div class=head>
+<h1>Theory Subsumption</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Contexts and Subsumption›</span></span>
 <span class=keyword1><span class=command>text</span></span><span class=quoted><span class=plain_text>‹This theory uses contexts to extend the idea of transition subsumption from \cite{lorenzoli2008} to
 EFSM transitions with register update functions. The \emph{subsumption in context} relation is the
 main contribution of \cite{foster2018}.›</span></span>
@@ -205,7 +518,12 @@ adversely effecting observable behaviour.›</span></span>
   <span class=keyword1><span class=command>using</span></span> subsumes_transitive <span class=keyword1><span class=command>by</span></span> <span class=operator>blast</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Drinks_Subsumption><div class=head><h1>Theory Drinks_Subsumption</h1></div><pre class=source><span class=keyword1><span class=command>subsection</span></span><span class=quoted><span class=plain_text>‹Example›</span></span> 
+</pre>
+</div><div id=Drinks_Subsumption>
+<div class=head>
+<h1>Theory Drinks_Subsumption</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>subsection</span></span><span class=quoted><span class=plain_text>‹Example›</span></span> 
 <span class=keyword1><span class=command>text</span></span><span class=quoted><span class=plain_text>‹This theory shows how contexts can be used to prove transition subsumption.›</span></span>
 <span class=keyword1><span class=command>theory</span></span> Drinks_Subsumption
 <span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=#Subsumption>Extended_Finite_State_Machine_Inference.Subsumption</a>"</span> <span class=quoted>"<a href=../../extended_finite_state_machines/theories/#Drinks_Machine_2>Extended_Finite_State_Machines.Drinks_Machine_2</a>"</span>
@@ -358,7 +676,12 @@ adversely effecting observable behaviour.›</span></span>
   <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> posterior_separate_def vend_fail_def vend_nothing_def<span class=main>)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Inference><div class=head><h1>Theory Inference</h1></div><pre class=source><span class=keyword1><span class=command>chapter</span></span><span class=quoted><span class=plain_text>‹EFSM Inference›</span></span>
+</pre>
+</div><div id=Inference>
+<div class=head>
+<h1>Theory Inference</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>chapter</span></span><span class=quoted><span class=plain_text>‹EFSM Inference›</span></span>
 <span class=keyword1><span class=command>text</span></span><span class=quoted><span class=plain_text>‹This chapter presents the definitions necessary for EFSM inference by state-merging.›</span></span>
 
 <span class=keyword1><span class=command>section</span></span><span class=quoted><span class=plain_text>‹Inference by State-Merging›</span></span>
@@ -946,7 +1269,12 @@ traces known as the \emph{test set.}›</span></span>
   <span class=quoted><span class=quoted>"<span class=free>test_log</span> <span class=free><span class=bound><span class=entity>l</span></span></span> <span class=free><span class=bound><span class=entity>e</span></span></span> <span class=main>=</span> map <span class=main>(</span><span class=main>λ</span><span class=bound>t</span><span class=main>.</span> test_trace <span class=bound>t</span> <span class=free><span class=bound><span class=entity>e</span></span></span> <span class=main>0</span> <span class=main>&lt;&gt;</span><span class=main>)</span> <span class=free><span class=bound><span class=entity>l</span></span></span>"</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=SelectionStrategies><div class=head><h1>Theory SelectionStrategies</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span><span class=quoted><span class=plain_text>‹Selection Strategies›</span></span>
+</pre>
+</div><div id=SelectionStrategies>
+<div class=head>
+<h1>Theory SelectionStrategies</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span><span class=quoted><span class=plain_text>‹Selection Strategies›</span></span>
 <span class=keyword1><span class=command>text</span></span><span class=quoted><span class=plain_text>‹The strategy used to idenfity and prioritise states to be merged plays a big part in how the
 final model turns out. This theory file presents a number of different selection strategies.›</span></span>
 
@@ -1056,7 +1384,12 @@ states receives one point for each pair of transitions where one directly subsum
       <span class=main>0</span><span class=main>)</span>"</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Store_Reuse><div class=head><h1>Theory Store_Reuse</h1></div><pre class=source><span class=keyword1><span class=command>chapter</span></span><span class=quoted><span class=plain_text>‹Heuristics›</span></span>
+</pre>
+</div><div id=Store_Reuse>
+<div class=head>
+<h1>Theory Store_Reuse</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>chapter</span></span><span class=quoted><span class=plain_text>‹Heuristics›</span></span>
 <span class=keyword1><span class=command>text</span></span><span class=quoted><span class=plain_text>‹As part of this inference technique, we make use of certain \emph{heuristics} to abstract away
 concrete values into registers. This allows us to generalise from examples of behaviour. These
 heuristics are as follows.
@@ -1339,7 +1672,12 @@ content of the register.›</span></span>
 <span class=keyword1><span class=command>hide_const</span></span> ioTag.In
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Store_Reuse_Subsumption><div class=head><h1>Theory Store_Reuse_Subsumption</h1></div><pre class=source><span class=keyword1><span class=command>subsection</span></span><span class=quoted><span class=plain_text>‹Store and Reuse Subsumption›</span></span>
+</pre>
+</div><div id=Store_Reuse_Subsumption>
+<div class=head>
+<h1>Theory Store_Reuse_Subsumption</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>subsection</span></span><span class=quoted><span class=plain_text>‹Store and Reuse Subsumption›</span></span>
 <span class=keyword1><span class=command>text</span></span><span class=quoted><span class=plain_text>‹This theory provides proofs of various properties of the \emph{store and reuse} heuristic,
 including the preconditions necessary for the transitions it introduces to directly subsume their
 ungeneralised counterparts.›</span></span>
@@ -2034,7 +2372,12 @@ of the form $t^\prime = select:1/r_1:=i_1$.›</span></span>
   <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>metis</span> eq_fst_iff hd_Cons_tl one_extra_update_directly_subsumes<span class=main>)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Increment_Reset><div class=head><h1>Theory Increment_Reset</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span><span class=quoted><span class=plain_text>‹Increment and Reset›</span></span>
+</pre>
+</div><div id=Increment_Reset>
+<div class=head>
+<h1>Theory Increment_Reset</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span><span class=quoted><span class=plain_text>‹Increment and Reset›</span></span>
 <span class=keyword1><span class=command>text</span></span><span class=quoted><span class=plain_text>‹The ``increment and reset'' heuristic proposed in \cite{foster2019} is a naive way of
 introducing an incrementing register into a model. This this theory implements that heuristic.›</span></span>
 
@@ -2119,7 +2462,12 @@ introducing an incrementing register into a model. This this theory implements t
   <span class=quoted><span class=quoted>"<span class=free>outputMatch_alt_2</span> <span class=main><span class=bound><span class=entity>_</span></span></span> <span class=main>=</span> False"</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Same_Register><div class=head><h1>Theory Same_Register</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span><span class=quoted><span class=plain_text>‹Same Register›</span></span>
+</pre>
+</div><div id=Same_Register>
+<div class=head>
+<h1>Theory Same_Register</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span><span class=quoted><span class=plain_text>‹Same Register›</span></span>
 <span class=keyword1><span class=command>text</span></span><span class=quoted><span class=plain_text>‹The \texttt{same\_register} heuristic aims to replace registers which are used in the same way.›</span></span>
 
 <span class=keyword1><span class=command>theory</span></span> Same_Register
@@ -2161,7 +2509,12 @@ introducing an incrementing register into a model. This this theory implements t
    <span class=main>)</span>"</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Least_Upper_Bound><div class=head><h1>Theory Least_Upper_Bound</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span><span class=quoted><span class=plain_text>‹Least Upper Bound›</span></span>
+</pre>
+</div><div id=Least_Upper_Bound>
+<div class=head>
+<h1>Theory Least_Upper_Bound</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span><span class=quoted><span class=plain_text>‹Least Upper Bound›</span></span>
 <span class=keyword1><span class=command>text</span></span><span class=quoted><span class=plain_text>‹The simplest way to merge a pair of transitions with identical outputs and updates is to
 simply take the least upper bound of their \emph{guards}. This theory presents several variants on
 this theme.›</span></span>
@@ -3116,7 +3469,12 @@ intellegent approach to guard merging.›</span></span>
     <span class=keyword1><span class=command>using</span></span> input_not_constrained_gval_swap_inputs <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
 <span class=keyword1><span class=command>qed</span></span> <span class=operator>auto</span>
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Distinguishing_Guards><div class=head><h1>Theory Distinguishing_Guards</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span><span class=quoted><span class=plain_text>‹Distinguishing Guards›</span></span>
+</pre>
+</div><div id=Distinguishing_Guards>
+<div class=head>
+<h1>Theory Distinguishing_Guards</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span><span class=quoted><span class=plain_text>‹Distinguishing Guards›</span></span>
 <span class=keyword1><span class=command>text</span></span><span class=quoted><span class=plain_text>‹If we cannot resolve the nondeterminism which arises from merging states by merging
 transitions, we might then conclude that those states should not be merged. Alternatively, we could
 consider the possibility of \emph{value-dependent} behaviour. This theory presents a heuristic which
@@ -3233,7 +3591,12 @@ tries to find a guard which distinguishes between a pair of transitions.›</spa
   <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>meson</span> distinguishing_guard_subsumption obtains_visits obtains_recognises recognises_and_visits_both_def<span class=main>)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Weak_Subsumption><div class=head><h1>Theory Weak_Subsumption</h1></div><pre class=source><span class=keyword1><span class=command>subsection</span></span><span class=quoted><span class=plain_text>‹Weak Subsumption›</span></span>
+</pre>
+</div><div id=Weak_Subsumption>
+<div class=head>
+<h1>Theory Weak_Subsumption</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>subsection</span></span><span class=quoted><span class=plain_text>‹Weak Subsumption›</span></span>
 <span class=keyword1><span class=command>text</span></span><span class=quoted><span class=plain_text>‹Unfortunately, the \emph{direct subsumption} relation cannot be transformed into executable
 code. To solve this problem, \cite{foster2019} advocates for the use of a model checker, but this
 turns out to be prohibitively slow for all but the smallest of examples. To solve this problem, we
@@ -3286,7 +3649,12 @@ to be inferred in reasonable time.›</span></span>
    <span class=main>)</span>"</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Group_By><div class=head><h1>Theory Group_By</h1></div><pre class=source><span class=keyword1><span class=command>theory</span></span> Group_By
+</pre>
+</div><div id=Group_By>
+<div class=head>
+<h1>Theory Group_By</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>theory</span></span> Group_By
 <span class=keyword2><span class=keyword>imports</span></span> <a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL/Main.html>Main</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
@@ -3341,7 +3709,12 @@ to be inferred in reasonable time.›</span></span>
     <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> group_by_drop_foldr<span class=main>)</span>
 <span class=keyword1><span class=command>qed</span></span> <span class=operator>auto</span>
 
-<span class=keyword2><span class=keyword>end</span></span></pre></div><div id=PTA_Generalisation><div class=head><h1>Theory PTA_Generalisation</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span><span class=quoted><span class=plain_text>‹PTA Generalisation›</span></span>
+<span class=keyword2><span class=keyword>end</span></span></pre>
+</div><div id=PTA_Generalisation>
+<div class=head>
+<h1>Theory PTA_Generalisation</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span><span class=quoted><span class=plain_text>‹PTA Generalisation›</span></span>
 <span class=keyword1><span class=command>text</span></span><span class=quoted><span class=plain_text>‹The problem with the simplistic heuristics of \cite{foster2019} is that the performance of the
 Inference technique is almost entirely dependent on the quality and applicability of the heuristics
 provided to it. Producing high quality heuristics often requires some inside knowledge of the system
@@ -3890,7 +4263,12 @@ update functions, as structural groups are likely to be instances of the same un
 <span class=keyword1><span class=command>definition</span></span> <span class=quoted><span class=quoted>"<span class=free>drop_pta_guards</span> <span class=free><span class=bound><span class=entity>pta</span></span></span> <span class=free><span class=bound><span class=entity>log</span></span></span> <span class=free><span class=bound><span class=entity>m</span></span></span> <span class=free><span class=bound><span class=entity>np</span></span></span> <span class=main>=</span> drop_all_guards <span class=free><span class=bound><span class=entity>pta</span></span></span> <span class=free><span class=bound><span class=entity>pta</span></span></span> <span class=free><span class=bound><span class=entity>log</span></span></span> <span class=free><span class=bound><span class=entity>m</span></span></span> <span class=free><span class=bound><span class=entity>np</span></span></span>"</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=EFSM_Dot><div class=head><h1>Theory EFSM_Dot</h1></div><pre class=source><span class=keyword1><span class=command>chapter</span></span><span class=quoted><span class=plain_text>‹Output›</span></span>
+</pre>
+</div><div id=EFSM_Dot>
+<div class=head>
+<h1>Theory EFSM_Dot</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>chapter</span></span><span class=quoted><span class=plain_text>‹Output›</span></span>
 <span class=keyword1><span class=command>text</span></span><span class=quoted><span class=plain_text>‹This chapter provides two different output formats for EFSMs.›</span></span> 
 
 <span class=keyword1><span class=command>section</span></span><span class=quoted><span class=plain_text>‹Graphical Output›</span></span>
@@ -4038,7 +4416,12 @@ take the form $\textit{label}:\textit{arity}[g_1, \ldots, g_g]/f_1, \ldots, f_f[
 <span class=keyword1><span class=command>abbreviation</span></span> <span class=entity>quote_str</span> <span class=main>::</span> <span class=quoted>string</span> <span class=keyword2><span class=keyword>where</span></span>
   <span class=quoted><span class=quoted>"<span class=free>quote_str</span> <span class=main>≡</span> <span class=inner_quoted>''0x22''</span>"</span></span>
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=efsm2sal><div class=head><h1>Theory efsm2sal</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span><span class=quoted><span class=plain_text>‹Output to SAL›</span></span>
+</pre>
+</div><div id=efsm2sal>
+<div class=head>
+<h1>Theory efsm2sal</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span><span class=quoted><span class=plain_text>‹Output to SAL›</span></span>
 <span class=keyword1><span class=command>text</span></span><span class=quoted><span class=plain_text>‹SAL is a framework for combining different tools for abstraction, program analysis, theorem
 proving, and model checking. It is able to verify and refute properties of EFSMs phrased in LTL. In
 \cite{foster2019}, it is proposed that a model checker be used to assist in checking the conditions
@@ -4112,7 +4495,12 @@ inference tool generated by the code generator.›</span></span>
   <span class=quoted><span class=quoted>"<span class=free>guards2sal_num</span> <span class=free><span class=bound><span class=entity>G</span></span></span> <span class=free><span class=bound><span class=entity>m</span></span></span> <span class=main>=</span> join <span class=main>(</span>map <span class=main>(</span><span class=main>λ</span><span class=bound>g</span><span class=main>.</span> gexp2sal_num <span class=bound>g</span> <span class=free><span class=bound><span class=entity>m</span></span></span><span class=main>)</span> <span class=free><span class=bound><span class=entity>G</span></span></span><span class=main>)</span> <span class=keyword1>STR</span> <span class=inner_quoted>'' AND ''</span>"</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Code_Target_List><div class=head><h1>Theory Code_Target_List</h1></div><pre class=source><span class=keyword1><span class=command>chapter</span></span><span class=quoted><span class=plain_text>‹Code Generation›</span></span>
+</pre>
+</div><div id=Code_Target_List>
+<div class=head>
+<h1>Theory Code_Target_List</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>chapter</span></span><span class=quoted><span class=plain_text>‹Code Generation›</span></span>
 <span class=keyword1><span class=command>text</span></span><span class=quoted><span class=plain_text>‹This chapter details the code generator setup to produce executable Scala code for our
 inference technique.›</span></span>
 
@@ -4239,7 +4627,12 @@ implementation.›</span></span>
   <span class=main>|</span> <span class=keyword2><span class=keyword>constant</span></span> <span class=quoted><span class=quoted>"hd"</span></span> <span class=main>⇀</span> <span class=main>(</span>Scala<span class=main>)</span> <span class=quoted>"_.head"</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Code_Target_Set><div class=head><h1>Theory Code_Target_Set</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span><span class=quoted><span class=plain_text>‹Sets›</span></span>
+</pre>
+</div><div id=Code_Target_Set>
+<div class=head>
+<h1>Theory Code_Target_Set</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span><span class=quoted><span class=plain_text>‹Sets›</span></span>
 <span class=keyword1><span class=command>text</span></span><span class=quoted><span class=plain_text>‹While the default code generator setup for sets works fine, it does not make for particularly
 readable code. The reason for this is that the default setup needs to work with potentially infinite
 sets. All of the sets we need to use here are finite so we present an alternative setup for the
@@ -4283,7 +4676,12 @@ basic set operations which generates much cleaner code.›</span></span>
   <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>meson</span> in_set_member list.pred_set subset'_code<span class=main><span class=main>(</span></span>2<span class=main><span class=main>)</span></span><span class=main>)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Code_Target_FSet><div class=head><h1>Theory Code_Target_FSet</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span><span class=quoted><span class=plain_text>‹Finite Sets›</span></span>
+</pre>
+</div><div id=Code_Target_FSet>
+<div class=head>
+<h1>Theory Code_Target_FSet</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span><span class=quoted><span class=plain_text>‹Finite Sets›</span></span>
 <span class=keyword1><span class=command>text</span></span><span class=quoted><span class=plain_text>‹Here we define the operations on the \texttt{fset} datatype in terms of lists rather than sets.
 This allows the Scala implementation to skip a case match each time, which makes for cleaner and
 slightly faster code.›</span></span>
@@ -4447,7 +4845,12 @@ slightly faster code.›</span></span>
   <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>simp</span> <span class=quasi_keyword>add</span><span class=main><span class=main>:</span></span> card_Suc_eq<span class=main>)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Code_Generation><div class=head><h1>Theory Code_Generation</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span><span class=quoted><span class=plain_text>‹Code Generation›</span></span>
+</pre>
+</div><div id=Code_Generation>
+<div class=head>
+<h1>Theory Code_Generation</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span><span class=quoted><span class=plain_text>‹Code Generation›</span></span>
 <span class=keyword1><span class=command>text</span></span><span class=quoted><span class=plain_text>‹This theory is used to generate an executable Scala implementation of the inference tool which
 can be used to infer real EFSMs from real traces. Certain functions are replaced with native
 implementations. These can be found at \url{https://github.com/jmafoster1/efsm-inference/blob/master/inference-tool/src/main/scala/inference/Dirties.scala}.›</span></span>
@@ -4892,4 +5295,10 @@ lemma [code]: "infer f k e r m check np = infer_with_log f k e r m check np"
 <span class=comment1>(* file "../../inference-tool/src/main/scala/inference/Inference.scala" *)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div></main></div></div></body></html>
+</pre>
+</div>
+</main>
+</div>
+</div>
+</body>
+</html>

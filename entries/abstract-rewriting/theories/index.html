@@ -1,7 +1,444 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Session Abstract-Rewriting - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session Abstract-Rewriting"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/abstract-rewriting/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Session Abstract-Rewriting"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css><link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script><script src=/js/banner.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><li><a href=/entries/abstract-rewriting>Return to entry</a></li></ul><hr><ul><li><a href=#Seq>Seq</a><ul><li><a href=#Seq-cons_chainp>cons_chainp</a></li><li><a href=#Seq-cons_chain>cons_chain</a></li><li><a href=#Seq-chainp_imp_relpowp>chainp_imp_relpowp</a></li><li><a href=#Seq-chain_imp_relpow>chain_imp_relpow</a></li><li><a href=#Seq-chainp_imp_tranclp>chainp_imp_tranclp</a></li><li><a href=#Seq-chain_imp_trancl>chain_imp_trancl</a></li><li><a href=#Seq-chainp_imp_rtranclp>chainp_imp_rtranclp</a></li><li><a href=#Seq-chain_imp_rtrancl>chain_imp_rtrancl</a></li><li><a href=#Seq-stepfun_imp_chainp%27>stepfun_imp_chainp'</a></li><li><a href=#Seq-stepfun_imp_chainp>stepfun_imp_chainp</a></li><li><a href=#Seq-subchain>subchain</a></li><li><a href=#Seq-steps_imp_chainp%27>steps_imp_chainp'</a></li><li><a href=#Seq-steps_imp_chainp>steps_imp_chainp</a></li><li><a href=#Seq-inf>inf</a></li><li><a href=#Seq-index_p>index_p</a></li><li><a href=#Seq-index_ordered>index_ordered</a></li><li><a href=#Seq-index_not_p_between>index_not_p_between</a></li><li><a href=#Seq-index_ordered_le>index_ordered_le</a></li><li><a href=#Seq-index_surj>index_surj</a></li><li><a href=#Seq-index_ordered_less>index_ordered_less</a></li><li><a href=#Seq-index_not_p_start>index_not_p_start</a></li><li><a href=#Seq-inf_concat_simple_add>inf_concat_simple_add</a></li><li><a href=#Seq-inf_concat_simple_surj_zero>inf_concat_simple_surj_zero</a></li><li><a href=#Seq-inf_concat_simple_surj>inf_concat_simple_surj</a></li><li><a href=#Seq-inf_concat_simple_mono>inf_concat_simple_mono</a></li><li><a href=#Seq-inf_concat_bounds>inf_concat_bounds</a></li><li><a href=#Seq-inf_concat_add>inf_concat_add</a></li><li><a href=#Seq-inf_concat_step>inf_concat_step</a></li><li><a href=#Seq-inf_concat_surj_zero>inf_concat_surj_zero</a></li><li><a href=#Seq-inf_concat_surj>inf_concat_surj</a></li><li><a href=#Seq-inf_concat_mono>inf_concat_mono</a></li><li><a href=#Seq-inf_concat_Suc>inf_concat_Suc</a></li></ul></li><li><a href=#Abstract_Rewriting>Abstract_Rewriting</a><ul><li><a href=#Abstract_Rewriting-trancl_mono_set>trancl_mono_set</a></li><li><a href=#Abstract_Rewriting-relpow_mono>relpow_mono</a></li><li><a href=#Abstract_Rewriting-refl_inv_image>refl_inv_image</a></li><li><a href=#Abstract_Rewriting-symcl_converse>symcl_converse</a></li><li><a href=#Abstract_Rewriting-symcl_Un>symcl_Un</a></li><li><a href=#Abstract_Rewriting-no_step>no_step</a></li><li><a href=#Abstract_Rewriting-joinI>joinI</a></li><li><a href=#Abstract_Rewriting-joinI_left>joinI_left</a></li><li><a href=#Abstract_Rewriting-joinI_right>joinI_right</a></li><li><a href=#Abstract_Rewriting-joinE>joinE</a></li><li><a href=#Abstract_Rewriting-joinD>joinD</a></li><li><a href=#Abstract_Rewriting-meetI>meetI</a></li><li><a href=#Abstract_Rewriting-meetE>meetE</a></li><li><a href=#Abstract_Rewriting-meetD>meetD</a></li><li><a href=#Abstract_Rewriting-conversionI>conversionI</a></li><li><a href=#Abstract_Rewriting-conversion_refl>conversion_refl</a></li><li><a href=#Abstract_Rewriting-conversionI%27>conversionI'</a></li><li><a href=#Abstract_Rewriting-rtrancl_comp_trancl_conv>rtrancl_comp_trancl_conv</a></li><li><a href=#Abstract_Rewriting-trancl_o_refl_is_trancl>trancl_o_refl_is_trancl</a></li><li><a href=#Abstract_Rewriting-conversionE>conversionE</a></li><li><a href=#Abstract_Rewriting-conversion_trans>conversion_trans</a></li><li><a href=#Abstract_Rewriting-conversion_sym>conversion_sym</a></li><li><a href=#Abstract_Rewriting-conversion_inv>conversion_inv</a></li><li><a href=#Abstract_Rewriting-conversion_converse>conversion_converse</a></li><li><a href=#Abstract_Rewriting-conversion_rtrancl>conversion_rtrancl</a></li><li><a href=#Abstract_Rewriting-rtrancl_join_join>rtrancl_join_join</a></li><li><a href=#Abstract_Rewriting-join_rtrancl_join>join_rtrancl_join</a></li><li><a href=#Abstract_Rewriting-NF_I>NF_I</a></li><li><a href=#Abstract_Rewriting-NF_E>NF_E</a></li><li><a href=#Abstract_Rewriting-NF_no_step>NF_no_step</a></li><li><a href=#Abstract_Rewriting-NF_anti_mono>NF_anti_mono</a></li><li><a href=#Abstract_Rewriting-NF_iff_no_step>NF_iff_no_step</a></li><li><a href=#Abstract_Rewriting-NF_no_trancl_step>NF_no_trancl_step</a></li><li><a href=#Abstract_Rewriting-NF_Id_on_fst_image>NF_Id_on_fst_image</a></li><li><a href=#Abstract_Rewriting-fst_image_NF_Id_on>fst_image_NF_Id_on</a></li><li><a href=#Abstract_Rewriting-NF_empty>NF_empty</a></li><li><a href=#Abstract_Rewriting-normalizability_I>normalizability_I</a></li><li><a href=#Abstract_Rewriting-normalizability_I%27>normalizability_I'</a></li><li><a href=#Abstract_Rewriting-normalizability_E>normalizability_E</a></li><li><a href=#Abstract_Rewriting-SN_def>SN_def</a></li><li><a href=#Abstract_Rewriting-complete_onI>complete_onI</a></li><li><a href=#Abstract_Rewriting-complete_onE>complete_onE</a></li><li><a href=#Abstract_Rewriting-CR_onI>CR_onI</a></li><li><a href=#Abstract_Rewriting-CR_on_singletonI>CR_on_singletonI</a></li><li><a href=#Abstract_Rewriting-CR_onE>CR_onE</a></li><li><a href=#Abstract_Rewriting-CR_onD>CR_onD</a></li><li><a href=#Abstract_Rewriting-semi_complete_onI>semi_complete_onI</a></li><li><a href=#Abstract_Rewriting-semi_complete_onE>semi_complete_onE</a></li><li><a href=#Abstract_Rewriting-UNC_I>UNC_I</a></li><li><a href=#Abstract_Rewriting-UNC_E>UNC_E</a></li><li><a href=#Abstract_Rewriting-UNF_onI>UNF_onI</a></li><li><a href=#Abstract_Rewriting-UNF_onE>UNF_onE</a></li><li><a href=#Abstract_Rewriting-UNF_onD>UNF_onD</a></li><li><a href=#Abstract_Rewriting-SN_onI>SN_onI</a></li><li><a href=#Abstract_Rewriting-SN_I>SN_I</a></li><li><a href=#Abstract_Rewriting-SN_on_trancl_imp_SN_on>SN_on_trancl_imp_SN_on</a></li><li><a href=#Abstract_Rewriting-SN_onE>SN_onE</a></li><li><a href=#Abstract_Rewriting-not_SN_onE>not_SN_onE</a></li><li><a href=#Abstract_Rewriting-refl_not_SN>refl_not_SN</a></li><li><a href=#Abstract_Rewriting-SN_on_irrefl>SN_on_irrefl</a></li><li><a href=#Abstract_Rewriting-WCR_onI>WCR_onI</a></li><li><a href=#Abstract_Rewriting-WCR_onE>WCR_onE</a></li><li><a href=#Abstract_Rewriting-SN_nat_bounded>SN_nat_bounded</a></li><li><a href=#Abstract_Rewriting-WCR_onD>WCR_onD</a></li><li><a href=#Abstract_Rewriting-WN_onI>WN_onI</a></li><li><a href=#Abstract_Rewriting-WN_onE>WN_onE</a></li><li><a href=#Abstract_Rewriting-WN_onD>WN_onD</a></li><li><a href=#Abstract_Rewriting-SN_restrict_SN_idemp>SN_restrict_SN_idemp</a></li><li><a href=#Abstract_Rewriting-SN_on_Image>SN_on_Image</a></li><li><a href=#Abstract_Rewriting-SN_on_subset2>SN_on_subset2</a></li><li><a href=#Abstract_Rewriting-step_preserves_SN_on>step_preserves_SN_on</a></li><li><a href=#Abstract_Rewriting-steps_preserve_SN_on>steps_preserve_SN_on</a></li><li><a href=#Abstract_Rewriting-relpow_seq>relpow_seq</a></li><li><a href=#Abstract_Rewriting-rtrancl_imp_seq>rtrancl_imp_seq</a></li><li><a href=#Abstract_Rewriting-SN_on_Image_rtrancl>SN_on_Image_rtrancl</a></li><li><a href=#Abstract_Rewriting-restrict_SN_trancl_simp>restrict_SN_trancl_simp</a></li><li><a href=#Abstract_Rewriting-SN_imp_WN>SN_imp_WN</a></li><li><a href=#Abstract_Rewriting-UNC_imp_UNF>UNC_imp_UNF</a></li><li><a href=#Abstract_Rewriting-join_NF_imp_eq>join_NF_imp_eq</a></li><li><a href=#Abstract_Rewriting-rtrancl_Restr>rtrancl_Restr</a></li><li><a href=#Abstract_Rewriting-join_mono>join_mono</a></li><li><a href=#Abstract_Rewriting-CR_iff_meet_subset_join>CR_iff_meet_subset_join</a></li><li><a href=#Abstract_Rewriting-CR_divergence_imp_join>CR_divergence_imp_join</a></li><li><a href=#Abstract_Rewriting-join_imp_conversion>join_imp_conversion</a></li><li><a href=#Abstract_Rewriting-meet_imp_conversion>meet_imp_conversion</a></li><li><a href=#Abstract_Rewriting-CR_imp_UNF>CR_imp_UNF</a></li><li><a href=#Abstract_Rewriting-CR_iff_conversion_imp_join>CR_iff_conversion_imp_join</a></li><li><a href=#Abstract_Rewriting-CR_imp_conversionIff_join>CR_imp_conversionIff_join</a></li><li><a href=#Abstract_Rewriting-sym_join>sym_join</a></li><li><a href=#Abstract_Rewriting-join_sym>join_sym</a></li><li><a href=#Abstract_Rewriting-CR_join_left_I>CR_join_left_I</a></li><li><a href=#Abstract_Rewriting-CR_join_right_I>CR_join_right_I</a></li><li><a href=#Abstract_Rewriting-NF_not_suc>NF_not_suc</a></li><li><a href=#Abstract_Rewriting-semi_complete_imp_conversionIff_same_NF>semi_complete_imp_conversionIff_same_NF</a></li><li><a href=#Abstract_Rewriting-CR_imp_UNC>CR_imp_UNC</a></li><li><a href=#Abstract_Rewriting-WN_UNF_imp_CR>WN_UNF_imp_CR</a></li><li><a href=#Abstract_Rewriting-diamond_I>diamond_I</a></li><li><a href=#Abstract_Rewriting-diamond_E>diamond_E</a></li><li><a href=#Abstract_Rewriting-diamond_imp_semi_confluence>diamond_imp_semi_confluence</a></li><li><a href=#Abstract_Rewriting-semi_confluence_imp_CR>semi_confluence_imp_CR</a></li><li><a href=#Abstract_Rewriting-diamond_imp_CR>diamond_imp_CR</a></li><li><a href=#Abstract_Rewriting-diamond_imp_CR%27>diamond_imp_CR'</a></li><li><a href=#Abstract_Rewriting-SN_imp_minimal>SN_imp_minimal</a></li><li><a href=#Abstract_Rewriting-SN_on_imp_on_minimal>SN_on_imp_on_minimal</a></li><li><a href=#Abstract_Rewriting-minimal_imp_wf>minimal_imp_wf</a></li><li><a href=#Abstract_Rewriting-wf_imp_SN>wf_imp_SN</a></li><li><a href=#Abstract_Rewriting-SN_nat_gt>SN_nat_gt</a></li><li><a href=#Abstract_Rewriting-SN_iff_wf>SN_iff_wf</a></li><li><a href=#Abstract_Rewriting-SN_imp_acyclic>SN_imp_acyclic</a></li><li><a href=#Abstract_Rewriting-SN_induct>SN_induct</a></li><li><a href=#Abstract_Rewriting-SN_on_induct>SN_on_induct</a></li><li><a href=#Abstract_Rewriting-accp_imp_SN_on>accp_imp_SN_on</a></li><li><a href=#Abstract_Rewriting-SN_on_imp_accp>SN_on_imp_accp</a></li><li><a href=#Abstract_Rewriting-SN_on_conv_accp>SN_on_conv_accp</a></li><li><a href=#Abstract_Rewriting-SN_on_conv_acc>SN_on_conv_acc</a></li><li><a href=#Abstract_Rewriting-acc_imp_SN_on>acc_imp_SN_on</a></li><li><a href=#Abstract_Rewriting-SN_on_imp_acc>SN_on_imp_acc</a></li><li><a href=#Abstract_Rewriting-rtrancl_len_E>rtrancl_len_E</a></li><li><a href=#Abstract_Rewriting-relpow_Suc_E2%27>relpow_Suc_E2'</a></li><li><a href=#Abstract_Rewriting-Newman_local>Newman_local</a></li><li><a href=#Abstract_Rewriting-Newman>Newman</a></li><li><a href=#Abstract_Rewriting-Image_SN_on>Image_SN_on</a></li><li><a href=#Abstract_Rewriting-SN_on_Image_conv>SN_on_Image_conv</a></li><li><a href=#Abstract_Rewriting-step_reflects_SN_on>step_reflects_SN_on</a></li><li><a href=#Abstract_Rewriting-SN_on_all_reducts_SN_on_conv>SN_on_all_reducts_SN_on_conv</a></li><li><a href=#Abstract_Rewriting-SN_imp_SN_trancl>SN_imp_SN_trancl</a></li><li><a href=#Abstract_Rewriting-SN_trancl_imp_SN>SN_trancl_imp_SN</a></li><li><a href=#Abstract_Rewriting-SN_trancl_SN_conv>SN_trancl_SN_conv</a></li><li><a href=#Abstract_Rewriting-SN_inv_image>SN_inv_image</a></li><li><a href=#Abstract_Rewriting-SN_subset>SN_subset</a></li><li><a href=#Abstract_Rewriting-SN_pow_imp_SN>SN_pow_imp_SN</a></li><li><a href=#Abstract_Rewriting-pow_Suc_subset_trancl>pow_Suc_subset_trancl</a></li><li><a href=#Abstract_Rewriting-SN_imp_SN_pow>SN_imp_SN_pow</a></li><li><a href=#Abstract_Rewriting-SN_pow>SN_pow</a></li><li><a href=#Abstract_Rewriting-SN_on_trancl>SN_on_trancl</a></li><li><a href=#Abstract_Rewriting-SN_on_trancl_SN_on_conv>SN_on_trancl_SN_on_conv</a></li><li><a href=#Abstract_Rewriting-SN_on_restrict>SN_on_restrict</a></li><li><a href=#Abstract_Rewriting-restrict_rtrancl>restrict_rtrancl</a></li><li><a href=#Abstract_Rewriting-rtrancl_Image_step>rtrancl_Image_step</a></li><li><a href=#Abstract_Rewriting-WCR_SN_on_imp_CR_on>WCR_SN_on_imp_CR_on</a></li><li><a href=#Abstract_Rewriting-SN_on_Image_normalizable>SN_on_Image_normalizable</a></li><li><a href=#Abstract_Rewriting-SN_on_imp_normalizability>SN_on_imp_normalizability</a></li><li><a href=#Abstract_Rewriting-CR_iff_self_commute>CR_iff_self_commute</a></li><li><a href=#Abstract_Rewriting-rtrancl_imp_rtrancl_UN>rtrancl_imp_rtrancl_UN</a></li><li><a href=#Abstract_Rewriting-rtrancl_union_subset_rtrancl_union_trancl>rtrancl_union_subset_rtrancl_union_trancl</a></li><li><a href=#Abstract_Rewriting-qc_imp_qc_trancl>qc_imp_qc_trancl</a></li><li><a href=#Abstract_Rewriting-steps_reflect_SN_on>steps_reflect_SN_on</a></li><li><a href=#Abstract_Rewriting-chain_imp_not_SN_on>chain_imp_not_SN_on</a></li><li><a href=#Abstract_Rewriting-quasi_commute_imp_SN>quasi_commute_imp_SN</a></li><li><a href=#Abstract_Rewriting-non_strict_into_strict>non_strict_into_strict</a></li><li><a href=#Abstract_Rewriting-comp_trancl>comp_trancl</a></li><li><a href=#Abstract_Rewriting-comp_rtrancl_trancl>comp_rtrancl_trancl</a></li><li><a href=#Abstract_Rewriting-trancl_union_right>trancl_union_right</a></li><li><a href=#Abstract_Rewriting-restrict_SN_subset>restrict_SN_subset</a></li><li><a href=#Abstract_Rewriting-chain_Un_SN_on_imp_first_step>chain_Un_SN_on_imp_first_step</a></li><li><a href=#Abstract_Rewriting-first_step>first_step</a></li><li><a href=#Abstract_Rewriting-first_step_O>first_step_O</a></li><li><a href=#Abstract_Rewriting-firstStep>firstStep</a></li><li><a href=#Abstract_Rewriting-non_strict_ending>non_strict_ending</a></li><li><a href=#Abstract_Rewriting-SN_on_subset1>SN_on_subset1</a></li><li><a href=#Abstract_Rewriting-rtrancl_fun_conv>rtrancl_fun_conv</a></li><li><a href=#Abstract_Rewriting-compat_tr_compat>compat_tr_compat</a></li><li><a href=#Abstract_Rewriting-right_comp_S>right_comp_S</a></li><li><a href=#Abstract_Rewriting-compatible_SN>compatible_SN</a></li><li><a href=#Abstract_Rewriting-compatible_rtrancl_split>compatible_rtrancl_split</a></li><li><a href=#Abstract_Rewriting-compatible_conv>compatible_conv</a></li><li><a href=#Abstract_Rewriting-compatible_SN%27>compatible_SN'</a></li><li><a href=#Abstract_Rewriting-rtrancl_diff_decomp>rtrancl_diff_decomp</a></li><li><a href=#Abstract_Rewriting-SN_empty>SN_empty</a></li><li><a href=#Abstract_Rewriting-SN_on_weakening>SN_on_weakening</a></li><li><a href=#Abstract_Rewriting-ideriv_mono>ideriv_mono</a></li><li><a href=#Abstract_Rewriting-ideriv_split>ideriv_split</a></li><li><a href=#Abstract_Rewriting-ideriv_SN>ideriv_SN</a></li><li><a href=#Abstract_Rewriting-Infm_shift>Infm_shift</a></li><li><a href=#Abstract_Rewriting-rtrancl_list_conv>rtrancl_list_conv</a></li><li><a href=#Abstract_Rewriting-SN_reaches_NF>SN_reaches_NF</a></li><li><a href=#Abstract_Rewriting-SN_WCR_reaches_NF>SN_WCR_reaches_NF</a></li><li><a href=#Abstract_Rewriting-some_NF>some_NF</a></li><li><a href=#Abstract_Rewriting-some_NF_WCR>some_NF_WCR</a></li><li><a href=#Abstract_Rewriting-some_NF_UNF>some_NF_UNF</a></li><li><a href=#Abstract_Rewriting-the_NF>the_NF</a></li><li><a href=#Abstract_Rewriting-the_NF_NF>the_NF_NF</a></li><li><a href=#Abstract_Rewriting-the_NF_step>the_NF_step</a></li><li><a href=#Abstract_Rewriting-the_NF_steps>the_NF_steps</a></li><li><a href=#Abstract_Rewriting-the_NF_conv>the_NF_conv</a></li><li><a href=#Abstract_Rewriting-weak_diamond_imp_CR>weak_diamond_imp_CR</a></li><li><a href=#Abstract_Rewriting-steps_imp_not_SN_on>steps_imp_not_SN_on</a></li><li><a href=#Abstract_Rewriting-steps_imp_not_SN>steps_imp_not_SN</a></li><li><a href=#Abstract_Rewriting-steps_map>steps_map</a></li><li><a href=#Abstract_Rewriting-SN_on_SN_part_conv>SN_on_SN_part_conv</a></li><li><a href=#Abstract_Rewriting-SN_SN_part_UNIV_conv>SN_SN_part_UNIV_conv</a></li><li><a href=#Abstract_Rewriting-closed_imp_rtrancl_closed>closed_imp_rtrancl_closed</a></li><li><a href=#Abstract_Rewriting-trancl_steps_relpow>trancl_steps_relpow</a></li><li><a href=#Abstract_Rewriting-relpow_image>relpow_image</a></li><li><a href=#Abstract_Rewriting-relpow_refl_mono>relpow_refl_mono</a></li><li><a href=#Abstract_Rewriting-SN_on_induct_acc_style>SN_on_induct_acc_style</a></li><li><a href=#Abstract_Rewriting-partially_localize_CR>partially_localize_CR</a></li><li><a href=#Abstract_Rewriting-strongly_confluent_on_E11>strongly_confluent_on_E11</a></li><li><a href=#Abstract_Rewriting-strongly_confluentI>strongly_confluentI</a></li><li><a href=#Abstract_Rewriting-strongly_confluent_E1n>strongly_confluent_E1n</a></li><li><a href=#Abstract_Rewriting-strong_confluence_imp_CR>strong_confluence_imp_CR</a></li><li><a href=#Abstract_Rewriting-WCR_alt_def>WCR_alt_def</a></li><li><a href=#Abstract_Rewriting-NF_imp_SN_on>NF_imp_SN_on</a></li><li><a href=#Abstract_Rewriting-Union_sym>Union_sym</a></li><li><a href=#Abstract_Rewriting-peak_iff>peak_iff</a></li><li><a href=#Abstract_Rewriting-CR_NF_conv>CR_NF_conv</a></li><li><a href=#Abstract_Rewriting-NF_join_imp_reach>NF_join_imp_reach</a></li><li><a href=#Abstract_Rewriting-conversion_O_conversion>conversion_O_conversion</a></li><li><a href=#Abstract_Rewriting-trans_O_iff>trans_O_iff</a></li><li><a href=#Abstract_Rewriting-refl_O_iff>refl_O_iff</a></li><li><a href=#Abstract_Rewriting-relpow_Suc>relpow_Suc</a></li><li><a href=#Abstract_Rewriting-converse_power>converse_power</a></li><li><a href=#Abstract_Rewriting-conversion_mono>conversion_mono</a></li><li><a href=#Abstract_Rewriting-conversion_conversion_idemp>conversion_conversion_idemp</a></li><li><a href=#Abstract_Rewriting-lower_set_imp_not_SN_on>lower_set_imp_not_SN_on</a></li><li><a href=#Abstract_Rewriting-SN_on_Image_rtrancl_iff>SN_on_Image_rtrancl_iff</a></li><li><a href=#Abstract_Rewriting-O_mono1>O_mono1</a></li><li><a href=#Abstract_Rewriting-O_mono2>O_mono2</a></li><li><a href=#Abstract_Rewriting-rtrancl_O_shift>rtrancl_O_shift</a></li><li><a href=#Abstract_Rewriting-O_rtrancl_O_O>O_rtrancl_O_O</a></li><li><a href=#Abstract_Rewriting-SN_on_subset_SN_terms>SN_on_subset_SN_terms</a></li><li><a href=#Abstract_Rewriting-SN_on_Un2>SN_on_Un2</a></li><li><a href=#Abstract_Rewriting-SN_on_UN>SN_on_UN</a></li><li><a href=#Abstract_Rewriting-Image_subsetI>Image_subsetI</a></li><li><a href=#Abstract_Rewriting-SN_on_O_comm>SN_on_O_comm</a></li><li><a href=#Abstract_Rewriting-SN_O_comm>SN_O_comm</a></li><li><a href=#Abstract_Rewriting-chain_mono>chain_mono</a></li><li><a href=#Abstract_Rewriting-rtrancl_O_push>rtrancl_O_push</a></li><li><a href=#Abstract_Rewriting-rtrancl_U_push>rtrancl_U_push</a></li><li><a href=#Abstract_Rewriting-SN_on_O_push>SN_on_O_push</a></li><li><a href=#Abstract_Rewriting-SN_on_Image_push>SN_on_Image_push</a></li><li><a href=#Abstract_Rewriting-not_SN_onI>not_SN_onI</a></li><li><a href=#Abstract_Rewriting-shift_comp>shift_comp</a></li><li><a href=#Abstract_Rewriting-Id_on_union>Id_on_union</a></li><li><a href=#Abstract_Rewriting-relpow_union_cases>relpow_union_cases</a></li><li><a href=#Abstract_Rewriting-trans_refl_imp_rtrancl_id>trans_refl_imp_rtrancl_id</a></li><li><a href=#Abstract_Rewriting-trans_refl_imp_O_id>trans_refl_imp_O_id</a></li><li><a href=#Abstract_Rewriting-relcomp3_I>relcomp3_I</a></li><li><a href=#Abstract_Rewriting-relcomp3_transI>relcomp3_transI</a></li><li><a href=#Abstract_Rewriting-qc_SN_relto_iff>qc_SN_relto_iff</a></li><li><a href=#Abstract_Rewriting-conversion_empty>conversion_empty</a></li><li><a href=#Abstract_Rewriting-symcl_idemp>symcl_idemp</a></li></ul></li><li><a href=#Relative_Rewriting>Relative_Rewriting</a><ul><li><a href=#Relative_Rewriting-relto_absorb>relto_absorb</a></li><li><a href=#Relative_Rewriting-steps_preserve_SN_on_relto>steps_preserve_SN_on_relto</a></li><li><a href=#Relative_Rewriting-step_preserves_SN_on_relto>step_preserves_SN_on_relto</a></li><li><a href=#Relative_Rewriting-SN_rel_on_imp_SN_rel_on_alt>SN_rel_on_imp_SN_rel_on_alt</a></li><li><a href=#Relative_Rewriting-SN_rel_on_alt_imp_SN_rel_on>SN_rel_on_alt_imp_SN_rel_on</a></li><li><a href=#Relative_Rewriting-SN_rel_on_conv>SN_rel_on_conv</a></li><li><a href=#Relative_Rewriting-SN_rel_on_alt_r_empty>SN_rel_on_alt_r_empty</a></li><li><a href=#Relative_Rewriting-SN_rel_on_alt_s_empty>SN_rel_on_alt_s_empty</a></li><li><a href=#Relative_Rewriting-SN_rel_on_mono%27>SN_rel_on_mono'</a></li><li><a href=#Relative_Rewriting-relto_mono>relto_mono</a></li><li><a href=#Relative_Rewriting-SN_rel_on_mono>SN_rel_on_mono</a></li><li><a href=#Relative_Rewriting-SN_rel_on_imp_SN_on>SN_rel_on_imp_SN_on</a></li><li><a href=#Relative_Rewriting-relto_Id>relto_Id</a></li><li><a href=#Relative_Rewriting-SN_rel_on_Id>SN_rel_on_Id</a></li><li><a href=#Relative_Rewriting-SN_rel_on_empty>SN_rel_on_empty</a></li><li><a href=#Relative_Rewriting-SN_rel_on_ideriv>SN_rel_on_ideriv</a></li><li><a href=#Relative_Rewriting-SN_rel_to_SN_rel_alt>SN_rel_to_SN_rel_alt</a></li><li><a href=#Relative_Rewriting-SN_rel_alt_to_SN_rel>SN_rel_alt_to_SN_rel</a></li><li><a href=#Relative_Rewriting-SN_rel_alt_r_empty>SN_rel_alt_r_empty</a></li><li><a href=#Relative_Rewriting-SN_rel_alt_s_empty>SN_rel_alt_s_empty</a></li><li><a href=#Relative_Rewriting-SN_rel_mono%27>SN_rel_mono'</a></li><li><a href=#Relative_Rewriting-SN_rel_mono>SN_rel_mono</a></li><li><a href=#Relative_Rewriting-SN_rel_imp_SN>SN_rel_imp_SN</a></li><li><a href=#Relative_Rewriting-relto_trancl_conv>relto_trancl_conv</a></li><li><a href=#Relative_Rewriting-SN_rel_Id>SN_rel_Id</a></li><li><a href=#Relative_Rewriting-relto_rtrancl>relto_rtrancl</a></li><li><a href=#Relative_Rewriting-SN_rel_empty>SN_rel_empty</a></li><li><a href=#Relative_Rewriting-SN_rel_ideriv>SN_rel_ideriv</a></li><li><a href=#Relative_Rewriting-SN_rel_map>SN_rel_map</a></li><li><a href=#Relative_Rewriting-SN_rel_ext_step_mono>SN_rel_ext_step_mono</a></li><li><a href=#Relative_Rewriting-SN_rel_ext_mono>SN_rel_ext_mono</a></li><li><a href=#Relative_Rewriting-SN_rel_ext_trans>SN_rel_ext_trans</a></li><li><a href=#Relative_Rewriting-SN_rel_ext_map>SN_rel_ext_map</a></li><li><a href=#Relative_Rewriting-SN_rel_ext_map_min>SN_rel_ext_map_min</a></li><li><a href=#Relative_Rewriting-SN_relto_imp_SN_rel>SN_relto_imp_SN_rel</a></li><li><a href=#Relative_Rewriting-rtrancl_list_conv>rtrancl_list_conv</a></li><li><a href=#Relative_Rewriting-SN_rel_imp_SN_relto>SN_rel_imp_SN_relto</a></li><li><a href=#Relative_Rewriting-SN_relto_SN_rel_conv>SN_relto_SN_rel_conv</a></li><li><a href=#Relative_Rewriting-SN_rel_empty1>SN_rel_empty1</a></li><li><a href=#Relative_Rewriting-SN_rel_empty2>SN_rel_empty2</a></li><li><a href=#Relative_Rewriting-SN_relto_mono>SN_relto_mono</a></li><li><a href=#Relative_Rewriting-SN_relto_imp_SN>SN_relto_imp_SN</a></li><li><a href=#Relative_Rewriting-SN_relto_Id>SN_relto_Id</a></li><li><a href=#Relative_Rewriting-trans_subset_SN>trans_subset_SN</a></li><li><a href=#Relative_Rewriting-SN_Un_conv>SN_Un_conv</a></li><li><a href=#Relative_Rewriting-SN_relto_Un>SN_relto_Un</a></li><li><a href=#Relative_Rewriting-SN_relto_split>SN_relto_split</a></li><li><a href=#Relative_Rewriting-relto_trancl_subset>relto_trancl_subset</a></li><li><a href=#Relative_Rewriting-relto_funD>relto_funD</a></li><li><a href=#Relative_Rewriting-relto_fun_refl>relto_fun_refl</a></li><li><a href=#Relative_Rewriting-relto_into_relto_fun>relto_into_relto_fun</a></li><li><a href=#Relative_Rewriting-relto_fun_trans>relto_fun_trans</a></li><li><a href=#Relative_Rewriting-reltos_into_relto_fun>reltos_into_relto_fun</a></li><li><a href=#Relative_Rewriting-relto_fun_into_reltos>relto_fun_into_reltos</a></li><li><a href=#Relative_Rewriting-relto_relto_fun_conv>relto_relto_fun_conv</a></li><li><a href=#Relative_Rewriting-relto_fun_intermediate>relto_fun_intermediate</a></li><li><a href=#Relative_Rewriting-not_SN_on_rel_succ>not_SN_on_rel_succ</a></li><li><a href=#Relative_Rewriting-SN_on_relto_relcomp>SN_on_relto_relcomp</a></li><li><a href=#Relative_Rewriting-trans_relto>trans_relto</a></li><li><a href=#Relative_Rewriting-relative_ending>relative_ending</a></li><li><a href=#Relative_Rewriting-SN_on_relto_Un>SN_on_relto_Un</a></li><li><a href=#Relative_Rewriting-SN_on_Un>SN_on_Un</a></li></ul></li><li><a href=#SN_Orders>SN_Orders</a><ul><li><a href=#SN_Orders-max_ge_y>max_ge_y</a></li><li><a href=#SN_Orders-max_mono2>max_mono2</a></li><li><a href=#SN_Orders-plus_right_mono>plus_right_mono</a></li><li><a href=#SN_Orders-gt_trans>gt_trans</a></li><li><a href=#SN_Orders-plus_gt_right_mono>plus_gt_right_mono</a></li><li><a href=#SN_Orders-plus_gt_both_mono>plus_gt_both_mono</a></li><li><a href=#SN_Orders-max0_id>max0_id</a></li><li><a href=#SN_Orders-pow_mono>pow_mono</a></li><li><a href=#SN_Orders-pow_ge_zero>pow_ge_zero</a></li><li><a href=#SN_Orders-of_nat_ge_zero>of_nat_ge_zero</a></li><li><a href=#SN_Orders-mult_ge_zero>mult_ge_zero</a></li><li><a href=#SN_Orders-pow_mono_one>pow_mono_one</a></li><li><a href=#SN_Orders-pow_mono_exp>pow_mono_exp</a></li><li><a href=#SN_Orders-mult_ge_one>mult_ge_one</a></li><li><a href=#SN_Orders-sum_list_ge_mono>sum_list_ge_mono</a></li><li><a href=#SN_Orders-sum_list_ge_0_nth>sum_list_ge_0_nth</a></li><li><a href=#SN_Orders-sum_list_ge_0>sum_list_ge_0</a></li><li><a href=#SN_Orders-foldr_max>foldr_max</a></li><li><a href=#SN_Orders-of_nat_mono>of_nat_mono</a></li><li><a href=#SN_Orders-non_infI>non_infI</a></li><li><a href=#SN_Orders-non_infE>non_infE</a></li><li><a href=#SN_Orders-non_inf_image>non_inf_image</a></li><li><a href=#SN_Orders-SN_imp_non_inf>SN_imp_non_inf</a></li><li><a href=#SN_Orders-non_inf_imp_SN_bound>non_inf_imp_SN_bound</a></li></ul></li><li><a href=#SN_Order_Carrier>SN_Order_Carrier</a><ul><li><a href=#SN_Order_Carrier-non_inf_delta_gt>non_inf_delta_gt</a></li><li><a href=#SN_Order_Carrier-delta_gt_SN>delta_gt_SN</a></li><li><a href=#SN_Order_Carrier-delta_interpretation>delta_interpretation</a></li><li><a href=#SN_Order_Carrier-delta_poly>delta_poly</a></li><li><a href=#SN_Order_Carrier-delta_minimal_delta>delta_minimal_delta</a></li><li><a href=#SN_Order_Carrier-non_inf_int_gt>non_inf_int_gt</a></li><li><a href=#SN_Order_Carrier-arctic_delta_interpretation>arctic_delta_interpretation</a></li></ul></li></ul></div><ul><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Abstract-Rewriting/outline.pdf>Proof
-outline</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Abstract-Rewriting/document.pdf>Proof
-document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Abstract-Rewriting/session_graph.pdf>Theory dependencies</a></li></ul></div></aside><div class="content theories"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
-<datalist id=autocomplete></datalist></div></form><h1><span class=first>S</span>ession <span class=first>A</span>bstract-<span class=first>R</span>ewriting</h1><div></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><div id=Seq><div class=head><h1>Theory Seq</h1></div><pre class=source><span class=comment1>(*  Title:       Infinite Sequences
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Session Abstract-Rewriting - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session Abstract-Rewriting">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="/entries/abstract-rewriting/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories">
+<meta property="og:site_name" content="Archive of Formal Proofs">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="/images/afp.png">
+<meta name=twitter:title content="Session Abstract-Rewriting">
+<meta name=twitter:description content>
+<link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css>
+<link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script>
+<script src=/js/banner.js></script><script src=/js/header-search.js></script></head>
+<body class=mathjax_ignore>
+<aside>
+<div>
+<div>
+<a href=/>
+<img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo>
+</a>
+<ul>
+<li><a href=/entries/abstract-rewriting>Return to entry</a></li>
+</ul>
+<hr>
+<ul><li><a href=#Seq>Seq</a>
+<ul>
+<li><a href=#Seq-cons_chainp>cons_chainp</a></li>
+<li><a href=#Seq-cons_chain>cons_chain</a></li>
+<li><a href=#Seq-chainp_imp_relpowp>chainp_imp_relpowp</a></li>
+<li><a href=#Seq-chain_imp_relpow>chain_imp_relpow</a></li>
+<li><a href=#Seq-chainp_imp_tranclp>chainp_imp_tranclp</a></li>
+<li><a href=#Seq-chain_imp_trancl>chain_imp_trancl</a></li>
+<li><a href=#Seq-chainp_imp_rtranclp>chainp_imp_rtranclp</a></li>
+<li><a href=#Seq-chain_imp_rtrancl>chain_imp_rtrancl</a></li>
+<li><a href=#Seq-stepfun_imp_chainp%27>stepfun_imp_chainp'</a></li>
+<li><a href=#Seq-stepfun_imp_chainp>stepfun_imp_chainp</a></li>
+<li><a href=#Seq-subchain>subchain</a></li>
+<li><a href=#Seq-steps_imp_chainp%27>steps_imp_chainp'</a></li>
+<li><a href=#Seq-steps_imp_chainp>steps_imp_chainp</a></li>
+<li><a href=#Seq-inf>inf</a></li>
+<li><a href=#Seq-index_p>index_p</a></li>
+<li><a href=#Seq-index_ordered>index_ordered</a></li>
+<li><a href=#Seq-index_not_p_between>index_not_p_between</a></li>
+<li><a href=#Seq-index_ordered_le>index_ordered_le</a></li>
+<li><a href=#Seq-index_surj>index_surj</a></li>
+<li><a href=#Seq-index_ordered_less>index_ordered_less</a></li>
+<li><a href=#Seq-index_not_p_start>index_not_p_start</a></li>
+<li><a href=#Seq-inf_concat_simple_add>inf_concat_simple_add</a></li>
+<li><a href=#Seq-inf_concat_simple_surj_zero>inf_concat_simple_surj_zero</a></li>
+<li><a href=#Seq-inf_concat_simple_surj>inf_concat_simple_surj</a></li>
+<li><a href=#Seq-inf_concat_simple_mono>inf_concat_simple_mono</a></li>
+<li><a href=#Seq-inf_concat_bounds>inf_concat_bounds</a></li>
+<li><a href=#Seq-inf_concat_add>inf_concat_add</a></li>
+<li><a href=#Seq-inf_concat_step>inf_concat_step</a></li>
+<li><a href=#Seq-inf_concat_surj_zero>inf_concat_surj_zero</a></li>
+<li><a href=#Seq-inf_concat_surj>inf_concat_surj</a></li>
+<li><a href=#Seq-inf_concat_mono>inf_concat_mono</a></li>
+<li><a href=#Seq-inf_concat_Suc>inf_concat_Suc</a></li>
+</ul>
+</li><li><a href=#Abstract_Rewriting>Abstract_Rewriting</a>
+<ul>
+<li><a href=#Abstract_Rewriting-trancl_mono_set>trancl_mono_set</a></li>
+<li><a href=#Abstract_Rewriting-relpow_mono>relpow_mono</a></li>
+<li><a href=#Abstract_Rewriting-refl_inv_image>refl_inv_image</a></li>
+<li><a href=#Abstract_Rewriting-symcl_converse>symcl_converse</a></li>
+<li><a href=#Abstract_Rewriting-symcl_Un>symcl_Un</a></li>
+<li><a href=#Abstract_Rewriting-no_step>no_step</a></li>
+<li><a href=#Abstract_Rewriting-joinI>joinI</a></li>
+<li><a href=#Abstract_Rewriting-joinI_left>joinI_left</a></li>
+<li><a href=#Abstract_Rewriting-joinI_right>joinI_right</a></li>
+<li><a href=#Abstract_Rewriting-joinE>joinE</a></li>
+<li><a href=#Abstract_Rewriting-joinD>joinD</a></li>
+<li><a href=#Abstract_Rewriting-meetI>meetI</a></li>
+<li><a href=#Abstract_Rewriting-meetE>meetE</a></li>
+<li><a href=#Abstract_Rewriting-meetD>meetD</a></li>
+<li><a href=#Abstract_Rewriting-conversionI>conversionI</a></li>
+<li><a href=#Abstract_Rewriting-conversion_refl>conversion_refl</a></li>
+<li><a href=#Abstract_Rewriting-conversionI%27>conversionI'</a></li>
+<li><a href=#Abstract_Rewriting-rtrancl_comp_trancl_conv>rtrancl_comp_trancl_conv</a></li>
+<li><a href=#Abstract_Rewriting-trancl_o_refl_is_trancl>trancl_o_refl_is_trancl</a></li>
+<li><a href=#Abstract_Rewriting-conversionE>conversionE</a></li>
+<li><a href=#Abstract_Rewriting-conversion_trans>conversion_trans</a></li>
+<li><a href=#Abstract_Rewriting-conversion_sym>conversion_sym</a></li>
+<li><a href=#Abstract_Rewriting-conversion_inv>conversion_inv</a></li>
+<li><a href=#Abstract_Rewriting-conversion_converse>conversion_converse</a></li>
+<li><a href=#Abstract_Rewriting-conversion_rtrancl>conversion_rtrancl</a></li>
+<li><a href=#Abstract_Rewriting-rtrancl_join_join>rtrancl_join_join</a></li>
+<li><a href=#Abstract_Rewriting-join_rtrancl_join>join_rtrancl_join</a></li>
+<li><a href=#Abstract_Rewriting-NF_I>NF_I</a></li>
+<li><a href=#Abstract_Rewriting-NF_E>NF_E</a></li>
+<li><a href=#Abstract_Rewriting-NF_no_step>NF_no_step</a></li>
+<li><a href=#Abstract_Rewriting-NF_anti_mono>NF_anti_mono</a></li>
+<li><a href=#Abstract_Rewriting-NF_iff_no_step>NF_iff_no_step</a></li>
+<li><a href=#Abstract_Rewriting-NF_no_trancl_step>NF_no_trancl_step</a></li>
+<li><a href=#Abstract_Rewriting-NF_Id_on_fst_image>NF_Id_on_fst_image</a></li>
+<li><a href=#Abstract_Rewriting-fst_image_NF_Id_on>fst_image_NF_Id_on</a></li>
+<li><a href=#Abstract_Rewriting-NF_empty>NF_empty</a></li>
+<li><a href=#Abstract_Rewriting-normalizability_I>normalizability_I</a></li>
+<li><a href=#Abstract_Rewriting-normalizability_I%27>normalizability_I'</a></li>
+<li><a href=#Abstract_Rewriting-normalizability_E>normalizability_E</a></li>
+<li><a href=#Abstract_Rewriting-SN_def>SN_def</a></li>
+<li><a href=#Abstract_Rewriting-complete_onI>complete_onI</a></li>
+<li><a href=#Abstract_Rewriting-complete_onE>complete_onE</a></li>
+<li><a href=#Abstract_Rewriting-CR_onI>CR_onI</a></li>
+<li><a href=#Abstract_Rewriting-CR_on_singletonI>CR_on_singletonI</a></li>
+<li><a href=#Abstract_Rewriting-CR_onE>CR_onE</a></li>
+<li><a href=#Abstract_Rewriting-CR_onD>CR_onD</a></li>
+<li><a href=#Abstract_Rewriting-semi_complete_onI>semi_complete_onI</a></li>
+<li><a href=#Abstract_Rewriting-semi_complete_onE>semi_complete_onE</a></li>
+<li><a href=#Abstract_Rewriting-UNC_I>UNC_I</a></li>
+<li><a href=#Abstract_Rewriting-UNC_E>UNC_E</a></li>
+<li><a href=#Abstract_Rewriting-UNF_onI>UNF_onI</a></li>
+<li><a href=#Abstract_Rewriting-UNF_onE>UNF_onE</a></li>
+<li><a href=#Abstract_Rewriting-UNF_onD>UNF_onD</a></li>
+<li><a href=#Abstract_Rewriting-SN_onI>SN_onI</a></li>
+<li><a href=#Abstract_Rewriting-SN_I>SN_I</a></li>
+<li><a href=#Abstract_Rewriting-SN_on_trancl_imp_SN_on>SN_on_trancl_imp_SN_on</a></li>
+<li><a href=#Abstract_Rewriting-SN_onE>SN_onE</a></li>
+<li><a href=#Abstract_Rewriting-not_SN_onE>not_SN_onE</a></li>
+<li><a href=#Abstract_Rewriting-refl_not_SN>refl_not_SN</a></li>
+<li><a href=#Abstract_Rewriting-SN_on_irrefl>SN_on_irrefl</a></li>
+<li><a href=#Abstract_Rewriting-WCR_onI>WCR_onI</a></li>
+<li><a href=#Abstract_Rewriting-WCR_onE>WCR_onE</a></li>
+<li><a href=#Abstract_Rewriting-SN_nat_bounded>SN_nat_bounded</a></li>
+<li><a href=#Abstract_Rewriting-WCR_onD>WCR_onD</a></li>
+<li><a href=#Abstract_Rewriting-WN_onI>WN_onI</a></li>
+<li><a href=#Abstract_Rewriting-WN_onE>WN_onE</a></li>
+<li><a href=#Abstract_Rewriting-WN_onD>WN_onD</a></li>
+<li><a href=#Abstract_Rewriting-SN_restrict_SN_idemp>SN_restrict_SN_idemp</a></li>
+<li><a href=#Abstract_Rewriting-SN_on_Image>SN_on_Image</a></li>
+<li><a href=#Abstract_Rewriting-SN_on_subset2>SN_on_subset2</a></li>
+<li><a href=#Abstract_Rewriting-step_preserves_SN_on>step_preserves_SN_on</a></li>
+<li><a href=#Abstract_Rewriting-steps_preserve_SN_on>steps_preserve_SN_on</a></li>
+<li><a href=#Abstract_Rewriting-relpow_seq>relpow_seq</a></li>
+<li><a href=#Abstract_Rewriting-rtrancl_imp_seq>rtrancl_imp_seq</a></li>
+<li><a href=#Abstract_Rewriting-SN_on_Image_rtrancl>SN_on_Image_rtrancl</a></li>
+<li><a href=#Abstract_Rewriting-restrict_SN_trancl_simp>restrict_SN_trancl_simp</a></li>
+<li><a href=#Abstract_Rewriting-SN_imp_WN>SN_imp_WN</a></li>
+<li><a href=#Abstract_Rewriting-UNC_imp_UNF>UNC_imp_UNF</a></li>
+<li><a href=#Abstract_Rewriting-join_NF_imp_eq>join_NF_imp_eq</a></li>
+<li><a href=#Abstract_Rewriting-rtrancl_Restr>rtrancl_Restr</a></li>
+<li><a href=#Abstract_Rewriting-join_mono>join_mono</a></li>
+<li><a href=#Abstract_Rewriting-CR_iff_meet_subset_join>CR_iff_meet_subset_join</a></li>
+<li><a href=#Abstract_Rewriting-CR_divergence_imp_join>CR_divergence_imp_join</a></li>
+<li><a href=#Abstract_Rewriting-join_imp_conversion>join_imp_conversion</a></li>
+<li><a href=#Abstract_Rewriting-meet_imp_conversion>meet_imp_conversion</a></li>
+<li><a href=#Abstract_Rewriting-CR_imp_UNF>CR_imp_UNF</a></li>
+<li><a href=#Abstract_Rewriting-CR_iff_conversion_imp_join>CR_iff_conversion_imp_join</a></li>
+<li><a href=#Abstract_Rewriting-CR_imp_conversionIff_join>CR_imp_conversionIff_join</a></li>
+<li><a href=#Abstract_Rewriting-sym_join>sym_join</a></li>
+<li><a href=#Abstract_Rewriting-join_sym>join_sym</a></li>
+<li><a href=#Abstract_Rewriting-CR_join_left_I>CR_join_left_I</a></li>
+<li><a href=#Abstract_Rewriting-CR_join_right_I>CR_join_right_I</a></li>
+<li><a href=#Abstract_Rewriting-NF_not_suc>NF_not_suc</a></li>
+<li><a href=#Abstract_Rewriting-semi_complete_imp_conversionIff_same_NF>semi_complete_imp_conversionIff_same_NF</a></li>
+<li><a href=#Abstract_Rewriting-CR_imp_UNC>CR_imp_UNC</a></li>
+<li><a href=#Abstract_Rewriting-WN_UNF_imp_CR>WN_UNF_imp_CR</a></li>
+<li><a href=#Abstract_Rewriting-diamond_I>diamond_I</a></li>
+<li><a href=#Abstract_Rewriting-diamond_E>diamond_E</a></li>
+<li><a href=#Abstract_Rewriting-diamond_imp_semi_confluence>diamond_imp_semi_confluence</a></li>
+<li><a href=#Abstract_Rewriting-semi_confluence_imp_CR>semi_confluence_imp_CR</a></li>
+<li><a href=#Abstract_Rewriting-diamond_imp_CR>diamond_imp_CR</a></li>
+<li><a href=#Abstract_Rewriting-diamond_imp_CR%27>diamond_imp_CR'</a></li>
+<li><a href=#Abstract_Rewriting-SN_imp_minimal>SN_imp_minimal</a></li>
+<li><a href=#Abstract_Rewriting-SN_on_imp_on_minimal>SN_on_imp_on_minimal</a></li>
+<li><a href=#Abstract_Rewriting-minimal_imp_wf>minimal_imp_wf</a></li>
+<li><a href=#Abstract_Rewriting-wf_imp_SN>wf_imp_SN</a></li>
+<li><a href=#Abstract_Rewriting-SN_nat_gt>SN_nat_gt</a></li>
+<li><a href=#Abstract_Rewriting-SN_iff_wf>SN_iff_wf</a></li>
+<li><a href=#Abstract_Rewriting-SN_imp_acyclic>SN_imp_acyclic</a></li>
+<li><a href=#Abstract_Rewriting-SN_induct>SN_induct</a></li>
+<li><a href=#Abstract_Rewriting-SN_on_induct>SN_on_induct</a></li>
+<li><a href=#Abstract_Rewriting-accp_imp_SN_on>accp_imp_SN_on</a></li>
+<li><a href=#Abstract_Rewriting-SN_on_imp_accp>SN_on_imp_accp</a></li>
+<li><a href=#Abstract_Rewriting-SN_on_conv_accp>SN_on_conv_accp</a></li>
+<li><a href=#Abstract_Rewriting-SN_on_conv_acc>SN_on_conv_acc</a></li>
+<li><a href=#Abstract_Rewriting-acc_imp_SN_on>acc_imp_SN_on</a></li>
+<li><a href=#Abstract_Rewriting-SN_on_imp_acc>SN_on_imp_acc</a></li>
+<li><a href=#Abstract_Rewriting-rtrancl_len_E>rtrancl_len_E</a></li>
+<li><a href=#Abstract_Rewriting-relpow_Suc_E2%27>relpow_Suc_E2'</a></li>
+<li><a href=#Abstract_Rewriting-Newman_local>Newman_local</a></li>
+<li><a href=#Abstract_Rewriting-Newman>Newman</a></li>
+<li><a href=#Abstract_Rewriting-Image_SN_on>Image_SN_on</a></li>
+<li><a href=#Abstract_Rewriting-SN_on_Image_conv>SN_on_Image_conv</a></li>
+<li><a href=#Abstract_Rewriting-step_reflects_SN_on>step_reflects_SN_on</a></li>
+<li><a href=#Abstract_Rewriting-SN_on_all_reducts_SN_on_conv>SN_on_all_reducts_SN_on_conv</a></li>
+<li><a href=#Abstract_Rewriting-SN_imp_SN_trancl>SN_imp_SN_trancl</a></li>
+<li><a href=#Abstract_Rewriting-SN_trancl_imp_SN>SN_trancl_imp_SN</a></li>
+<li><a href=#Abstract_Rewriting-SN_trancl_SN_conv>SN_trancl_SN_conv</a></li>
+<li><a href=#Abstract_Rewriting-SN_inv_image>SN_inv_image</a></li>
+<li><a href=#Abstract_Rewriting-SN_subset>SN_subset</a></li>
+<li><a href=#Abstract_Rewriting-SN_pow_imp_SN>SN_pow_imp_SN</a></li>
+<li><a href=#Abstract_Rewriting-pow_Suc_subset_trancl>pow_Suc_subset_trancl</a></li>
+<li><a href=#Abstract_Rewriting-SN_imp_SN_pow>SN_imp_SN_pow</a></li>
+<li><a href=#Abstract_Rewriting-SN_pow>SN_pow</a></li>
+<li><a href=#Abstract_Rewriting-SN_on_trancl>SN_on_trancl</a></li>
+<li><a href=#Abstract_Rewriting-SN_on_trancl_SN_on_conv>SN_on_trancl_SN_on_conv</a></li>
+<li><a href=#Abstract_Rewriting-SN_on_restrict>SN_on_restrict</a></li>
+<li><a href=#Abstract_Rewriting-restrict_rtrancl>restrict_rtrancl</a></li>
+<li><a href=#Abstract_Rewriting-rtrancl_Image_step>rtrancl_Image_step</a></li>
+<li><a href=#Abstract_Rewriting-WCR_SN_on_imp_CR_on>WCR_SN_on_imp_CR_on</a></li>
+<li><a href=#Abstract_Rewriting-SN_on_Image_normalizable>SN_on_Image_normalizable</a></li>
+<li><a href=#Abstract_Rewriting-SN_on_imp_normalizability>SN_on_imp_normalizability</a></li>
+<li><a href=#Abstract_Rewriting-CR_iff_self_commute>CR_iff_self_commute</a></li>
+<li><a href=#Abstract_Rewriting-rtrancl_imp_rtrancl_UN>rtrancl_imp_rtrancl_UN</a></li>
+<li><a href=#Abstract_Rewriting-rtrancl_union_subset_rtrancl_union_trancl>rtrancl_union_subset_rtrancl_union_trancl</a></li>
+<li><a href=#Abstract_Rewriting-qc_imp_qc_trancl>qc_imp_qc_trancl</a></li>
+<li><a href=#Abstract_Rewriting-steps_reflect_SN_on>steps_reflect_SN_on</a></li>
+<li><a href=#Abstract_Rewriting-chain_imp_not_SN_on>chain_imp_not_SN_on</a></li>
+<li><a href=#Abstract_Rewriting-quasi_commute_imp_SN>quasi_commute_imp_SN</a></li>
+<li><a href=#Abstract_Rewriting-non_strict_into_strict>non_strict_into_strict</a></li>
+<li><a href=#Abstract_Rewriting-comp_trancl>comp_trancl</a></li>
+<li><a href=#Abstract_Rewriting-comp_rtrancl_trancl>comp_rtrancl_trancl</a></li>
+<li><a href=#Abstract_Rewriting-trancl_union_right>trancl_union_right</a></li>
+<li><a href=#Abstract_Rewriting-restrict_SN_subset>restrict_SN_subset</a></li>
+<li><a href=#Abstract_Rewriting-chain_Un_SN_on_imp_first_step>chain_Un_SN_on_imp_first_step</a></li>
+<li><a href=#Abstract_Rewriting-first_step>first_step</a></li>
+<li><a href=#Abstract_Rewriting-first_step_O>first_step_O</a></li>
+<li><a href=#Abstract_Rewriting-firstStep>firstStep</a></li>
+<li><a href=#Abstract_Rewriting-non_strict_ending>non_strict_ending</a></li>
+<li><a href=#Abstract_Rewriting-SN_on_subset1>SN_on_subset1</a></li>
+<li><a href=#Abstract_Rewriting-rtrancl_fun_conv>rtrancl_fun_conv</a></li>
+<li><a href=#Abstract_Rewriting-compat_tr_compat>compat_tr_compat</a></li>
+<li><a href=#Abstract_Rewriting-right_comp_S>right_comp_S</a></li>
+<li><a href=#Abstract_Rewriting-compatible_SN>compatible_SN</a></li>
+<li><a href=#Abstract_Rewriting-compatible_rtrancl_split>compatible_rtrancl_split</a></li>
+<li><a href=#Abstract_Rewriting-compatible_conv>compatible_conv</a></li>
+<li><a href=#Abstract_Rewriting-compatible_SN%27>compatible_SN'</a></li>
+<li><a href=#Abstract_Rewriting-rtrancl_diff_decomp>rtrancl_diff_decomp</a></li>
+<li><a href=#Abstract_Rewriting-SN_empty>SN_empty</a></li>
+<li><a href=#Abstract_Rewriting-SN_on_weakening>SN_on_weakening</a></li>
+<li><a href=#Abstract_Rewriting-ideriv_mono>ideriv_mono</a></li>
+<li><a href=#Abstract_Rewriting-ideriv_split>ideriv_split</a></li>
+<li><a href=#Abstract_Rewriting-ideriv_SN>ideriv_SN</a></li>
+<li><a href=#Abstract_Rewriting-Infm_shift>Infm_shift</a></li>
+<li><a href=#Abstract_Rewriting-rtrancl_list_conv>rtrancl_list_conv</a></li>
+<li><a href=#Abstract_Rewriting-SN_reaches_NF>SN_reaches_NF</a></li>
+<li><a href=#Abstract_Rewriting-SN_WCR_reaches_NF>SN_WCR_reaches_NF</a></li>
+<li><a href=#Abstract_Rewriting-some_NF>some_NF</a></li>
+<li><a href=#Abstract_Rewriting-some_NF_WCR>some_NF_WCR</a></li>
+<li><a href=#Abstract_Rewriting-some_NF_UNF>some_NF_UNF</a></li>
+<li><a href=#Abstract_Rewriting-the_NF>the_NF</a></li>
+<li><a href=#Abstract_Rewriting-the_NF_NF>the_NF_NF</a></li>
+<li><a href=#Abstract_Rewriting-the_NF_step>the_NF_step</a></li>
+<li><a href=#Abstract_Rewriting-the_NF_steps>the_NF_steps</a></li>
+<li><a href=#Abstract_Rewriting-the_NF_conv>the_NF_conv</a></li>
+<li><a href=#Abstract_Rewriting-weak_diamond_imp_CR>weak_diamond_imp_CR</a></li>
+<li><a href=#Abstract_Rewriting-steps_imp_not_SN_on>steps_imp_not_SN_on</a></li>
+<li><a href=#Abstract_Rewriting-steps_imp_not_SN>steps_imp_not_SN</a></li>
+<li><a href=#Abstract_Rewriting-steps_map>steps_map</a></li>
+<li><a href=#Abstract_Rewriting-SN_on_SN_part_conv>SN_on_SN_part_conv</a></li>
+<li><a href=#Abstract_Rewriting-SN_SN_part_UNIV_conv>SN_SN_part_UNIV_conv</a></li>
+<li><a href=#Abstract_Rewriting-closed_imp_rtrancl_closed>closed_imp_rtrancl_closed</a></li>
+<li><a href=#Abstract_Rewriting-trancl_steps_relpow>trancl_steps_relpow</a></li>
+<li><a href=#Abstract_Rewriting-relpow_image>relpow_image</a></li>
+<li><a href=#Abstract_Rewriting-relpow_refl_mono>relpow_refl_mono</a></li>
+<li><a href=#Abstract_Rewriting-SN_on_induct_acc_style>SN_on_induct_acc_style</a></li>
+<li><a href=#Abstract_Rewriting-partially_localize_CR>partially_localize_CR</a></li>
+<li><a href=#Abstract_Rewriting-strongly_confluent_on_E11>strongly_confluent_on_E11</a></li>
+<li><a href=#Abstract_Rewriting-strongly_confluentI>strongly_confluentI</a></li>
+<li><a href=#Abstract_Rewriting-strongly_confluent_E1n>strongly_confluent_E1n</a></li>
+<li><a href=#Abstract_Rewriting-strong_confluence_imp_CR>strong_confluence_imp_CR</a></li>
+<li><a href=#Abstract_Rewriting-WCR_alt_def>WCR_alt_def</a></li>
+<li><a href=#Abstract_Rewriting-NF_imp_SN_on>NF_imp_SN_on</a></li>
+<li><a href=#Abstract_Rewriting-Union_sym>Union_sym</a></li>
+<li><a href=#Abstract_Rewriting-peak_iff>peak_iff</a></li>
+<li><a href=#Abstract_Rewriting-CR_NF_conv>CR_NF_conv</a></li>
+<li><a href=#Abstract_Rewriting-NF_join_imp_reach>NF_join_imp_reach</a></li>
+<li><a href=#Abstract_Rewriting-conversion_O_conversion>conversion_O_conversion</a></li>
+<li><a href=#Abstract_Rewriting-trans_O_iff>trans_O_iff</a></li>
+<li><a href=#Abstract_Rewriting-refl_O_iff>refl_O_iff</a></li>
+<li><a href=#Abstract_Rewriting-relpow_Suc>relpow_Suc</a></li>
+<li><a href=#Abstract_Rewriting-converse_power>converse_power</a></li>
+<li><a href=#Abstract_Rewriting-conversion_mono>conversion_mono</a></li>
+<li><a href=#Abstract_Rewriting-conversion_conversion_idemp>conversion_conversion_idemp</a></li>
+<li><a href=#Abstract_Rewriting-lower_set_imp_not_SN_on>lower_set_imp_not_SN_on</a></li>
+<li><a href=#Abstract_Rewriting-SN_on_Image_rtrancl_iff>SN_on_Image_rtrancl_iff</a></li>
+<li><a href=#Abstract_Rewriting-O_mono1>O_mono1</a></li>
+<li><a href=#Abstract_Rewriting-O_mono2>O_mono2</a></li>
+<li><a href=#Abstract_Rewriting-rtrancl_O_shift>rtrancl_O_shift</a></li>
+<li><a href=#Abstract_Rewriting-O_rtrancl_O_O>O_rtrancl_O_O</a></li>
+<li><a href=#Abstract_Rewriting-SN_on_subset_SN_terms>SN_on_subset_SN_terms</a></li>
+<li><a href=#Abstract_Rewriting-SN_on_Un2>SN_on_Un2</a></li>
+<li><a href=#Abstract_Rewriting-SN_on_UN>SN_on_UN</a></li>
+<li><a href=#Abstract_Rewriting-Image_subsetI>Image_subsetI</a></li>
+<li><a href=#Abstract_Rewriting-SN_on_O_comm>SN_on_O_comm</a></li>
+<li><a href=#Abstract_Rewriting-SN_O_comm>SN_O_comm</a></li>
+<li><a href=#Abstract_Rewriting-chain_mono>chain_mono</a></li>
+<li><a href=#Abstract_Rewriting-rtrancl_O_push>rtrancl_O_push</a></li>
+<li><a href=#Abstract_Rewriting-rtrancl_U_push>rtrancl_U_push</a></li>
+<li><a href=#Abstract_Rewriting-SN_on_O_push>SN_on_O_push</a></li>
+<li><a href=#Abstract_Rewriting-SN_on_Image_push>SN_on_Image_push</a></li>
+<li><a href=#Abstract_Rewriting-not_SN_onI>not_SN_onI</a></li>
+<li><a href=#Abstract_Rewriting-shift_comp>shift_comp</a></li>
+<li><a href=#Abstract_Rewriting-Id_on_union>Id_on_union</a></li>
+<li><a href=#Abstract_Rewriting-relpow_union_cases>relpow_union_cases</a></li>
+<li><a href=#Abstract_Rewriting-trans_refl_imp_rtrancl_id>trans_refl_imp_rtrancl_id</a></li>
+<li><a href=#Abstract_Rewriting-trans_refl_imp_O_id>trans_refl_imp_O_id</a></li>
+<li><a href=#Abstract_Rewriting-relcomp3_I>relcomp3_I</a></li>
+<li><a href=#Abstract_Rewriting-relcomp3_transI>relcomp3_transI</a></li>
+<li><a href=#Abstract_Rewriting-qc_SN_relto_iff>qc_SN_relto_iff</a></li>
+<li><a href=#Abstract_Rewriting-conversion_empty>conversion_empty</a></li>
+<li><a href=#Abstract_Rewriting-symcl_idemp>symcl_idemp</a></li>
+</ul>
+</li><li><a href=#Relative_Rewriting>Relative_Rewriting</a>
+<ul>
+<li><a href=#Relative_Rewriting-relto_absorb>relto_absorb</a></li>
+<li><a href=#Relative_Rewriting-steps_preserve_SN_on_relto>steps_preserve_SN_on_relto</a></li>
+<li><a href=#Relative_Rewriting-step_preserves_SN_on_relto>step_preserves_SN_on_relto</a></li>
+<li><a href=#Relative_Rewriting-SN_rel_on_imp_SN_rel_on_alt>SN_rel_on_imp_SN_rel_on_alt</a></li>
+<li><a href=#Relative_Rewriting-SN_rel_on_alt_imp_SN_rel_on>SN_rel_on_alt_imp_SN_rel_on</a></li>
+<li><a href=#Relative_Rewriting-SN_rel_on_conv>SN_rel_on_conv</a></li>
+<li><a href=#Relative_Rewriting-SN_rel_on_alt_r_empty>SN_rel_on_alt_r_empty</a></li>
+<li><a href=#Relative_Rewriting-SN_rel_on_alt_s_empty>SN_rel_on_alt_s_empty</a></li>
+<li><a href=#Relative_Rewriting-SN_rel_on_mono%27>SN_rel_on_mono'</a></li>
+<li><a href=#Relative_Rewriting-relto_mono>relto_mono</a></li>
+<li><a href=#Relative_Rewriting-SN_rel_on_mono>SN_rel_on_mono</a></li>
+<li><a href=#Relative_Rewriting-SN_rel_on_imp_SN_on>SN_rel_on_imp_SN_on</a></li>
+<li><a href=#Relative_Rewriting-relto_Id>relto_Id</a></li>
+<li><a href=#Relative_Rewriting-SN_rel_on_Id>SN_rel_on_Id</a></li>
+<li><a href=#Relative_Rewriting-SN_rel_on_empty>SN_rel_on_empty</a></li>
+<li><a href=#Relative_Rewriting-SN_rel_on_ideriv>SN_rel_on_ideriv</a></li>
+<li><a href=#Relative_Rewriting-SN_rel_to_SN_rel_alt>SN_rel_to_SN_rel_alt</a></li>
+<li><a href=#Relative_Rewriting-SN_rel_alt_to_SN_rel>SN_rel_alt_to_SN_rel</a></li>
+<li><a href=#Relative_Rewriting-SN_rel_alt_r_empty>SN_rel_alt_r_empty</a></li>
+<li><a href=#Relative_Rewriting-SN_rel_alt_s_empty>SN_rel_alt_s_empty</a></li>
+<li><a href=#Relative_Rewriting-SN_rel_mono%27>SN_rel_mono'</a></li>
+<li><a href=#Relative_Rewriting-SN_rel_mono>SN_rel_mono</a></li>
+<li><a href=#Relative_Rewriting-SN_rel_imp_SN>SN_rel_imp_SN</a></li>
+<li><a href=#Relative_Rewriting-relto_trancl_conv>relto_trancl_conv</a></li>
+<li><a href=#Relative_Rewriting-SN_rel_Id>SN_rel_Id</a></li>
+<li><a href=#Relative_Rewriting-relto_rtrancl>relto_rtrancl</a></li>
+<li><a href=#Relative_Rewriting-SN_rel_empty>SN_rel_empty</a></li>
+<li><a href=#Relative_Rewriting-SN_rel_ideriv>SN_rel_ideriv</a></li>
+<li><a href=#Relative_Rewriting-SN_rel_map>SN_rel_map</a></li>
+<li><a href=#Relative_Rewriting-SN_rel_ext_step_mono>SN_rel_ext_step_mono</a></li>
+<li><a href=#Relative_Rewriting-SN_rel_ext_mono>SN_rel_ext_mono</a></li>
+<li><a href=#Relative_Rewriting-SN_rel_ext_trans>SN_rel_ext_trans</a></li>
+<li><a href=#Relative_Rewriting-SN_rel_ext_map>SN_rel_ext_map</a></li>
+<li><a href=#Relative_Rewriting-SN_rel_ext_map_min>SN_rel_ext_map_min</a></li>
+<li><a href=#Relative_Rewriting-SN_relto_imp_SN_rel>SN_relto_imp_SN_rel</a></li>
+<li><a href=#Relative_Rewriting-rtrancl_list_conv>rtrancl_list_conv</a></li>
+<li><a href=#Relative_Rewriting-SN_rel_imp_SN_relto>SN_rel_imp_SN_relto</a></li>
+<li><a href=#Relative_Rewriting-SN_relto_SN_rel_conv>SN_relto_SN_rel_conv</a></li>
+<li><a href=#Relative_Rewriting-SN_rel_empty1>SN_rel_empty1</a></li>
+<li><a href=#Relative_Rewriting-SN_rel_empty2>SN_rel_empty2</a></li>
+<li><a href=#Relative_Rewriting-SN_relto_mono>SN_relto_mono</a></li>
+<li><a href=#Relative_Rewriting-SN_relto_imp_SN>SN_relto_imp_SN</a></li>
+<li><a href=#Relative_Rewriting-SN_relto_Id>SN_relto_Id</a></li>
+<li><a href=#Relative_Rewriting-trans_subset_SN>trans_subset_SN</a></li>
+<li><a href=#Relative_Rewriting-SN_Un_conv>SN_Un_conv</a></li>
+<li><a href=#Relative_Rewriting-SN_relto_Un>SN_relto_Un</a></li>
+<li><a href=#Relative_Rewriting-SN_relto_split>SN_relto_split</a></li>
+<li><a href=#Relative_Rewriting-relto_trancl_subset>relto_trancl_subset</a></li>
+<li><a href=#Relative_Rewriting-relto_funD>relto_funD</a></li>
+<li><a href=#Relative_Rewriting-relto_fun_refl>relto_fun_refl</a></li>
+<li><a href=#Relative_Rewriting-relto_into_relto_fun>relto_into_relto_fun</a></li>
+<li><a href=#Relative_Rewriting-relto_fun_trans>relto_fun_trans</a></li>
+<li><a href=#Relative_Rewriting-reltos_into_relto_fun>reltos_into_relto_fun</a></li>
+<li><a href=#Relative_Rewriting-relto_fun_into_reltos>relto_fun_into_reltos</a></li>
+<li><a href=#Relative_Rewriting-relto_relto_fun_conv>relto_relto_fun_conv</a></li>
+<li><a href=#Relative_Rewriting-relto_fun_intermediate>relto_fun_intermediate</a></li>
+<li><a href=#Relative_Rewriting-not_SN_on_rel_succ>not_SN_on_rel_succ</a></li>
+<li><a href=#Relative_Rewriting-SN_on_relto_relcomp>SN_on_relto_relcomp</a></li>
+<li><a href=#Relative_Rewriting-trans_relto>trans_relto</a></li>
+<li><a href=#Relative_Rewriting-relative_ending>relative_ending</a></li>
+<li><a href=#Relative_Rewriting-SN_on_relto_Un>SN_on_relto_Un</a></li>
+<li><a href=#Relative_Rewriting-SN_on_Un>SN_on_Un</a></li>
+</ul>
+</li><li><a href=#SN_Orders>SN_Orders</a>
+<ul>
+<li><a href=#SN_Orders-max_ge_y>max_ge_y</a></li>
+<li><a href=#SN_Orders-max_mono2>max_mono2</a></li>
+<li><a href=#SN_Orders-plus_right_mono>plus_right_mono</a></li>
+<li><a href=#SN_Orders-gt_trans>gt_trans</a></li>
+<li><a href=#SN_Orders-plus_gt_right_mono>plus_gt_right_mono</a></li>
+<li><a href=#SN_Orders-plus_gt_both_mono>plus_gt_both_mono</a></li>
+<li><a href=#SN_Orders-max0_id>max0_id</a></li>
+<li><a href=#SN_Orders-pow_mono>pow_mono</a></li>
+<li><a href=#SN_Orders-pow_ge_zero>pow_ge_zero</a></li>
+<li><a href=#SN_Orders-of_nat_ge_zero>of_nat_ge_zero</a></li>
+<li><a href=#SN_Orders-mult_ge_zero>mult_ge_zero</a></li>
+<li><a href=#SN_Orders-pow_mono_one>pow_mono_one</a></li>
+<li><a href=#SN_Orders-pow_mono_exp>pow_mono_exp</a></li>
+<li><a href=#SN_Orders-mult_ge_one>mult_ge_one</a></li>
+<li><a href=#SN_Orders-sum_list_ge_mono>sum_list_ge_mono</a></li>
+<li><a href=#SN_Orders-sum_list_ge_0_nth>sum_list_ge_0_nth</a></li>
+<li><a href=#SN_Orders-sum_list_ge_0>sum_list_ge_0</a></li>
+<li><a href=#SN_Orders-foldr_max>foldr_max</a></li>
+<li><a href=#SN_Orders-of_nat_mono>of_nat_mono</a></li>
+<li><a href=#SN_Orders-non_infI>non_infI</a></li>
+<li><a href=#SN_Orders-non_infE>non_infE</a></li>
+<li><a href=#SN_Orders-non_inf_image>non_inf_image</a></li>
+<li><a href=#SN_Orders-SN_imp_non_inf>SN_imp_non_inf</a></li>
+<li><a href=#SN_Orders-non_inf_imp_SN_bound>non_inf_imp_SN_bound</a></li>
+</ul>
+</li><li><a href=#SN_Order_Carrier>SN_Order_Carrier</a>
+<ul>
+<li><a href=#SN_Order_Carrier-non_inf_delta_gt>non_inf_delta_gt</a></li>
+<li><a href=#SN_Order_Carrier-delta_gt_SN>delta_gt_SN</a></li>
+<li><a href=#SN_Order_Carrier-delta_interpretation>delta_interpretation</a></li>
+<li><a href=#SN_Order_Carrier-delta_poly>delta_poly</a></li>
+<li><a href=#SN_Order_Carrier-delta_minimal_delta>delta_minimal_delta</a></li>
+<li><a href=#SN_Order_Carrier-non_inf_int_gt>non_inf_int_gt</a></li>
+<li><a href=#SN_Order_Carrier-arctic_delta_interpretation>arctic_delta_interpretation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<ul>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Abstract-Rewriting/outline.pdf>Proof
+outline</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Abstract-Rewriting/document.pdf>Proof
+document</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Abstract-Rewriting/session_graph.pdf>Theory dependencies</a></li>
+</ul>
+</div>
+</aside>
+<div class="content theories"><header>
+<form action=/%20search>
+<div class=form-container>
+<input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
+<datalist id=autocomplete>
+</datalist>
+</div>
+</form>
+<h1><span class=first>S</span>ession <span class=first>A</span>bstract-<span class=first>R</span>ewriting</h1>
+<div>
+</div>
+</header><div id=banner data-id=0>
+<p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button>
+</div>
+<div><main>
+<div id=Seq>
+<div class=head>
+<h1>Theory Seq</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:       Infinite Sequences
     Author:      Christian Sternagel &lt;c-sterna@jaist.ac.jp&gt;
                  René Thiemann       &lt;rene.thiemann@uibk.ac.at&gt;
     Maintainer:  Christian Sternagel and René Thiemann
@@ -565,7 +1002,12 @@ an index function that points to these numbers in increasing order.›</span></s
 
 <span class=keyword2><span class=keyword>end</span></span>
 
-</pre></div><div id=Abstract_Rewriting><div class=head><h1>Theory Abstract_Rewriting</h1></div><pre class=source><span class=comment1>(*  Title:       Abstract Rewriting
+</pre>
+</div><div id=Abstract_Rewriting>
+<div class=head>
+<h1>Theory Abstract_Rewriting</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:       Abstract Rewriting
     Author:      Christian Sternagel &lt;christian.sternagel@uibk.ac.at&gt;
                  Rene Thiemann       &lt;rene.tiemann@uibk.ac.at&gt;
     Maintainer:  Christian Sternagel and Rene Thiemann
@@ -3405,7 +3847,12 @@ normalizing with respect to a relation <span class=antiquoted><span class=antiqu
 <span class=keyword1 id=Abstract_Rewriting-symcl_idemp><span class=command>lemma</span></span> symcl_idemp <span class=main>[</span><span class=operator>simp</span><span class=main>]</span><span class=main>:</span> <span class=quoted><span class=quoted>"<span class=main>(</span><span class=free>r</span><span class=main><span class=hidden>⇧</span><sup>↔</sup></span><span class=main>)</span><span class=main><span class=hidden>⇧</span><sup>↔</sup></span> <span class=main>=</span> <span class=free>r</span><span class=main><span class=hidden>⇧</span><sup>↔</sup></span>"</span></span> <span class=keyword1><span class=command>by</span></span> <span class=operator>auto</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Relative_Rewriting><div class=head><h1>Theory Relative_Rewriting</h1></div><pre class=source><span class=comment1>(*  Title:       Abstract Rewriting
+</pre>
+</div><div id=Relative_Rewriting>
+<div class=head>
+<h1>Theory Relative_Rewriting</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:       Abstract Rewriting
     Author:      Christian Sternagel &lt;christian.sternagel@uibk.ac.at&gt;
                  Rene Thiemann       &lt;rene.tiemann@uibk.ac.at&gt;
     Maintainer:  Christian Sternagel and Rene Thiemann
@@ -5137,7 +5584,12 @@ with IsaFoR/CeTA. If not, see &lt;http://www.gnu.org/licenses/&gt;.
   <span class=keyword1><span class=command>using</span></span> SN_on_relto_Un<span class=main>[</span><span class=operator>of</span> <span class=quoted><span class=quoted>"<span class=main>{}</span>"</span></span><span class=main>]</span> <span class=keyword1><span class=command>by</span></span> <span class=operator>simp</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=SN_Orders><div class=head><h1>Theory SN_Orders</h1></div><pre class=source><span class=comment1>(*  Title:       Executable multivariate polynomials
+</pre>
+</div><div id=SN_Orders>
+<div class=head>
+<h1>Theory SN_Orders</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:       Executable multivariate polynomials
     Author:      Christian Sternagel &lt;christian.sternagel@uibk.ac.at&gt;
                  René Thiemann       &lt;rene.thiemann@uibk.ac.at&gt;
     Maintainer:  Christian Sternagel and René Thiemann
@@ -5476,7 +5928,12 @@ Note that we do not use Isabelle's preorders since the condition
   <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>rule</span><span class=main><span class=keyword3>,</span></span> <span class=operator>auto</span><span class=main>)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=SN_Order_Carrier><div class=head><h1>Theory SN_Order_Carrier</h1></div><pre class=source><span class=comment1>(*  Title:       Executable multivariate polynomials
+</pre>
+</div><div id=SN_Order_Carrier>
+<div class=head>
+<h1>Theory SN_Order_Carrier</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:       Executable multivariate polynomials
     Author:      Christian Sternagel &lt;christian.sternagel@uibk.ac.at&gt;
                  Rene Thiemann       &lt;rene.thiemann@uibk.ac.at&gt;
     Maintainer:  Christian Sternagel and Rene Thiemann
@@ -6222,4 +6679,10 @@ with IsaFoR/CeTA. If not, see &lt;http://www.gnu.org/licenses/&gt;.
 <span class=keyword1><span class=command>qed</span></span>  
     
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div></main></div></div></body></html>
+</pre>
+</div>
+</main>
+</div>
+</div>
+</body>
+</html>

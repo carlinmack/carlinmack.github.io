@@ -1,7 +1,378 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Session IMP2 - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session IMP2"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/imp2/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Session IMP2"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css><link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script><script src=/js/banner.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><li><a href=/entries/imp2>Return to entry</a></li></ul><hr><ul><li><a href=#IMP2_Aux_Lemmas>IMP2_Aux_Lemmas</a><ul><li><a href=#IMP2_Aux_Lemmas-wf_bounded_supset>wf_bounded_supset</a></li><li><a href=#IMP2_Aux_Lemmas-finite_psupset_wf>finite_psupset_wf</a></li><li><a href=#IMP2_Aux_Lemmas-intvs_singleton>intvs_singleton</a></li><li><a href=#IMP2_Aux_Lemmas-intvs_incr_h>intvs_incr_h</a></li><li><a href=#IMP2_Aux_Lemmas-intvs_decr_h>intvs_decr_h</a></li><li><a href=#IMP2_Aux_Lemmas-intvs_incr_l>intvs_incr_l</a></li><li><a href=#IMP2_Aux_Lemmas-intvs_decr_l>intvs_decr_l</a></li><li><a href=#IMP2_Aux_Lemmas-intvs_ii_incdec>intvs_ii_incdec</a></li><li><a href=#IMP2_Aux_Lemmas-intvs_lower_incr>intvs_lower_incr</a></li><li><a href=#IMP2_Aux_Lemmas-intvs_upper_decr>intvs_upper_decr</a></li><li><a href=#IMP2_Aux_Lemmas-image_mset_subst_outside>image_mset_subst_outside</a></li><li><a href=#IMP2_Aux_Lemmas-image_mset_set_subst_inside>image_mset_set_subst_inside</a></li><li><a href=#IMP2_Aux_Lemmas-image_mset_eq_imp_set_eq>image_mset_eq_imp_set_eq</a></li><li><a href=#IMP2_Aux_Lemmas-eq_on_subst_same>eq_on_subst_same</a></li><li><a href=#IMP2_Aux_Lemmas-eq_on_subst_other>eq_on_subst_other</a></li><li><a href=#IMP2_Aux_Lemmas-eq_on_refl>eq_on_refl</a></li><li><a href=#IMP2_Aux_Lemmas-eq_on_sym>eq_on_sym</a></li><li><a href=#IMP2_Aux_Lemmas-eq_on_trans>eq_on_trans</a></li><li><a href=#IMP2_Aux_Lemmas-eq_on_trans%27>eq_on_trans'</a></li><li><a href=#IMP2_Aux_Lemmas-eq_onD>eq_onD</a></li><li><a href=#IMP2_Aux_Lemmas-eq_on_xfer_pointwise>eq_on_xfer_pointwise</a></li><li><a href=#IMP2_Aux_Lemmas-ran_sorted_alt>ran_sorted_alt</a></li><li><a href=#IMP2_Aux_Lemmas-ran_sorted_empty>ran_sorted_empty</a></li><li><a href=#IMP2_Aux_Lemmas-ran_sorted_singleton>ran_sorted_singleton</a></li><li><a href=#IMP2_Aux_Lemmas-eq_on_xfer_ran_sorted>eq_on_xfer_ran_sorted</a></li><li><a href=#IMP2_Aux_Lemmas-combine_sorted_pivot>combine_sorted_pivot</a></li><li><a href=#IMP2_Aux_Lemmas-mset_ran_infinite>mset_ran_infinite</a></li><li><a href=#IMP2_Aux_Lemmas-mset_ran_by_sum>mset_ran_by_sum</a></li><li><a href=#IMP2_Aux_Lemmas-mset_ran_mem>mset_ran_mem</a></li><li><a href=#IMP2_Aux_Lemmas-mset_ran_empty>mset_ran_empty</a></li><li><a href=#IMP2_Aux_Lemmas-mset_ran_empty_iff>mset_ran_empty_iff</a></li><li><a href=#IMP2_Aux_Lemmas-mset_ran_single>mset_ran_single</a></li><li><a href=#IMP2_Aux_Lemmas-mset_ran_eq_single_conv>mset_ran_eq_single_conv</a></li><li><a href=#IMP2_Aux_Lemmas-mset_ran_insert>mset_ran_insert</a></li><li><a href=#IMP2_Aux_Lemmas-mset_ran_subst_outside>mset_ran_subst_outside</a></li><li><a href=#IMP2_Aux_Lemmas-mset_ran_subst_inside>mset_ran_subst_inside</a></li><li><a href=#IMP2_Aux_Lemmas-mset_ran_combine1>mset_ran_combine1</a></li><li><a href=#IMP2_Aux_Lemmas-mset_ran_combine2>mset_ran_combine2</a></li><li><a href=#IMP2_Aux_Lemmas-mset_ran_cong>mset_ran_cong</a></li><li><a href=#IMP2_Aux_Lemmas-mset_ran_shift>mset_ran_shift</a></li><li><a href=#IMP2_Aux_Lemmas-mset_ran_combine_eqs>mset_ran_combine_eqs</a></li><li><a href=#IMP2_Aux_Lemmas-mset_ran_combine_eq_diff>mset_ran_combine_eq_diff</a></li><li><a href=#IMP2_Aux_Lemmas-mset_ran_eq_extend>mset_ran_eq_extend</a></li><li><a href=#IMP2_Aux_Lemmas-mset_ran_xfer_pointwise>mset_ran_xfer_pointwise</a></li><li><a href=#IMP2_Aux_Lemmas-mset_ran_swap>mset_ran_swap</a></li><li><a href=#IMP2_Aux_Lemmas-lran_empty>lran_empty</a></li><li><a href=#IMP2_Aux_Lemmas-lran_bwd_simp>lran_bwd_simp</a></li><li><a href=#IMP2_Aux_Lemmas-length_lran>length_lran</a></li><li><a href=#IMP2_Aux_Lemmas-nth_lran>nth_lran</a></li><li><a href=#IMP2_Aux_Lemmas-lran_append1>lran_append1</a></li><li><a href=#IMP2_Aux_Lemmas-lran_prepend1>lran_prepend1</a></li><li><a href=#IMP2_Aux_Lemmas-lran_tail>lran_tail</a></li><li><a href=#IMP2_Aux_Lemmas-lran_butlast>lran_butlast</a></li><li><a href=#IMP2_Aux_Lemmas-hd_lran>hd_lran</a></li><li><a href=#IMP2_Aux_Lemmas-last_lran>last_lran</a></li><li><a href=#IMP2_Aux_Lemmas-lran_upd_outside>lran_upd_outside</a></li><li><a href=#IMP2_Aux_Lemmas-lran_upd_inside>lran_upd_inside</a></li><li><a href=#IMP2_Aux_Lemmas-tl_upd_at0>tl_upd_at0</a></li><li><a href=#IMP2_Aux_Lemmas-lran_eq_iff>lran_eq_iff</a></li><li><a href=#IMP2_Aux_Lemmas-set_lran>set_lran</a></li><li><a href=#IMP2_Aux_Lemmas-mset_lran>mset_lran</a></li></ul></li><li><a href=#IMP2_Utils>IMP2_Utils</a></li><li><a href=#Named_Simpsets>Named_Simpsets</a></li><li><a href=#files%2fnamed_simpsets.ML>files/named_simpsets.ML</a></li><li><a href=#Subgoal_Focus_Some>Subgoal_Focus_Some</a></li><li><a href=#files%2fsubgoal_focus_some.ML>files/subgoal_focus_some.ML</a></li><li><a href=#Syntax>Syntax</a></li><li><a href=#Semantics>Semantics</a><ul><li><a href=#Semantics-combine_collapse>combine_collapse</a></li><li><a href=#Semantics-combine_nest>combine_nest</a></li><li><a href=#Semantics-combine_query>combine_query</a></li><li><a href=#Semantics-combine_upd>combine_upd</a></li><li><a href=#Semantics-combine_cases>combine_cases</a></li><li><a href=#Semantics-Assign%27>Assign'</a></li><li><a href=#Semantics-ArrayCpy%27>ArrayCpy'</a></li><li><a href=#Semantics-ArrayClear%27>ArrayClear'</a></li><li><a href=#Semantics-Scope%27>Scope'</a></li><li><a href=#Semantics-equivI>equivI</a></li><li><a href=#Semantics-equivD>equivD</a></li><li><a href=#Semantics-equiv_refl>equiv_refl</a></li><li><a href=#Semantics-equiv_sym>equiv_sym</a></li><li><a href=#Semantics-equiv_trans>equiv_trans</a></li><li><a href=#Semantics-while_unfold>while_unfold</a></li><li><a href=#Semantics-triv_if>triv_if</a></li><li><a href=#Semantics-commute_if>commute_if</a></li><li><a href=#Semantics-sim_while_cong_aux>sim_while_cong_aux</a></li><li><a href=#Semantics-sim_while_cong>sim_while_cong</a></li><li><a href=#Semantics-small_steps_append>small_steps_append</a></li><li><a href=#Semantics-small_big_append>small_big_append</a></li><li><a href=#Semantics-smalls_big_append>smalls_big_append</a></li><li><a href=#Semantics-small_imp_big>small_imp_big</a></li><li><a href=#Semantics-small_steps_skip_term>small_steps_skip_term</a></li><li><a href=#Semantics-small_seq>small_seq</a></li><li><a href=#Semantics-smalls_seq>smalls_seq</a></li><li><a href=#Semantics-small_pscope>small_pscope</a></li><li><a href=#Semantics-smalls_pscope>smalls_pscope</a></li><li><a href=#Semantics-big_imp_small>big_imp_small</a></li><li><a href=#Semantics-small_steps_determ>small_steps_determ</a></li><li><a href=#Semantics-wp_imp_wlp>wp_imp_wlp</a></li><li><a href=#Semantics-wlp_and_term_imp_wp>wlp_and_term_imp_wp</a></li><li><a href=#Semantics-wp_equiv>wp_equiv</a></li><li><a href=#Semantics-wp_conseq>wp_conseq</a></li><li><a href=#Semantics-wlp_equiv>wlp_equiv</a></li><li><a href=#Semantics-wlp_conseq>wlp_conseq</a></li><li><a href=#Semantics-wp_skip_eq>wp_skip_eq</a></li><li><a href=#Semantics-wp_assign_idx_eq>wp_assign_idx_eq</a></li><li><a href=#Semantics-wp_arraycpy_eq>wp_arraycpy_eq</a></li><li><a href=#Semantics-wp_arrayinit_eq>wp_arrayinit_eq</a></li><li><a href=#Semantics-wp_assign_locals_eq>wp_assign_locals_eq</a></li><li><a href=#Semantics-wp_seq_eq>wp_seq_eq</a></li><li><a href=#Semantics-wp_if_eq>wp_if_eq</a></li><li><a href=#Semantics-wp_scope_eq>wp_scope_eq</a></li><li><a href=#Semantics-wp_pcall_eq>wp_pcall_eq</a></li><li><a href=#Semantics-wlp_skip_eq>wlp_skip_eq</a></li><li><a href=#Semantics-wlp_assign_idx_eq>wlp_assign_idx_eq</a></li><li><a href=#Semantics-wlp_arraycpy_eq>wlp_arraycpy_eq</a></li><li><a href=#Semantics-wlp_arrayinit_eq>wlp_arrayinit_eq</a></li><li><a href=#Semantics-wlp_assign_locals_eq>wlp_assign_locals_eq</a></li><li><a href=#Semantics-wlp_seq_eq>wlp_seq_eq</a></li><li><a href=#Semantics-wlp_if_eq>wlp_if_eq</a></li><li><a href=#Semantics-wlp_scope_eq>wlp_scope_eq</a></li><li><a href=#Semantics-wlp_pcall_eq>wlp_pcall_eq</a></li><li><a href=#Semantics-wlp_while_unfold>wlp_while_unfold</a></li><li><a href=#Semantics-wp_while_unfold>wp_while_unfold</a></li><li><a href=#Semantics-wp_pscope_eq>wp_pscope_eq</a></li><li><a href=#Semantics-wlp_pscope_eq>wlp_pscope_eq</a></li><li><a href=#Semantics-wp_equiv_iff>wp_equiv_iff</a></li><li><a href=#Semantics-wlp_equiv_iff>wlp_equiv_iff</a></li><li><a href=#Semantics-sim_while_wp_aux>sim_while_wp_aux</a></li><li><a href=#Semantics-sim_while_wp>sim_while_wp</a></li><li><a href=#Semantics-sim_while_wlp_aux>sim_while_wlp_aux</a></li><li><a href=#Semantics-sim_while_wlp>sim_while_wlp</a></li><li><a href=#Semantics-wlp_whileI%27>wlp_whileI'</a></li><li><a href=#Semantics-wp_whileI%27>wp_whileI'</a></li><li><a href=#Semantics-wlp_whileI>wlp_whileI</a></li><li><a href=#Semantics-wp_whileI>wp_whileI</a></li><li><a href=#Semantics-map_leD>map_leD</a></li><li><a href=#Semantics-big_step_mono_prog>big_step_mono_prog</a></li><li><a href=#Semantics-localize_recursion>localize_recursion</a></li><li><a href=#Semantics-sp_arraycpy_eq>sp_arraycpy_eq</a></li><li><a href=#Semantics-sp_arraycpy_eq%27>sp_arraycpy_eq'</a></li><li><a href=#Semantics-sp_skip_eq>sp_skip_eq</a></li><li><a href=#Semantics-sp_seq_eq>sp_seq_eq</a></li><li><a href=#Semantics-HT_conseq>HT_conseq</a></li><li><a href=#Semantics-HT_partial_conseq>HT_partial_conseq</a></li><li><a href=#Semantics-wp_modularity_rule>wp_modularity_rule</a></li><li><a href=#Semantics-adjust_prologue>adjust_prologue</a></li><li><a href=#Semantics-adjust_epilogue>adjust_epilogue</a></li><li><a href=#Semantics-adjust_scope>adjust_scope</a></li><li><a href=#Semantics-HTsetI>HTsetI</a></li><li><a href=#Semantics-HT_simple_recursiveI>HT_simple_recursiveI</a></li><li><a href=#Semantics-HT_simple_recursive_procI>HT_simple_recursive_procI</a></li><li><a href=#Semantics-wlp_whileI%27_complete>wlp_whileI'_complete</a></li><li><a href=#Semantics-count_it_determ>count_it_determ</a></li><li><a href=#Semantics-count_it_ex>count_it_ex</a></li><li><a href=#Semantics-variant_decreases>variant_decreases</a></li><li><a href=#Semantics-wp_whileI%27_complete>wp_whileI'_complete</a></li></ul></li><li><a href=#Annotated_Syntax>Annotated_Syntax</a><ul><li><a href=#Annotated_Syntax-HT%27_eq_HT>HT'_eq_HT</a></li><li><a href=#Annotated_Syntax-HT%27_partial_eq_HT>HT'_partial_eq_HT</a></li><li><a href=#Annotated_Syntax-HT%27setI>HT'setI</a></li><li><a href=#Annotated_Syntax-HT%27setD>HT'setD</a></li></ul></li><li><a href=#IMP2_Basic_Simpset>IMP2_Basic_Simpset</a><ul><li><a href=#IMP2_Basic_Simpset-short_circuit>short_circuit</a></li><li><a href=#IMP2_Basic_Simpset-BB_PROTECT_cong>BB_PROTECT_cong</a></li><li><a href=#IMP2_Basic_Simpset-BB_PROTECT>BB_PROTECT</a></li><li><a href=#IMP2_Basic_Simpset-combine_query%27>combine_query'</a></li><li><a href=#IMP2_Basic_Simpset-combine_upd%27>combine_upd'</a></li><li><a href=#IMP2_Basic_Simpset-query_prog>query_prog</a></li><li><a href=#IMP2_Basic_Simpset-set_filter_simps>set_filter_simps</a></li><li><a href=#IMP2_Basic_Simpset-set_collect_simps>set_collect_simps</a></li></ul></li><li><a href=#Parser>Parser</a></li><li><a href=#IMP2_Basic_Decls>IMP2_Basic_Decls</a></li><li><a href=#IMP2_Program_Analysis>IMP2_Program_Analysis</a><ul><li><a href=#IMP2_Program_Analysis-modifies_refl>modifies_refl</a></li><li><a href=#IMP2_Program_Analysis-modifies_sym>modifies_sym</a></li><li><a href=#IMP2_Program_Analysis-modifies_trans%27>modifies_trans'</a></li><li><a href=#IMP2_Program_Analysis-modifies_trans>modifies_trans</a></li><li><a href=#IMP2_Program_Analysis-modifies_join>modifies_join</a></li><li><a href=#IMP2_Program_Analysis-modifies_mono>modifies_mono</a></li><li><a href=#IMP2_Program_Analysis-modifies_equals>modifies_equals</a></li><li><a href=#IMP2_Program_Analysis-modifies_upd>modifies_upd</a></li><li><a href=#IMP2_Program_Analysis-modifies_split>modifies_split</a></li><li><a href=#IMP2_Program_Analysis-lhsv%27_pscope_simp>lhsv'_pscope_simp</a></li><li><a href=#IMP2_Program_Analysis-lhsv%cf%80_empty>lhsvπ_empty</a></li><li><a href=#IMP2_Program_Analysis-lhsv%cf%80_upd>lhsvπ_upd</a></li><li><a href=#IMP2_Program_Analysis-modifies_lhsv%27_gen>modifies_lhsv'_gen</a></li><li><a href=#IMP2_Program_Analysis-modifies_lhsv%cf%80>modifies_lhsvπ</a></li><li><a href=#IMP2_Program_Analysis-lhsv_approx>lhsv_approx</a></li><li><a href=#IMP2_Program_Analysis-modifies_lhsv>modifies_lhsv</a></li><li><a href=#IMP2_Program_Analysis-wp_strengthen_modset>wp_strengthen_modset</a></li><li><a href=#IMP2_Program_Analysis-wlp_strengthen_modset>wlp_strengthen_modset</a></li><li><a href=#IMP2_Program_Analysis-wp_mod_lhsv_eq>wp_mod_lhsv_eq</a></li><li><a href=#IMP2_Program_Analysis-wlp_mod_lhsv_eq>wlp_mod_lhsv_eq</a></li><li><a href=#IMP2_Program_Analysis-HT_mods_cong>HT_mods_cong</a></li><li><a href=#IMP2_Program_Analysis-HT_partial_mods_cong>HT_partial_mods_cong</a></li><li><a href=#IMP2_Program_Analysis-vcg_wp_conseq>vcg_wp_conseq</a></li><li><a href=#IMP2_Program_Analysis-vcg_wlp_conseq>vcg_wlp_conseq</a></li><li><a href=#IMP2_Program_Analysis-vcg_wlp_wp_conseq>vcg_wlp_wp_conseq</a></li><li><a href=#IMP2_Program_Analysis-aval_eq_on_fv>aval_eq_on_fv</a></li><li><a href=#IMP2_Program_Analysis-aval_indep_non_fv>aval_indep_non_fv</a></li><li><a href=#IMP2_Program_Analysis-redundant_array_assignment>redundant_array_assignment</a></li><li><a href=#IMP2_Program_Analysis-redundant_var_assignment>redundant_var_assignment</a></li></ul></li><li><a href=#IMP2_Var_Postprocessor>IMP2_Var_Postprocessor</a><ul><li><a href=#IMP2_Var_Postprocessor-RENAMINGD>RENAMINGD</a></li><li><a href=#IMP2_Var_Postprocessor-RENAMINGI>RENAMINGI</a></li></ul></li><li><a href=#IMP2_Var_Abs>IMP2_Var_Abs</a></li><li><a href=#IMP2_VCG>IMP2_VCG</a><ul><li><a href=#IMP2_VCG-HT%27_I>HT'_I</a></li><li><a href=#IMP2_VCG-HT%27_partial_I>HT'_partial_I</a></li><li><a href=#IMP2_VCG-move_goal_indication_to_front>move_goal_indication_to_front</a></li><li><a href=#IMP2_VCG-vcg_wlp_modularity_rl>vcg_wlp_modularity_rl</a></li><li><a href=#IMP2_VCG-vcg_wp_modularity_rl>vcg_wp_modularity_rl</a></li><li><a href=#IMP2_VCG-vcg_wp_wlp_modularity_rl>vcg_wp_wlp_modularity_rl</a></li><li><a href=#IMP2_VCG-vcg_assign_idx_unfolds>vcg_assign_idx_unfolds</a></li><li><a href=#IMP2_VCG-vcg_arraycpy_unfolds>vcg_arraycpy_unfolds</a></li><li><a href=#IMP2_VCG-vcg_arrayinit_unfolds>vcg_arrayinit_unfolds</a></li><li><a href=#IMP2_VCG-vcg_AssignIdx_retv_wlp_unfold>vcg_AssignIdx_retv_wlp_unfold</a></li><li><a href=#IMP2_VCG-vcg_AssignIdx_retv_wp_unfold>vcg_AssignIdx_retv_wp_unfold</a></li><li><a href=#IMP2_VCG-vcg_ArrayCpy_retv_wlp_unfold>vcg_ArrayCpy_retv_wlp_unfold</a></li><li><a href=#IMP2_VCG-vcg_ArrayCpy_retv_wp_unfold>vcg_ArrayCpy_retv_wp_unfold</a></li><li><a href=#IMP2_VCG-naming_hint_impI_simp>naming_hint_impI_simp</a></li><li><a href=#IMP2_VCG-wlp_whileI_modset>wlp_whileI_modset</a></li><li><a href=#IMP2_VCG-wp_whileI_modset>wp_whileI_modset</a></li><li><a href=#IMP2_VCG-invar_var_goalI>invar_var_goalI</a></li><li><a href=#IMP2_VCG-wp_while_rl>wp_while_rl</a></li><li><a href=#IMP2_VCG-wp_while_rl_dfltR>wp_while_rl_dfltR</a></li><li><a href=#IMP2_VCG-wlp_while_rl>wlp_while_rl</a></li><li><a href=#IMP2_VCG-wlp_if_rl>wlp_if_rl</a></li><li><a href=#IMP2_VCG-wp_if_rl>wp_if_rl</a></li></ul></li><li><a href=#IMP2_Specification>IMP2_Specification</a><ul><li><a href=#IMP2_Specification-HT_to_mod>HT_to_mod</a></li><li><a href=#IMP2_Specification-HT_partial_to_mod>HT_partial_to_mod</a></li><li><a href=#IMP2_Specification-mk_lhsv_thm>mk_lhsv_thm</a></li><li><a href=#IMP2_Specification-adjust_assign_after>adjust_assign_after</a></li><li><a href=#IMP2_Specification-adjust_assign_before>adjust_assign_before</a></li><li><a href=#IMP2_Specification-adjust_scope>adjust_scope</a></li><li><a href=#IMP2_Specification-adjust_assign_after_partial>adjust_assign_after_partial</a></li><li><a href=#IMP2_Specification-adjust_assign_before_partial>adjust_assign_before_partial</a></li><li><a href=#IMP2_Specification-adjust_scope_partial>adjust_scope_partial</a></li><li><a href=#IMP2_Specification-HT_strengthen_modset>HT_strengthen_modset</a></li><li><a href=#IMP2_Specification-HT_partial_strengthen_modset>HT_partial_strengthen_modset</a></li><li><a href=#IMP2_Specification-ADJUST_PRE_SCOPE_unfolds>ADJUST_PRE_SCOPE_unfolds</a></li><li><a href=#IMP2_Specification-ADJUST_PRE_PARAM_unfolds>ADJUST_PRE_PARAM_unfolds</a></li><li><a href=#IMP2_Specification-ADJUST_POST_SCOPE_unfolds>ADJUST_POST_SCOPE_unfolds</a></li><li><a href=#IMP2_Specification-ADJUST_POST_PARAM_unfolds>ADJUST_POST_PARAM_unfolds</a></li><li><a href=#IMP2_Specification-ADJUST_POST_RETV_unfolds>ADJUST_POST_RETV_unfolds</a></li><li><a href=#IMP2_Specification-HT_mods_adjust_scope>HT_mods_adjust_scope</a></li><li><a href=#IMP2_Specification-HT_mods_adjust_param>HT_mods_adjust_param</a></li><li><a href=#IMP2_Specification-HT_mods_adjust_retv>HT_mods_adjust_retv</a></li><li><a href=#IMP2_Specification-HT_partial_mods_adjust_scope>HT_partial_mods_adjust_scope</a></li><li><a href=#IMP2_Specification-HT_partial_mods_adjust_param>HT_partial_mods_adjust_param</a></li><li><a href=#IMP2_Specification-HT_partial_mods_adjust_retv>HT_partial_mods_adjust_retv</a></li><li><a href=#IMP2_Specification-HT_generalize_penv>HT_generalize_penv</a></li><li><a href=#IMP2_Specification-HT_mods_fold_call>HT_mods_fold_call</a></li><li><a href=#IMP2_Specification-localize_HT_mods>localize_HT_mods</a></li><li><a href=#IMP2_Specification-PROVE_%ce%98I>PROVE_ΘI</a></li><li><a href=#IMP2_Specification-JOIN_VARS>JOIN_VARS</a></li><li><a href=#IMP2_Specification-ASSUME_%ce%98E2>ASSUME_ΘE2</a></li><li><a href=#IMP2_Specification-vcg_HT%27setI>vcg_HT'setI</a></li></ul></li><li><a href=#IMP2>IMP2</a><ul><li><a href=#IMP2-upd_idxSame>upd_idxSame</a></li></ul></li><li><a href=#Quickstart_Guide>Quickstart_Guide</a><ul><li><a href=#Quickstart_Guide-array_sum_aux>array_sum_aux</a></li></ul></li><li><a href=#IMP2_from_IMP>IMP2_from_IMP</a></li><li><a href=#Examples>Examples</a><ul><li><a href=#Examples-fib_simps>fib_simps</a></li><li><a href=#Examples-aux2>aux2</a></li><li><a href=#Examples-aux3>aux3</a></li><li><a href=#Examples-aux>aux</a></li><li><a href=#Examples-ex_by_sq_aux>ex_by_sq_aux</a></li><li><a href=#Examples-lran_eq_iff%27>lran_eq_iff'</a></li><li><a href=#Examples-lran_split>lran_split</a></li><li><a href=#Examples-lran_eq_append_iff>lran_eq_append_iff</a></li><li><a href=#Examples-lran_split%27>lran_split'</a></li><li><a href=#Examples-insort_insert_sorted>insort_insert_sorted</a></li><li><a href=#Examples-insort_insert_ran1>insort_insert_ran1</a></li><li><a href=#Examples-insort_insert_ran2>insort_insert_ran2</a></li><li><a href=#Examples-quicksort_sorted_aux>quicksort_sorted_aux</a></li><li><a href=#Examples-quicksort_mset_aux>quicksort_mset_aux</a></li><li><a href=#Examples-merge_add_simp>merge_add_simp</a></li><li><a href=#Examples-merge_sorted>merge_sorted</a></li><li><a href=#Examples-merge_mset>merge_mset</a></li><li><a href=#Examples-merge_eq>merge_eq</a></li><li><a href=#Examples-merge_msets_aux>merge_msets_aux</a></li><li><a href=#Examples-set_of_empty>set_of_empty</a></li><li><a href=#Examples-set_of_insert>set_of_insert</a></li><li><a href=#Examples-set_of_remove>set_of_remove</a></li><li><a href=#Examples-set_of_mem>set_of_mem</a></li><li><a href=#Examples-ack_add_simps>ack_add_simps</a></li><li><a href=#Examples-Edges_empty>Edges_empty</a></li><li><a href=#Examples-reachability_invariant>reachability_invariant</a></li><li><a href=#Examples-sub_insert_same_iff>sub_insert_same_iff</a></li></ul></li></ul></div><ul><li><a href=https://www.isa-afp.org/browser_info/current/AFP/IMP2/outline.pdf>Proof
-outline</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/IMP2/document.pdf>Proof
-document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/IMP2/session_graph.pdf>Theory dependencies</a></li></ul></div></aside><div class="content theories"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
-<datalist id=autocomplete></datalist></div></form><h1><span class=first>S</span>ession <span class=first>I</span><span class=first>M</span><span class=first>P</span>2</h1><div></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><div id=IMP2_Aux_Lemmas><div class=head><h1>Theory IMP2_Aux_Lemmas</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Auxiliary Lemma Library›</span></span>  
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Session IMP2 - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session IMP2">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="/entries/imp2/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories">
+<meta property="og:site_name" content="Archive of Formal Proofs">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="/images/afp.png">
+<meta name=twitter:title content="Session IMP2">
+<meta name=twitter:description content>
+<link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css>
+<link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script>
+<script src=/js/banner.js></script><script src=/js/header-search.js></script></head>
+<body class=mathjax_ignore>
+<aside>
+<div>
+<div>
+<a href=/>
+<img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo>
+</a>
+<ul>
+<li><a href=/entries/imp2>Return to entry</a></li>
+</ul>
+<hr>
+<ul><li><a href=#IMP2_Aux_Lemmas>IMP2_Aux_Lemmas</a>
+<ul>
+<li><a href=#IMP2_Aux_Lemmas-wf_bounded_supset>wf_bounded_supset</a></li>
+<li><a href=#IMP2_Aux_Lemmas-finite_psupset_wf>finite_psupset_wf</a></li>
+<li><a href=#IMP2_Aux_Lemmas-intvs_singleton>intvs_singleton</a></li>
+<li><a href=#IMP2_Aux_Lemmas-intvs_incr_h>intvs_incr_h</a></li>
+<li><a href=#IMP2_Aux_Lemmas-intvs_decr_h>intvs_decr_h</a></li>
+<li><a href=#IMP2_Aux_Lemmas-intvs_incr_l>intvs_incr_l</a></li>
+<li><a href=#IMP2_Aux_Lemmas-intvs_decr_l>intvs_decr_l</a></li>
+<li><a href=#IMP2_Aux_Lemmas-intvs_ii_incdec>intvs_ii_incdec</a></li>
+<li><a href=#IMP2_Aux_Lemmas-intvs_lower_incr>intvs_lower_incr</a></li>
+<li><a href=#IMP2_Aux_Lemmas-intvs_upper_decr>intvs_upper_decr</a></li>
+<li><a href=#IMP2_Aux_Lemmas-image_mset_subst_outside>image_mset_subst_outside</a></li>
+<li><a href=#IMP2_Aux_Lemmas-image_mset_set_subst_inside>image_mset_set_subst_inside</a></li>
+<li><a href=#IMP2_Aux_Lemmas-image_mset_eq_imp_set_eq>image_mset_eq_imp_set_eq</a></li>
+<li><a href=#IMP2_Aux_Lemmas-eq_on_subst_same>eq_on_subst_same</a></li>
+<li><a href=#IMP2_Aux_Lemmas-eq_on_subst_other>eq_on_subst_other</a></li>
+<li><a href=#IMP2_Aux_Lemmas-eq_on_refl>eq_on_refl</a></li>
+<li><a href=#IMP2_Aux_Lemmas-eq_on_sym>eq_on_sym</a></li>
+<li><a href=#IMP2_Aux_Lemmas-eq_on_trans>eq_on_trans</a></li>
+<li><a href=#IMP2_Aux_Lemmas-eq_on_trans%27>eq_on_trans'</a></li>
+<li><a href=#IMP2_Aux_Lemmas-eq_onD>eq_onD</a></li>
+<li><a href=#IMP2_Aux_Lemmas-eq_on_xfer_pointwise>eq_on_xfer_pointwise</a></li>
+<li><a href=#IMP2_Aux_Lemmas-ran_sorted_alt>ran_sorted_alt</a></li>
+<li><a href=#IMP2_Aux_Lemmas-ran_sorted_empty>ran_sorted_empty</a></li>
+<li><a href=#IMP2_Aux_Lemmas-ran_sorted_singleton>ran_sorted_singleton</a></li>
+<li><a href=#IMP2_Aux_Lemmas-eq_on_xfer_ran_sorted>eq_on_xfer_ran_sorted</a></li>
+<li><a href=#IMP2_Aux_Lemmas-combine_sorted_pivot>combine_sorted_pivot</a></li>
+<li><a href=#IMP2_Aux_Lemmas-mset_ran_infinite>mset_ran_infinite</a></li>
+<li><a href=#IMP2_Aux_Lemmas-mset_ran_by_sum>mset_ran_by_sum</a></li>
+<li><a href=#IMP2_Aux_Lemmas-mset_ran_mem>mset_ran_mem</a></li>
+<li><a href=#IMP2_Aux_Lemmas-mset_ran_empty>mset_ran_empty</a></li>
+<li><a href=#IMP2_Aux_Lemmas-mset_ran_empty_iff>mset_ran_empty_iff</a></li>
+<li><a href=#IMP2_Aux_Lemmas-mset_ran_single>mset_ran_single</a></li>
+<li><a href=#IMP2_Aux_Lemmas-mset_ran_eq_single_conv>mset_ran_eq_single_conv</a></li>
+<li><a href=#IMP2_Aux_Lemmas-mset_ran_insert>mset_ran_insert</a></li>
+<li><a href=#IMP2_Aux_Lemmas-mset_ran_subst_outside>mset_ran_subst_outside</a></li>
+<li><a href=#IMP2_Aux_Lemmas-mset_ran_subst_inside>mset_ran_subst_inside</a></li>
+<li><a href=#IMP2_Aux_Lemmas-mset_ran_combine1>mset_ran_combine1</a></li>
+<li><a href=#IMP2_Aux_Lemmas-mset_ran_combine2>mset_ran_combine2</a></li>
+<li><a href=#IMP2_Aux_Lemmas-mset_ran_cong>mset_ran_cong</a></li>
+<li><a href=#IMP2_Aux_Lemmas-mset_ran_shift>mset_ran_shift</a></li>
+<li><a href=#IMP2_Aux_Lemmas-mset_ran_combine_eqs>mset_ran_combine_eqs</a></li>
+<li><a href=#IMP2_Aux_Lemmas-mset_ran_combine_eq_diff>mset_ran_combine_eq_diff</a></li>
+<li><a href=#IMP2_Aux_Lemmas-mset_ran_eq_extend>mset_ran_eq_extend</a></li>
+<li><a href=#IMP2_Aux_Lemmas-mset_ran_xfer_pointwise>mset_ran_xfer_pointwise</a></li>
+<li><a href=#IMP2_Aux_Lemmas-mset_ran_swap>mset_ran_swap</a></li>
+<li><a href=#IMP2_Aux_Lemmas-lran_empty>lran_empty</a></li>
+<li><a href=#IMP2_Aux_Lemmas-lran_bwd_simp>lran_bwd_simp</a></li>
+<li><a href=#IMP2_Aux_Lemmas-length_lran>length_lran</a></li>
+<li><a href=#IMP2_Aux_Lemmas-nth_lran>nth_lran</a></li>
+<li><a href=#IMP2_Aux_Lemmas-lran_append1>lran_append1</a></li>
+<li><a href=#IMP2_Aux_Lemmas-lran_prepend1>lran_prepend1</a></li>
+<li><a href=#IMP2_Aux_Lemmas-lran_tail>lran_tail</a></li>
+<li><a href=#IMP2_Aux_Lemmas-lran_butlast>lran_butlast</a></li>
+<li><a href=#IMP2_Aux_Lemmas-hd_lran>hd_lran</a></li>
+<li><a href=#IMP2_Aux_Lemmas-last_lran>last_lran</a></li>
+<li><a href=#IMP2_Aux_Lemmas-lran_upd_outside>lran_upd_outside</a></li>
+<li><a href=#IMP2_Aux_Lemmas-lran_upd_inside>lran_upd_inside</a></li>
+<li><a href=#IMP2_Aux_Lemmas-tl_upd_at0>tl_upd_at0</a></li>
+<li><a href=#IMP2_Aux_Lemmas-lran_eq_iff>lran_eq_iff</a></li>
+<li><a href=#IMP2_Aux_Lemmas-set_lran>set_lran</a></li>
+<li><a href=#IMP2_Aux_Lemmas-mset_lran>mset_lran</a></li>
+</ul>
+</li><li><a href=#IMP2_Utils>IMP2_Utils</a>
+</li><li><a href=#Named_Simpsets>Named_Simpsets</a>
+</li><li><a href=#files%2fnamed_simpsets.ML>files/named_simpsets.ML</a>
+</li><li><a href=#Subgoal_Focus_Some>Subgoal_Focus_Some</a>
+</li><li><a href=#files%2fsubgoal_focus_some.ML>files/subgoal_focus_some.ML</a>
+</li><li><a href=#Syntax>Syntax</a>
+</li><li><a href=#Semantics>Semantics</a>
+<ul>
+<li><a href=#Semantics-combine_collapse>combine_collapse</a></li>
+<li><a href=#Semantics-combine_nest>combine_nest</a></li>
+<li><a href=#Semantics-combine_query>combine_query</a></li>
+<li><a href=#Semantics-combine_upd>combine_upd</a></li>
+<li><a href=#Semantics-combine_cases>combine_cases</a></li>
+<li><a href=#Semantics-Assign%27>Assign'</a></li>
+<li><a href=#Semantics-ArrayCpy%27>ArrayCpy'</a></li>
+<li><a href=#Semantics-ArrayClear%27>ArrayClear'</a></li>
+<li><a href=#Semantics-Scope%27>Scope'</a></li>
+<li><a href=#Semantics-equivI>equivI</a></li>
+<li><a href=#Semantics-equivD>equivD</a></li>
+<li><a href=#Semantics-equiv_refl>equiv_refl</a></li>
+<li><a href=#Semantics-equiv_sym>equiv_sym</a></li>
+<li><a href=#Semantics-equiv_trans>equiv_trans</a></li>
+<li><a href=#Semantics-while_unfold>while_unfold</a></li>
+<li><a href=#Semantics-triv_if>triv_if</a></li>
+<li><a href=#Semantics-commute_if>commute_if</a></li>
+<li><a href=#Semantics-sim_while_cong_aux>sim_while_cong_aux</a></li>
+<li><a href=#Semantics-sim_while_cong>sim_while_cong</a></li>
+<li><a href=#Semantics-small_steps_append>small_steps_append</a></li>
+<li><a href=#Semantics-small_big_append>small_big_append</a></li>
+<li><a href=#Semantics-smalls_big_append>smalls_big_append</a></li>
+<li><a href=#Semantics-small_imp_big>small_imp_big</a></li>
+<li><a href=#Semantics-small_steps_skip_term>small_steps_skip_term</a></li>
+<li><a href=#Semantics-small_seq>small_seq</a></li>
+<li><a href=#Semantics-smalls_seq>smalls_seq</a></li>
+<li><a href=#Semantics-small_pscope>small_pscope</a></li>
+<li><a href=#Semantics-smalls_pscope>smalls_pscope</a></li>
+<li><a href=#Semantics-big_imp_small>big_imp_small</a></li>
+<li><a href=#Semantics-small_steps_determ>small_steps_determ</a></li>
+<li><a href=#Semantics-wp_imp_wlp>wp_imp_wlp</a></li>
+<li><a href=#Semantics-wlp_and_term_imp_wp>wlp_and_term_imp_wp</a></li>
+<li><a href=#Semantics-wp_equiv>wp_equiv</a></li>
+<li><a href=#Semantics-wp_conseq>wp_conseq</a></li>
+<li><a href=#Semantics-wlp_equiv>wlp_equiv</a></li>
+<li><a href=#Semantics-wlp_conseq>wlp_conseq</a></li>
+<li><a href=#Semantics-wp_skip_eq>wp_skip_eq</a></li>
+<li><a href=#Semantics-wp_assign_idx_eq>wp_assign_idx_eq</a></li>
+<li><a href=#Semantics-wp_arraycpy_eq>wp_arraycpy_eq</a></li>
+<li><a href=#Semantics-wp_arrayinit_eq>wp_arrayinit_eq</a></li>
+<li><a href=#Semantics-wp_assign_locals_eq>wp_assign_locals_eq</a></li>
+<li><a href=#Semantics-wp_seq_eq>wp_seq_eq</a></li>
+<li><a href=#Semantics-wp_if_eq>wp_if_eq</a></li>
+<li><a href=#Semantics-wp_scope_eq>wp_scope_eq</a></li>
+<li><a href=#Semantics-wp_pcall_eq>wp_pcall_eq</a></li>
+<li><a href=#Semantics-wlp_skip_eq>wlp_skip_eq</a></li>
+<li><a href=#Semantics-wlp_assign_idx_eq>wlp_assign_idx_eq</a></li>
+<li><a href=#Semantics-wlp_arraycpy_eq>wlp_arraycpy_eq</a></li>
+<li><a href=#Semantics-wlp_arrayinit_eq>wlp_arrayinit_eq</a></li>
+<li><a href=#Semantics-wlp_assign_locals_eq>wlp_assign_locals_eq</a></li>
+<li><a href=#Semantics-wlp_seq_eq>wlp_seq_eq</a></li>
+<li><a href=#Semantics-wlp_if_eq>wlp_if_eq</a></li>
+<li><a href=#Semantics-wlp_scope_eq>wlp_scope_eq</a></li>
+<li><a href=#Semantics-wlp_pcall_eq>wlp_pcall_eq</a></li>
+<li><a href=#Semantics-wlp_while_unfold>wlp_while_unfold</a></li>
+<li><a href=#Semantics-wp_while_unfold>wp_while_unfold</a></li>
+<li><a href=#Semantics-wp_pscope_eq>wp_pscope_eq</a></li>
+<li><a href=#Semantics-wlp_pscope_eq>wlp_pscope_eq</a></li>
+<li><a href=#Semantics-wp_equiv_iff>wp_equiv_iff</a></li>
+<li><a href=#Semantics-wlp_equiv_iff>wlp_equiv_iff</a></li>
+<li><a href=#Semantics-sim_while_wp_aux>sim_while_wp_aux</a></li>
+<li><a href=#Semantics-sim_while_wp>sim_while_wp</a></li>
+<li><a href=#Semantics-sim_while_wlp_aux>sim_while_wlp_aux</a></li>
+<li><a href=#Semantics-sim_while_wlp>sim_while_wlp</a></li>
+<li><a href=#Semantics-wlp_whileI%27>wlp_whileI'</a></li>
+<li><a href=#Semantics-wp_whileI%27>wp_whileI'</a></li>
+<li><a href=#Semantics-wlp_whileI>wlp_whileI</a></li>
+<li><a href=#Semantics-wp_whileI>wp_whileI</a></li>
+<li><a href=#Semantics-map_leD>map_leD</a></li>
+<li><a href=#Semantics-big_step_mono_prog>big_step_mono_prog</a></li>
+<li><a href=#Semantics-localize_recursion>localize_recursion</a></li>
+<li><a href=#Semantics-sp_arraycpy_eq>sp_arraycpy_eq</a></li>
+<li><a href=#Semantics-sp_arraycpy_eq%27>sp_arraycpy_eq'</a></li>
+<li><a href=#Semantics-sp_skip_eq>sp_skip_eq</a></li>
+<li><a href=#Semantics-sp_seq_eq>sp_seq_eq</a></li>
+<li><a href=#Semantics-HT_conseq>HT_conseq</a></li>
+<li><a href=#Semantics-HT_partial_conseq>HT_partial_conseq</a></li>
+<li><a href=#Semantics-wp_modularity_rule>wp_modularity_rule</a></li>
+<li><a href=#Semantics-adjust_prologue>adjust_prologue</a></li>
+<li><a href=#Semantics-adjust_epilogue>adjust_epilogue</a></li>
+<li><a href=#Semantics-adjust_scope>adjust_scope</a></li>
+<li><a href=#Semantics-HTsetI>HTsetI</a></li>
+<li><a href=#Semantics-HT_simple_recursiveI>HT_simple_recursiveI</a></li>
+<li><a href=#Semantics-HT_simple_recursive_procI>HT_simple_recursive_procI</a></li>
+<li><a href=#Semantics-wlp_whileI%27_complete>wlp_whileI'_complete</a></li>
+<li><a href=#Semantics-count_it_determ>count_it_determ</a></li>
+<li><a href=#Semantics-count_it_ex>count_it_ex</a></li>
+<li><a href=#Semantics-variant_decreases>variant_decreases</a></li>
+<li><a href=#Semantics-wp_whileI%27_complete>wp_whileI'_complete</a></li>
+</ul>
+</li><li><a href=#Annotated_Syntax>Annotated_Syntax</a>
+<ul>
+<li><a href=#Annotated_Syntax-HT%27_eq_HT>HT'_eq_HT</a></li>
+<li><a href=#Annotated_Syntax-HT%27_partial_eq_HT>HT'_partial_eq_HT</a></li>
+<li><a href=#Annotated_Syntax-HT%27setI>HT'setI</a></li>
+<li><a href=#Annotated_Syntax-HT%27setD>HT'setD</a></li>
+</ul>
+</li><li><a href=#IMP2_Basic_Simpset>IMP2_Basic_Simpset</a>
+<ul>
+<li><a href=#IMP2_Basic_Simpset-short_circuit>short_circuit</a></li>
+<li><a href=#IMP2_Basic_Simpset-BB_PROTECT_cong>BB_PROTECT_cong</a></li>
+<li><a href=#IMP2_Basic_Simpset-BB_PROTECT>BB_PROTECT</a></li>
+<li><a href=#IMP2_Basic_Simpset-combine_query%27>combine_query'</a></li>
+<li><a href=#IMP2_Basic_Simpset-combine_upd%27>combine_upd'</a></li>
+<li><a href=#IMP2_Basic_Simpset-query_prog>query_prog</a></li>
+<li><a href=#IMP2_Basic_Simpset-set_filter_simps>set_filter_simps</a></li>
+<li><a href=#IMP2_Basic_Simpset-set_collect_simps>set_collect_simps</a></li>
+</ul>
+</li><li><a href=#Parser>Parser</a>
+</li><li><a href=#IMP2_Basic_Decls>IMP2_Basic_Decls</a>
+</li><li><a href=#IMP2_Program_Analysis>IMP2_Program_Analysis</a>
+<ul>
+<li><a href=#IMP2_Program_Analysis-modifies_refl>modifies_refl</a></li>
+<li><a href=#IMP2_Program_Analysis-modifies_sym>modifies_sym</a></li>
+<li><a href=#IMP2_Program_Analysis-modifies_trans%27>modifies_trans'</a></li>
+<li><a href=#IMP2_Program_Analysis-modifies_trans>modifies_trans</a></li>
+<li><a href=#IMP2_Program_Analysis-modifies_join>modifies_join</a></li>
+<li><a href=#IMP2_Program_Analysis-modifies_mono>modifies_mono</a></li>
+<li><a href=#IMP2_Program_Analysis-modifies_equals>modifies_equals</a></li>
+<li><a href=#IMP2_Program_Analysis-modifies_upd>modifies_upd</a></li>
+<li><a href=#IMP2_Program_Analysis-modifies_split>modifies_split</a></li>
+<li><a href=#IMP2_Program_Analysis-lhsv%27_pscope_simp>lhsv'_pscope_simp</a></li>
+<li><a href=#IMP2_Program_Analysis-lhsv%cf%80_empty>lhsvπ_empty</a></li>
+<li><a href=#IMP2_Program_Analysis-lhsv%cf%80_upd>lhsvπ_upd</a></li>
+<li><a href=#IMP2_Program_Analysis-modifies_lhsv%27_gen>modifies_lhsv'_gen</a></li>
+<li><a href=#IMP2_Program_Analysis-modifies_lhsv%cf%80>modifies_lhsvπ</a></li>
+<li><a href=#IMP2_Program_Analysis-lhsv_approx>lhsv_approx</a></li>
+<li><a href=#IMP2_Program_Analysis-modifies_lhsv>modifies_lhsv</a></li>
+<li><a href=#IMP2_Program_Analysis-wp_strengthen_modset>wp_strengthen_modset</a></li>
+<li><a href=#IMP2_Program_Analysis-wlp_strengthen_modset>wlp_strengthen_modset</a></li>
+<li><a href=#IMP2_Program_Analysis-wp_mod_lhsv_eq>wp_mod_lhsv_eq</a></li>
+<li><a href=#IMP2_Program_Analysis-wlp_mod_lhsv_eq>wlp_mod_lhsv_eq</a></li>
+<li><a href=#IMP2_Program_Analysis-HT_mods_cong>HT_mods_cong</a></li>
+<li><a href=#IMP2_Program_Analysis-HT_partial_mods_cong>HT_partial_mods_cong</a></li>
+<li><a href=#IMP2_Program_Analysis-vcg_wp_conseq>vcg_wp_conseq</a></li>
+<li><a href=#IMP2_Program_Analysis-vcg_wlp_conseq>vcg_wlp_conseq</a></li>
+<li><a href=#IMP2_Program_Analysis-vcg_wlp_wp_conseq>vcg_wlp_wp_conseq</a></li>
+<li><a href=#IMP2_Program_Analysis-aval_eq_on_fv>aval_eq_on_fv</a></li>
+<li><a href=#IMP2_Program_Analysis-aval_indep_non_fv>aval_indep_non_fv</a></li>
+<li><a href=#IMP2_Program_Analysis-redundant_array_assignment>redundant_array_assignment</a></li>
+<li><a href=#IMP2_Program_Analysis-redundant_var_assignment>redundant_var_assignment</a></li>
+</ul>
+</li><li><a href=#IMP2_Var_Postprocessor>IMP2_Var_Postprocessor</a>
+<ul>
+<li><a href=#IMP2_Var_Postprocessor-RENAMINGD>RENAMINGD</a></li>
+<li><a href=#IMP2_Var_Postprocessor-RENAMINGI>RENAMINGI</a></li>
+</ul>
+</li><li><a href=#IMP2_Var_Abs>IMP2_Var_Abs</a>
+</li><li><a href=#IMP2_VCG>IMP2_VCG</a>
+<ul>
+<li><a href=#IMP2_VCG-HT%27_I>HT'_I</a></li>
+<li><a href=#IMP2_VCG-HT%27_partial_I>HT'_partial_I</a></li>
+<li><a href=#IMP2_VCG-move_goal_indication_to_front>move_goal_indication_to_front</a></li>
+<li><a href=#IMP2_VCG-vcg_wlp_modularity_rl>vcg_wlp_modularity_rl</a></li>
+<li><a href=#IMP2_VCG-vcg_wp_modularity_rl>vcg_wp_modularity_rl</a></li>
+<li><a href=#IMP2_VCG-vcg_wp_wlp_modularity_rl>vcg_wp_wlp_modularity_rl</a></li>
+<li><a href=#IMP2_VCG-vcg_assign_idx_unfolds>vcg_assign_idx_unfolds</a></li>
+<li><a href=#IMP2_VCG-vcg_arraycpy_unfolds>vcg_arraycpy_unfolds</a></li>
+<li><a href=#IMP2_VCG-vcg_arrayinit_unfolds>vcg_arrayinit_unfolds</a></li>
+<li><a href=#IMP2_VCG-vcg_AssignIdx_retv_wlp_unfold>vcg_AssignIdx_retv_wlp_unfold</a></li>
+<li><a href=#IMP2_VCG-vcg_AssignIdx_retv_wp_unfold>vcg_AssignIdx_retv_wp_unfold</a></li>
+<li><a href=#IMP2_VCG-vcg_ArrayCpy_retv_wlp_unfold>vcg_ArrayCpy_retv_wlp_unfold</a></li>
+<li><a href=#IMP2_VCG-vcg_ArrayCpy_retv_wp_unfold>vcg_ArrayCpy_retv_wp_unfold</a></li>
+<li><a href=#IMP2_VCG-naming_hint_impI_simp>naming_hint_impI_simp</a></li>
+<li><a href=#IMP2_VCG-wlp_whileI_modset>wlp_whileI_modset</a></li>
+<li><a href=#IMP2_VCG-wp_whileI_modset>wp_whileI_modset</a></li>
+<li><a href=#IMP2_VCG-invar_var_goalI>invar_var_goalI</a></li>
+<li><a href=#IMP2_VCG-wp_while_rl>wp_while_rl</a></li>
+<li><a href=#IMP2_VCG-wp_while_rl_dfltR>wp_while_rl_dfltR</a></li>
+<li><a href=#IMP2_VCG-wlp_while_rl>wlp_while_rl</a></li>
+<li><a href=#IMP2_VCG-wlp_if_rl>wlp_if_rl</a></li>
+<li><a href=#IMP2_VCG-wp_if_rl>wp_if_rl</a></li>
+</ul>
+</li><li><a href=#IMP2_Specification>IMP2_Specification</a>
+<ul>
+<li><a href=#IMP2_Specification-HT_to_mod>HT_to_mod</a></li>
+<li><a href=#IMP2_Specification-HT_partial_to_mod>HT_partial_to_mod</a></li>
+<li><a href=#IMP2_Specification-mk_lhsv_thm>mk_lhsv_thm</a></li>
+<li><a href=#IMP2_Specification-adjust_assign_after>adjust_assign_after</a></li>
+<li><a href=#IMP2_Specification-adjust_assign_before>adjust_assign_before</a></li>
+<li><a href=#IMP2_Specification-adjust_scope>adjust_scope</a></li>
+<li><a href=#IMP2_Specification-adjust_assign_after_partial>adjust_assign_after_partial</a></li>
+<li><a href=#IMP2_Specification-adjust_assign_before_partial>adjust_assign_before_partial</a></li>
+<li><a href=#IMP2_Specification-adjust_scope_partial>adjust_scope_partial</a></li>
+<li><a href=#IMP2_Specification-HT_strengthen_modset>HT_strengthen_modset</a></li>
+<li><a href=#IMP2_Specification-HT_partial_strengthen_modset>HT_partial_strengthen_modset</a></li>
+<li><a href=#IMP2_Specification-ADJUST_PRE_SCOPE_unfolds>ADJUST_PRE_SCOPE_unfolds</a></li>
+<li><a href=#IMP2_Specification-ADJUST_PRE_PARAM_unfolds>ADJUST_PRE_PARAM_unfolds</a></li>
+<li><a href=#IMP2_Specification-ADJUST_POST_SCOPE_unfolds>ADJUST_POST_SCOPE_unfolds</a></li>
+<li><a href=#IMP2_Specification-ADJUST_POST_PARAM_unfolds>ADJUST_POST_PARAM_unfolds</a></li>
+<li><a href=#IMP2_Specification-ADJUST_POST_RETV_unfolds>ADJUST_POST_RETV_unfolds</a></li>
+<li><a href=#IMP2_Specification-HT_mods_adjust_scope>HT_mods_adjust_scope</a></li>
+<li><a href=#IMP2_Specification-HT_mods_adjust_param>HT_mods_adjust_param</a></li>
+<li><a href=#IMP2_Specification-HT_mods_adjust_retv>HT_mods_adjust_retv</a></li>
+<li><a href=#IMP2_Specification-HT_partial_mods_adjust_scope>HT_partial_mods_adjust_scope</a></li>
+<li><a href=#IMP2_Specification-HT_partial_mods_adjust_param>HT_partial_mods_adjust_param</a></li>
+<li><a href=#IMP2_Specification-HT_partial_mods_adjust_retv>HT_partial_mods_adjust_retv</a></li>
+<li><a href=#IMP2_Specification-HT_generalize_penv>HT_generalize_penv</a></li>
+<li><a href=#IMP2_Specification-HT_mods_fold_call>HT_mods_fold_call</a></li>
+<li><a href=#IMP2_Specification-localize_HT_mods>localize_HT_mods</a></li>
+<li><a href=#IMP2_Specification-PROVE_%ce%98I>PROVE_ΘI</a></li>
+<li><a href=#IMP2_Specification-JOIN_VARS>JOIN_VARS</a></li>
+<li><a href=#IMP2_Specification-ASSUME_%ce%98E2>ASSUME_ΘE2</a></li>
+<li><a href=#IMP2_Specification-vcg_HT%27setI>vcg_HT'setI</a></li>
+</ul>
+</li><li><a href=#IMP2>IMP2</a>
+<ul>
+<li><a href=#IMP2-upd_idxSame>upd_idxSame</a></li>
+</ul>
+</li><li><a href=#Quickstart_Guide>Quickstart_Guide</a>
+<ul>
+<li><a href=#Quickstart_Guide-array_sum_aux>array_sum_aux</a></li>
+</ul>
+</li><li><a href=#IMP2_from_IMP>IMP2_from_IMP</a>
+</li><li><a href=#Examples>Examples</a>
+<ul>
+<li><a href=#Examples-fib_simps>fib_simps</a></li>
+<li><a href=#Examples-aux2>aux2</a></li>
+<li><a href=#Examples-aux3>aux3</a></li>
+<li><a href=#Examples-aux>aux</a></li>
+<li><a href=#Examples-ex_by_sq_aux>ex_by_sq_aux</a></li>
+<li><a href=#Examples-lran_eq_iff%27>lran_eq_iff'</a></li>
+<li><a href=#Examples-lran_split>lran_split</a></li>
+<li><a href=#Examples-lran_eq_append_iff>lran_eq_append_iff</a></li>
+<li><a href=#Examples-lran_split%27>lran_split'</a></li>
+<li><a href=#Examples-insort_insert_sorted>insort_insert_sorted</a></li>
+<li><a href=#Examples-insort_insert_ran1>insort_insert_ran1</a></li>
+<li><a href=#Examples-insort_insert_ran2>insort_insert_ran2</a></li>
+<li><a href=#Examples-quicksort_sorted_aux>quicksort_sorted_aux</a></li>
+<li><a href=#Examples-quicksort_mset_aux>quicksort_mset_aux</a></li>
+<li><a href=#Examples-merge_add_simp>merge_add_simp</a></li>
+<li><a href=#Examples-merge_sorted>merge_sorted</a></li>
+<li><a href=#Examples-merge_mset>merge_mset</a></li>
+<li><a href=#Examples-merge_eq>merge_eq</a></li>
+<li><a href=#Examples-merge_msets_aux>merge_msets_aux</a></li>
+<li><a href=#Examples-set_of_empty>set_of_empty</a></li>
+<li><a href=#Examples-set_of_insert>set_of_insert</a></li>
+<li><a href=#Examples-set_of_remove>set_of_remove</a></li>
+<li><a href=#Examples-set_of_mem>set_of_mem</a></li>
+<li><a href=#Examples-ack_add_simps>ack_add_simps</a></li>
+<li><a href=#Examples-Edges_empty>Edges_empty</a></li>
+<li><a href=#Examples-reachability_invariant>reachability_invariant</a></li>
+<li><a href=#Examples-sub_insert_same_iff>sub_insert_same_iff</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<ul>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/IMP2/outline.pdf>Proof
+outline</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/IMP2/document.pdf>Proof
+document</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/IMP2/session_graph.pdf>Theory dependencies</a></li>
+</ul>
+</div>
+</aside>
+<div class="content theories"><header>
+<form action=/%20search>
+<div class=form-container>
+<input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
+<datalist id=autocomplete>
+</datalist>
+</div>
+</form>
+<h1><span class=first>S</span>ession <span class=first>I</span><span class=first>M</span><span class=first>P</span>2</h1>
+<div>
+</div>
+</header><div id=banner data-id=0>
+<p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button>
+</div>
+<div><main>
+<div id=IMP2_Aux_Lemmas>
+<div class=head>
+<h1>Theory IMP2_Aux_Lemmas</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Auxiliary Lemma Library›</span></span>  
 <span class=keyword1><span class=command>theory</span></span> IMP2_Aux_Lemmas
 <span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL-Library/Multiset.html>HOL-Library.Multiset</a>"</span> <span class=quoted>"<a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL-Library/Rewrite.html>HOL-Library.Rewrite</a>"</span>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -414,7 +785,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/IM
   
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=IMP2_Utils><div class=head><h1>Theory IMP2_Utils</h1></div><pre class=source><span class=keyword1><span class=command>theory</span></span> IMP2_Utils
+</pre>
+</div><div id=IMP2_Utils>
+<div class=head>
+<h1>Theory IMP2_Utils</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>theory</span></span> IMP2_Utils
 <span class=keyword2><span class=keyword>imports</span></span> <a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL/Main.html>Main</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
@@ -559,7 +935,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/IM
 
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Named_Simpsets><div class=head><h1>Theory Named_Simpsets</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=Named_Simpsets>
+<div class=head>
+<h1>Theory Named_Simpsets</h1>
+</div>
+<pre class=source><span class=comment1>(*
   Named simpsets, analogously to named theorems.
   
   Author: Peter Lammich
@@ -704,7 +1085,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/IM
   <span class=keyword2><span class=keyword>end</span></span>
   
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=files/named_simpsets.ML><div class=head><h1>File ‹named_simpsets.ML›</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=files/named_simpsets.ML>
+<div class=head>
+<h1>File ‹named_simpsets.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*
 Named simpsets. Derived from named_theorems.ML
 *)</span>
 
@@ -865,13 +1251,23 @@ Named simpsets. Derived from named_theorems.ML
       
       
 <span class=keyword2><span class=keyword>end</span></span><span class=main>;</span>
-</pre></div><div id=Subgoal_Focus_Some><div class=head><h1>Theory Subgoal_Focus_Some</h1></div><pre class=source><span class=keyword1><span class=command>theory</span></span> Subgoal_Focus_Some
+</pre>
+</div><div id=Subgoal_Focus_Some>
+<div class=head>
+<h1>Theory Subgoal_Focus_Some</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>theory</span></span> Subgoal_Focus_Some
 <span class=keyword2><span class=keyword>imports</span></span> <a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL/Main.html>Main</a>
 <span class=keyword2><span class=keyword>begin</span></span>
   <span class=keyword1><span class=command>ML_file</span></span> <span class=quoted>‹subgoal_focus_some.ML›</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=files/subgoal_focus_some.ML><div class=head><h1>File ‹subgoal_focus_some.ML›</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=files/subgoal_focus_some.ML>
+<div class=head>
+<h1>File ‹subgoal_focus_some.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(*
   Generalized version of Subgoal.FOCUS, where the premises to be be focused 
     on can be selected by a filter function. This generalizes the 
     do_prems from bool to Proof.context -&gt; cterm -&gt; bool
@@ -1052,7 +1448,12 @@ Named simpsets. Derived from named_theorems.ML
 <span class=keyword2><span class=keyword>end</span></span>
 
 
-</pre></div><div id=Syntax><div class=head><h1>Theory Syntax</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Abstract Syntax of IMP2›</span></span>
+</pre>
+</div><div id=Syntax>
+<div class=head>
+<h1>Theory Syntax</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Abstract Syntax of IMP2›</span></span>
 <span class=keyword1><span class=command>theory</span></span> Syntax
 <span class=keyword2><span class=keyword>imports</span></span> <a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL/Main.html>Main</a>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -1186,7 +1587,12 @@ Named simpsets. Derived from named_theorems.ML
         
    
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Semantics><div class=head><h1>Theory Semantics</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Semantics of IMP›</span></span>
+</pre>
+</div><div id=Semantics>
+<div class=head>
+<h1>Theory Semantics</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Semantics of IMP›</span></span>
 <span class=keyword1><span class=command>theory</span></span> Semantics
 <span class=keyword2><span class=keyword>imports</span></span> <a href=#Syntax>Syntax</a> <span class=quoted>"<a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL-Eisbach/Eisbach_Tools.html>HOL-Eisbach.Eisbach_Tools</a>"</span> 
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -2172,7 +2578,12 @@ reflexive, symmetric, and transitive.›</span></span>
   
   
 <span class=keyword2><span class=keyword>end</span></span>
-                                 </pre></div><div id=Annotated_Syntax><div class=head><h1>Theory Annotated_Syntax</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Annotated Syntax›</span></span>
+                                 </pre>
+</div><div id=Annotated_Syntax>
+<div class=head>
+<h1>Theory Annotated_Syntax</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Annotated Syntax›</span></span>
 <span class=keyword1><span class=command>theory</span></span> Annotated_Syntax
 <span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=#Semantics>Semantics</a>"</span>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -2259,7 +2670,12 @@ reflexive, symmetric, and transitive.›</span></span>
   
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=IMP2_Basic_Simpset><div class=head><h1>Theory IMP2_Basic_Simpset</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Basic Simpset for VCG›</span></span>
+</pre>
+</div><div id=IMP2_Basic_Simpset>
+<div class=head>
+<h1>Theory IMP2_Basic_Simpset</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Basic Simpset for VCG›</span></span>
 <span class=keyword1><span class=command>theory</span></span> IMP2_Basic_Simpset
 <span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=#Semantics>../basic/Semantics</a>"</span> <span class=quoted>"<a href=#Named_Simpsets>../lib/Named_Simpsets</a>"</span> <span class=quoted>"<a href=#IMP2_Utils>../lib/IMP2_Utils</a>"</span>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -2410,7 +2826,12 @@ reflexive, symmetric, and transitive.›</span></span>
     
     
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Parser><div class=head><h1>Theory Parser</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Parser›</span></span>
+</pre>
+</div><div id=Parser>
+<div class=head>
+<h1>Theory Parser</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Parser›</span></span>
 <span class=keyword1><span class=command>theory</span></span> Parser
 <span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=#Syntax>../basic/Syntax</a>"</span>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -3100,7 +3521,12 @@ reflexive, symmetric, and transitive.›</span></span>
 <span class=keyword2><span class=keyword>end</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=IMP2_Basic_Decls><div class=head><h1>Theory IMP2_Basic_Decls</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Basic Declarations›</span></span>
+</pre>
+</div><div id=IMP2_Basic_Decls>
+<div class=head>
+<h1>Theory IMP2_Basic_Decls</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Basic Declarations›</span></span>
 <span class=keyword1><span class=command>theory</span></span> IMP2_Basic_Decls
 <span class=keyword2><span class=keyword>imports</span></span> <a href=#IMP2_Basic_Simpset>IMP2_Basic_Simpset</a>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -3113,7 +3539,12 @@ reflexive, symmetric, and transitive.›</span></span>
   
   <span class=keyword1><span class=command>named_theorems</span></span> vcg_specs <span class=quoted>‹Specifications declared to VCG›</span>
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=IMP2_Program_Analysis><div class=head><h1>Theory IMP2_Program_Analysis</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Program Analysis›</span></span>
+</pre>
+</div><div id=IMP2_Program_Analysis>
+<div class=head>
+<h1>Theory IMP2_Program_Analysis</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Program Analysis›</span></span>
 <span class=keyword1><span class=command>theory</span></span> IMP2_Program_Analysis
 <span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=#Annotated_Syntax>../basic/Annotated_Syntax</a>"</span> <span class=quoted>"<a href=#Subgoal_Focus_Some>../lib/Subgoal_Focus_Some</a>"</span> <span class=quoted>"<a href=#Parser>../parser/Parser</a>"</span> <a href=#IMP2_Basic_Decls>IMP2_Basic_Decls</a>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -3459,7 +3890,12 @@ reflexive, symmetric, and transitive.›</span></span>
 
     
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=IMP2_Var_Postprocessor><div class=head><h1>Theory IMP2_Var_Postprocessor</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Program Variables to Isabelle Variables›</span></span>
+</pre>
+</div><div id=IMP2_Var_Postprocessor>
+<div class=head>
+<h1>Theory IMP2_Var_Postprocessor</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Program Variables to Isabelle Variables›</span></span>
 <span class=keyword1><span class=command>theory</span></span> IMP2_Var_Postprocessor
 <span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=#Semantics>../basic/Semantics</a>"</span> <span class=quoted>"<a href=#Parser>../parser/Parser</a>"</span> <span class=quoted>"<a href=#Subgoal_Focus_Some>../lib/Subgoal_Focus_Some</a>"</span>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -3627,7 +4063,12 @@ reflexive, symmetric, and transitive.›</span></span>
   <span class=keyword1><span class=command>method_setup</span></span> i_vcg_postprocess_vars <span class=main>=</span> <span class=quoted>‹Scan.succeed <span class=main>(</span><span class=entity>SIMPLE_METHOD'</span> o <span class=entity>VC_Postprocessor.postprocess_vc_tac</span><span class=main>)</span>›</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=IMP2_Var_Abs><div class=head><h1>Theory IMP2_Var_Abs</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Abstraction over Program Variables›</span></span>
+</pre>
+</div><div id=IMP2_Var_Abs>
+<div class=head>
+<h1>Theory IMP2_Var_Abs</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Abstraction over Program Variables›</span></span>
 <span class=keyword1><span class=command>theory</span></span> IMP2_Var_Abs
 <span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=#Semantics>../basic/Semantics</a>"</span> <span class=quoted>"<a href=#Parser>../parser/Parser</a>"</span> <a href=#IMP2_Basic_Simpset>IMP2_Basic_Simpset</a>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -3732,7 +4173,12 @@ reflexive, symmetric, and transitive.›</span></span>
 ›</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=IMP2_VCG><div class=head><h1>Theory IMP2_VCG</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Verification Condition Generator›</span></span>
+</pre>
+</div><div id=IMP2_VCG>
+<div class=head>
+<h1>Theory IMP2_VCG</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Verification Condition Generator›</span></span>
 <span class=keyword1><span class=command>theory</span></span> IMP2_VCG
 <span class=keyword2><span class=keyword>imports</span></span> <a href=#IMP2_Basic_Simpset>IMP2_Basic_Simpset</a> <a href=#IMP2_Program_Analysis>IMP2_Program_Analysis</a> <a href=#IMP2_Var_Postprocessor>IMP2_Var_Postprocessor</a> <a href=#IMP2_Var_Abs>IMP2_Var_Abs</a>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -4030,7 +4476,12 @@ reflexive, symmetric, and transitive.›</span></span>
   
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=IMP2_Specification><div class=head><h1>Theory IMP2_Specification</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Specification Commands›</span></span>
+</pre>
+</div><div id=IMP2_Specification>
+<div class=head>
+<h1>Theory IMP2_Specification</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Specification Commands›</span></span>
 <span class=keyword1><span class=command>theory</span></span> IMP2_Specification 
 <span class=keyword2><span class=keyword>imports</span></span> <a href=#IMP2_Basic_Simpset>IMP2_Basic_Simpset</a> <a href=#IMP2_Program_Analysis>IMP2_Program_Analysis</a> <a href=#IMP2_Var_Postprocessor>IMP2_Var_Postprocessor</a> <a href=#IMP2_Var_Abs>IMP2_Var_Abs</a>
 <span class=keyword2><span class=keyword>keywords</span></span> <span class=quoted>"ensures"</span>
@@ -5148,7 +5599,12 @@ reflexive, symmetric, and transitive.›</span></span>
   ›</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=IMP2><div class=head><h1>Theory IMP2</h1></div><pre class=source><span class=keyword1><span class=command>theory</span></span> IMP2
+</pre>
+</div><div id=IMP2>
+<div class=head>
+<h1>Theory IMP2</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>theory</span></span> IMP2
 <span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=#IMP2_VCG>automation/IMP2_VCG</a>"</span> <span class=quoted>"<a href=#IMP2_Specification>automation/IMP2_Specification</a>"</span>
 <span class=keyword2><span class=keyword>begin</span></span>
 
@@ -5661,7 +6117,12 @@ reflexive, symmetric, and transitive.›</span></span>
 <span class=keyword2><span class=keyword>end</span></span>  
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Quickstart_Guide><div class=head><h1>Theory Quickstart_Guide</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Quickstart Guide›</span></span>
+</pre>
+</div><div id=Quickstart_Guide>
+<div class=head>
+<h1>Theory Quickstart_Guide</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Quickstart Guide›</span></span>
 <span class=keyword1><span class=command>theory</span></span> Quickstart_Guide
 <span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=#IMP2>../IMP2</a>"</span>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -6018,7 +6479,12 @@ reflexive, symmetric, and transitive.›</span></span>
   ›</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=IMP2_from_IMP><div class=head><h1>Theory IMP2_from_IMP</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Introduction to IMP2-VCG, based on IMP›</span></span>
+</pre>
+</div><div id=IMP2_from_IMP>
+<div class=head>
+<h1>Theory IMP2_from_IMP</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Introduction to IMP2-VCG, based on IMP›</span></span>
 <span class=keyword1><span class=command>theory</span></span> IMP2_from_IMP
 <span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=#IMP2>../IMP2</a>"</span>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -6225,7 +6691,12 @@ reflexive, symmetric, and transitive.›</span></span>
         
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Examples><div class=head><h1>Theory Examples</h1></div><pre class=source><span class=keyword1><span class=command>theory</span></span> Examples
+</pre>
+</div><div id=Examples>
+<div class=head>
+<h1>Theory Examples</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>theory</span></span> Examples
 <span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=#IMP2>../IMP2</a>"</span> <span class=quoted>"<a href=#IMP2_Aux_Lemmas>../lib/IMP2_Aux_Lemmas</a>"</span>
 <span class=keyword2><span class=keyword>begin</span></span>
 
@@ -8096,4 +8567,10 @@ We will thus use an <span class=antiquoted><span class=raw_text><span class=anti
 <span class=keyword2><span class=keyword>end</span></span>
 
 
-<span class=keyword2><span class=keyword>end</span></span></pre></div></main></div></div></body></html>
+<span class=keyword2><span class=keyword>end</span></span></pre>
+</div>
+</main>
+</div>
+</div>
+</body>
+</html>

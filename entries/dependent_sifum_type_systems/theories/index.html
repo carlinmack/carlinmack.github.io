@@ -1,7 +1,414 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Session Dependent_SIFUM_Type_Systems - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session Dependent_SIFUM_Type_Systems"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/dependent_sifum_type_systems/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Session Dependent_SIFUM_Type_Systems"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css><link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script><script src=/js/banner.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><li><a href=/entries/dependent_sifum_type_systems>Return to entry</a></li></ul><hr><ul><li><a href=#Preliminaries>Preliminaries</a><ul><li><a href=#Preliminaries-%f0%9d%92%9e_vars_subset_%f0%9d%92%9e>𝒞_vars_subset_𝒞</a></li><li><a href=#Preliminaries-dma_%f0%9d%92%9e>dma_𝒞</a></li><li><a href=#Preliminaries-my_trancl_induct>my_trancl_induct</a></li><li><a href=#Preliminaries-my_trancl_step_induct>my_trancl_step_induct</a></li><li><a href=#Preliminaries-my_trancl_big_step_induct>my_trancl_big_step_induct</a></li></ul></li><li><a href=#Security>Security</a><ul><li><a href=#Security-neval_det>neval_det</a></li><li><a href=#Security-neval_Suc_simp>neval_Suc_simp</a></li><li><a href=#Security-meval_sched_det>meval_sched_det</a></li><li><a href=#Security-low_eq_low_mds_eq>low_eq_low_mds_eq</a></li><li><a href=#Security-low_mds_eq_dma>low_mds_eq_dma</a></li><li><a href=#Security-low_mds_eq_sym>low_mds_eq_sym</a></li><li><a href=#Security-low_eq_sym>low_eq_sym</a></li><li><a href=#Security-High_not_in_%f0%9d%92%9e>High_not_in_𝒞</a></li><li><a href=#Security-prog_sifum_secure_cont_def2>prog_sifum_secure_cont_def2</a></li><li><a href=#Security-subst_not_in_dom>subst_not_in_dom</a></li><li><a href=#Security-vars_%f0%9d%92%9e_subset_%f0%9d%92%9e>vars_𝒞_subset_𝒞</a></li><li><a href=#Security-noread_nowrite>noread_nowrite</a></li><li><a href=#Security-doesnt_read_or_modify_doesnt_modify>doesnt_read_or_modify_doesnt_modify</a></li><li><a href=#Security-neval_loc_reach>neval_loc_reach</a></li><li><a href=#Security-locally_sound_mode_use_def2>locally_sound_mode_use_def2</a></li><li><a href=#Security-locally_sound_respects_guarantees>locally_sound_respects_guarantees</a></li><li><a href=#Security-mm_equiv_sym>mm_equiv_sym</a></li><li><a href=#Security-low_indistinguishable_sym>low_indistinguishable_sym</a></li><li><a href=#Security-mm_equiv_glob_consistent>mm_equiv_glob_consistent</a></li><li><a href=#Security-mm_equiv_strong_low_bisim>mm_equiv_strong_low_bisim</a></li></ul></li><li><a href=#Compositionality>Compositionality</a><ul><li><a href=#Compositionality-differing_finite>differing_finite</a></li><li><a href=#Compositionality-differing_lists_finite>differing_lists_finite</a></li><li><a href=#Compositionality-makes_compatible_intro>makes_compatible_intro</a></li><li><a href=#Compositionality-compat_low>compat_low</a></li><li><a href=#Compositionality-compat_different>compat_different</a></li><li><a href=#Compositionality-sound_modes_no_read>sound_modes_no_read</a></li><li><a href=#Compositionality-differing_vars_neg>differing_vars_neg</a></li><li><a href=#Compositionality-differing_vars_neg_intro>differing_vars_neg_intro</a></li><li><a href=#Compositionality-differing_vars_elim>differing_vars_elim</a></li><li><a href=#Compositionality-makes_compatible_dma_eq>makes_compatible_dma_eq</a></li><li><a href=#Compositionality-compat_different_vars>compat_different_vars</a></li><li><a href=#Compositionality-differing_vars_subst>differing_vars_subst</a></li><li><a href=#Compositionality-mm_equiv_low_eq>mm_equiv_low_eq</a></li><li><a href=#Compositionality-globally_sound_modes_compatible>globally_sound_modes_compatible</a></li><li><a href=#Compositionality-compatible_different_no_read>compatible_different_no_read</a></li><li><a href=#Compositionality-subst_overrides>subst_overrides</a></li><li><a href=#Compositionality-dom_restrict_total>dom_restrict_total</a></li><li><a href=#Compositionality-change_respecting_doesnt_modify%27>change_respecting_doesnt_modify'</a></li><li><a href=#Compositionality-change_respecting_subset%27>change_respecting_subset'</a></li><li><a href=#Compositionality-change_respecting_subst>change_respecting_subst</a></li><li><a href=#Compositionality-change_respecting_intro>change_respecting_intro</a></li><li><a href=#Compositionality-vars_%f0%9d%92%9e_mono>vars_𝒞_mono</a></li><li><a href=#Compositionality-vars_%f0%9d%92%9e_Un>vars_𝒞_Un</a></li><li><a href=#Compositionality-vars_%f0%9d%92%9e_insert>vars_𝒞_insert</a></li><li><a href=#Compositionality-vars_%f0%9d%92%9e_empty>vars_𝒞_empty</a></li><li><a href=#Compositionality-%f0%9d%92%9e_vars_of_%f0%9d%92%9e_vars_empty>𝒞_vars_of_𝒞_vars_empty</a></li><li><a href=#Compositionality-vars_and_%f0%9d%92%9e_mono>vars_and_𝒞_mono</a></li><li><a href=#Compositionality-%f0%9d%92%9e_vars_finite>𝒞_vars_finite</a></li><li><a href=#Compositionality-finite_dom>finite_dom</a></li><li><a href=#Compositionality-doesnt_read_or_modify_subst>doesnt_read_or_modify_subst</a></li><li><a href=#Compositionality-subst_restrict_twice>subst_restrict_twice</a></li><li><a href=#Compositionality-noread_exists_change_respecting>noread_exists_change_respecting</a></li><li><a href=#Compositionality-update_nth_eq>update_nth_eq</a></li><li><a href=#Compositionality-mm_equiv_step>mm_equiv_step</a></li><li><a href=#Compositionality-change_respecting_doesnt_modify>change_respecting_doesnt_modify</a></li><li><a href=#Compositionality-change_respecting_doesnt_modify_dma>change_respecting_doesnt_modify_dma</a></li><li><a href=#Compositionality-differing_empty_eq>differing_empty_eq</a></li><li><a href=#Compositionality-adaptation_finite>adaptation_finite</a></li><li><a href=#Compositionality-globally_consistent_adapt_bisim>globally_consistent_adapt_bisim</a></li><li><a href=#Compositionality-mm_equiv_%f0%9d%92%9e_eq>mm_equiv_𝒞_eq</a></li><li><a href=#Compositionality-apply_adaptation_not_in_dom>apply_adaptation_not_in_dom</a></li><li><a href=#Compositionality-makes_compatible_invariant>makes_compatible_invariant</a></li><li><a href=#Compositionality-compat_low_eq>compat_low_eq</a></li><li><a href=#Compositionality-loc_reach_subset>loc_reach_subset</a></li><li><a href=#Compositionality-locally_sound_modes_invariant>locally_sound_modes_invariant</a></li><li><a href=#Compositionality-meval_sched_one>meval_sched_one</a></li><li><a href=#Compositionality-meval_sched_ConsI>meval_sched_ConsI</a></li><li><a href=#Compositionality-reachable_modes_subset>reachable_modes_subset</a></li><li><a href=#Compositionality-globally_sound_modes_invariant>globally_sound_modes_invariant</a></li><li><a href=#Compositionality-loc_reach_mem_diff_subset>loc_reach_mem_diff_subset</a></li><li><a href=#Compositionality-loc_reach_mem_diff_eq>loc_reach_mem_diff_eq</a></li><li><a href=#Compositionality-sound_modes_invariant>sound_modes_invariant</a></li><li><a href=#Compositionality-app_Cons_rewrite>app_Cons_rewrite</a></li><li><a href=#Compositionality-meval_sched_app_iff>meval_sched_app_iff</a></li><li><a href=#Compositionality-meval_sched_snocD>meval_sched_snocD</a></li><li><a href=#Compositionality-meval_sched_snocI>meval_sched_snocI</a></li><li><a href=#Compositionality-makes_compatible_eval_sched>makes_compatible_eval_sched</a></li><li><a href=#Compositionality-differing_vars_initially_empty>differing_vars_initially_empty</a></li><li><a href=#Compositionality-compatible_refl>compatible_refl</a></li></ul></li><li><a href=#Language>Language</a><ul><li><a href=#Language-cond>cond</a></li><li><a href=#Language-rtrancl_mono_proof>rtrancl_mono_proof</a></li><li><a href=#Language-trancl_mono_proof>trancl_mono_proof</a></li><li><a href=#Language-cxt_inv>cxt_inv</a></li><li><a href=#Language-cxt_inv_assign>cxt_inv_assign</a></li><li><a href=#Language-cxt_inv_skip>cxt_inv_skip</a></li><li><a href=#Language-cxt_inv_stop>cxt_inv_stop</a></li><li><a href=#Language-cxt_inv_if>cxt_inv_if</a></li><li><a href=#Language-ctx_inv_anno>ctx_inv_anno</a></li><li><a href=#Language-cxt_inv_await>cxt_inv_await</a></li><li><a href=#Language-cxt_inv_while>cxt_inv_while</a></li><li><a href=#Language-skip_elim>skip_elim</a></li><li><a href=#Language-assign_elim>assign_elim</a></li><li><a href=#Language-if_elim>if_elim</a></li><li><a href=#Language-while_elim>while_elim</a></li><li><a href=#Language-upd_elim>upd_elim</a></li><li><a href=#Language-cxt_seq_elim>cxt_seq_elim</a></li><li><a href=#Language-stop_no_eval>stop_no_eval</a></li><li><a href=#Language-seq_stop_elim>seq_stop_elim</a></li><li><a href=#Language-cxt_stmt_seq>cxt_stmt_seq</a></li><li><a href=#Language-seq_elim>seq_elim</a></li><li><a href=#Language-stop_cxt>stop_cxt</a></li><li><a href=#Language-decl_eval>decl_eval</a></li><li><a href=#Language-assign_eval>assign_eval</a></li><li><a href=#Language-seq_decl_elim>seq_decl_elim</a></li><li><a href=#Language-seq_assign_elim>seq_assign_elim</a></li><li><a href=#Language-no_await_trans>no_await_trans</a></li><li><a href=#Language-no_await_no_await>no_await_no_await</a></li><li><a href=#Language-no_await_trancl_impl>no_await_trancl_impl</a></li><li><a href=#Language-no_await_trancl>no_await_trancl</a></li><li><a href=#Language-await_elim>await_elim</a></li></ul></li><li><a href=#TypeSystem>TypeSystem</a><ul><li><a href=#TypeSystem-add_pred_subset>add_pred_subset</a></li><li><a href=#TypeSystem-dma_type_wellformed>dma_type_wellformed</a></li><li><a href=#TypeSystem-to_total_type_wellformed>to_total_type_wellformed</a></li><li><a href=#TypeSystem-Un_type_wellformed>Un_type_wellformed</a></li><li><a href=#TypeSystem-type_aexprI>type_aexprI</a></li><li><a href=#TypeSystem-type_aexpr_type_wellformed>type_aexpr_type_wellformed</a></li><li><a href=#TypeSystem-type_bexprI>type_bexprI</a></li><li><a href=#TypeSystem-type_bexpr_type_wellformed>type_bexpr_type_wellformed</a></li><li><a href=#TypeSystem-type_stable_is_sufficient>type_stable_is_sufficient</a></li><li><a href=#TypeSystem-add_anno_acq_AsmNoReadOrWrite_idemp>add_anno_acq_AsmNoReadOrWrite_idemp</a></li><li><a href=#TypeSystem-add_anno_rel_AsmNoReadOrWrite_idemp>add_anno_rel_AsmNoReadOrWrite_idemp</a></li><li><a href=#TypeSystem-add_anno_acq_AsmNoReadOrWrite>add_anno_acq_AsmNoReadOrWrite</a></li><li><a href=#TypeSystem-add_anno_rel_AsmNoReadOrWrite>add_anno_rel_AsmNoReadOrWrite</a></li><li><a href=#TypeSystem-add_anno_acq_AsmNoWrite_idemp>add_anno_acq_AsmNoWrite_idemp</a></li><li><a href=#TypeSystem-add_anno_rel_AsmNoWrite_idemp>add_anno_rel_AsmNoWrite_idemp</a></li><li><a href=#TypeSystem-add_anno_acq_AsmNoWrite>add_anno_acq_AsmNoWrite</a></li><li><a href=#TypeSystem-add_anno_rel_AsmNoWrite>add_anno_rel_AsmNoWrite</a></li><li><a href=#TypeSystem-type_stable_is_sufficient%27>type_stable_is_sufficient'</a></li><li><a href=#TypeSystem-subtype_sound>subtype_sound</a></li><li><a href=#TypeSystem-subtype_complete>subtype_complete</a></li><li><a href=#TypeSystem-subtype_correct>subtype_correct</a></li><li><a href=#TypeSystem-subtype_refl>subtype_refl</a></li><li><a href=#TypeSystem-type_equiv_refl>type_equiv_refl</a></li><li><a href=#TypeSystem-subset_entailment>subset_entailment</a></li><li><a href=#TypeSystem-pred_entailment_refl>pred_entailment_refl</a></li><li><a href=#TypeSystem-pred_entailment_mono>pred_entailment_mono</a></li><li><a href=#TypeSystem-type_equiv_subset>type_equiv_subset</a></li><li><a href=#TypeSystem-context_equiv_refl>context_equiv_refl</a></li><li><a href=#TypeSystem-context_equiv_subset>context_equiv_subset</a></li><li><a href=#TypeSystem-pred_entailment_trans>pred_entailment_trans</a></li><li><a href=#TypeSystem-pred_un>pred_un</a></li><li><a href=#TypeSystem-pred_entailment_un>pred_entailment_un</a></li><li><a href=#TypeSystem-pred_entailment_mono_un>pred_entailment_mono_un</a></li><li><a href=#TypeSystem-subtype_trans>subtype_trans</a></li><li><a href=#TypeSystem-type_equiv_trans>type_equiv_trans</a></li><li><a href=#TypeSystem-context_equiv_trans>context_equiv_trans</a></li><li><a href=#TypeSystem-un_pred_entailment_mono>un_pred_entailment_mono</a></li><li><a href=#TypeSystem-subtype_entailment>subtype_entailment</a></li><li><a href=#TypeSystem-type_equiv_entailment>type_equiv_entailment</a></li><li><a href=#TypeSystem-context_equiv_entailment>context_equiv_entailment</a></li><li><a href=#TypeSystem-sub%27>sub'</a></li><li><a href=#TypeSystem-assign>assign</a></li><li><a href=#TypeSystem-conc%27>conc'</a></li><li><a href=#TypeSystem-tyenv_wellformed_subset>tyenv_wellformed_subset</a></li><li><a href=#TypeSystem-if_type%27>if_type'</a></li><li><a href=#TypeSystem-skip_type%27>skip_type'</a></li><li><a href=#TypeSystem-anno_type_helpers>anno_type_helpers</a></li><li><a href=#TypeSystem-type_max_dma_type>type_max_dma_type</a></li><li><a href=#TypeSystem-tyenv_eq_sym%27>tyenv_eq_sym'</a></li><li><a href=#TypeSystem-tyenv_eq_sym>tyenv_eq_sym</a></li><li><a href=#TypeSystem-%e2%84%9b>ℛ</a></li><li><a href=#TypeSystem-%e2%84%9b>ℛ</a></li><li><a href=#TypeSystem-bisim_simple_%e2%84%9b>bisim_simple_ℛ</a></li><li><a href=#TypeSystem-bisim_simple_%e2%84%9b>bisim_simple_ℛ</a></li><li><a href=#TypeSystem-bisim_simple_%e2%84%9b>bisim_simple_ℛ</a></li><li><a href=#TypeSystem-%f0%9d%92%9e_eq_type_max_eq>𝒞_eq_type_max_eq</a></li><li><a href=#TypeSystem-vars_of_type_eq_type_max_eq>vars_of_type_eq_type_max_eq</a></li><li><a href=#TypeSystem-%e2%84%9b>ℛ</a></li><li><a href=#TypeSystem-%e2%84%9b>ℛ</a></li><li><a href=#TypeSystem-%e2%84%9b_mds>ℛ_mds</a></li><li><a href=#TypeSystem-%e2%84%9b_sym>ℛ_sym</a></li><li><a href=#TypeSystem-%e2%84%9b>ℛ</a></li><li><a href=#TypeSystem-%e2%84%9b>ℛ</a></li><li><a href=#TypeSystem-%e2%84%9b_closed_glob_consistent>ℛ_closed_glob_consistent</a></li><li><a href=#TypeSystem-mode_update_add_anno>mode_update_add_anno</a></li><li><a href=#TypeSystem-add_anno_acq_GuarNoReadOrWrite>add_anno_acq_GuarNoReadOrWrite</a></li><li><a href=#TypeSystem-add_anno_rel_GuarNoReadOrWrite>add_anno_rel_GuarNoReadOrWrite</a></li><li><a href=#TypeSystem-add_anno_acq_GuarNoWrite>add_anno_acq_GuarNoWrite</a></li><li><a href=#TypeSystem-add_anno_rel_GuarNoWrite>add_anno_rel_GuarNoWrite</a></li><li><a href=#TypeSystem-dom_add_anno_rel>dom_add_anno_rel</a></li><li><a href=#TypeSystem-types_wellformed_mode_update>types_wellformed_mode_update</a></li><li><a href=#TypeSystem-types_stable_mode_update>types_stable_mode_update</a></li><li><a href=#TypeSystem-tyenv_wellformed_mode_update>tyenv_wellformed_mode_update</a></li><li><a href=#TypeSystem-stop_cxt>stop_cxt</a></li><li><a href=#TypeSystem-tyenv_wellformed_preds_update>tyenv_wellformed_preds_update</a></li><li><a href=#TypeSystem-mds_consistent_preds_tyenv_update>mds_consistent_preds_tyenv_update</a></li><li><a href=#TypeSystem-pred_preds_update>pred_preds_update</a></li><li><a href=#TypeSystem-types_wellformed_update>types_wellformed_update</a></li><li><a href=#TypeSystem-types_stable_update>types_stable_update</a></li><li><a href=#TypeSystem-tyenv_wellformed_sub>tyenv_wellformed_sub</a></li><li><a href=#TypeSystem-tyenv_sec_mode_update>tyenv_sec_mode_update</a></li><li><a href=#TypeSystem-tyenv_sec_eq>tyenv_sec_eq</a></li><li><a href=#TypeSystem-context_equiv_tyenv_sec>context_equiv_tyenv_sec</a></li><li><a href=#TypeSystem-add_pred_entailment>add_pred_entailment</a></li><li><a href=#TypeSystem-preservation_no_await>preservation_no_await</a></li><li><a href=#TypeSystem-preservation_no_await_plus>preservation_no_await_plus</a></li><li><a href=#TypeSystem-preservation>preservation</a></li><li><a href=#TypeSystem-%e2%84%9b>ℛ</a></li><li><a href=#TypeSystem-ev>ev</a></li><li><a href=#TypeSystem-ev>ev</a></li><li><a href=#TypeSystem-ev>ev</a></li><li><a href=#TypeSystem-R1_equiv_entailment>R1_equiv_entailment</a></li><li><a href=#TypeSystem-R3_equiv_entailment>R3_equiv_entailment</a></li><li><a href=#TypeSystem-R_equiv_entailment>R_equiv_entailment</a></li><li><a href=#TypeSystem-context_equiv_tyenv_eq>context_equiv_tyenv_eq</a></li><li><a href=#TypeSystem-%e2%84%9b_typed_step_no_await>ℛ_typed_step_no_await</a></li><li><a href=#TypeSystem-is_final_%e2%84%9b>is_final_ℛ</a></li><li><a href=#TypeSystem-pred_plus_impl>pred_plus_impl</a></li><li><a href=#TypeSystem-my_%e2%84%9b>my_ℛ</a></li><li><a href=#TypeSystem-%e2%84%9b_typed_step_plus>ℛ_typed_step_plus</a></li><li><a href=#TypeSystem-%e2%84%9b_typed_step>ℛ_typed_step</a></li><li><a href=#TypeSystem-%e2%84%9b>ℛ</a></li><li><a href=#TypeSystem-%e2%84%9b_to_%e2%84%9b>ℛ_to_ℛ</a></li><li><a href=#TypeSystem-%e2%84%9b>ℛ</a></li><li><a href=#TypeSystem-%e2%84%9b_bisim>ℛ_bisim</a></li><li><a href=#TypeSystem-Typed_in_%e2%84%9b>Typed_in_ℛ</a></li><li><a href=#TypeSystem-of_mds_tyenv_wellformed>of_mds_tyenv_wellformed</a></li><li><a href=#TypeSystem-%ce%93_of_mds_tyenv_sec>Γ_of_mds_tyenv_sec</a></li><li><a href=#TypeSystem-type_max_pred_False>type_max_pred_False</a></li><li><a href=#TypeSystem-typed_secure>typed_secure</a></li><li><a href=#TypeSystem-list_all_set>list_all_set</a></li></ul></li><li><a href=#LocallySoundModeUse>LocallySoundModeUse</a><ul><li><a href=#LocallySoundModeUse-cxt_eval>cxt_eval</a></li><li><a href=#LocallySoundModeUse-update_preserves_le>update_preserves_le</a></li><li><a href=#LocallySoundModeUse-doesnt_read_annos>doesnt_read_annos</a></li><li><a href=#LocallySoundModeUse-doesnt_modify_annos>doesnt_modify_annos</a></li><li><a href=#LocallySoundModeUse-stop_loc_reach>stop_loc_reach</a></li><li><a href=#LocallySoundModeUse-stop_doesnt_access>stop_doesnt_access</a></li><li><a href=#LocallySoundModeUse-skip_eval_step>skip_eval_step</a></li><li><a href=#LocallySoundModeUse-skip_eval_elim>skip_eval_elim</a></li><li><a href=#LocallySoundModeUse-skip_doesnt_read>skip_doesnt_read</a></li><li><a href=#LocallySoundModeUse-skip_doesnt_write>skip_doesnt_write</a></li><li><a href=#LocallySoundModeUse-skip_loc_reach>skip_loc_reach</a></li><li><a href=#LocallySoundModeUse-skip_doesnt_access>skip_doesnt_access</a></li><li><a href=#LocallySoundModeUse-assign_doesnt_modify>assign_doesnt_modify</a></li><li><a href=#LocallySoundModeUse-assign_annos_eval>assign_annos_eval</a></li><li><a href=#LocallySoundModeUse-assign_annos_eval_elim>assign_annos_eval_elim</a></li><li><a href=#LocallySoundModeUse-mem_upd_commute>mem_upd_commute</a></li><li><a href=#LocallySoundModeUse-assign_doesnt_read>assign_doesnt_read</a></li><li><a href=#LocallySoundModeUse-assign_loc_reach>assign_loc_reach</a></li><li><a href=#LocallySoundModeUse-if_doesnt_modify>if_doesnt_modify</a></li><li><a href=#LocallySoundModeUse-vars_eval>vars_eval</a></li><li><a href=#LocallySoundModeUse-if_doesnt_read>if_doesnt_read</a></li><li><a href=#LocallySoundModeUse-if_eval_true>if_eval_true</a></li><li><a href=#LocallySoundModeUse-if_eval_false>if_eval_false</a></li><li><a href=#LocallySoundModeUse-if_eval_elim>if_eval_elim</a></li><li><a href=#LocallySoundModeUse-if_eval_elim%27>if_eval_elim'</a></li><li><a href=#LocallySoundModeUse-loc_reach_refl%27>loc_reach_refl'</a></li><li><a href=#LocallySoundModeUse-if_loc_reach>if_loc_reach</a></li><li><a href=#LocallySoundModeUse-if_loc_reach%27>if_loc_reach'</a></li><li><a href=#LocallySoundModeUse-seq_loc_reach>seq_loc_reach</a></li><li><a href=#LocallySoundModeUse-seq_doesnt_read>seq_doesnt_read</a></li><li><a href=#LocallySoundModeUse-seq_doesnt_modify>seq_doesnt_modify</a></li><li><a href=#LocallySoundModeUse-seq_stop_elim>seq_stop_elim</a></li><li><a href=#LocallySoundModeUse-seq_split>seq_split</a></li><li><a href=#LocallySoundModeUse-while_eval>while_eval</a></li><li><a href=#LocallySoundModeUse-while_eval%27>while_eval'</a></li><li><a href=#LocallySoundModeUse-while_eval_elim>while_eval_elim</a></li><li><a href=#LocallySoundModeUse-while_eval_elim%27>while_eval_elim'</a></li><li><a href=#LocallySoundModeUse-while_doesnt_read>while_doesnt_read</a></li><li><a href=#LocallySoundModeUse-while_doesnt_modify>while_doesnt_modify</a></li><li><a href=#LocallySoundModeUse-disjE3>disjE3</a></li><li><a href=#LocallySoundModeUse-disjE5>disjE5</a></li><li><a href=#LocallySoundModeUse-if_doesnt_read%27>if_doesnt_read'</a></li></ul></li><li><a href=#Example>Example</a><ul><li><a href=#Example-low_mds_eq_control_var_eq>low_mds_eq_control_var_eq</a></li><li><a href=#Example-inv_low_mds_eq>inv_low_mds_eq</a></li><li><a href=#Example-rel_inv_sym>rel_inv_sym</a></li><li><a href=#Example-R_sym%27>R_sym'</a></li><li><a href=#Example-R_sym>R_sym</a></li><li><a href=#Example-inv_closed_glob_consistent>inv_closed_glob_consistent</a></li><li><a href=#Example-updates_to_control_var>updates_to_control_var</a></li><li><a href=#Example-blah>blah</a></li><li><a href=#Example-rel_inv_closed_glob_consistent>rel_inv_closed_glob_consistent</a></li><li><a href=#Example-R_closed_glob_consistent>R_closed_glob_consistent</a></li><li><a href=#Example-R_low_mds_eq>R_low_mds_eq</a></li><li><a href=#Example-decl_eval>decl_eval</a></li><li><a href=#Example-%f0%9d%92%9e_simp>𝒞_simp</a></li><li><a href=#Example-buffer_eq>buffer_eq</a></li><li><a href=#Example-rel_inv_init>rel_inv_init</a></li><li><a href=#Example-R_inv>R_inv</a></li><li><a href=#Example-strong_low_bisim_mm_R>strong_low_bisim_mm_R</a></li><li><a href=#Example-read_buffer_secure%27>read_buffer_secure'</a></li></ul></li><li><a href=#TypeSystemTactics>TypeSystemTactics</a></li><li><a href=#Example_TypeSystem>Example_TypeSystem</a><ul><li><a href=#Example_TypeSystem-%f0%9d%92%9e_simp>𝒞_simp</a></li><li><a href=#Example_TypeSystem-type_aexpr_Load>type_aexpr_Load</a></li><li><a href=#Example_TypeSystem-type_aexpr_Load%27>type_aexpr_Load'</a></li><li><a href=#Example_TypeSystem-read_buffer_typed>read_buffer_typed</a></li><li><a href=#Example_TypeSystem-read_buffer_com_sifum_secure>read_buffer_com_sifum_secure</a></li><li><a href=#Example_TypeSystem-restrict_preds_to_vars_empty>restrict_preds_to_vars_empty</a></li><li><a href=#Example_TypeSystem-restrict_preds_to_vars_idemp>restrict_preds_to_vars_idemp</a></li><li><a href=#Example_TypeSystem-restrict_preds_to_vars_insert1>restrict_preds_to_vars_insert1</a></li><li><a href=#Example_TypeSystem-restrict_preds_to_vars_insert2>restrict_preds_to_vars_insert2</a></li><li><a href=#Example_TypeSystem-write_buffer_typed>write_buffer_typed</a></li><li><a href=#Example_TypeSystem-read_buffer_typed%27>read_buffer_typed'</a></li><li><a href=#Example_TypeSystem-write_buffer_typed%27>write_buffer_typed'</a></li></ul></li><li><a href=#Example_Swap_Add>Example_Swap_Add</a><ul><li><a href=#Example_Swap_Add-if_type%27%27>if_type''</a></li><li><a href=#Example_Swap_Add-%f0%9d%92%9e_simp>𝒞_simp</a></li><li><a href=#Example_Swap_Add-type_aexpr_Load>type_aexpr_Load</a></li><li><a href=#Example_Swap_Add-type_aexpr_Load%27>type_aexpr_Load'</a></li><li><a href=#Example_Swap_Add-type_aexpr_Add>type_aexpr_Add</a></li><li><a href=#Example_Swap_Add-type_aexpr_Add%27>type_aexpr_Add'</a></li><li><a href=#Example_Swap_Add-type_aexpr_Add%27%27>type_aexpr_Add''</a></li><li><a href=#Example_Swap_Add-type_aexpr_Add%27%27%27>type_aexpr_Add'''</a></li><li><a href=#Example_Swap_Add-type_aexpr_Const>type_aexpr_Const</a></li><li><a href=#Example_Swap_Add-control_vars_cases>control_vars_cases</a></li><li><a href=#Example_Swap_Add-mem_is_different>mem_is_different</a></li><li><a href=#Example_Swap_Add-restrict_preds_to_vars_empty>restrict_preds_to_vars_empty</a></li><li><a href=#Example_Swap_Add-restrict_preds_to_vars_idemp>restrict_preds_to_vars_idemp</a></li><li><a href=#Example_Swap_Add-restrict_preds_to_vars_insert1>restrict_preds_to_vars_insert1</a></li><li><a href=#Example_Swap_Add-restrict_preds_to_vars_insert2>restrict_preds_to_vars_insert2</a></li><li><a href=#Example_Swap_Add-swap_vars_typed>swap_vars_typed</a></li><li><a href=#Example_Swap_Add-swap_vars_sifum_secure>swap_vars_sifum_secure</a></li><li><a href=#Example_Swap_Add-pred_entailment_singleton_by_case_distinction>pred_entailment_singleton_by_case_distinction</a></li><li><a href=#Example_Swap_Add-restrict_preds_to_vars_nest>restrict_preds_to_vars_nest</a></li><li><a href=#Example_Swap_Add-restrict_preds_to_vars_imp_image1>restrict_preds_to_vars_imp_image1</a></li><li><a href=#Example_Swap_Add-restrict_preds_to_vars_imp_image2>restrict_preds_to_vars_imp_image2</a></li><li><a href=#Example_Swap_Add-insert_minus1>insert_minus1</a></li><li><a href=#Example_Swap_Add-insert_minus2>insert_minus2</a></li><li><a href=#Example_Swap_Add-add_vars_typed>add_vars_typed</a></li><li><a href=#Example_Swap_Add-swap_vars_typed%27>swap_vars_typed'</a></li><li><a href=#Example_Swap_Add-add_vars_typed%27>add_vars_typed'</a></li></ul></li></ul></div><ul><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Dependent_SIFUM_Type_Systems/outline.pdf>Proof
-outline</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Dependent_SIFUM_Type_Systems/document.pdf>Proof
-document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Dependent_SIFUM_Type_Systems/session_graph.pdf>Theory dependencies</a></li></ul></div></aside><div class="content theories"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
-<datalist id=autocomplete></datalist></div></form><h1><span class=first>S</span>ession <span class=first>D</span>ependent_<span class=first>S</span><span class=first>I</span><span class=first>F</span><span class=first>U</span><span class=first>M</span>_<span class=first>T</span>ype_<span class=first>S</span>ystems</h1><div></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><div id=Preliminaries><div class=head><h1>Theory Preliminaries</h1></div><pre class=source><span class=comment1>(*
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Session Dependent_SIFUM_Type_Systems - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session Dependent_SIFUM_Type_Systems">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="/entries/dependent_sifum_type_systems/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories">
+<meta property="og:site_name" content="Archive of Formal Proofs">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="/images/afp.png">
+<meta name=twitter:title content="Session Dependent_SIFUM_Type_Systems">
+<meta name=twitter:description content>
+<link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css>
+<link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script>
+<script src=/js/banner.js></script><script src=/js/header-search.js></script></head>
+<body class=mathjax_ignore>
+<aside>
+<div>
+<div>
+<a href=/>
+<img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo>
+</a>
+<ul>
+<li><a href=/entries/dependent_sifum_type_systems>Return to entry</a></li>
+</ul>
+<hr>
+<ul><li><a href=#Preliminaries>Preliminaries</a>
+<ul>
+<li><a href=#Preliminaries-%f0%9d%92%9e_vars_subset_%f0%9d%92%9e>𝒞_vars_subset_𝒞</a></li>
+<li><a href=#Preliminaries-dma_%f0%9d%92%9e>dma_𝒞</a></li>
+<li><a href=#Preliminaries-my_trancl_induct>my_trancl_induct</a></li>
+<li><a href=#Preliminaries-my_trancl_step_induct>my_trancl_step_induct</a></li>
+<li><a href=#Preliminaries-my_trancl_big_step_induct>my_trancl_big_step_induct</a></li>
+</ul>
+</li><li><a href=#Security>Security</a>
+<ul>
+<li><a href=#Security-neval_det>neval_det</a></li>
+<li><a href=#Security-neval_Suc_simp>neval_Suc_simp</a></li>
+<li><a href=#Security-meval_sched_det>meval_sched_det</a></li>
+<li><a href=#Security-low_eq_low_mds_eq>low_eq_low_mds_eq</a></li>
+<li><a href=#Security-low_mds_eq_dma>low_mds_eq_dma</a></li>
+<li><a href=#Security-low_mds_eq_sym>low_mds_eq_sym</a></li>
+<li><a href=#Security-low_eq_sym>low_eq_sym</a></li>
+<li><a href=#Security-High_not_in_%f0%9d%92%9e>High_not_in_𝒞</a></li>
+<li><a href=#Security-prog_sifum_secure_cont_def2>prog_sifum_secure_cont_def2</a></li>
+<li><a href=#Security-subst_not_in_dom>subst_not_in_dom</a></li>
+<li><a href=#Security-vars_%f0%9d%92%9e_subset_%f0%9d%92%9e>vars_𝒞_subset_𝒞</a></li>
+<li><a href=#Security-noread_nowrite>noread_nowrite</a></li>
+<li><a href=#Security-doesnt_read_or_modify_doesnt_modify>doesnt_read_or_modify_doesnt_modify</a></li>
+<li><a href=#Security-neval_loc_reach>neval_loc_reach</a></li>
+<li><a href=#Security-locally_sound_mode_use_def2>locally_sound_mode_use_def2</a></li>
+<li><a href=#Security-locally_sound_respects_guarantees>locally_sound_respects_guarantees</a></li>
+<li><a href=#Security-mm_equiv_sym>mm_equiv_sym</a></li>
+<li><a href=#Security-low_indistinguishable_sym>low_indistinguishable_sym</a></li>
+<li><a href=#Security-mm_equiv_glob_consistent>mm_equiv_glob_consistent</a></li>
+<li><a href=#Security-mm_equiv_strong_low_bisim>mm_equiv_strong_low_bisim</a></li>
+</ul>
+</li><li><a href=#Compositionality>Compositionality</a>
+<ul>
+<li><a href=#Compositionality-differing_finite>differing_finite</a></li>
+<li><a href=#Compositionality-differing_lists_finite>differing_lists_finite</a></li>
+<li><a href=#Compositionality-makes_compatible_intro>makes_compatible_intro</a></li>
+<li><a href=#Compositionality-compat_low>compat_low</a></li>
+<li><a href=#Compositionality-compat_different>compat_different</a></li>
+<li><a href=#Compositionality-sound_modes_no_read>sound_modes_no_read</a></li>
+<li><a href=#Compositionality-differing_vars_neg>differing_vars_neg</a></li>
+<li><a href=#Compositionality-differing_vars_neg_intro>differing_vars_neg_intro</a></li>
+<li><a href=#Compositionality-differing_vars_elim>differing_vars_elim</a></li>
+<li><a href=#Compositionality-makes_compatible_dma_eq>makes_compatible_dma_eq</a></li>
+<li><a href=#Compositionality-compat_different_vars>compat_different_vars</a></li>
+<li><a href=#Compositionality-differing_vars_subst>differing_vars_subst</a></li>
+<li><a href=#Compositionality-mm_equiv_low_eq>mm_equiv_low_eq</a></li>
+<li><a href=#Compositionality-globally_sound_modes_compatible>globally_sound_modes_compatible</a></li>
+<li><a href=#Compositionality-compatible_different_no_read>compatible_different_no_read</a></li>
+<li><a href=#Compositionality-subst_overrides>subst_overrides</a></li>
+<li><a href=#Compositionality-dom_restrict_total>dom_restrict_total</a></li>
+<li><a href=#Compositionality-change_respecting_doesnt_modify%27>change_respecting_doesnt_modify'</a></li>
+<li><a href=#Compositionality-change_respecting_subset%27>change_respecting_subset'</a></li>
+<li><a href=#Compositionality-change_respecting_subst>change_respecting_subst</a></li>
+<li><a href=#Compositionality-change_respecting_intro>change_respecting_intro</a></li>
+<li><a href=#Compositionality-vars_%f0%9d%92%9e_mono>vars_𝒞_mono</a></li>
+<li><a href=#Compositionality-vars_%f0%9d%92%9e_Un>vars_𝒞_Un</a></li>
+<li><a href=#Compositionality-vars_%f0%9d%92%9e_insert>vars_𝒞_insert</a></li>
+<li><a href=#Compositionality-vars_%f0%9d%92%9e_empty>vars_𝒞_empty</a></li>
+<li><a href=#Compositionality-%f0%9d%92%9e_vars_of_%f0%9d%92%9e_vars_empty>𝒞_vars_of_𝒞_vars_empty</a></li>
+<li><a href=#Compositionality-vars_and_%f0%9d%92%9e_mono>vars_and_𝒞_mono</a></li>
+<li><a href=#Compositionality-%f0%9d%92%9e_vars_finite>𝒞_vars_finite</a></li>
+<li><a href=#Compositionality-finite_dom>finite_dom</a></li>
+<li><a href=#Compositionality-doesnt_read_or_modify_subst>doesnt_read_or_modify_subst</a></li>
+<li><a href=#Compositionality-subst_restrict_twice>subst_restrict_twice</a></li>
+<li><a href=#Compositionality-noread_exists_change_respecting>noread_exists_change_respecting</a></li>
+<li><a href=#Compositionality-update_nth_eq>update_nth_eq</a></li>
+<li><a href=#Compositionality-mm_equiv_step>mm_equiv_step</a></li>
+<li><a href=#Compositionality-change_respecting_doesnt_modify>change_respecting_doesnt_modify</a></li>
+<li><a href=#Compositionality-change_respecting_doesnt_modify_dma>change_respecting_doesnt_modify_dma</a></li>
+<li><a href=#Compositionality-differing_empty_eq>differing_empty_eq</a></li>
+<li><a href=#Compositionality-adaptation_finite>adaptation_finite</a></li>
+<li><a href=#Compositionality-globally_consistent_adapt_bisim>globally_consistent_adapt_bisim</a></li>
+<li><a href=#Compositionality-mm_equiv_%f0%9d%92%9e_eq>mm_equiv_𝒞_eq</a></li>
+<li><a href=#Compositionality-apply_adaptation_not_in_dom>apply_adaptation_not_in_dom</a></li>
+<li><a href=#Compositionality-makes_compatible_invariant>makes_compatible_invariant</a></li>
+<li><a href=#Compositionality-compat_low_eq>compat_low_eq</a></li>
+<li><a href=#Compositionality-loc_reach_subset>loc_reach_subset</a></li>
+<li><a href=#Compositionality-locally_sound_modes_invariant>locally_sound_modes_invariant</a></li>
+<li><a href=#Compositionality-meval_sched_one>meval_sched_one</a></li>
+<li><a href=#Compositionality-meval_sched_ConsI>meval_sched_ConsI</a></li>
+<li><a href=#Compositionality-reachable_modes_subset>reachable_modes_subset</a></li>
+<li><a href=#Compositionality-globally_sound_modes_invariant>globally_sound_modes_invariant</a></li>
+<li><a href=#Compositionality-loc_reach_mem_diff_subset>loc_reach_mem_diff_subset</a></li>
+<li><a href=#Compositionality-loc_reach_mem_diff_eq>loc_reach_mem_diff_eq</a></li>
+<li><a href=#Compositionality-sound_modes_invariant>sound_modes_invariant</a></li>
+<li><a href=#Compositionality-app_Cons_rewrite>app_Cons_rewrite</a></li>
+<li><a href=#Compositionality-meval_sched_app_iff>meval_sched_app_iff</a></li>
+<li><a href=#Compositionality-meval_sched_snocD>meval_sched_snocD</a></li>
+<li><a href=#Compositionality-meval_sched_snocI>meval_sched_snocI</a></li>
+<li><a href=#Compositionality-makes_compatible_eval_sched>makes_compatible_eval_sched</a></li>
+<li><a href=#Compositionality-differing_vars_initially_empty>differing_vars_initially_empty</a></li>
+<li><a href=#Compositionality-compatible_refl>compatible_refl</a></li>
+</ul>
+</li><li><a href=#Language>Language</a>
+<ul>
+<li><a href=#Language-cond>cond</a></li>
+<li><a href=#Language-rtrancl_mono_proof>rtrancl_mono_proof</a></li>
+<li><a href=#Language-trancl_mono_proof>trancl_mono_proof</a></li>
+<li><a href=#Language-cxt_inv>cxt_inv</a></li>
+<li><a href=#Language-cxt_inv_assign>cxt_inv_assign</a></li>
+<li><a href=#Language-cxt_inv_skip>cxt_inv_skip</a></li>
+<li><a href=#Language-cxt_inv_stop>cxt_inv_stop</a></li>
+<li><a href=#Language-cxt_inv_if>cxt_inv_if</a></li>
+<li><a href=#Language-ctx_inv_anno>ctx_inv_anno</a></li>
+<li><a href=#Language-cxt_inv_await>cxt_inv_await</a></li>
+<li><a href=#Language-cxt_inv_while>cxt_inv_while</a></li>
+<li><a href=#Language-skip_elim>skip_elim</a></li>
+<li><a href=#Language-assign_elim>assign_elim</a></li>
+<li><a href=#Language-if_elim>if_elim</a></li>
+<li><a href=#Language-while_elim>while_elim</a></li>
+<li><a href=#Language-upd_elim>upd_elim</a></li>
+<li><a href=#Language-cxt_seq_elim>cxt_seq_elim</a></li>
+<li><a href=#Language-stop_no_eval>stop_no_eval</a></li>
+<li><a href=#Language-seq_stop_elim>seq_stop_elim</a></li>
+<li><a href=#Language-cxt_stmt_seq>cxt_stmt_seq</a></li>
+<li><a href=#Language-seq_elim>seq_elim</a></li>
+<li><a href=#Language-stop_cxt>stop_cxt</a></li>
+<li><a href=#Language-decl_eval>decl_eval</a></li>
+<li><a href=#Language-assign_eval>assign_eval</a></li>
+<li><a href=#Language-seq_decl_elim>seq_decl_elim</a></li>
+<li><a href=#Language-seq_assign_elim>seq_assign_elim</a></li>
+<li><a href=#Language-no_await_trans>no_await_trans</a></li>
+<li><a href=#Language-no_await_no_await>no_await_no_await</a></li>
+<li><a href=#Language-no_await_trancl_impl>no_await_trancl_impl</a></li>
+<li><a href=#Language-no_await_trancl>no_await_trancl</a></li>
+<li><a href=#Language-await_elim>await_elim</a></li>
+</ul>
+</li><li><a href=#TypeSystem>TypeSystem</a>
+<ul>
+<li><a href=#TypeSystem-add_pred_subset>add_pred_subset</a></li>
+<li><a href=#TypeSystem-dma_type_wellformed>dma_type_wellformed</a></li>
+<li><a href=#TypeSystem-to_total_type_wellformed>to_total_type_wellformed</a></li>
+<li><a href=#TypeSystem-Un_type_wellformed>Un_type_wellformed</a></li>
+<li><a href=#TypeSystem-type_aexprI>type_aexprI</a></li>
+<li><a href=#TypeSystem-type_aexpr_type_wellformed>type_aexpr_type_wellformed</a></li>
+<li><a href=#TypeSystem-type_bexprI>type_bexprI</a></li>
+<li><a href=#TypeSystem-type_bexpr_type_wellformed>type_bexpr_type_wellformed</a></li>
+<li><a href=#TypeSystem-type_stable_is_sufficient>type_stable_is_sufficient</a></li>
+<li><a href=#TypeSystem-add_anno_acq_AsmNoReadOrWrite_idemp>add_anno_acq_AsmNoReadOrWrite_idemp</a></li>
+<li><a href=#TypeSystem-add_anno_rel_AsmNoReadOrWrite_idemp>add_anno_rel_AsmNoReadOrWrite_idemp</a></li>
+<li><a href=#TypeSystem-add_anno_acq_AsmNoReadOrWrite>add_anno_acq_AsmNoReadOrWrite</a></li>
+<li><a href=#TypeSystem-add_anno_rel_AsmNoReadOrWrite>add_anno_rel_AsmNoReadOrWrite</a></li>
+<li><a href=#TypeSystem-add_anno_acq_AsmNoWrite_idemp>add_anno_acq_AsmNoWrite_idemp</a></li>
+<li><a href=#TypeSystem-add_anno_rel_AsmNoWrite_idemp>add_anno_rel_AsmNoWrite_idemp</a></li>
+<li><a href=#TypeSystem-add_anno_acq_AsmNoWrite>add_anno_acq_AsmNoWrite</a></li>
+<li><a href=#TypeSystem-add_anno_rel_AsmNoWrite>add_anno_rel_AsmNoWrite</a></li>
+<li><a href=#TypeSystem-type_stable_is_sufficient%27>type_stable_is_sufficient'</a></li>
+<li><a href=#TypeSystem-subtype_sound>subtype_sound</a></li>
+<li><a href=#TypeSystem-subtype_complete>subtype_complete</a></li>
+<li><a href=#TypeSystem-subtype_correct>subtype_correct</a></li>
+<li><a href=#TypeSystem-subtype_refl>subtype_refl</a></li>
+<li><a href=#TypeSystem-type_equiv_refl>type_equiv_refl</a></li>
+<li><a href=#TypeSystem-subset_entailment>subset_entailment</a></li>
+<li><a href=#TypeSystem-pred_entailment_refl>pred_entailment_refl</a></li>
+<li><a href=#TypeSystem-pred_entailment_mono>pred_entailment_mono</a></li>
+<li><a href=#TypeSystem-type_equiv_subset>type_equiv_subset</a></li>
+<li><a href=#TypeSystem-context_equiv_refl>context_equiv_refl</a></li>
+<li><a href=#TypeSystem-context_equiv_subset>context_equiv_subset</a></li>
+<li><a href=#TypeSystem-pred_entailment_trans>pred_entailment_trans</a></li>
+<li><a href=#TypeSystem-pred_un>pred_un</a></li>
+<li><a href=#TypeSystem-pred_entailment_un>pred_entailment_un</a></li>
+<li><a href=#TypeSystem-pred_entailment_mono_un>pred_entailment_mono_un</a></li>
+<li><a href=#TypeSystem-subtype_trans>subtype_trans</a></li>
+<li><a href=#TypeSystem-type_equiv_trans>type_equiv_trans</a></li>
+<li><a href=#TypeSystem-context_equiv_trans>context_equiv_trans</a></li>
+<li><a href=#TypeSystem-un_pred_entailment_mono>un_pred_entailment_mono</a></li>
+<li><a href=#TypeSystem-subtype_entailment>subtype_entailment</a></li>
+<li><a href=#TypeSystem-type_equiv_entailment>type_equiv_entailment</a></li>
+<li><a href=#TypeSystem-context_equiv_entailment>context_equiv_entailment</a></li>
+<li><a href=#TypeSystem-sub%27>sub'</a></li>
+<li><a href=#TypeSystem-assign>assign</a></li>
+<li><a href=#TypeSystem-conc%27>conc'</a></li>
+<li><a href=#TypeSystem-tyenv_wellformed_subset>tyenv_wellformed_subset</a></li>
+<li><a href=#TypeSystem-if_type%27>if_type'</a></li>
+<li><a href=#TypeSystem-skip_type%27>skip_type'</a></li>
+<li><a href=#TypeSystem-anno_type_helpers>anno_type_helpers</a></li>
+<li><a href=#TypeSystem-type_max_dma_type>type_max_dma_type</a></li>
+<li><a href=#TypeSystem-tyenv_eq_sym%27>tyenv_eq_sym'</a></li>
+<li><a href=#TypeSystem-tyenv_eq_sym>tyenv_eq_sym</a></li>
+<li><a href=#TypeSystem-%e2%84%9b>ℛ</a></li>
+<li><a href=#TypeSystem-%e2%84%9b>ℛ</a></li>
+<li><a href=#TypeSystem-bisim_simple_%e2%84%9b>bisim_simple_ℛ</a></li>
+<li><a href=#TypeSystem-bisim_simple_%e2%84%9b>bisim_simple_ℛ</a></li>
+<li><a href=#TypeSystem-bisim_simple_%e2%84%9b>bisim_simple_ℛ</a></li>
+<li><a href=#TypeSystem-%f0%9d%92%9e_eq_type_max_eq>𝒞_eq_type_max_eq</a></li>
+<li><a href=#TypeSystem-vars_of_type_eq_type_max_eq>vars_of_type_eq_type_max_eq</a></li>
+<li><a href=#TypeSystem-%e2%84%9b>ℛ</a></li>
+<li><a href=#TypeSystem-%e2%84%9b>ℛ</a></li>
+<li><a href=#TypeSystem-%e2%84%9b_mds>ℛ_mds</a></li>
+<li><a href=#TypeSystem-%e2%84%9b_sym>ℛ_sym</a></li>
+<li><a href=#TypeSystem-%e2%84%9b>ℛ</a></li>
+<li><a href=#TypeSystem-%e2%84%9b>ℛ</a></li>
+<li><a href=#TypeSystem-%e2%84%9b_closed_glob_consistent>ℛ_closed_glob_consistent</a></li>
+<li><a href=#TypeSystem-mode_update_add_anno>mode_update_add_anno</a></li>
+<li><a href=#TypeSystem-add_anno_acq_GuarNoReadOrWrite>add_anno_acq_GuarNoReadOrWrite</a></li>
+<li><a href=#TypeSystem-add_anno_rel_GuarNoReadOrWrite>add_anno_rel_GuarNoReadOrWrite</a></li>
+<li><a href=#TypeSystem-add_anno_acq_GuarNoWrite>add_anno_acq_GuarNoWrite</a></li>
+<li><a href=#TypeSystem-add_anno_rel_GuarNoWrite>add_anno_rel_GuarNoWrite</a></li>
+<li><a href=#TypeSystem-dom_add_anno_rel>dom_add_anno_rel</a></li>
+<li><a href=#TypeSystem-types_wellformed_mode_update>types_wellformed_mode_update</a></li>
+<li><a href=#TypeSystem-types_stable_mode_update>types_stable_mode_update</a></li>
+<li><a href=#TypeSystem-tyenv_wellformed_mode_update>tyenv_wellformed_mode_update</a></li>
+<li><a href=#TypeSystem-stop_cxt>stop_cxt</a></li>
+<li><a href=#TypeSystem-tyenv_wellformed_preds_update>tyenv_wellformed_preds_update</a></li>
+<li><a href=#TypeSystem-mds_consistent_preds_tyenv_update>mds_consistent_preds_tyenv_update</a></li>
+<li><a href=#TypeSystem-pred_preds_update>pred_preds_update</a></li>
+<li><a href=#TypeSystem-types_wellformed_update>types_wellformed_update</a></li>
+<li><a href=#TypeSystem-types_stable_update>types_stable_update</a></li>
+<li><a href=#TypeSystem-tyenv_wellformed_sub>tyenv_wellformed_sub</a></li>
+<li><a href=#TypeSystem-tyenv_sec_mode_update>tyenv_sec_mode_update</a></li>
+<li><a href=#TypeSystem-tyenv_sec_eq>tyenv_sec_eq</a></li>
+<li><a href=#TypeSystem-context_equiv_tyenv_sec>context_equiv_tyenv_sec</a></li>
+<li><a href=#TypeSystem-add_pred_entailment>add_pred_entailment</a></li>
+<li><a href=#TypeSystem-preservation_no_await>preservation_no_await</a></li>
+<li><a href=#TypeSystem-preservation_no_await_plus>preservation_no_await_plus</a></li>
+<li><a href=#TypeSystem-preservation>preservation</a></li>
+<li><a href=#TypeSystem-%e2%84%9b>ℛ</a></li>
+<li><a href=#TypeSystem-ev>ev</a></li>
+<li><a href=#TypeSystem-ev>ev</a></li>
+<li><a href=#TypeSystem-ev>ev</a></li>
+<li><a href=#TypeSystem-R1_equiv_entailment>R1_equiv_entailment</a></li>
+<li><a href=#TypeSystem-R3_equiv_entailment>R3_equiv_entailment</a></li>
+<li><a href=#TypeSystem-R_equiv_entailment>R_equiv_entailment</a></li>
+<li><a href=#TypeSystem-context_equiv_tyenv_eq>context_equiv_tyenv_eq</a></li>
+<li><a href=#TypeSystem-%e2%84%9b_typed_step_no_await>ℛ_typed_step_no_await</a></li>
+<li><a href=#TypeSystem-is_final_%e2%84%9b>is_final_ℛ</a></li>
+<li><a href=#TypeSystem-pred_plus_impl>pred_plus_impl</a></li>
+<li><a href=#TypeSystem-my_%e2%84%9b>my_ℛ</a></li>
+<li><a href=#TypeSystem-%e2%84%9b_typed_step_plus>ℛ_typed_step_plus</a></li>
+<li><a href=#TypeSystem-%e2%84%9b_typed_step>ℛ_typed_step</a></li>
+<li><a href=#TypeSystem-%e2%84%9b>ℛ</a></li>
+<li><a href=#TypeSystem-%e2%84%9b_to_%e2%84%9b>ℛ_to_ℛ</a></li>
+<li><a href=#TypeSystem-%e2%84%9b>ℛ</a></li>
+<li><a href=#TypeSystem-%e2%84%9b_bisim>ℛ_bisim</a></li>
+<li><a href=#TypeSystem-Typed_in_%e2%84%9b>Typed_in_ℛ</a></li>
+<li><a href=#TypeSystem-of_mds_tyenv_wellformed>of_mds_tyenv_wellformed</a></li>
+<li><a href=#TypeSystem-%ce%93_of_mds_tyenv_sec>Γ_of_mds_tyenv_sec</a></li>
+<li><a href=#TypeSystem-type_max_pred_False>type_max_pred_False</a></li>
+<li><a href=#TypeSystem-typed_secure>typed_secure</a></li>
+<li><a href=#TypeSystem-list_all_set>list_all_set</a></li>
+</ul>
+</li><li><a href=#LocallySoundModeUse>LocallySoundModeUse</a>
+<ul>
+<li><a href=#LocallySoundModeUse-cxt_eval>cxt_eval</a></li>
+<li><a href=#LocallySoundModeUse-update_preserves_le>update_preserves_le</a></li>
+<li><a href=#LocallySoundModeUse-doesnt_read_annos>doesnt_read_annos</a></li>
+<li><a href=#LocallySoundModeUse-doesnt_modify_annos>doesnt_modify_annos</a></li>
+<li><a href=#LocallySoundModeUse-stop_loc_reach>stop_loc_reach</a></li>
+<li><a href=#LocallySoundModeUse-stop_doesnt_access>stop_doesnt_access</a></li>
+<li><a href=#LocallySoundModeUse-skip_eval_step>skip_eval_step</a></li>
+<li><a href=#LocallySoundModeUse-skip_eval_elim>skip_eval_elim</a></li>
+<li><a href=#LocallySoundModeUse-skip_doesnt_read>skip_doesnt_read</a></li>
+<li><a href=#LocallySoundModeUse-skip_doesnt_write>skip_doesnt_write</a></li>
+<li><a href=#LocallySoundModeUse-skip_loc_reach>skip_loc_reach</a></li>
+<li><a href=#LocallySoundModeUse-skip_doesnt_access>skip_doesnt_access</a></li>
+<li><a href=#LocallySoundModeUse-assign_doesnt_modify>assign_doesnt_modify</a></li>
+<li><a href=#LocallySoundModeUse-assign_annos_eval>assign_annos_eval</a></li>
+<li><a href=#LocallySoundModeUse-assign_annos_eval_elim>assign_annos_eval_elim</a></li>
+<li><a href=#LocallySoundModeUse-mem_upd_commute>mem_upd_commute</a></li>
+<li><a href=#LocallySoundModeUse-assign_doesnt_read>assign_doesnt_read</a></li>
+<li><a href=#LocallySoundModeUse-assign_loc_reach>assign_loc_reach</a></li>
+<li><a href=#LocallySoundModeUse-if_doesnt_modify>if_doesnt_modify</a></li>
+<li><a href=#LocallySoundModeUse-vars_eval>vars_eval</a></li>
+<li><a href=#LocallySoundModeUse-if_doesnt_read>if_doesnt_read</a></li>
+<li><a href=#LocallySoundModeUse-if_eval_true>if_eval_true</a></li>
+<li><a href=#LocallySoundModeUse-if_eval_false>if_eval_false</a></li>
+<li><a href=#LocallySoundModeUse-if_eval_elim>if_eval_elim</a></li>
+<li><a href=#LocallySoundModeUse-if_eval_elim%27>if_eval_elim'</a></li>
+<li><a href=#LocallySoundModeUse-loc_reach_refl%27>loc_reach_refl'</a></li>
+<li><a href=#LocallySoundModeUse-if_loc_reach>if_loc_reach</a></li>
+<li><a href=#LocallySoundModeUse-if_loc_reach%27>if_loc_reach'</a></li>
+<li><a href=#LocallySoundModeUse-seq_loc_reach>seq_loc_reach</a></li>
+<li><a href=#LocallySoundModeUse-seq_doesnt_read>seq_doesnt_read</a></li>
+<li><a href=#LocallySoundModeUse-seq_doesnt_modify>seq_doesnt_modify</a></li>
+<li><a href=#LocallySoundModeUse-seq_stop_elim>seq_stop_elim</a></li>
+<li><a href=#LocallySoundModeUse-seq_split>seq_split</a></li>
+<li><a href=#LocallySoundModeUse-while_eval>while_eval</a></li>
+<li><a href=#LocallySoundModeUse-while_eval%27>while_eval'</a></li>
+<li><a href=#LocallySoundModeUse-while_eval_elim>while_eval_elim</a></li>
+<li><a href=#LocallySoundModeUse-while_eval_elim%27>while_eval_elim'</a></li>
+<li><a href=#LocallySoundModeUse-while_doesnt_read>while_doesnt_read</a></li>
+<li><a href=#LocallySoundModeUse-while_doesnt_modify>while_doesnt_modify</a></li>
+<li><a href=#LocallySoundModeUse-disjE3>disjE3</a></li>
+<li><a href=#LocallySoundModeUse-disjE5>disjE5</a></li>
+<li><a href=#LocallySoundModeUse-if_doesnt_read%27>if_doesnt_read'</a></li>
+</ul>
+</li><li><a href=#Example>Example</a>
+<ul>
+<li><a href=#Example-low_mds_eq_control_var_eq>low_mds_eq_control_var_eq</a></li>
+<li><a href=#Example-inv_low_mds_eq>inv_low_mds_eq</a></li>
+<li><a href=#Example-rel_inv_sym>rel_inv_sym</a></li>
+<li><a href=#Example-R_sym%27>R_sym'</a></li>
+<li><a href=#Example-R_sym>R_sym</a></li>
+<li><a href=#Example-inv_closed_glob_consistent>inv_closed_glob_consistent</a></li>
+<li><a href=#Example-updates_to_control_var>updates_to_control_var</a></li>
+<li><a href=#Example-blah>blah</a></li>
+<li><a href=#Example-rel_inv_closed_glob_consistent>rel_inv_closed_glob_consistent</a></li>
+<li><a href=#Example-R_closed_glob_consistent>R_closed_glob_consistent</a></li>
+<li><a href=#Example-R_low_mds_eq>R_low_mds_eq</a></li>
+<li><a href=#Example-decl_eval>decl_eval</a></li>
+<li><a href=#Example-%f0%9d%92%9e_simp>𝒞_simp</a></li>
+<li><a href=#Example-buffer_eq>buffer_eq</a></li>
+<li><a href=#Example-rel_inv_init>rel_inv_init</a></li>
+<li><a href=#Example-R_inv>R_inv</a></li>
+<li><a href=#Example-strong_low_bisim_mm_R>strong_low_bisim_mm_R</a></li>
+<li><a href=#Example-read_buffer_secure%27>read_buffer_secure'</a></li>
+</ul>
+</li><li><a href=#TypeSystemTactics>TypeSystemTactics</a>
+</li><li><a href=#Example_TypeSystem>Example_TypeSystem</a>
+<ul>
+<li><a href=#Example_TypeSystem-%f0%9d%92%9e_simp>𝒞_simp</a></li>
+<li><a href=#Example_TypeSystem-type_aexpr_Load>type_aexpr_Load</a></li>
+<li><a href=#Example_TypeSystem-type_aexpr_Load%27>type_aexpr_Load'</a></li>
+<li><a href=#Example_TypeSystem-read_buffer_typed>read_buffer_typed</a></li>
+<li><a href=#Example_TypeSystem-read_buffer_com_sifum_secure>read_buffer_com_sifum_secure</a></li>
+<li><a href=#Example_TypeSystem-restrict_preds_to_vars_empty>restrict_preds_to_vars_empty</a></li>
+<li><a href=#Example_TypeSystem-restrict_preds_to_vars_idemp>restrict_preds_to_vars_idemp</a></li>
+<li><a href=#Example_TypeSystem-restrict_preds_to_vars_insert1>restrict_preds_to_vars_insert1</a></li>
+<li><a href=#Example_TypeSystem-restrict_preds_to_vars_insert2>restrict_preds_to_vars_insert2</a></li>
+<li><a href=#Example_TypeSystem-write_buffer_typed>write_buffer_typed</a></li>
+<li><a href=#Example_TypeSystem-read_buffer_typed%27>read_buffer_typed'</a></li>
+<li><a href=#Example_TypeSystem-write_buffer_typed%27>write_buffer_typed'</a></li>
+</ul>
+</li><li><a href=#Example_Swap_Add>Example_Swap_Add</a>
+<ul>
+<li><a href=#Example_Swap_Add-if_type%27%27>if_type''</a></li>
+<li><a href=#Example_Swap_Add-%f0%9d%92%9e_simp>𝒞_simp</a></li>
+<li><a href=#Example_Swap_Add-type_aexpr_Load>type_aexpr_Load</a></li>
+<li><a href=#Example_Swap_Add-type_aexpr_Load%27>type_aexpr_Load'</a></li>
+<li><a href=#Example_Swap_Add-type_aexpr_Add>type_aexpr_Add</a></li>
+<li><a href=#Example_Swap_Add-type_aexpr_Add%27>type_aexpr_Add'</a></li>
+<li><a href=#Example_Swap_Add-type_aexpr_Add%27%27>type_aexpr_Add''</a></li>
+<li><a href=#Example_Swap_Add-type_aexpr_Add%27%27%27>type_aexpr_Add'''</a></li>
+<li><a href=#Example_Swap_Add-type_aexpr_Const>type_aexpr_Const</a></li>
+<li><a href=#Example_Swap_Add-control_vars_cases>control_vars_cases</a></li>
+<li><a href=#Example_Swap_Add-mem_is_different>mem_is_different</a></li>
+<li><a href=#Example_Swap_Add-restrict_preds_to_vars_empty>restrict_preds_to_vars_empty</a></li>
+<li><a href=#Example_Swap_Add-restrict_preds_to_vars_idemp>restrict_preds_to_vars_idemp</a></li>
+<li><a href=#Example_Swap_Add-restrict_preds_to_vars_insert1>restrict_preds_to_vars_insert1</a></li>
+<li><a href=#Example_Swap_Add-restrict_preds_to_vars_insert2>restrict_preds_to_vars_insert2</a></li>
+<li><a href=#Example_Swap_Add-swap_vars_typed>swap_vars_typed</a></li>
+<li><a href=#Example_Swap_Add-swap_vars_sifum_secure>swap_vars_sifum_secure</a></li>
+<li><a href=#Example_Swap_Add-pred_entailment_singleton_by_case_distinction>pred_entailment_singleton_by_case_distinction</a></li>
+<li><a href=#Example_Swap_Add-restrict_preds_to_vars_nest>restrict_preds_to_vars_nest</a></li>
+<li><a href=#Example_Swap_Add-restrict_preds_to_vars_imp_image1>restrict_preds_to_vars_imp_image1</a></li>
+<li><a href=#Example_Swap_Add-restrict_preds_to_vars_imp_image2>restrict_preds_to_vars_imp_image2</a></li>
+<li><a href=#Example_Swap_Add-insert_minus1>insert_minus1</a></li>
+<li><a href=#Example_Swap_Add-insert_minus2>insert_minus2</a></li>
+<li><a href=#Example_Swap_Add-add_vars_typed>add_vars_typed</a></li>
+<li><a href=#Example_Swap_Add-swap_vars_typed%27>swap_vars_typed'</a></li>
+<li><a href=#Example_Swap_Add-add_vars_typed%27>add_vars_typed'</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<ul>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Dependent_SIFUM_Type_Systems/outline.pdf>Proof
+outline</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Dependent_SIFUM_Type_Systems/document.pdf>Proof
+document</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Dependent_SIFUM_Type_Systems/session_graph.pdf>Theory dependencies</a></li>
+</ul>
+</div>
+</aside>
+<div class="content theories"><header>
+<form action=/%20search>
+<div class=form-container>
+<input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
+<datalist id=autocomplete>
+</datalist>
+</div>
+</form>
+<h1><span class=first>S</span>ession <span class=first>D</span>ependent_<span class=first>S</span><span class=first>I</span><span class=first>F</span><span class=first>U</span><span class=first>M</span>_<span class=first>T</span>ype_<span class=first>S</span>ystems</h1>
+<div>
+</div>
+</header><div id=banner data-id=0>
+<p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button>
+</div>
+<div><main>
+<div id=Preliminaries>
+<div class=head>
+<h1>Theory Preliminaries</h1>
+</div>
+<pre class=source><span class=comment1>(*
 Title: Value-Dependent SIFUM-Type-Systems
 Authors: Toby Murray, Robert Sison, Edward Pierzchalski, Christine Rizkallah
 (Based on the SIFUM-Type-Systems AFP entry, whose authors
@@ -125,7 +532,12 @@ Authors: Toby Murray, Robert Sison, Edward Pierzchalski, Christine Rizkallah
                  <span class=operator>consumes</span> 1<span class=main>,</span> <span class=operator>case_names</span> base step<span class=main>]</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Security><div class=head><h1>Theory Security</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=Security>
+<div class=head>
+<h1>Theory Security</h1>
+</div>
+<pre class=source><span class=comment1>(*
 Title: Value-Dependent SIFUM-Type-Systems
 Authors: Toby Murray, Robert Sison, Edward Pierzchalski, Christine Rizkallah
 (Based on the SIFUM-Type-Systems AFP entry, whose authors
@@ -588,7 +1000,12 @@ Authors: Toby Murray, Robert Sison, Edward Pierzchalski, Christine Rizkallah
 <span class=keyword2><span class=keyword>end</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Compositionality><div class=head><h1>Theory Compositionality</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=Compositionality>
+<div class=head>
+<h1>Theory Compositionality</h1>
+</div>
+<pre class=source><span class=comment1>(*
 Title: Value-Dependent SIFUM-Type-Systems
 Authors: Toby Murray, Robert Sison, Edward Pierzchalski, Christine Rizkallah
 (Based on the SIFUM-Type-Systems AFP entry, whose authors
@@ -2672,7 +3089,12 @@ usage.›</span></span>
 <span class=keyword2><span class=keyword>end</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Language><div class=head><h1>Theory Language</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=Language>
+<div class=head>
+<h1>Theory Language</h1>
+</div>
+<pre class=source><span class=comment1>(*
 Title: Value-Dependent SIFUM-Type-Systems
 Authors: Toby Murray, Robert Sison, Edward Pierzchalski, Christine Rizkallah
 (Based on the SIFUM-Type-Systems AFP entry, whose authors
@@ -3077,7 +3499,12 @@ Authors: Toby Murray, Robert Sison, Edward Pierzchalski, Christine Rizkallah
 <span class=keyword2><span class=keyword>end</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=TypeSystem><div class=head><h1>Theory TypeSystem</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=TypeSystem>
+<div class=head>
+<h1>Theory TypeSystem</h1>
+</div>
+<pre class=source><span class=comment1>(*
 Title: Value-Dependent SIFUM-Type-Systems
 Authors: Toby Murray, Robert Sison, Edward Pierzchalski, Christine Rizkallah
 (Based on the SIFUM-Type-Systems AFP entry, whose authors
@@ -7010,7 +7437,12 @@ Authors: Toby Murray, Robert Sison, Edward Pierzchalski, Christine Rizkallah
 
 <span class=keyword2><span class=keyword>end</span></span>
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=LocallySoundModeUse><div class=head><h1>Theory LocallySoundModeUse</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=LocallySoundModeUse>
+<div class=head>
+<h1>Theory LocallySoundModeUse</h1>
+</div>
+<pre class=source><span class=comment1>(*
 TiTitle: Value-Dependent SIFUM-Type-Systems
 Authors: Toby Murray, Robert Sison, Edward Pierzchalski, Christine Rizkallah
 (Based on the SIFUM-Type-Systems AFP entry, whose authors
@@ -7760,7 +8192,12 @@ Authors: Toby Murray, Robert Sison, Edward Pierzchalski, Christine Rizkallah
 <span class=keyword2><span class=keyword>end</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Example><div class=head><h1>Theory Example</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=Example>
+<div class=head>
+<h1>Theory Example</h1>
+</div>
+<pre class=source><span class=comment1>(*
 Title: Value-Dependent SIFUM-Type-Systems
 Authors: Toby Murray, Robert Sison, Edward Pierzchalski, Christine Rizkallah
 (Based on the SIFUM-Type-Systems AFP entry, whose authors
@@ -8263,7 +8700,12 @@ Authors: Toby Murray, Robert Sison, Edward Pierzchalski, Christine Rizkallah
 <span class=keyword2><span class=keyword>end</span></span>
  
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=TypeSystemTactics><div class=head><h1>Theory TypeSystemTactics</h1></div><pre class=source><span class=keyword1><span class=command>theory</span></span> TypeSystemTactics
+</pre>
+</div><div id=TypeSystemTactics>
+<div class=head>
+<h1>Theory TypeSystemTactics</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>theory</span></span> TypeSystemTactics
 <span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=#Compositionality>../Compositionality</a>"</span>
         <span class=quoted>"<a href=#TypeSystem>../TypeSystem</a>"</span>
         <span class=quoted>"<a href=https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/library/HOL/HOL-Eisbach/Eisbach_Tools.html>HOL-Eisbach.Eisbach_Tools</a>"</span>
@@ -8434,7 +8876,12 @@ Authors: Toby Murray, Robert Sison, Edward Pierzchalski, Christine Rizkallah
 <span class=keyword2><span class=keyword>end</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Example_TypeSystem><div class=head><h1>Theory Example_TypeSystem</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=Example_TypeSystem>
+<div class=head>
+<h1>Theory Example_TypeSystem</h1>
+</div>
+<pre class=source><span class=comment1>(*
 Title: Value-Dependent SIFUM-Type-Systems
 Authors: Toby Murray, Robert Sison, Edward Pierzchalski, Christine Rizkallah
 (Based on the SIFUM-Type-Systems AFP entry, whose authors
@@ -8780,7 +9227,12 @@ Authors: Toby Murray, Robert Sison, Edward Pierzchalski, Christine Rizkallah
 <span class=keyword2><span class=keyword>end</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Example_Swap_Add><div class=head><h1>Theory Example_Swap_Add</h1></div><pre class=source><span class=comment1>(*
+</pre>
+</div><div id=Example_Swap_Add>
+<div class=head>
+<h1>Theory Example_Swap_Add</h1>
+</div>
+<pre class=source><span class=comment1>(*
 Title: Value-Dependent SIFUM-Type-Systems
 Authors: Toby Murray, Robert Sison, Edward Pierzchalski, Christine Rizkallah
 (Based on the SIFUM-Type-Systems AFP entry, whose authors
@@ -9422,4 +9874,10 @@ Authors: Toby Murray, Robert Sison, Edward Pierzchalski, Christine Rizkallah
 <span class=keyword2><span class=keyword>end</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div></main></div></div></body></html>
+</pre>
+</div>
+</main>
+</div>
+</div>
+</body>
+</html>

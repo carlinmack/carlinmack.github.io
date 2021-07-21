@@ -1,7 +1,774 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Session Combinatorics_Words - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session Combinatorics_Words"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/combinatorics_words/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Session Combinatorics_Words"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css><link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script><script src=/js/banner.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><li><a href=/entries/combinatorics_words>Return to entry</a></li></ul><hr><ul><li><a href=#Arithmetical_Hints>Arithmetical_Hints</a><ul><li><a href=#Arithmetical_Hints-zero_diff_eq>zero_diff_eq</a></li><li><a href=#Arithmetical_Hints-zero_less_diff%27>zero_less_diff'</a></li><li><a href=#Arithmetical_Hints-nat_prod_le>nat_prod_le</a></li><li><a href=#Arithmetical_Hints-get_div>get_div</a></li><li><a href=#Arithmetical_Hints-get_mod>get_mod</a></li><li><a href=#Arithmetical_Hints-plus_one_between>plus_one_between</a></li><li><a href=#Arithmetical_Hints-quotient_smaller>quotient_smaller</a></li><li><a href=#Arithmetical_Hints-mult_cancel_le>mult_cancel_le</a></li><li><a href=#Arithmetical_Hints-add_lessD2>add_lessD2</a></li><li><a href=#Arithmetical_Hints-mod_offset>mod_offset</a></li><li><a href=#Arithmetical_Hints-less_mult_one>less_mult_one</a></li></ul></li><li><a href=#Reverse_Symmetry>Reverse_Symmetry</a><ul><li><a href=#Reverse_Symmetry-all_surj_conv>all_surj_conv</a></li><li><a href=#Reverse_Symmetry-All_surj_conv>All_surj_conv</a></li><li><a href=#Reverse_Symmetry-Ex_surj_conv>Ex_surj_conv</a></li><li><a href=#Reverse_Symmetry-Ex1_bij_conv>Ex1_bij_conv</a></li><li><a href=#Reverse_Symmetry-Ball_inj_conv>Ball_inj_conv</a></li><li><a href=#Reverse_Symmetry-Bex_inj_conv>Bex_inj_conv</a></li><li><a href=#Reverse_Symmetry-rev_involution>rev_involution</a></li><li><a href=#Reverse_Symmetry-rev_bij>rev_bij</a></li><li><a href=#Reverse_Symmetry-rev_inv>rev_inv</a></li><li><a href=#Reverse_Symmetry-rev_Nil>rev_Nil</a></li><li><a href=#Reverse_Symmetry-all_rev_unwrap>all_rev_unwrap</a></li><li><a href=#Reverse_Symmetry-All_rev_unwrap>All_rev_unwrap</a></li><li><a href=#Reverse_Symmetry-Ex_rev_unwrap>Ex_rev_unwrap</a></li><li><a href=#Reverse_Symmetry-Ex1_rev_unwrap>Ex1_rev_unwrap</a></li><li><a href=#Reverse_Symmetry-Ball_rev_unwrap>Ball_rev_unwrap</a></li><li><a href=#Reverse_Symmetry-Bex_rev_unwrap>Bex_rev_unwrap</a></li><li><a href=#Reverse_Symmetry-Cons_rev>Cons_rev</a></li><li><a href=#Reverse_Symmetry-snocs_snocs>snocs_snocs</a></li><li><a href=#Reverse_Symmetry-snocs_Nil>snocs_Nil</a></li><li><a href=#Reverse_Symmetry-snocs_is_append>snocs_is_append</a></li><li><a href=#Reverse_Symmetry-hd_last_Nil>hd_last_Nil</a></li><li><a href=#Reverse_Symmetry-last_rev_hd>last_rev_hd</a></li><li><a href=#Reverse_Symmetry-hd_rev_last>hd_rev_last</a></li><li><a href=#Reverse_Symmetry-tl_rev>tl_rev</a></li><li><a href=#Reverse_Symmetry-if_rev>if_rev</a></li><li><a href=#Reverse_Symmetry-rev_in_conv>rev_in_conv</a></li><li><a href=#Reverse_Symmetry-in_lists_rev>in_lists_rev</a></li><li><a href=#Reverse_Symmetry-rev_in_lists>rev_in_lists</a></li><li><a href=#Reverse_Symmetry-rev_lists_conv>rev_lists_conv</a></li><li><a href=#Reverse_Symmetry-coset_rev>coset_rev</a></li><li><a href=#Reverse_Symmetry-example_Cons_append>example_Cons_append</a></li><li><a href=#Reverse_Symmetry-rotate1_hd_tl%27>rotate1_hd_tl'</a></li></ul></li><li><a href=#CoWBasic>CoWBasic</a><ul><li><a href=#CoWBasic-prefI>prefI</a></li><li><a href=#CoWBasic-prefD>prefD</a></li><li><a href=#CoWBasic-pref_compIff>pref_compIff</a></li><li><a href=#CoWBasic-npI>npI</a></li><li><a href=#CoWBasic-npI%27>npI'</a></li><li><a href=#CoWBasic-npD>npD</a></li><li><a href=#CoWBasic-npD%27>npD'</a></li><li><a href=#CoWBasic-sprefI1>sprefI1</a></li><li><a href=#CoWBasic-sprefI1%27>sprefI1'</a></li><li><a href=#CoWBasic-sprefI2>sprefI2</a></li><li><a href=#CoWBasic-sprefD>sprefD</a></li><li><a href=#CoWBasic-sprefE>sprefE</a></li><li><a href=#CoWBasic-sufI>sufI</a></li><li><a href=#CoWBasic-sufD>sufD</a></li><li><a href=#CoWBasic-ssufI1>ssufI1</a></li><li><a href=#CoWBasic-ssufI2>ssufI2</a></li><li><a href=#CoWBasic-ssufD>ssufD</a></li><li><a href=#CoWBasic-nsI>nsI</a></li><li><a href=#CoWBasic-nsI%27>nsI'</a></li><li><a href=#CoWBasic-nsD>nsD</a></li><li><a href=#CoWBasic-nsD%27>nsD'</a></li><li><a href=#CoWBasic-facI>facI</a></li><li><a href=#CoWBasic-facI%27>facI'</a></li><li><a href=#CoWBasic-facE>facE</a></li><li><a href=#CoWBasic-facE%27>facE'</a></li><li><a href=#CoWBasic-bij_lists>bij_lists</a></li><li><a href=#CoWBasic-concat_sing%27>concat_sing'</a></li><li><a href=#CoWBasic-concat_sing>concat_sing</a></li><li><a href=#CoWBasic-rev_sing>rev_sing</a></li><li><a href=#CoWBasic-hd_word>hd_word</a></li><li><a href=#CoWBasic-hd_word%27>hd_word'</a></li><li><a href=#CoWBasic-hd_pref>hd_pref</a></li><li><a href=#CoWBasic-add_nth>add_nth</a></li><li><a href=#CoWBasic-hd_pref%27>hd_pref'</a></li><li><a href=#CoWBasic-sub_lists_mono>sub_lists_mono</a></li><li><a href=#CoWBasic-lists_hd>lists_hd</a></li><li><a href=#CoWBasic-replicate_in_lists>replicate_in_lists</a></li><li><a href=#CoWBasic-tl_lists>tl_lists</a></li><li><a href=#CoWBasic-long_list_tl>long_list_tl</a></li><li><a href=#CoWBasic-tl_set>tl_set</a></li><li><a href=#CoWBasic-drop_take_inv>drop_take_inv</a></li><li><a href=#CoWBasic-split_list_long>split_list_long</a></li><li><a href=#CoWBasic-flatten_lists>flatten_lists</a></li><li><a href=#CoWBasic-concat_map_sing_ident>concat_map_sing_ident</a></li><li><a href=#CoWBasic-hd_concat_tl>hd_concat_tl</a></li><li><a href=#CoWBasic-concat_butlast_last>concat_butlast_last</a></li><li><a href=#CoWBasic-concat_last_suf>concat_last_suf</a></li><li><a href=#CoWBasic-concat_hd_pref>concat_hd_pref</a></li><li><a href=#CoWBasic-set_nemp_concat_nemp>set_nemp_concat_nemp</a></li><li><a href=#CoWBasic-comm_rev_iff>comm_rev_iff</a></li><li><a href=#CoWBasic-rev_induct2>rev_induct2</a></li><li><a href=#CoWBasic-nemp_elem_setI>nemp_elem_setI</a></li><li><a href=#CoWBasic-nel_drop_emp>nel_drop_emp</a></li><li><a href=#CoWBasic-drop_emp_nel>drop_emp_nel</a></li><li><a href=#CoWBasic-emp_concat_emp>emp_concat_emp</a></li><li><a href=#CoWBasic-take_nemp>take_nemp</a></li><li><a href=#CoWBasic-pref_nemp>pref_nemp</a></li><li><a href=#CoWBasic-suf_nemp>suf_nemp</a></li><li><a href=#CoWBasic-lenarg>lenarg</a></li><li><a href=#CoWBasic-npos_len>npos_len</a></li><li><a href=#CoWBasic-nemp_pos_len>nemp_pos_len</a></li><li><a href=#CoWBasic-swap_len>swap_len</a></li><li><a href=#CoWBasic-len_after_drop>len_after_drop</a></li><li><a href=#CoWBasic-short_take_append>short_take_append</a></li><li><a href=#CoWBasic-sing_word>sing_word</a></li><li><a href=#CoWBasic-sing_word_concat>sing_word_concat</a></li><li><a href=#CoWBasic-nonsing_concat_len>nonsing_concat_len</a></li><li><a href=#CoWBasic-sing_len>sing_len</a></li><li><a href=#CoWBasic-pref_len%27>pref_len'</a></li><li><a href=#CoWBasic-suf_len%27>suf_len'</a></li><li><a href=#CoWBasic-fac_len>fac_len</a></li><li><a href=#CoWBasic-fac_len%27>fac_len'</a></li><li><a href=#CoWBasic-fac_len_eq>fac_len_eq</a></li><li><a href=#CoWBasic-drop_len>drop_len</a></li><li><a href=#CoWBasic-drop_pref>drop_pref</a></li><li><a href=#CoWBasic-take_len>take_len</a></li><li><a href=#CoWBasic-conj_len>conj_len</a></li><li><a href=#CoWBasic-take_nemp_len>take_nemp_len</a></li><li><a href=#CoWBasic-nemp_len>nemp_len</a></li><li><a href=#CoWBasic-take_self>take_self</a></li><li><a href=#CoWBasic-len_le_concat>len_le_concat</a></li><li><a href=#CoWBasic-eq_len_iff>eq_len_iff</a></li><li><a href=#CoWBasic-eq_len_iff_less>eq_len_iff_less</a></li><li><a href=#CoWBasic-triv_pref>triv_pref</a></li><li><a href=#CoWBasic-triv_spref>triv_spref</a></li><li><a href=#CoWBasic-pref_cancel>pref_cancel</a></li><li><a href=#CoWBasic-pref_cancel%27>pref_cancel'</a></li><li><a href=#CoWBasic-spref_ext>spref_ext</a></li><li><a href=#CoWBasic-pref_ext_nemp>pref_ext_nemp</a></li><li><a href=#CoWBasic-pref_take>pref_take</a></li><li><a href=#CoWBasic-pref_take_conv>pref_take_conv</a></li><li><a href=#CoWBasic-le_suf_drop>le_suf_drop</a></li><li><a href=#CoWBasic-spref_take>spref_take</a></li><li><a href=#CoWBasic-pref_same_len>pref_same_len</a></li><li><a href=#CoWBasic-add_nth_pref>add_nth_pref</a></li><li><a href=#CoWBasic-index_pref>index_pref</a></li><li><a href=#CoWBasic-pref_index>pref_index</a></li><li><a href=#CoWBasic-pref_drop>pref_drop</a></li><li><a href=#CoWBasic-pref_comp_sym>pref_comp_sym</a></li><li><a href=#CoWBasic-ruler_equal>ruler_equal</a></li><li><a href=#CoWBasic-ruler_comp>ruler_comp</a></li><li><a href=#CoWBasic-ruler_pref>ruler_pref</a></li><li><a href=#CoWBasic-pref_prod_pref_short>pref_prod_pref_short</a></li><li><a href=#CoWBasic-pref_prod_pref>pref_prod_pref</a></li><li><a href=#CoWBasic-pref_prod_pref%27>pref_prod_pref'</a></li><li><a href=#CoWBasic-pref_prod_long>pref_prod_long</a></li><li><a href=#CoWBasic-pref_keeps_root>pref_keeps_root</a></li><li><a href=#CoWBasic-pref_prolong>pref_prolong</a></li><li><a href=#CoWBasic-pref_prolong%27>pref_prolong'</a></li><li><a href=#CoWBasic-pref_prolong_comp>pref_prolong_comp</a></li><li><a href=#CoWBasic-pref_prod_short>pref_prod_short</a></li><li><a href=#CoWBasic-pref_prod_short%27>pref_prod_short'</a></li><li><a href=#CoWBasic-pref_prod_cancel>pref_prod_cancel</a></li><li><a href=#CoWBasic-pref_prod_cancel%27>pref_prod_cancel'</a></li><li><a href=#CoWBasic-pref_comp_eq>pref_comp_eq</a></li><li><a href=#CoWBasic-non_comp_parallel>non_comp_parallel</a></li><li><a href=#CoWBasic-comp_refl>comp_refl</a></li><li><a href=#CoWBasic-incomp_cancel>incomp_cancel</a></li><li><a href=#CoWBasic-comp_cancel>comp_cancel</a></li><li><a href=#CoWBasic-comm_ruler>comm_ruler</a></li><li><a href=#CoWBasic-pref_share_take>pref_share_take</a></li><li><a href=#CoWBasic-pref_prod_longer>pref_prod_longer</a></li><li><a href=#CoWBasic-pref_comp_not_pref>pref_comp_not_pref</a></li><li><a href=#CoWBasic-pref_comp_not_spref>pref_comp_not_spref</a></li><li><a href=#CoWBasic-hd_prod>hd_prod</a></li><li><a href=#CoWBasic-distinct_first>distinct_first</a></li><li><a href=#CoWBasic-last_no_split%27>last_no_split'</a></li><li><a href=#CoWBasic-pcomp_shorter>pcomp_shorter</a></li><li><a href=#CoWBasic-pref_comp_len_trans>pref_comp_len_trans</a></li><li><a href=#CoWBasic-comp_ext>comp_ext</a></li><li><a href=#CoWBasic-emp_pref>emp_pref</a></li><li><a href=#CoWBasic-emp_spref>emp_spref</a></li><li><a href=#CoWBasic-long_pref>long_pref</a></li><li><a href=#CoWBasic-incomp_ext>incomp_ext</a></li><li><a href=#CoWBasic-mismatch_incopm>mismatch_incopm</a></li><li><a href=#CoWBasic-comp_prefs_comp>comp_prefs_comp</a></li><li><a href=#CoWBasic-comp_hd_eq>comp_hd_eq</a></li><li><a href=#CoWBasic-pref_hd_eq%27>pref_hd_eq'</a></li><li><a href=#CoWBasic-pref_hd_eq>pref_hd_eq</a></li><li><a href=#CoWBasic-suf_last_eq>suf_last_eq</a></li><li><a href=#CoWBasic-comp_hd_eq%27>comp_hd_eq'</a></li><li><a href=#CoWBasic-triv_suf>triv_suf</a></li><li><a href=#CoWBasic-emp_ssuf>emp_ssuf</a></li><li><a href=#CoWBasic-suf_cancel>suf_cancel</a></li><li><a href=#CoWBasic-suf_cancel%27>suf_cancel'</a></li><li><a href=#CoWBasic-pref_rev_suf_iff>pref_rev_suf_iff</a></li><li><a href=#CoWBasic-spref_rev_suf_iff>spref_rev_suf_iff</a></li><li><a href=#CoWBasic-nsuf_rev_pref_iff>nsuf_rev_pref_iff</a></li><li><a href=#CoWBasic-npref_rev_suf_iff>npref_rev_suf_iff</a></li><li><a href=#CoWBasic-pref_comp_rev_suf_comp>pref_comp_rev_suf_comp</a></li><li><a href=#CoWBasic-suf_comp_rev_pref_comp>suf_comp_rev_pref_comp</a></li><li><a href=#CoWBasic-suf_comp_last_eq>suf_comp_last_eq</a></li><li><a href=#CoWBasic-suf_comp_last_eq%27>suf_comp_last_eq'</a></li><li><a href=#CoWBasic-rq_rev_lq>rq_rev_lq</a></li><li><a href=#CoWBasic-lq_rev_rq>lq_rev_rq</a></li><li><a href=#CoWBasic-lqI>lqI</a></li><li><a href=#CoWBasic-lq_triv>lq_triv</a></li><li><a href=#CoWBasic-lq_triv%27>lq_triv'</a></li><li><a href=#CoWBasic-lq_self>lq_self</a></li><li><a href=#CoWBasic-lq_emp>lq_emp</a></li><li><a href=#CoWBasic-lq_pref>lq_pref</a></li><li><a href=#CoWBasic-lq_the>lq_the</a></li><li><a href=#CoWBasic-lq_reassoc>lq_reassoc</a></li><li><a href=#CoWBasic-lq_trans>lq_trans</a></li><li><a href=#CoWBasic-lq_rq_reassoc_suf>lq_rq_reassoc_suf</a></li><li><a href=#CoWBasic-lq_ne>lq_ne</a></li><li><a href=#CoWBasic-lq_spref>lq_spref</a></li><li><a href=#CoWBasic-lq_suf_suf>lq_suf_suf</a></li><li><a href=#CoWBasic-lq_len>lq_len</a></li><li><a href=#CoWBasic-pref_lq>pref_lq</a></li><li><a href=#CoWBasic-spref_lq>spref_lq</a></li><li><a href=#CoWBasic-conjug_lq>conjug_lq</a></li><li><a href=#CoWBasic-conjug_emp_emp>conjug_emp_emp</a></li><li><a href=#CoWBasic-lq_drop>lq_drop</a></li><li><a href=#CoWBasic-lq_code>lq_code</a></li><li><a href=#CoWBasic-rev_lq%27>rev_lq'</a></li><li><a href=#CoWBasic-pref_rq_suf_lq>pref_rq_suf_lq</a></li><li><a href=#CoWBasic-lq_rq_assoc>lq_rq_assoc</a></li><li><a href=#CoWBasic-lq_prod>lq_prod</a></li><li><a href=#CoWBasic-eqd>eqd</a></li><li><a href=#CoWBasic-eqdE>eqdE</a></li><li><a href=#CoWBasic-eqdE%27>eqdE'</a></li><li><a href=#CoWBasic-eqd_pref>eqd_pref</a></li><li><a href=#CoWBasic-eqd_prefE>eqd_prefE</a></li><li><a href=#CoWBasic-eqd_pref1>eqd_pref1</a></li><li><a href=#CoWBasic-eqd_pref2>eqd_pref2</a></li><li><a href=#CoWBasic-eqd_equal>eqd_equal</a></li><li><a href=#CoWBasic-pref_equal>pref_equal</a></li><li><a href=#CoWBasic-eqd_equal_suf>eqd_equal_suf</a></li><li><a href=#CoWBasic-eqd_comp>eqd_comp</a></li><li><a href=#CoWBasic-eqd_suf1>eqd_suf1</a></li><li><a href=#CoWBasic-eqd_suf2>eqd_suf2</a></li><li><a href=#CoWBasic-eqd_suf>eqd_suf</a></li><li><a href=#CoWBasic-lcp_sym>lcp_sym</a></li><li><a href=#CoWBasic-lcp_take_eq>lcp_take_eq</a></li><li><a href=#CoWBasic-lcp_pref_conv>lcp_pref_conv</a></li><li><a href=#CoWBasic-pref_lcp_pref>pref_lcp_pref</a></li><li><a href=#CoWBasic-pref_lcp_pref%27>pref_lcp_pref'</a></li><li><a href=#CoWBasic-lcp_self>lcp_self</a></li><li><a href=#CoWBasic-lcp_eq>lcp_eq</a></li><li><a href=#CoWBasic-lcp_len>lcp_len</a></li><li><a href=#CoWBasic-lcp_len%27>lcp_len'</a></li><li><a href=#CoWBasic-incomp_lcp_len>incomp_lcp_len</a></li><li><a href=#CoWBasic-lcp_ext_right>lcp_ext_right</a></li><li><a href=#CoWBasic-lcp_same_len>lcp_same_len</a></li><li><a href=#CoWBasic-lcp_mismatch>lcp_mismatch</a></li><li><a href=#CoWBasic-lcp_mismatch%27>lcp_mismatch'</a></li><li><a href=#CoWBasic-lcp_ext_left>lcp_ext_left</a></li><li><a href=#CoWBasic-lcp_first_letters>lcp_first_letters</a></li><li><a href=#CoWBasic-lcp_first_mismatch>lcp_first_mismatch</a></li><li><a href=#CoWBasic-lcp_first_mismatch%27>lcp_first_mismatch'</a></li><li><a href=#CoWBasic-lcp_mismatch_shorter>lcp_mismatch_shorter</a></li><li><a href=#CoWBasic-lcp_rulers>lcp_rulers</a></li><li><a href=#CoWBasic-pref_pref_lcp%27>pref_pref_lcp'</a></li><li><a href=#CoWBasic-lcp_distinct_hd>lcp_distinct_hd</a></li><li><a href=#CoWBasic-lcp_lenI>lcp_lenI</a></li><li><a href=#CoWBasic-lcp_prefs>lcp_prefs</a></li><li><a href=#CoWBasic-lexord_cancel_right>lexord_cancel_right</a></li><li><a href=#CoWBasic-lcp_ruler>lcp_ruler</a></li><li><a href=#CoWBasic-comp_monotone>comp_monotone</a></li><li><a href=#CoWBasic-comp_monotone%27>comp_monotone'</a></li><li><a href=#CoWBasic-double_ruler>double_ruler</a></li><li><a href=#CoWBasic-pref_comp_ruler>pref_comp_ruler</a></li><li><a href=#CoWBasic-mismatch_pair_lcp>mismatch_pair_lcp</a></li><li><a href=#CoWBasic-incomp_neq>incomp_neq</a></li><li><a href=#CoWBasic-mismatch_ext_left>mismatch_ext_left</a></li><li><a href=#CoWBasic-mismatch_ext_right>mismatch_ext_right</a></li><li><a href=#CoWBasic-mismatchI>mismatchI</a></li><li><a href=#CoWBasic-mismatch_lexord>mismatch_lexord</a></li><li><a href=#CoWBasic-lexord_mismatch>lexord_mismatch</a></li><li><a href=#CoWBasic-rev_fac>rev_fac</a></li><li><a href=#CoWBasic-fac_pref>fac_pref</a></li><li><a href=#CoWBasic-fac_pref_suf>fac_pref_suf</a></li><li><a href=#CoWBasic-pref_suf_fac>pref_suf_fac</a></li><li><a href=#CoWBasic-suf_pref_eq>suf_pref_eq</a></li><li><a href=#CoWBasic-fac_triv%27>fac_triv'</a></li><li><a href=#CoWBasic-fac_triv>fac_triv</a></li><li><a href=#CoWBasic-fac_Cons_E>fac_Cons_E</a></li><li><a href=#CoWBasic-pow_zero>pow_zero</a></li><li><a href=#CoWBasic-emp_pow>emp_pow</a></li><li><a href=#CoWBasic-pow_Suc_list>pow_Suc_list</a></li><li><a href=#CoWBasic-pow_commutes_list>pow_commutes_list</a></li><li><a href=#CoWBasic-pow_add_list>pow_add_list</a></li><li><a href=#CoWBasic-pow_Suc2_list>pow_Suc2_list</a></li><li><a href=#CoWBasic-pow_eq_if_list>pow_eq_if_list</a></li><li><a href=#CoWBasic-pow_one_id>pow_one_id</a></li><li><a href=#CoWBasic-pow2_list>pow2_list</a></li><li><a href=#CoWBasic-comm_add_exp>comm_add_exp</a></li><li><a href=#CoWBasic-pow_mult_list>pow_mult_list</a></li><li><a href=#CoWBasic-pow_rev_emp_conv>pow_rev_emp_conv</a></li><li><a href=#CoWBasic-zero_exp>zero_exp</a></li><li><a href=#CoWBasic-nemp_pow>nemp_pow</a></li><li><a href=#CoWBasic-nemp_pow%27>nemp_pow'</a></li><li><a href=#CoWBasic-sing_pow>sing_pow</a></li><li><a href=#CoWBasic-pow_is_concat_replicate>pow_is_concat_replicate</a></li><li><a href=#CoWBasic-pow_slide>pow_slide</a></li><li><a href=#CoWBasic-pop_pow_one>pop_pow_one</a></li><li><a href=#CoWBasic-hd_pow>hd_pow</a></li><li><a href=#CoWBasic-pop_pow>pop_pow</a></li><li><a href=#CoWBasic-pop_pow_cancel>pop_pow_cancel</a></li><li><a href=#CoWBasic-pow_comm>pow_comm</a></li><li><a href=#CoWBasic-comm_add_exps>comm_add_exps</a></li><li><a href=#CoWBasic-rev_pow>rev_pow</a></li><li><a href=#CoWBasic-pow_len>pow_len</a></li><li><a href=#CoWBasic-eq_pow_exp>eq_pow_exp</a></li><li><a href=#CoWBasic-nemp_emp_power>nemp_emp_power</a></li><li><a href=#CoWBasic-nonzero_pow_emp>nonzero_pow_emp</a></li><li><a href=#CoWBasic-pow_eq_eq>pow_eq_eq</a></li><li><a href=#CoWBasic-sing_pow_empty>sing_pow_empty</a></li><li><a href=#CoWBasic-sing_pow_lists>sing_pow_lists</a></li><li><a href=#CoWBasic-long_power>long_power</a></li><li><a href=#CoWBasic-long_power%27>long_power'</a></li><li><a href=#CoWBasic-long_pow_exp>long_pow_exp</a></li><li><a href=#CoWBasic-long_pow_ex>long_pow_ex</a></li><li><a href=#CoWBasic-pref_pow_ext>pref_pow_ext</a></li><li><a href=#CoWBasic-pref_pow_ext%27>pref_pow_ext'</a></li><li><a href=#CoWBasic-pref_pow_root_ext>pref_pow_root_ext</a></li><li><a href=#CoWBasic-pref_prod_root>pref_prod_root</a></li><li><a href=#CoWBasic-pref_exps_pow>pref_exps_pow</a></li><li><a href=#CoWBasic-pref_exp_le>pref_exp_le</a></li><li><a href=#CoWBasic-comm_common_power>comm_common_power</a></li><li><a href=#CoWBasic-one_generated_list_power>one_generated_list_power</a></li><li><a href=#CoWBasic-pow_lists>pow_lists</a></li><li><a href=#CoWBasic-concat_morph_power>concat_morph_power</a></li><li><a href=#CoWBasic-pref_not_idem>pref_not_idem</a></li><li><a href=#CoWBasic-per_exp_pref>per_exp_pref</a></li><li><a href=#CoWBasic-hd_sing_power>hd_sing_power</a></li><li><a href=#CoWBasic-root_pref_cancel>root_pref_cancel</a></li><li><a href=#CoWBasic-index_pow_mod>index_pow_mod</a></li><li><a href=#CoWBasic-sing_pow_len>sing_pow_len</a></li><li><a href=#CoWBasic-concat_take_sing>concat_take_sing</a></li><li><a href=#CoWBasic-concat_sing_pow>concat_sing_pow</a></li><li><a href=#CoWBasic-unique_letter_word>unique_letter_word</a></li><li><a href=#CoWBasic-unique_letter_wordE>unique_letter_wordE</a></li><li><a href=#CoWBasic-unique_letter_wordE%27>unique_letter_wordE'</a></li><li><a href=#CoWBasic-conjug_pow>conjug_pow</a></li><li><a href=#CoWBasic-shift_pow>shift_pow</a></li><li><a href=#CoWBasic-lq_conjug_pow>lq_conjug_pow</a></li><li><a href=#CoWBasic-emp_to_emp>emp_to_emp</a></li><li><a href=#CoWBasic-pow_morph>pow_morph</a></li><li><a href=#CoWBasic-pop_hd>pop_hd</a></li><li><a href=#CoWBasic-pop_hd_nemp>pop_hd_nemp</a></li><li><a href=#CoWBasic-pop_last_nemp>pop_last_nemp</a></li><li><a href=#CoWBasic-pref_mono>pref_mono</a></li><li><a href=#CoWBasic-morph_concat_map>morph_concat_map</a></li><li><a href=#CoWBasic-def_on_sings>def_on_sings</a></li><li><a href=#CoWBasic-rev_morph_idemp>rev_morph_idemp</a></li><li><a href=#CoWBasic-morph_compose>morph_compose</a></li><li><a href=#CoWBasic-rev_morph_arg>rev_morph_arg</a></li><li><a href=#CoWBasic-rev_morph_sing>rev_morph_sing</a></li><li><a href=#CoWBasic-rev_morph_morph>rev_morph_morph</a></li><li><a href=#CoWBasic-morph_rev_len>morph_rev_len</a></li><li><a href=#CoWBasic-rev_morph_len>rev_morph_len</a></li><li><a href=#CoWBasic-rotate_comp_eq>rotate_comp_eq</a></li><li><a href=#CoWBasic-rotate_back>rotate_back</a></li><li><a href=#CoWBasic-rotate_class_rotate%27>rotate_class_rotate'</a></li><li><a href=#CoWBasic-rotate_class_rotate>rotate_class_rotate</a></li><li><a href=#CoWBasic-rotate_pow_self>rotate_pow_self</a></li><li><a href=#CoWBasic-rotate_root_self>rotate_root_self</a></li><li><a href=#CoWBasic-rotate_pow_mod>rotate_pow_mod</a></li><li><a href=#CoWBasic-rotate_conj_pow>rotate_conj_pow</a></li><li><a href=#CoWBasic-rotate_pow_comm>rotate_pow_comm</a></li><li><a href=#CoWBasic-append_in_lists>append_in_lists</a></li><li><a href=#CoWBasic-concat_take_is_prefix>concat_take_is_prefix</a></li><li><a href=#CoWBasic-concat_take_suc>concat_take_suc</a></li><li><a href=#CoWBasic-pref_mod_list%27>pref_mod_list'</a></li><li><a href=#CoWBasic-pref_mod_list_suf>pref_mod_list_suf</a></li><li><a href=#CoWBasic-suf_mod_list%27>suf_mod_list'</a></li><li><a href=#CoWBasic-pref_mod_list>pref_mod_list</a></li><li><a href=#CoWBasic-pref_mod_power>pref_mod_power</a></li><li><a href=#CoWBasic-get_pow_exp>get_pow_exp</a></li><li><a href=#CoWBasic-get_pow_remainder>get_pow_remainder</a></li><li><a href=#CoWBasic-pref_mod_power%27>pref_mod_power'</a></li><li><a href=#CoWBasic-pref_power>pref_power</a></li><li><a href=#CoWBasic-pref_powerE>pref_powerE</a></li><li><a href=#CoWBasic-pref_power%27>pref_power'</a></li><li><a href=#CoWBasic-suf_power>suf_power</a></li><li><a href=#CoWBasic-suf_powerE>suf_powerE</a></li><li><a href=#CoWBasic-del_emp_concat>del_emp_concat</a></li><li><a href=#CoWBasic-lists_drop_emp>lists_drop_emp</a></li><li><a href=#CoWBasic-lists_drop_emp%27>lists_drop_emp'</a></li><li><a href=#CoWBasic-pref_concat_pref>pref_concat_pref</a></li><li><a href=#CoWBasic-le_take_is_prefix>le_take_is_prefix</a></li><li><a href=#CoWBasic-take_pp_less>take_pp_less</a></li><li><a href=#CoWBasic-concat_pp_less>concat_pp_less</a></li><li><a href=#CoWBasic-rootI>rootI</a></li><li><a href=#CoWBasic-self_root>self_root</a></li><li><a href=#CoWBasic-rootE>rootE</a></li><li><a href=#CoWBasic-empty_all_roots>empty_all_roots</a></li><li><a href=#CoWBasic-take_root>take_root</a></li><li><a href=#CoWBasic-root_nemp>root_nemp</a></li><li><a href=#CoWBasic-root_shorter>root_shorter</a></li><li><a href=#CoWBasic-root_shorter_eq>root_shorter_eq</a></li><li><a href=#CoWBasic-root_trans>root_trans</a></li><li><a href=#CoWBasic-root_pow_root>root_pow_root</a></li><li><a href=#CoWBasic-root_len>root_len</a></li><li><a href=#CoWBasic-root_len_dvd>root_len_dvd</a></li><li><a href=#CoWBasic-common_root_len_gcd>common_root_len_gcd</a></li><li><a href=#CoWBasic-add_root>add_root</a></li><li><a href=#CoWBasic-add_roots>add_roots</a></li><li><a href=#CoWBasic-concat_sing_list_pow>concat_sing_list_pow</a></li><li><a href=#CoWBasic-concat_sing_list_pow%27>concat_sing_list_pow'</a></li><li><a href=#CoWBasic-root_pref_cancel%27>root_pref_cancel'</a></li><li><a href=#CoWBasic-root_rev_iff>root_rev_iff</a></li><li><a href=#CoWBasic-commD>commD</a></li><li><a href=#CoWBasic-commE>commE</a></li><li><a href=#CoWBasic-comm_rootE>comm_rootE</a></li><li><a href=#CoWBasic-per_rootI>per_rootI</a></li><li><a href=#CoWBasic-per_rootI%27>per_rootI'</a></li><li><a href=#CoWBasic-per_rootD>per_rootD</a></li><li><a href=#CoWBasic-per_rootD%27>per_rootD'</a></li><li><a href=#CoWBasic-emp_any_per>emp_any_per</a></li><li><a href=#CoWBasic-emp_not_per>emp_not_per</a></li><li><a href=#CoWBasic-root_self>root_self</a></li><li><a href=#CoWBasic-root_is_take>root_is_take</a></li><li><a href=#CoWBasic-pref_pow_ext_take>pref_pow_ext_take</a></li><li><a href=#CoWBasic-pref_pow_take>pref_pow_take</a></li><li><a href=#CoWBasic-per_exp>per_exp</a></li><li><a href=#CoWBasic-per_root_spref_powE>per_root_spref_powE</a></li><li><a href=#CoWBasic-period_rootE>period_rootE</a></li><li><a href=#CoWBasic-per_add_exp>per_add_exp</a></li><li><a href=#CoWBasic-per_pref_ex>per_pref_ex</a></li><li><a href=#CoWBasic-pref_pow_conv>pref_pow_conv</a></li><li><a href=#CoWBasic-per_eq>per_eq</a></li><li><a href=#CoWBasic-per_drop_exp>per_drop_exp</a></li><li><a href=#CoWBasic-per_drop_exp%27>per_drop_exp'</a></li><li><a href=#CoWBasic-per_drop_exp_rev>per_drop_exp_rev</a></li><li><a href=#CoWBasic-pow_comm_comm%27>pow_comm_comm'</a></li><li><a href=#CoWBasic-comm_trans>comm_trans</a></li><li><a href=#CoWBasic-drop_per_pref>drop_per_pref</a></li><li><a href=#CoWBasic-per_root_trans>per_root_trans</a></li><li><a href=#CoWBasic-per_root_same_prefix>per_root_same_prefix</a></li><li><a href=#CoWBasic-take_after_drop>take_after_drop</a></li><li><a href=#CoWBasic-two_pers%27>two_pers'</a></li><li><a href=#CoWBasic-two_pers>two_pers</a></li><li><a href=#CoWBasic-periodN_I>periodN_I</a></li><li><a href=#CoWBasic-emp_no_periodN>emp_no_periodN</a></li><li><a href=#CoWBasic-zero_not_per>zero_not_per</a></li><li><a href=#CoWBasic-periodN_D1>periodN_D1</a></li><li><a href=#CoWBasic-periodN_D2>periodN_D2</a></li><li><a href=#CoWBasic-periodN_D3>periodN_D3</a></li><li><a href=#CoWBasic-all_long_pers>all_long_pers</a></li><li><a href=#CoWBasic-periodN_indeces>periodN_indeces</a></li><li><a href=#CoWBasic-indeces_periodN>indeces_periodN</a></li><li><a href=#CoWBasic-periodN_rev>periodN_rev</a></li><li><a href=#CoWBasic-periodN_rev_conv>periodN_rev_conv</a></li><li><a href=#CoWBasic-periodN_fac>periodN_fac</a></li><li><a href=#CoWBasic-periodN_fac%27>periodN_fac'</a></li><li><a href=#CoWBasic-pow_per>pow_per</a></li><li><a href=#CoWBasic-per_fac>per_fac</a></li><li><a href=#CoWBasic-rotate_per_root>rotate_per_root</a></li><li><a href=#CoWBasic-periodN_drop>periodN_drop</a></li><li><a href=#CoWBasic-ext_per_left>ext_per_left</a></li><li><a href=#CoWBasic-ext_per_left_power>ext_per_left_power</a></li><li><a href=#CoWBasic-take_several_pers>take_several_pers</a></li><li><a href=#CoWBasic-per_mult>per_mult</a></li><li><a href=#CoWBasic-root_periodN>root_periodN</a></li><li><a href=#CoWBasic-index_mod_per_root>index_mod_per_root</a></li><li><a href=#CoWBasic-index_pref_pow_mod>index_pref_pow_mod</a></li><li><a href=#CoWBasic-index_per_root_mod>index_per_root_mod</a></li><li><a href=#CoWBasic-root_divisor>root_divisor</a></li><li><a href=#CoWBasic-per_pref%27>per_pref'</a></li><li><a href=#CoWBasic-concat_len_one>concat_len_one</a></li><li><a href=#CoWBasic-sing_pow_hd_tl>sing_pow_hd_tl</a></li><li><a href=#CoWBasic-pref_sing_power>pref_sing_power</a></li><li><a href=#CoWBasic-sing_pow_palindrom>sing_pow_palindrom</a></li><li><a href=#CoWBasic-suf_sing_power>suf_sing_power</a></li><li><a href=#CoWBasic-sing_fac_pow>sing_fac_pow</a></li><li><a href=#CoWBasic-sing_pow_fac%27>sing_pow_fac'</a></li><li><a href=#CoWBasic-all_set_sing_pow>all_set_sing_pow</a></li><li><a href=#CoWBasic-sing_pow_set>sing_pow_set</a></li><li><a href=#CoWBasic-takeWhile_sing_root>takeWhile_sing_root</a></li><li><a href=#CoWBasic-takeWhile_sing_pow>takeWhile_sing_pow</a></li><li><a href=#CoWBasic-dropWhile_sing_pow>dropWhile_sing_pow</a></li><li><a href=#CoWBasic-distinct_letter_in>distinct_letter_in</a></li><li><a href=#CoWBasic-distinct_letter_in_hd>distinct_letter_in_hd</a></li><li><a href=#CoWBasic-distinct_letter_in_suf>distinct_letter_in_suf</a></li><li><a href=#CoWBasic-sing_pow_exp>sing_pow_exp</a></li><li><a href=#CoWBasic-sing_power%27>sing_power'</a></li><li><a href=#CoWBasic-rev_sing_power>rev_sing_power</a></li><li><a href=#CoWBasic-lcp_letter_power>lcp_letter_power</a></li><li><a href=#CoWBasic-per_one>per_one</a></li><li><a href=#CoWBasic-per_one%27>per_one'</a></li><li><a href=#CoWBasic-per_sing_one>per_sing_one</a></li><li><a href=#CoWBasic-borderI>borderI</a></li><li><a href=#CoWBasic-borderD_pref>borderD_pref</a></li><li><a href=#CoWBasic-borderD_spref>borderD_spref</a></li><li><a href=#CoWBasic-borderD_suf>borderD_suf</a></li><li><a href=#CoWBasic-borderD_ssuf>borderD_ssuf</a></li><li><a href=#CoWBasic-borderD_nemp>borderD_nemp</a></li><li><a href=#CoWBasic-borderD_neq>borderD_neq</a></li><li><a href=#CoWBasic-border_lq_nemp>border_lq_nemp</a></li><li><a href=#CoWBasic-border_rq_nemp>border_rq_nemp</a></li><li><a href=#CoWBasic-border_trans>border_trans</a></li><li><a href=#CoWBasic-border_rev_conv>border_rev_conv</a></li><li><a href=#CoWBasic-border_lq_comp>border_lq_comp</a></li><li><a href=#CoWBasic-border_len>border_len</a></li><li><a href=#CoWBasic-borders_compare>borders_compare</a></li><li><a href=#CoWBasic-unbordered_border>unbordered_border</a></li><li><a href=#CoWBasic-unbordered_border_shortest>unbordered_border_shortest</a></li><li><a href=#CoWBasic-long_border_bordered>long_border_bordered</a></li><li><a href=#CoWBasic-border_short_dec>border_short_dec</a></li><li><a href=#CoWBasic-bordered_dec>bordered_dec</a></li><li><a href=#CoWBasic-border_conjug_eq>border_conjug_eq</a></li><li><a href=#CoWBasic-border_per_root>border_per_root</a></li><li><a href=#CoWBasic-per_root_border>per_root_border</a></li><li><a href=#CoWBasic-border_per>border_per</a></li><li><a href=#CoWBasic-per_border>per_border</a></li><li><a href=#CoWBasic-primI>primI</a></li><li><a href=#CoWBasic-prim_nemp>prim_nemp</a></li><li><a href=#CoWBasic-prim_exp_one>prim_exp_one</a></li><li><a href=#CoWBasic-prim_exp_eq>prim_exp_eq</a></li><li><a href=#CoWBasic-prim_triv_root>prim_triv_root</a></li><li><a href=#CoWBasic-prim_comm_exp>prim_comm_exp</a></li><li><a href=#CoWBasic-pow_non_prim>pow_non_prim</a></li><li><a href=#CoWBasic-comm_non_prim>comm_non_prim</a></li><li><a href=#CoWBasic-prim_rotate_conv>prim_rotate_conv</a></li><li><a href=#CoWBasic-non_prim>non_prim</a></li><li><a href=#CoWBasic-prim_no_rotate>prim_no_rotate</a></li><li><a href=#CoWBasic-no_rotate_prim>no_rotate_prim</a></li><li><a href=#CoWBasic-prim_sing>prim_sing</a></li><li><a href=#CoWBasic-prim_rev_iff>prim_rev_iff</a></li><li><a href=#CoWBasic-prim_rootD>prim_rootD</a></li><li><a href=#CoWBasic-prim_rootI>prim_rootI</a></li><li><a href=#CoWBasic-prim_root_rev_conv>prim_root_rev_conv</a></li><li><a href=#CoWBasic-primrootE>primrootE</a></li><li><a href=#CoWBasic-primroot_of_root>primroot_of_root</a></li><li><a href=#CoWBasic-comm_prim>comm_prim</a></li><li><a href=#CoWBasic-primroot_ex>primroot_ex</a></li><li><a href=#CoWBasic-primroot_exE>primroot_exE</a></li><li><a href=#CoWBasic-primroot_unique>primroot_unique</a></li><li><a href=#CoWBasic-prim_self_root>prim_self_root</a></li><li><a href=#CoWBasic-primroot_is_primroot>primroot_is_primroot</a></li><li><a href=#CoWBasic-primroot_is_root>primroot_is_root</a></li><li><a href=#CoWBasic-primrootI>primrootI</a></li><li><a href=#CoWBasic-primroot_root>primroot_root</a></li><li><a href=#CoWBasic-primroot_len_mult>primroot_len_mult</a></li><li><a href=#CoWBasic-primroot_shorter_root>primroot_shorter_root</a></li><li><a href=#CoWBasic-primroot_shortest_root>primroot_shortest_root</a></li><li><a href=#CoWBasic-primroot_shorter_eq>primroot_shorter_eq</a></li><li><a href=#CoWBasic-primroot_take>primroot_take</a></li><li><a href=#CoWBasic-primroot_take_shortest>primroot_take_shortest</a></li><li><a href=#CoWBasic-primroot_rotate_comm>primroot_rotate_comm</a></li><li><a href=#CoWBasic-primrootI1>primrootI1</a></li><li><a href=#CoWBasic-prim_root_power>prim_root_power</a></li><li><a href=#CoWBasic-prim_root_cases>prim_root_cases</a></li><li><a href=#CoWBasic-prim_comm_short_emp>prim_comm_short_emp</a></li><li><a href=#CoWBasic-conjug_rev_conv>conjug_rev_conv</a></li><li><a href=#CoWBasic-conjug_rotate_iff>conjug_rotate_iff</a></li><li><a href=#CoWBasic-conjugI>conjugI</a></li><li><a href=#CoWBasic-conjugI%27>conjugI'</a></li><li><a href=#CoWBasic-conjugE>conjugE</a></li><li><a href=#CoWBasic-conjugE1>conjugE1</a></li><li><a href=#CoWBasic-conjug_refl>conjug_refl</a></li><li><a href=#CoWBasic-conjug_sym>conjug_sym</a></li><li><a href=#CoWBasic-conjug_nemp_iff>conjug_nemp_iff</a></li><li><a href=#CoWBasic-conjug_len>conjug_len</a></li><li><a href=#CoWBasic-pow_conjug>pow_conjug</a></li><li><a href=#CoWBasic-conjug_eqE>conjug_eqE</a></li><li><a href=#CoWBasic-conjug_eq_prim_rootE>conjug_eq_prim_rootE</a></li><li><a href=#CoWBasic-conjug_eq_prim_root>conjug_eq_prim_root</a></li><li><a href=#CoWBasic-conjugI1>conjugI1</a></li><li><a href=#CoWBasic-conjug_trans>conjug_trans</a></li><li><a href=#CoWBasic-conjug_trans%27>conjug_trans'</a></li><li><a href=#CoWBasic-nconjug_neq>nconjug_neq</a></li><li><a href=#CoWBasic-prim_conjug>prim_conjug</a></li><li><a href=#CoWBasic-root_conjug>root_conjug</a></li><li><a href=#CoWBasic-conjug_prim_root>conjug_prim_root</a></li><li><a href=#CoWBasic-conjug_add_exp>conjug_add_exp</a></li><li><a href=#CoWBasic-conjug_prim_root_iff>conjug_prim_root_iff</a></li><li><a href=#CoWBasic-fac_pow_pref_conjug>fac_pow_pref_conjug</a></li><li><a href=#CoWBasic-fac_pow_len_conjug>fac_pow_len_conjug</a></li><li><a href=#CoWBasic-border_conjug>border_conjug</a></li></ul></li><li><a href=#Submonoids>Submonoids</a><ul><li><a href=#Submonoids-hull_closed>hull_closed</a></li><li><a href=#Submonoids-gen_in>gen_in</a></li><li><a href=#Submonoids-hull_induct>hull_induct</a></li><li><a href=#Submonoids-genset_sub>genset_sub</a></li><li><a href=#Submonoids-in_lists_conv_set_subset>in_lists_conv_set_subset</a></li><li><a href=#Submonoids-concat_in_hull>concat_in_hull</a></li><li><a href=#Submonoids-concat_in_hull%27>concat_in_hull'</a></li><li><a href=#Submonoids-hull_concat_lists0>hull_concat_lists0</a></li><li><a href=#Submonoids-hull_concat_lists>hull_concat_lists</a></li><li><a href=#Submonoids-concat_tl>concat_tl</a></li><li><a href=#Submonoids-nemp_concat_hull>nemp_concat_hull</a></li><li><a href=#Submonoids-hull_mon>hull_mon</a></li><li><a href=#Submonoids-emp_gen_set>emp_gen_set</a></li><li><a href=#Submonoids-hull_drop_one>hull_drop_one</a></li><li><a href=#Submonoids-sing_gen_power>sing_gen_power</a></li><li><a href=#Submonoids-sing_gen>sing_gen</a></li><li><a href=#Submonoids-lists_gen_to_hull>lists_gen_to_hull</a></li><li><a href=#Submonoids-rev_hull0>rev_hull0</a></li><li><a href=#Submonoids-rev_hull1>rev_hull1</a></li><li><a href=#Submonoids-rev_hull>rev_hull</a></li><li><a href=#Submonoids-power_in>power_in</a></li><li><a href=#Submonoids-hull_closed_lists>hull_closed_lists</a></li><li><a href=#Submonoids-self_gen>self_gen</a></li><li><a href=#Submonoids-hulls_inter>hulls_inter</a></li><li><a href=#Submonoids-dec_ex>dec_ex</a></li><li><a href=#Submonoids-decI%27>decI'</a></li><li><a href=#Submonoids-decI>decI</a></li><li><a href=#Submonoids-dec_emp>dec_emp</a></li><li><a href=#Submonoids-dec_nemp>dec_nemp</a></li><li><a href=#Submonoids-dec_nemp%27>dec_nemp'</a></li><li><a href=#Submonoids-dec_dom%27>dec_dom'</a></li><li><a href=#Submonoids-dec_hd>dec_hd</a></li><li><a href=#Submonoids-non_gen_dec>non_gen_dec</a></li><li><a href=#Submonoids-ref_morph>ref_morph</a></li><li><a href=#Submonoids-ref_morph_plus>ref_morph_plus</a></li><li><a href=#Submonoids-ref_pop_hd>ref_pop_hd</a></li><li><a href=#Submonoids-ref_in>ref_in</a></li><li><a href=#Submonoids-ref>ref</a></li><li><a href=#Submonoids-ref_gen>ref_gen</a></li><li><a href=#Submonoids-emp_ref>emp_ref</a></li><li><a href=#Submonoids-sing_ref_sing>sing_ref_sing</a></li><li><a href=#Submonoids-ref_ex>ref_ex</a></li><li><a href=#Submonoids-simp_el_el>simp_el_el</a></li><li><a href=#Submonoids-simp_elD>simp_elD</a></li><li><a href=#Submonoids-simp_el_sing>simp_el_sing</a></li><li><a href=#Submonoids-nonsimp>nonsimp</a></li><li><a href=#Submonoids-emp_nonsimp>emp_nonsimp</a></li><li><a href=#Submonoids-basis_no_fact>basis_no_fact</a></li><li><a href=#Submonoids-simp_elI>simp_elI</a></li><li><a href=#Submonoids-simp_el_indecomp>simp_el_indecomp</a></li><li><a href=#Submonoids-basisI>basisI</a></li><li><a href=#Submonoids-basisD>basisD</a></li><li><a href=#Submonoids-emp_not_basis>emp_not_basis</a></li><li><a href=#Submonoids-basis_sub>basis_sub</a></li><li><a href=#Submonoids-basis_drop_emp>basis_drop_emp</a></li><li><a href=#Submonoids-simp_el_hull%27>simp_el_hull'</a></li><li><a href=#Submonoids-simp_el_hull>simp_el_hull</a></li><li><a href=#Submonoids-concat_tl_basis>concat_tl_basis</a></li><li><a href=#Submonoids-set_concat_len>set_concat_len</a></li><li><a href=#Submonoids-non_simp_dec>non_simp_dec</a></li><li><a href=#Submonoids-basis_gen>basis_gen</a></li><li><a href=#Submonoids-basis_gen_hull%27>basis_gen_hull'</a></li><li><a href=#Submonoids-gen_sets>gen_sets</a></li><li><a href=#Submonoids-basis_sets>basis_sets</a></li><li><a href=#Submonoids-non_simp_fac>non_simp_fac</a></li><li><a href=#Submonoids-basis_dec>basis_dec</a></li><li><a href=#Submonoids-non_simp_fac%27>non_simp_fac'</a></li><li><a href=#Submonoids-emp_gen_iff>emp_gen_iff</a></li><li><a href=#Submonoids-emp_basis_iff>emp_basis_iff</a></li><li><a href=#Submonoids-emp_not_in_code>emp_not_in_code</a></li><li><a href=#Submonoids-code_simple>code_simple</a></li><li><a href=#Submonoids-code_is_basis>code_is_basis</a></li><li><a href=#Submonoids-code_unique_dec>code_unique_dec</a></li><li><a href=#Submonoids-code_unique_ref>code_unique_ref</a></li><li><a href=#Submonoids-code_dec_morph>code_dec_morph</a></li><li><a href=#Submonoids-code_el_dec>code_el_dec</a></li><li><a href=#Submonoids-code_ref_list>code_ref_list</a></li><li><a href=#Submonoids-code_ref_gen>code_ref_gen</a></li><li><a href=#Submonoids-bin_fst_nemp>bin_fst_nemp</a></li><li><a href=#Submonoids-bin_mismatch_neq>bin_mismatch_neq</a></li><li><a href=#Submonoids-bin_lcp_pref_fst_snd>bin_lcp_pref_fst_snd</a></li><li><a href=#Submonoids-bin_lcp_short>bin_lcp_short</a></li><li><a href=#Submonoids-bin_lcp_fst_mismatch_pref>bin_lcp_fst_mismatch_pref</a></li><li><a href=#Submonoids-not_fst_snd_pref>not_fst_snd_pref</a></li><li><a href=#Submonoids-bin_lcp_fst_mismatch_pref%27>bin_lcp_fst_mismatch_pref'</a></li><li><a href=#Submonoids-bin_lcp_fst_lcp>bin_lcp_fst_lcp</a></li><li><a href=#Submonoids-bin_all_nemp>bin_all_nemp</a></li><li><a href=#Submonoids-bin_lcp_all_lcp>bin_lcp_all_lcp</a></li><li><a href=#Submonoids-bin_code_alpha>bin_code_alpha</a></li><li><a href=#Submonoids-free_hull_hull>free_hull_hull</a></li><li><a href=#Submonoids-hull_in_free_hull>hull_in_free_hull</a></li><li><a href=#Submonoids-basis_gen_hull_free>basis_gen_hull_free</a></li><li><a href=#Submonoids-genset_sub_free>genset_sub_free</a></li><li><a href=#Submonoids-free_basis_code>free_basis_code</a></li><li><a href=#Submonoids-code_gen_free_hull>code_gen_free_hull</a></li><li><a href=#Submonoids-code_free_basis>code_free_basis</a></li><li><a href=#Submonoids-free_hull_mono>free_hull_mono</a></li><li><a href=#Submonoids-free_hull_idem>free_hull_idem</a></li><li><a href=#Submonoids-hull_gen_free_hull>hull_gen_free_hull</a></li><li><a href=#Submonoids-code_free_basis_hull>code_free_basis_hull</a></li><li><a href=#Submonoids-free_basis_dec_morph>free_basis_dec_morph</a></li><li><a href=#Submonoids-sings_image>sings_image</a></li><li><a href=#Submonoids-lists_sing_map_concat_ident>lists_sing_map_concat_ident</a></li><li><a href=#Submonoids-code_sings>code_sings</a></li><li><a href=#Submonoids-sings_gen_lists>sings_gen_lists</a></li><li><a href=#Submonoids-map_sings>map_sings</a></li><li><a href=#Submonoids-dec_sings>dec_sings</a></li></ul></li><li><a href=#Periodicity_Lemma>Periodicity_Lemma</a><ul><li><a href=#Periodicity_Lemma-per_lemma_comm>per_lemma_comm</a></li><li><a href=#Periodicity_Lemma-ext_per_sum>ext_per_sum</a></li><li><a href=#Periodicity_Lemma-FW_sym>FW_sym</a></li><li><a href=#Periodicity_Lemma-fac_two_conjug_prim_root>fac_two_conjug_prim_root</a></li><li><a href=#Periodicity_Lemma-fac_two_conjug_prim_root%27>fac_two_conjug_prim_root'</a></li><li><a href=#Periodicity_Lemma-fac_two_nconj_prim_pow>fac_two_nconj_prim_pow</a></li></ul></li><li><a href=#Lyndon_Schutzenberger>Lyndon_Schutzenberger</a><ul><li><a href=#Lyndon_Schutzenberger-a0>a0</a></li><li><a href=#Lyndon_Schutzenberger-per_lemma_case>per_lemma_case</a></li><li><a href=#Lyndon_Schutzenberger-core_case>core_case</a></li><li><a href=#Lyndon_Schutzenberger-Lyndon_Schutzenberger%27>Lyndon_Schutzenberger'</a></li></ul></li><li><a href=#CoWAll>CoWAll</a></li></ul></div><ul><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Combinatorics_Words/outline.pdf>Proof
-outline</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Combinatorics_Words/document.pdf>Proof
-document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Combinatorics_Words/session_graph.pdf>Theory dependencies</a></li></ul></div></aside><div class="content theories"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
-<datalist id=autocomplete></datalist></div></form><h1><span class=first>S</span>ession <span class=first>C</span>ombinatorics_<span class=first>W</span>ords</h1><div></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><div id=Arithmetical_Hints><div class=head><h1>Theory Arithmetical_Hints</h1></div><pre class=source><span class=comment1>(*  Title:      CoW/Arithmetical_Hints.thy
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Session Combinatorics_Words - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session Combinatorics_Words">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="/entries/combinatorics_words/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories">
+<meta property="og:site_name" content="Archive of Formal Proofs">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="/images/afp.png">
+<meta name=twitter:title content="Session Combinatorics_Words">
+<meta name=twitter:description content>
+<link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css>
+<link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script>
+<script src=/js/banner.js></script><script src=/js/header-search.js></script></head>
+<body class=mathjax_ignore>
+<aside>
+<div>
+<div>
+<a href=/>
+<img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo>
+</a>
+<ul>
+<li><a href=/entries/combinatorics_words>Return to entry</a></li>
+</ul>
+<hr>
+<ul><li><a href=#Arithmetical_Hints>Arithmetical_Hints</a>
+<ul>
+<li><a href=#Arithmetical_Hints-zero_diff_eq>zero_diff_eq</a></li>
+<li><a href=#Arithmetical_Hints-zero_less_diff%27>zero_less_diff'</a></li>
+<li><a href=#Arithmetical_Hints-nat_prod_le>nat_prod_le</a></li>
+<li><a href=#Arithmetical_Hints-get_div>get_div</a></li>
+<li><a href=#Arithmetical_Hints-get_mod>get_mod</a></li>
+<li><a href=#Arithmetical_Hints-plus_one_between>plus_one_between</a></li>
+<li><a href=#Arithmetical_Hints-quotient_smaller>quotient_smaller</a></li>
+<li><a href=#Arithmetical_Hints-mult_cancel_le>mult_cancel_le</a></li>
+<li><a href=#Arithmetical_Hints-add_lessD2>add_lessD2</a></li>
+<li><a href=#Arithmetical_Hints-mod_offset>mod_offset</a></li>
+<li><a href=#Arithmetical_Hints-less_mult_one>less_mult_one</a></li>
+</ul>
+</li><li><a href=#Reverse_Symmetry>Reverse_Symmetry</a>
+<ul>
+<li><a href=#Reverse_Symmetry-all_surj_conv>all_surj_conv</a></li>
+<li><a href=#Reverse_Symmetry-All_surj_conv>All_surj_conv</a></li>
+<li><a href=#Reverse_Symmetry-Ex_surj_conv>Ex_surj_conv</a></li>
+<li><a href=#Reverse_Symmetry-Ex1_bij_conv>Ex1_bij_conv</a></li>
+<li><a href=#Reverse_Symmetry-Ball_inj_conv>Ball_inj_conv</a></li>
+<li><a href=#Reverse_Symmetry-Bex_inj_conv>Bex_inj_conv</a></li>
+<li><a href=#Reverse_Symmetry-rev_involution>rev_involution</a></li>
+<li><a href=#Reverse_Symmetry-rev_bij>rev_bij</a></li>
+<li><a href=#Reverse_Symmetry-rev_inv>rev_inv</a></li>
+<li><a href=#Reverse_Symmetry-rev_Nil>rev_Nil</a></li>
+<li><a href=#Reverse_Symmetry-all_rev_unwrap>all_rev_unwrap</a></li>
+<li><a href=#Reverse_Symmetry-All_rev_unwrap>All_rev_unwrap</a></li>
+<li><a href=#Reverse_Symmetry-Ex_rev_unwrap>Ex_rev_unwrap</a></li>
+<li><a href=#Reverse_Symmetry-Ex1_rev_unwrap>Ex1_rev_unwrap</a></li>
+<li><a href=#Reverse_Symmetry-Ball_rev_unwrap>Ball_rev_unwrap</a></li>
+<li><a href=#Reverse_Symmetry-Bex_rev_unwrap>Bex_rev_unwrap</a></li>
+<li><a href=#Reverse_Symmetry-Cons_rev>Cons_rev</a></li>
+<li><a href=#Reverse_Symmetry-snocs_snocs>snocs_snocs</a></li>
+<li><a href=#Reverse_Symmetry-snocs_Nil>snocs_Nil</a></li>
+<li><a href=#Reverse_Symmetry-snocs_is_append>snocs_is_append</a></li>
+<li><a href=#Reverse_Symmetry-hd_last_Nil>hd_last_Nil</a></li>
+<li><a href=#Reverse_Symmetry-last_rev_hd>last_rev_hd</a></li>
+<li><a href=#Reverse_Symmetry-hd_rev_last>hd_rev_last</a></li>
+<li><a href=#Reverse_Symmetry-tl_rev>tl_rev</a></li>
+<li><a href=#Reverse_Symmetry-if_rev>if_rev</a></li>
+<li><a href=#Reverse_Symmetry-rev_in_conv>rev_in_conv</a></li>
+<li><a href=#Reverse_Symmetry-in_lists_rev>in_lists_rev</a></li>
+<li><a href=#Reverse_Symmetry-rev_in_lists>rev_in_lists</a></li>
+<li><a href=#Reverse_Symmetry-rev_lists_conv>rev_lists_conv</a></li>
+<li><a href=#Reverse_Symmetry-coset_rev>coset_rev</a></li>
+<li><a href=#Reverse_Symmetry-example_Cons_append>example_Cons_append</a></li>
+<li><a href=#Reverse_Symmetry-rotate1_hd_tl%27>rotate1_hd_tl'</a></li>
+</ul>
+</li><li><a href=#CoWBasic>CoWBasic</a>
+<ul>
+<li><a href=#CoWBasic-prefI>prefI</a></li>
+<li><a href=#CoWBasic-prefD>prefD</a></li>
+<li><a href=#CoWBasic-pref_compIff>pref_compIff</a></li>
+<li><a href=#CoWBasic-npI>npI</a></li>
+<li><a href=#CoWBasic-npI%27>npI'</a></li>
+<li><a href=#CoWBasic-npD>npD</a></li>
+<li><a href=#CoWBasic-npD%27>npD'</a></li>
+<li><a href=#CoWBasic-sprefI1>sprefI1</a></li>
+<li><a href=#CoWBasic-sprefI1%27>sprefI1'</a></li>
+<li><a href=#CoWBasic-sprefI2>sprefI2</a></li>
+<li><a href=#CoWBasic-sprefD>sprefD</a></li>
+<li><a href=#CoWBasic-sprefE>sprefE</a></li>
+<li><a href=#CoWBasic-sufI>sufI</a></li>
+<li><a href=#CoWBasic-sufD>sufD</a></li>
+<li><a href=#CoWBasic-ssufI1>ssufI1</a></li>
+<li><a href=#CoWBasic-ssufI2>ssufI2</a></li>
+<li><a href=#CoWBasic-ssufD>ssufD</a></li>
+<li><a href=#CoWBasic-nsI>nsI</a></li>
+<li><a href=#CoWBasic-nsI%27>nsI'</a></li>
+<li><a href=#CoWBasic-nsD>nsD</a></li>
+<li><a href=#CoWBasic-nsD%27>nsD'</a></li>
+<li><a href=#CoWBasic-facI>facI</a></li>
+<li><a href=#CoWBasic-facI%27>facI'</a></li>
+<li><a href=#CoWBasic-facE>facE</a></li>
+<li><a href=#CoWBasic-facE%27>facE'</a></li>
+<li><a href=#CoWBasic-bij_lists>bij_lists</a></li>
+<li><a href=#CoWBasic-concat_sing%27>concat_sing'</a></li>
+<li><a href=#CoWBasic-concat_sing>concat_sing</a></li>
+<li><a href=#CoWBasic-rev_sing>rev_sing</a></li>
+<li><a href=#CoWBasic-hd_word>hd_word</a></li>
+<li><a href=#CoWBasic-hd_word%27>hd_word'</a></li>
+<li><a href=#CoWBasic-hd_pref>hd_pref</a></li>
+<li><a href=#CoWBasic-add_nth>add_nth</a></li>
+<li><a href=#CoWBasic-hd_pref%27>hd_pref'</a></li>
+<li><a href=#CoWBasic-sub_lists_mono>sub_lists_mono</a></li>
+<li><a href=#CoWBasic-lists_hd>lists_hd</a></li>
+<li><a href=#CoWBasic-replicate_in_lists>replicate_in_lists</a></li>
+<li><a href=#CoWBasic-tl_lists>tl_lists</a></li>
+<li><a href=#CoWBasic-long_list_tl>long_list_tl</a></li>
+<li><a href=#CoWBasic-tl_set>tl_set</a></li>
+<li><a href=#CoWBasic-drop_take_inv>drop_take_inv</a></li>
+<li><a href=#CoWBasic-split_list_long>split_list_long</a></li>
+<li><a href=#CoWBasic-flatten_lists>flatten_lists</a></li>
+<li><a href=#CoWBasic-concat_map_sing_ident>concat_map_sing_ident</a></li>
+<li><a href=#CoWBasic-hd_concat_tl>hd_concat_tl</a></li>
+<li><a href=#CoWBasic-concat_butlast_last>concat_butlast_last</a></li>
+<li><a href=#CoWBasic-concat_last_suf>concat_last_suf</a></li>
+<li><a href=#CoWBasic-concat_hd_pref>concat_hd_pref</a></li>
+<li><a href=#CoWBasic-set_nemp_concat_nemp>set_nemp_concat_nemp</a></li>
+<li><a href=#CoWBasic-comm_rev_iff>comm_rev_iff</a></li>
+<li><a href=#CoWBasic-rev_induct2>rev_induct2</a></li>
+<li><a href=#CoWBasic-nemp_elem_setI>nemp_elem_setI</a></li>
+<li><a href=#CoWBasic-nel_drop_emp>nel_drop_emp</a></li>
+<li><a href=#CoWBasic-drop_emp_nel>drop_emp_nel</a></li>
+<li><a href=#CoWBasic-emp_concat_emp>emp_concat_emp</a></li>
+<li><a href=#CoWBasic-take_nemp>take_nemp</a></li>
+<li><a href=#CoWBasic-pref_nemp>pref_nemp</a></li>
+<li><a href=#CoWBasic-suf_nemp>suf_nemp</a></li>
+<li><a href=#CoWBasic-lenarg>lenarg</a></li>
+<li><a href=#CoWBasic-npos_len>npos_len</a></li>
+<li><a href=#CoWBasic-nemp_pos_len>nemp_pos_len</a></li>
+<li><a href=#CoWBasic-swap_len>swap_len</a></li>
+<li><a href=#CoWBasic-len_after_drop>len_after_drop</a></li>
+<li><a href=#CoWBasic-short_take_append>short_take_append</a></li>
+<li><a href=#CoWBasic-sing_word>sing_word</a></li>
+<li><a href=#CoWBasic-sing_word_concat>sing_word_concat</a></li>
+<li><a href=#CoWBasic-nonsing_concat_len>nonsing_concat_len</a></li>
+<li><a href=#CoWBasic-sing_len>sing_len</a></li>
+<li><a href=#CoWBasic-pref_len%27>pref_len'</a></li>
+<li><a href=#CoWBasic-suf_len%27>suf_len'</a></li>
+<li><a href=#CoWBasic-fac_len>fac_len</a></li>
+<li><a href=#CoWBasic-fac_len%27>fac_len'</a></li>
+<li><a href=#CoWBasic-fac_len_eq>fac_len_eq</a></li>
+<li><a href=#CoWBasic-drop_len>drop_len</a></li>
+<li><a href=#CoWBasic-drop_pref>drop_pref</a></li>
+<li><a href=#CoWBasic-take_len>take_len</a></li>
+<li><a href=#CoWBasic-conj_len>conj_len</a></li>
+<li><a href=#CoWBasic-take_nemp_len>take_nemp_len</a></li>
+<li><a href=#CoWBasic-nemp_len>nemp_len</a></li>
+<li><a href=#CoWBasic-take_self>take_self</a></li>
+<li><a href=#CoWBasic-len_le_concat>len_le_concat</a></li>
+<li><a href=#CoWBasic-eq_len_iff>eq_len_iff</a></li>
+<li><a href=#CoWBasic-eq_len_iff_less>eq_len_iff_less</a></li>
+<li><a href=#CoWBasic-triv_pref>triv_pref</a></li>
+<li><a href=#CoWBasic-triv_spref>triv_spref</a></li>
+<li><a href=#CoWBasic-pref_cancel>pref_cancel</a></li>
+<li><a href=#CoWBasic-pref_cancel%27>pref_cancel'</a></li>
+<li><a href=#CoWBasic-spref_ext>spref_ext</a></li>
+<li><a href=#CoWBasic-pref_ext_nemp>pref_ext_nemp</a></li>
+<li><a href=#CoWBasic-pref_take>pref_take</a></li>
+<li><a href=#CoWBasic-pref_take_conv>pref_take_conv</a></li>
+<li><a href=#CoWBasic-le_suf_drop>le_suf_drop</a></li>
+<li><a href=#CoWBasic-spref_take>spref_take</a></li>
+<li><a href=#CoWBasic-pref_same_len>pref_same_len</a></li>
+<li><a href=#CoWBasic-add_nth_pref>add_nth_pref</a></li>
+<li><a href=#CoWBasic-index_pref>index_pref</a></li>
+<li><a href=#CoWBasic-pref_index>pref_index</a></li>
+<li><a href=#CoWBasic-pref_drop>pref_drop</a></li>
+<li><a href=#CoWBasic-pref_comp_sym>pref_comp_sym</a></li>
+<li><a href=#CoWBasic-ruler_equal>ruler_equal</a></li>
+<li><a href=#CoWBasic-ruler_comp>ruler_comp</a></li>
+<li><a href=#CoWBasic-ruler_pref>ruler_pref</a></li>
+<li><a href=#CoWBasic-pref_prod_pref_short>pref_prod_pref_short</a></li>
+<li><a href=#CoWBasic-pref_prod_pref>pref_prod_pref</a></li>
+<li><a href=#CoWBasic-pref_prod_pref%27>pref_prod_pref'</a></li>
+<li><a href=#CoWBasic-pref_prod_long>pref_prod_long</a></li>
+<li><a href=#CoWBasic-pref_keeps_root>pref_keeps_root</a></li>
+<li><a href=#CoWBasic-pref_prolong>pref_prolong</a></li>
+<li><a href=#CoWBasic-pref_prolong%27>pref_prolong'</a></li>
+<li><a href=#CoWBasic-pref_prolong_comp>pref_prolong_comp</a></li>
+<li><a href=#CoWBasic-pref_prod_short>pref_prod_short</a></li>
+<li><a href=#CoWBasic-pref_prod_short%27>pref_prod_short'</a></li>
+<li><a href=#CoWBasic-pref_prod_cancel>pref_prod_cancel</a></li>
+<li><a href=#CoWBasic-pref_prod_cancel%27>pref_prod_cancel'</a></li>
+<li><a href=#CoWBasic-pref_comp_eq>pref_comp_eq</a></li>
+<li><a href=#CoWBasic-non_comp_parallel>non_comp_parallel</a></li>
+<li><a href=#CoWBasic-comp_refl>comp_refl</a></li>
+<li><a href=#CoWBasic-incomp_cancel>incomp_cancel</a></li>
+<li><a href=#CoWBasic-comp_cancel>comp_cancel</a></li>
+<li><a href=#CoWBasic-comm_ruler>comm_ruler</a></li>
+<li><a href=#CoWBasic-pref_share_take>pref_share_take</a></li>
+<li><a href=#CoWBasic-pref_prod_longer>pref_prod_longer</a></li>
+<li><a href=#CoWBasic-pref_comp_not_pref>pref_comp_not_pref</a></li>
+<li><a href=#CoWBasic-pref_comp_not_spref>pref_comp_not_spref</a></li>
+<li><a href=#CoWBasic-hd_prod>hd_prod</a></li>
+<li><a href=#CoWBasic-distinct_first>distinct_first</a></li>
+<li><a href=#CoWBasic-last_no_split%27>last_no_split'</a></li>
+<li><a href=#CoWBasic-pcomp_shorter>pcomp_shorter</a></li>
+<li><a href=#CoWBasic-pref_comp_len_trans>pref_comp_len_trans</a></li>
+<li><a href=#CoWBasic-comp_ext>comp_ext</a></li>
+<li><a href=#CoWBasic-emp_pref>emp_pref</a></li>
+<li><a href=#CoWBasic-emp_spref>emp_spref</a></li>
+<li><a href=#CoWBasic-long_pref>long_pref</a></li>
+<li><a href=#CoWBasic-incomp_ext>incomp_ext</a></li>
+<li><a href=#CoWBasic-mismatch_incopm>mismatch_incopm</a></li>
+<li><a href=#CoWBasic-comp_prefs_comp>comp_prefs_comp</a></li>
+<li><a href=#CoWBasic-comp_hd_eq>comp_hd_eq</a></li>
+<li><a href=#CoWBasic-pref_hd_eq%27>pref_hd_eq'</a></li>
+<li><a href=#CoWBasic-pref_hd_eq>pref_hd_eq</a></li>
+<li><a href=#CoWBasic-suf_last_eq>suf_last_eq</a></li>
+<li><a href=#CoWBasic-comp_hd_eq%27>comp_hd_eq'</a></li>
+<li><a href=#CoWBasic-triv_suf>triv_suf</a></li>
+<li><a href=#CoWBasic-emp_ssuf>emp_ssuf</a></li>
+<li><a href=#CoWBasic-suf_cancel>suf_cancel</a></li>
+<li><a href=#CoWBasic-suf_cancel%27>suf_cancel'</a></li>
+<li><a href=#CoWBasic-pref_rev_suf_iff>pref_rev_suf_iff</a></li>
+<li><a href=#CoWBasic-spref_rev_suf_iff>spref_rev_suf_iff</a></li>
+<li><a href=#CoWBasic-nsuf_rev_pref_iff>nsuf_rev_pref_iff</a></li>
+<li><a href=#CoWBasic-npref_rev_suf_iff>npref_rev_suf_iff</a></li>
+<li><a href=#CoWBasic-pref_comp_rev_suf_comp>pref_comp_rev_suf_comp</a></li>
+<li><a href=#CoWBasic-suf_comp_rev_pref_comp>suf_comp_rev_pref_comp</a></li>
+<li><a href=#CoWBasic-suf_comp_last_eq>suf_comp_last_eq</a></li>
+<li><a href=#CoWBasic-suf_comp_last_eq%27>suf_comp_last_eq'</a></li>
+<li><a href=#CoWBasic-rq_rev_lq>rq_rev_lq</a></li>
+<li><a href=#CoWBasic-lq_rev_rq>lq_rev_rq</a></li>
+<li><a href=#CoWBasic-lqI>lqI</a></li>
+<li><a href=#CoWBasic-lq_triv>lq_triv</a></li>
+<li><a href=#CoWBasic-lq_triv%27>lq_triv'</a></li>
+<li><a href=#CoWBasic-lq_self>lq_self</a></li>
+<li><a href=#CoWBasic-lq_emp>lq_emp</a></li>
+<li><a href=#CoWBasic-lq_pref>lq_pref</a></li>
+<li><a href=#CoWBasic-lq_the>lq_the</a></li>
+<li><a href=#CoWBasic-lq_reassoc>lq_reassoc</a></li>
+<li><a href=#CoWBasic-lq_trans>lq_trans</a></li>
+<li><a href=#CoWBasic-lq_rq_reassoc_suf>lq_rq_reassoc_suf</a></li>
+<li><a href=#CoWBasic-lq_ne>lq_ne</a></li>
+<li><a href=#CoWBasic-lq_spref>lq_spref</a></li>
+<li><a href=#CoWBasic-lq_suf_suf>lq_suf_suf</a></li>
+<li><a href=#CoWBasic-lq_len>lq_len</a></li>
+<li><a href=#CoWBasic-pref_lq>pref_lq</a></li>
+<li><a href=#CoWBasic-spref_lq>spref_lq</a></li>
+<li><a href=#CoWBasic-conjug_lq>conjug_lq</a></li>
+<li><a href=#CoWBasic-conjug_emp_emp>conjug_emp_emp</a></li>
+<li><a href=#CoWBasic-lq_drop>lq_drop</a></li>
+<li><a href=#CoWBasic-lq_code>lq_code</a></li>
+<li><a href=#CoWBasic-rev_lq%27>rev_lq'</a></li>
+<li><a href=#CoWBasic-pref_rq_suf_lq>pref_rq_suf_lq</a></li>
+<li><a href=#CoWBasic-lq_rq_assoc>lq_rq_assoc</a></li>
+<li><a href=#CoWBasic-lq_prod>lq_prod</a></li>
+<li><a href=#CoWBasic-eqd>eqd</a></li>
+<li><a href=#CoWBasic-eqdE>eqdE</a></li>
+<li><a href=#CoWBasic-eqdE%27>eqdE'</a></li>
+<li><a href=#CoWBasic-eqd_pref>eqd_pref</a></li>
+<li><a href=#CoWBasic-eqd_prefE>eqd_prefE</a></li>
+<li><a href=#CoWBasic-eqd_pref1>eqd_pref1</a></li>
+<li><a href=#CoWBasic-eqd_pref2>eqd_pref2</a></li>
+<li><a href=#CoWBasic-eqd_equal>eqd_equal</a></li>
+<li><a href=#CoWBasic-pref_equal>pref_equal</a></li>
+<li><a href=#CoWBasic-eqd_equal_suf>eqd_equal_suf</a></li>
+<li><a href=#CoWBasic-eqd_comp>eqd_comp</a></li>
+<li><a href=#CoWBasic-eqd_suf1>eqd_suf1</a></li>
+<li><a href=#CoWBasic-eqd_suf2>eqd_suf2</a></li>
+<li><a href=#CoWBasic-eqd_suf>eqd_suf</a></li>
+<li><a href=#CoWBasic-lcp_sym>lcp_sym</a></li>
+<li><a href=#CoWBasic-lcp_take_eq>lcp_take_eq</a></li>
+<li><a href=#CoWBasic-lcp_pref_conv>lcp_pref_conv</a></li>
+<li><a href=#CoWBasic-pref_lcp_pref>pref_lcp_pref</a></li>
+<li><a href=#CoWBasic-pref_lcp_pref%27>pref_lcp_pref'</a></li>
+<li><a href=#CoWBasic-lcp_self>lcp_self</a></li>
+<li><a href=#CoWBasic-lcp_eq>lcp_eq</a></li>
+<li><a href=#CoWBasic-lcp_len>lcp_len</a></li>
+<li><a href=#CoWBasic-lcp_len%27>lcp_len'</a></li>
+<li><a href=#CoWBasic-incomp_lcp_len>incomp_lcp_len</a></li>
+<li><a href=#CoWBasic-lcp_ext_right>lcp_ext_right</a></li>
+<li><a href=#CoWBasic-lcp_same_len>lcp_same_len</a></li>
+<li><a href=#CoWBasic-lcp_mismatch>lcp_mismatch</a></li>
+<li><a href=#CoWBasic-lcp_mismatch%27>lcp_mismatch'</a></li>
+<li><a href=#CoWBasic-lcp_ext_left>lcp_ext_left</a></li>
+<li><a href=#CoWBasic-lcp_first_letters>lcp_first_letters</a></li>
+<li><a href=#CoWBasic-lcp_first_mismatch>lcp_first_mismatch</a></li>
+<li><a href=#CoWBasic-lcp_first_mismatch%27>lcp_first_mismatch'</a></li>
+<li><a href=#CoWBasic-lcp_mismatch_shorter>lcp_mismatch_shorter</a></li>
+<li><a href=#CoWBasic-lcp_rulers>lcp_rulers</a></li>
+<li><a href=#CoWBasic-pref_pref_lcp%27>pref_pref_lcp'</a></li>
+<li><a href=#CoWBasic-lcp_distinct_hd>lcp_distinct_hd</a></li>
+<li><a href=#CoWBasic-lcp_lenI>lcp_lenI</a></li>
+<li><a href=#CoWBasic-lcp_prefs>lcp_prefs</a></li>
+<li><a href=#CoWBasic-lexord_cancel_right>lexord_cancel_right</a></li>
+<li><a href=#CoWBasic-lcp_ruler>lcp_ruler</a></li>
+<li><a href=#CoWBasic-comp_monotone>comp_monotone</a></li>
+<li><a href=#CoWBasic-comp_monotone%27>comp_monotone'</a></li>
+<li><a href=#CoWBasic-double_ruler>double_ruler</a></li>
+<li><a href=#CoWBasic-pref_comp_ruler>pref_comp_ruler</a></li>
+<li><a href=#CoWBasic-mismatch_pair_lcp>mismatch_pair_lcp</a></li>
+<li><a href=#CoWBasic-incomp_neq>incomp_neq</a></li>
+<li><a href=#CoWBasic-mismatch_ext_left>mismatch_ext_left</a></li>
+<li><a href=#CoWBasic-mismatch_ext_right>mismatch_ext_right</a></li>
+<li><a href=#CoWBasic-mismatchI>mismatchI</a></li>
+<li><a href=#CoWBasic-mismatch_lexord>mismatch_lexord</a></li>
+<li><a href=#CoWBasic-lexord_mismatch>lexord_mismatch</a></li>
+<li><a href=#CoWBasic-rev_fac>rev_fac</a></li>
+<li><a href=#CoWBasic-fac_pref>fac_pref</a></li>
+<li><a href=#CoWBasic-fac_pref_suf>fac_pref_suf</a></li>
+<li><a href=#CoWBasic-pref_suf_fac>pref_suf_fac</a></li>
+<li><a href=#CoWBasic-suf_pref_eq>suf_pref_eq</a></li>
+<li><a href=#CoWBasic-fac_triv%27>fac_triv'</a></li>
+<li><a href=#CoWBasic-fac_triv>fac_triv</a></li>
+<li><a href=#CoWBasic-fac_Cons_E>fac_Cons_E</a></li>
+<li><a href=#CoWBasic-pow_zero>pow_zero</a></li>
+<li><a href=#CoWBasic-emp_pow>emp_pow</a></li>
+<li><a href=#CoWBasic-pow_Suc_list>pow_Suc_list</a></li>
+<li><a href=#CoWBasic-pow_commutes_list>pow_commutes_list</a></li>
+<li><a href=#CoWBasic-pow_add_list>pow_add_list</a></li>
+<li><a href=#CoWBasic-pow_Suc2_list>pow_Suc2_list</a></li>
+<li><a href=#CoWBasic-pow_eq_if_list>pow_eq_if_list</a></li>
+<li><a href=#CoWBasic-pow_one_id>pow_one_id</a></li>
+<li><a href=#CoWBasic-pow2_list>pow2_list</a></li>
+<li><a href=#CoWBasic-comm_add_exp>comm_add_exp</a></li>
+<li><a href=#CoWBasic-pow_mult_list>pow_mult_list</a></li>
+<li><a href=#CoWBasic-pow_rev_emp_conv>pow_rev_emp_conv</a></li>
+<li><a href=#CoWBasic-zero_exp>zero_exp</a></li>
+<li><a href=#CoWBasic-nemp_pow>nemp_pow</a></li>
+<li><a href=#CoWBasic-nemp_pow%27>nemp_pow'</a></li>
+<li><a href=#CoWBasic-sing_pow>sing_pow</a></li>
+<li><a href=#CoWBasic-pow_is_concat_replicate>pow_is_concat_replicate</a></li>
+<li><a href=#CoWBasic-pow_slide>pow_slide</a></li>
+<li><a href=#CoWBasic-pop_pow_one>pop_pow_one</a></li>
+<li><a href=#CoWBasic-hd_pow>hd_pow</a></li>
+<li><a href=#CoWBasic-pop_pow>pop_pow</a></li>
+<li><a href=#CoWBasic-pop_pow_cancel>pop_pow_cancel</a></li>
+<li><a href=#CoWBasic-pow_comm>pow_comm</a></li>
+<li><a href=#CoWBasic-comm_add_exps>comm_add_exps</a></li>
+<li><a href=#CoWBasic-rev_pow>rev_pow</a></li>
+<li><a href=#CoWBasic-pow_len>pow_len</a></li>
+<li><a href=#CoWBasic-eq_pow_exp>eq_pow_exp</a></li>
+<li><a href=#CoWBasic-nemp_emp_power>nemp_emp_power</a></li>
+<li><a href=#CoWBasic-nonzero_pow_emp>nonzero_pow_emp</a></li>
+<li><a href=#CoWBasic-pow_eq_eq>pow_eq_eq</a></li>
+<li><a href=#CoWBasic-sing_pow_empty>sing_pow_empty</a></li>
+<li><a href=#CoWBasic-sing_pow_lists>sing_pow_lists</a></li>
+<li><a href=#CoWBasic-long_power>long_power</a></li>
+<li><a href=#CoWBasic-long_power%27>long_power'</a></li>
+<li><a href=#CoWBasic-long_pow_exp>long_pow_exp</a></li>
+<li><a href=#CoWBasic-long_pow_ex>long_pow_ex</a></li>
+<li><a href=#CoWBasic-pref_pow_ext>pref_pow_ext</a></li>
+<li><a href=#CoWBasic-pref_pow_ext%27>pref_pow_ext'</a></li>
+<li><a href=#CoWBasic-pref_pow_root_ext>pref_pow_root_ext</a></li>
+<li><a href=#CoWBasic-pref_prod_root>pref_prod_root</a></li>
+<li><a href=#CoWBasic-pref_exps_pow>pref_exps_pow</a></li>
+<li><a href=#CoWBasic-pref_exp_le>pref_exp_le</a></li>
+<li><a href=#CoWBasic-comm_common_power>comm_common_power</a></li>
+<li><a href=#CoWBasic-one_generated_list_power>one_generated_list_power</a></li>
+<li><a href=#CoWBasic-pow_lists>pow_lists</a></li>
+<li><a href=#CoWBasic-concat_morph_power>concat_morph_power</a></li>
+<li><a href=#CoWBasic-pref_not_idem>pref_not_idem</a></li>
+<li><a href=#CoWBasic-per_exp_pref>per_exp_pref</a></li>
+<li><a href=#CoWBasic-hd_sing_power>hd_sing_power</a></li>
+<li><a href=#CoWBasic-root_pref_cancel>root_pref_cancel</a></li>
+<li><a href=#CoWBasic-index_pow_mod>index_pow_mod</a></li>
+<li><a href=#CoWBasic-sing_pow_len>sing_pow_len</a></li>
+<li><a href=#CoWBasic-concat_take_sing>concat_take_sing</a></li>
+<li><a href=#CoWBasic-concat_sing_pow>concat_sing_pow</a></li>
+<li><a href=#CoWBasic-unique_letter_word>unique_letter_word</a></li>
+<li><a href=#CoWBasic-unique_letter_wordE>unique_letter_wordE</a></li>
+<li><a href=#CoWBasic-unique_letter_wordE%27>unique_letter_wordE'</a></li>
+<li><a href=#CoWBasic-conjug_pow>conjug_pow</a></li>
+<li><a href=#CoWBasic-shift_pow>shift_pow</a></li>
+<li><a href=#CoWBasic-lq_conjug_pow>lq_conjug_pow</a></li>
+<li><a href=#CoWBasic-emp_to_emp>emp_to_emp</a></li>
+<li><a href=#CoWBasic-pow_morph>pow_morph</a></li>
+<li><a href=#CoWBasic-pop_hd>pop_hd</a></li>
+<li><a href=#CoWBasic-pop_hd_nemp>pop_hd_nemp</a></li>
+<li><a href=#CoWBasic-pop_last_nemp>pop_last_nemp</a></li>
+<li><a href=#CoWBasic-pref_mono>pref_mono</a></li>
+<li><a href=#CoWBasic-morph_concat_map>morph_concat_map</a></li>
+<li><a href=#CoWBasic-def_on_sings>def_on_sings</a></li>
+<li><a href=#CoWBasic-rev_morph_idemp>rev_morph_idemp</a></li>
+<li><a href=#CoWBasic-morph_compose>morph_compose</a></li>
+<li><a href=#CoWBasic-rev_morph_arg>rev_morph_arg</a></li>
+<li><a href=#CoWBasic-rev_morph_sing>rev_morph_sing</a></li>
+<li><a href=#CoWBasic-rev_morph_morph>rev_morph_morph</a></li>
+<li><a href=#CoWBasic-morph_rev_len>morph_rev_len</a></li>
+<li><a href=#CoWBasic-rev_morph_len>rev_morph_len</a></li>
+<li><a href=#CoWBasic-rotate_comp_eq>rotate_comp_eq</a></li>
+<li><a href=#CoWBasic-rotate_back>rotate_back</a></li>
+<li><a href=#CoWBasic-rotate_class_rotate%27>rotate_class_rotate'</a></li>
+<li><a href=#CoWBasic-rotate_class_rotate>rotate_class_rotate</a></li>
+<li><a href=#CoWBasic-rotate_pow_self>rotate_pow_self</a></li>
+<li><a href=#CoWBasic-rotate_root_self>rotate_root_self</a></li>
+<li><a href=#CoWBasic-rotate_pow_mod>rotate_pow_mod</a></li>
+<li><a href=#CoWBasic-rotate_conj_pow>rotate_conj_pow</a></li>
+<li><a href=#CoWBasic-rotate_pow_comm>rotate_pow_comm</a></li>
+<li><a href=#CoWBasic-append_in_lists>append_in_lists</a></li>
+<li><a href=#CoWBasic-concat_take_is_prefix>concat_take_is_prefix</a></li>
+<li><a href=#CoWBasic-concat_take_suc>concat_take_suc</a></li>
+<li><a href=#CoWBasic-pref_mod_list%27>pref_mod_list'</a></li>
+<li><a href=#CoWBasic-pref_mod_list_suf>pref_mod_list_suf</a></li>
+<li><a href=#CoWBasic-suf_mod_list%27>suf_mod_list'</a></li>
+<li><a href=#CoWBasic-pref_mod_list>pref_mod_list</a></li>
+<li><a href=#CoWBasic-pref_mod_power>pref_mod_power</a></li>
+<li><a href=#CoWBasic-get_pow_exp>get_pow_exp</a></li>
+<li><a href=#CoWBasic-get_pow_remainder>get_pow_remainder</a></li>
+<li><a href=#CoWBasic-pref_mod_power%27>pref_mod_power'</a></li>
+<li><a href=#CoWBasic-pref_power>pref_power</a></li>
+<li><a href=#CoWBasic-pref_powerE>pref_powerE</a></li>
+<li><a href=#CoWBasic-pref_power%27>pref_power'</a></li>
+<li><a href=#CoWBasic-suf_power>suf_power</a></li>
+<li><a href=#CoWBasic-suf_powerE>suf_powerE</a></li>
+<li><a href=#CoWBasic-del_emp_concat>del_emp_concat</a></li>
+<li><a href=#CoWBasic-lists_drop_emp>lists_drop_emp</a></li>
+<li><a href=#CoWBasic-lists_drop_emp%27>lists_drop_emp'</a></li>
+<li><a href=#CoWBasic-pref_concat_pref>pref_concat_pref</a></li>
+<li><a href=#CoWBasic-le_take_is_prefix>le_take_is_prefix</a></li>
+<li><a href=#CoWBasic-take_pp_less>take_pp_less</a></li>
+<li><a href=#CoWBasic-concat_pp_less>concat_pp_less</a></li>
+<li><a href=#CoWBasic-rootI>rootI</a></li>
+<li><a href=#CoWBasic-self_root>self_root</a></li>
+<li><a href=#CoWBasic-rootE>rootE</a></li>
+<li><a href=#CoWBasic-empty_all_roots>empty_all_roots</a></li>
+<li><a href=#CoWBasic-take_root>take_root</a></li>
+<li><a href=#CoWBasic-root_nemp>root_nemp</a></li>
+<li><a href=#CoWBasic-root_shorter>root_shorter</a></li>
+<li><a href=#CoWBasic-root_shorter_eq>root_shorter_eq</a></li>
+<li><a href=#CoWBasic-root_trans>root_trans</a></li>
+<li><a href=#CoWBasic-root_pow_root>root_pow_root</a></li>
+<li><a href=#CoWBasic-root_len>root_len</a></li>
+<li><a href=#CoWBasic-root_len_dvd>root_len_dvd</a></li>
+<li><a href=#CoWBasic-common_root_len_gcd>common_root_len_gcd</a></li>
+<li><a href=#CoWBasic-add_root>add_root</a></li>
+<li><a href=#CoWBasic-add_roots>add_roots</a></li>
+<li><a href=#CoWBasic-concat_sing_list_pow>concat_sing_list_pow</a></li>
+<li><a href=#CoWBasic-concat_sing_list_pow%27>concat_sing_list_pow'</a></li>
+<li><a href=#CoWBasic-root_pref_cancel%27>root_pref_cancel'</a></li>
+<li><a href=#CoWBasic-root_rev_iff>root_rev_iff</a></li>
+<li><a href=#CoWBasic-commD>commD</a></li>
+<li><a href=#CoWBasic-commE>commE</a></li>
+<li><a href=#CoWBasic-comm_rootE>comm_rootE</a></li>
+<li><a href=#CoWBasic-per_rootI>per_rootI</a></li>
+<li><a href=#CoWBasic-per_rootI%27>per_rootI'</a></li>
+<li><a href=#CoWBasic-per_rootD>per_rootD</a></li>
+<li><a href=#CoWBasic-per_rootD%27>per_rootD'</a></li>
+<li><a href=#CoWBasic-emp_any_per>emp_any_per</a></li>
+<li><a href=#CoWBasic-emp_not_per>emp_not_per</a></li>
+<li><a href=#CoWBasic-root_self>root_self</a></li>
+<li><a href=#CoWBasic-root_is_take>root_is_take</a></li>
+<li><a href=#CoWBasic-pref_pow_ext_take>pref_pow_ext_take</a></li>
+<li><a href=#CoWBasic-pref_pow_take>pref_pow_take</a></li>
+<li><a href=#CoWBasic-per_exp>per_exp</a></li>
+<li><a href=#CoWBasic-per_root_spref_powE>per_root_spref_powE</a></li>
+<li><a href=#CoWBasic-period_rootE>period_rootE</a></li>
+<li><a href=#CoWBasic-per_add_exp>per_add_exp</a></li>
+<li><a href=#CoWBasic-per_pref_ex>per_pref_ex</a></li>
+<li><a href=#CoWBasic-pref_pow_conv>pref_pow_conv</a></li>
+<li><a href=#CoWBasic-per_eq>per_eq</a></li>
+<li><a href=#CoWBasic-per_drop_exp>per_drop_exp</a></li>
+<li><a href=#CoWBasic-per_drop_exp%27>per_drop_exp'</a></li>
+<li><a href=#CoWBasic-per_drop_exp_rev>per_drop_exp_rev</a></li>
+<li><a href=#CoWBasic-pow_comm_comm%27>pow_comm_comm'</a></li>
+<li><a href=#CoWBasic-comm_trans>comm_trans</a></li>
+<li><a href=#CoWBasic-drop_per_pref>drop_per_pref</a></li>
+<li><a href=#CoWBasic-per_root_trans>per_root_trans</a></li>
+<li><a href=#CoWBasic-per_root_same_prefix>per_root_same_prefix</a></li>
+<li><a href=#CoWBasic-take_after_drop>take_after_drop</a></li>
+<li><a href=#CoWBasic-two_pers%27>two_pers'</a></li>
+<li><a href=#CoWBasic-two_pers>two_pers</a></li>
+<li><a href=#CoWBasic-periodN_I>periodN_I</a></li>
+<li><a href=#CoWBasic-emp_no_periodN>emp_no_periodN</a></li>
+<li><a href=#CoWBasic-zero_not_per>zero_not_per</a></li>
+<li><a href=#CoWBasic-periodN_D1>periodN_D1</a></li>
+<li><a href=#CoWBasic-periodN_D2>periodN_D2</a></li>
+<li><a href=#CoWBasic-periodN_D3>periodN_D3</a></li>
+<li><a href=#CoWBasic-all_long_pers>all_long_pers</a></li>
+<li><a href=#CoWBasic-periodN_indeces>periodN_indeces</a></li>
+<li><a href=#CoWBasic-indeces_periodN>indeces_periodN</a></li>
+<li><a href=#CoWBasic-periodN_rev>periodN_rev</a></li>
+<li><a href=#CoWBasic-periodN_rev_conv>periodN_rev_conv</a></li>
+<li><a href=#CoWBasic-periodN_fac>periodN_fac</a></li>
+<li><a href=#CoWBasic-periodN_fac%27>periodN_fac'</a></li>
+<li><a href=#CoWBasic-pow_per>pow_per</a></li>
+<li><a href=#CoWBasic-per_fac>per_fac</a></li>
+<li><a href=#CoWBasic-rotate_per_root>rotate_per_root</a></li>
+<li><a href=#CoWBasic-periodN_drop>periodN_drop</a></li>
+<li><a href=#CoWBasic-ext_per_left>ext_per_left</a></li>
+<li><a href=#CoWBasic-ext_per_left_power>ext_per_left_power</a></li>
+<li><a href=#CoWBasic-take_several_pers>take_several_pers</a></li>
+<li><a href=#CoWBasic-per_mult>per_mult</a></li>
+<li><a href=#CoWBasic-root_periodN>root_periodN</a></li>
+<li><a href=#CoWBasic-index_mod_per_root>index_mod_per_root</a></li>
+<li><a href=#CoWBasic-index_pref_pow_mod>index_pref_pow_mod</a></li>
+<li><a href=#CoWBasic-index_per_root_mod>index_per_root_mod</a></li>
+<li><a href=#CoWBasic-root_divisor>root_divisor</a></li>
+<li><a href=#CoWBasic-per_pref%27>per_pref'</a></li>
+<li><a href=#CoWBasic-concat_len_one>concat_len_one</a></li>
+<li><a href=#CoWBasic-sing_pow_hd_tl>sing_pow_hd_tl</a></li>
+<li><a href=#CoWBasic-pref_sing_power>pref_sing_power</a></li>
+<li><a href=#CoWBasic-sing_pow_palindrom>sing_pow_palindrom</a></li>
+<li><a href=#CoWBasic-suf_sing_power>suf_sing_power</a></li>
+<li><a href=#CoWBasic-sing_fac_pow>sing_fac_pow</a></li>
+<li><a href=#CoWBasic-sing_pow_fac%27>sing_pow_fac'</a></li>
+<li><a href=#CoWBasic-all_set_sing_pow>all_set_sing_pow</a></li>
+<li><a href=#CoWBasic-sing_pow_set>sing_pow_set</a></li>
+<li><a href=#CoWBasic-takeWhile_sing_root>takeWhile_sing_root</a></li>
+<li><a href=#CoWBasic-takeWhile_sing_pow>takeWhile_sing_pow</a></li>
+<li><a href=#CoWBasic-dropWhile_sing_pow>dropWhile_sing_pow</a></li>
+<li><a href=#CoWBasic-distinct_letter_in>distinct_letter_in</a></li>
+<li><a href=#CoWBasic-distinct_letter_in_hd>distinct_letter_in_hd</a></li>
+<li><a href=#CoWBasic-distinct_letter_in_suf>distinct_letter_in_suf</a></li>
+<li><a href=#CoWBasic-sing_pow_exp>sing_pow_exp</a></li>
+<li><a href=#CoWBasic-sing_power%27>sing_power'</a></li>
+<li><a href=#CoWBasic-rev_sing_power>rev_sing_power</a></li>
+<li><a href=#CoWBasic-lcp_letter_power>lcp_letter_power</a></li>
+<li><a href=#CoWBasic-per_one>per_one</a></li>
+<li><a href=#CoWBasic-per_one%27>per_one'</a></li>
+<li><a href=#CoWBasic-per_sing_one>per_sing_one</a></li>
+<li><a href=#CoWBasic-borderI>borderI</a></li>
+<li><a href=#CoWBasic-borderD_pref>borderD_pref</a></li>
+<li><a href=#CoWBasic-borderD_spref>borderD_spref</a></li>
+<li><a href=#CoWBasic-borderD_suf>borderD_suf</a></li>
+<li><a href=#CoWBasic-borderD_ssuf>borderD_ssuf</a></li>
+<li><a href=#CoWBasic-borderD_nemp>borderD_nemp</a></li>
+<li><a href=#CoWBasic-borderD_neq>borderD_neq</a></li>
+<li><a href=#CoWBasic-border_lq_nemp>border_lq_nemp</a></li>
+<li><a href=#CoWBasic-border_rq_nemp>border_rq_nemp</a></li>
+<li><a href=#CoWBasic-border_trans>border_trans</a></li>
+<li><a href=#CoWBasic-border_rev_conv>border_rev_conv</a></li>
+<li><a href=#CoWBasic-border_lq_comp>border_lq_comp</a></li>
+<li><a href=#CoWBasic-border_len>border_len</a></li>
+<li><a href=#CoWBasic-borders_compare>borders_compare</a></li>
+<li><a href=#CoWBasic-unbordered_border>unbordered_border</a></li>
+<li><a href=#CoWBasic-unbordered_border_shortest>unbordered_border_shortest</a></li>
+<li><a href=#CoWBasic-long_border_bordered>long_border_bordered</a></li>
+<li><a href=#CoWBasic-border_short_dec>border_short_dec</a></li>
+<li><a href=#CoWBasic-bordered_dec>bordered_dec</a></li>
+<li><a href=#CoWBasic-border_conjug_eq>border_conjug_eq</a></li>
+<li><a href=#CoWBasic-border_per_root>border_per_root</a></li>
+<li><a href=#CoWBasic-per_root_border>per_root_border</a></li>
+<li><a href=#CoWBasic-border_per>border_per</a></li>
+<li><a href=#CoWBasic-per_border>per_border</a></li>
+<li><a href=#CoWBasic-primI>primI</a></li>
+<li><a href=#CoWBasic-prim_nemp>prim_nemp</a></li>
+<li><a href=#CoWBasic-prim_exp_one>prim_exp_one</a></li>
+<li><a href=#CoWBasic-prim_exp_eq>prim_exp_eq</a></li>
+<li><a href=#CoWBasic-prim_triv_root>prim_triv_root</a></li>
+<li><a href=#CoWBasic-prim_comm_exp>prim_comm_exp</a></li>
+<li><a href=#CoWBasic-pow_non_prim>pow_non_prim</a></li>
+<li><a href=#CoWBasic-comm_non_prim>comm_non_prim</a></li>
+<li><a href=#CoWBasic-prim_rotate_conv>prim_rotate_conv</a></li>
+<li><a href=#CoWBasic-non_prim>non_prim</a></li>
+<li><a href=#CoWBasic-prim_no_rotate>prim_no_rotate</a></li>
+<li><a href=#CoWBasic-no_rotate_prim>no_rotate_prim</a></li>
+<li><a href=#CoWBasic-prim_sing>prim_sing</a></li>
+<li><a href=#CoWBasic-prim_rev_iff>prim_rev_iff</a></li>
+<li><a href=#CoWBasic-prim_rootD>prim_rootD</a></li>
+<li><a href=#CoWBasic-prim_rootI>prim_rootI</a></li>
+<li><a href=#CoWBasic-prim_root_rev_conv>prim_root_rev_conv</a></li>
+<li><a href=#CoWBasic-primrootE>primrootE</a></li>
+<li><a href=#CoWBasic-primroot_of_root>primroot_of_root</a></li>
+<li><a href=#CoWBasic-comm_prim>comm_prim</a></li>
+<li><a href=#CoWBasic-primroot_ex>primroot_ex</a></li>
+<li><a href=#CoWBasic-primroot_exE>primroot_exE</a></li>
+<li><a href=#CoWBasic-primroot_unique>primroot_unique</a></li>
+<li><a href=#CoWBasic-prim_self_root>prim_self_root</a></li>
+<li><a href=#CoWBasic-primroot_is_primroot>primroot_is_primroot</a></li>
+<li><a href=#CoWBasic-primroot_is_root>primroot_is_root</a></li>
+<li><a href=#CoWBasic-primrootI>primrootI</a></li>
+<li><a href=#CoWBasic-primroot_root>primroot_root</a></li>
+<li><a href=#CoWBasic-primroot_len_mult>primroot_len_mult</a></li>
+<li><a href=#CoWBasic-primroot_shorter_root>primroot_shorter_root</a></li>
+<li><a href=#CoWBasic-primroot_shortest_root>primroot_shortest_root</a></li>
+<li><a href=#CoWBasic-primroot_shorter_eq>primroot_shorter_eq</a></li>
+<li><a href=#CoWBasic-primroot_take>primroot_take</a></li>
+<li><a href=#CoWBasic-primroot_take_shortest>primroot_take_shortest</a></li>
+<li><a href=#CoWBasic-primroot_rotate_comm>primroot_rotate_comm</a></li>
+<li><a href=#CoWBasic-primrootI1>primrootI1</a></li>
+<li><a href=#CoWBasic-prim_root_power>prim_root_power</a></li>
+<li><a href=#CoWBasic-prim_root_cases>prim_root_cases</a></li>
+<li><a href=#CoWBasic-prim_comm_short_emp>prim_comm_short_emp</a></li>
+<li><a href=#CoWBasic-conjug_rev_conv>conjug_rev_conv</a></li>
+<li><a href=#CoWBasic-conjug_rotate_iff>conjug_rotate_iff</a></li>
+<li><a href=#CoWBasic-conjugI>conjugI</a></li>
+<li><a href=#CoWBasic-conjugI%27>conjugI'</a></li>
+<li><a href=#CoWBasic-conjugE>conjugE</a></li>
+<li><a href=#CoWBasic-conjugE1>conjugE1</a></li>
+<li><a href=#CoWBasic-conjug_refl>conjug_refl</a></li>
+<li><a href=#CoWBasic-conjug_sym>conjug_sym</a></li>
+<li><a href=#CoWBasic-conjug_nemp_iff>conjug_nemp_iff</a></li>
+<li><a href=#CoWBasic-conjug_len>conjug_len</a></li>
+<li><a href=#CoWBasic-pow_conjug>pow_conjug</a></li>
+<li><a href=#CoWBasic-conjug_eqE>conjug_eqE</a></li>
+<li><a href=#CoWBasic-conjug_eq_prim_rootE>conjug_eq_prim_rootE</a></li>
+<li><a href=#CoWBasic-conjug_eq_prim_root>conjug_eq_prim_root</a></li>
+<li><a href=#CoWBasic-conjugI1>conjugI1</a></li>
+<li><a href=#CoWBasic-conjug_trans>conjug_trans</a></li>
+<li><a href=#CoWBasic-conjug_trans%27>conjug_trans'</a></li>
+<li><a href=#CoWBasic-nconjug_neq>nconjug_neq</a></li>
+<li><a href=#CoWBasic-prim_conjug>prim_conjug</a></li>
+<li><a href=#CoWBasic-root_conjug>root_conjug</a></li>
+<li><a href=#CoWBasic-conjug_prim_root>conjug_prim_root</a></li>
+<li><a href=#CoWBasic-conjug_add_exp>conjug_add_exp</a></li>
+<li><a href=#CoWBasic-conjug_prim_root_iff>conjug_prim_root_iff</a></li>
+<li><a href=#CoWBasic-fac_pow_pref_conjug>fac_pow_pref_conjug</a></li>
+<li><a href=#CoWBasic-fac_pow_len_conjug>fac_pow_len_conjug</a></li>
+<li><a href=#CoWBasic-border_conjug>border_conjug</a></li>
+</ul>
+</li><li><a href=#Submonoids>Submonoids</a>
+<ul>
+<li><a href=#Submonoids-hull_closed>hull_closed</a></li>
+<li><a href=#Submonoids-gen_in>gen_in</a></li>
+<li><a href=#Submonoids-hull_induct>hull_induct</a></li>
+<li><a href=#Submonoids-genset_sub>genset_sub</a></li>
+<li><a href=#Submonoids-in_lists_conv_set_subset>in_lists_conv_set_subset</a></li>
+<li><a href=#Submonoids-concat_in_hull>concat_in_hull</a></li>
+<li><a href=#Submonoids-concat_in_hull%27>concat_in_hull'</a></li>
+<li><a href=#Submonoids-hull_concat_lists0>hull_concat_lists0</a></li>
+<li><a href=#Submonoids-hull_concat_lists>hull_concat_lists</a></li>
+<li><a href=#Submonoids-concat_tl>concat_tl</a></li>
+<li><a href=#Submonoids-nemp_concat_hull>nemp_concat_hull</a></li>
+<li><a href=#Submonoids-hull_mon>hull_mon</a></li>
+<li><a href=#Submonoids-emp_gen_set>emp_gen_set</a></li>
+<li><a href=#Submonoids-hull_drop_one>hull_drop_one</a></li>
+<li><a href=#Submonoids-sing_gen_power>sing_gen_power</a></li>
+<li><a href=#Submonoids-sing_gen>sing_gen</a></li>
+<li><a href=#Submonoids-lists_gen_to_hull>lists_gen_to_hull</a></li>
+<li><a href=#Submonoids-rev_hull0>rev_hull0</a></li>
+<li><a href=#Submonoids-rev_hull1>rev_hull1</a></li>
+<li><a href=#Submonoids-rev_hull>rev_hull</a></li>
+<li><a href=#Submonoids-power_in>power_in</a></li>
+<li><a href=#Submonoids-hull_closed_lists>hull_closed_lists</a></li>
+<li><a href=#Submonoids-self_gen>self_gen</a></li>
+<li><a href=#Submonoids-hulls_inter>hulls_inter</a></li>
+<li><a href=#Submonoids-dec_ex>dec_ex</a></li>
+<li><a href=#Submonoids-decI%27>decI'</a></li>
+<li><a href=#Submonoids-decI>decI</a></li>
+<li><a href=#Submonoids-dec_emp>dec_emp</a></li>
+<li><a href=#Submonoids-dec_nemp>dec_nemp</a></li>
+<li><a href=#Submonoids-dec_nemp%27>dec_nemp'</a></li>
+<li><a href=#Submonoids-dec_dom%27>dec_dom'</a></li>
+<li><a href=#Submonoids-dec_hd>dec_hd</a></li>
+<li><a href=#Submonoids-non_gen_dec>non_gen_dec</a></li>
+<li><a href=#Submonoids-ref_morph>ref_morph</a></li>
+<li><a href=#Submonoids-ref_morph_plus>ref_morph_plus</a></li>
+<li><a href=#Submonoids-ref_pop_hd>ref_pop_hd</a></li>
+<li><a href=#Submonoids-ref_in>ref_in</a></li>
+<li><a href=#Submonoids-ref>ref</a></li>
+<li><a href=#Submonoids-ref_gen>ref_gen</a></li>
+<li><a href=#Submonoids-emp_ref>emp_ref</a></li>
+<li><a href=#Submonoids-sing_ref_sing>sing_ref_sing</a></li>
+<li><a href=#Submonoids-ref_ex>ref_ex</a></li>
+<li><a href=#Submonoids-simp_el_el>simp_el_el</a></li>
+<li><a href=#Submonoids-simp_elD>simp_elD</a></li>
+<li><a href=#Submonoids-simp_el_sing>simp_el_sing</a></li>
+<li><a href=#Submonoids-nonsimp>nonsimp</a></li>
+<li><a href=#Submonoids-emp_nonsimp>emp_nonsimp</a></li>
+<li><a href=#Submonoids-basis_no_fact>basis_no_fact</a></li>
+<li><a href=#Submonoids-simp_elI>simp_elI</a></li>
+<li><a href=#Submonoids-simp_el_indecomp>simp_el_indecomp</a></li>
+<li><a href=#Submonoids-basisI>basisI</a></li>
+<li><a href=#Submonoids-basisD>basisD</a></li>
+<li><a href=#Submonoids-emp_not_basis>emp_not_basis</a></li>
+<li><a href=#Submonoids-basis_sub>basis_sub</a></li>
+<li><a href=#Submonoids-basis_drop_emp>basis_drop_emp</a></li>
+<li><a href=#Submonoids-simp_el_hull%27>simp_el_hull'</a></li>
+<li><a href=#Submonoids-simp_el_hull>simp_el_hull</a></li>
+<li><a href=#Submonoids-concat_tl_basis>concat_tl_basis</a></li>
+<li><a href=#Submonoids-set_concat_len>set_concat_len</a></li>
+<li><a href=#Submonoids-non_simp_dec>non_simp_dec</a></li>
+<li><a href=#Submonoids-basis_gen>basis_gen</a></li>
+<li><a href=#Submonoids-basis_gen_hull%27>basis_gen_hull'</a></li>
+<li><a href=#Submonoids-gen_sets>gen_sets</a></li>
+<li><a href=#Submonoids-basis_sets>basis_sets</a></li>
+<li><a href=#Submonoids-non_simp_fac>non_simp_fac</a></li>
+<li><a href=#Submonoids-basis_dec>basis_dec</a></li>
+<li><a href=#Submonoids-non_simp_fac%27>non_simp_fac'</a></li>
+<li><a href=#Submonoids-emp_gen_iff>emp_gen_iff</a></li>
+<li><a href=#Submonoids-emp_basis_iff>emp_basis_iff</a></li>
+<li><a href=#Submonoids-emp_not_in_code>emp_not_in_code</a></li>
+<li><a href=#Submonoids-code_simple>code_simple</a></li>
+<li><a href=#Submonoids-code_is_basis>code_is_basis</a></li>
+<li><a href=#Submonoids-code_unique_dec>code_unique_dec</a></li>
+<li><a href=#Submonoids-code_unique_ref>code_unique_ref</a></li>
+<li><a href=#Submonoids-code_dec_morph>code_dec_morph</a></li>
+<li><a href=#Submonoids-code_el_dec>code_el_dec</a></li>
+<li><a href=#Submonoids-code_ref_list>code_ref_list</a></li>
+<li><a href=#Submonoids-code_ref_gen>code_ref_gen</a></li>
+<li><a href=#Submonoids-bin_fst_nemp>bin_fst_nemp</a></li>
+<li><a href=#Submonoids-bin_mismatch_neq>bin_mismatch_neq</a></li>
+<li><a href=#Submonoids-bin_lcp_pref_fst_snd>bin_lcp_pref_fst_snd</a></li>
+<li><a href=#Submonoids-bin_lcp_short>bin_lcp_short</a></li>
+<li><a href=#Submonoids-bin_lcp_fst_mismatch_pref>bin_lcp_fst_mismatch_pref</a></li>
+<li><a href=#Submonoids-not_fst_snd_pref>not_fst_snd_pref</a></li>
+<li><a href=#Submonoids-bin_lcp_fst_mismatch_pref%27>bin_lcp_fst_mismatch_pref'</a></li>
+<li><a href=#Submonoids-bin_lcp_fst_lcp>bin_lcp_fst_lcp</a></li>
+<li><a href=#Submonoids-bin_all_nemp>bin_all_nemp</a></li>
+<li><a href=#Submonoids-bin_lcp_all_lcp>bin_lcp_all_lcp</a></li>
+<li><a href=#Submonoids-bin_code_alpha>bin_code_alpha</a></li>
+<li><a href=#Submonoids-free_hull_hull>free_hull_hull</a></li>
+<li><a href=#Submonoids-hull_in_free_hull>hull_in_free_hull</a></li>
+<li><a href=#Submonoids-basis_gen_hull_free>basis_gen_hull_free</a></li>
+<li><a href=#Submonoids-genset_sub_free>genset_sub_free</a></li>
+<li><a href=#Submonoids-free_basis_code>free_basis_code</a></li>
+<li><a href=#Submonoids-code_gen_free_hull>code_gen_free_hull</a></li>
+<li><a href=#Submonoids-code_free_basis>code_free_basis</a></li>
+<li><a href=#Submonoids-free_hull_mono>free_hull_mono</a></li>
+<li><a href=#Submonoids-free_hull_idem>free_hull_idem</a></li>
+<li><a href=#Submonoids-hull_gen_free_hull>hull_gen_free_hull</a></li>
+<li><a href=#Submonoids-code_free_basis_hull>code_free_basis_hull</a></li>
+<li><a href=#Submonoids-free_basis_dec_morph>free_basis_dec_morph</a></li>
+<li><a href=#Submonoids-sings_image>sings_image</a></li>
+<li><a href=#Submonoids-lists_sing_map_concat_ident>lists_sing_map_concat_ident</a></li>
+<li><a href=#Submonoids-code_sings>code_sings</a></li>
+<li><a href=#Submonoids-sings_gen_lists>sings_gen_lists</a></li>
+<li><a href=#Submonoids-map_sings>map_sings</a></li>
+<li><a href=#Submonoids-dec_sings>dec_sings</a></li>
+</ul>
+</li><li><a href=#Periodicity_Lemma>Periodicity_Lemma</a>
+<ul>
+<li><a href=#Periodicity_Lemma-per_lemma_comm>per_lemma_comm</a></li>
+<li><a href=#Periodicity_Lemma-ext_per_sum>ext_per_sum</a></li>
+<li><a href=#Periodicity_Lemma-FW_sym>FW_sym</a></li>
+<li><a href=#Periodicity_Lemma-fac_two_conjug_prim_root>fac_two_conjug_prim_root</a></li>
+<li><a href=#Periodicity_Lemma-fac_two_conjug_prim_root%27>fac_two_conjug_prim_root'</a></li>
+<li><a href=#Periodicity_Lemma-fac_two_nconj_prim_pow>fac_two_nconj_prim_pow</a></li>
+</ul>
+</li><li><a href=#Lyndon_Schutzenberger>Lyndon_Schutzenberger</a>
+<ul>
+<li><a href=#Lyndon_Schutzenberger-a0>a0</a></li>
+<li><a href=#Lyndon_Schutzenberger-per_lemma_case>per_lemma_case</a></li>
+<li><a href=#Lyndon_Schutzenberger-core_case>core_case</a></li>
+<li><a href=#Lyndon_Schutzenberger-Lyndon_Schutzenberger%27>Lyndon_Schutzenberger'</a></li>
+</ul>
+</li><li><a href=#CoWAll>CoWAll</a>
+</li>
+</ul>
+</div>
+<ul>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Combinatorics_Words/outline.pdf>Proof
+outline</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Combinatorics_Words/document.pdf>Proof
+document</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Combinatorics_Words/session_graph.pdf>Theory dependencies</a></li>
+</ul>
+</div>
+</aside>
+<div class="content theories"><header>
+<form action=/%20search>
+<div class=form-container>
+<input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
+<datalist id=autocomplete>
+</datalist>
+</div>
+</form>
+<h1><span class=first>S</span>ession <span class=first>C</span>ombinatorics_<span class=first>W</span>ords</h1>
+<div>
+</div>
+</header><div id=banner data-id=0>
+<p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button>
+</div>
+<div><main>
+<div id=Arithmetical_Hints>
+<div class=head>
+<h1>Theory Arithmetical_Hints</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      CoW/Arithmetical_Hints.thy
     Author:     Štěpán Holub, Charles University
     Author:     Martin Raška, Charles University
     Author:     Štěpán Starosta, CTU in Prague
@@ -60,7 +827,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Co
 <span class=keyword1 id=Arithmetical_Hints-less_mult_one><span class=command>lemma</span></span> less_mult_one<span class=main>:</span> <span class=keyword2><span class=keyword>assumes</span></span> <span class=quoted><span class=quoted>"<span class=main>(</span><span class=free>m</span><span class=main>-</span><span class=main>1</span><span class=main>)</span><span class=main>*</span><span class=free>k</span> <span class=main>&lt;</span> <span class=free>k</span>"</span></span> <span class=keyword2><span class=keyword>obtains</span></span> <span class=quoted><span class=quoted>"<span class=free>m</span> <span class=main>=</span> <span class=main>0</span>"</span></span> <span class=main>|</span> <span class=quoted><span class=quoted>"<span class=free>m</span> <span class=main>=</span> <span class=main>(</span><span class=main>1</span><span class=main>::</span>nat<span class=main>)</span>"</span></span>
   <span class=keyword1><span class=command>using</span></span> assms <span class=keyword1><span class=command>by</span></span> <span class=operator>fastforce</span>
 
-<span class=keyword2><span class=keyword>end</span></span></pre></div><div id=Reverse_Symmetry><div class=head><h1>Theory Reverse_Symmetry</h1></div><pre class=source><span class=comment1>(*  Title:      CoW/Reverse_Symmetry.thy
+<span class=keyword2><span class=keyword>end</span></span></pre>
+</div><div id=Reverse_Symmetry>
+<div class=head>
+<h1>Theory Reverse_Symmetry</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      CoW/Reverse_Symmetry.thy
     Author:     Martin Raška, Charles University
 *)</span>
 
@@ -483,7 +1255,12 @@ See examples at the end of the file.
 
 <span class=keyword2><span class=keyword>end</span></span>
 
-<span class=keyword2><span class=keyword>end</span></span></pre></div><div id=CoWBasic><div class=head><h1>Theory CoWBasic</h1></div><pre class=source><span class=comment1>(*  Title:      CoW/CoWBasic.thy
+<span class=keyword2><span class=keyword>end</span></span></pre>
+</div><div id=CoWBasic>
+<div class=head>
+<h1>Theory CoWBasic</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      CoW/CoWBasic.thy
     Author:     Štěpán Holub, Charles University
     Author:     Martin Raška, Charles University
     Author:     Štěpán Starosta, CTU in Prague
@@ -3991,7 +4768,12 @@ is given by the next lemma.
 
 <span class=keyword1><span class=command>lemmas</span></span> fac_pow_suf_conjug <span class=main>=</span> fac_pow_pref_conjug<span class=main>[</span><span class=operator>reversed</span><span class=main>]</span>
    
-<span class=keyword2><span class=keyword>end</span></span></pre></div><div id=Submonoids><div class=head><h1>Theory Submonoids</h1></div><pre class=source><span class=comment1>(*  Title:      CoW/Submonoids.thy
+<span class=keyword2><span class=keyword>end</span></span></pre>
+</div><div id=Submonoids>
+<div class=head>
+<h1>Theory Submonoids</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      CoW/Submonoids.thy
     Author:     Štěpán Holub, Charles University
     Author:     Štěpán Starosta, CTU in Prague
 *)</span>
@@ -5048,7 +5830,12 @@ instead as lists over the original alphabet.›</span></span>
   <span class=keyword1><span class=command>unfolding</span></span> concat_map_sing_ident<span class=keyword1><span class=command>.</span></span>
 
 
-<span class=keyword2><span class=keyword>end</span></span></pre></div><div id=Periodicity_Lemma><div class=head><h1>Theory Periodicity_Lemma</h1></div><pre class=source><span class=comment1>(*  Title:      CoW/Periodicity_Lemma.thy
+<span class=keyword2><span class=keyword>end</span></span></pre>
+</div><div id=Periodicity_Lemma>
+<div class=head>
+<h1>Theory Periodicity_Lemma</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      CoW/Periodicity_Lemma.thy
     Author:     Štěpán Holub, Charles University
 *)</span>
 
@@ -5485,7 +6272,12 @@ For trivial reasons we can also drop the requirement that the roots are nonempty
   <span class=keyword1><span class=command>by</span></span> <span class=main>(</span><span class=operator>rule</span> contrapos_np<span class=main>)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Lyndon_Schutzenberger><div class=head><h1>Theory Lyndon_Schutzenberger</h1></div><pre class=source><span class=comment1>(*  Title:      CoW/Lyndon_Schutzenberger.thy
+</pre>
+</div><div id=Lyndon_Schutzenberger>
+<div class=head>
+<h1>Theory Lyndon_Schutzenberger</h1>
+</div>
+<pre class=source><span class=comment1>(*  Title:      CoW/Lyndon_Schutzenberger.thy
     Author:     Štěpán Holub, Charles University
 *)</span>
 
@@ -5817,7 +6609,12 @@ using induction on $|z| + |y^b|$ instead of just on $|z|$.
     <span class=keyword1><span class=command>using</span></span> comm_drop_exp<span class=main>[</span><span class=operator>OF</span> <span class=quoted><span class=quoted>‹<span class=free>c</span> <span class=main>≠</span> <span class=main>0</span>›</span></span><span class=main>]</span> <span class=keyword1><span class=command>unfolding</span></span> lassoc <span class=quoted><span class=quoted>‹<span class=free>x</span><span class=main><span class=hidden>⇧</span><sup>@</sup></span><span class=free>a</span><span class=main>⋅</span><span class=free>y</span><span class=main><span class=hidden>⇧</span><sup>@</sup></span><span class=free>b</span> <span class=main>=</span> <span class=free>z</span><span class=main><span class=hidden>⇧</span><sup>@</sup></span><span class=free>c</span>›</span></span> <span class=keyword1><span class=command>by</span></span> <span class=operator>force</span><span class=main><span class=keyword3>+</span></span>
 <span class=keyword1><span class=command>qed</span></span>
 
-<span class=keyword2><span class=keyword>end</span></span></pre></div><div id=CoWAll><div class=head><h1>Theory CoWAll</h1></div><pre class=source><span class=keyword1><span class=command>theory</span></span> CoWAll
+<span class=keyword2><span class=keyword>end</span></span></pre>
+</div><div id=CoWAll>
+<div class=head>
+<h1>Theory CoWAll</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>theory</span></span> CoWAll
   <span class=keyword2><span class=keyword>imports</span></span>
     <a href=#CoWBasic>CoWBasic</a>
     <a href=#Submonoids>Submonoids</a>
@@ -5826,4 +6623,10 @@ using induction on $|z| + |y^b|$ instead of just on $|z|$.
 <span class=keyword2><span class=keyword>begin</span></span>  
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div></main></div></div></body></html>
+</pre>
+</div>
+</main>
+</div>
+</div>
+</body>
+</html>

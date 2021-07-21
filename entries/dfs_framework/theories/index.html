@@ -1,7 +1,513 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Session DFS_Framework - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session DFS_Framework"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/dfs_framework/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Session DFS_Framework"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css><link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script><script src=/js/banner.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><li><a href=/entries/dfs_framework>Return to entry</a></li></ul><hr><ul><li><a href=#DFS_Framework_Misc>DFS_Framework_Misc</a><ul><li><a href=#DFS_Framework_Misc-tri_caseE>tri_caseE</a></li><li><a href=#DFS_Framework_Misc-opt_tagI>opt_tagI</a></li><li><a href=#DFS_Framework_Misc-opt_tagD>opt_tagD</a></li></ul></li><li><a href=#DFS_Framework_Refine_Aux>DFS_Framework_Refine_Aux</a><ul><li><a href=#DFS_Framework_Refine_Aux-GHOST_elim_Let>GHOST_elim_Let</a></li><li><a href=#DFS_Framework_Refine_Aux-WHILET_eq_WHILE>WHILET_eq_WHILE</a></li><li><a href=#DFS_Framework_Refine_Aux-WHILEIT_eq_WHILEI>WHILEIT_eq_WHILEI</a></li><li><a href=#DFS_Framework_Refine_Aux-WHILEIT_le_WHILEI>WHILEIT_le_WHILEI</a></li><li><a href=#DFS_Framework_Refine_Aux-WHILET_eq_WHILE_tproof>WHILET_eq_WHILE_tproof</a></li><li><a href=#DFS_Framework_Refine_Aux-WHILEIT_eq_WHILEI_tproof>WHILEIT_eq_WHILEI_tproof</a></li></ul></li><li><a href=#Impl_Rev_Array_Stack>Impl_Rev_Array_Stack</a><ul><li><a href=#Impl_Rev_Array_Stack-ras_rel_def>ras_rel_def</a></li><li><a href=#Impl_Rev_Array_Stack-ras_empty_refine>ras_empty_refine</a></li><li><a href=#Impl_Rev_Array_Stack-ras_push_refine>ras_push_refine</a></li><li><a href=#Impl_Rev_Array_Stack-ras_shrink_id_refine>ras_shrink_id_refine</a></li><li><a href=#Impl_Rev_Array_Stack-ras_shrinkI>ras_shrinkI</a></li><li><a href=#Impl_Rev_Array_Stack-ras_pop_refine>ras_pop_refine</a></li><li><a href=#Impl_Rev_Array_Stack-ras_get_refine>ras_get_refine</a></li><li><a href=#Impl_Rev_Array_Stack-ras_get_autoref>ras_get_autoref</a></li><li><a href=#Impl_Rev_Array_Stack-ras_set_refine>ras_set_refine</a></li><li><a href=#Impl_Rev_Array_Stack-ras_set_autoref>ras_set_autoref</a></li><li><a href=#Impl_Rev_Array_Stack-ras_length_refine>ras_length_refine</a></li><li><a href=#Impl_Rev_Array_Stack-ras_top_code>ras_top_code</a></li><li><a href=#Impl_Rev_Array_Stack-ras_top_refine>ras_top_refine</a></li><li><a href=#Impl_Rev_Array_Stack-ras_top_autoref>ras_top_autoref</a></li><li><a href=#Impl_Rev_Array_Stack-ras_is_empty_code>ras_is_empty_code</a></li><li><a href=#Impl_Rev_Array_Stack-ras_is_empty_refine>ras_is_empty_refine</a></li><li><a href=#Impl_Rev_Array_Stack-ras_singleton_refine>ras_singleton_refine</a></li><li><a href=#Impl_Rev_Array_Stack-ras_cast_to_list_refine>ras_cast_to_list_refine</a></li></ul></li><li><a href=#On_Stack>On_Stack</a><ul><li><a href=#On_Stack-stack_rel_def>stack_rel_def</a></li><li><a href=#On_Stack-autoref_stack_empty>autoref_stack_empty</a></li><li><a href=#On_Stack-autoref_stack_push>autoref_stack_push</a></li><li><a href=#On_Stack-autoref_stack_sng>autoref_stack_sng</a></li><li><a href=#On_Stack-autoref_stack_pop>autoref_stack_pop</a></li><li><a href=#On_Stack-autoref_stack_set>autoref_stack_set</a></li><li><a href=#On_Stack-autoref_stack_is_Nil>autoref_stack_is_Nil</a></li><li><a href=#On_Stack-autoref_stack_ltop>autoref_stack_ltop</a></li></ul></li><li><a href=#DFS_Chapter_Framework>DFS_Chapter_Framework</a></li><li><a href=#Param_DFS>Param_DFS</a><ul><li><a href=#Param_DFS-discover_simps>discover_simps</a></li><li><a href=#Param_DFS-finish_simps>finish_simps</a></li><li><a href=#Param_DFS-back_edge_simps>back_edge_simps</a></li><li><a href=#Param_DFS-cross_edge_simps>cross_edge_simps</a></li><li><a href=#Param_DFS-new_root_simps>new_root_simps</a></li><li><a href=#Param_DFS-empty_state_simps>empty_state_simps</a></li><li><a href=#Param_DFS-cond_alt>cond_alt</a></li><li><a href=#Param_DFS-make_invar_thm>make_invar_thm</a></li><li><a href=#Param_DFS-rwof_eq_DFS_invar>rwof_eq_DFS_invar</a></li><li><a href=#Param_DFS-DFS_invar_step>DFS_invar_step</a></li><li><a href=#Param_DFS-DFS_invar_step%27>DFS_invar_step'</a></li><li><a href=#Param_DFS-establish_invarI>establish_invarI</a></li><li><a href=#Param_DFS-establish_invarI%27>establish_invarI'</a></li><li><a href=#Param_DFS-establish_invarI_ND>establish_invarI_ND</a></li><li><a href=#Param_DFS-establish_invarI_CB>establish_invarI_CB</a></li><li><a href=#Param_DFS-establish_invarI_ND_CB>establish_invarI_ND_CB</a></li><li><a href=#Param_DFS-is_invarI_full>is_invarI_full</a></li><li><a href=#Param_DFS-is_invarI>is_invarI</a></li><li><a href=#Param_DFS-i_basic_invar>i_basic_invar</a></li><li><a href=#Param_DFS-pending_ssE>pending_ssE</a></li><li><a href=#Param_DFS-pendingD>pendingD</a></li><li><a href=#Param_DFS-stack_set_def>stack_set_def</a></li><li><a href=#Param_DFS-stack_discovered>stack_discovered</a></li><li><a href=#Param_DFS-stack_distinct>stack_distinct</a></li><li><a href=#Param_DFS-last_stack_in_V0>last_stack_in_V0</a></li><li><a href=#Param_DFS-stack_not_finished>stack_not_finished</a></li><li><a href=#Param_DFS-discovered_not_stack_imp_finished>discovered_not_stack_imp_finished</a></li><li><a href=#Param_DFS-finished_discovered>finished_discovered</a></li><li><a href=#Param_DFS-finished_no_pending>finished_no_pending</a></li><li><a href=#Param_DFS-discovered_eq_finished_un_stack>discovered_eq_finished_un_stack</a></li><li><a href=#Param_DFS-pending_on_stack>pending_on_stack</a></li><li><a href=#Param_DFS-empty_stack_imp_empty_pending>empty_stack_imp_empty_pending</a></li><li><a href=#Param_DFS-i_discovered_reachable>i_discovered_reachable</a></li><li><a href=#Param_DFS-i_discovered_closed>i_discovered_closed</a></li><li><a href=#Param_DFS-i_discovered_finite>i_discovered_finite</a></li><li><a href=#Param_DFS-stack_reachable>stack_reachable</a></li><li><a href=#Param_DFS-finished_finite>finished_finite</a></li><li><a href=#Param_DFS-finished_closed>finished_closed</a></li><li><a href=#Param_DFS-finished_imp_succ_discovered>finished_imp_succ_discovered</a></li><li><a href=#Param_DFS-pending_reachable>pending_reachable</a></li><li><a href=#Param_DFS-pending_finite>pending_finite</a></li><li><a href=#Param_DFS-no_pending_imp_succ_discovered>no_pending_imp_succ_discovered</a></li><li><a href=#Param_DFS-nc_finished_eq_reachable>nc_finished_eq_reachable</a></li><li><a href=#Param_DFS-nc_V0_finished>nc_V0_finished</a></li><li><a href=#Param_DFS-nc_discovered_eq_finished>nc_discovered_eq_finished</a></li><li><a href=#Param_DFS-nc_discovered_eq_reachable>nc_discovered_eq_reachable</a></li><li><a href=#Param_DFS-nc_fin_closed>nc_fin_closed</a></li><li><a href=#Param_DFS-param_dfs_variant_wf>param_dfs_variant_wf</a></li><li><a href=#Param_DFS-param_dfs_variant_step>param_dfs_variant_step</a></li><li><a href=#Param_DFS-it_dfsT_eq_it_dfs>it_dfsT_eq_it_dfs</a></li><li><a href=#Param_DFS-init_leof_invar>init_leof_invar</a></li><li><a href=#Param_DFS-it_dfs_eq_spec>it_dfs_eq_spec</a></li><li><a href=#Param_DFS-it_dfs_correct>it_dfs_correct</a></li><li><a href=#Param_DFS-it_dfs_SPEC>it_dfs_SPEC</a></li><li><a href=#Param_DFS-it_dfsT_correct>it_dfsT_correct</a></li><li><a href=#Param_DFS-it_dfsT_SPEC>it_dfsT_SPEC</a></li></ul></li><li><a href=#DFS_Invars_Basic>DFS_Invars_Basic</a><ul><li><a href=#DFS_Invars_Basic-timing_common_inv>timing_common_inv</a></li><li><a href=#DFS_Invars_Basic-timing_less_counter>timing_less_counter</a></li><li><a href=#DFS_Invars_Basic-disc_lt_fin>disc_lt_fin</a></li><li><a href=#DFS_Invars_Basic-disc_unequal>disc_unequal</a></li><li><a href=#DFS_Invars_Basic-fin_unequal>fin_unequal</a></li><li><a href=#DFS_Invars_Basic-finished_succ_fin>finished_succ_fin</a></li><li><a href=#DFS_Invars_Basic-i_prev_stack_discover_all>i_prev_stack_discover_all</a></li><li><a href=#DFS_Invars_Basic-prev_stack_discover>prev_stack_discover</a></li><li><a href=#DFS_Invars_Basic-Suc_stack_discover>Suc_stack_discover</a></li><li><a href=#DFS_Invars_Basic-tl_lt_stack_hd_discover>tl_lt_stack_hd_discover</a></li><li><a href=#DFS_Invars_Basic-stack_nth_order>stack_nth_order</a></li><li><a href=#DFS_Invars_Basic-i_parenthesis>i_parenthesis</a></li><li><a href=#DFS_Invars_Basic-parenthesis>parenthesis</a></li><li><a href=#DFS_Invars_Basic-parenthesis_contained>parenthesis_contained</a></li><li><a href=#DFS_Invars_Basic-parenthesis_disjoint>parenthesis_disjoint</a></li><li><a href=#DFS_Invars_Basic-finished_succ_contained>finished_succ_contained</a></li><li><a href=#DFS_Invars_Basic-edgesE_CB>edgesE_CB</a></li><li><a href=#DFS_Invars_Basic-i_edges_basic>i_edges_basic</a></li><li><a href=#DFS_Invars_Basic-i_edges_covered>i_edges_covered</a></li><li><a href=#DFS_Invars_Basic-edges_ss_reachable_edges>edges_ss_reachable_edges</a></li><li><a href=#DFS_Invars_Basic-nc_edges_covered>nc_edges_covered</a></li><li><a href=#DFS_Invars_Basic-tree_edges_ssE>tree_edges_ssE</a></li><li><a href=#DFS_Invars_Basic-edges_disjoint>edges_disjoint</a></li><li><a href=#DFS_Invars_Basic-tree_edge_imp_discovered>tree_edge_imp_discovered</a></li><li><a href=#DFS_Invars_Basic-back_edge_imp_discovered>back_edge_imp_discovered</a></li><li><a href=#DFS_Invars_Basic-cross_edge_imp_discovered>cross_edge_imp_discovered</a></li><li><a href=#DFS_Invars_Basic-edge_imp_discovered>edge_imp_discovered</a></li><li><a href=#DFS_Invars_Basic-tree_edges_finite>tree_edges_finite</a></li><li><a href=#DFS_Invars_Basic-cross_edges_finite>cross_edges_finite</a></li><li><a href=#DFS_Invars_Basic-back_edges_finite>back_edges_finite</a></li><li><a href=#DFS_Invars_Basic-edges_finite>edges_finite</a></li><li><a href=#DFS_Invars_Basic-tree_edge_disc_lt_fin>tree_edge_disc_lt_fin</a></li><li><a href=#DFS_Invars_Basic-back_edge_disc_lt_fin>back_edge_disc_lt_fin</a></li><li><a href=#DFS_Invars_Basic-cross_edge_disc_lt_fin>cross_edge_disc_lt_fin</a></li><li><a href=#DFS_Invars_Basic-i_stack_is_tree_path>i_stack_is_tree_path</a></li><li><a href=#DFS_Invars_Basic-stack_is_path>stack_is_path</a></li><li><a href=#DFS_Invars_Basic-hd_succ_stack_is_path>hd_succ_stack_is_path</a></li><li><a href=#DFS_Invars_Basic-tl_stack_hd_tree_path>tl_stack_hd_tree_path</a></li><li><a href=#DFS_Invars_Basic-i_tree_discovered_inv>i_tree_discovered_inv</a></li><li><a href=#DFS_Invars_Basic-i_tree_one_predecessor>i_tree_one_predecessor</a></li><li><a href=#DFS_Invars_Basic-i_tree_edge_disc>i_tree_edge_disc</a></li><li><a href=#DFS_Invars_Basic-tree_edge_disc>tree_edge_disc</a></li><li><a href=#DFS_Invars_Basic-tree_path_disc>tree_path_disc</a></li><li><a href=#DFS_Invars_Basic-no_loop_in_tree>no_loop_in_tree</a></li><li><a href=#DFS_Invars_Basic-tree_acyclic>tree_acyclic</a></li><li><a href=#DFS_Invars_Basic-no_self_loop_in_tree>no_self_loop_in_tree</a></li><li><a href=#DFS_Invars_Basic-tree_edge_unequal>tree_edge_unequal</a></li><li><a href=#DFS_Invars_Basic-tree_path_unequal>tree_path_unequal</a></li><li><a href=#DFS_Invars_Basic-tree_subpath%27>tree_subpath'</a></li><li><a href=#DFS_Invars_Basic-tree_subpath>tree_subpath</a></li><li><a href=#DFS_Invars_Basic-on_stack_is_tree_path>on_stack_is_tree_path</a></li><li><a href=#DFS_Invars_Basic-hd_stack_tree_path_finished>hd_stack_tree_path_finished</a></li><li><a href=#DFS_Invars_Basic-tree_edge_impl_parenthesis>tree_edge_impl_parenthesis</a></li><li><a href=#DFS_Invars_Basic-tree_path_impl_parenthesis>tree_path_impl_parenthesis</a></li><li><a href=#DFS_Invars_Basic-nc_reachable_v0_parenthesis>nc_reachable_v0_parenthesis</a></li><li><a href=#DFS_Invars_Basic-paren_imp_tree_reach>paren_imp_tree_reach</a></li><li><a href=#DFS_Invars_Basic-parenthesis_impl_tree_path_not_finished>parenthesis_impl_tree_path_not_finished</a></li><li><a href=#DFS_Invars_Basic-parenthesis_impl_tree_path>parenthesis_impl_tree_path</a></li><li><a href=#DFS_Invars_Basic-tree_path_iff_parenthesis>tree_path_iff_parenthesis</a></li><li><a href=#DFS_Invars_Basic-no_pending_succ_impl_path_in_tree>no_pending_succ_impl_path_in_tree</a></li><li><a href=#DFS_Invars_Basic-finished_succ_impl_path_in_tree>finished_succ_impl_path_in_tree</a></li><li><a href=#DFS_Invars_Basic-i_cross_edges_finished>i_cross_edges_finished</a></li><li><a href=#DFS_Invars_Basic-cross_edges_target_finished>cross_edges_target_finished</a></li><li><a href=#DFS_Invars_Basic-cross_edges_finished_decr>cross_edges_finished_decr</a></li><li><a href=#DFS_Invars_Basic-cross_edge_unequal>cross_edge_unequal</a></li><li><a href=#DFS_Invars_Basic-i_back_edge_impl_tree_path>i_back_edge_impl_tree_path</a></li><li><a href=#DFS_Invars_Basic-back_edge_impl_tree_path>back_edge_impl_tree_path</a></li><li><a href=#DFS_Invars_Basic-back_edge_disc>back_edge_disc</a></li><li><a href=#DFS_Invars_Basic-back_edges_tree_disjoint>back_edges_tree_disjoint</a></li><li><a href=#DFS_Invars_Basic-back_edges_tree_pathes_disjoint>back_edges_tree_pathes_disjoint</a></li><li><a href=#DFS_Invars_Basic-back_edge_finished>back_edge_finished</a></li><li><a href=#DFS_Invars_Basic-i_disc_imp_back_edge_or_pending>i_disc_imp_back_edge_or_pending</a></li><li><a href=#DFS_Invars_Basic-disc_imp_back_edge_or_pending>disc_imp_back_edge_or_pending</a></li><li><a href=#DFS_Invars_Basic-finished_imp_back_edge>finished_imp_back_edge</a></li><li><a href=#DFS_Invars_Basic-finished_not_finished_imp_back_edge>finished_not_finished_imp_back_edge</a></li><li><a href=#DFS_Invars_Basic-finished_self_loop_in_back_edges>finished_self_loop_in_back_edges</a></li><li><a href=#DFS_Invars_Basic-tree_cross_acyclic>tree_cross_acyclic</a></li><li><a href=#DFS_Invars_Basic-cycle_contains_back_edge>cycle_contains_back_edge</a></li><li><a href=#DFS_Invars_Basic-cycle_needs_back_edge>cycle_needs_back_edge</a></li><li><a href=#DFS_Invars_Basic-back_edge_closes_cycle>back_edge_closes_cycle</a></li><li><a href=#DFS_Invars_Basic-back_edge_closes_reachable_cycle>back_edge_closes_reachable_cycle</a></li><li><a href=#DFS_Invars_Basic-cycle_iff_back_edges>cycle_iff_back_edges</a></li><li><a href=#DFS_Invars_Basic-white_path>white_path</a></li></ul></li><li><a href=#DFS_Invars_SCC>DFS_Invars_SCC</a><ul><li><a href=#DFS_Invars_SCC-scc_rootI>scc_rootI</a></li><li><a href=#DFS_Invars_SCC-scc_root_is_discovered>scc_root_is_discovered</a></li><li><a href=#DFS_Invars_SCC-scc_root_scc_tree_rtrancl>scc_root_scc_tree_rtrancl</a></li><li><a href=#DFS_Invars_SCC-scc_root_scc_reach>scc_root_scc_reach</a></li><li><a href=#DFS_Invars_SCC-scc_reach_scc_root>scc_reach_scc_root</a></li><li><a href=#DFS_Invars_SCC-scc_root_scc_tree_trancl>scc_root_scc_tree_trancl</a></li><li><a href=#DFS_Invars_SCC-scc_root_unique_scc>scc_root_unique_scc</a></li><li><a href=#DFS_Invars_SCC-scc_root_unique_root>scc_root_unique_root</a></li><li><a href=#DFS_Invars_SCC-scc_root_unique_is_scc>scc_root_unique_is_scc</a></li><li><a href=#DFS_Invars_SCC-scc_root_finished_impl_scc_finished>scc_root_finished_impl_scc_finished</a></li><li><a href=#DFS_Invars_SCC-scc_root_disc_le>scc_root_disc_le</a></li><li><a href=#DFS_Invars_SCC-scc_root_fin_ge>scc_root_fin_ge</a></li><li><a href=#DFS_Invars_SCC-scc_root_is_Min_disc>scc_root_is_Min_disc</a></li><li><a href=#DFS_Invars_SCC-Min_disc_is_scc_root>Min_disc_is_scc_root</a></li><li><a href=#DFS_Invars_SCC-scc_root_iff_Min_disc>scc_root_iff_Min_disc</a></li><li><a href=#DFS_Invars_SCC-scc_root_exists>scc_root_exists</a></li><li><a href=#DFS_Invars_SCC-scc_root_of_node_exists>scc_root_of_node_exists</a></li><li><a href=#DFS_Invars_SCC-scc_root_transfer%27>scc_root_transfer'</a></li><li><a href=#DFS_Invars_SCC-scc_root_transfer>scc_root_transfer</a></li></ul></li><li><a href=#General_DFS_Structure>General_DFS_Structure</a><ul><li><a href=#General_DFS_Structure-gen_step_eq_assert>gen_step_eq_assert</a></li><li><a href=#General_DFS_Structure-gen_dfs_eq_assert>gen_dfs_eq_assert</a></li><li><a href=#General_DFS_Structure-gen_dfsT_eq_assert>gen_dfsT_eq_assert</a></li><li><a href=#General_DFS_Structure-gen_rwof_eq_assert>gen_rwof_eq_assert</a></li><li><a href=#General_DFS_Structure-gen_dfs_le_gen_dfsT>gen_dfs_le_gen_dfsT</a></li><li><a href=#General_DFS_Structure-gen_cond_simp>gen_cond_simp</a></li><li><a href=#General_DFS_Structure-gen_step_simp>gen_step_simp</a></li><li><a href=#General_DFS_Structure-gen_init_simp>gen_init_simp</a></li><li><a href=#General_DFS_Structure-gen_dfs_simp>gen_dfs_simp</a></li><li><a href=#General_DFS_Structure-gen_dfsT_simp>gen_dfsT_simp</a></li><li><a href=#General_DFS_Structure-select_v0_refine>select_v0_refine</a></li><li><a href=#General_DFS_Structure-gen_rwof_refine>gen_rwof_refine</a></li><li><a href=#General_DFS_Structure-gen_step_refine>gen_step_refine</a></li><li><a href=#General_DFS_Structure-gen_dfs_refine>gen_dfs_refine</a></li><li><a href=#General_DFS_Structure-gen_dfsT_refine>gen_dfsT_refine</a></li></ul></li><li><a href=#Tailrec_Impl>Tailrec_Impl</a><ul><li><a href=#Tailrec_Impl-gds_init_refine>gds_init_refine</a></li><li><a href=#Tailrec_Impl-gds_new_root_refine>gds_new_root_refine</a></li><li><a href=#Tailrec_Impl-get_pending_nofail>get_pending_nofail</a></li><li><a href=#Tailrec_Impl-gds_get_pending_refine>gds_get_pending_refine</a></li><li><a href=#Tailrec_Impl-gds_finish_refine>gds_finish_refine</a></li><li><a href=#Tailrec_Impl-gds_cross_edge_refine>gds_cross_edge_refine</a></li><li><a href=#Tailrec_Impl-gds_back_edge_refine>gds_back_edge_refine</a></li><li><a href=#Tailrec_Impl-gds_discover_refine>gds_discover_refine</a></li><li><a href=#Tailrec_Impl-gen_step_disc_incr>gen_step_disc_incr</a></li><li><a href=#Tailrec_Impl-tr_impl_while_body_gen_step>tr_impl_while_body_gen_step</a></li><li><a href=#Tailrec_Impl-tailrecT_impl>tailrecT_impl</a></li></ul></li><li><a href=#Rec_Impl>Rec_Impl</a><ul><li><a href=#Rec_Impl-gen_step%27_refine>gen_step'_refine</a></li><li><a href=#Rec_Impl-gen_dfs%27_refine>gen_dfs'_refine</a></li><li><a href=#Rec_Impl-gen_rwof%27_imp_rwof>gen_rwof'_imp_rwof</a></li><li><a href=#Rec_Impl-reachable_invar>reachable_invar</a></li><li><a href=#Rec_Impl-mk_spec_aux>mk_spec_aux</a></li><li><a href=#Rec_Impl-pcp_imp_pgp>pcp_imp_pgp</a></li><li><a href=#Rec_Impl-rec_impl_aux>rec_impl_aux</a></li><li><a href=#Rec_Impl-rec_impl>rec_impl</a></li></ul></li><li><a href=#Simple_Impl>Simple_Impl</a><ul><li><a href=#Simple_Impl-simple_state_relI>simple_state_relI</a></li><li><a href=#Simple_Impl-simple_state_more_refine>simple_state_more_refine</a></li><li><a href=#Simple_Impl-init_impl>init_impl</a></li><li><a href=#Simple_Impl-new_root_impl>new_root_impl</a></li><li><a href=#Simple_Impl-get_pending_impl>get_pending_impl</a></li><li><a href=#Simple_Impl-inres_get_pending_None_conv>inres_get_pending_None_conv</a></li><li><a href=#Simple_Impl-inres_get_pending_Some_conv>inres_get_pending_Some_conv</a></li><li><a href=#Simple_Impl-finish_impl>finish_impl</a></li><li><a href=#Simple_Impl-cross_edge_impl>cross_edge_impl</a></li><li><a href=#Simple_Impl-back_edge_impl>back_edge_impl</a></li><li><a href=#Simple_Impl-discover_impl>discover_impl</a></li><li><a href=#Simple_Impl-simple_refine>simple_refine</a></li><li><a href=#Simple_Impl-simple_refineT>simple_refineT</a></li><li><a href=#Simple_Impl-simple_tailrec_refine>simple_tailrec_refine</a></li><li><a href=#Simple_Impl-simple_tailrecT_refine>simple_tailrecT_refine</a></li><li><a href=#Simple_Impl-reachable_invar>reachable_invar</a></li><li><a href=#Simple_Impl-simple_rec_refine>simple_rec_refine</a></li><li><a href=#Simple_Impl-choose_pending_ns_unfold>choose_pending_ns_unfold</a></li></ul></li><li><a href=#Restr_Impl>Restr_Impl</a><ul><li><a href=#Restr_Impl-restr_rel_simps>restr_rel_simps</a></li><li><a href=#Restr_Impl-restr_simple_state_rel_combine>restr_simple_state_rel_combine</a></li><li><a href=#Restr_Impl-is_break_param%27>is_break_param'</a></li><li><a href=#Restr_Impl-do_init_refine>do_init_refine</a></li><li><a href=#Restr_Impl-gen_cond_param>gen_cond_param</a></li><li><a href=#Restr_Impl-cross_back_id>cross_back_id</a></li><li><a href=#Restr_Impl-pred_rel_simps>pred_rel_simps</a></li><li><a href=#Restr_Impl-no_pending_refine>no_pending_refine</a></li><li><a href=#Restr_Impl-do_new_root_refine>do_new_root_refine</a></li><li><a href=#Restr_Impl-do_finish_refine>do_finish_refine</a></li><li><a href=#Restr_Impl-aux_cnv_pending>aux_cnv_pending</a></li><li><a href=#Restr_Impl-get_pending_refine>get_pending_refine</a></li><li><a href=#Restr_Impl-do_discover_refine>do_discover_refine</a></li><li><a href=#Restr_Impl-aux_R_node_discovered>aux_R_node_discovered</a></li><li><a href=#Restr_Impl-re_refine_aux>re_refine_aux</a></li><li><a href=#Restr_Impl-tailrec_refine>tailrec_refine</a></li></ul></li><li><a href=#DFS_Framework>DFS_Framework</a></li><li><a href=#DFS_Chapter_Examples>DFS_Chapter_Examples</a></li><li><a href=#Cyc_Check>Cyc_Check</a><ul><li><a href=#Cyc_Check-break_more_cong>break_more_cong</a></li><li><a href=#Cyc_Check-cyccI>cyccI</a></li><li><a href=#Cyc_Check-cyccI%27>cyccI'</a></li><li><a href=#Cyc_Check-cycc_invar_eq>cycc_invar_eq</a></li><li><a href=#Cyc_Check-cycc_correct_aux>cycc_correct_aux</a></li><li><a href=#Cyc_Check-cycc_correct_aux_short_proof>cycc_correct_aux_short_proof</a></li><li><a href=#Cyc_Check-break_impl>break_impl</a></li><li><a href=#Cyc_Check-cyc_checker_impl_refine>cyc_checker_impl_refine</a></li><li><a href=#Cyc_Check-cyc_checker_rec_impl_refine>cyc_checker_rec_impl_refine</a></li><li><a href=#Cyc_Check-cyc_checker_implT_refine>cyc_checker_implT_refine</a></li><li><a href=#Cyc_Check-cyc_checker_rec_code_correct>cyc_checker_rec_code_correct</a></li></ul></li><li><a href=#DFS_Find_Path>DFS_Find_Path</a><ul><li><a href=#DFS_Find_Path-fp0I>fp0I</a></li><li><a href=#DFS_Find_Path-fp0_invar_eq>fp0_invar_eq</a></li><li><a href=#DFS_Find_Path-i_no_path_no_P_discovered>i_no_path_no_P_discovered</a></li><li><a href=#DFS_Find_Path-i_path_to_P>i_path_to_P</a></li><li><a href=#DFS_Find_Path-i_path_invar>i_path_invar</a></li><li><a href=#DFS_Find_Path-path_invar_nonempty>path_invar_nonempty</a></li><li><a href=#DFS_Find_Path-path_invar_empty>path_invar_empty</a></li><li><a href=#DFS_Find_Path-fp0_correct>fp0_correct</a></li><li><a href=#DFS_Find_Path-fp0_correct>fp0_correct</a></li><li><a href=#DFS_Find_Path-find_path0_correct>find_path0_correct</a></li><li><a href=#DFS_Find_Path-restr_invar_triv>restr_invar_triv</a></li><li><a href=#DFS_Find_Path-restr_invar_imp_not_reachable>restr_invar_imp_not_reachable</a></li><li><a href=#DFS_Find_Path-find_path0_restr_correct>find_path0_restr_correct</a></li><li><a href=#DFS_Find_Path-find_path1_restr_correct>find_path1_restr_correct</a></li><li><a href=#DFS_Find_Path-find_path1_correct>find_path1_correct</a></li><li><a href=#DFS_Find_Path-fp0_rel_ppath_cong>fp0_rel_ppath_cong</a></li><li><a href=#DFS_Find_Path-fp0_ss_rel_ppath_cong>fp0_ss_rel_ppath_cong</a></li><li><a href=#DFS_Find_Path-fp0i_cong>fp0i_cong</a></li><li><a href=#DFS_Find_Path-fp0_erelI>fp0_erelI</a></li><li><a href=#DFS_Find_Path-find_path0_restr_impl>find_path0_restr_impl</a></li><li><a href=#DFS_Find_Path-find_path0_impl>find_path0_impl</a></li><li><a href=#DFS_Find_Path-find_path0_autoref_aux>find_path0_autoref_aux</a></li><li><a href=#DFS_Find_Path-find_path0_restr_autoref_aux>find_path0_restr_autoref_aux</a></li><li><a href=#DFS_Find_Path-find_path1_restr_autoref_aux>find_path1_restr_autoref_aux</a></li><li><a href=#DFS_Find_Path-find_path1_code_autoref_aux>find_path1_code_autoref_aux</a></li></ul></li><li><a href=#Reachable_Nodes>Reachable_Nodes</a><ul><li><a href=#Reachable_Nodes-gen_obtain_finite_set>gen_obtain_finite_set</a></li><li><a href=#Reachable_Nodes-obtain_finite_ahs>obtain_finite_ahs</a></li><li><a href=#Reachable_Nodes-unit_DFSI>unit_DFSI</a></li><li><a href=#Reachable_Nodes-find_reachable_correct>find_reachable_correct</a></li><li><a href=#Reachable_Nodes-find_reachableT_correct>find_reachableT_correct</a></li><li><a href=#Reachable_Nodes-find_reachable_impl_refine>find_reachable_impl_refine</a></li><li><a href=#Reachable_Nodes-find_reachable_implT_refine>find_reachable_implT_refine</a></li><li><a href=#Reachable_Nodes-find_reachable_rec_impl_refine>find_reachable_rec_impl_refine</a></li><li><a href=#Reachable_Nodes-find_reachable_code_correct>find_reachable_code_correct</a></li><li><a href=#Reachable_Nodes-find_reachable_codeT_correct>find_reachable_codeT_correct</a></li><li><a href=#Reachable_Nodes-all_unit_refine>all_unit_refine</a></li><li><a href=#Reachable_Nodes-unit_list_rel_refine>unit_list_rel_refine</a></li><li><a href=#Reachable_Nodes-find_reachable_rec_code_correct>find_reachable_rec_code_correct</a></li><li><a href=#Reachable_Nodes-autoref_op_reachable>autoref_op_reachable</a></li></ul></li><li><a href=#Feedback_Arcs>Feedback_Arcs</a><ul><li><a href=#Feedback_Arcs-is_fas_alt>is_fas_alt</a></li><li><a href=#Feedback_Arcs-fas_more_cong>fas_more_cong</a></li><li><a href=#Feedback_Arcs-fasI>fasI</a></li><li><a href=#Feedback_Arcs-find_fas_correct_aux>find_fas_correct_aux</a></li><li><a href=#Feedback_Arcs-find_fas_correct>find_fas_correct</a></li><li><a href=#Feedback_Arcs-fas_impl>fas_impl</a></li><li><a href=#Feedback_Arcs-find_fas_impl_refine>find_fas_impl_refine</a></li><li><a href=#Feedback_Arcs-find_fas_code_refine>find_fas_code_refine</a></li><li><a href=#Feedback_Arcs-is_fas_join>is_fas_join</a></li><li><a href=#Feedback_Arcs-graphI_init>graphI_init</a></li><li><a href=#Feedback_Arcs-find_fas_init_correct>find_fas_init_correct</a></li><li><a href=#Feedback_Arcs-gen_cast_set>gen_cast_set</a></li><li><a href=#Feedback_Arcs-gen_cast_fun_set_rel>gen_cast_fun_set_rel</a></li><li><a href=#Feedback_Arcs-find_fas_init_impl_aux_unfolds>find_fas_init_impl_aux_unfolds</a></li></ul></li><li><a href=#Nested_DFS>Nested_DFS</a><ul><li><a href=#Nested_DFS-closed_restrict_aux>closed_restrict_aux</a></li><li><a href=#Nested_DFS-lasso_more_cong>lasso_more_cong</a></li><li><a href=#Nested_DFS-red_more_cong>red_more_cong</a></li><li><a href=#Nested_DFS-BlueDFSI>BlueDFSI</a></li><li><a href=#Nested_DFS-BlueDFS_invar_eq>BlueDFS_invar_eq</a></li><li><a href=#Nested_DFS-blue_basic_invar>blue_basic_invar</a></li><li><a href=#Nested_DFS-red_closed>red_closed</a></li><li><a href=#Nested_DFS-red_stack_disjoint>red_stack_disjoint</a></li><li><a href=#Nested_DFS-red_finished>red_finished</a></li><li><a href=#Nested_DFS-all_nodes_colored>all_nodes_colored</a></li><li><a href=#Nested_DFS-colors_disjoint>colors_disjoint</a></li><li><a href=#Nested_DFS-no_accpt_cycle_in_finish>no_accpt_cycle_in_finish</a></li><li><a href=#Nested_DFS-lasso_inv>lasso_inv</a></li><li><a href=#Nested_DFS-blue_dfs_correct>blue_dfs_correct</a></li><li><a href=#Nested_DFS-mk_blue_witness_impl>mk_blue_witness_impl</a></li><li><a href=#Nested_DFS-cyan_impl>cyan_impl</a></li><li><a href=#Nested_DFS-run_red_dfs_impl>run_red_dfs_impl</a></li><li><a href=#Nested_DFS-se_back_edge_impl>se_back_edge_impl</a></li><li><a href=#Nested_DFS-NOOP_impl>NOOP_impl</a></li><li><a href=#Nested_DFS-nested_dfs_impl>nested_dfs_impl</a></li></ul></li><li><a href=#Tarjan_LowLink>Tarjan_LowLink</a><ul><li><a href=#Tarjan_LowLink-lowlink_setI>lowlink_setI</a></li><li><a href=#Tarjan_LowLink-lowlink_set_discovered>lowlink_set_discovered</a></li><li><a href=#Tarjan_LowLink-lowlink_set_finite>lowlink_set_finite</a></li><li><a href=#Tarjan_LowLink-lowlink_set_not_empty>lowlink_set_not_empty</a></li><li><a href=#Tarjan_LowLink-lowlink_path_single>lowlink_path_single</a></li><li><a href=#Tarjan_LowLink-lowlink_path_Cons>lowlink_path_Cons</a></li><li><a href=#Tarjan_LowLink-lowlink_path_in_tree>lowlink_path_in_tree</a></li><li><a href=#Tarjan_LowLink-lowlink_path_finished>lowlink_path_finished</a></li><li><a href=#Tarjan_LowLink-lowlink_path_tree_prepend>lowlink_path_tree_prepend</a></li><li><a href=#Tarjan_LowLink-lowlink_path_complex>lowlink_path_complex</a></li><li><a href=#Tarjan_LowLink-no_path_imp_no_lowlink_path>no_path_imp_no_lowlink_path</a></li><li><a href=#Tarjan_LowLink-LowLink_le_disc>LowLink_le_disc</a></li><li><a href=#Tarjan_LowLink-LowLink_lessE>LowLink_lessE</a></li><li><a href=#Tarjan_LowLink-LowLink_lessI>LowLink_lessI</a></li><li><a href=#Tarjan_LowLink-LowLink_eqI>LowLink_eqI</a></li><li><a href=#Tarjan_LowLink-LowLink_eq_disc_iff_scc_root>LowLink_eq_disc_iff_scc_root</a></li></ul></li><li><a href=#Tarjan>Tarjan</a><ul><li><a href=#Tarjan-tjs_union>tjs_union</a></li><li><a href=#Tarjan-tj_stack_pop_set>tj_stack_pop_set</a></li><li><a href=#Tarjan-sccs_more_cong>sccs_more_cong</a></li><li><a href=#Tarjan-lowlink_more_cong>lowlink_more_cong</a></li><li><a href=#Tarjan-tj_stack_more_cong>tj_stack_more_cong</a></li><li><a href=#Tarjan-Tarjan_invar_eq>Tarjan_invar_eq</a></li><li><a href=#Tarjan-i_tj_stack_discovered>i_tj_stack_discovered</a></li><li><a href=#Tarjan-i_tj_stack_distinct>i_tj_stack_distinct</a></li><li><a href=#Tarjan-i_tj_stack_incr_disc>i_tj_stack_incr_disc</a></li><li><a href=#Tarjan-tj_stack_incr_disc>tj_stack_incr_disc</a></li><li><a href=#Tarjan-tjs_disc_dw_tw>tjs_disc_dw_tw</a></li><li><a href=#Tarjan-i_sccs_finished_stack_ss_tj_stack>i_sccs_finished_stack_ss_tj_stack</a></li><li><a href=#Tarjan-i_tj_stack_ss_stack_finished>i_tj_stack_ss_stack_finished</a></li><li><a href=#Tarjan-i_finished_ss_sccs_tj_stack>i_finished_ss_sccs_tj_stack</a></li><li><a href=#Tarjan-sccs_finished>sccs_finished</a></li><li><a href=#Tarjan-stack_ss_tj_stack>stack_ss_tj_stack</a></li><li><a href=#Tarjan-hd_stack_in_tj_stack>hd_stack_in_tj_stack</a></li><li><a href=#Tarjan-i_no_finished_root>i_no_finished_root</a></li><li><a href=#Tarjan-no_finished_root>no_finished_root</a></li><li><a href=#Tarjan-tj_stack_reach_stack>tj_stack_reach_stack</a></li><li><a href=#Tarjan-tj_stack_reach_hd_stack>tj_stack_reach_hd_stack</a></li><li><a href=#Tarjan-empty_stack_imp_empty_tj_stack>empty_stack_imp_empty_tj_stack</a></li><li><a href=#Tarjan-stacks_eq_iff>stacks_eq_iff</a></li><li><a href=#Tarjan-i_sccs_are_sccs>i_sccs_are_sccs</a></li><li><a href=#Tarjan-i_lowlink_eq_LowLink>i_lowlink_eq_LowLink</a></li><li><a href=#Tarjan-lowlink_eq_disc_iff_scc_root>lowlink_eq_disc_iff_scc_root</a></li><li><a href=#Tarjan-nc_sccs_eq_reachable>nc_sccs_eq_reachable</a></li><li><a href=#Tarjan-tarjan_fin_nofail>tarjan_fin_nofail</a></li><li><a href=#Tarjan-tarjan_correct>tarjan_correct</a></li></ul></li><li><a href=#DFS_All_Examples>DFS_All_Examples</a></li></ul></div><ul><li><a href=https://www.isa-afp.org/browser_info/current/AFP/DFS_Framework/outline.pdf>Proof
-outline</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/DFS_Framework/document.pdf>Proof
-document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/DFS_Framework/session_graph.pdf>Theory dependencies</a></li></ul></div></aside><div class="content theories"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
-<datalist id=autocomplete></datalist></div></form><h1><span class=first>S</span>ession <span class=first>D</span><span class=first>F</span><span class=first>S</span>_<span class=first>F</span>ramework</h1><div></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><div id=DFS_Framework_Misc><div class=head><h1>Theory DFS_Framework_Misc</h1></div><pre class=source><span class=keyword1><span class=command>theory</span></span> DFS_Framework_Misc
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Session DFS_Framework - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session DFS_Framework">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="/entries/dfs_framework/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories">
+<meta property="og:site_name" content="Archive of Formal Proofs">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="/images/afp.png">
+<meta name=twitter:title content="Session DFS_Framework">
+<meta name=twitter:description content>
+<link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css>
+<link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script>
+<script src=/js/banner.js></script><script src=/js/header-search.js></script></head>
+<body class=mathjax_ignore>
+<aside>
+<div>
+<div>
+<a href=/>
+<img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo>
+</a>
+<ul>
+<li><a href=/entries/dfs_framework>Return to entry</a></li>
+</ul>
+<hr>
+<ul><li><a href=#DFS_Framework_Misc>DFS_Framework_Misc</a>
+<ul>
+<li><a href=#DFS_Framework_Misc-tri_caseE>tri_caseE</a></li>
+<li><a href=#DFS_Framework_Misc-opt_tagI>opt_tagI</a></li>
+<li><a href=#DFS_Framework_Misc-opt_tagD>opt_tagD</a></li>
+</ul>
+</li><li><a href=#DFS_Framework_Refine_Aux>DFS_Framework_Refine_Aux</a>
+<ul>
+<li><a href=#DFS_Framework_Refine_Aux-GHOST_elim_Let>GHOST_elim_Let</a></li>
+<li><a href=#DFS_Framework_Refine_Aux-WHILET_eq_WHILE>WHILET_eq_WHILE</a></li>
+<li><a href=#DFS_Framework_Refine_Aux-WHILEIT_eq_WHILEI>WHILEIT_eq_WHILEI</a></li>
+<li><a href=#DFS_Framework_Refine_Aux-WHILEIT_le_WHILEI>WHILEIT_le_WHILEI</a></li>
+<li><a href=#DFS_Framework_Refine_Aux-WHILET_eq_WHILE_tproof>WHILET_eq_WHILE_tproof</a></li>
+<li><a href=#DFS_Framework_Refine_Aux-WHILEIT_eq_WHILEI_tproof>WHILEIT_eq_WHILEI_tproof</a></li>
+</ul>
+</li><li><a href=#Impl_Rev_Array_Stack>Impl_Rev_Array_Stack</a>
+<ul>
+<li><a href=#Impl_Rev_Array_Stack-ras_rel_def>ras_rel_def</a></li>
+<li><a href=#Impl_Rev_Array_Stack-ras_empty_refine>ras_empty_refine</a></li>
+<li><a href=#Impl_Rev_Array_Stack-ras_push_refine>ras_push_refine</a></li>
+<li><a href=#Impl_Rev_Array_Stack-ras_shrink_id_refine>ras_shrink_id_refine</a></li>
+<li><a href=#Impl_Rev_Array_Stack-ras_shrinkI>ras_shrinkI</a></li>
+<li><a href=#Impl_Rev_Array_Stack-ras_pop_refine>ras_pop_refine</a></li>
+<li><a href=#Impl_Rev_Array_Stack-ras_get_refine>ras_get_refine</a></li>
+<li><a href=#Impl_Rev_Array_Stack-ras_get_autoref>ras_get_autoref</a></li>
+<li><a href=#Impl_Rev_Array_Stack-ras_set_refine>ras_set_refine</a></li>
+<li><a href=#Impl_Rev_Array_Stack-ras_set_autoref>ras_set_autoref</a></li>
+<li><a href=#Impl_Rev_Array_Stack-ras_length_refine>ras_length_refine</a></li>
+<li><a href=#Impl_Rev_Array_Stack-ras_top_code>ras_top_code</a></li>
+<li><a href=#Impl_Rev_Array_Stack-ras_top_refine>ras_top_refine</a></li>
+<li><a href=#Impl_Rev_Array_Stack-ras_top_autoref>ras_top_autoref</a></li>
+<li><a href=#Impl_Rev_Array_Stack-ras_is_empty_code>ras_is_empty_code</a></li>
+<li><a href=#Impl_Rev_Array_Stack-ras_is_empty_refine>ras_is_empty_refine</a></li>
+<li><a href=#Impl_Rev_Array_Stack-ras_singleton_refine>ras_singleton_refine</a></li>
+<li><a href=#Impl_Rev_Array_Stack-ras_cast_to_list_refine>ras_cast_to_list_refine</a></li>
+</ul>
+</li><li><a href=#On_Stack>On_Stack</a>
+<ul>
+<li><a href=#On_Stack-stack_rel_def>stack_rel_def</a></li>
+<li><a href=#On_Stack-autoref_stack_empty>autoref_stack_empty</a></li>
+<li><a href=#On_Stack-autoref_stack_push>autoref_stack_push</a></li>
+<li><a href=#On_Stack-autoref_stack_sng>autoref_stack_sng</a></li>
+<li><a href=#On_Stack-autoref_stack_pop>autoref_stack_pop</a></li>
+<li><a href=#On_Stack-autoref_stack_set>autoref_stack_set</a></li>
+<li><a href=#On_Stack-autoref_stack_is_Nil>autoref_stack_is_Nil</a></li>
+<li><a href=#On_Stack-autoref_stack_ltop>autoref_stack_ltop</a></li>
+</ul>
+</li><li><a href=#DFS_Chapter_Framework>DFS_Chapter_Framework</a>
+</li><li><a href=#Param_DFS>Param_DFS</a>
+<ul>
+<li><a href=#Param_DFS-discover_simps>discover_simps</a></li>
+<li><a href=#Param_DFS-finish_simps>finish_simps</a></li>
+<li><a href=#Param_DFS-back_edge_simps>back_edge_simps</a></li>
+<li><a href=#Param_DFS-cross_edge_simps>cross_edge_simps</a></li>
+<li><a href=#Param_DFS-new_root_simps>new_root_simps</a></li>
+<li><a href=#Param_DFS-empty_state_simps>empty_state_simps</a></li>
+<li><a href=#Param_DFS-cond_alt>cond_alt</a></li>
+<li><a href=#Param_DFS-make_invar_thm>make_invar_thm</a></li>
+<li><a href=#Param_DFS-rwof_eq_DFS_invar>rwof_eq_DFS_invar</a></li>
+<li><a href=#Param_DFS-DFS_invar_step>DFS_invar_step</a></li>
+<li><a href=#Param_DFS-DFS_invar_step%27>DFS_invar_step'</a></li>
+<li><a href=#Param_DFS-establish_invarI>establish_invarI</a></li>
+<li><a href=#Param_DFS-establish_invarI%27>establish_invarI'</a></li>
+<li><a href=#Param_DFS-establish_invarI_ND>establish_invarI_ND</a></li>
+<li><a href=#Param_DFS-establish_invarI_CB>establish_invarI_CB</a></li>
+<li><a href=#Param_DFS-establish_invarI_ND_CB>establish_invarI_ND_CB</a></li>
+<li><a href=#Param_DFS-is_invarI_full>is_invarI_full</a></li>
+<li><a href=#Param_DFS-is_invarI>is_invarI</a></li>
+<li><a href=#Param_DFS-i_basic_invar>i_basic_invar</a></li>
+<li><a href=#Param_DFS-pending_ssE>pending_ssE</a></li>
+<li><a href=#Param_DFS-pendingD>pendingD</a></li>
+<li><a href=#Param_DFS-stack_set_def>stack_set_def</a></li>
+<li><a href=#Param_DFS-stack_discovered>stack_discovered</a></li>
+<li><a href=#Param_DFS-stack_distinct>stack_distinct</a></li>
+<li><a href=#Param_DFS-last_stack_in_V0>last_stack_in_V0</a></li>
+<li><a href=#Param_DFS-stack_not_finished>stack_not_finished</a></li>
+<li><a href=#Param_DFS-discovered_not_stack_imp_finished>discovered_not_stack_imp_finished</a></li>
+<li><a href=#Param_DFS-finished_discovered>finished_discovered</a></li>
+<li><a href=#Param_DFS-finished_no_pending>finished_no_pending</a></li>
+<li><a href=#Param_DFS-discovered_eq_finished_un_stack>discovered_eq_finished_un_stack</a></li>
+<li><a href=#Param_DFS-pending_on_stack>pending_on_stack</a></li>
+<li><a href=#Param_DFS-empty_stack_imp_empty_pending>empty_stack_imp_empty_pending</a></li>
+<li><a href=#Param_DFS-i_discovered_reachable>i_discovered_reachable</a></li>
+<li><a href=#Param_DFS-i_discovered_closed>i_discovered_closed</a></li>
+<li><a href=#Param_DFS-i_discovered_finite>i_discovered_finite</a></li>
+<li><a href=#Param_DFS-stack_reachable>stack_reachable</a></li>
+<li><a href=#Param_DFS-finished_finite>finished_finite</a></li>
+<li><a href=#Param_DFS-finished_closed>finished_closed</a></li>
+<li><a href=#Param_DFS-finished_imp_succ_discovered>finished_imp_succ_discovered</a></li>
+<li><a href=#Param_DFS-pending_reachable>pending_reachable</a></li>
+<li><a href=#Param_DFS-pending_finite>pending_finite</a></li>
+<li><a href=#Param_DFS-no_pending_imp_succ_discovered>no_pending_imp_succ_discovered</a></li>
+<li><a href=#Param_DFS-nc_finished_eq_reachable>nc_finished_eq_reachable</a></li>
+<li><a href=#Param_DFS-nc_V0_finished>nc_V0_finished</a></li>
+<li><a href=#Param_DFS-nc_discovered_eq_finished>nc_discovered_eq_finished</a></li>
+<li><a href=#Param_DFS-nc_discovered_eq_reachable>nc_discovered_eq_reachable</a></li>
+<li><a href=#Param_DFS-nc_fin_closed>nc_fin_closed</a></li>
+<li><a href=#Param_DFS-param_dfs_variant_wf>param_dfs_variant_wf</a></li>
+<li><a href=#Param_DFS-param_dfs_variant_step>param_dfs_variant_step</a></li>
+<li><a href=#Param_DFS-it_dfsT_eq_it_dfs>it_dfsT_eq_it_dfs</a></li>
+<li><a href=#Param_DFS-init_leof_invar>init_leof_invar</a></li>
+<li><a href=#Param_DFS-it_dfs_eq_spec>it_dfs_eq_spec</a></li>
+<li><a href=#Param_DFS-it_dfs_correct>it_dfs_correct</a></li>
+<li><a href=#Param_DFS-it_dfs_SPEC>it_dfs_SPEC</a></li>
+<li><a href=#Param_DFS-it_dfsT_correct>it_dfsT_correct</a></li>
+<li><a href=#Param_DFS-it_dfsT_SPEC>it_dfsT_SPEC</a></li>
+</ul>
+</li><li><a href=#DFS_Invars_Basic>DFS_Invars_Basic</a>
+<ul>
+<li><a href=#DFS_Invars_Basic-timing_common_inv>timing_common_inv</a></li>
+<li><a href=#DFS_Invars_Basic-timing_less_counter>timing_less_counter</a></li>
+<li><a href=#DFS_Invars_Basic-disc_lt_fin>disc_lt_fin</a></li>
+<li><a href=#DFS_Invars_Basic-disc_unequal>disc_unequal</a></li>
+<li><a href=#DFS_Invars_Basic-fin_unequal>fin_unequal</a></li>
+<li><a href=#DFS_Invars_Basic-finished_succ_fin>finished_succ_fin</a></li>
+<li><a href=#DFS_Invars_Basic-i_prev_stack_discover_all>i_prev_stack_discover_all</a></li>
+<li><a href=#DFS_Invars_Basic-prev_stack_discover>prev_stack_discover</a></li>
+<li><a href=#DFS_Invars_Basic-Suc_stack_discover>Suc_stack_discover</a></li>
+<li><a href=#DFS_Invars_Basic-tl_lt_stack_hd_discover>tl_lt_stack_hd_discover</a></li>
+<li><a href=#DFS_Invars_Basic-stack_nth_order>stack_nth_order</a></li>
+<li><a href=#DFS_Invars_Basic-i_parenthesis>i_parenthesis</a></li>
+<li><a href=#DFS_Invars_Basic-parenthesis>parenthesis</a></li>
+<li><a href=#DFS_Invars_Basic-parenthesis_contained>parenthesis_contained</a></li>
+<li><a href=#DFS_Invars_Basic-parenthesis_disjoint>parenthesis_disjoint</a></li>
+<li><a href=#DFS_Invars_Basic-finished_succ_contained>finished_succ_contained</a></li>
+<li><a href=#DFS_Invars_Basic-edgesE_CB>edgesE_CB</a></li>
+<li><a href=#DFS_Invars_Basic-i_edges_basic>i_edges_basic</a></li>
+<li><a href=#DFS_Invars_Basic-i_edges_covered>i_edges_covered</a></li>
+<li><a href=#DFS_Invars_Basic-edges_ss_reachable_edges>edges_ss_reachable_edges</a></li>
+<li><a href=#DFS_Invars_Basic-nc_edges_covered>nc_edges_covered</a></li>
+<li><a href=#DFS_Invars_Basic-tree_edges_ssE>tree_edges_ssE</a></li>
+<li><a href=#DFS_Invars_Basic-edges_disjoint>edges_disjoint</a></li>
+<li><a href=#DFS_Invars_Basic-tree_edge_imp_discovered>tree_edge_imp_discovered</a></li>
+<li><a href=#DFS_Invars_Basic-back_edge_imp_discovered>back_edge_imp_discovered</a></li>
+<li><a href=#DFS_Invars_Basic-cross_edge_imp_discovered>cross_edge_imp_discovered</a></li>
+<li><a href=#DFS_Invars_Basic-edge_imp_discovered>edge_imp_discovered</a></li>
+<li><a href=#DFS_Invars_Basic-tree_edges_finite>tree_edges_finite</a></li>
+<li><a href=#DFS_Invars_Basic-cross_edges_finite>cross_edges_finite</a></li>
+<li><a href=#DFS_Invars_Basic-back_edges_finite>back_edges_finite</a></li>
+<li><a href=#DFS_Invars_Basic-edges_finite>edges_finite</a></li>
+<li><a href=#DFS_Invars_Basic-tree_edge_disc_lt_fin>tree_edge_disc_lt_fin</a></li>
+<li><a href=#DFS_Invars_Basic-back_edge_disc_lt_fin>back_edge_disc_lt_fin</a></li>
+<li><a href=#DFS_Invars_Basic-cross_edge_disc_lt_fin>cross_edge_disc_lt_fin</a></li>
+<li><a href=#DFS_Invars_Basic-i_stack_is_tree_path>i_stack_is_tree_path</a></li>
+<li><a href=#DFS_Invars_Basic-stack_is_path>stack_is_path</a></li>
+<li><a href=#DFS_Invars_Basic-hd_succ_stack_is_path>hd_succ_stack_is_path</a></li>
+<li><a href=#DFS_Invars_Basic-tl_stack_hd_tree_path>tl_stack_hd_tree_path</a></li>
+<li><a href=#DFS_Invars_Basic-i_tree_discovered_inv>i_tree_discovered_inv</a></li>
+<li><a href=#DFS_Invars_Basic-i_tree_one_predecessor>i_tree_one_predecessor</a></li>
+<li><a href=#DFS_Invars_Basic-i_tree_edge_disc>i_tree_edge_disc</a></li>
+<li><a href=#DFS_Invars_Basic-tree_edge_disc>tree_edge_disc</a></li>
+<li><a href=#DFS_Invars_Basic-tree_path_disc>tree_path_disc</a></li>
+<li><a href=#DFS_Invars_Basic-no_loop_in_tree>no_loop_in_tree</a></li>
+<li><a href=#DFS_Invars_Basic-tree_acyclic>tree_acyclic</a></li>
+<li><a href=#DFS_Invars_Basic-no_self_loop_in_tree>no_self_loop_in_tree</a></li>
+<li><a href=#DFS_Invars_Basic-tree_edge_unequal>tree_edge_unequal</a></li>
+<li><a href=#DFS_Invars_Basic-tree_path_unequal>tree_path_unequal</a></li>
+<li><a href=#DFS_Invars_Basic-tree_subpath%27>tree_subpath'</a></li>
+<li><a href=#DFS_Invars_Basic-tree_subpath>tree_subpath</a></li>
+<li><a href=#DFS_Invars_Basic-on_stack_is_tree_path>on_stack_is_tree_path</a></li>
+<li><a href=#DFS_Invars_Basic-hd_stack_tree_path_finished>hd_stack_tree_path_finished</a></li>
+<li><a href=#DFS_Invars_Basic-tree_edge_impl_parenthesis>tree_edge_impl_parenthesis</a></li>
+<li><a href=#DFS_Invars_Basic-tree_path_impl_parenthesis>tree_path_impl_parenthesis</a></li>
+<li><a href=#DFS_Invars_Basic-nc_reachable_v0_parenthesis>nc_reachable_v0_parenthesis</a></li>
+<li><a href=#DFS_Invars_Basic-paren_imp_tree_reach>paren_imp_tree_reach</a></li>
+<li><a href=#DFS_Invars_Basic-parenthesis_impl_tree_path_not_finished>parenthesis_impl_tree_path_not_finished</a></li>
+<li><a href=#DFS_Invars_Basic-parenthesis_impl_tree_path>parenthesis_impl_tree_path</a></li>
+<li><a href=#DFS_Invars_Basic-tree_path_iff_parenthesis>tree_path_iff_parenthesis</a></li>
+<li><a href=#DFS_Invars_Basic-no_pending_succ_impl_path_in_tree>no_pending_succ_impl_path_in_tree</a></li>
+<li><a href=#DFS_Invars_Basic-finished_succ_impl_path_in_tree>finished_succ_impl_path_in_tree</a></li>
+<li><a href=#DFS_Invars_Basic-i_cross_edges_finished>i_cross_edges_finished</a></li>
+<li><a href=#DFS_Invars_Basic-cross_edges_target_finished>cross_edges_target_finished</a></li>
+<li><a href=#DFS_Invars_Basic-cross_edges_finished_decr>cross_edges_finished_decr</a></li>
+<li><a href=#DFS_Invars_Basic-cross_edge_unequal>cross_edge_unequal</a></li>
+<li><a href=#DFS_Invars_Basic-i_back_edge_impl_tree_path>i_back_edge_impl_tree_path</a></li>
+<li><a href=#DFS_Invars_Basic-back_edge_impl_tree_path>back_edge_impl_tree_path</a></li>
+<li><a href=#DFS_Invars_Basic-back_edge_disc>back_edge_disc</a></li>
+<li><a href=#DFS_Invars_Basic-back_edges_tree_disjoint>back_edges_tree_disjoint</a></li>
+<li><a href=#DFS_Invars_Basic-back_edges_tree_pathes_disjoint>back_edges_tree_pathes_disjoint</a></li>
+<li><a href=#DFS_Invars_Basic-back_edge_finished>back_edge_finished</a></li>
+<li><a href=#DFS_Invars_Basic-i_disc_imp_back_edge_or_pending>i_disc_imp_back_edge_or_pending</a></li>
+<li><a href=#DFS_Invars_Basic-disc_imp_back_edge_or_pending>disc_imp_back_edge_or_pending</a></li>
+<li><a href=#DFS_Invars_Basic-finished_imp_back_edge>finished_imp_back_edge</a></li>
+<li><a href=#DFS_Invars_Basic-finished_not_finished_imp_back_edge>finished_not_finished_imp_back_edge</a></li>
+<li><a href=#DFS_Invars_Basic-finished_self_loop_in_back_edges>finished_self_loop_in_back_edges</a></li>
+<li><a href=#DFS_Invars_Basic-tree_cross_acyclic>tree_cross_acyclic</a></li>
+<li><a href=#DFS_Invars_Basic-cycle_contains_back_edge>cycle_contains_back_edge</a></li>
+<li><a href=#DFS_Invars_Basic-cycle_needs_back_edge>cycle_needs_back_edge</a></li>
+<li><a href=#DFS_Invars_Basic-back_edge_closes_cycle>back_edge_closes_cycle</a></li>
+<li><a href=#DFS_Invars_Basic-back_edge_closes_reachable_cycle>back_edge_closes_reachable_cycle</a></li>
+<li><a href=#DFS_Invars_Basic-cycle_iff_back_edges>cycle_iff_back_edges</a></li>
+<li><a href=#DFS_Invars_Basic-white_path>white_path</a></li>
+</ul>
+</li><li><a href=#DFS_Invars_SCC>DFS_Invars_SCC</a>
+<ul>
+<li><a href=#DFS_Invars_SCC-scc_rootI>scc_rootI</a></li>
+<li><a href=#DFS_Invars_SCC-scc_root_is_discovered>scc_root_is_discovered</a></li>
+<li><a href=#DFS_Invars_SCC-scc_root_scc_tree_rtrancl>scc_root_scc_tree_rtrancl</a></li>
+<li><a href=#DFS_Invars_SCC-scc_root_scc_reach>scc_root_scc_reach</a></li>
+<li><a href=#DFS_Invars_SCC-scc_reach_scc_root>scc_reach_scc_root</a></li>
+<li><a href=#DFS_Invars_SCC-scc_root_scc_tree_trancl>scc_root_scc_tree_trancl</a></li>
+<li><a href=#DFS_Invars_SCC-scc_root_unique_scc>scc_root_unique_scc</a></li>
+<li><a href=#DFS_Invars_SCC-scc_root_unique_root>scc_root_unique_root</a></li>
+<li><a href=#DFS_Invars_SCC-scc_root_unique_is_scc>scc_root_unique_is_scc</a></li>
+<li><a href=#DFS_Invars_SCC-scc_root_finished_impl_scc_finished>scc_root_finished_impl_scc_finished</a></li>
+<li><a href=#DFS_Invars_SCC-scc_root_disc_le>scc_root_disc_le</a></li>
+<li><a href=#DFS_Invars_SCC-scc_root_fin_ge>scc_root_fin_ge</a></li>
+<li><a href=#DFS_Invars_SCC-scc_root_is_Min_disc>scc_root_is_Min_disc</a></li>
+<li><a href=#DFS_Invars_SCC-Min_disc_is_scc_root>Min_disc_is_scc_root</a></li>
+<li><a href=#DFS_Invars_SCC-scc_root_iff_Min_disc>scc_root_iff_Min_disc</a></li>
+<li><a href=#DFS_Invars_SCC-scc_root_exists>scc_root_exists</a></li>
+<li><a href=#DFS_Invars_SCC-scc_root_of_node_exists>scc_root_of_node_exists</a></li>
+<li><a href=#DFS_Invars_SCC-scc_root_transfer%27>scc_root_transfer'</a></li>
+<li><a href=#DFS_Invars_SCC-scc_root_transfer>scc_root_transfer</a></li>
+</ul>
+</li><li><a href=#General_DFS_Structure>General_DFS_Structure</a>
+<ul>
+<li><a href=#General_DFS_Structure-gen_step_eq_assert>gen_step_eq_assert</a></li>
+<li><a href=#General_DFS_Structure-gen_dfs_eq_assert>gen_dfs_eq_assert</a></li>
+<li><a href=#General_DFS_Structure-gen_dfsT_eq_assert>gen_dfsT_eq_assert</a></li>
+<li><a href=#General_DFS_Structure-gen_rwof_eq_assert>gen_rwof_eq_assert</a></li>
+<li><a href=#General_DFS_Structure-gen_dfs_le_gen_dfsT>gen_dfs_le_gen_dfsT</a></li>
+<li><a href=#General_DFS_Structure-gen_cond_simp>gen_cond_simp</a></li>
+<li><a href=#General_DFS_Structure-gen_step_simp>gen_step_simp</a></li>
+<li><a href=#General_DFS_Structure-gen_init_simp>gen_init_simp</a></li>
+<li><a href=#General_DFS_Structure-gen_dfs_simp>gen_dfs_simp</a></li>
+<li><a href=#General_DFS_Structure-gen_dfsT_simp>gen_dfsT_simp</a></li>
+<li><a href=#General_DFS_Structure-select_v0_refine>select_v0_refine</a></li>
+<li><a href=#General_DFS_Structure-gen_rwof_refine>gen_rwof_refine</a></li>
+<li><a href=#General_DFS_Structure-gen_step_refine>gen_step_refine</a></li>
+<li><a href=#General_DFS_Structure-gen_dfs_refine>gen_dfs_refine</a></li>
+<li><a href=#General_DFS_Structure-gen_dfsT_refine>gen_dfsT_refine</a></li>
+</ul>
+</li><li><a href=#Tailrec_Impl>Tailrec_Impl</a>
+<ul>
+<li><a href=#Tailrec_Impl-gds_init_refine>gds_init_refine</a></li>
+<li><a href=#Tailrec_Impl-gds_new_root_refine>gds_new_root_refine</a></li>
+<li><a href=#Tailrec_Impl-get_pending_nofail>get_pending_nofail</a></li>
+<li><a href=#Tailrec_Impl-gds_get_pending_refine>gds_get_pending_refine</a></li>
+<li><a href=#Tailrec_Impl-gds_finish_refine>gds_finish_refine</a></li>
+<li><a href=#Tailrec_Impl-gds_cross_edge_refine>gds_cross_edge_refine</a></li>
+<li><a href=#Tailrec_Impl-gds_back_edge_refine>gds_back_edge_refine</a></li>
+<li><a href=#Tailrec_Impl-gds_discover_refine>gds_discover_refine</a></li>
+<li><a href=#Tailrec_Impl-gen_step_disc_incr>gen_step_disc_incr</a></li>
+<li><a href=#Tailrec_Impl-tr_impl_while_body_gen_step>tr_impl_while_body_gen_step</a></li>
+<li><a href=#Tailrec_Impl-tailrecT_impl>tailrecT_impl</a></li>
+</ul>
+</li><li><a href=#Rec_Impl>Rec_Impl</a>
+<ul>
+<li><a href=#Rec_Impl-gen_step%27_refine>gen_step'_refine</a></li>
+<li><a href=#Rec_Impl-gen_dfs%27_refine>gen_dfs'_refine</a></li>
+<li><a href=#Rec_Impl-gen_rwof%27_imp_rwof>gen_rwof'_imp_rwof</a></li>
+<li><a href=#Rec_Impl-reachable_invar>reachable_invar</a></li>
+<li><a href=#Rec_Impl-mk_spec_aux>mk_spec_aux</a></li>
+<li><a href=#Rec_Impl-pcp_imp_pgp>pcp_imp_pgp</a></li>
+<li><a href=#Rec_Impl-rec_impl_aux>rec_impl_aux</a></li>
+<li><a href=#Rec_Impl-rec_impl>rec_impl</a></li>
+</ul>
+</li><li><a href=#Simple_Impl>Simple_Impl</a>
+<ul>
+<li><a href=#Simple_Impl-simple_state_relI>simple_state_relI</a></li>
+<li><a href=#Simple_Impl-simple_state_more_refine>simple_state_more_refine</a></li>
+<li><a href=#Simple_Impl-init_impl>init_impl</a></li>
+<li><a href=#Simple_Impl-new_root_impl>new_root_impl</a></li>
+<li><a href=#Simple_Impl-get_pending_impl>get_pending_impl</a></li>
+<li><a href=#Simple_Impl-inres_get_pending_None_conv>inres_get_pending_None_conv</a></li>
+<li><a href=#Simple_Impl-inres_get_pending_Some_conv>inres_get_pending_Some_conv</a></li>
+<li><a href=#Simple_Impl-finish_impl>finish_impl</a></li>
+<li><a href=#Simple_Impl-cross_edge_impl>cross_edge_impl</a></li>
+<li><a href=#Simple_Impl-back_edge_impl>back_edge_impl</a></li>
+<li><a href=#Simple_Impl-discover_impl>discover_impl</a></li>
+<li><a href=#Simple_Impl-simple_refine>simple_refine</a></li>
+<li><a href=#Simple_Impl-simple_refineT>simple_refineT</a></li>
+<li><a href=#Simple_Impl-simple_tailrec_refine>simple_tailrec_refine</a></li>
+<li><a href=#Simple_Impl-simple_tailrecT_refine>simple_tailrecT_refine</a></li>
+<li><a href=#Simple_Impl-reachable_invar>reachable_invar</a></li>
+<li><a href=#Simple_Impl-simple_rec_refine>simple_rec_refine</a></li>
+<li><a href=#Simple_Impl-choose_pending_ns_unfold>choose_pending_ns_unfold</a></li>
+</ul>
+</li><li><a href=#Restr_Impl>Restr_Impl</a>
+<ul>
+<li><a href=#Restr_Impl-restr_rel_simps>restr_rel_simps</a></li>
+<li><a href=#Restr_Impl-restr_simple_state_rel_combine>restr_simple_state_rel_combine</a></li>
+<li><a href=#Restr_Impl-is_break_param%27>is_break_param'</a></li>
+<li><a href=#Restr_Impl-do_init_refine>do_init_refine</a></li>
+<li><a href=#Restr_Impl-gen_cond_param>gen_cond_param</a></li>
+<li><a href=#Restr_Impl-cross_back_id>cross_back_id</a></li>
+<li><a href=#Restr_Impl-pred_rel_simps>pred_rel_simps</a></li>
+<li><a href=#Restr_Impl-no_pending_refine>no_pending_refine</a></li>
+<li><a href=#Restr_Impl-do_new_root_refine>do_new_root_refine</a></li>
+<li><a href=#Restr_Impl-do_finish_refine>do_finish_refine</a></li>
+<li><a href=#Restr_Impl-aux_cnv_pending>aux_cnv_pending</a></li>
+<li><a href=#Restr_Impl-get_pending_refine>get_pending_refine</a></li>
+<li><a href=#Restr_Impl-do_discover_refine>do_discover_refine</a></li>
+<li><a href=#Restr_Impl-aux_R_node_discovered>aux_R_node_discovered</a></li>
+<li><a href=#Restr_Impl-re_refine_aux>re_refine_aux</a></li>
+<li><a href=#Restr_Impl-tailrec_refine>tailrec_refine</a></li>
+</ul>
+</li><li><a href=#DFS_Framework>DFS_Framework</a>
+</li><li><a href=#DFS_Chapter_Examples>DFS_Chapter_Examples</a>
+</li><li><a href=#Cyc_Check>Cyc_Check</a>
+<ul>
+<li><a href=#Cyc_Check-break_more_cong>break_more_cong</a></li>
+<li><a href=#Cyc_Check-cyccI>cyccI</a></li>
+<li><a href=#Cyc_Check-cyccI%27>cyccI'</a></li>
+<li><a href=#Cyc_Check-cycc_invar_eq>cycc_invar_eq</a></li>
+<li><a href=#Cyc_Check-cycc_correct_aux>cycc_correct_aux</a></li>
+<li><a href=#Cyc_Check-cycc_correct_aux_short_proof>cycc_correct_aux_short_proof</a></li>
+<li><a href=#Cyc_Check-break_impl>break_impl</a></li>
+<li><a href=#Cyc_Check-cyc_checker_impl_refine>cyc_checker_impl_refine</a></li>
+<li><a href=#Cyc_Check-cyc_checker_rec_impl_refine>cyc_checker_rec_impl_refine</a></li>
+<li><a href=#Cyc_Check-cyc_checker_implT_refine>cyc_checker_implT_refine</a></li>
+<li><a href=#Cyc_Check-cyc_checker_rec_code_correct>cyc_checker_rec_code_correct</a></li>
+</ul>
+</li><li><a href=#DFS_Find_Path>DFS_Find_Path</a>
+<ul>
+<li><a href=#DFS_Find_Path-fp0I>fp0I</a></li>
+<li><a href=#DFS_Find_Path-fp0_invar_eq>fp0_invar_eq</a></li>
+<li><a href=#DFS_Find_Path-i_no_path_no_P_discovered>i_no_path_no_P_discovered</a></li>
+<li><a href=#DFS_Find_Path-i_path_to_P>i_path_to_P</a></li>
+<li><a href=#DFS_Find_Path-i_path_invar>i_path_invar</a></li>
+<li><a href=#DFS_Find_Path-path_invar_nonempty>path_invar_nonempty</a></li>
+<li><a href=#DFS_Find_Path-path_invar_empty>path_invar_empty</a></li>
+<li><a href=#DFS_Find_Path-fp0_correct>fp0_correct</a></li>
+<li><a href=#DFS_Find_Path-fp0_correct>fp0_correct</a></li>
+<li><a href=#DFS_Find_Path-find_path0_correct>find_path0_correct</a></li>
+<li><a href=#DFS_Find_Path-restr_invar_triv>restr_invar_triv</a></li>
+<li><a href=#DFS_Find_Path-restr_invar_imp_not_reachable>restr_invar_imp_not_reachable</a></li>
+<li><a href=#DFS_Find_Path-find_path0_restr_correct>find_path0_restr_correct</a></li>
+<li><a href=#DFS_Find_Path-find_path1_restr_correct>find_path1_restr_correct</a></li>
+<li><a href=#DFS_Find_Path-find_path1_correct>find_path1_correct</a></li>
+<li><a href=#DFS_Find_Path-fp0_rel_ppath_cong>fp0_rel_ppath_cong</a></li>
+<li><a href=#DFS_Find_Path-fp0_ss_rel_ppath_cong>fp0_ss_rel_ppath_cong</a></li>
+<li><a href=#DFS_Find_Path-fp0i_cong>fp0i_cong</a></li>
+<li><a href=#DFS_Find_Path-fp0_erelI>fp0_erelI</a></li>
+<li><a href=#DFS_Find_Path-find_path0_restr_impl>find_path0_restr_impl</a></li>
+<li><a href=#DFS_Find_Path-find_path0_impl>find_path0_impl</a></li>
+<li><a href=#DFS_Find_Path-find_path0_autoref_aux>find_path0_autoref_aux</a></li>
+<li><a href=#DFS_Find_Path-find_path0_restr_autoref_aux>find_path0_restr_autoref_aux</a></li>
+<li><a href=#DFS_Find_Path-find_path1_restr_autoref_aux>find_path1_restr_autoref_aux</a></li>
+<li><a href=#DFS_Find_Path-find_path1_code_autoref_aux>find_path1_code_autoref_aux</a></li>
+</ul>
+</li><li><a href=#Reachable_Nodes>Reachable_Nodes</a>
+<ul>
+<li><a href=#Reachable_Nodes-gen_obtain_finite_set>gen_obtain_finite_set</a></li>
+<li><a href=#Reachable_Nodes-obtain_finite_ahs>obtain_finite_ahs</a></li>
+<li><a href=#Reachable_Nodes-unit_DFSI>unit_DFSI</a></li>
+<li><a href=#Reachable_Nodes-find_reachable_correct>find_reachable_correct</a></li>
+<li><a href=#Reachable_Nodes-find_reachableT_correct>find_reachableT_correct</a></li>
+<li><a href=#Reachable_Nodes-find_reachable_impl_refine>find_reachable_impl_refine</a></li>
+<li><a href=#Reachable_Nodes-find_reachable_implT_refine>find_reachable_implT_refine</a></li>
+<li><a href=#Reachable_Nodes-find_reachable_rec_impl_refine>find_reachable_rec_impl_refine</a></li>
+<li><a href=#Reachable_Nodes-find_reachable_code_correct>find_reachable_code_correct</a></li>
+<li><a href=#Reachable_Nodes-find_reachable_codeT_correct>find_reachable_codeT_correct</a></li>
+<li><a href=#Reachable_Nodes-all_unit_refine>all_unit_refine</a></li>
+<li><a href=#Reachable_Nodes-unit_list_rel_refine>unit_list_rel_refine</a></li>
+<li><a href=#Reachable_Nodes-find_reachable_rec_code_correct>find_reachable_rec_code_correct</a></li>
+<li><a href=#Reachable_Nodes-autoref_op_reachable>autoref_op_reachable</a></li>
+</ul>
+</li><li><a href=#Feedback_Arcs>Feedback_Arcs</a>
+<ul>
+<li><a href=#Feedback_Arcs-is_fas_alt>is_fas_alt</a></li>
+<li><a href=#Feedback_Arcs-fas_more_cong>fas_more_cong</a></li>
+<li><a href=#Feedback_Arcs-fasI>fasI</a></li>
+<li><a href=#Feedback_Arcs-find_fas_correct_aux>find_fas_correct_aux</a></li>
+<li><a href=#Feedback_Arcs-find_fas_correct>find_fas_correct</a></li>
+<li><a href=#Feedback_Arcs-fas_impl>fas_impl</a></li>
+<li><a href=#Feedback_Arcs-find_fas_impl_refine>find_fas_impl_refine</a></li>
+<li><a href=#Feedback_Arcs-find_fas_code_refine>find_fas_code_refine</a></li>
+<li><a href=#Feedback_Arcs-is_fas_join>is_fas_join</a></li>
+<li><a href=#Feedback_Arcs-graphI_init>graphI_init</a></li>
+<li><a href=#Feedback_Arcs-find_fas_init_correct>find_fas_init_correct</a></li>
+<li><a href=#Feedback_Arcs-gen_cast_set>gen_cast_set</a></li>
+<li><a href=#Feedback_Arcs-gen_cast_fun_set_rel>gen_cast_fun_set_rel</a></li>
+<li><a href=#Feedback_Arcs-find_fas_init_impl_aux_unfolds>find_fas_init_impl_aux_unfolds</a></li>
+</ul>
+</li><li><a href=#Nested_DFS>Nested_DFS</a>
+<ul>
+<li><a href=#Nested_DFS-closed_restrict_aux>closed_restrict_aux</a></li>
+<li><a href=#Nested_DFS-lasso_more_cong>lasso_more_cong</a></li>
+<li><a href=#Nested_DFS-red_more_cong>red_more_cong</a></li>
+<li><a href=#Nested_DFS-BlueDFSI>BlueDFSI</a></li>
+<li><a href=#Nested_DFS-BlueDFS_invar_eq>BlueDFS_invar_eq</a></li>
+<li><a href=#Nested_DFS-blue_basic_invar>blue_basic_invar</a></li>
+<li><a href=#Nested_DFS-red_closed>red_closed</a></li>
+<li><a href=#Nested_DFS-red_stack_disjoint>red_stack_disjoint</a></li>
+<li><a href=#Nested_DFS-red_finished>red_finished</a></li>
+<li><a href=#Nested_DFS-all_nodes_colored>all_nodes_colored</a></li>
+<li><a href=#Nested_DFS-colors_disjoint>colors_disjoint</a></li>
+<li><a href=#Nested_DFS-no_accpt_cycle_in_finish>no_accpt_cycle_in_finish</a></li>
+<li><a href=#Nested_DFS-lasso_inv>lasso_inv</a></li>
+<li><a href=#Nested_DFS-blue_dfs_correct>blue_dfs_correct</a></li>
+<li><a href=#Nested_DFS-mk_blue_witness_impl>mk_blue_witness_impl</a></li>
+<li><a href=#Nested_DFS-cyan_impl>cyan_impl</a></li>
+<li><a href=#Nested_DFS-run_red_dfs_impl>run_red_dfs_impl</a></li>
+<li><a href=#Nested_DFS-se_back_edge_impl>se_back_edge_impl</a></li>
+<li><a href=#Nested_DFS-NOOP_impl>NOOP_impl</a></li>
+<li><a href=#Nested_DFS-nested_dfs_impl>nested_dfs_impl</a></li>
+</ul>
+</li><li><a href=#Tarjan_LowLink>Tarjan_LowLink</a>
+<ul>
+<li><a href=#Tarjan_LowLink-lowlink_setI>lowlink_setI</a></li>
+<li><a href=#Tarjan_LowLink-lowlink_set_discovered>lowlink_set_discovered</a></li>
+<li><a href=#Tarjan_LowLink-lowlink_set_finite>lowlink_set_finite</a></li>
+<li><a href=#Tarjan_LowLink-lowlink_set_not_empty>lowlink_set_not_empty</a></li>
+<li><a href=#Tarjan_LowLink-lowlink_path_single>lowlink_path_single</a></li>
+<li><a href=#Tarjan_LowLink-lowlink_path_Cons>lowlink_path_Cons</a></li>
+<li><a href=#Tarjan_LowLink-lowlink_path_in_tree>lowlink_path_in_tree</a></li>
+<li><a href=#Tarjan_LowLink-lowlink_path_finished>lowlink_path_finished</a></li>
+<li><a href=#Tarjan_LowLink-lowlink_path_tree_prepend>lowlink_path_tree_prepend</a></li>
+<li><a href=#Tarjan_LowLink-lowlink_path_complex>lowlink_path_complex</a></li>
+<li><a href=#Tarjan_LowLink-no_path_imp_no_lowlink_path>no_path_imp_no_lowlink_path</a></li>
+<li><a href=#Tarjan_LowLink-LowLink_le_disc>LowLink_le_disc</a></li>
+<li><a href=#Tarjan_LowLink-LowLink_lessE>LowLink_lessE</a></li>
+<li><a href=#Tarjan_LowLink-LowLink_lessI>LowLink_lessI</a></li>
+<li><a href=#Tarjan_LowLink-LowLink_eqI>LowLink_eqI</a></li>
+<li><a href=#Tarjan_LowLink-LowLink_eq_disc_iff_scc_root>LowLink_eq_disc_iff_scc_root</a></li>
+</ul>
+</li><li><a href=#Tarjan>Tarjan</a>
+<ul>
+<li><a href=#Tarjan-tjs_union>tjs_union</a></li>
+<li><a href=#Tarjan-tj_stack_pop_set>tj_stack_pop_set</a></li>
+<li><a href=#Tarjan-sccs_more_cong>sccs_more_cong</a></li>
+<li><a href=#Tarjan-lowlink_more_cong>lowlink_more_cong</a></li>
+<li><a href=#Tarjan-tj_stack_more_cong>tj_stack_more_cong</a></li>
+<li><a href=#Tarjan-Tarjan_invar_eq>Tarjan_invar_eq</a></li>
+<li><a href=#Tarjan-i_tj_stack_discovered>i_tj_stack_discovered</a></li>
+<li><a href=#Tarjan-i_tj_stack_distinct>i_tj_stack_distinct</a></li>
+<li><a href=#Tarjan-i_tj_stack_incr_disc>i_tj_stack_incr_disc</a></li>
+<li><a href=#Tarjan-tj_stack_incr_disc>tj_stack_incr_disc</a></li>
+<li><a href=#Tarjan-tjs_disc_dw_tw>tjs_disc_dw_tw</a></li>
+<li><a href=#Tarjan-i_sccs_finished_stack_ss_tj_stack>i_sccs_finished_stack_ss_tj_stack</a></li>
+<li><a href=#Tarjan-i_tj_stack_ss_stack_finished>i_tj_stack_ss_stack_finished</a></li>
+<li><a href=#Tarjan-i_finished_ss_sccs_tj_stack>i_finished_ss_sccs_tj_stack</a></li>
+<li><a href=#Tarjan-sccs_finished>sccs_finished</a></li>
+<li><a href=#Tarjan-stack_ss_tj_stack>stack_ss_tj_stack</a></li>
+<li><a href=#Tarjan-hd_stack_in_tj_stack>hd_stack_in_tj_stack</a></li>
+<li><a href=#Tarjan-i_no_finished_root>i_no_finished_root</a></li>
+<li><a href=#Tarjan-no_finished_root>no_finished_root</a></li>
+<li><a href=#Tarjan-tj_stack_reach_stack>tj_stack_reach_stack</a></li>
+<li><a href=#Tarjan-tj_stack_reach_hd_stack>tj_stack_reach_hd_stack</a></li>
+<li><a href=#Tarjan-empty_stack_imp_empty_tj_stack>empty_stack_imp_empty_tj_stack</a></li>
+<li><a href=#Tarjan-stacks_eq_iff>stacks_eq_iff</a></li>
+<li><a href=#Tarjan-i_sccs_are_sccs>i_sccs_are_sccs</a></li>
+<li><a href=#Tarjan-i_lowlink_eq_LowLink>i_lowlink_eq_LowLink</a></li>
+<li><a href=#Tarjan-lowlink_eq_disc_iff_scc_root>lowlink_eq_disc_iff_scc_root</a></li>
+<li><a href=#Tarjan-nc_sccs_eq_reachable>nc_sccs_eq_reachable</a></li>
+<li><a href=#Tarjan-tarjan_fin_nofail>tarjan_fin_nofail</a></li>
+<li><a href=#Tarjan-tarjan_correct>tarjan_correct</a></li>
+</ul>
+</li><li><a href=#DFS_All_Examples>DFS_All_Examples</a>
+</li>
+</ul>
+</div>
+<ul>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/DFS_Framework/outline.pdf>Proof
+outline</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/DFS_Framework/document.pdf>Proof
+document</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/DFS_Framework/session_graph.pdf>Theory dependencies</a></li>
+</ul>
+</div>
+</aside>
+<div class="content theories"><header>
+<form action=/%20search>
+<div class=form-container>
+<input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
+<datalist id=autocomplete>
+</datalist>
+</div>
+</form>
+<h1><span class=first>S</span>ession <span class=first>D</span><span class=first>F</span><span class=first>S</span>_<span class=first>F</span>ramework</h1>
+<div>
+</div>
+</header><div id=banner data-id=0>
+<p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button>
+</div>
+<div><main>
+<div id=DFS_Framework_Misc>
+<div class=head>
+<h1>Theory DFS_Framework_Misc</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>theory</span></span> DFS_Framework_Misc
 <span class=keyword2><span class=keyword>imports</span></span> <a href=../../automatic_refinement/theories/#Misc>Automatic_Refinement.Misc</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
@@ -24,7 +530,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/DF
 
 <span class=keyword2><span class=keyword>end</span></span>
 
-</pre></div><div id=DFS_Framework_Refine_Aux><div class=head><h1>Theory DFS_Framework_Refine_Aux</h1></div><pre class=source><span class=keyword1><span class=command>theory</span></span> DFS_Framework_Refine_Aux
+</pre>
+</div><div id=DFS_Framework_Refine_Aux>
+<div class=head>
+<h1>Theory DFS_Framework_Refine_Aux</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>theory</span></span> DFS_Framework_Refine_Aux
 <span class=keyword2><span class=keyword>imports</span></span> <a href=#DFS_Framework_Misc>DFS_Framework_Misc</a> <a href=../../refine_monadic/theories/#Refine_Monadic>Refine_Monadic.Refine_Monadic</a>
 <span class=keyword2><span class=keyword>begin</span></span>
 
@@ -126,7 +637,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/DF
 
 <span class=keyword2><span class=keyword>end</span></span>
 
-</pre></div><div id=Impl_Rev_Array_Stack><div class=head><h1>Theory Impl_Rev_Array_Stack</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Stack by Reversed Array›</span></span>
+</pre>
+</div><div id=Impl_Rev_Array_Stack>
+<div class=head>
+<h1>Theory Impl_Rev_Array_Stack</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Stack by Reversed Array›</span></span>
 <span class=keyword1><span class=command>theory</span></span> Impl_Rev_Array_Stack
 <span class=keyword2><span class=keyword>imports</span></span>   
   <a href=../../cava_base/theories/#CAVA_Base>CAVA_Base.CAVA_Base</a>
@@ -393,7 +909,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/DF
 
 <span class=keyword2><span class=keyword>end</span></span>
 
-</pre></div><div id=On_Stack><div class=head><h1>Theory On_Stack</h1></div><pre class=source><span class=comment1>(* Currently not used, but may be of general use. Keep in Aux! *)</span>
+</pre>
+</div><div id=On_Stack>
+<div class=head>
+<h1>Theory On_Stack</h1>
+</div>
+<pre class=source><span class=comment1>(* Currently not used, but may be of general use. Keep in Aux! *)</span>
 <span class=keyword1><span class=command>theory</span></span> On_Stack
 <span class=keyword2><span class=keyword>imports</span></span> <a href=../../collections/theories/#Refine_Dflt>Collections.Refine_Dflt</a>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -536,7 +1057,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/DF
 
 <span class=keyword2><span class=keyword>end</span></span>
 
-</pre></div><div id=DFS_Chapter_Framework><div class=head><h1>Theory DFS_Chapter_Framework</h1></div><pre class=source><span class=keyword1><span class=command>chapter</span></span> <span class=quoted><span class=plain_text>"The DFS Framework"</span></span>
+</pre>
+</div><div id=DFS_Chapter_Framework>
+<div class=head>
+<h1>Theory DFS_Chapter_Framework</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>chapter</span></span> <span class=quoted><span class=plain_text>"The DFS Framework"</span></span>
 <span class=keyword1><span class=command>text</span></span> <span class=quoted><span class=plain_text>‹
   This chapter contains the basic DFS Framework
 ›</span></span>
@@ -546,7 +1072,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/DF
 <span class=keyword2><span class=keyword>begin</span></span>
 <span class=keyword2><span class=keyword>end</span></span>
 <span class=comment1>(*&gt;*)</span>
-</pre></div><div id=Param_DFS><div class=head><h1>Theory Param_DFS</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹General DFS with Hooks›</span></span>
+</pre>
+</div><div id=Param_DFS>
+<div class=head>
+<h1>Theory Param_DFS</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹General DFS with Hooks›</span></span>
 <span class=keyword1><span class=command>theory</span></span> Param_DFS
 <span class=keyword2><span class=keyword>imports</span></span> 
   <a href=../../cava_base/theories/#CAVA_Base>CAVA_Base.CAVA_Base</a>
@@ -1762,7 +2293,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/DF
 <span class=keyword2><span class=keyword>end</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=DFS_Invars_Basic><div class=head><h1>Theory DFS_Invars_Basic</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Basic Invariant Library›</span></span>
+</pre>
+</div><div id=DFS_Invars_Basic>
+<div class=head>
+<h1>Theory DFS_Invars_Basic</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Basic Invariant Library›</span></span>
 <span class=keyword1><span class=command>theory</span></span> DFS_Invars_Basic
 <span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=#Param_DFS>../Param_DFS</a>"</span>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -3419,7 +3955,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/DF
 
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=DFS_Invars_SCC><div class=head><h1>Theory DFS_Invars_SCC</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Invariants for SCCs›</span></span>
+</pre>
+</div><div id=DFS_Invars_SCC>
+<div class=head>
+<h1>Theory DFS_Invars_SCC</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Invariants for SCCs›</span></span>
 <span class=keyword1><span class=command>theory</span></span> DFS_Invars_SCC
 <span class=keyword2><span class=keyword>imports</span></span> 
   <a href=#DFS_Invars_Basic>DFS_Invars_Basic</a>
@@ -3806,7 +4347,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/DF
 <span class=keyword2><span class=keyword>end</span></span> <span class=keyword2><span class=keyword>end</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=General_DFS_Structure><div class=head><h1>Theory General_DFS_Structure</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Generic DFS and Refinement›</span></span>
+</pre>
+</div><div id=General_DFS_Structure>
+<div class=head>
+<h1>Theory General_DFS_Structure</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Generic DFS and Refinement›</span></span>
 <span class=keyword1><span class=command>theory</span></span> General_DFS_Structure
 <span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=#Param_DFS>../../Param_DFS</a>"</span>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -4454,7 +5000,12 @@ setup DFS_code_unfold.setup*)</span>
 <span class=keyword2><span class=keyword>end</span></span>
 
 
-</pre></div><div id=Tailrec_Impl><div class=head><h1>Theory Tailrec_Impl</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Tail-Recursive Implementation›</span></span>
+</pre>
+</div><div id=Tailrec_Impl>
+<div class=head>
+<h1>Theory Tailrec_Impl</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Tail-Recursive Implementation›</span></span>
 <span class=keyword1><span class=command>theory</span></span> Tailrec_Impl
 <span class=keyword2><span class=keyword>imports</span></span> <a href=#General_DFS_Structure>General_DFS_Structure</a>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -4805,7 +5356,12 @@ setup DFS_code_unfold.setup*)</span>
 <span class=keyword2><span class=keyword>end</span></span>  
 <span class=keyword2><span class=keyword>end</span></span>
 
-</pre></div><div id=Rec_Impl><div class=head><h1>Theory Rec_Impl</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Recursive DFS Implementation›</span></span>
+</pre>
+</div><div id=Rec_Impl>
+<div class=head>
+<h1>Theory Rec_Impl</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Recursive DFS Implementation›</span></span>
 <span class=keyword1><span class=command>theory</span></span> Rec_Impl
 <span class=keyword2><span class=keyword>imports</span></span> <a href=#General_DFS_Structure>General_DFS_Structure</a>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -5325,7 +5881,12 @@ setup DFS_code_unfold.setup*)</span>
 <span class=keyword2><span class=keyword>end</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Simple_Impl><div class=head><h1>Theory Simple_Impl</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Simple Data Structures›</span></span>
+</pre>
+</div><div id=Simple_Impl>
+<div class=head>
+<h1>Theory Simple_Impl</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Simple Data Structures›</span></span>
 <span class=keyword1><span class=command>theory</span></span> Simple_Impl
 <span class=keyword2><span class=keyword>imports</span></span> 
   <span class=quoted>"<a href=#Rec_Impl>../Structural/Rec_Impl</a>"</span>
@@ -5880,7 +6441,12 @@ setup DFS_code_unfold.setup*)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
 
-</pre></div><div id=Restr_Impl><div class=head><h1>Theory Restr_Impl</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Restricting Nodes by Pre-Initializing Visited Set›</span></span>
+</pre>
+</div><div id=Restr_Impl>
+<div class=head>
+<h1>Theory Restr_Impl</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Restricting Nodes by Pre-Initializing Visited Set›</span></span>
 <span class=keyword1><span class=command>theory</span></span> Restr_Impl
 <span class=keyword2><span class=keyword>imports</span></span> <a href=#Simple_Impl>Simple_Impl</a>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -6274,7 +6840,12 @@ setup DFS_code_unfold.setup*)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
 
-</pre></div><div id=DFS_Framework><div class=head><h1>Theory DFS_Framework</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Basic DFS Framework›</span></span>
+</pre>
+</div><div id=DFS_Framework>
+<div class=head>
+<h1>Theory DFS_Framework</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Basic DFS Framework›</span></span>
 <span class=keyword1><span class=command>theory</span></span> DFS_Framework
 <span class=keyword2><span class=keyword>imports</span></span>
   <a href=#Param_DFS>Param_DFS</a>
@@ -6289,7 +6860,12 @@ setup DFS_code_unfold.setup*)</span>
     structures.›</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=DFS_Chapter_Examples><div class=head><h1>Theory DFS_Chapter_Examples</h1></div><pre class=source><span class=keyword1><span class=command>chapter</span></span> <span class=quoted><span class=plain_text>"Examples"</span></span>
+</pre>
+</div><div id=DFS_Chapter_Examples>
+<div class=head>
+<h1>Theory DFS_Chapter_Examples</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>chapter</span></span> <span class=quoted><span class=plain_text>"Examples"</span></span>
 <span class=keyword1><span class=command>text</span></span> <span class=quoted><span class=plain_text>‹
   This chapter contains examples of using the DFS Framework.
   Most examples are re-usable algorithms, that can easily be integrated into
@@ -6305,7 +6881,12 @@ setup DFS_code_unfold.setup*)</span>
 <span class=keyword2><span class=keyword>begin</span></span>
 <span class=keyword2><span class=keyword>end</span></span>
 <span class=comment1>(*&gt;*)</span>
-</pre></div><div id=Cyc_Check><div class=head><h1>Theory Cyc_Check</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Simple Cyclicity Checker›</span></span>
+</pre>
+</div><div id=Cyc_Check>
+<div class=head>
+<h1>Theory Cyc_Check</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Simple Cyclicity Checker›</span></span>
 <span class=keyword1><span class=command>theory</span></span> Cyc_Check
 <span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=#DFS_Framework>../DFS_Framework</a>"</span>
   <a href=../../cava_automata/theories/#Digraph_Impl>CAVA_Automata.Digraph_Impl</a>
@@ -6791,7 +7372,12 @@ setup DFS_code_unfold.setup*)</span>
   
 <span class=keyword2><span class=keyword>end</span></span>
 
-</pre></div><div id=DFS_Find_Path><div class=head><h1>Theory DFS_Find_Path</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Finding a Path between Nodes›</span></span>
+</pre>
+</div><div id=DFS_Find_Path>
+<div class=head>
+<h1>Theory DFS_Find_Path</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Finding a Path between Nodes›</span></span>
 <span class=keyword1><span class=command>theory</span></span> DFS_Find_Path
 <span class=keyword2><span class=keyword>imports</span></span>
   <span class=quoted>"<a href=#DFS_Framework>../DFS_Framework</a>"</span>
@@ -7588,7 +8174,12 @@ setup DFS_code_unfold.setup*)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
 
-</pre></div><div id=Reachable_Nodes><div class=head><h1>Theory Reachable_Nodes</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Set of Reachable Nodes›</span></span>
+</pre>
+</div><div id=Reachable_Nodes>
+<div class=head>
+<h1>Theory Reachable_Nodes</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Set of Reachable Nodes›</span></span>
 <span class=keyword1><span class=command>theory</span></span> Reachable_Nodes
 <span class=keyword2><span class=keyword>imports</span></span> <span class=quoted>"<a href=#DFS_Framework>../DFS_Framework</a>"</span>
   <a href=../../cava_automata/theories/#Digraph_Impl>CAVA_Automata.Digraph_Impl</a>
@@ -7893,7 +8484,12 @@ setup DFS_code_unfold.setup*)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
 
-</pre></div><div id=Feedback_Arcs><div class=head><h1>Theory Feedback_Arcs</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Find a Feedback Arc Set›</span></span>
+</pre>
+</div><div id=Feedback_Arcs>
+<div class=head>
+<h1>Theory Feedback_Arcs</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Find a Feedback Arc Set›</span></span>
 <span class=keyword1><span class=command>theory</span></span> Feedback_Arcs
 <span class=keyword2><span class=keyword>imports</span></span>   
   <span class=quoted>"<a href=#DFS_Framework>../DFS_Framework</a>"</span>
@@ -8316,7 +8912,12 @@ setup DFS_code_unfold.setup*)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
 
-</pre></div><div id=Nested_DFS><div class=head><h1>Theory Nested_DFS</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Nested DFS›</span></span>
+</pre>
+</div><div id=Nested_DFS>
+<div class=head>
+<h1>Theory Nested_DFS</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Nested DFS›</span></span>
 <span class=keyword1><span class=command>theory</span></span> Nested_DFS
 <span class=keyword2><span class=keyword>imports</span></span> <a href=#DFS_Find_Path>DFS_Find_Path</a>
 <span class=keyword2><span class=keyword>begin</span></span>
@@ -9281,7 +9882,12 @@ setup DFS_code_unfold.setup*)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
 
-</pre></div><div id=Tarjan_LowLink><div class=head><h1>Theory Tarjan_LowLink</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Invariants for Tarjan's Algorithm›</span></span>
+</pre>
+</div><div id=Tarjan_LowLink>
+<div class=head>
+<h1>Theory Tarjan_LowLink</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Invariants for Tarjan's Algorithm›</span></span>
 <span class=keyword1><span class=command>theory</span></span> Tarjan_LowLink
 <span class=keyword2><span class=keyword>imports</span></span>
   <span class=quoted>"<a href=#DFS_Framework>../DFS_Framework</a>"</span>
@@ -9781,7 +10387,12 @@ setup DFS_code_unfold.setup*)</span>
   <span class=keyword1><span class=command>qed</span></span>
 <span class=keyword2><span class=keyword>end</span></span> <span class=keyword2><span class=keyword>end</span></span>
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Tarjan><div class=head><h1>Theory Tarjan</h1></div><pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Tarjan's Algorithm›</span></span>
+</pre>
+</div><div id=Tarjan>
+<div class=head>
+<h1>Theory Tarjan</h1>
+</div>
+<pre class=source><span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Tarjan's Algorithm›</span></span>
 <span class=keyword1><span class=command>theory</span></span> Tarjan
 <span class=keyword2><span class=keyword>imports</span></span> 
   <a href=#Tarjan_LowLink>Tarjan_LowLink</a>
@@ -11146,7 +11757,12 @@ setup DFS_code_unfold.setup*)</span>
 <span class=keyword1><span class=command>qed</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=DFS_All_Examples><div class=head><h1>Theory DFS_All_Examples</h1></div><pre class=source><span class=comment1>(*&lt;*)</span>
+</pre>
+</div><div id=DFS_All_Examples>
+<div class=head>
+<h1>Theory DFS_All_Examples</h1>
+</div>
+<pre class=source><span class=comment1>(*&lt;*)</span>
 <span class=keyword1><span class=command>theory</span></span> DFS_All_Examples
 <span class=keyword2><span class=keyword>imports</span></span>
   <a href=#Cyc_Check>Cyc_Check</a>
@@ -11160,4 +11776,10 @@ setup DFS_code_unfold.setup*)</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
 <span class=comment1>(*&gt;*)</span>
-</pre></div></main></div></div></body></html>
+</pre>
+</div>
+</main>
+</div>
+</div>
+</body>
+</html>

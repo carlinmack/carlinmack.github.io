@@ -1,11 +1,91 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Regular Sets and Expressions - Archive of Formal Proofs</title><meta name=description content="This is a library of constructions on regular expressions and languages. It provides the operations of concatenation, Kleene star and derivative on..."><meta property="og:title" content="Regular Sets and Expressions"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/regular-sets/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="entries"><meta property="article:published_time" content="2010-05-12T00:00:00+00:00"><meta property="article:modified_time" content="2010-05-12T00:00:00+00:00"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Regular Sets and Expressions"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=icon href=/images/favicon.ico type=image/icon><script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]},processEscapes:!0,svg:{fontCache:'global'}}</script><script id=MathJax-script async src=/js/mathjax/es5/tex-mml-chtml.js></script><script src=/js/entries.js></script><script src=/js/flexsearch.min.js></script><script src=/js/banner.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><li><a href=/>Home</a></li><li><a href=/topics/>Topics</a></li><li><a href=/download/>Download</a></li><li><a href=/help/>Help</a></li><li><a href=/statistics/>Statistics</a></li><li><a href=/about/>About</a></li></ul></div><ul><li><a href=/contribution/>Contribution</a></li></ul></div></aside><div class="content entries"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
-<datalist id=autocomplete></datalist></div></form><h1><span class=first>R</span>egular <span class=first>S</span>ets and <span class=first>E</span>xpressions</h1><div><p><a href=/authors/alexander-krauss>Alexander Krauss</a> and <a href=/authors/tobias-nipkow>Tobias Nipkow</a>
-with contributions from <a href=/authors/manuel-eberl>Manuel Eberl</a></p><p class=date>12 May 2010</p></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><h3>Abstract</h3><div class="abstract mathjax_process">This is a library of constructions on regular expressions and languages. It provides the operations of concatenation, Kleene star and derivative on languages. Regular expressions and their meaning are defined. An executable equivalence checker for regular expressions is verified; it does not need automata but works directly on regular expressions. <i>By mapping regular expressions to binary relations, an automatic and complete proof method for (in)equalities of binary relations over union, concatenation and (reflexive) transitive closure is obtained.</i><p>Extended regular expressions with complement and intersection are also defined and an equivalence checker is provided.</div><a href=http://isa-afp.org/LICENSE>BSD License</a><h3>Change history</h3><p>[2011-08-26] Christian Urban added a theory about derivatives and partial derivatives of regular expressions<br>[2012-05-10] Tobias Nipkow added extended regular expressions<br>[2012-05-10] Tobias Nipkow added equivalence checking with partial derivatives</p><h3>Used by</h3><ul><li><a href=/entries/quick_sort_cost/>Quick_Sort_Cost</a></li><li><a href=/entries/lambda_free_kbos/>Lambda_Free_KBOs</a></li><li><a href=/entries/posix-lexing/>Posix-Lexing</a></li><li><a href=/entries/list_update/>List_Update</a></li><li><a href=/entries/finite_automata_hf/>Finite_Automata_HF</a></li><li><a href=/entries/regex_equivalence/>Regex_Equivalence</a></li><li><a href=/entries/coinductive_languages/>Coinductive_Languages</a></li><li><a href=/entries/containers/>Containers</a></li><li><a href=/entries/transitive-closure-ii/>Transitive-Closure-II</a></li><li><a href=/entries/myhill-nerode/>Myhill-Nerode</a></li><li><a href=/entries/abstract-rewriting/>Abstract-Rewriting</a></li><li><a href=/entries/functional-automata/>Functional-Automata</a></li></ul><h3>Topics</h3><ul><li><a href=/topics/computer-science/automata-and-formal-languages>Computer science/Automata and formal languages</a></li></ul><h3>Theories</h3><ul><li><a href=theories/#Regular_Set>Regular_Set</a></li><li><a href=theories/#Regular_Exp>Regular_Exp</a></li><li><a href=theories/#NDerivative>NDerivative</a></li><li><a href=theories/#Equivalence_Checking>Equivalence_Checking</a></li><li><a href=theories/#Relation_Interpretation>Relation_Interpretation</a></li><li><a href=theories/#Regexp_Method>Regexp_Method</a></li><li><a href=theories/#Regexp_Constructions>Regexp_Constructions</a></li><li><a href=theories/#Derivatives>Derivatives</a></li><li><a href=theories/#pEquivalence_Checking>pEquivalence_Checking</a></li><li><a href=theories/#Regular_Exp2>Regular_Exp2</a></li><li><a href=theories/#Equivalence_Checking2>Equivalence_Checking2</a></li></ul></main><nav class=links><a class=popUpButton href=#citePopUp>Cite</a>
-<a class=popUpButton href=#downloadPopUp>Download</a><h4>PDFs</h4><a href=https://www.isa-afp.org/browser_info/current/AFP/Regular-Sets/outline.pdf>Proof
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Regular Sets and Expressions - Archive of Formal Proofs</title><meta name=description content="This is a library of constructions on regular expressions and languages. It provides the operations of concatenation, Kleene star and derivative on..."><meta property="og:title" content="Regular Sets and Expressions">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="/entries/regular-sets/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="entries">
+<meta property="article:published_time" content="2010-05-12T00:00:00+00:00">
+<meta property="article:modified_time" content="2010-05-12T00:00:00+00:00"><meta property="og:site_name" content="Archive of Formal Proofs">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="/images/afp.png">
+<meta name=twitter:title content="Regular Sets and Expressions">
+<meta name=twitter:description content>
+<link rel=stylesheet type=text/css href=/css/front.min.css>
+<link rel=icon href=/images/favicon.ico type=image/icon>
+<script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]},processEscapes:!0,svg:{fontCache:'global'}}</script>
+<script id=MathJax-script async src=/js/mathjax/es5/tex-mml-chtml.js></script>
+<script src=/js/entries.js></script><script src=/js/flexsearch.min.js></script>
+<script src=/js/banner.js></script><script src=/js/header-search.js></script></head>
+<body class=mathjax_ignore>
+<aside>
+<div>
+<div>
+<a href=/>
+<img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo>
+</a>
+<ul>
+<li><a href=/>Home</a></li>
+<li><a href=/topics/>Topics</a></li>
+<li><a href=/download/>Download</a></li>
+<li><a href=/help/>Help</a></li>
+<li><a href=/statistics/>Statistics</a></li>
+<li><a href=/about/>About</a></li>
+</ul>
+</div>
+<ul>
+<li><a href=/contribution/>Contribution</a></li>
+</ul>
+</div>
+</aside>
+<div class="content entries"><header>
+<form action=/%20search>
+<div class=form-container>
+<input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
+<datalist id=autocomplete>
+</datalist>
+</div>
+</form>
+<h1><span class=first>R</span>egular <span class=first>S</span>ets and <span class=first>E</span>xpressions</h1>
+<div>
+<p><a href=/authors/alexander-krauss>Alexander Krauss</a> and <a href=/authors/tobias-nipkow>Tobias Nipkow</a>
+with contributions from <a href=/authors/manuel-eberl>Manuel Eberl</a>
+</p>
+<p class=date>12 May 2010</p>
+</div>
+</header><div id=banner data-id=0>
+<p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button>
+</div>
+<div><main>
+<h3>Abstract</h3>
+<div class="abstract mathjax_process">This is a library of constructions on regular expressions and languages. It provides the operations of concatenation, Kleene star and derivative on languages. Regular expressions and their meaning are defined. An executable equivalence checker for regular expressions is verified; it does not need automata but works directly on regular expressions. <i>By mapping regular expressions to binary relations, an automatic and complete proof method for (in)equalities of binary relations over union, concatenation and (reflexive) transitive closure is obtained.</i> <p> Extended regular expressions with complement and intersection are also defined and an equivalence checker is provided.</div><a href=http://isa-afp.org/LICENSE>BSD License</a><h3>Change history</h3>
+<p>[2011-08-26] Christian Urban added a theory about derivatives and partial derivatives of regular expressions<br>
+[2012-05-10] Tobias Nipkow added extended regular expressions<br>
+[2012-05-10] Tobias Nipkow added equivalence checking with partial derivatives</p><h3>Used by</h3>
+<ul><li><a href=/entries/quick_sort_cost/>Quick_Sort_Cost</a></li><li><a href=/entries/lambda_free_kbos/>Lambda_Free_KBOs</a></li><li><a href=/entries/posix-lexing/>Posix-Lexing</a></li><li><a href=/entries/list_update/>List_Update</a></li><li><a href=/entries/finite_automata_hf/>Finite_Automata_HF</a></li><li><a href=/entries/regex_equivalence/>Regex_Equivalence</a></li><li><a href=/entries/coinductive_languages/>Coinductive_Languages</a></li><li><a href=/entries/containers/>Containers</a></li><li><a href=/entries/transitive-closure-ii/>Transitive-Closure-II</a></li><li><a href=/entries/myhill-nerode/>Myhill-Nerode</a></li><li><a href=/entries/abstract-rewriting/>Abstract-Rewriting</a></li><li><a href=/entries/functional-automata/>Functional-Automata</a></li></ul><h3>Topics</h3>
+<ul><li><a href=/topics/computer-science/automata-and-formal-languages>Computer science/Automata and formal languages</a></li></ul><h3>Theories</h3>
+<ul>
+<li><a href=theories/#Regular_Set>Regular_Set</a></li><li><a href=theories/#Regular_Exp>Regular_Exp</a></li><li><a href=theories/#NDerivative>NDerivative</a></li><li><a href=theories/#Equivalence_Checking>Equivalence_Checking</a></li><li><a href=theories/#Relation_Interpretation>Relation_Interpretation</a></li><li><a href=theories/#Regexp_Method>Regexp_Method</a></li><li><a href=theories/#Regexp_Constructions>Regexp_Constructions</a></li><li><a href=theories/#Derivatives>Derivatives</a></li><li><a href=theories/#pEquivalence_Checking>pEquivalence_Checking</a></li><li><a href=theories/#Regular_Exp2>Regular_Exp2</a></li><li><a href=theories/#Equivalence_Checking2>Equivalence_Checking2</a></li></ul>
+</main>
+<nav class=links>
+<a class=popUpButton href=#citePopUp>Cite</a>
+<a class=popUpButton href=#downloadPopUp>Download</a>
+<h4>PDFs</h4>
+<a href=https://www.isa-afp.org/browser_info/current/AFP/Regular-Sets/outline.pdf>Proof
 outline</a>
 <a href=https://www.isa-afp.org/browser_info/current/AFP/Regular-Sets/document.pdf>Proof
 document</a>
-<a href=https://www.isa-afp.org/browser_info/current/AFP/Regular-Sets/session_graph.pdf>Dependencies</a></nav><div id=citePopUp class=overlay><a class=cancel href=#></a><div class=popup><h2>Cite</h2><a class=close href=#>&#215;</a><div><p style=display:none id=bibtexFileName>Regular-Sets-AFP</p><pre id=copyText>@article{Regular-Sets-AFP,
+<a href=https://www.isa-afp.org/browser_info/current/AFP/Regular-Sets/session_graph.pdf>Dependencies</a>
+</nav>
+<div id=citePopUp class=overlay>
+<a class=cancel href=#></a>
+<div class=popup>
+<h2>Cite</h2>
+<a class=close href=#>&#215;</a>
+<div>
+<p style=display:none id=bibtexFileName>Regular-Sets-AFP</p>
+<pre id=copyText>@article{Regular-Sets-AFP,
   author  = {Alexander Krauss and Tobias Nipkow},
   title   = {Regular Sets and Expressions},
   journal = {Archive of Formal Proofs},
@@ -14,20 +94,82 @@ document</a>
   note    = {\url{http://isa-afp.org/entries/Regular-Sets.html},
             Formal proof development},
   ISSN    = {2150-914x},
-}</pre><button id=copyBibtex>Copy</button> <a id=downloadBibtex>Download</a></div></div></div><div id=downloadPopUp class=overlay><a class=cancel href=#></a><div class=popup><h2>Download</h2><a class=close href=#>&#215;</a>
-<a href=https://isa-afp.org/release/afp-Regular-Sets-current.tar.gz download>Download latest</a><p>Older releases:</p><ul><li>Isabelle2019:
-<a href=https://isa-afp.org/release/afp-Regular-Sets-2019-06-11.tar.gz>afp-Regular-Sets-2019-06-11.tar.gz</a></li><li>Isabelle2018:
-<a href=https://isa-afp.org/release/afp-Regular-Sets-2018-08-16.tar.gz>afp-Regular-Sets-2018-08-16.tar.gz</a></li><li>Isabelle2017:
-<a href=https://isa-afp.org/release/afp-Regular-Sets-2017-10-10.tar.gz>afp-Regular-Sets-2017-10-10.tar.gz</a></li><li>Isabelle2016-1:
-<a href=https://isa-afp.org/release/afp-Regular-Sets-2016-12-17.tar.gz>afp-Regular-Sets-2016-12-17.tar.gz</a></li><li>Isabelle2016:
-<a href=https://isa-afp.org/release/afp-Regular-Sets-2016-02-22.tar.gz>afp-Regular-Sets-2016-02-22.tar.gz</a></li><li>Isabelle2015:
-<a href=https://isa-afp.org/release/afp-Regular-Sets-2015-05-27.tar.gz>afp-Regular-Sets-2015-05-27.tar.gz</a></li><li>Isabelle2014:
-<a href=https://isa-afp.org/release/afp-Regular-Sets-2014-08-28.tar.gz>afp-Regular-Sets-2014-08-28.tar.gz</a></li><li>Isabelle2013-2:
-<a href=https://isa-afp.org/release/afp-Regular-Sets-2013-12-11.tar.gz>afp-Regular-Sets-2013-12-11.tar.gz</a></li><li>Isabelle2013-1:
-<a href=https://isa-afp.org/release/afp-Regular-Sets-2013-11-17.tar.gz>afp-Regular-Sets-2013-11-17.tar.gz</a></li><li>Isabelle2013:
-<a href=https://isa-afp.org/release/afp-Regular-Sets-2013-03-02.tar.gz>afp-Regular-Sets-2013-03-02.tar.gz</a></li><li>Isabelle2013:
-<a href=https://isa-afp.org/release/afp-Regular-Sets-2013-02-16.tar.gz>afp-Regular-Sets-2013-02-16.tar.gz</a></li><li>Isabelle2012:
-<a href=https://isa-afp.org/release/afp-Regular-Sets-2012-05-24.tar.gz>afp-Regular-Sets-2012-05-24.tar.gz</a></li><li>Isabelle2011-1:
-<a href=https://isa-afp.org/release/afp-Regular-Sets-2011-10-11.tar.gz>afp-Regular-Sets-2011-10-11.tar.gz</a></li><li>Isabelle2011:
-<a href=https://isa-afp.org/release/afp-Regular-Sets-2011-02-11.tar.gz>afp-Regular-Sets-2011-02-11.tar.gz</a></li><li>Isabelle2009-2:
-<a href=https://isa-afp.org/release/afp-Regular-Sets-2010-07-01.tar.gz>afp-Regular-Sets-2010-07-01.tar.gz</a></li></ul></div></div></div></div></body></html>
+}</pre>
+<button id=copyBibtex>Copy</button> <a id=downloadBibtex>Download</a>
+</div>
+</div>
+</div>
+<div id=downloadPopUp class=overlay>
+<a class=cancel href=#></a>
+<div class=popup>
+<h2>Download</h2>
+<a class=close href=#>&#215;</a>
+<a href=https://isa-afp.org/release/afp-Regular-Sets-current.tar.gz download>Download latest</a>
+<p>Older releases:</p>
+<ul><li>Isabelle2019:
+<a href=https://isa-afp.org/release/afp-Regular-Sets-2019-06-11.tar.gz>
+afp-Regular-Sets-2019-06-11.tar.gz
+</a>
+</li><li>Isabelle2018:
+<a href=https://isa-afp.org/release/afp-Regular-Sets-2018-08-16.tar.gz>
+afp-Regular-Sets-2018-08-16.tar.gz
+</a>
+</li><li>Isabelle2017:
+<a href=https://isa-afp.org/release/afp-Regular-Sets-2017-10-10.tar.gz>
+afp-Regular-Sets-2017-10-10.tar.gz
+</a>
+</li><li>Isabelle2016-1:
+<a href=https://isa-afp.org/release/afp-Regular-Sets-2016-12-17.tar.gz>
+afp-Regular-Sets-2016-12-17.tar.gz
+</a>
+</li><li>Isabelle2016:
+<a href=https://isa-afp.org/release/afp-Regular-Sets-2016-02-22.tar.gz>
+afp-Regular-Sets-2016-02-22.tar.gz
+</a>
+</li><li>Isabelle2015:
+<a href=https://isa-afp.org/release/afp-Regular-Sets-2015-05-27.tar.gz>
+afp-Regular-Sets-2015-05-27.tar.gz
+</a>
+</li><li>Isabelle2014:
+<a href=https://isa-afp.org/release/afp-Regular-Sets-2014-08-28.tar.gz>
+afp-Regular-Sets-2014-08-28.tar.gz
+</a>
+</li><li>Isabelle2013-2:
+<a href=https://isa-afp.org/release/afp-Regular-Sets-2013-12-11.tar.gz>
+afp-Regular-Sets-2013-12-11.tar.gz
+</a>
+</li><li>Isabelle2013-1:
+<a href=https://isa-afp.org/release/afp-Regular-Sets-2013-11-17.tar.gz>
+afp-Regular-Sets-2013-11-17.tar.gz
+</a>
+</li><li>Isabelle2013:
+<a href=https://isa-afp.org/release/afp-Regular-Sets-2013-03-02.tar.gz>
+afp-Regular-Sets-2013-03-02.tar.gz
+</a>
+</li><li>Isabelle2013:
+<a href=https://isa-afp.org/release/afp-Regular-Sets-2013-02-16.tar.gz>
+afp-Regular-Sets-2013-02-16.tar.gz
+</a>
+</li><li>Isabelle2012:
+<a href=https://isa-afp.org/release/afp-Regular-Sets-2012-05-24.tar.gz>
+afp-Regular-Sets-2012-05-24.tar.gz
+</a>
+</li><li>Isabelle2011-1:
+<a href=https://isa-afp.org/release/afp-Regular-Sets-2011-10-11.tar.gz>
+afp-Regular-Sets-2011-10-11.tar.gz
+</a>
+</li><li>Isabelle2011:
+<a href=https://isa-afp.org/release/afp-Regular-Sets-2011-02-11.tar.gz>
+afp-Regular-Sets-2011-02-11.tar.gz
+</a>
+</li><li>Isabelle2009-2:
+<a href=https://isa-afp.org/release/afp-Regular-Sets-2010-07-01.tar.gz>
+afp-Regular-Sets-2010-07-01.tar.gz
+</a>
+</li></ul>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

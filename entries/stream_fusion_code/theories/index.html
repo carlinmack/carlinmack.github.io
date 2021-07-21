@@ -1,7 +1,226 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>Session Stream_Fusion_Code - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session Stream_Fusion_Code"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/entries/stream_fusion_code/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories"><meta property="og:site_name" content="Archive of Formal Proofs"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/images/afp.png"><meta name=twitter:title content="Session Stream_Fusion_Code"><meta name=twitter:description content><link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css><link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script><script src=/js/banner.js></script><script src=/js/header-search.js></script></head><body class=mathjax_ignore><aside><div><div><a href=/><img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo></a><ul><li><a href=/entries/stream_fusion_code>Return to entry</a></li></ul><hr><ul><li><a href=#Stream_Fusion>Stream_Fusion</a></li><li><a href=#files%2fstream_fusion.ML>files/stream_fusion.ML</a></li><li><a href=#Stream_Fusion_List>Stream_Fusion_List</a><ul><li><a href=#Stream_Fusion_List-map_option_mono>map_option_mono</a></li><li><a href=#Stream_Fusion_List-terminatesI>terminatesI</a></li><li><a href=#Stream_Fusion_List-terminatesD>terminatesD</a></li><li><a href=#Stream_Fusion_List-terminates_on_stop>terminates_on_stop</a></li><li><a href=#Stream_Fusion_List-wf_terminates>wf_terminates</a></li><li><a href=#Stream_Fusion_List-terminates_on_conv_dom_terminates_within>terminates_on_conv_dom_terminates_within</a></li><li><a href=#Stream_Fusion_List-terminates_wfE>terminates_wfE</a></li><li><a href=#Stream_Fusion_List-unstream_simps>unstream_simps</a></li><li><a href=#Stream_Fusion_List-force_simps>force_simps</a></li><li><a href=#Stream_Fusion_List-unstream_force_None>unstream_force_None</a></li><li><a href=#Stream_Fusion_List-unstream_force_Some>unstream_force_Some</a></li><li><a href=#Stream_Fusion_List-terminates_stream_raw>terminates_stream_raw</a></li><li><a href=#Stream_Fusion_List-unstream_stream>unstream_stream</a></li><li><a href=#Stream_Fusion_List-terminates_replicate_raw>terminates_replicate_raw</a></li><li><a href=#Stream_Fusion_List-unstream_replicate_prod>unstream_replicate_prod</a></li><li><a href=#Stream_Fusion_List-terminates_upt_raw>terminates_upt_raw</a></li><li><a href=#Stream_Fusion_List-unstream_upt_prod>unstream_upt_prod</a></li><li><a href=#Stream_Fusion_List-terminates_upto_raw>terminates_upto_raw</a></li><li><a href=#Stream_Fusion_List-unstream_upto_prod>unstream_upto_prod</a></li><li><a href=#Stream_Fusion_List-generator_Nil_prod>generator_Nil_prod</a></li><li><a href=#Stream_Fusion_List-unstream_Nil_prod>unstream_Nil_prod</a></li><li><a href=#Stream_Fusion_List-nth_cons_code>nth_cons_code</a></li><li><a href=#Stream_Fusion_List-length_cons_code>length_cons_code</a></li><li><a href=#Stream_Fusion_List-gen_length_cons_code>gen_length_cons_code</a></li><li><a href=#Stream_Fusion_List-unstream_gen_length>unstream_gen_length</a></li><li><a href=#Stream_Fusion_List-unstream_gen_length2>unstream_gen_length2</a></li><li><a href=#Stream_Fusion_List-foldr_cons_code>foldr_cons_code</a></li><li><a href=#Stream_Fusion_List-foldl_cons_code>foldl_cons_code</a></li><li><a href=#Stream_Fusion_List-fold_cons_code>fold_cons_code</a></li><li><a href=#Stream_Fusion_List-null_cons_code>null_cons_code</a></li><li><a href=#Stream_Fusion_List-hd_cons_code>hd_cons_code</a></li><li><a href=#Stream_Fusion_List-last_cons_code>last_cons_code</a></li><li><a href=#Stream_Fusion_List-unstream_last_cons>unstream_last_cons</a></li><li><a href=#Stream_Fusion_List-sum_list_cons_code>sum_list_cons_code</a></li><li><a href=#Stream_Fusion_List-list_all2_cons_code>list_all2_cons_code</a></li><li><a href=#Stream_Fusion_List-list_all2_cons1_code>list_all2_cons1_code</a></li><li><a href=#Stream_Fusion_List-list_all_cons_code>list_all_cons_code</a></li><li><a href=#Stream_Fusion_List-lexord_fusion_code>lexord_fusion_code</a></li><li><a href=#Stream_Fusion_List-lexord_eq_fusion_code>lexord_eq_fusion_code</a></li><li><a href=#Stream_Fusion_List-terminates_map_raw>terminates_map_raw</a></li><li><a href=#Stream_Fusion_List-unstream_map_trans>unstream_map_trans</a></li><li><a href=#Stream_Fusion_List-terminates_drop_raw>terminates_drop_raw</a></li><li><a href=#Stream_Fusion_List-unstream_drop_trans>unstream_drop_trans</a></li><li><a href=#Stream_Fusion_List-terminates_dropWhile_raw>terminates_dropWhile_raw</a></li><li><a href=#Stream_Fusion_List-unstream_dropWhile_trans_False>unstream_dropWhile_trans_False</a></li><li><a href=#Stream_Fusion_List-unstream_dropWhile_trans>unstream_dropWhile_trans</a></li><li><a href=#Stream_Fusion_List-terminates_take_raw>terminates_take_raw</a></li><li><a href=#Stream_Fusion_List-unstream_take_trans>unstream_take_trans</a></li><li><a href=#Stream_Fusion_List-terminates_takeWhile_raw>terminates_takeWhile_raw</a></li><li><a href=#Stream_Fusion_List-unstream_takeWhile_trans>unstream_takeWhile_trans</a></li><li><a href=#Stream_Fusion_List-terminates_on_append_raw_Inr>terminates_on_append_raw_Inr</a></li><li><a href=#Stream_Fusion_List-terminates_append_raw>terminates_append_raw</a></li><li><a href=#Stream_Fusion_List-unstream_append_trans_Inr>unstream_append_trans_Inr</a></li><li><a href=#Stream_Fusion_List-unstream_append_trans>unstream_append_trans</a></li><li><a href=#Stream_Fusion_List-terminates_filter_raw>terminates_filter_raw</a></li><li><a href=#Stream_Fusion_List-unstream_filter_trans>unstream_filter_trans</a></li><li><a href=#Stream_Fusion_List-terminates_zip_raw>terminates_zip_raw</a></li><li><a href=#Stream_Fusion_List-unstream_zip_trans>unstream_zip_trans</a></li><li><a href=#Stream_Fusion_List-terminates_tl_raw>terminates_tl_raw</a></li><li><a href=#Stream_Fusion_List-unstream_tl_trans_True>unstream_tl_trans_True</a></li><li><a href=#Stream_Fusion_List-unstream_tl_trans>unstream_tl_trans</a></li><li><a href=#Stream_Fusion_List-terminates_butlast_raw>terminates_butlast_raw</a></li><li><a href=#Stream_Fusion_List-unstream_butlast_trans_Some>unstream_butlast_trans_Some</a></li><li><a href=#Stream_Fusion_List-unstream_butlast_trans>unstream_butlast_trans</a></li><li><a href=#Stream_Fusion_List-terminates_concat_raw>terminates_concat_raw</a></li><li><a href=#Stream_Fusion_List-unstream_concat_trans_gen>unstream_concat_trans_gen</a></li><li><a href=#Stream_Fusion_List-unstream_concat_trans>unstream_concat_trans</a></li><li><a href=#Stream_Fusion_List-terminates_splice_raw>terminates_splice_raw</a></li><li><a href=#Stream_Fusion_List-unstream_splice_trans_Right_only>unstream_splice_trans_Right_only</a></li><li><a href=#Stream_Fusion_List-unstream_splice_trans_Left_only>unstream_splice_trans_Left_only</a></li><li><a href=#Stream_Fusion_List-unstream_splice_trans>unstream_splice_trans</a></li><li><a href=#Stream_Fusion_List-terminates_list_update_raw>terminates_list_update_raw</a></li><li><a href=#Stream_Fusion_List-unstream_lift_update_trans_None>unstream_lift_update_trans_None</a></li><li><a href=#Stream_Fusion_List-unstream_list_update_trans>unstream_list_update_trans</a></li><li><a href=#Stream_Fusion_List-terminates_removeAll_raw>terminates_removeAll_raw</a></li><li><a href=#Stream_Fusion_List-unstream_removeAll_trans>unstream_removeAll_trans</a></li><li><a href=#Stream_Fusion_List-terminates_remove1_raw>terminates_remove1_raw</a></li><li><a href=#Stream_Fusion_List-unstream_remove1_trans_False>unstream_remove1_trans_False</a></li><li><a href=#Stream_Fusion_List-unstream_remove1_trans>unstream_remove1_trans</a></li><li><a href=#Stream_Fusion_List-terminates_Cons_raw>terminates_Cons_raw</a></li><li><a href=#Stream_Fusion_List-unstream_Cons_trans_False>unstream_Cons_trans_False</a></li><li><a href=#Stream_Fusion_List-unstream_Cons_trans>unstream_Cons_trans</a></li><li><a href=#Stream_Fusion_List-terminates_on_maps_raw_Some>terminates_on_maps_raw_Some</a></li><li><a href=#Stream_Fusion_List-terminates_maps_raw>terminates_maps_raw</a></li><li><a href=#Stream_Fusion_List-unstream_maps_trans_Some>unstream_maps_trans_Some</a></li><li><a href=#Stream_Fusion_List-unstream_maps_trans>unstream_maps_trans</a></li><li><a href=#Stream_Fusion_List-terminates_fix_gen_raw>terminates_fix_gen_raw</a></li><li><a href=#Stream_Fusion_List-unstream_fix_gen>unstream_fix_gen</a></li><li><a href=#Stream_Fusion_List-terminates_flatten_raw>terminates_flatten_raw</a></li><li><a href=#Stream_Fusion_List-unstream_flatten_Some>unstream_flatten_Some</a></li><li><a href=#Stream_Fusion_List-unstream_flatten_fix_gen>unstream_flatten_fix_gen</a></li><li><a href=#Stream_Fusion_List-unstream_flatten>unstream_flatten</a></li></ul></li><li><a href=#Stream_Fusion_LList>Stream_Fusion_LList</a><ul><li><a href=#Stream_Fusion_LList-productiveI>productiveI</a></li><li><a href=#Stream_Fusion_LList-productive_onI>productive_onI</a></li><li><a href=#Stream_Fusion_LList-lunstream_simps>lunstream_simps</a></li><li><a href=#Stream_Fusion_LList-lunstream_sels>lunstream_sels</a></li><li><a href=#Stream_Fusion_LList-lunstream%27_simps>lunstream'_simps</a></li><li><a href=#Stream_Fusion_LList-lunstream%27_sels>lunstream'_sels</a></li><li><a href=#Stream_Fusion_LList-case_lstream_conv_case_llist>case_lstream_conv_case_llist</a></li><li><a href=#Stream_Fusion_LList-mcont2mcont_lunstream>mcont2mcont_lunstream</a></li><li><a href=#Stream_Fusion_LList-lunstream_lstream>lunstream_lstream</a></li><li><a href=#Stream_Fusion_LList-lunstream%27_lstream>lunstream'_lstream</a></li><li><a href=#Stream_Fusion_LList-lunstream_iterates_raw>lunstream_iterates_raw</a></li><li><a href=#Stream_Fusion_LList-lunstream%27_iterates_prod>lunstream'_iterates_prod</a></li><li><a href=#Stream_Fusion_LList-lunstream_unfold_llist_raw>lunstream_unfold_llist_raw</a></li><li><a href=#Stream_Fusion_LList-lunstream%27_unfold_llist_prod>lunstream'_unfold_llist_prod</a></li><li><a href=#Stream_Fusion_LList-lunstream_inf_llist_raw>lunstream_inf_llist_raw</a></li><li><a href=#Stream_Fusion_LList-inf_llist_prod_fusion>inf_llist_prod_fusion</a></li><li><a href=#Stream_Fusion_LList-lhd_cons_code>lhd_cons_code</a></li><li><a href=#Stream_Fusion_LList-lhd_cons_fusion2>lhd_cons_fusion2</a></li><li><a href=#Stream_Fusion_LList-gen_llength_cons_code>gen_llength_cons_code</a></li><li><a href=#Stream_Fusion_LList-gen_llength_cons_fusion>gen_llength_cons_fusion</a></li><li><a href=#Stream_Fusion_LList-gen_llength_cons%27_code>gen_llength_cons'_code</a></li><li><a href=#Stream_Fusion_LList-gen_llength_cons%27_fusion>gen_llength_cons'_fusion</a></li><li><a href=#Stream_Fusion_LList-lnull_cons_code>lnull_cons_code</a></li><li><a href=#Stream_Fusion_LList-lnull_cons%27_code>lnull_cons'_code</a></li><li><a href=#Stream_Fusion_LList-lnull_cons%27_fusion>lnull_cons'_fusion</a></li><li><a href=#Stream_Fusion_LList-llist_all2_cons_code>llist_all2_cons_code</a></li><li><a href=#Stream_Fusion_LList-llist_all2_cons1_code>llist_all2_cons1_code</a></li><li><a href=#Stream_Fusion_LList-llist_all2_cons_fusion2>llist_all2_cons_fusion2</a></li><li><a href=#Stream_Fusion_LList-llist_all2_cons_fusion3>llist_all2_cons_fusion3</a></li><li><a href=#Stream_Fusion_LList-llist_all2_cons_fusion4>llist_all2_cons_fusion4</a></li><li><a href=#Stream_Fusion_LList-lnth_cons_code>lnth_cons_code</a></li><li><a href=#Stream_Fusion_LList-lnth_cons_fusion2>lnth_cons_fusion2</a></li><li><a href=#Stream_Fusion_LList-lprefix_cons_code>lprefix_cons_code</a></li><li><a href=#Stream_Fusion_LList-lprefix_cons1_code>lprefix_cons1_code</a></li><li><a href=#Stream_Fusion_LList-lprefix_cons_fusion2>lprefix_cons_fusion2</a></li><li><a href=#Stream_Fusion_LList-lprefix_cons_fusion3>lprefix_cons_fusion3</a></li><li><a href=#Stream_Fusion_LList-lprefix_cons_fusion4>lprefix_cons_fusion4</a></li><li><a href=#Stream_Fusion_LList-lunstream_lmap_trans>lunstream_lmap_trans</a></li><li><a href=#Stream_Fusion_LList-lunstream%27_lmap_trans%27>lunstream'_lmap_trans'</a></li><li><a href=#Stream_Fusion_LList-ltake_trans_fusion>ltake_trans_fusion</a></li><li><a href=#Stream_Fusion_LList-ltake_trans%27_fusion>ltake_trans'_fusion</a></li><li><a href=#Stream_Fusion_LList-ldropn_trans_fusion>ldropn_trans_fusion</a></li><li><a href=#Stream_Fusion_LList-ldropn_trans%27_fusion>ldropn_trans'_fusion</a></li><li><a href=#Stream_Fusion_LList-ldrop_trans_fusion>ldrop_trans_fusion</a></li><li><a href=#Stream_Fusion_LList-ldrop_trans_fusion2>ldrop_trans_fusion2</a></li><li><a href=#Stream_Fusion_LList-ltakeWhile_trans_fusion>ltakeWhile_trans_fusion</a></li><li><a href=#Stream_Fusion_LList-ltakeWhile_trans%27_fusion>ltakeWhile_trans'_fusion</a></li><li><a href=#Stream_Fusion_LList-ldropWhile_trans_fusion>ldropWhile_trans_fusion</a></li><li><a href=#Stream_Fusion_LList-ldropWhile_trans_fusion2>ldropWhile_trans_fusion2</a></li><li><a href=#Stream_Fusion_LList-lzip_trans_fusion>lzip_trans_fusion</a></li><li><a href=#Stream_Fusion_LList-lzip_trans_fusion2>lzip_trans_fusion2</a></li><li><a href=#Stream_Fusion_LList-lzip_trans_fusion3>lzip_trans_fusion3</a></li><li><a href=#Stream_Fusion_LList-lzip_trans%27_fusion>lzip_trans'_fusion</a></li><li><a href=#Stream_Fusion_LList-lunstream_append_raw>lunstream_append_raw</a></li><li><a href=#Stream_Fusion_LList-lappend_trans_fusion>lappend_trans_fusion</a></li><li><a href=#Stream_Fusion_LList-lappend_trans%27_fusion>lappend_trans'_fusion</a></li><li><a href=#Stream_Fusion_LList-lunstream_lfilter_trans>lunstream_lfilter_trans</a></li><li><a href=#Stream_Fusion_LList-lunstream_lfilter_trans2>lunstream_lfilter_trans2</a></li><li><a href=#Stream_Fusion_LList-lunstream_llist_of_trans>lunstream_llist_of_trans</a></li></ul></li><li><a href=#Stream_Fusion_Examples>Stream_Fusion_Examples</a><ul><li><a href=#Stream_Fusion_Examples-unstream_if>unstream_if</a></li><li><a href=#Stream_Fusion_Examples-if_same>if_same</a></li></ul></li></ul></div><ul><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Stream_Fusion_Code/outline.pdf>Proof
-outline</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Stream_Fusion_Code/document.pdf>Proof
-document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/Stream_Fusion_Code/session_graph.pdf>Theory dependencies</a></li></ul></div></aside><div class="content theories"><header><form action=/%20search><div class=form-container><input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
-<datalist id=autocomplete></datalist></div></form><h1><span class=first>S</span>ession <span class=first>S</span>tream_<span class=first>F</span>usion_<span class=first>C</span>ode</h1><div></div></header><div id=banner data-id=0><p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button></div><div><main><div id=Stream_Fusion><div class=head><h1>Theory Stream_Fusion</h1></div><pre class=source><span class=comment1>(* Title: Stream_Fusion.thy
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Session Stream_Fusion_Code - Archive of Formal Proofs</title><meta name=description content="A collection of proof libraries, examples, and larger scientific developments, mechanically checked in the theorem prover Isabelle."><meta property="og:title" content="Session Stream_Fusion_Code">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="/entries/stream_fusion_code/theories/"><meta property="og:image" content="/images/afp.png"><meta property="article:section" content="theories">
+<meta property="og:site_name" content="Archive of Formal Proofs">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="/images/afp.png">
+<meta name=twitter:title content="Session Stream_Fusion_Code">
+<meta name=twitter:description content>
+<link rel=stylesheet type=text/css href=/css/front.min.css><link rel=stylesheet type=text/css href=/css/isabelle.css>
+<link rel=icon href=/images/favicon.ico type=image/icon><script src=/js/flexsearch.min.js></script>
+<script src=/js/banner.js></script><script src=/js/header-search.js></script></head>
+<body class=mathjax_ignore>
+<aside>
+<div>
+<div>
+<a href=/>
+<img src=/images/afp.png alt="Logo of the Archive of Formal Proofs" class=logo>
+</a>
+<ul>
+<li><a href=/entries/stream_fusion_code>Return to entry</a></li>
+</ul>
+<hr>
+<ul><li><a href=#Stream_Fusion>Stream_Fusion</a>
+</li><li><a href=#files%2fstream_fusion.ML>files/stream_fusion.ML</a>
+</li><li><a href=#Stream_Fusion_List>Stream_Fusion_List</a>
+<ul>
+<li><a href=#Stream_Fusion_List-map_option_mono>map_option_mono</a></li>
+<li><a href=#Stream_Fusion_List-terminatesI>terminatesI</a></li>
+<li><a href=#Stream_Fusion_List-terminatesD>terminatesD</a></li>
+<li><a href=#Stream_Fusion_List-terminates_on_stop>terminates_on_stop</a></li>
+<li><a href=#Stream_Fusion_List-wf_terminates>wf_terminates</a></li>
+<li><a href=#Stream_Fusion_List-terminates_on_conv_dom_terminates_within>terminates_on_conv_dom_terminates_within</a></li>
+<li><a href=#Stream_Fusion_List-terminates_wfE>terminates_wfE</a></li>
+<li><a href=#Stream_Fusion_List-unstream_simps>unstream_simps</a></li>
+<li><a href=#Stream_Fusion_List-force_simps>force_simps</a></li>
+<li><a href=#Stream_Fusion_List-unstream_force_None>unstream_force_None</a></li>
+<li><a href=#Stream_Fusion_List-unstream_force_Some>unstream_force_Some</a></li>
+<li><a href=#Stream_Fusion_List-terminates_stream_raw>terminates_stream_raw</a></li>
+<li><a href=#Stream_Fusion_List-unstream_stream>unstream_stream</a></li>
+<li><a href=#Stream_Fusion_List-terminates_replicate_raw>terminates_replicate_raw</a></li>
+<li><a href=#Stream_Fusion_List-unstream_replicate_prod>unstream_replicate_prod</a></li>
+<li><a href=#Stream_Fusion_List-terminates_upt_raw>terminates_upt_raw</a></li>
+<li><a href=#Stream_Fusion_List-unstream_upt_prod>unstream_upt_prod</a></li>
+<li><a href=#Stream_Fusion_List-terminates_upto_raw>terminates_upto_raw</a></li>
+<li><a href=#Stream_Fusion_List-unstream_upto_prod>unstream_upto_prod</a></li>
+<li><a href=#Stream_Fusion_List-generator_Nil_prod>generator_Nil_prod</a></li>
+<li><a href=#Stream_Fusion_List-unstream_Nil_prod>unstream_Nil_prod</a></li>
+<li><a href=#Stream_Fusion_List-nth_cons_code>nth_cons_code</a></li>
+<li><a href=#Stream_Fusion_List-length_cons_code>length_cons_code</a></li>
+<li><a href=#Stream_Fusion_List-gen_length_cons_code>gen_length_cons_code</a></li>
+<li><a href=#Stream_Fusion_List-unstream_gen_length>unstream_gen_length</a></li>
+<li><a href=#Stream_Fusion_List-unstream_gen_length2>unstream_gen_length2</a></li>
+<li><a href=#Stream_Fusion_List-foldr_cons_code>foldr_cons_code</a></li>
+<li><a href=#Stream_Fusion_List-foldl_cons_code>foldl_cons_code</a></li>
+<li><a href=#Stream_Fusion_List-fold_cons_code>fold_cons_code</a></li>
+<li><a href=#Stream_Fusion_List-null_cons_code>null_cons_code</a></li>
+<li><a href=#Stream_Fusion_List-hd_cons_code>hd_cons_code</a></li>
+<li><a href=#Stream_Fusion_List-last_cons_code>last_cons_code</a></li>
+<li><a href=#Stream_Fusion_List-unstream_last_cons>unstream_last_cons</a></li>
+<li><a href=#Stream_Fusion_List-sum_list_cons_code>sum_list_cons_code</a></li>
+<li><a href=#Stream_Fusion_List-list_all2_cons_code>list_all2_cons_code</a></li>
+<li><a href=#Stream_Fusion_List-list_all2_cons1_code>list_all2_cons1_code</a></li>
+<li><a href=#Stream_Fusion_List-list_all_cons_code>list_all_cons_code</a></li>
+<li><a href=#Stream_Fusion_List-lexord_fusion_code>lexord_fusion_code</a></li>
+<li><a href=#Stream_Fusion_List-lexord_eq_fusion_code>lexord_eq_fusion_code</a></li>
+<li><a href=#Stream_Fusion_List-terminates_map_raw>terminates_map_raw</a></li>
+<li><a href=#Stream_Fusion_List-unstream_map_trans>unstream_map_trans</a></li>
+<li><a href=#Stream_Fusion_List-terminates_drop_raw>terminates_drop_raw</a></li>
+<li><a href=#Stream_Fusion_List-unstream_drop_trans>unstream_drop_trans</a></li>
+<li><a href=#Stream_Fusion_List-terminates_dropWhile_raw>terminates_dropWhile_raw</a></li>
+<li><a href=#Stream_Fusion_List-unstream_dropWhile_trans_False>unstream_dropWhile_trans_False</a></li>
+<li><a href=#Stream_Fusion_List-unstream_dropWhile_trans>unstream_dropWhile_trans</a></li>
+<li><a href=#Stream_Fusion_List-terminates_take_raw>terminates_take_raw</a></li>
+<li><a href=#Stream_Fusion_List-unstream_take_trans>unstream_take_trans</a></li>
+<li><a href=#Stream_Fusion_List-terminates_takeWhile_raw>terminates_takeWhile_raw</a></li>
+<li><a href=#Stream_Fusion_List-unstream_takeWhile_trans>unstream_takeWhile_trans</a></li>
+<li><a href=#Stream_Fusion_List-terminates_on_append_raw_Inr>terminates_on_append_raw_Inr</a></li>
+<li><a href=#Stream_Fusion_List-terminates_append_raw>terminates_append_raw</a></li>
+<li><a href=#Stream_Fusion_List-unstream_append_trans_Inr>unstream_append_trans_Inr</a></li>
+<li><a href=#Stream_Fusion_List-unstream_append_trans>unstream_append_trans</a></li>
+<li><a href=#Stream_Fusion_List-terminates_filter_raw>terminates_filter_raw</a></li>
+<li><a href=#Stream_Fusion_List-unstream_filter_trans>unstream_filter_trans</a></li>
+<li><a href=#Stream_Fusion_List-terminates_zip_raw>terminates_zip_raw</a></li>
+<li><a href=#Stream_Fusion_List-unstream_zip_trans>unstream_zip_trans</a></li>
+<li><a href=#Stream_Fusion_List-terminates_tl_raw>terminates_tl_raw</a></li>
+<li><a href=#Stream_Fusion_List-unstream_tl_trans_True>unstream_tl_trans_True</a></li>
+<li><a href=#Stream_Fusion_List-unstream_tl_trans>unstream_tl_trans</a></li>
+<li><a href=#Stream_Fusion_List-terminates_butlast_raw>terminates_butlast_raw</a></li>
+<li><a href=#Stream_Fusion_List-unstream_butlast_trans_Some>unstream_butlast_trans_Some</a></li>
+<li><a href=#Stream_Fusion_List-unstream_butlast_trans>unstream_butlast_trans</a></li>
+<li><a href=#Stream_Fusion_List-terminates_concat_raw>terminates_concat_raw</a></li>
+<li><a href=#Stream_Fusion_List-unstream_concat_trans_gen>unstream_concat_trans_gen</a></li>
+<li><a href=#Stream_Fusion_List-unstream_concat_trans>unstream_concat_trans</a></li>
+<li><a href=#Stream_Fusion_List-terminates_splice_raw>terminates_splice_raw</a></li>
+<li><a href=#Stream_Fusion_List-unstream_splice_trans_Right_only>unstream_splice_trans_Right_only</a></li>
+<li><a href=#Stream_Fusion_List-unstream_splice_trans_Left_only>unstream_splice_trans_Left_only</a></li>
+<li><a href=#Stream_Fusion_List-unstream_splice_trans>unstream_splice_trans</a></li>
+<li><a href=#Stream_Fusion_List-terminates_list_update_raw>terminates_list_update_raw</a></li>
+<li><a href=#Stream_Fusion_List-unstream_lift_update_trans_None>unstream_lift_update_trans_None</a></li>
+<li><a href=#Stream_Fusion_List-unstream_list_update_trans>unstream_list_update_trans</a></li>
+<li><a href=#Stream_Fusion_List-terminates_removeAll_raw>terminates_removeAll_raw</a></li>
+<li><a href=#Stream_Fusion_List-unstream_removeAll_trans>unstream_removeAll_trans</a></li>
+<li><a href=#Stream_Fusion_List-terminates_remove1_raw>terminates_remove1_raw</a></li>
+<li><a href=#Stream_Fusion_List-unstream_remove1_trans_False>unstream_remove1_trans_False</a></li>
+<li><a href=#Stream_Fusion_List-unstream_remove1_trans>unstream_remove1_trans</a></li>
+<li><a href=#Stream_Fusion_List-terminates_Cons_raw>terminates_Cons_raw</a></li>
+<li><a href=#Stream_Fusion_List-unstream_Cons_trans_False>unstream_Cons_trans_False</a></li>
+<li><a href=#Stream_Fusion_List-unstream_Cons_trans>unstream_Cons_trans</a></li>
+<li><a href=#Stream_Fusion_List-terminates_on_maps_raw_Some>terminates_on_maps_raw_Some</a></li>
+<li><a href=#Stream_Fusion_List-terminates_maps_raw>terminates_maps_raw</a></li>
+<li><a href=#Stream_Fusion_List-unstream_maps_trans_Some>unstream_maps_trans_Some</a></li>
+<li><a href=#Stream_Fusion_List-unstream_maps_trans>unstream_maps_trans</a></li>
+<li><a href=#Stream_Fusion_List-terminates_fix_gen_raw>terminates_fix_gen_raw</a></li>
+<li><a href=#Stream_Fusion_List-unstream_fix_gen>unstream_fix_gen</a></li>
+<li><a href=#Stream_Fusion_List-terminates_flatten_raw>terminates_flatten_raw</a></li>
+<li><a href=#Stream_Fusion_List-unstream_flatten_Some>unstream_flatten_Some</a></li>
+<li><a href=#Stream_Fusion_List-unstream_flatten_fix_gen>unstream_flatten_fix_gen</a></li>
+<li><a href=#Stream_Fusion_List-unstream_flatten>unstream_flatten</a></li>
+</ul>
+</li><li><a href=#Stream_Fusion_LList>Stream_Fusion_LList</a>
+<ul>
+<li><a href=#Stream_Fusion_LList-productiveI>productiveI</a></li>
+<li><a href=#Stream_Fusion_LList-productive_onI>productive_onI</a></li>
+<li><a href=#Stream_Fusion_LList-lunstream_simps>lunstream_simps</a></li>
+<li><a href=#Stream_Fusion_LList-lunstream_sels>lunstream_sels</a></li>
+<li><a href=#Stream_Fusion_LList-lunstream%27_simps>lunstream'_simps</a></li>
+<li><a href=#Stream_Fusion_LList-lunstream%27_sels>lunstream'_sels</a></li>
+<li><a href=#Stream_Fusion_LList-case_lstream_conv_case_llist>case_lstream_conv_case_llist</a></li>
+<li><a href=#Stream_Fusion_LList-mcont2mcont_lunstream>mcont2mcont_lunstream</a></li>
+<li><a href=#Stream_Fusion_LList-lunstream_lstream>lunstream_lstream</a></li>
+<li><a href=#Stream_Fusion_LList-lunstream%27_lstream>lunstream'_lstream</a></li>
+<li><a href=#Stream_Fusion_LList-lunstream_iterates_raw>lunstream_iterates_raw</a></li>
+<li><a href=#Stream_Fusion_LList-lunstream%27_iterates_prod>lunstream'_iterates_prod</a></li>
+<li><a href=#Stream_Fusion_LList-lunstream_unfold_llist_raw>lunstream_unfold_llist_raw</a></li>
+<li><a href=#Stream_Fusion_LList-lunstream%27_unfold_llist_prod>lunstream'_unfold_llist_prod</a></li>
+<li><a href=#Stream_Fusion_LList-lunstream_inf_llist_raw>lunstream_inf_llist_raw</a></li>
+<li><a href=#Stream_Fusion_LList-inf_llist_prod_fusion>inf_llist_prod_fusion</a></li>
+<li><a href=#Stream_Fusion_LList-lhd_cons_code>lhd_cons_code</a></li>
+<li><a href=#Stream_Fusion_LList-lhd_cons_fusion2>lhd_cons_fusion2</a></li>
+<li><a href=#Stream_Fusion_LList-gen_llength_cons_code>gen_llength_cons_code</a></li>
+<li><a href=#Stream_Fusion_LList-gen_llength_cons_fusion>gen_llength_cons_fusion</a></li>
+<li><a href=#Stream_Fusion_LList-gen_llength_cons%27_code>gen_llength_cons'_code</a></li>
+<li><a href=#Stream_Fusion_LList-gen_llength_cons%27_fusion>gen_llength_cons'_fusion</a></li>
+<li><a href=#Stream_Fusion_LList-lnull_cons_code>lnull_cons_code</a></li>
+<li><a href=#Stream_Fusion_LList-lnull_cons%27_code>lnull_cons'_code</a></li>
+<li><a href=#Stream_Fusion_LList-lnull_cons%27_fusion>lnull_cons'_fusion</a></li>
+<li><a href=#Stream_Fusion_LList-llist_all2_cons_code>llist_all2_cons_code</a></li>
+<li><a href=#Stream_Fusion_LList-llist_all2_cons1_code>llist_all2_cons1_code</a></li>
+<li><a href=#Stream_Fusion_LList-llist_all2_cons_fusion2>llist_all2_cons_fusion2</a></li>
+<li><a href=#Stream_Fusion_LList-llist_all2_cons_fusion3>llist_all2_cons_fusion3</a></li>
+<li><a href=#Stream_Fusion_LList-llist_all2_cons_fusion4>llist_all2_cons_fusion4</a></li>
+<li><a href=#Stream_Fusion_LList-lnth_cons_code>lnth_cons_code</a></li>
+<li><a href=#Stream_Fusion_LList-lnth_cons_fusion2>lnth_cons_fusion2</a></li>
+<li><a href=#Stream_Fusion_LList-lprefix_cons_code>lprefix_cons_code</a></li>
+<li><a href=#Stream_Fusion_LList-lprefix_cons1_code>lprefix_cons1_code</a></li>
+<li><a href=#Stream_Fusion_LList-lprefix_cons_fusion2>lprefix_cons_fusion2</a></li>
+<li><a href=#Stream_Fusion_LList-lprefix_cons_fusion3>lprefix_cons_fusion3</a></li>
+<li><a href=#Stream_Fusion_LList-lprefix_cons_fusion4>lprefix_cons_fusion4</a></li>
+<li><a href=#Stream_Fusion_LList-lunstream_lmap_trans>lunstream_lmap_trans</a></li>
+<li><a href=#Stream_Fusion_LList-lunstream%27_lmap_trans%27>lunstream'_lmap_trans'</a></li>
+<li><a href=#Stream_Fusion_LList-ltake_trans_fusion>ltake_trans_fusion</a></li>
+<li><a href=#Stream_Fusion_LList-ltake_trans%27_fusion>ltake_trans'_fusion</a></li>
+<li><a href=#Stream_Fusion_LList-ldropn_trans_fusion>ldropn_trans_fusion</a></li>
+<li><a href=#Stream_Fusion_LList-ldropn_trans%27_fusion>ldropn_trans'_fusion</a></li>
+<li><a href=#Stream_Fusion_LList-ldrop_trans_fusion>ldrop_trans_fusion</a></li>
+<li><a href=#Stream_Fusion_LList-ldrop_trans_fusion2>ldrop_trans_fusion2</a></li>
+<li><a href=#Stream_Fusion_LList-ltakeWhile_trans_fusion>ltakeWhile_trans_fusion</a></li>
+<li><a href=#Stream_Fusion_LList-ltakeWhile_trans%27_fusion>ltakeWhile_trans'_fusion</a></li>
+<li><a href=#Stream_Fusion_LList-ldropWhile_trans_fusion>ldropWhile_trans_fusion</a></li>
+<li><a href=#Stream_Fusion_LList-ldropWhile_trans_fusion2>ldropWhile_trans_fusion2</a></li>
+<li><a href=#Stream_Fusion_LList-lzip_trans_fusion>lzip_trans_fusion</a></li>
+<li><a href=#Stream_Fusion_LList-lzip_trans_fusion2>lzip_trans_fusion2</a></li>
+<li><a href=#Stream_Fusion_LList-lzip_trans_fusion3>lzip_trans_fusion3</a></li>
+<li><a href=#Stream_Fusion_LList-lzip_trans%27_fusion>lzip_trans'_fusion</a></li>
+<li><a href=#Stream_Fusion_LList-lunstream_append_raw>lunstream_append_raw</a></li>
+<li><a href=#Stream_Fusion_LList-lappend_trans_fusion>lappend_trans_fusion</a></li>
+<li><a href=#Stream_Fusion_LList-lappend_trans%27_fusion>lappend_trans'_fusion</a></li>
+<li><a href=#Stream_Fusion_LList-lunstream_lfilter_trans>lunstream_lfilter_trans</a></li>
+<li><a href=#Stream_Fusion_LList-lunstream_lfilter_trans2>lunstream_lfilter_trans2</a></li>
+<li><a href=#Stream_Fusion_LList-lunstream_llist_of_trans>lunstream_llist_of_trans</a></li>
+</ul>
+</li><li><a href=#Stream_Fusion_Examples>Stream_Fusion_Examples</a>
+<ul>
+<li><a href=#Stream_Fusion_Examples-unstream_if>unstream_if</a></li>
+<li><a href=#Stream_Fusion_Examples-if_same>if_same</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<ul>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Stream_Fusion_Code/outline.pdf>Proof
+outline</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Stream_Fusion_Code/document.pdf>Proof
+document</a></li>
+<li><a href=https://www.isa-afp.org/browser_info/current/AFP/Stream_Fusion_Code/session_graph.pdf>Theory dependencies</a></li>
+</ul>
+</div>
+</aside>
+<div class="content theories"><header>
+<form action=/%20search>
+<div class=form-container>
+<input id=searchInput type=search size=31 maxlength=255 aria-label="Search the AFP" list=autocomplete><button id=searchButton type=button><img src=/images/search.svg alt=Search></button>
+<datalist id=autocomplete>
+</datalist>
+</div>
+</form>
+<h1><span class=first>S</span>ession <span class=first>S</span>tream_<span class=first>F</span>usion_<span class=first>C</span>ode</h1>
+<div>
+</div>
+</header><div id=banner data-id=0>
+<p>This is an unofficial reimagining of the <a href=https://isa-afp.org target=_blank rel="noreferrer noopener">Archive of Formal Proofs</a></p><button style=display:none id=close title=close><svg viewBox="0 0 6.718 6.718" aria-hidden="true" focusable="false"><rect transform="rotate(45)" x="4" y="-4" width="1.5" height="8"/><rect transform="rotate(45)" x=".75" y="-.75" width="8" height="1.5"/></svg></button>
+</div>
+<div><main>
+<div id=Stream_Fusion>
+<div class=head>
+<h1>Theory Stream_Fusion</h1>
+</div>
+<pre class=source><span class=comment1>(* Title: Stream_Fusion.thy
  Authors: Alexandra Maximova, ETH Zurich
           Andreas Lochbihler, ETH Zurich
 *)</span>
@@ -22,7 +241,12 @@ document</a></li><li><a href=https://www.isa-afp.org/browser_info/current/AFP/St
 <span class=keyword1><span class=command>setup</span></span> <span class=quoted>‹<span class=entity>Code_Preproc.map_pre</span> <span class=main>(</span><span class=keyword1><span class=keyword>fn</span></span> <span class=entity>ss</span> <span class=main>=&gt;</span> <span class=entity>ss</span> addsimprocs <span class=main>[</span><span class=antiquoted><span class=entity><span class=antiquote>@{</span><span class=operator>simproc</span> "stream_fusion"<span class=antiquote>}</span></span></span><span class=main>]</span><span class=main>)</span>›</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=files/stream_fusion.ML><div class=head><h1>File ‹stream_fusion.ML›</h1></div><pre class=source><span class=comment1>(* Title: stream_fusion.ML
+</pre>
+</div><div id=files/stream_fusion.ML>
+<div class=head>
+<h1>File ‹stream_fusion.ML›</h1>
+</div>
+<pre class=source><span class=comment1>(* Title: stream_fusion.ML
   Author: Alexandra Maximova, ETH Zurich,
           Andreas Lochbihler, ETH Zurich 
 
@@ -206,7 +430,12 @@ code generator
 
 <span class=keyword2><span class=keyword>end</span></span><span class=main>;</span>
 
-</pre></div><div id=Stream_Fusion_List><div class=head><h1>Theory Stream_Fusion_List</h1></div><pre class=source><span class=comment1>(* Title: Stream_Fusion_List.thy
+</pre>
+</div><div id=Stream_Fusion_List>
+<div class=head>
+<h1>Theory Stream_Fusion_List</h1>
+</div>
+<pre class=source><span class=comment1>(* Title: Stream_Fusion_List.thy
  Authors: Alexandra Maximova, ETH Zurich
           Andreas Lochbihler, ETH Zurich
 *)</span>
@@ -1705,7 +1934,12 @@ code generator
 <span class=keyword1><span class=command>qed</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Stream_Fusion_LList><div class=head><h1>Theory Stream_Fusion_LList</h1></div><pre class=source><span class=comment1>(* Title: Stream_Fusion_LList
+</pre>
+</div><div id=Stream_Fusion_LList>
+<div class=head>
+<h1>Theory Stream_Fusion_LList</h1>
+</div>
+<pre class=source><span class=comment1>(* Title: Stream_Fusion_LList
   Author: Andreas Lochbihler, ETH Zurich *)</span>
 
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Stream fusion for coinductive lists›</span></span>
@@ -2466,7 +2700,12 @@ code generator
   for finiteness first and therefore traverse the list twice.›</span></span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div><div id=Stream_Fusion_Examples><div class=head><h1>Theory Stream_Fusion_Examples</h1></div><pre class=source><span class=comment1>(* Title: Stream_Fusion_Examples
+</pre>
+</div><div id=Stream_Fusion_Examples>
+<div class=head>
+<h1>Theory Stream_Fusion_Examples</h1>
+</div>
+<pre class=source><span class=comment1>(* Title: Stream_Fusion_Examples
   Author: Andreas Lochbihler, ETH Zurich *)</span>
 
 <span class=keyword1><span class=command>section</span></span> <span class=quoted><span class=plain_text>‹Examples and test cases for stream fusion›</span></span>
@@ -2531,4 +2770,10 @@ code generator
   that stream fusion introduces laziness.›</span>
 
 <span class=keyword2><span class=keyword>end</span></span>
-</pre></div></main></div></div></body></html>
+</pre>
+</div>
+</main>
+</div>
+</div>
+</body>
+</html>
